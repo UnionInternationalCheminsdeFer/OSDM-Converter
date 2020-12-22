@@ -13,9 +13,9 @@
    - name: User Preferences
      link: html/reference/userPreferences.html
    - name: Conversion 108.1 to 90918-10
-     link: html/reference/conversionl2g.html
+     link: html/reference/conversion2g.html
    - name: Conversion 90918-10 to 108.1
-     link: html/reference/conversiong2l.html
+     link: html/reference/conversion2l.html
    - name: Data Editing
      link: html/reference/data_editing.html
    - name: Data Description
