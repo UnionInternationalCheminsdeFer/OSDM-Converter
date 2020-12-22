@@ -7,4 +7,6 @@
 - name: Reference
   dropdown:
    - name: Application
-     link: /html/reference/application.html  
+     link: /html/reference/application.html
+- name: Troubleshooting
+  link: /html/troubleshooting/troubleshooting.html  
