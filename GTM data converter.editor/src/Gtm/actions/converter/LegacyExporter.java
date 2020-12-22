@@ -271,7 +271,7 @@ public class LegacyExporter {
 		boolean firstLine = true;
 		
 		for (LegacyRouteFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
-			if (fareTableNumber == 9999 || fare.getSeries().getFareTableNumber() == fareTableNumber) {
+			if (fareTableNumber == 9999 || fare.getFareTableNumber() == fareTableNumber) {
 				
 				if (!firstLine) {
 					writer.newLine();
