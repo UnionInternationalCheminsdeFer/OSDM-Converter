@@ -1,6 +1,6 @@
 ---
 title: OSDM Converter
-subtitle: Open Sales and Distribution Model - Converter
+subtitle: Converts old fare data format to OSDM Offline format
 layout: page
 show_sidebar: true
 hero_link: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter
