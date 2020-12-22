@@ -1,7 +1,7 @@
 - name: Getting Started
   dropdown:
    - name: Getting Started
-     link: /html/gettingStarted/gettingStarted.html
+     link: /html/gettingstarted/gettingstarted.html
    - name: Recommended Workflow
      link: /html/gettingStarted/recommendedWorkflow.html
 - name: Reference
