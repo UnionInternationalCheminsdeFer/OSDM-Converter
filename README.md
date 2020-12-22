@@ -6,7 +6,7 @@ Converter Tool to convert between old fare data according to UIC IRS 10108-1 (TA
 
 See online content on [OSDM](https://unioninternationalcheminsdefer.github.io/OSDM/).
 
-## Editor and data conversion (GTM data converter):
+## Editor and data conversion (GTM data converter)
 
 * Data conversion and editing for data formats: UIC IRS 10108-1 (old) and IRS 90918-10 (new)
 * Eclipse EMF generated RCP application

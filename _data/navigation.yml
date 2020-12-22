@@ -1,0 +1,10 @@
+- name: Getting Started
+  dropdown:
+   - name: Getting Started
+     link: /html/gettingStarted/gettingStarted.html
+   - name: Recommended Workflow
+     link: /html/gettingStarted/recommendedWorkflow.html
+- name: Reference
+  dropdown:
+   - name: Application
+     link: /html/reference/application.html  
