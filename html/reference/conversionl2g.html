@@ -49,8 +49,8 @@ layout: default
 <tr><th>VAT Templates</th><td>Templates to create VAT tax information. Templates can be provided for different scope and countries. The template applies to regional constraints within the specified country. Templates with scope INTERNATIONAL are used additionally for regional constraints with connection points. Add VAT details for different countries</td></tr>
 <tr><th>Station Mapping</th><td>Mapping of nonstandard stations into real Merits station codes.</td></tr>
 <tr><th>Fare station set mappings</th><td>Mapping of 108 station codes to fare reference stations. This will be created automatically in case the fare reference codes are properly contained in the 108.1 data.</td></tr>
-<tr><th>station to service constrained mapping</th><td>Mapping of 108 station codes to service constraints.</td></tr>
-<tr><th>fare template</th><td>Template to create a fare in the 90918-10 data. The template must provide service class and price factor to create a fare. All required data for the 
+<tr><th>Station to service constrained mapping</th><td>Mapping of 108 station codes to service constraints.</td></tr>
+<tr><th>Fare template</th><td>Template to create a fare in the 90918-10 data. The template must provide service class and price factor to create a fare. All required data for the 
 final fare must be created except the regional validity and the price which come from 108.1 series and fares. <br/> 
 A fixed price can be set, the all fares converted from series will have the same price.<br/>
 The referenced data items must be defined in the General Tariff Model fare structure first. They can then be assigned to a fare template.
@@ -71,9 +71,9 @@ Data structures used in the fare template reference data in the final fare struc
 	<tr><td>Content</td><td>Description</td></tr>
 </thead>
 <tbody>
-<tr><th>price factor</th><td>a factor to calculate the price depending on the price given in the 108.1 data. The factor is applied and the result is rounded to Euro-Cents</td></tr>
-<tr><th>price</th><td>A fixed price that can be defined manually in the fare structure. If this price is set the price factor will not be applied and the series price is replaced by this price.</td></tr>
-<tr><th>rounding mode</th><td>Rounding rule applied to the price. <br/><br/>
+<tr><th>Price factor</th><td>a factor to calculate the price depending on the price given in the 108.1 data. The factor is applied and the result is rounded to Euro-Cents</td></tr>
+<tr><th>Price</th><td>A fixed price that can be defined manually in the fare structure. If this price is set the price factor will not be applied and the series price is replaced by this price.</td></tr>
+<tr><th>Rounding mode</th><td>Rounding rule applied to the price. <br/><br/>
 
 <ul>
 <li> Up: rounding up to one cent</li>
@@ -85,7 +85,7 @@ Data structures used in the fare template reference data in the final fare struc
 
 
 </td></tr>
-<tr><th>data description</th><td>Text to name the fare template. This text as no effect on the final data.</td></tr>
+<tr><th>Data description</th><td>Text to name the fare template. This text as no effect on the final data.</td></tr>
 <tr><th>Fare detail description</th><td>A detailed description can be added to the fare. The fare detail description is a text that must to be edited in the fare structure first. Then it can be selected in the fare template.</td></tr>
 <tr><th>Fulfillment Constraint</th><td>A fulfillment constraint to be added to the fare. The fulfillment constraint must be edited in the fare structure first and can then be selected in the fare template.</td></tr>
 <tr><th>Id</th><td>- not in use - </td></tr>
