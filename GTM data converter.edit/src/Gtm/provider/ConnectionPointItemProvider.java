@@ -285,12 +285,12 @@ public class ConnectionPointItemProvider
 					
 					label = label.trim() + ")";
 				}
-				
-				
 			}
 			
-		} else {
-			label = label + point.getDescription();
+		} 
+		
+		if (point.getDescription() != null && point.getDescription().length() > 0) {
+			label = label + " " + point.getDescription();
 		}
 		
 		return label == null || label.length() == 0 ?
