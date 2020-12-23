@@ -27,6 +27,19 @@ ul {
 }
 
 li {
-  margin-left: 32px;
+  margin-left: 4em;
   display: list-item;
+}
+
+table {
+  border-width: 0em;
+  border-left-color: #fff;
+  border-right-color: #fff;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+tr,
+td {
+  padding: 0.4em;
 }
