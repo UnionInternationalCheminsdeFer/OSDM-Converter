@@ -20,7 +20,7 @@ Here you find information on [Getting Started](html/gettingstarted/gettingstarte
 
 - [Getting Started](html/gettingstarted/gettingstarted.html)
 - [Recommended Workflow](html/gettingstarted/recommendedWorkflow.html)
-- [Reference](html/reference/reference.html)
+- Reference
   - [Application](html/reference/application.html)
   - [Validation](html/reference/validation.html)
   - [User Preferences](html/reference/userPreferences.html)

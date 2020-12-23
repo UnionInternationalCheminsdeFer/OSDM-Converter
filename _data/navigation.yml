@@ -28,9 +28,6 @@
      link: html/reference/data_servicebrandcodes.html
    - name: Border Points
      link: html/reference/data_borderpoints.html
-   - name: Reference
-     link: html/reference/reference.html
-
 - name: Troubleshooting
   link: /html/troubleshooting/troubleshooting.html  
 - name: About
