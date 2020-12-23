@@ -6,11 +6,11 @@ permalink: /about/
 
 ## Contributing
 
-This is an open-source project, and your contributions are welcome. The repository is [hosted on GitHub](https://github.com/UnionInternationalCheminsdeFer/OSDM). See the [README](https://github.com/UnionInternationalCheminsdeFer/OSDM/blob/gh-pages/README.md) for instructions and guidelines.
+This is an open-source project, and your contributions are welcome. The repository is [hosted on GitHub](https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter). See the [README](https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter/blob/gh-pages/README.md) for instructions and guidelines.
 
 ## Reporting Issues
 
-Find a typo or inaccurate statement? Please [create an issue](https://github.com/UnionInternationalCheminsdeFer/OSDM) in the GitHub project.
+Find a typo or inaccurate statement? Please [create an issue](https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter) in the GitHub project.
 
 ## Contact
 
