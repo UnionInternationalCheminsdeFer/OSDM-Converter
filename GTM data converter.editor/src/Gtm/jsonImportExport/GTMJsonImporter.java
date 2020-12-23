@@ -79,7 +79,6 @@ import gtm.ViaStationsDef;
 import gtm.ZoneDef;
 import gtm.ZoneDefinitionDef;
 
-
 public class GTMJsonImporter {
 	
 	private HashMap<Integer,Station> stations = null;	

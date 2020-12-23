@@ -176,8 +176,7 @@ import gtm.ZoneDef;
 import gtm.ZoneDefinitionDef;
 
 public class GtmJsonExporter {
-	
-	
+		
 	/*
 	 *  y   = year   (yy or yyyy)
 	 *	M   = month  (MM)
