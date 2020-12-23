@@ -91,6 +91,7 @@ public class GTMJsonImporter {
 	private HashMap<Integer,ServiceBrand> serviceBrands = null;
 	private HashMap<String,NutsCode> nutsCodes = null;
 	private HashMap<String,RegionalConstraint> regionalConstraints = null;
+	private HashMap <String,FareStationSetDefinition> fareStationSets = null;
 	
 	private EditingDomain domain = null;
 	
@@ -125,6 +126,7 @@ public class GTMJsonImporter {
 		serviceBrands = new HashMap<Integer,ServiceBrand>();
 		nutsCodes = new HashMap<String,NutsCode>();	
 		regionalConstraints = new HashMap<String,RegionalConstraint>();
+		fareStationSets = new HashMap <String,FareStationSetDefinition>();
 		this.domain = domain;
 		
 		stations = GtmUtils.getStationMap(tool);
@@ -406,7 +408,11 @@ public class GTMJsonImporter {
 		FareStationSetDefinitions o = GtmFactory.eINSTANCE.createFareStationSetDefinitions();
 
 		for (FareReferenceStationSetDef jz : list) {
-			o.getFareStationSetDefinitions().add(convert(jz));
+			FareStationSetDefinition fssd = convert(jz);
+			if (fssd != null) {
+				o.getFareStationSetDefinitions().add(convert(jz));
+				fareStationSets.put(fssd.getCode(), fssd);
+			}
 		}
 		return o;
 	}
@@ -868,7 +874,12 @@ public class GTMJsonImporter {
 		}
 		
 		if (jv.getFareReferenceStationSet() != null) {
-			v.setFareStationSet(findFareStationSetDefinition(jv.getFareReferenceStationSet().getCode()));
+			FareStationSetDefinition fssd = fareStationSets.get(jv.getFareReferenceStationSet().getCode());
+			if (fssd != null) {
+				v.setFareStationSet(fssd);
+			} else {
+				return null;
+			}
 		}
 		
 		if (jv.getRoute()!= null && !jv.getRoute().isEmpty()) {
@@ -893,31 +904,17 @@ public class GTMJsonImporter {
 		return v;
 	}
 
-
-	private FareStationSetDefinition findFareStationSetDefinition(String code) {
-
-		if (    tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions() != null 
-				&& tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions() != null
-				&& !tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions().isEmpty()
-				) {
-			for (FareStationSetDefinition fss :tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions()){
-				if (code.equals(fss.getCode())) {
-					return fss;
-				}
-			}
-		}
-		return null;
-	}
-
-
 	private Polygone convert(PolygonDef jp) {
 		if (jp == null) return null;
 		Polygone p = GtmFactory.eINSTANCE.createPolygone();
-		p.getEdge().addAll(convertEdgeList(jp.getEdge()));
-
+		Collection<? extends Edge> edgeList = convertEdgeList(jp.getEdge());
+		if (edgeList != null && !edgeList.isEmpty()) {
+			p.getEdge().addAll(convertEdgeList(jp.getEdge()));
+		} else {
+			return null;
+		}
 		return p;
 	}
-
 
 	private Collection<? extends Edge> convertEdgeList(List<GeoCoordinate> jl) {
 		

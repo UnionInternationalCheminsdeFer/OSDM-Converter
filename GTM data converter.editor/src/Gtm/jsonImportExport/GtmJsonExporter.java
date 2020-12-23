@@ -1072,6 +1072,7 @@ public class GtmJsonExporter {
 		if (v == null) return null;
 		boolean isEmpty = true;
 		ViaStationsDef vJ = new ViaStationsDef();
+		vJ.setIsBorder(false);
 		if (v.getCarrier()!= null) {
 			vJ.setCarrier(v.getCarrier().getCode());
 			isEmpty = false;
@@ -1084,14 +1085,40 @@ public class GtmJsonExporter {
 			}
 		}
 		
-		if (v.getAlternativeRoutes()!=null && !v.getAlternativeRoutes().isEmpty()) {
-			List<ViaStationsDef>  ar = convertToJson(v.getAlternativeRoutes());
-			if (ar != null && !ar.isEmpty()) {
-				vJ.setAlternativeRoute(ar);
-				isEmpty = false;
+		if (v.getAlternativeRoutes() != null && !v.getAlternativeRoutes().isEmpty()) {
+		
+			//list of routes in json
+			List<ViaStationsDef>  arlJ = new ArrayList<ViaStationsDef>(); 
+			
+			for (AlternativeRoute r : v.getAlternativeRoutes()) {
+				
+				if (r.getStations() != null && !r.getStations().isEmpty()) {
+
+					//convert list of viaStation for one route in json
+					List<ViaStationsDef>  arJ = new ArrayList<ViaStationsDef>(); 
+					
+					for (ViaStation s : r.getStations()) {
+						ViaStationsDef vs = convertToJson(s);
+						if (v != null) {
+							arJ.add(vs);
+						}
+					}
+					
+					if (arJ.size() > 1) {
+						ViaStationsDef route = new ViaStationsDef();
+						route.getRoute().addAll(arJ);
+						arlJ.add(route);
+					} else if (arJ.size() == 1) {
+						arlJ.add(arJ.get(0));
+					}
+				}
 			}
+			
+			if (arlJ != null && !arlJ.isEmpty()) {
+				 vJ.getAlternativeRoute().addAll(arlJ);
+			}			
+			return vJ;			
 		}
-		vJ.setIsBorder(false);
 		if (v.getRoute()!=null) {
 			List<ViaStationsDef> lv = convertToJson(v.getRoute());
 			if (lv != null && !lv.isEmpty()) {
@@ -1143,40 +1170,6 @@ public class GtmJsonExporter {
 	}
 
 
-
-
-	private static List<ViaStationsDef> convertToJson(EList<AlternativeRoute> ar) {
-		
-		if (ar == null || ar.isEmpty()) return null;
-		
-		ArrayList<ViaStationsDef>  arlJ = new ArrayList<ViaStationsDef>(); 
-		
-		for ( AlternativeRoute r : ar) {
-			
-			if (r.getStations() != null && r.getStations().isEmpty()) {
-				
-				ViaStationsDef arJ = new ViaStationsDef();
-				ArrayList<ViaStationsDef>  arslJ = new ArrayList<ViaStationsDef>(); 
-				arJ.setAlternativeRoute(arslJ);
-				
-				for (ViaStation s : r.getStations()) {
-					ViaStationsDef v = convertToJson(s);
-					if (v != null) {
-						arslJ.add(v);
-					}
-				}
-				
-				arlJ.add(arJ);			
-			}
-
-		}
-
-		return arlJ;
-	}
-
-
-
-
 	private static List<ReductionConstraintDef> convertReductionConstraints(ReductionConstraints list) {
 		if (list == null) return null;
 		if (list.getReductionConstraints().isEmpty()) return null;
@@ -1186,9 +1179,6 @@ public class GtmJsonExporter {
 		}
 		return listJson;
 	}
-
-
-
 
 	private static ReductionConstraintDef convertToJson(ReductionConstraint rc) {
 		if (rc == null) return null;
