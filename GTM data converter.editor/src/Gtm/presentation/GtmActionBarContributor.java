@@ -389,14 +389,19 @@ public class GtmActionBarContributor
 		}
 		if (part == null || part.getSite() == null) {
 			selectionProvider = null;
-		} else {
-			selectionProvider = part.getSite().getSelectionProvider();
-			selectionProvider.addSelectionChangedListener(this);
 			
-			// Fake a selection changed event to update the menus.
-			//
-			if (selectionProvider.getSelection() != null) {
-				selectionChanged(new SelectionChangedEvent(selectionProvider, selectionProvider.getSelection()));
+		} else {
+			
+			selectionProvider = part.getSite().getSelectionProvider();
+			
+			if (selectionProvider != null) {
+				selectionProvider.addSelectionChangedListener(this);
+			
+				// Fake a selection changed event to update the menus.
+				//
+				if (selectionProvider.getSelection() != null) {
+					selectionChanged(new SelectionChangedEvent(selectionProvider, selectionProvider.getSelection()));
+				}
 			}
 		}
 	}

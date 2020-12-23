@@ -1014,11 +1014,11 @@ public class GtmUtils {
 			if (editor == null || message == null || message.length() == 0) {
 				GtmEditor e = GtmUtils.getActiveEditor();
 				e.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53, message);
+					ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53,"Error: " + message);
 				});	
 			} else {
 				editor.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53, message);
+					ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53,"Error: " +  message);
 				});
 			}
 		} catch (Exception e) {
@@ -1035,11 +1035,11 @@ public class GtmUtils {
 			if (editor == null) {
 				GtmEditor e = GtmUtils.getActiveEditor();
 				e.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53, message);
+					ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53,"Info: " + message);
 				});	
 			} else {
 				editor.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53, message);
+					ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53,"Info: " +  message);
 				});
 			}
 		} catch (Exception e) {
@@ -1056,11 +1056,11 @@ public class GtmUtils {
 			if (editor == null) {
 				GtmEditor e = GtmUtils.getActiveEditor();
 				e.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53, message);
+					ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53,"Warning: " +  message);
 				});					
 			} else {
 				editor.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53, message);
+					ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53,"Warning: " +  message);
 				});
 			}
 		} catch (Exception e) {

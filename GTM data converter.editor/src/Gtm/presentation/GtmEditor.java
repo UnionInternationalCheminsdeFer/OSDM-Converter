@@ -1915,14 +1915,16 @@ public class GtmEditor
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void dispose() {
 		updateProblemIndication = false;
 
-		getSite().getPage().removePartListener(partListener);
-
+		if ( getSite() != null && getSite().getPage() != null){
+		   	 getSite().getPage().removePartListener(partListener);
+		}
+		    	 
 		adapterFactory.dispose();
 
 		if (getActionBarContributor().getActiveEditor() == this) {

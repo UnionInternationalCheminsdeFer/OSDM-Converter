@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -205,7 +204,7 @@ public class ConverterFromLegacy {
 		
 		command = new CompoundCommand();		
 		for (ConnectionPoint point : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
-			if (point.getDataSource() == DataSource.CONVERTED) {
+			if (point.getDataSource() == DataSource.CONVERTED || point.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, point) );
 			}
 		}			
@@ -1216,21 +1215,6 @@ public class ConverterFromLegacy {
 		return null;
 	}
 	
-	private ConnectionPoint findConnectionPoint(int legacyBorderPoint) {
-		//find already existing connection points
-		if (tool.getGeneralTariffModel().getFareStructure() == null &&
-			tool.getGeneralTariffModel().getFareStructure() == null &&
-	        tool.getGeneralTariffModel().getFareStructure().getConnectionPoints() == null &&
-	        tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints().isEmpty()) {
-	     	for (ConnectionPoint p : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
-		    	if (p.getLegacyBorderPointCode() == legacyBorderPoint) {
-		    		return p;
-		    	}
-	     	}
-		}
-	   	return null;
-	}
-	
 	/**
 	 * Find connection point.
 	 * 
@@ -1260,72 +1244,14 @@ public class ConverterFromLegacy {
 		if (legacyStation != null) {
 			borderpoint = legacyStation.getBorderPointCode();
 		}
+		
+		if (borderpoint > 0 && existsConnectionPoint(borderpoint)) return;
 
+		//border point is missing, create it based on the series
 		if (borderpoint > 0) {
 			
-			ConnectionPoint point = convertImportedBorderPoint(borderpoint);
-			if (point != null) {
-				points.add(point);
-				return;
-			}
-			
-			//find already existing connection points
-			if (tool.getGeneralTariffModel().getFareStructure() == null &&
-			    tool.getGeneralTariffModel().getFareStructure() == null &&
-			    tool.getGeneralTariffModel().getFareStructure().getConnectionPoints() == null &&
-			    tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints().isEmpty()) {
-				for (ConnectionPoint p : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
-					if (p.getLegacyBorderPointCode() == borderpoint) {
-						return;
-					}
-				}
-			}
-			
-			//already existing and mapped?
-			if (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings() != null &&
-				tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings().getBorderPoints() != null &&
-				!tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings().getBorderPoints().isEmpty()) {
-				for (LegacyBorderPointMapping map : tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings().getBorderPoints()){
-					if (map.getCode() == borderpoint) {
-						return;
-					}
-				}		
-			}
-		
-			//already created?
-			for (ConnectionPoint p : points) {
-				if (p.getLegacyBorderPointCode() == borderpoint) {
-					return;
-				}
-			}
-			
-			//we need a new connection point linked to a border point code!
-			//lets try the border point data
-			for (LegacyBorderPoint bp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
-				if (bp.getBorderPointCode() == borderpoint) {
-					point = GtmFactory.eINSTANCE.createConnectionPoint();
-					point.setDataSource(DataSource.CONVERTED);
-					point.setLegacyBorderPointCode(borderpoint);
+			ConnectionPoint point = null;
 
-					if (bp.getOnBorderStations() != null && bp.getOnBorderStations().getStations() != null && !bp.getOnBorderStations().getStations().getStations().isEmpty()) {
-						//stations on the border
-						StationSet stations = EcoreUtil.copy(bp.getOnBorderStations().getStations());
-						if (stations != null && !stations.getStations().isEmpty()) {
-							point.getConnectedStationSets().add(stations);
-						}
-						return;
-					}
-					if (bp.getBorderSides() != null && !bp.getBorderSides().isEmpty()) {
-						for (LegacyBorderSide bs: bp.getBorderSides()) {
-							StationSet stations = EcoreUtil.copy(bs.getStations());
-							if (stations != null && !stations.getStations().isEmpty()) {
-								point.getConnectedStationSets().add(stations);
-							}
-						}
-						if (point.getConnectedStationSets() != null) return;
-					}
-				}
-			}
 			//no data available --> create a border point from the station
 			point = GtmFactory.eINSTANCE.createConnectionPoint();
 			point.setLegacyBorderPointCode(borderpoint);
@@ -1336,7 +1262,12 @@ public class ConverterFromLegacy {
 				StationSet set = GtmFactory.eINSTANCE.createStationSet();
 				set.getStations().add(station);
 				point.getConnectedStationSets().add(set);
+				point.setLegacyBorderPointCode(borderpoint);
 				points.add(point);
+				Command com = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, point);
+				if  (com != null && com.canExecute()) {
+					domain.getCommandStack().execute(com);
+				}
 				return;
 			} else {
 				point.setDescription("created from series data only- station is missing!");
@@ -1344,6 +1275,9 @@ public class ConverterFromLegacy {
 				return;
 			}
 		}
+		
+		
+		//no border point code but we need a connection point
 		
 		//maybe its already there 
 		if (station != null) {
@@ -1366,12 +1300,17 @@ public class ConverterFromLegacy {
 		//no border point code available
 		if (station != null) {
 			//create connectionPoint with a station
-			ConnectionPoint newPoint = GtmFactory.eINSTANCE.createConnectionPoint();
-			newPoint.setDataSource(DataSource.CONVERTED);
+			ConnectionPoint point = GtmFactory.eINSTANCE.createConnectionPoint();
+			point.setDataSource(DataSource.CONVERTED);
 			StationSet stationSet = GtmFactory.eINSTANCE.createStationSet();
 			stationSet.getStations().add(station);		
-			newPoint.getConnectedStationSets().add(stationSet);
-			points.add(newPoint);
+			point.getConnectedStationSets().add(stationSet);
+			point.setDescription("created from series endpoint only - border point code missing");
+			points.add(point);
+			Command com = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, point);
+			if  (com != null && com.canExecute()) {
+				domain.getCommandStack().execute(com);
+			}			
 			return;
 		} else {
 			String message = "Connection Point missing for series station code " + Integer.toString(stationCode);
@@ -1585,35 +1524,6 @@ public class ConverterFromLegacy {
 		return price;
 		
 	}
-	
-
-	private Country getStartCountry(RegionalValidity region) {
-		
-	   ViaStation viaStation = region.getViaStation();
-	   if (viaStation == null) return null;
-
-	   ViaStation via = viaStation.getRoute().getStations().get(0);
-	   if (via.getStation() != null) {
-		 return via.getStation().getCountry();
-	   } else if (via.getFareStationSet() != null) {
-		 return via.getFareStationSet().getStations().get(0).getCountry();
-	   }
-	   return null;		
-	}
-		
-	private Country getEndCountry(RegionalValidity region) {
-		
-	    ViaStation viaStation = region.getViaStation();
-	    if (viaStation == null) return null;
-
-		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
-		if (via.getStation() != null) {
-			return  via.getStation().getCountry();
-		} else if (via.getFareStationSet() != null) {
-			return via.getFareStationSet().getStations().get(0).getCountry();
-		}
-		return null;
-	}
 
 	private void addVat(CurrencyPrice curPrice, RegionalConstraint regionalConstraint) {
 		
@@ -1658,65 +1568,6 @@ public class ConverterFromLegacy {
 		}
 	}
 
-	/*
-	 * find the common country at the start and end of the regional validity
-	 */
-	private Country getCountry(RegionalConstraint region) {
-	
-	    if (region == null) {
-	    	return null;
-	    }
-		
-		Set<Country> startCountries = new HashSet<Country>();
-		Set<Country> endCountries = new HashSet<Country>();		
-		
-		if (region == null || 
-			region.getRegionalValidity() == null || 
-			region.getRegionalValidity().isEmpty()) {
-			return null;
-		}
-		
-		
-		if (region.getExitConnectionPoint() != null && 
-			region.getExitConnectionPoint().getConnectedStationSets() != null && 
-			!region.getExitConnectionPoint().getConnectedStationSets().isEmpty()) { 
-			for (StationSet set : region.getExitConnectionPoint().getConnectedStationSets()) {
-				for (Station station : set.getStations())  {
-					endCountries.add(station.getCountry());	
-				}
-			}
-		}
-	
-		Country c1 = getEndCountry(region.getRegionalValidity().get(0));
-		if (c1 != null) {
-			endCountries.add(c1);	
-		}
-		
-		if (region.getEntryConnectionPoint() != null && 
-			region.getEntryConnectionPoint().getConnectedStationSets() != null && 
-			!region.getEntryConnectionPoint().getConnectedStationSets().isEmpty()) { 
-			for (StationSet set : region.getEntryConnectionPoint().getConnectedStationSets()) {
-				for (Station station : set.getStations())  {
-					startCountries.add(station.getCountry());	
-				}
-			}
-		}		
-		
-		Country c2  = getStartCountry(region.getRegionalValidity().get(0));
-		if (c2 != null) {
-			startCountries.add(c2);	
-		}
-		
-		for (Country country : startCountries) {
-			if (country != null && endCountries.contains(country)) {
-				return country;
-			}
-		}
-		
-		return null;
-	}
-
-	
 	
 	/**
 	 * Gets the adult amount.
@@ -1910,17 +1761,26 @@ public class ConverterFromLegacy {
 	 *
 	 * @return the number of added connection points
 	 */
-	public int convertBorderPoints() {
-		
-		//convertImportedBorderPoints();
+     public int convertBorderPoints() {
 		
 		List<ConnectionPoint> pointList = new ArrayList<ConnectionPoint>();
+		//add converted border points related to the carrier
+		convertImportedBorderPoints(pointList);
+		/*
+		CompoundCommand com = new CompoundCommand();
+		for (ConnectionPoint point : pointList) {
+			if (!existsConnectionPoint(point)) {
+				Command comm = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, point);
+				com.append(comm);
+			}
+		}
+		if  (com != null && !com.isEmpty() && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
+		*/
 		
-		List<ConnectionPoint> uniquePointList = new ArrayList<ConnectionPoint>();
-		
+		//add additional connection points from series
 		HashMap<Integer,LegacyStationMap> stationMapList = new HashMap<Integer,LegacyStationMap>();
-		
-		List<LegacyBorderPointMapping> maps = new ArrayList<LegacyBorderPointMapping>();
 		
 		for (LegacySeries series : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			
@@ -1936,37 +1796,7 @@ public class ConverterFromLegacy {
 			}
 		}
 		
-		for (ConnectionPoint point : pointList ) {
-			if ( !isContainedInConnectionPointList(uniquePointList, point)) {
-				uniquePointList.add(point);
-			}
-		}		
-		
-		Command command = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, uniquePointList);
-		if  (command != null && command.canExecute()) {
-			domain.getCommandStack().execute(command);
-		}
-		
-		
-		
-		for (ConnectionPoint point : uniquePointList) {
-			if (point.getLegacyBorderPointCode() > 0) {
-				if (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings().getMappingByBorderPointCode(point.getLegacyBorderPointCode()) != null) break;
-				
-				LegacyBorderPointMapping map = GtmFactory.eINSTANCE.createLegacyBorderPointMapping();
-				map.setCode(point.getLegacyBorderPointCode());
-				map.setConnectionPoint(point);
-				maps.add(map);
-			}
-		}
-		
-		Command command2 = AddCommand.create(domain, tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings(), GtmPackage.Literals.LEGACY_BODER_POINT_MAPPINGS__BORDER_POINTS, maps);
-		if  (command2 != null && command2.canExecute()) {
-			domain.getCommandStack().execute(command2);
-		}
-		
-		//TODO add mapping from local code --> Merits code
-		// if only one MEIRTS code is provided
+		// if only one MERITS code is provided
 		// if there is not a mapping jet
 		
 		if (tool.getConversionFromLegacy() == null || 
@@ -1976,8 +1806,6 @@ public class ConverterFromLegacy {
 			tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints().isEmpty()) {
 			return pointList.size();
 		}
-		
-		
 		
 		for (LegacyBorderPoint point : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
 			
@@ -2022,25 +1850,53 @@ public class ConverterFromLegacy {
 		return pointList.size();
 	}
 
-
-	private ConnectionPoint convertImportedBorderPoint(int legacyBorderCode) {
+	private boolean existsConnectionPoint(int legayBorderPointCode) {
+		if (tool.getGeneralTariffModel().getFareStructure().getConnectionPoints() == null ||
+				tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints() == null ||
+				tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints().isEmpty()) {
+				return false;
+			}
 		
-		for (LegacyBorderPoint lBorder : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
-			
-			if (lBorder.getBorderPointCode() == legacyBorderCode) {
-			
-				if (findConnectionPoint(lBorder.getBorderPointCode()) == null) {
-					//new border point code
-					if (lBorder.getBorderSides() != null && lBorder.getBorderSides().size() > 1	) {
-						return convertImportedBorderPoint (lBorder);
-					}
-				}
+		for (ConnectionPoint p : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
+			if (p.getLegacyBorderPointCode() == legayBorderPointCode) {
+				return true;
 			}
 		}
-		return null;
+		return false;
 	}
-	
+
+	private void convertImportedBorderPoints(List<ConnectionPoint> pointList) {
+				
+		for (LegacyBorderPoint lp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
+			
+			ConnectionPoint connectionPoint = convertImportedBorderPoint(lp);
+			if (connectionPoint != null) {
+				connectionPoint.setDataSource(DataSource.IMPORTED);
+				pointList.add(connectionPoint);
+			}
+		}
+		
+	}
+
+
 	private ConnectionPoint convertImportedBorderPoint(LegacyBorderPoint lBorder) {
+		
+		boolean carrierInvolved = false;
+		for (LegacyBorderSide side: lBorder.getBorderSides()) {
+			if (side.getCarrier().equals(tool.getConversionFromLegacy().getLegacy108().getCarrier())) {
+				carrierInvolved = true;
+			}
+		}
+		
+		if (!carrierInvolved) return null;
+		
+		// keep only one connection point per legacy border point code
+		if (lBorder.getBorderPointCode() > 0) {
+			for (ConnectionPoint p : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
+				if (p.getLegacyBorderPointCode() == lBorder.getBorderPointCode()) return null;
+			}
+		}
+		
 		
 		if (lBorder.getOnBorderStations()!= null && lBorder.getOnBorderStations().getStations() != null && !lBorder.getOnBorderStations().getStations().getStations().isEmpty()) {
 			
@@ -2054,7 +1910,7 @@ public class ConverterFromLegacy {
 		
 			Command command = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, point);
 			if  (command != null && command.canExecute()) {
-			//	domain.getCommandStack().execute(command);
+				domain.getCommandStack().execute(command);
 			}
 			return point;
 		}
@@ -2071,7 +1927,7 @@ public class ConverterFromLegacy {
 			}
 			Command command = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, point);
 			if  (command != null && command.canExecute()) {
-				//domain.getCommandStack().execute(command);
+				domain.getCommandStack().execute(command);
 			}
 			return point;			
 		}
@@ -2093,44 +1949,7 @@ public class ConverterFromLegacy {
 
 
 
-	/**
-	 * Checks if is contained in connection point list.
-	 *
-	 * @param uniquePointList the unique point list
-	 * @param point the point
-	 * @return true, if is contained in connection point list
-	 */
-	private static boolean isContainedInConnectionPointList(List<ConnectionPoint> uniquePointList, ConnectionPoint point) {
-		if (uniquePointList == null || uniquePointList.isEmpty()) return false;
-		
-		for (ConnectionPoint listPoint : uniquePointList) {
-			if (listPoint.getLegacyBorderPointCode() == point.getLegacyBorderPointCode()) return true;
-		}
-
-		for (ConnectionPoint listPoint : uniquePointList) {
-			
-			if ( listPoint.getLegacyBorderPointCode() == point.getLegacyBorderPointCode()) {
-				return true;
-			}
-			
-			if ( listPoint.getLegacyBorderPointCode() == 0 &&
-				 listPoint.getConnectedStationSets() != null &&
-				 !listPoint.getConnectedStationSets().isEmpty() &&
-				 point.getConnectedStationSets() != null &&
-				 !point.getConnectedStationSets().isEmpty()) {
-				
-				if (point.getConnectedStationSets().get(0).getStations().get(0) ==
-					listPoint.getConnectedStationSets().get(0).getStations().get(0)	) {
-					//converted points only include one station
-					//TODO compare lists
-					return true;
-				}
-		    }
-		}
-		return false;
-	}
-
-
+	
 	/**
 	 * Convert series to connection points.
 	 * 
