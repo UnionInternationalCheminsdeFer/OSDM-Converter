@@ -10,6 +10,23 @@ h3 {
   margin: 20px 0;
   font-size: 1.2em;
 }
-ul, ol {
-	list-style: decimal;
+ol {
+  margin-block-start: 0.2em;
+  box-sizing: border-box;
+  list-style: decimal;
+  list-style-type: decimal;
+  list-style-position: outside;
+}
+
+ul {
+  margin-block-start: 0.2em;
+  box-sizing: border-box;
+  list-style: decimal;
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
+li {
+  margin-left: 32px;
+  display: list-item;
 }
