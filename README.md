@@ -4,6 +4,8 @@ Converter Tool to convert between old fare data according to UIC IRS 10108-1 (TA
 
 see online Application Guide on: https://unioninternationalcheminsdefer.github.io/OSDM-Converter/
 
+latest Release: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter/releases
+
 
 ## OSDM Specification IRS 90918-10:
 
