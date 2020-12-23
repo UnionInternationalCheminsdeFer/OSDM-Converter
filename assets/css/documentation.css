@@ -27,14 +27,14 @@ ul {
 }
 
 li {
-  margin-left: 4em;
+  margin-left: 3em;
   display: list-item;
 }
 
 table {
   border-width: 0em;
-  border-left-color: #fff;
-  border-right-color: #fff;
+  border-left-color: #e0e0e0;
+  border-right-color: #e0e0e0;
   margin-top: 1em;
   margin-bottom: 1em;
 }
