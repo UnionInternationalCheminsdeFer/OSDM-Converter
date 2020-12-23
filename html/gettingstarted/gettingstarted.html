@@ -70,7 +70,7 @@ layout: default
  
 <h2>Conversion from 108.1 to 90918-10</h2>
 
-<h3>Import reference data</h3>
+<h3>Srep 1: Import Reference Data</h3>
 
 <ul>
 <p>90918-10 fare data are based on reference data for company codes, service brands, stations and 
@@ -93,7 +93,7 @@ The data will be shown in the code list section of the data set.</p>
 <p><img src="../images/importBorderpoints.png" alt="import border point codes"/>Import of <a href="../reference/data_borderpoints.html" >border point</a> codes from a csv file.<br/></p>
 </ul>
 
-<h3>Import 108.1 fare data</h3>
+<h3>Step 2: Import 108.1 Fare Data</h3>
 
 <ul>
 <p>Before the import conversion parameters must be set for:<br/>
@@ -111,7 +111,7 @@ The data will be shown in the legacy section of the data set.
 
 </ul>
 </ul>
-<h3>add conversion parameters</h3>
+<h3>Step 3: Add Conversion Parameters</h3>
 <ul>
 <p>
 The data of 108.1 are not sufficient to provide a complete set of 90918-10 fare data. The missing data 
@@ -134,7 +134,7 @@ but the station sets of the connection points might be incomplete and must be co
 
 </p>
 </ul>
-<h3>convert data</h3>
+<h3>Step 4: Convert Data</h3>
 
 <ul>
 
@@ -144,7 +144,7 @@ but the station sets of the connection points might be incomplete and must be co
 
 </ul>
 
-<h3>export 90918-10 data</h3>
+<h3>Step 5: Export 90918-10 Data</h3>
 
 <ul>
 
@@ -157,7 +157,7 @@ but the station sets of the connection points might be incomplete and must be co
 
 <h2>Conversion from 90918-10 to 108.1</h2>
 
-<h3>Import reference data</h3>
+<h3>Step 1: Import Reference Data</h3>
 <ul>
 <p>90918-10 fare data are based on reference data for company codes, service brands and stations. These code tables need to be imported first.<br/>
 The data will be shown in the code list section of the data set.</p>
@@ -179,12 +179,12 @@ The data will be shown in the code list section of the data set.</p>
 <p><img src="../images/importBorderpoints.png" alt="import border point codes"/>Import of <a href="../reference/data_borderpoints.html" >border point</a> codes from a csv file.<br/></p>
 </ul>
 
-<h3>Import 90918-10 fare data</h3>
+<h3>Step 2: Import 90918-10 Fare Data</h3>
 <ul>
 <p><img src="../images/importGtm.png" alt="import 90918-10 data"/>Import the fare data in the json format.<br/></p>
 </ul>
 
-<h3>convert data</h3>
+<h3>Step 3: Convert Data</h3>
 
 <ul>
 <p>90918-10 data will lose some content when converted to 108.1 data. therefore not all data can and will be converted. From regional constraints
@@ -202,15 +202,16 @@ The data will be shown in the code list section of the data set.</p>
 </ul>
 
 
-<h3>export 108.1 data</h3>
+<h3>Step 4: Export 108.1 Data</h3>
 <ul>
 <p><img src="../images/exportLegacy.png" alt="export 108.1 data"/>Export the fare data in the 108.1 format.<br/></p>
 <p>Export files are:<br/><br/>
 <ul>
 <li>TCV file</li>
 <li>TCVS file</li>
-<li>one route based fare file</li>
 <li>TCVG file</li>
+<li>One route based fare file</li>
+
 
 
 </ul>
