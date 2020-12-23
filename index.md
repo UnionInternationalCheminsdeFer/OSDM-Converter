@@ -1,10 +1,10 @@
 ---
-title: OSDM Converter
+title: OSDM Converter Tool
 subtitle: Converts old fare data format to OSDM Offline format
 layout: page
 show_sidebar: true
 hero_link: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter
-hero_link_text: Download Converter
+hero_link_text: Download Converter Tool
 ---
 
 ## Introduction
