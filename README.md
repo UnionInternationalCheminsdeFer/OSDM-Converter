@@ -2,6 +2,8 @@
 
 Converter Tool to convert between old fare data according to UIC IRS 10108-1 (TAP-TSI B.1) into the OSDM offline data format. 
 
+see online Application Guide on: https://unioninternationalcheminsdefer.github.io/OSDM-Converter/
+
 
 ## OSDM Specification IRS 90918-10:
 
