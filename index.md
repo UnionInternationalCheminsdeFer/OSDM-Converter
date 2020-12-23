@@ -18,7 +18,7 @@ Here you find information on [Getting Started](html/gettingstarted/gettingstarte
 
 ### Table of Content
 
-- [Introduction](html/gettingstarted/gettingstarted.html)
+- [Getting Started](html/gettingstarted/gettingstarted.html)
 - [Recommended Workflow](html/gettingstarted/recommendedWorkflow.html)
 - [Reference](html/reference/reference.html)
   - [Application](html/reference/application.html)
