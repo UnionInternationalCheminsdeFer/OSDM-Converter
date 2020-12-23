@@ -1335,6 +1335,7 @@ public class ConverterFromLegacy {
 				point.setDescription("created from series data only - might be incomplete");
 				StationSet set = GtmFactory.eINSTANCE.createStationSet();
 				set.getStations().add(station);
+				point.getConnectedStationSets().add(set);
 				points.add(point);
 				return;
 			} else {
