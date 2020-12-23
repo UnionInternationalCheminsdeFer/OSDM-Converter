@@ -36,6 +36,7 @@ ul {
 li {
   margin-left: 3em;
   display: list-item;
+  padding-bottom: .2em;
 }
 
 table {
