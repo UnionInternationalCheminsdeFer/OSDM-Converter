@@ -7,171 +7,340 @@ layout: default
 
 <link href="../../assets/css/documentation.css" rel="stylesheet">
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<title>data Description</title>
-</head>
-
-<body>
 <h1>Data Description</h1>
 
 <h2>Reference data / Code lists</h2>
 <p>
-		<ul>
-			<li><a href="../reference/data_companycodes.html" >carriers</a> - UIC company codes</li>
-			<li><a href="../reference/data_servicebrandcodes.html" >service brands</a> - UIC service brands</li>
-			<li><a href="../reference/data_stationcodes.html" >stations</a> - MERITS stations</li>
-			<li><a href="../reference/data_nutscodes.html" >NUTS</a> codes - regional codes (not used for pure conversion)</li>
-			<li>legacy <a href="../reference/data_borderpoints.html">border point</a> codes</li>
-			<li>countries - UIC country codes and corresponding ISO codes - no import</li> 
-			<li>languages - ISO language codes - no import </li>
-			<li>currencies - EUR predefined - no import</li>
-		</ul>
-</p>
-
-<h2>Conversion data</h2> 
-
 <ul>
-<p>
-The data of 108.1 are not sufficient to provide a complete set of 90918-10 fare data. The missing data 
-need to be added in the parameter section of the data set.<br/>
-
-<p>The missing data are added in the conversion parameter section as fare templates which serve as a copy template to 
-create 90918-10 fares from the imported data. Missing data can be added to the template using the editing features. 
-The template provides a factor to derive the fare price from the standard adult price provided in the 108.1 data. <br/>
-</p>
-<p>
-Form the fare of one series in 108.1 two fares per template are created for the two travel directions. For different travel classes separate templates need to be defined and the 
-service class needs to be set in the fare template.<br/></p>
-<p>Series listed in TCVL car be attributed a separated combination constraint in the fare template.<br/></p>
-
-<p>The station codes in 108.1 have been misused to other concepts like non-Merits-stations, border points, 
-fare reference stations and service brands. These codes need to be mapped to the appropriate entities. For this 
-mappings can be defined in the conversion parameter area to map these codes o the proper entities.</p>
-<p>
-Border points can not be converted directly, so the needed border points will be converted into connection points and border point mappings 
-but the station sets of the connection points might be incomplete and must be completed manually and the conversion needs to be started again.<br/> 
-</p>
-
-<br/>
-
-<p>Conversion parameter in <b>Legacy100</b>:
-
-<table border ="1">
-	<thead>
-		<tr><td>Data item</td><td>Description</td></tr>
-	</thead>
-<tbody>
-<tr><th>Carrier</th><td>carrier of the data delivery (company code)</td></tr>
-<tr><th>Start date</th><td>start of availability for sale for the data delivery</td></tr>
-<tr><th>End date</th><td>end of availability for sale for the data delivery</td></tr>
-<tr><th>Time zone</th><td>time zone to convert date and time values</td></tr>
-</tbody>
-</table>
-
-<p>Conversion parameter in <b>Conversion Params</b>:
-
-<table border ="1">
-	<thead>
-<tr><td>Data item</td><td>Description</td><td>Values</td></tr>
-</thead>
-<tbody>
-<tr><th>Convert fare descriptions</th><td>Fare description will be converted into TCVP fare entries. For each different fare description a different fare table will be created. </td>check-box<td></td></tr>
-<tr><th>Convert service constraint</th><td>Service constraints will be converted into TCVP fare entries. For each different fare description a different fare table will be created.</td><td>check-box</td></tr>
-<tr><th>Country</th><td>Country to be used for station code conversion from 108.1 to 90918-10.</td><td>Select country</td></tr>
-<tr><th>Station import filter</th><td>a list of counties that limits the station import to those countries</td><td>Selection of multiple countries</td></tr>
-<tr><th>VAT Templates</th><td>Templates to create VAT tax information. Templates can be provided for different scope and countries. The template applies to regional constraints within the specified country. Templates with scope INTERNATIONAL are used additionally for regional constraints with connection points.</td><td>Add VAT details for different countries</td></tr>
-<tr><th>Legacy border point mappings</th><td>Manual mapping of border points to connection points. In case the border point data are complete in the imported border point table this entry is not required. Otherwise it can be added manually. To add an entry manually the connection point must be added in the fare data first.</td><td></td></tr>
-<tr><th>Legacy station mappings</th><td>Mappings of station codes in 108.1 to merits codes. A manual mapping can be added for station codes not included in MERITS</td><td >Mapping station code 018.1 to MERITS station code.</td></tr>
-<tr><th>Fare Templates</th><td> </td><td >Template for a fare to be created based on 108.1 data. The fare    </td></tr>
-<tr><th>Legacy fare station set mappings</th><td>Mapping of 108.1 station codes to fare station sets </td><td > Mapping of 108.1 stations to fare station sets. This mapping is generated from the 108.1 data. Additional mappings can be added manually. Fare station sets must be added in the fare data before the mapping. </td></tr>
-<tr><th>Legacy to station to service constraint mappings </th><td>Mappings of 108.1 stations to service constraints. In 108.1 data virtual stations have been added to indicate a service constraint. </td><td >Mapping to a service constraint. The service constraint must be added in the fare data first.</td></tr>
-</tbody>
-</table>
-
-
-</ul></p>
-
-Data structures used in the fare template reference data in the final fare structure.<br/><br/> 
-<p><ul>
-<table border="1">
-	<thead>
-<tr><td>Content</td><td>Description</td></tr>
-</thead>
-<tbody>
-<tr><th>Price factor</th><td>a factor to calculate the price depending on the price given in the 108.1 data. The factor is applied and the result is rounded to Euro-Cents</td></tr>
-<tr><th>Price</th><td>A fixed price that can be defined manually in the fare structure. If this price is set the price factor will not be applied and the series price is replaced by this price.</td></tr>
-<tr><th>Data description</th><td>Text to name the fare template. This text as no effect on the final data.</td></tr>
-<tr><th>Fare detail description</th><td>A detailed description can be added to the fare. The fare detail description is a text that must to be edited in the fare structure first. Then it can be selected in the fare template.</td></tr>
-<tr><th>Fulfillment Constraint</th><td>A fulfillment constraint to be added to the fare. The fulfillment constraint must be edited in the fare structure first and can then be selected in the fare template.</td></tr>
-<tr><th>Id</th><td>- not in use - </td></tr>
-<tr><th>Individual contracts</th><td>Indicates whether the fare allows individual contracts (handling tickets and after sales per person)  </td></tr>
-<tr><th>Legacy Conversion</th><td>Indicates whether the fare template creates fares that allow a reconversion into 108.1 data. A fare might allow reconversion or even be only included for reconversion. </td></tr>
-<tr><th>Passenger Constraint</th><td>The passenger constraint to be applied with the fare. The passenger constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Personal data constraint</th><td>The personal data constraint to be applied with the fare. The personal data constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Reduction Constraint</th><td>The reduction constraint to be applied with the fare. The reduction constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Reservation parameter</th><td>The reservation parameter to be applied with the fare. The reservation parameter must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Sales availability</th><td>The sales availability will be calculated from the validity in the 108.1 data. </td></tr>
-<tr><th>Separate contract combination constraint</th><td>Combination constraint to be used in case the series is listed in the 108.1 TCVL file.</td></tr>
-<tr><th>Service class</th><td>The service class to be applied with the fare. The service class must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Service constraint</th><td>The service constraint to be applied with the fare. The service constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Service Level</th><td>The service level to be applied with the fare. The service level must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Text</th><td>The text naming the fare. The text must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Travel validity</th><td>The travel validity to be applied with the fare. The travel validity must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><th>Regulatory Conditions</th><td>Regulatory conditions (CIV, MC, EU_PRR) to be applied with the fares. </td></tr>
-<tr><th>Rounding mode</th><td>Rounding rule applied to the price. <br/><br/>
-
-<ul>
-<li> Up: rounding up to one cent</li>
-<li> Down: rounding down to one cent</li>
-<li> Half-Up: rounding up to one cent for 0.5 to 0.9 cents and down for 0.1 to 0.4 cents</li>
-<li> Half-Down: rounding up to one cent for 0.6 to 0.9 cents and down for 0.1 to 0.5 cents</li>
-<li> Half-Even: rounding half up if the left digit is odd, half down otherwise (preserves the mean value)</li>
+	<li><a href="../reference/data_companycodes.html">carriers</a> - UIC company codes</li>
+	<li><a href="../reference/data_servicebrandcodes.html">service brands</a> - UIC service brands</li>
+	<li><a href="../reference/data_stationcodes.html">stations</a> - MERITS stations</li>
+	<li><a href="../reference/data_nutscodes.html">NUTS</a> codes - regional codes (not used for pure conversion)</li>
+	<li>legacy <a href="../reference/data_borderpoints.html">border point</a> codes</li>
+	<li>countries - UIC country codes and corresponding ISO codes - no import</li>
+	<li>languages - ISO language codes - no import </li>
+	<li>currencies - EUR predefined - no import</li>
 </ul>
-
-
-</td></tr>
-</tbody>
-</table>
-</ul></p>
-
-
-<h2>Tariff data 108.1</h2> 
-<p>tariff data from 108.1 are included when needed for conversion.</p>
-
-<p><ul>
-<table border ="1">
-	<thead>
-<tr><td>
-	Data</td><td>Description</td></tr>
-</thead>
-<tbody>
-<tr><th>Series</th><td>series data records</td></tr>
-<tr><th>Stations</th><td>station data</td></tr>
-<tr><th>Distance fares</th><td>prices based on distance</td></tr>
-<tr><th>Route fares</th><td>prices based on routes</td></tr>
-</tbody>
-</table></ul>
-
 </p>
 
-<h2>Fare data 90918-10</h2> 
+<h2>Conversion data</h2>
 
 <p>
-		<ul>The fare data in the fare data section correspond exactly to the data
-		 specified within the IRS 90918-10 for the bulk data delivery, Data Ids to link the different data parts within the json export 
-		 will be created automatically before the export of the data.<br/><br/>
-		 
-		The data structure contains the complete set of defined data and is not restricted to data used in the conversion. 
-		Additional data might be added manually. Data that are also generated include a data source tag indicating whether it was 
-		created by conversion or by import or manually. All data marked as created by conversion will be replaced with the next conversion. 
-
-		</ul>
+	The data of 108.1 are not sufficient to provide a complete set of 90918-10 fare data. The missing data
+	need to be added in the parameter section of the data set.
+</p>
+<p>
+	The missing data are added in the conversion parameter section as fare templates which serve as a copy template to
+	create 90918-10 fares from the imported data. Missing data can be added to the template using the editing features.
+	The template provides a factor to derive the fare price from the standard adult price provided in the 108.1 data.
+</p>
+<p>
+	Form the fare of one series in 108.1 two fares per template are created for the two travel directions. For different
+	travel classes separate templates need to be defined and the
+	service class needs to be set in the fare template.
+</p>
+<p>
+	Series listed in TCVL car be attributed a separated combination constraint in the fare template.
+</p>
+<p>
+	The station codes in 108.1 have been misused to other concepts like non-Merits-stations, border points,
+	fare reference stations and service brands. These codes need to be mapped to the appropriate entities. For this
+	mappings can be defined in the conversion parameter area to map these codes o the proper entities.</p>
+<p>
+	Border points can not be converted directly, so the needed border points will be converted into connection points
+	and border point mappings
+	but the station sets of the connection points might be incomplete and must be completed manually and the conversion
+	needs to be started again.
 </p>
 
+<h4>Conversion parameter in <b>Legacy100</b>:</h4>
 
-</body>
-</html>
+<table>
+	<thead>
+		<tr>
+			<td>Data item</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Carrier</th>
+			<td>carrier of the data delivery (company code)</td>
+		</tr>
+		<tr>
+			<th>Start date</th>
+			<td>start of availability for sale for the data delivery</td>
+		</tr>
+		<tr>
+			<th>End date</th>
+			<td>end of availability for sale for the data delivery</td>
+		</tr>
+		<tr>
+			<th>Time zone</th>
+			<td>time zone to convert date and time values</td>
+		</tr>
+	</tbody>
+</table>
+
+<h4>Conversion parameter in <b>Conversion Params</b></h4>
+
+<table>
+	<thead>
+		<tr>
+			<td>Data item</td>
+			<td>Description</td>
+			<td>Values</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Convert fare descriptions</th>
+			<td>Fare description will be converted into TCVP fare entries. For each different fare description a different
+				fare table will be created. </td>check-box<td></td>
+		</tr>
+		<tr>
+			<th>Convert service constraint</th>
+			<td>Service constraints will be converted into TCVP fare entries. For each different fare description a
+				different fare table will be created.</td>
+			<td>check-box</td>
+		</tr>
+		<tr>
+			<th>Country</th>
+			<td>Country to be used for station code conversion from 108.1 to 90918-10.</td>
+			<td>Select country</td>
+		</tr>
+		<tr>
+			<th>Station import filter</th>
+			<td>a list of counties that limits the station import to those countries</td>
+			<td>Selection of multiple countries</td>
+		</tr>
+		<tr>
+			<th>VAT Templates</th>
+			<td>Templates to create VAT tax information. Templates can be provided for different scope and countries. The
+				template applies to regional constraints within the specified country. Templates with scope INTERNATIONAL are
+				used additionally for regional constraints with connection points.</td>
+			<td>Add VAT details for different countries</td>
+		</tr>
+		<tr>
+			<th>Legacy border point mappings</th>
+			<td>Manual mapping of border points to connection points. In case the border point data are complete in the
+				imported border point table this entry is not required. Otherwise it can be added manually. To add an entry
+				manually the connection point must be added in the fare data first.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>Legacy station mappings</th>
+			<td>Mappings of station codes in 108.1 to merits codes. A manual mapping can be added for station codes not
+				included in MERITS</td>
+			<td>Mapping station code 018.1 to MERITS station code.</td>
+		</tr>
+		<tr>
+			<th>Fare Templates</th>
+			<td> </td>
+			<td>Template for a fare to be created based on 108.1 data. The fare </td>
+		</tr>
+		<tr>
+			<th>Legacy fare station set mappings</th>
+			<td>Mapping of 108.1 station codes to fare station sets </td>
+			<td> Mapping of 108.1 stations to fare station sets. This mapping is generated from the 108.1 data. Additional
+				mappings can be added manually. Fare station sets must be added in the fare data before the mapping. </td>
+		</tr>
+		<tr>
+			<th>Legacy to station to service constraint mappings </th>
+			<td>Mappings of 108.1 stations to service constraints. In 108.1 data virtual stations have been added to
+				indicate a service constraint. </td>
+			<td>Mapping to a service constraint. The service constraint must be added in the fare data first.</td>
+		</tr>
+	</tbody>
+</table>
+</p>
+
+<p>
+	Data structures used in the fare template reference data in the final fare structure.
+</p>
+
+<p>
+<table>
+	<thead>
+		<tr>
+			<td>Content</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Price factor</th>
+			<td>
+				A factor to calculate the price depending on the price given in the 108.1 data. The factor is applied and
+				the result is rounded to Euro-Cents</td>
+		</tr>
+		<tr>
+			<th>Price</th>
+			<td>
+				A fixed price that can be defined manually in the fare structure. If this price is set the price factor will
+				not be applied and the series price is replaced by this price.</td>
+		</tr>
+		<tr>
+			<th>Data description</th>
+			<td>
+				Text to name the fare template. This text as no effect on the final data.</td>
+		</tr>
+		<tr>
+			<th>Fare detail description</th>
+			<td>
+				A detailed description can be added to the fare. The fare detail description is a text that must to be
+				edited in the fare structure first. Then it can be selected in the fare template.</td>
+		</tr>
+		<tr>
+			<th>Fulfillment Constraint</th>
+			<td>
+				A fulfillment constraint to be added to the fare. The fulfillment constraint must be edited in the fare
+				structure first and can then be selected in the fare template.</td>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<td>- not in use - </td>
+		</tr>
+		<tr>
+			<th>Individual contracts</th>
+			<td>
+				Indicates whether the fare allows individual contracts (handling tickets and after sales per person) </td>
+		</tr>
+		<tr>
+			<th>Legacy Conversion</th>
+			<td>
+				Indicates whether the fare template creates fares that allow a reconversion into 108.1 data. A fare might
+				allow reconversion or even be only included for reconversion. </td>
+		</tr>
+		<tr>
+			<th>Passenger Constraint</th>
+			<td>
+				The passenger constraint to be applied with the fare. The passenger constraint must be edited in the fare
+				structure first and can then be selected in the fare template. </td>
+		</tr>
+		<tr>
+			<th>Personal data constraint</th>
+			<td>
+				The personal data constraint to be applied with the fare. The personal data constraint must be edited in the
+				fare structure first and can then be selected in the fare template. </td>
+		</tr>
+		<tr>
+			<th>Reduction Constraint</th>
+			<td>
+				The reduction constraint to be applied with the fare. The reduction constraint must be edited in the fare
+				structure first and can then be selected in the fare template. </td>
+		</tr>
+		<tr>
+			<th>Reservation parameter</th>
+			<td>
+				The reservation parameter to be applied with the fare. The reservation parameter must be edited in the fare
+				structure first and can then be selected in the fare template. </td>
+		</tr>
+		<tr>
+			<th>Sales availability</th>
+			<td>
+				The sales availability will be calculated from the validity in the 108.1 data. </td>
+		</tr>
+		<tr>
+			<th>Separate contract combination constraint</th>
+			<td>Combination constraint to be used in case the series is listed in the 108.1 TCVL file.</td>
+		</tr>
+		<tr>
+			<th>Service class</th>
+			<td>
+				The service class to be applied with the fare. The service class must be edited in the fare structure first
+				and can then be selected in the fare template. </td>
+		</tr>
+		<tr>
+			<th>Service constraint</th>
+			<td>
+				The service constraint to be applied with the fare. The service constraint must be edited in the fare
+				structure first and can then be selected in the fare template. </td>
+		</tr>
+		<tr>
+			<th>Service Level</th>
+			<td>The service level to be applied with the fare. The service level must be edited in the fare structure first
+				and can then be selected in the fare template. </td>
+		</tr>
+		<tr>
+			<th>Text</th>
+			<td>
+				The text naming the fare. The text must be edited in the fare structure first and can then be selected in
+				the fare template. </td>
+		</tr>
+		<tr>
+			<th>Travel validity</th>
+			<td>
+				The travel validity to be applied with the fare. The travel validity must be edited in the fare structure
+				first and can then be selected in the fare template. </td>
+		</tr>
+		<tr>
+			<th>Regulatory Conditions</th>
+			<td>
+				Regulatory conditions (CIV, MC, EU_PRR) to be applied with the fares. </td>
+		</tr>
+		<tr>
+			<th>Rounding mode</th>
+			<td>Rounding rule applied to the price.
+				<ul>
+					<li> Up: rounding up to one cent</li>
+					<li> Down: rounding down to one cent</li>
+					<li> Half-Up: rounding up to one cent for 0.5 to 0.9 cents and down for 0.1 to 0.4 cents</li>
+					<li> Half-Down: rounding up to one cent for 0.6 to 0.9 cents and down for 0.1 to 0.5 cents</li>
+					<li> Half-Even: rounding half up if the left digit is odd, half down otherwise (preserves the mean value)
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</p>
+
+<h2>Tariff data 108.1</h2>
+
+<p>
+	Tariff data from 108.1 are included when needed for conversion.
+</p>
+<p>
+<table>
+	<thead>
+		<tr>
+			<td>
+				Data</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Series</th>
+			<td>Series data records</td>
+		</tr>
+		<tr>
+			<th>Stations</th>
+			<td>Station data</td>
+		</tr>
+		<tr>
+			<th>Distance fares</th>
+			<td>Prices based on distance</td>
+		</tr>
+		<tr>
+			<th>Route fares</th>
+			<td>Prices based on routes</td>
+		</tr>
+	</tbody>
+</table>
+</p>
+
+<h2>Fare data 90918-10</h2>
+
+<p>
+	The fare data in the fare data section correspond exactly to the data
+	specified within the IRS 90918-10 for the bulk data delivery, Data Ids to link the different data parts within the
+	json export	will be created automatically before the export of the data.
+</p>
+<p>
+	The data structure contains the complete set of defined data and is not restricted to data used in the conversion.
+	Additional data might be added manually. Data that are also generated include a data source tag indicating whether
+	it was created by conversion or by import or manually. All data marked as created by conversion will be replaced with the
+	next conversion.
+</p>
