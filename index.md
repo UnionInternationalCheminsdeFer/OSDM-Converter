@@ -33,6 +33,11 @@ Here you find information on [Getting Started](html/gettingstarted/gettingstarte
     - [Service Brands](html/reference/data_servicebrandcodes.html)
     - [Border Points](html/reference/data_borderpoints.html)
 
+### Documents
+
+This Manual is also available as [Word](html/gettingstarted/OSDM-Converter-Manual.docx) or
+[PDF](html/gettingstarted/OSDM-Converter-Manual.pdf) document.
+
 ### Copyright
 
 This converter and its documentation are published under the [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0.html) Open Source Licence. Copyright by [UIC](https://www.uic.org).

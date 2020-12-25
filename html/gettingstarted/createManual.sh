@@ -2,4 +2,4 @@
 
 # Needs pandoc to be installed
   
-pandoc -s --toc -o manual.docx *.html ../reference/*.html
+pandoc -s --toc -o OSDM-Converter-Manual.docx *.html ../reference/*.html
