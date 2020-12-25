@@ -1,5 +1,5 @@
 ---
-title: Conversion Details 90918-10 to 108.1
+title: Conversion Details <b>90918-10</b>to <b>108.1</b>
 permalink: /html/reference/conversion2l.html
 hide_hero: true
 layout: default
@@ -9,15 +9,15 @@ layout: default
 
 
 
-<h1>Conversion Details 90918-10 to 108.1</h1>
+<h1>Conversion Details <b>90918-10</b> to <b>108.1</b></h1>
 
-<h2>Parameters required for the import of 108.1 data</h2>
+<h2>Parameters required for the import of <b>108.1</b> data</h2>
 
 <p>
 	None
 </p>
 
-<h2>Parameters required for the conversion of 90918-10 data</h2>
+<h2>Parameters required for the conversion of <b>90918-10</b> data</h2>
 
 <p>
 <table>
@@ -30,12 +30,12 @@ layout: default
 	<tbody>
 		<tr>
 			<th>Convert Fare Descriptions</th>
-			<td>Fare description will be converted into TCVP fare entries. For each different fare description a different
+			<td>Fare description will be converted into <b>TCVP</b> fare entries. For each different fare description a different
 				fare table will be created.</td>
 		</tr>
 		<tr>
 			<th>Convert Service Constraint</th>
-			<td>Service constraints will be converted into TCVP fare entries. For each different fare description a
+			<td>Service constraints will be converted into <b>TCVP</b> fare entries. For each different fare description a
 				different fare table will be created.</td>
 		</tr>
 	</tbody>
@@ -55,12 +55,12 @@ layout: default
 	<li>Convert stations into legacy stations</li>
 	<li>Convert fare reference sets into legacy stations and assign the fare reference code to the included stations -
 		in case a station belongs to multiple fare reference set only on code can be used in the legacy data.</li>
-	<li>select convertable fares
+	<li>Select fares to be converted
 		<ul>
 			<li>only the fare with a regional validity in one direction is used (using the one with the lower departure
 				station code in case of transit and station-station series)</li>
 			<li>only fares that indicate conversion allowed</li>
-			<li>only ADULT fares</li>
+			<li>only <b>ADULT</b> fares</li>
 			<li>only fares without reduction constraints</li>
 			<li>only fares with a simple sales availability (from-to-date)</li>
 		</ul>
@@ -77,7 +77,7 @@ layout: default
 			</li>
 			<li>Convert the price into a route fare - merge the prices from service class B and D into one route fare</li>
 			<li>Depending on the conversion parameters the fare description for the fare tables are added.</li>
-			<li>Create TCVL entry for series of fares with combination model SEPARATE_TICKET</li>
+			<li>Create <b>TCVL</b> entry for series of fares with combination model <b>SEPARATE_TICKET</b></li>
 		</ol>
 	</li>
 	<li>adjust series number in case no legacy accounting codes were available</li>
@@ -87,7 +87,7 @@ layout: default
 <h2>Export to legacy files</h2>
 
 <p>
-	The export creates the TCV files and exports the legacy data from the conversion.
+	The export creates the <b>TCV</b> files and exports the legacy data from the conversion.
 </p>
 
 <p>

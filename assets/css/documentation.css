@@ -1,22 +1,23 @@
 h1 {
-  margin: 1.4em 0;
+  margin: 1.2em 0;
   font-size: 2em;
+  font-weight: bolder;
 }
 
 h2 {
-  margin: 1.2em 0;
+  margin: 1.1em 0;
   font-size: 1.4em;
   font-weight: bolder;
 }
 
 h3 {
-  margin: 1.1em 0;
+  margin: 1.0em 0;
   font-size: 1.2em;
   font-weight: bolder;
 }
 
 h4 {
-  margin: 1em 0;
+  margin: .9em 0;
   font-size: 1.1em;
 }
 
@@ -56,6 +57,9 @@ table {
 
 thead {
   font-weight: bold;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e0e0e0;
 }
 
 tr,

@@ -1,5 +1,5 @@
 ---
-title: Conversion Details 108.1 to IRS 90918-10
+title: Conversion Details <b>108.1</b> to IRS 90918-10
 permalink: /html/reference/conversion2g.html
 hide_hero: true
 layout: default
@@ -7,9 +7,9 @@ layout: default
 
 <link href="../../assets/css/documentation.css" rel="stylesheet">
 
-<h1>Conversion Details 108.1 to IRS 90918-10</h1>
+<h1>Conversion Details <b>108.1</b> to IRS 90918-10</h1>
 
-<h2>Parameters required for the import of 108.1 data</h2>
+<h2>Parameters required for the import of <b>108.1</b> data</h2>
 
 <p>
 <table>
@@ -22,21 +22,21 @@ layout: default
 	<tbody>
 		<tr>
 			<th>Country</th>
-			<td>Country used to assign the station codes provided without country in 108.1</td>
+			<td>Country used to assign the station codes provided without country in <b>108.1</b></td>
 		</tr>
 		<tr>
 			<th>Character Set</th>
-			<td>Character set to read the local characters in 108.1 station names</td>
+			<td>Character set to read the local characters in <b>108.1</b> station names</td>
 		</tr>
 		<tr>
 			<th>Time zone</th>
-			<td>Time zone used to transfer the date fields in 108.1 into complete date information</td>
+			<td>Time zone used to transfer the date fields in <b>108.1</b> into complete date information</td>
 		</tr>
 	</tbody>
 </table>
 </p>
 
-<h2>Parameters required for the conversion of 108.1 data</h2>
+<h2>Parameters required for the conversion of <b>108.1</b> data</h2>
 
 <h3>Conversion Parameters</h3>
 
@@ -53,31 +53,35 @@ layout: default
 			<th>VAT Templates</th>
 			<td>Templates to create VAT tax information. Templates can be provided for different scope and countries. The
 				template applies to regional constraints within the specified country. Templates with scope INTERNATIONAL are
-				used additionally for regional constraints with connection points. Add VAT details for different countries
+				used additionally for regional constraints with connection points. Add VAT details for different countries.
 			</td>
 		</tr>
 		<tr>
 			<th>Station Mapping</th>
-			<td>Mapping of nonstandard stations into real Merits station codes.</td>
+			<td>Mapping of nonstandard stations into real <b>MERITS</b> station codes.</td>
 		</tr>
 		<tr>
 			<th>Fare station set mappings</th>
-			<td>Mapping of 108 station codes to fare reference stations. This will be created automatically in case the fare
-				reference codes are properly contained in the 108.1 data.</td>
+			<td>Mapping of <b>108.1</b> station codes to fare reference stations. This will be created automatically in case the fare
+				reference codes are properly contained in the <b>108.1</b> data.</td>
 		</tr>
 		<tr>
 			<th>Station to service constrained mapping</th>
-			<td>Mapping of 108 station codes to service constraints.</td>
+			<td>Mapping of <b>108.1</b> station codes to service constraints.</td>
 		</tr>
 		<tr>
 			<th>Fare template</th>
-			<td>Template to create a fare in the 90918-10 data. The template must provide service class and price factor to
-				create a fare. All required data for the
-				final fare must be created except the regional validity and the price which come from 108.1 series and fares.
-				<br />
-				A fixed price can be set, the all fares converted from series will have the same price.<br />
-				The referenced data items must be defined in the General Tariff Model fare structure first. They can then be
-				assigned to a fare template.
+			<td>
+				<p>
+					Template to create a fare in the <b>90918-10</b> data. The template must provide service class and price factor to
+					create a fare. All required data for the final fare must be created except the regional validity and the price 
+					which come from <b>108.1</b> series and fares.
+				</p>
+				<p>
+					A fixed price can be set, the all fares converted from series will have the same price.<br />
+					The referenced data items must be defined in the OSDM fare structure first. They can then be
+					assigned to a fare template.
+				</p>
 			</td>
 		</tr>
 	</tbody>
@@ -100,7 +104,7 @@ layout: default
 	<tbody>
 		<tr>
 			<th>Price factor</th>
-			<td>a factor to calculate the price depending on the price given in the 108.1 data. The factor is applied and
+			<td>a factor to calculate the price depending on the price given in the <b>108.1</b> data. The factor is applied and
 				the result is rounded to Euro-Cents</td>
 		</tr>
 		<tr>
@@ -145,7 +149,7 @@ layout: default
 		</tr>
 		<tr>
 			<th>Legacy Conversion</th>
-			<td>Indicates whether the fare template creates fares that allow a reconversion into 108.1 data. A fare might
+			<td>Indicates whether the fare template creates fares that allow a reconversion into <b>108.1</b> data. A fare might
 				allow reconversion or even be only included for reconversion. </td>
 		</tr>
 		<tr>
@@ -165,7 +169,7 @@ layout: default
 		</tr>
 		<tr>
 			<th>Regional Constraint</th>
-			<td>The regional constraint will be created from the 108.1 series data.</td>
+			<td>The regional constraint will be created from the <b>108.1</b> series data.</td>
 		</tr>
 		<tr>
 			<th>Reservation parameter</th>
@@ -174,11 +178,11 @@ layout: default
 		</tr>
 		<tr>
 			<th>Sales availability</th>
-			<td>The sales availability will be calculated from the validity in the 108.1 data. </td>
+			<td>The sales availability will be calculated from the validity in the <b>108.1</b> data. </td>
 		</tr>
 		<tr>
 			<th>Separate contract combination constraint</th>
-			<td>Combination constraint to be used in case the series is listed in the 108.1 TCVL file.</td>
+			<td>Combination constraint to be used in case the series is listed in the <b>108.1</b> <b>TCVL</b> file.</td>
 		</tr>
 		<tr>
 			<th>Service class</th>
@@ -233,10 +237,10 @@ layout: default
 
 <ol>
 	<li>deleting old conversion results</li>
-	<li>create fare station sets from the fare reference code in the 108 station data</li>
-	<li>create connection points and border point mappings</li>
-	<li>update the station reference data with case sensitive station names and border point codes</li>
-	<li>create sales validity constraints - all from/end dates in series and fares are connected, the set of
+	<li>creating fare station sets from the fare reference code in the <b>108.1</b> station data</li>
+	<li>creating connection points and border point mappings</li>
+	<li>updating the station reference data with case sensitive station names and border point codes</li>
+	<li>creating sales validity constraints - all from/end dates in series and fares are connected, the set of
 		intersections is created. Each intersection results in a sales availability constraint.</li>
 	<li>creating carrier constraints for all carriers contained in the series</li>
 	<li>conversion of series into fares</li>
@@ -246,7 +250,7 @@ layout: default
 
 <p>
 	A series is converted into a regional validity and a corresponding regional validity for the return. For each regional
-	validity and sales availability and fare template a fare is created using the 108 fare data.
+	validity and sales availability and fare template a fare is created using the <b>108.1</b> fare data.
 </p>
 
 <h3>	Converting of a series has the following steps:</h3>

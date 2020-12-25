@@ -10,8 +10,8 @@ layout: default
 <h1>Getting Started</h1>
 
 <p>
-	This application provides to function to convert fare data between UIC 108.1 and
-	UIC IRS 90918-10 formats.
+	This application provides to function to convert fare data between UIC <b>108.1</b> and
+	UIC IRS <b>90918-10</b> formats.
 </p>
 <p>
 	To convert fare data a new conversion data set has to be created in the application and the needed
@@ -32,26 +32,26 @@ layout: default
 
 <p>
 	The data set - where the conversion works on - includes code lists of reference data,
-	108.1 data, 90918.10 data and conversion parameter
+	<b>108.1</b> data, <b>90918-10</b> data and conversion parameter
 </p>
 
-<p>
 <ul>
 	<li>code lists</li>
 	<ul>
 		<li><a href="../reference/data_companycodes.html">carriers</a> - UIC company codes</li>
 		<li><a href="../reference/data_servicebrandcodes.html">service brands</a> - UIC service brands</li>
-		<li><a href="../reference/data_stationcodes.html">stations</a> - MERITS stations</li>
-		<li><a href="../reference/data_nutscodes.html">NUTS</a> codes - regional codes (not used for pure conversion)</li>
+		<li><a href="../reference/data_stationcodes.html">stations</a> - <b>MERITS</b> stations</li>
+		<li><a href="../reference/data_nutscodes.html">NUTS</a> codes - regional codes (not used for pure conversion)
+		</li>
 		<li>legacy <a href="../reference/data_borderpoints.html">border point</a> codes</li>
 	</ul>
 	<li>conversion</li>
 	<ul>
-		<li>108.1 fare data</li>
+		<li><b>108.1</b> fare data</li>
 		<ul>
-			<li>TCVS</li>
-			<li>TCVG</li>
-			<li>TCVL</li>
+			<li><b>TCVS</b></li>
+			<li><b>TCVS</b></li>
+			<li><b>TCVL</b></li>
 			<li>distance fares</li>
 			<li>route based fares</li>
 		</ul>
@@ -59,58 +59,72 @@ layout: default
 	</ul>
 	<li>90918-1 fare data - organized according to the 90918-1 fare delivery data structure</li>
 </ul>
-</p>
 
-<h2>Conversion from 108.1 to 90918-10</h2>
+<h2>Conversion from <b>108.1</b> to 90918-10</h2>
 
 <h3>Step 1: Import Reference Data</h3>
 
 <p>
-	90918-10 fare data are based on reference data for company codes, service brands, stations and
+	The <b>90918-10</b> fare data are based on reference data for company codes, service brands, stations and
 	geographical entities (NUTS codes). These code tables need to be imported first.
 </p>
+
 <p>
 	The data will be shown in the code list section of the data set.
 </p>
 
-<p><img src="../images/importCarriers.png" alt="Import Carriers" />Import of the <a
-		href="../reference/data_companycodes.html">Carriers</a> as csv copy of the Carrier list available on the UIC web
-	site.
-</p>
+<figure>
+	<img src="../images/importCarriers.png" alt="Import Carriers" />
+	Import of the <a href="../reference/data_companycodes.html">Carriers</a> as <b>CSV</b> copy of the Carrier list
+	available on the UIC web site.
+</figure>
 
-<p><img src="../images/importBrands.png" alt="Import Service Brands" />Import of the <a
-		href="../reference/data_servicebrandcodes.html">Service Brands</a> as csv copy of the Service Brand list available
-	on the UIC web site.
-</p>
+<figure>
+	<img src="../images/importBrands.png" alt="Import Service Brands" />
+	Import of the <a href="../reference/data_servicebrandcodes.html">Service Brands</a> as <b>CSV</b> copy of the
+	Service Brand list available on the UIC web site.
+</figure>
 
-<p><img src="../images/importStations.png" alt="Import Stations" />Import of the <a
-		href="../reference/data_stationcodes.html">station</a> data of <b>MERITS</b>
-		 in <b>edifact</b> format.
-</p>
+<figure>
+	<img src="../images/importStations.png" alt="Import Stations" />
+	Import of the <a href="../reference/data_stationcodes.html">Station</a> data of
+	<b>MERITS</b> in <b>EDIFACT</b> format.
+</figure>
 
-<p><img src="../images/importBorderpoints.png" alt="Import border point codes" />Import of <a
-		href="../reference/data_borderpoints.html">Border Point</a> codes from a csv file.
-</p>
+<figure>
+	<img src="../images/importBorderpoints.png" alt="Import border point codes" />
+	Import of <a href="../reference/data_borderpoints.html">Border Point</a> codes from
+	a <b>CSV</b> file.
+</figure>
 
-<h3>Step 2: Import 108.1 Fare Data</h3>
+<h3>Step 2: Import <b>108.1</b> Fare Data</h3>
 
 <p>Before the import conversion parameters must be set for:
+
 <ul>
 	<li>
-		character code table - needed to read the local character sets in 108.1 files</li>
+		character code table - needed to read the local character sets in <b>108.1</b> files
+	</li>
 	<li>
-		country - needed to link the local station codes in 108.1 to the country of <b>MERITS</b> 
-		stations</li>
+		country - needed to link the local station codes in <b>108.1</b> to the country of
+		<b>MERITS</b> stations
+	</li>
 </ul>
-</p>
-
-<p><img src="../images/importLegacy.png" alt="import 108.1 data" />Import 108.1 data</p>
 
 <p>
-	To import 108.1 data the TCV file including the fare data file names must be selected.
-	The import will then import	the distance fares and route based fares,
-	the stations TCVG, the series TCVS and TCVL. These files must all be located in the same directory.
+<figure>
+	<img src="../images/importLegacy.png" alt="import <b>108.1</b> data" />
+	Import <b>108.1</b> Data.
+</figure>
 </p>
+
+<p>
+	To import <b>108.1</b> data the <b>TCV</b> file including the fare data file names must be selected.
+	The import will then import the distance fares and route based fares,
+	the stations <b>TCVS</b>, the series <b>TCVS</b> and <b>TCVL</b>. These files must all be located in the same
+	directory.
+</p>
+
 <p>
 	The data will be shown in the legacy section of the data set.
 </p>
@@ -118,116 +132,145 @@ layout: default
 <h3>Step 3: Add Conversion Parameters</h3>
 
 <p>
-	The data of 108.1 are not sufficient to provide a complete set of 90918-10 fare data. The missing data
-	need to be added in the parameter section of the data set.</p>
-
-<p>
-	The missing data are added in the conversion parameter section as fare templates which serve as a copy template to
-	create 90918-10 fares from the imported data. Missing data can be added to the template using the editing features.
-	The template provides a factor to derive the fare price from the standard adult price provided in the 108.1 data.
+	The data of <b>108.1</b> are not sufficient to provide a complete set of
+	<b>90918-10</b> fare data. The missing data need to be added in the parameter
+	section of the data set.
 </p>
 
 <p>
-	Form the fare of one series in 108.1 two fares per template are created for the two travel directions. For different
-	travel classes separate templates need to be defined and the
-	service class needs to be set in the fare template.
+	The missing data are added in the conversion parameter section as fare templates
+	which serve as a copy template to create <b>90918-10</b> fares from the imported
+	data. Missing data can be added to the template using the editing features. The
+	template provides a factor to derive the fare price from the standard adult price
+	provided in the <b>108.1</b> data.
 </p>
-<p>
-	Series listed in TCVL car be attributed a separated combination constraint in the fare template.</p>
 
 <p>
-	The station codes in 108.1 have been misused to other concepts like non-Merits-stations, border points,
+	Form the fare of one series in <b>108.1</b> two fares per template are created for
+	the two travel directions. For different travel classes separate templates need to
+	be defined and the service class needs to be set in the fare template.
+</p>
+
+<p>
+	Series listed in <b>TCVL</b> can be attributed a separated combination constraint
+	in the fare template.
+</p>
+
+<p>
+	The station codes in <b>108.1</b> have been misused to other concepts like non-<b>MERITS</b>-stations, border
+	points,
 	fare reference stations and service brands. These codes need to be mapped to the appropriate entities. For this
 	mappings can be defined in the conversion parameter area to map these codes o the proper entities.
 </p>
 
 <p>
-	Border points can not be converted directly, so the needed border points will be converted into connection points and
-	border point mappings	but the station sets of the connection points might be incomplete and must be completed manually and the conversion
-	needs to be started again.
+	Border points can not be converted directly, so the needed border points will be
+	converted into connection points and border point mappings but the station sets of
+	the connection points might be incomplete and must be completed manually and the
+	conversion needs to be started again.
 </p>
 
 <h3>Step 4: Convert Data</h3>
 
-<p><img src="../images/convertFromLegacy.png" alt="convert 108.1 data" />Converts the 108.1 data into the 90918-10
-	data.<br /></p>
+<p>
+<figure>
+	<img src="../images/convertFromLegacy.png" alt="convert 108.1 data" />
+	Converts the <b>108.1</b> data into the <b>90918-10</b> data
+</figure>
+</p>
 
 <p>Conversion errors will be listed in the console window.</p>
 
-<h3>Step 5: Export 90918-10 Data</h3>
+<h3>Step 5: Export <b>90918-10</b> Data</h3>
 
-<p>The data delivery information needs to be provided in the delivery part of the fare data before the export.<br /></p>
+<p>
+	The data delivery information needs to be provided in the delivery part of the fare
+	data before the export.
+</p>
 
-<p><img src="../images/exportGtm.png" alt="export 90918-10 data" />Export the fare data in the json format.<br /></p>
+<figure>
+	<img src="../images/exportGtm.png" alt="export 90918-10 data" />
+	Export the fare data in the <b>JSON</b> format.
+</figure>
 
-<h2>Conversion from 90918-10 to 108.1</h2>
+<h2>Conversion from <b>90918-10</b> to <b>108.1</b></h2>
 
 <h3>Step 1: Import Reference Data</h3>
 
 <p>
-	90918-10 fare data are based on reference data for company codes, service brands 
+	<b>90918-10</b> fare data are based on reference data for company codes, service brands
 	and stations. These code tables need to be imported first.
 </p>
+
 <p>
 	The data will be shown in the code list section of the data set.
 </p>
 
-<p><img src="../images/importCarriers.png" alt="import Carriers" />Import of the <a
-		href="../reference/data_companycodes.html">Carriers</a> as csv copy of the Carrier list available on the UIC web
-	site.
-</p>
+<figure>
+	<img src="../images/importCarriers.png" alt="Import Carriers" />
+	Import of the <a href="../reference/data_companycodes.html">Carriers</a> as <b>CSV</b> copy of the Carrier list
+	available on the UIC web site.
+</figure>
 
-<p><img src="../images/importBrands.png" alt="import Service Brands" />Import of the <a
-		href="../reference/data_servicebrandcodes.html">Service Brands</a> as csv copy of the Service Brand list available
-	on the UIC web site.
-</p>
+<figure>
+	<img src="../images/importBrands.png" alt="Import Service Brands" />
+	Import of the <a href="../reference/data_servicebrandcodes.html">Service Brands</a> as <b>CSV</b> copy of the
+	Service Brand list available on the UIC web site.
+</figure>
 
-<p><img src="../images/importStations.png" alt="import Stations" />Import of the <a
-		href="../reference/data_stationcodes.html">Station</a> data of <b>MERITS</b> in 
-		<b>edifact</b> format.
-</p>
+<figure>
+	<img src="../images/importStations.png" alt="Import Stations" />
+	Import of the <a href="../reference/data_stationcodes.html">Station</a> data of <b><b>MERITS</b></b> in
+	<b>EDIFACT</b> format.
+</figure>
 
-<p><img src="../images/importBorderpoints.png" alt="import border point codes" />Import of <a
-		href="../reference/data_borderpoints.html">Border Point</a> codes from a <b>CSV</b> file.
-</p>
+<figure>
+	<img src="../images/importBorderpoints.png" alt="Import border point codes" />
+	Import of <a href="../reference/data_borderpoints.html">Border Point</a> codes from a <b>CSV</b> file.
+</figure>
 
-<h3>Step 2: Import 90918-10 Fare Data</h3>
+<h3>Step 2: Import <b>90918-10</b> Fare Data</h3>
 
-<p><img src="../images/importGtm.png" alt="import 90918-10 data" />Import the fare data in the json format.<br /></p>
+<figure>
+	<img src="../images/importGtm.png" alt="import <b>90918-10</b>data" />
+	Import the fare data in the <b>JSON</b> format.
+</figure>
 
 <h3>Step 3: Convert Data</h3>
 
-
 <p>
-	90918-10 data will lose some content when converted to 108.1 data. therefore not all
-	data can and will be converted.	From regional constraints	only one direction will
+	<b>90918-10</b> data will lose some content when converted to <b>108.1</b> data.
+	Therefore not all data can and will be converted. From regional constraints only one direction will
 	be converted.
 </p>
 
-<p>The following fares will <b>not</b> be converted: </p>
+<p>
+	The following fares will <b>not</b> be converted:
 <ul>
 	<li>fares which are not foreseen for conversion</li>
 	<li>fare which are not for adults</li>
 	<li>fares with reduction constraints</li>
-	<li>fares with complex route descriptions (not only routes, too long descriptions 
+	<li>fares with complex route descriptions (not only routes, too long descriptions
 		or with too many stations)</li>
 	<li>fares with complex sales availability (special days)</li>
 	<li>fares with stations not in the defined country</li>
 </ul>
 </p>
 
-<h3>Step 4: Export 108.1 Data</h3>
+<h3>Step 4: Export <b>108.1</b> Data</h3>
 
 <p>
-	<img src="../images/exportLegacy.png" alt="export 108.1 data" />Export the fare 
-	data in the 108.1 format.
+<figure>
+	<img src="../images/exportLegacy.png" alt="export <b>108.1</b> data" />
+	Export the fare data in the <b>108.1</b> format.
+</figure>
 </p>
-
-<p>Export files are:
-
+<p>
+	Export files are:
 <ul>
 	<li><b>TCV</b> file</li>
 	<li><b>TCVS</b> file</li>
 	<li><b>TCVG</b> file</li>
 	<li>One route based fare file</li>
 </ul>
+</p>
