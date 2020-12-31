@@ -1201,6 +1201,7 @@ public class GtmJsonExporter {
 				if (e.getCard() != null) {
 					eJ.setCardValue(e.getCard().getId());
 				}
+				listJ.add(eJ);
 				
 			}
 
