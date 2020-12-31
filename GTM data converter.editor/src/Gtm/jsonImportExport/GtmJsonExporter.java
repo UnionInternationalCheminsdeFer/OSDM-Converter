@@ -387,7 +387,9 @@ public class GtmJsonExporter {
 				js.setCountry(s.getCountry().getCode());
 				js.setLocalCode(Integer.parseInt(s.getCode()));
 				js.setName(s.getNameCaseASCII());
-				js.setNameUtf8(s.getNameCaseUTF8());
+				js.setNameUtf8(s.getShortNameCaseASCII());
+				//TODO add short names
+				//js.setNameUtf8(s.getNameCaseUTF8());
 				js.setLegacyBorderPointCode(s.getLegacyBorderPointCode());
 				jl.add(js);
 			}
@@ -466,7 +468,6 @@ public class GtmJsonExporter {
 		}
 		oJ.setName(o.getName());
 		oJ.setNameUTF8(o.getNameUtf8());
-
 		
 		if (o.getStations()!= null && !o.getStations().isEmpty()) {
 			
@@ -1196,8 +1197,7 @@ public class GtmJsonExporter {
 				
 				if (e.getCard() != null && e.getCard().getCardIssuer() != null) {
 					eJ.setIssuer(e.getCard().getCardIssuer().getCode());
-				}
-				
+				}			
 				if (e.getCard() != null) {
 					eJ.setCardValue(e.getCard().getId());
 				}
@@ -1247,7 +1247,8 @@ public class GtmJsonExporter {
 		cardJ.setCardIdRequired(card.isIdRequiredForBooking());
 		
 		if (card.getName() != null) {
-			cardJ.setName(convertToJson(card.getName()));
+			cardJ.setNameRef(card.getName().getId());
+			//cardJ.setName(convertToJson(card.getName()));
 		}
 
 		return cardJ;
