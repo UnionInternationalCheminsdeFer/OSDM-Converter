@@ -28,4 +28,5 @@ Require-Bundle: org.eclipse.core.runtime,
  GTM_data_converter,
  org.eclipse.ant.core;bundle-version="3.5.600"
 Bundle-ActivationPolicy: lazy
-Import-Package: org.apache.batik;version="1.11.0"
+Import-Package: gtm,
+ org.apache.batik;version="1.11.0"

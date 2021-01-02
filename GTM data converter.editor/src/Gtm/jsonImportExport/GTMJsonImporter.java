@@ -254,7 +254,6 @@ public class GTMJsonImporter {
 			if (station != null) {
 			
 				if (lStation.getLegacyBorderPointCode() > 0) {
-					
 				
 					if (station != null && station.isBorderStation() == false){
 						
@@ -271,33 +270,42 @@ public class GTMJsonImporter {
 				
 				}
 			
-				if (lStation.getName() != null && 
+				//set station name long ASCII
+				if (lStation.getName() != null && lStation.getName().length() > 1 &&
 					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getName());
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
 					if (com.canExecute()) {
 						command.append(com);
 					}
 				}
-				if (lStation.getName() != null && 
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
+				
+				//set station name long UTF8
+				if (lStation.getName() != null && lStation.getName().length() > 1 &&
+					station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getName())) {
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getName());
 					if (com.canExecute()) {
 						command.append(com);					
 					}
 				}
 
-				if (lStation.getNameUtf8() != null && 
-					station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getNameUtf8())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getNameUtf8());
+				//set station name short ASCII
+				if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
+					station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getNameUtf8())) {
+					//TODO add short name in export format
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getNameUtf8());
 					if (com.canExecute()) {
 						command.append(com);					
 					}
-					//TODO define short name
-					Command com2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getNameUtf8());
+				}	
+					
+				if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
+					station.getShortNameCaseUTF8() == null || !station.getShortNameCaseUTF8().equals(lStation.getNameUtf8())) {
+					Command com2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_UTF8, lStation.getNameUtf8());
 					if (com2.canExecute()) {
 						command.append(com2);					
 					}
 				}
+
 
 				if (lStation.getLegacyBorderPointCode() != lStation.getLegacyBorderPointCode()) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
@@ -467,7 +475,33 @@ public class GTMJsonImporter {
 		o.setRange(convert(jc.getValidityRange()));
 		o.setReturnConstraint(convert(jc.getReturnConstraint()));
 		o.setTravelDays(jc.getNumberOfTravelDays());
-		o.setValidDays(convert(jc.getValidTravelDates()));
+		
+		Calendar c = null;
+		if (jc.getValidTravelDates() != null) {
+			c = findCalendar(jc.getValidTravelDates().getId());
+		}
+		
+		if (c == null) {
+			 c = convert(jc.getValidTravelDates());
+				if (c != null) {
+				c.setName("travel validity: " + jc.getId());
+					
+				if (fareStructure.getCalendars() == null) {
+					Calendars cs = GtmFactory.eINSTANCE.createCalendars();
+					Command com = new SetCommand(domain, fareStructure,GtmPackage.Literals.FARE_STRUCTURE__CALENDARS , cs);
+					if (com != null && com.canExecute()) {
+						domain.getCommandStack().execute(com);
+					}
+				}
+				Command com = new AddCommand(domain, fareStructure.getCalendars().getCalendars(), c);
+				if (com != null && com.canExecute()) {
+					domain.getCommandStack().execute(com);
+				}
+			}
+		}
+		if (c != null) {
+			o.setValidDays(c);
+		}
 		return o;
 	}
 

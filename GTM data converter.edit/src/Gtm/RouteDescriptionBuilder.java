@@ -185,7 +185,7 @@ public class RouteDescriptionBuilder {
 		return null;
 	}
 	
-	private static String getFullName(Station station) {
+	public static String getFullName(Station station) {
 		
 
 		if (station.getNameCaseASCII() != null && station.getNameCaseASCII().length() > 0) {
@@ -208,7 +208,7 @@ public class RouteDescriptionBuilder {
 		return null;
 	}
 	
-	private static String getShortNameCaseASCII(Station station) {
+	public static String getShortNameCaseASCII(Station station) {
 		
 		if (station.getShortNameCaseASCII() != null && station.getShortNameCaseASCII().length() > 0) {
 			return station.getShortNameCaseASCII().trim();
