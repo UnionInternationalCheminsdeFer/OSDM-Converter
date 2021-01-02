@@ -73,6 +73,7 @@ import Gtm.ReservationParameters;
 import Gtm.ReservationPreferenceGroup;
 import Gtm.ReturnValidityConstraint;
 import Gtm.Route;
+import Gtm.RouteDescriptionBuilder;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.SalesAvailabilityConstraints;
 import Gtm.SalesRestriction;
@@ -99,6 +100,7 @@ import Gtm.Translation;
 import Gtm.TravelValidityConstraint;
 import Gtm.TravelValidityConstraints;
 import Gtm.VATDetail;
+import Gtm.ValidityRange;
 import Gtm.ViaStation;
 import Gtm.WeekDay;
 import Gtm.Zone;
@@ -169,6 +171,7 @@ import gtm.TrainResourceLocationDef;
 import gtm.Transfer;
 import gtm.TranslationDef;
 import gtm.TravelValidityConstraintDef;
+import gtm.ValidityRange.TimeUnitDef;
 import gtm.VatDetailDef;
 import gtm.VatDetailDef.VatScopeDef;
 import gtm.ViaStationsDef;
@@ -386,8 +389,11 @@ public class GtmJsonExporter {
 				StationNamesDef js = new StationNamesDef();
 				js.setCountry(s.getCountry().getCode());
 				js.setLocalCode(Integer.parseInt(s.getCode()));
-				js.setName(s.getNameCaseASCII());
-				js.setNameUtf8(s.getNameCaseUTF8());
+				
+				js.setName(RouteDescriptionBuilder.getFullName(s));
+				js.setNameUtf8(RouteDescriptionBuilder.getShortNameCaseASCII(s));
+				//TODO add short names
+				//js.setNameUtf8(s.getNameCaseUTF8());
 				js.setLegacyBorderPointCode(s.getLegacyBorderPointCode());
 				jl.add(js);
 			}
@@ -466,7 +472,6 @@ public class GtmJsonExporter {
 		}
 		oJ.setName(o.getName());
 		oJ.setNameUTF8(o.getNameUtf8());
-
 		
 		if (o.getStations()!= null && !o.getStations().isEmpty()) {
 			
@@ -516,6 +521,14 @@ public class GtmJsonExporter {
 			tvJ.setValidTravelDates(convertToJson(tv.getValidDays()));
 		}
 		
+		if (tv.getRange() != null) {
+			
+			 gtm.ValidityRange range = convertToJson(tv.getRange());
+			 if (range != null) {
+				 tvJ.setValidityRange(range);
+			 }
+		}
+		
 		if (tv.getExcludedTimeRange()!= null && !tv.getExcludedTimeRange().isEmpty()) {
 			
 			ArrayList<ExcludedTimeRange> listJ = new ArrayList<ExcludedTimeRange>();
@@ -530,6 +543,18 @@ public class GtmJsonExporter {
 
 
 
+
+	private gtm.ValidityRange convertToJson(ValidityRange r) {
+		if (r == null) return null;
+		
+		gtm.ValidityRange jr = new gtm.ValidityRange();
+		
+		jr.setHoursAfterMidnight(r.getHoursAfterMidnight());
+		jr.setValue(r.getValue());
+		jr.setTimeUnit(convertTimeUnitDef(r.getUnit()));
+		
+		return jr;
+	}
 
 	private static ExcludedTimeRange convertToJson(TimeRange tr) {
 		if (tr == null) return null;
@@ -1196,11 +1221,11 @@ public class GtmJsonExporter {
 				
 				if (e.getCard() != null && e.getCard().getCardIssuer() != null) {
 					eJ.setIssuer(e.getCard().getCardIssuer().getCode());
-				}
-				
+				}			
 				if (e.getCard() != null) {
 					eJ.setCardValue(e.getCard().getId());
 				}
+				listJ.add(eJ);
 				
 			}
 
@@ -1247,7 +1272,8 @@ public class GtmJsonExporter {
 		cardJ.setCardIdRequired(card.isIdRequiredForBooking());
 		
 		if (card.getName() != null) {
-			cardJ.setName(convertToJson(card.getName()));
+			cardJ.setNameRef(card.getName().getId());
+			//cardJ.setName(convertToJson(card.getName()));
 		}
 
 		return cardJ;
@@ -2063,6 +2089,19 @@ public class GtmJsonExporter {
 		
 	}
 
+	private static TimeUnitDef convertTimeUnitDef(Gtm.TimeUnit unit) {
+		
+		if (unit.equals(Gtm.TimeUnit.HOUR)) {
+			return  TimeUnitDef.HOURS;
+		} else if (unit.equals(Gtm.TimeUnit.MINUTE)) {
+			return TimeUnitDef.MINUTES;
+		} else if (unit.equals(Gtm.TimeUnit.DAY)) {
+			return  TimeUnitDef.DAYS;
+		}
+		
+		return null;
+		
+	}
 
 
 

@@ -177,6 +177,8 @@ public class GTMJsonImporter {
 
 		fareStructure.setFareStationSetDefinitions(convertFareStationSetDefinitions(fareDataDef.getFareReferenceStationSetDefinitions()));
 
+		fareStructure.setServiceClassDefinitions(convertServiceClassDefinitions(fareDataDef.getServiceClassDefinitions()));
+		
 		fareStructure.setZoneDefinitions(convertZoneDefinitions(fareDataDef.getZoneDefinitions()));
 		
 		fareStructure.setAfterSalesRules(convertAfterSalesRulesList(fareDataDef.getAfterSalesConditions()));
@@ -193,22 +195,20 @@ public class GTMJsonImporter {
 		
 		fareStructure.setFulfillmentConstraints(convertFulfillmentList(fareDataDef.getFullfillmentConstraints()));
 		
+		fareStructure.setReductionCards(convertReductionCards(fareDataDef.getReductionCards()));
+		
 		fareStructure.setPassengerConstraints(convertPassengerConstraints(fareDataDef.getPassengerConstraints()));
 		
 		fareStructure.setPersonalDataConstraints(convertPersonalDataConstraints(fareDataDef.getPersonalDataConstraints()));
 		
 		fareStructure.setPrices(convertPrices(fareDataDef.getPrices()));
-		
-		fareStructure.setReductionCards(convertReductionCards(fareDataDef.getReductionCards()));
-		
+			
 		fareStructure.setReductionConstraints(convertReductionConstraints(fareDataDef.getReductionConstraints()));
 			
 		fareStructure.setReservationParameters(convertReservationParameters(fareDataDef.getReservationParameters()));
 		
 		fareStructure.setSalesAvailabilityConstraints(convertSalesAvailabilities(fareDataDef.getSalesAvailabilityConstraint()));
-		
-		fareStructure.setServiceClassDefinitions(convertServiceClassDefinitions(fareDataDef.getServiceClassDefinitions()));
-		
+			
 		fareStructure.setServiceConstraints(convertServiceConstraints(fareDataDef.getServiceConstraints()));
 		
 		fareStructure.setServiceLevelDefinitions(convertServiceLevelDefinitions(fareDataDef.getServiceLevelDefinitions()));
@@ -264,34 +264,48 @@ public class GTMJsonImporter {
 						Command comm2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
 						if (comm2 != null && comm2.canExecute()) {
 							command.append(comm2);	
-						}					
-					
+						}	
+											
 					}
 				
 				}
 			
-				if (lStation.getName() != null && 
+				//set station name long ASCII
+				if (lStation.getName() != null && lStation.getName().length() > 1 &&
 					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getName());
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
 					if (com.canExecute()) {
 						command.append(com);
 					}
 				}
-				if (lStation.getName() != null && 
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
+				
+				//set station name long UTF8
+				if (lStation.getName() != null && lStation.getName().length() > 1 &&
+					station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getName())) {
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getName());
 					if (com.canExecute()) {
 						command.append(com);					
 					}
 				}
 
-				if (lStation.getNameUtf8() != null && 
-					station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getNameUtf8())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getNameUtf8());
+				//set station name short ASCII
+				if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
+					station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getNameUtf8())) {
+					//TODO add short name in export format
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getNameUtf8());
 					if (com.canExecute()) {
 						command.append(com);					
 					}
+				}	
+					
+				if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
+					station.getShortNameCaseUTF8() == null || !station.getShortNameCaseUTF8().equals(lStation.getNameUtf8())) {
+					Command com2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_UTF8, lStation.getNameUtf8());
+					if (com2.canExecute()) {
+						command.append(com2);					
+					}
 				}
+
 
 				if (lStation.getLegacyBorderPointCode() != lStation.getLegacyBorderPointCode()) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
@@ -299,7 +313,7 @@ public class GTMJsonImporter {
 						command.append(com);					
 					}
 				}
-		
+
 			}
 		}
 		
@@ -461,7 +475,33 @@ public class GTMJsonImporter {
 		o.setRange(convert(jc.getValidityRange()));
 		o.setReturnConstraint(convert(jc.getReturnConstraint()));
 		o.setTravelDays(jc.getNumberOfTravelDays());
-		o.setValidDays(convert(jc.getValidTravelDates()));
+		
+		Calendar c = null;
+		if (jc.getValidTravelDates() != null) {
+			c = findCalendar(jc.getValidTravelDates().getId());
+		}
+		
+		if (c == null) {
+			 c = convert(jc.getValidTravelDates());
+				if (c != null) {
+				c.setName("travel validity: " + jc.getId());
+					
+				if (fareStructure.getCalendars() == null) {
+					Calendars cs = GtmFactory.eINSTANCE.createCalendars();
+					Command com = new SetCommand(domain, fareStructure,GtmPackage.Literals.FARE_STRUCTURE__CALENDARS , cs);
+					if (com != null && com.canExecute()) {
+						domain.getCommandStack().execute(com);
+					}
+				}
+				Command com = new AddCommand(domain, fareStructure.getCalendars().getCalendars(), c);
+				if (com != null && com.canExecute()) {
+					domain.getCommandStack().execute(com);
+				}
+			}
+		}
+		if (c != null) {
+			o.setValidDays(c);
+		}
 		return o;
 	}
 
@@ -965,8 +1005,10 @@ public class GTMJsonImporter {
 		ReductionConstraint o = GtmFactory.eINSTANCE.createReductionConstraint();
 		
 		o.setId(jr.getId());
-		o.getRequiredReductionCards().addAll(convertReductionCardList(jr.getRequiredCards()));
-
+		Collection<? extends RequiredReductionCard> rcs = convertReductionCardList(jr.getRequiredCards());
+		if (rcs != null && !rcs.isEmpty()) {
+			o.getRequiredReductionCards().addAll(rcs);
+		}
 		return o;
 	}
 
@@ -978,8 +1020,7 @@ public class GTMJsonImporter {
 		for ( ReductionCardReferenceDef jr : jl) {
 			RequiredReductionCard r = GtmFactory.eINSTANCE.createRequiredReductionCard();
 			r.setCard(findReductionCard(jr.getCardValue()));
-			r.setName(jr.getCardName());
-			
+			r.setName(jr.getCardName());		
 			o.add(r);
 		}
 		return o;
@@ -1005,7 +1046,17 @@ public class GTMJsonImporter {
 			o.setIdRequiredForBooking(jr.getCardIdRequired());
 			o.setCardIssuer(getCarrier(jr.getIssuer()));
 			o.setName(findText(jr.getNameRef()));
-					
+			if (jr.getServiceClasses() != null && !jr.getServiceClasses().isEmpty()) {
+				for (ServiceClassIdDef serviceClassId : jr.getServiceClasses()) {
+					ClassId scid = convertServiceClassId(serviceClassId);
+					if (scid != null) {
+						ServiceClass sc = findServiceClass(scid.getName());
+						if (sc != null) {
+							o.getServiceClasses().add(sc);
+						}
+					}
+				}
+			}
 			l.getReductionCards().add(o);
 		}
 		return l;
@@ -1510,6 +1561,7 @@ public class GTMJsonImporter {
 
 	private ServiceClass findServiceClass(String id) {
 		if (id == null || id.length() < 1) return null;
+		if (fareStructure.getServiceClassDefinitions() == null || fareStructure.getServiceClassDefinitions().getServiceClassDefinitions().isEmpty()) return null;
 		for (ServiceClass  o : fareStructure.getServiceClassDefinitions().getServiceClassDefinitions()) {
 			if (o.getId().getName().equals(id)) return o;
 		}

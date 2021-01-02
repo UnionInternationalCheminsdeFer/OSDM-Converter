@@ -2209,6 +2209,7 @@ public class ConverterFromLegacy {
 					station.setNameCaseASCII(lStation.getName());
 					station.setNameCaseUTF8(lStation.getNameUTF8());
 					station.setShortNameCaseASCII(lStation.getShortName());
+					station.setShortNameCaseUTF8(lStation.getShortName());					
 					station.setLegacyBorderPointCode(lStation.getBorderPointCode());
 					stationNames.getStationName().add(station);
 				}

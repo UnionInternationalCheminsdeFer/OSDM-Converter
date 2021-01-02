@@ -600,7 +600,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//StationNames/stationName"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//FareElements">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareElements/fareElements"/>
+      <genFeatures property="Readonly" children="true" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//FareElements/fareElements"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//FareElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareElement/id"/>
