@@ -198,6 +198,7 @@ public class RegionalConstraintItemProvider
 			childrenFeatures.add(GtmPackage.Literals.REGIONAL_CONSTRAINT__ENTRY_CONNECTION_POINT);
 			childrenFeatures.add(GtmPackage.Literals.REGIONAL_CONSTRAINT__EXIT_CONNECTION_POINT);
 			childrenFeatures.add(GtmPackage.Literals.REGIONAL_CONSTRAINT__REGIONAL_VALIDITY);
+			childrenFeatures.add(GtmPackage.Literals.REGIONAL_CONSTRAINT__LINKED_FARES);
 		}
 		return childrenFeatures;
 	}
