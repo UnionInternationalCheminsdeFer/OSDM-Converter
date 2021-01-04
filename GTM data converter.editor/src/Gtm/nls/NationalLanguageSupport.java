@@ -17,87 +17,52 @@ public class NationalLanguageSupport extends NLS{
 
 	public static String BasicGtmAction_0;
 	public static String ConverterFromLegacy_0;
-
 	public static String ConverterFromLegacy_1;
-
 	public static String ConverterFromLegacy_10;
-
 	public static String ConverterFromLegacy_11;
-
 	public static String ConverterFromLegacy_12;
-
 	public static String ConverterFromLegacy_13;
-
 	public static String ConverterFromLegacy_14;
-
 	public static String ConverterFromLegacy_15;
-
 	public static String ConverterFromLegacy_17;
-
 	public static String ConverterFromLegacy_19;
-
 	public static String ConverterFromLegacy_2;
-
 	public static String ConverterFromLegacy_21;
-
 	public static String ConverterFromLegacy_22;
-
 	public static String ConverterFromLegacy_23;
-
 	public static String ConverterFromLegacy_24;
-
 	public static String ConverterFromLegacy_25;
-
 	public static String ConverterFromLegacy_26;
-
 	public static String ConverterFromLegacy_27;
-
 	public static String ConverterFromLegacy_28;
-
 	public static String ConverterFromLegacy_29;
-
 	public static String ConverterFromLegacy_3;
-
 	public static String ConverterFromLegacy_33;
-
 	public static String ConverterFromLegacy_35;
-
 	public static String ConverterFromLegacy_36;
-
 	public static String ConverterFromLegacy_37;
-
 	public static String ConverterFromLegacy_38;
-
 	public static String ConverterFromLegacy_39;
-
 	public static String ConverterFromLegacy_4;
-
 	public static String ConverterFromLegacy_40;
-
 	public static String ConverterFromLegacy_42;
-
 	public static String ConverterFromLegacy_44;
-
 	public static String ConverterFromLegacy_45;
-
 	public static String ConverterFromLegacy_46;
-
 	public static String ConverterFromLegacy_47;
-
 	public static String ConverterFromLegacy_48;
-
 	public static String ConverterFromLegacy_49;
-
 	public static String ConverterFromLegacy_5;
-
 	public static String ConverterFromLegacy_50;
-
 	public static String ConverterFromLegacy_51;
-
 	public static String ConverterFromLegacy_52;
-
 	public static String ConverterFromLegacy_53;
-
+	public static String ConverterFromLegacy_54;
+	public static String ConverterFromLegacy_55;
+    public static String ConverterFromLegacy_56;
+	public static String ConverterFromLegacy_57;
+	public static String ConverterFromLegacy_58;
+	
 	public static String ConverterFromLegacy_6;
 
 	public static String ConverterFromLegacy_7;

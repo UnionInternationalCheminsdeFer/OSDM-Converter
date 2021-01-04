@@ -853,10 +853,17 @@ public class 	ConverterToLegacy {
 	}
 
 	private LegacySeriesType getType(RegionalConstraint regionalConstraint) {
-		if (regionalConstraint.getEntryConnectionPoint() != null && regionalConstraint.getExitConnectionPoint() != null) {
+		if (regionalConstraint.getEntryConnectionPoint() != null && 
+			regionalConstraint.getExitConnectionPoint() != null &&
+			regionalConstraint.getEntryConnectionPoint().getLegacyBorderPointCode() > 0 &&
+			regionalConstraint.getExitConnectionPoint().getLegacyBorderPointCode() > 0
+			) {
 			return LegacySeriesType.TRANSIT;
 		}
-		if (regionalConstraint.getEntryConnectionPoint() != null && regionalConstraint.getExitConnectionPoint() == null) {
+		if (regionalConstraint.getEntryConnectionPoint() != null && 
+			regionalConstraint.getExitConnectionPoint() == null &&
+			regionalConstraint.getExitConnectionPoint().getLegacyBorderPointCode() > 0
+			) {
 			return LegacySeriesType.BORDER_DESTINATION;
 		}
 		return LegacySeriesType.STATION_STATION;

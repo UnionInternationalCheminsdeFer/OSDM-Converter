@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.RegionalConstraint#getRegionalValidity <em>Regional Validity</em>}</li>
  *   <li>{@link Gtm.RegionalConstraint#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link Gtm.RegionalConstraint#getDataDescription <em>Data Description</em>}</li>
+ *   <li>{@link Gtm.RegionalConstraint#getLinkedFares <em>Linked Fares</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getRegionalConstraint()
@@ -175,5 +176,17 @@ public interface RegionalConstraint extends EObject {
 	 * @generated
 	 */
 	void setDataDescription(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Linked Fares</b></em>' reference list.
+	 * The list contents are of type {@link Gtm.FareElement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Linked Fares</em>' reference list.
+	 * @see Gtm.GtmPackage#getRegionalConstraint_LinkedFares()
+	 * @model
+	 * @generated
+	 */
+	EList<FareElement> getLinkedFares();
 
 } // RegionalConstraint

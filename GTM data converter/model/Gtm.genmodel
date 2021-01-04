@@ -780,6 +780,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/regionalValidity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalConstraint/dataSource"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalConstraint/dataDescription"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/linkedFares"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//RegionalValidity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalValidity/seqNb"/>

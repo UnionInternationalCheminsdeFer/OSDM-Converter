@@ -68,6 +68,7 @@ public class RegionalConstraintItemProvider
 			addDistancePropertyDescriptor(object);
 			addDataSourcePropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
+			addLinkedFaresPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -156,6 +157,28 @@ public class RegionalConstraintItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Linked Fares feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLinkedFaresPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RegionalConstraint_linkedFares_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RegionalConstraint_linkedFares_feature", "_UI_RegionalConstraint_type"),
+				 GtmPackage.Literals.REGIONAL_CONSTRAINT__LINKED_FARES,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

@@ -19,7 +19,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import Gtm.Country;
 import Gtm.GTMTool;
 import Gtm.actions.converter.ConverterToLegacy;
-import Gtm.console.ConsoleUtil;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
@@ -118,7 +117,7 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 					int created = converter.convert(monitor);
 					final String message = NationalLanguageSupport.ConvertGtm2LegacyAction_8 + Integer.toString(created);
 					editor.getSite().getShell().getDisplay().asyncExec(() -> {
-						ConsoleUtil.printError(NationalLanguageSupport.ConvertGtm2LegacyAction_9, message);
+						GtmUtils.writeConsoleError(NationalLanguageSupport.ConvertGtm2LegacyAction_9 + message, editor);
 					});
 
 					monitor.done();

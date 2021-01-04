@@ -4406,13 +4406,22 @@ public interface GtmPackage extends EPackage {
 	int REGIONAL_CONSTRAINT__DATA_DESCRIPTION = 6;
 
 	/**
+	 * The feature id for the '<em><b>Linked Fares</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGIONAL_CONSTRAINT__LINKED_FARES = 7;
+
+	/**
 	 * The number of structural features of the '<em>Regional Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REGIONAL_CONSTRAINT_FEATURE_COUNT = 7;
+	int REGIONAL_CONSTRAINT_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Regional Constraint</em>' class.
@@ -13025,6 +13034,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getRegionalConstraint_DataDescription();
 
 	/**
+	 * Returns the meta object for the reference list '{@link Gtm.RegionalConstraint#getLinkedFares <em>Linked Fares</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Linked Fares</em>'.
+	 * @see Gtm.RegionalConstraint#getLinkedFares()
+	 * @see #getRegionalConstraint()
+	 * @generated
+	 */
+	EReference getRegionalConstraint_LinkedFares();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.RegionalValidity <em>Regional Validity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -20166,6 +20186,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REGIONAL_CONSTRAINT__DATA_DESCRIPTION = eINSTANCE.getRegionalConstraint_DataDescription();
+
+		/**
+		 * The meta object literal for the '<em><b>Linked Fares</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REGIONAL_CONSTRAINT__LINKED_FARES = eINSTANCE.getRegionalConstraint_LinkedFares();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.RegionalValidityImpl <em>Regional Validity</em>}' class.
