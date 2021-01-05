@@ -804,14 +804,24 @@ public class LegacyImporter {
 				}
 			
 				if (lStation.getShortName() != null && 
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getShortName())) {
+					(station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getShortName()))) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getShortName());
 					if (com.canExecute()) {
 						command.append(com);
 					}
 				}
+				
+				if ((lStation.getShortName() == null || lStation.getShortName().length() == 0) && 
+					lStation.getName() !=null &&
+					(station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getName()))) {
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getName());
+					if (com.canExecute()) {
+						command.append(com);
+					}
+				}				
+				
 				if (lStation.getName() != null && 
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName())) {
+					(station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName()))) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
 					if (com.canExecute()) {
 						command.append(com);					
@@ -819,7 +829,7 @@ public class LegacyImporter {
 				}
 
 				if (lStation.getNameUTF8() != null && 
-					station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getNameUTF8())) {
+					(station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getNameUTF8()))) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getNameUTF8());
 					if (com.canExecute()) {
 						command.append(com);					

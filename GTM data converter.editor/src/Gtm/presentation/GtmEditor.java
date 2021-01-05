@@ -1927,7 +1927,7 @@ public class GtmEditor
 		    	 
 		adapterFactory.dispose();
 
-		if (getActionBarContributor().getActiveEditor() == this) {
+		if (getActionBarContributor() != null && getActionBarContributor().getActiveEditor() == this) {
 			getActionBarContributor().setActiveEditor(null);
 		}
 

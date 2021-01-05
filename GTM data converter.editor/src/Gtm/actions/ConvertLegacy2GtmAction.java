@@ -91,7 +91,7 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 				String message = "No fare templates defined!";
 				GtmUtils.writeConsoleError(message, editor);
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-				dialog.setText(NationalLanguageSupport.ConvertLegacy2GtmAction_3);
+				dialog.setText(NationalLanguageSupport.ConvertLegacy2GtmAction_18);
 				dialog.open(); 
 				return;
 			}

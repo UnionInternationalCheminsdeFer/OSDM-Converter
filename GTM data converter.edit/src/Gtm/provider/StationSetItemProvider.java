@@ -80,7 +80,7 @@ public class StationSetItemProvider
 				 GtmPackage.Literals.STATION_SET__STATIONS,
 				 true,
 				 false,
-				 true,
+				 false,
 				 null,
 				 null,
 				 null));

@@ -370,16 +370,20 @@ public class GtmActionBarContributor
 
 		addGlobalActions(submenuManager);
 	}
+	
 
+	/*
 	/**
 	 * When the active editor changes, this remembers the change and registers with it as a selection provider.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
-	 */
+
 	@Override
 	public void setActiveEditor(IEditorPart part) {
+		
 		super.setActiveEditor(part);
+	
 		activeEditorPart = part;
 
 		// Switch to the new selection provider.
@@ -405,6 +409,7 @@ public class GtmActionBarContributor
 			}
 		}
 	}
+		 */
 
 	/**
 	 * This implements {@link org.eclipse.jface.viewers.ISelectionChangedListener},
