@@ -6,7 +6,7 @@ package Gtm.provider;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.RegionalConstraint;
-
+import Gtm.RouteDescriptionBuilder;
 import java.util.Collection;
 import java.util.List;
 
@@ -68,6 +68,7 @@ public class RegionalConstraintItemProvider
 			addDistancePropertyDescriptor(object);
 			addDataSourcePropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
+			addLinkedFaresPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -161,6 +162,28 @@ public class RegionalConstraintItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Linked Fares feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLinkedFaresPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RegionalConstraint_linkedFares_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RegionalConstraint_linkedFares_feature", "_UI_RegionalConstraint_type"),
+				 GtmPackage.Literals.REGIONAL_CONSTRAINT__LINKED_FARES,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -175,6 +198,7 @@ public class RegionalConstraintItemProvider
 			childrenFeatures.add(GtmPackage.Literals.REGIONAL_CONSTRAINT__ENTRY_CONNECTION_POINT);
 			childrenFeatures.add(GtmPackage.Literals.REGIONAL_CONSTRAINT__EXIT_CONNECTION_POINT);
 			childrenFeatures.add(GtmPackage.Literals.REGIONAL_CONSTRAINT__REGIONAL_VALIDITY);
+			childrenFeatures.add(GtmPackage.Literals.REGIONAL_CONSTRAINT__LINKED_FARES);
 		}
 		return childrenFeatures;
 	}
@@ -207,14 +231,18 @@ public class RegionalConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((RegionalConstraint)object).getDataDescription();
-		return label == null || label.length() == 0 ?
-			getString("_UI_RegionalConstraint_type") :
-			getString("_UI_RegionalConstraint_type") + " " + label;
+		RegionalConstraint c = (RegionalConstraint) object;
+		String label = null;
+		if (c.getRegionalValidity() != null && !c.getRegionalValidity().isEmpty()) {
+			label = RouteDescriptionBuilder.getRouteDescription(c.getRegionalValidity());
+		} else {
+			label = getString("_UI_RegionalConstraint_type");
+		}
+		return label;
 	}
 
 

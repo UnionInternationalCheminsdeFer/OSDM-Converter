@@ -138,10 +138,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						// TODO Auto-generated catch block
 						GtmEditorPlugin.INSTANCE.log(e);
 					}  finally {
-						
-						//workaround for wrong dirty indication
-						domain.getCommandStack().execute(new DirtyCommand());
-						
+											
 						monitor.done();
 					}
 				}
@@ -153,6 +150,9 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 				
 				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
 			
+				//workaround for wrong dirty indication
+				domain.getCommandStack().execute(new DirtyCommand());
+				
 			} catch (Exception e) {
 				MessageBox dialog =  new MessageBox(editor.getSite().getShell(), SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(NationalLanguageSupport.ExportGTMJsonAction_9);

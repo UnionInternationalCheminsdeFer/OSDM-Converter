@@ -89,7 +89,7 @@ public class ViaStationItemProvider
 				 GtmPackage.Literals.VIA_STATION__STATION,
 				 true,
 				 false,
-				 true,
+				 false,
 				 null,
 				 null,
 				 null));

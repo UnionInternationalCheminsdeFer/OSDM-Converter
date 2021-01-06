@@ -19,7 +19,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import Gtm.Country;
 import Gtm.GTMTool;
 import Gtm.actions.converter.ConverterToLegacy;
-import Gtm.console.ConsoleUtil;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
@@ -90,7 +89,7 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 			Country country = tool.getConversionFromLegacy().getParams().getCountry();
 			if (country == null) {
 				String message = NationalLanguageSupport.ConvertGtm2LegacyAction_4;
-				writeConsoleError(message);
+				GtmUtils.writeConsoleWarning(message, null);
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(NationalLanguageSupport.ConvertGtm2LegacyAction_5);
 				dialog.open(); 
@@ -116,10 +115,8 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 					monitor.worked(1);
 					
 					int created = converter.convert(monitor);
-					final String message = NationalLanguageSupport.ConvertGtm2LegacyAction_8 + Integer.toString(created);
-					editor.getSite().getShell().getDisplay().asyncExec(() -> {
-						ConsoleUtil.printError(NationalLanguageSupport.ConvertGtm2LegacyAction_9, message);
-					});
+					String message = NationalLanguageSupport.ConvertGtm2LegacyAction_8 + Integer.toString(created);
+					GtmUtils.writeConsoleInfo(message, editor);
 
 					monitor.done();
 				}
@@ -138,14 +135,8 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 				editor.reconnectViews();
 			}			
 
-
 			return;
 
 		}
-
-		private void writeConsoleError(String message) {
-			GtmUtils.writeConsoleWarning(message, null);
-		}
-	
 
 }

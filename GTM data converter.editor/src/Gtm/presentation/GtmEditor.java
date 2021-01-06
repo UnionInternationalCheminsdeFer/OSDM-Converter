@@ -102,6 +102,7 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl.Container;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
@@ -995,6 +996,16 @@ public class GtmEditor
 
 				selectionViewer = (TreeViewer)viewerPane.getViewer();
 				selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				
+				/*
+				selectionViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
+				       @Override
+				       protected int getVirtualFolderSize(Object folder) {
+				          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
+				       }
+				});			
+				*/			
+
 				selectionViewer.setUseHashlookup(true);
 
 				selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
@@ -1030,7 +1041,18 @@ public class GtmEditor
 
 				parentViewer = (TreeViewer)viewerPane.getViewer();
 				parentViewer.setAutoExpandLevel(30);
+				
 				parentViewer.setContentProvider(new ReverseAdapterFactoryContentProvider(adapterFactory));
+				/*
+				// we limit the maximal child elements for containers to 100
+				parentViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
+				       @Override
+				       protected int getVirtualFolderSize(Object folder) {
+				          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
+				       }
+				});
+				*/
+				
 				parentViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
 				createContextMenuFor(parentViewer);
@@ -1081,6 +1103,16 @@ public class GtmEditor
 				viewerPane.createControl(getContainer());
 				treeViewer = (TreeViewer)viewerPane.getViewer();
 				treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+
+				/*
+				treeViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
+				       @Override
+				       protected int getVirtualFolderSize(Object folder) {
+				          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
+				       }
+				});	
+				*/			
+				
 				treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
 				new AdapterFactoryTreeEditor(treeViewer.getTree(), adapterFactory);
@@ -1246,6 +1278,16 @@ public class GtmEditor
 
 				selectionViewer = (TreeViewer)viewerPane.getViewer();
 				selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+
+				/*
+				selectionViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
+				       @Override
+				       protected int getVirtualFolderSize(Object folder) {
+				          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
+				       }
+				});	
+				*/
+				
 				selectionViewer.setUseHashlookup(true);
 
 				selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
@@ -1389,7 +1431,18 @@ public class GtmEditor
 					// Set up the tree viewer.
 					//
 					contentOutlineViewer.setUseHashlookup(true);
-					contentOutlineViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+					//contentOutlineViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+
+					
+					contentOutlineViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
+					       @Override
+					       protected int getVirtualFolderSize(Object folder) {
+					          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
+					       }
+					});	
+										
+					
+					
 					contentOutlineViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 					contentOutlineViewer.setInput(editingDomain.getResourceSet());
 
@@ -1927,7 +1980,7 @@ public class GtmEditor
 		    	 
 		adapterFactory.dispose();
 
-		if (getActionBarContributor().getActiveEditor() == this) {
+		if (getActionBarContributor() != null && getActionBarContributor().getActiveEditor() == this) {
 			getActionBarContributor().setActiveEditor(null);
 		}
 

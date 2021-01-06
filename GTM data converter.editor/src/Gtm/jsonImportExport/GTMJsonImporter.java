@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
@@ -220,6 +219,7 @@ public class GTMJsonImporter {
 		fareStructure.setRegionalConstraints(convertRegionalConstraints(fareDataDef.getRegionalConstraints()));
 		
 		fareStructure.setFareElements(convertFareElementList(fareDataDef.getFares()));		
+			
 		
 		return fareStructure;
 	}
@@ -321,57 +321,7 @@ public class GTMJsonImporter {
 			domain.getCommandStack().execute(command);
 			command = new CompoundCommand();
 		}
-		
-		HashSet<Station> borderStations = new HashSet<Station>();
-		for (Station station : tool.getCodeLists().getStations().getStations()) {
-			if (station.getLegacyBorderPointCode() > 0 || station.isBorderStation()) {
-				borderStations.add(station);
-			}
-		}
-		
-		CompoundCommand com2 = new CompoundCommand();
-		
-		Float accuracy = ((float)PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO_ACCURACY)) / (60 * 60);
-		
-		for (Station station1 : borderStations) {
-			
-			for (Station station2 : borderStations) {
-				
-				if (station1 != station2 && 
-					station1.getLatitude() > 0 &&
-					station2.getLatitude() > 0 &&
-					station1.getLongitude() > 0 &&
-					station2.getLongitude() > 0 &&
-					station1.getLatitude() - station2.getLatitude() < accuracy &&
-					station1.getLongitude() - station2.getLongitude() < accuracy) {
-					
-					StationRelation rel1 = GtmFactory.eINSTANCE.createStationRelation();
-					rel1.setRelationType(StationRelationType.SAME_STATION);
-					rel1.setStation(station2);
-					Command comm3 = AddCommand.create(domain, station1, GtmPackage.Literals.STATION__RELATIONS, rel1);
-					if (comm3 != null && comm3.canExecute()) {
-						com2.append(comm3);	
-					}	
-					
 
-					StationRelation rel2 = GtmFactory.eINSTANCE.createStationRelation();
-					rel2.setRelationType(StationRelationType.SAME_STATION);
-					rel2.setStation(station1);
-					Command comm4 = AddCommand.create(domain, station2, GtmPackage.Literals.STATION__RELATIONS, rel2);
-					if (comm4 != null && comm4.canExecute()) {
-						com2.append(comm3);	
-					}						
-
-				}
-			}									
-		}
-		
-		if (com2 != null && !com2.isEmpty()) {
-			domain.getCommandStack().execute(com2);
-		}
-		
-		
-		
 	}
 
 
@@ -1449,14 +1399,14 @@ public class GTMJsonImporter {
 	private FareElements convertFareElementList(List<FareDef> jl) {
 		
 		
-		boolean importConvertablesOnly = !PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_IMPORT_CONVERABLE_ONLY);
+		boolean importConvertablesOnly = PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_IMPORT_CONVERABLE_ONLY);
 		
 		if (jl == null || jl.isEmpty()) return null;
 		FareElements o = GtmFactory.eINSTANCE.createFareElements();
 		for (FareDef jf : jl) {
 			
 			FareElement fare = convert(jf);
-			if (!importConvertablesOnly || fare.getLegacyConversion()  == LegacyConversionType.YES || fare.getLegacyConversion()  == LegacyConversionType.ONLY) {
+			if (!importConvertablesOnly || fare.getLegacyConversion().equals(LegacyConversionType.YES) || fare.getLegacyConversion().equals(LegacyConversionType.ONLY)) {
 				o.getFareElements().add(fare);
 			}
 		}
@@ -1481,7 +1431,13 @@ public class GTMJsonImporter {
 		f.setPersonalDataConstraint(finePersonalDataConstraint(jf.getPersonalDataConstraintRef()));
 		f.setPrice(findPrice(jf.getPriceRef()));
 		f.setReductionConstraint(findReductionConstraint(jf.getReductionConstraintRef()));
-		f.setRegionalConstraint(findRegionalConstraint(jf.getRegionalConstraintRef()));
+		
+		RegionalConstraint rc = findRegionalConstraint(jf.getRegionalConstraintRef());
+		if (rc != null) {
+			f.setRegionalConstraint(findRegionalConstraint(jf.getRegionalConstraintRef()));
+			rc.getLinkedFares().add(f);
+		}
+		
 		f.setReservationParameter(findReservationParams(jf.getReservationParameterRef()));
 		f.setSalesAvailability(findSalesAvailability(jf.getSalesAvailabilityConstraintRef()));
 		f.setServiceClass(findServiceClass(jf.getServiceClassRef()));

@@ -4,6 +4,7 @@ package Gtm.impl;
 
 import Gtm.ConnectionPoint;
 import Gtm.DataSource;
+import Gtm.FareElement;
 import Gtm.GtmPackage;
 import Gtm.RegionalConstraint;
 import Gtm.RegionalValidity;
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -39,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.RegionalConstraintImpl#getRegionalValidity <em>Regional Validity</em>}</li>
  *   <li>{@link Gtm.impl.RegionalConstraintImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link Gtm.impl.RegionalConstraintImpl#getDataDescription <em>Data Description</em>}</li>
+ *   <li>{@link Gtm.impl.RegionalConstraintImpl#getLinkedFares <em>Linked Fares</em>}</li>
  * </ul>
  *
  * @generated
@@ -153,6 +156,16 @@ public class RegionalConstraintImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected String dataDescription = DATA_DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getLinkedFares() <em>Linked Fares</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLinkedFares()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FareElement> linkedFares;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -350,6 +363,18 @@ public class RegionalConstraintImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<FareElement> getLinkedFares() {
+		if (linkedFares == null) {
+			linkedFares = new EObjectResolvingEList<FareElement>(FareElement.class, this, GtmPackage.REGIONAL_CONSTRAINT__LINKED_FARES);
+		}
+		return linkedFares;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -383,6 +408,8 @@ public class RegionalConstraintImpl extends MinimalEObjectImpl.Container impleme
 				return getDataSource();
 			case GtmPackage.REGIONAL_CONSTRAINT__DATA_DESCRIPTION:
 				return getDataDescription();
+			case GtmPackage.REGIONAL_CONSTRAINT__LINKED_FARES:
+				return getLinkedFares();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -418,6 +445,10 @@ public class RegionalConstraintImpl extends MinimalEObjectImpl.Container impleme
 			case GtmPackage.REGIONAL_CONSTRAINT__DATA_DESCRIPTION:
 				setDataDescription((String)newValue);
 				return;
+			case GtmPackage.REGIONAL_CONSTRAINT__LINKED_FARES:
+				getLinkedFares().clear();
+				getLinkedFares().addAll((Collection<? extends FareElement>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -451,6 +482,9 @@ public class RegionalConstraintImpl extends MinimalEObjectImpl.Container impleme
 			case GtmPackage.REGIONAL_CONSTRAINT__DATA_DESCRIPTION:
 				setDataDescription(DATA_DESCRIPTION_EDEFAULT);
 				return;
+			case GtmPackage.REGIONAL_CONSTRAINT__LINKED_FARES:
+				getLinkedFares().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -477,6 +511,8 @@ public class RegionalConstraintImpl extends MinimalEObjectImpl.Container impleme
 				return dataSource != DATA_SOURCE_EDEFAULT;
 			case GtmPackage.REGIONAL_CONSTRAINT__DATA_DESCRIPTION:
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
+			case GtmPackage.REGIONAL_CONSTRAINT__LINKED_FARES:
+				return linkedFares != null && !linkedFares.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -12,7 +12,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer
 		
 		IPreferenceStore store = GtmEditorPlugin.getPreferenceStore();
 
-		store.setDefault(PreferenceConstants.P_IMPORT_CONVERABLE_ONLY, false);
+		store.setDefault(PreferenceConstants.P_IMPORT_CONVERABLE_ONLY, true);
 		store.setDefault(PreferenceConstants.P_IMPORT_CONTRY_FILTER, " ");
 		store.setDefault(PreferenceConstants.P_LINK_STATIONS_BY_GEO, true);
 		store.setDefault(PreferenceConstants.P_LINK_STATIONS_BY_GEO_ACCURACY, 5);

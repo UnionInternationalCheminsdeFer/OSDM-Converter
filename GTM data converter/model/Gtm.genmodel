@@ -471,7 +471,7 @@
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//StationSet">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//StationSet/stations"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//StationSet/stations"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//GeneralTariffModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//GeneralTariffModel/delivery"/>
@@ -780,6 +780,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/regionalValidity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalConstraint/dataSource"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalConstraint/dataDescription"/>
+      <genFeatures notify="false" children="true" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/linkedFares"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//RegionalValidity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalValidity/seqNb"/>
@@ -909,7 +911,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReturnValidityConstraint/earliestReturn"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ViaStation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/station"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/station"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/carrier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/route"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/alternativeRoutes"/>

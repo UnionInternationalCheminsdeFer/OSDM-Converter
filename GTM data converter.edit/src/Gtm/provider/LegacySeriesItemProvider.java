@@ -486,9 +486,15 @@ public class LegacySeriesItemProvider
 	@Override
 	public String getText(Object object) {
 		LegacySeries legacySeries = (LegacySeries)object;
-		String label = getString("_UI_LegacySeries_type") + " " + legacySeries.getNumber();
+		String label = getString("_UI_LegacySeries_type") + " " + legacySeries.getNumber() + " ";
+		if (legacySeries.getFromStationName() != null) {
+			label = label + legacySeries.getFromStationName() + "-";
+		}
 		if (legacySeries.getRouteDescription() != null) {
-			label = label + " - " + legacySeries.getRouteDescription();
+			label = label + legacySeries.getRouteDescription();
+		}
+		if (legacySeries.getToStationName() != null) {
+			label = label + "-" + legacySeries.getToStationName();
 		}
 		return label;
 		

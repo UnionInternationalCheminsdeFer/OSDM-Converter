@@ -29,12 +29,7 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Station;
-import Gtm.StationRelation;
-import Gtm.StationRelationType;
-import Gtm.console.ConsoleUtil;
 import Gtm.nls.NationalLanguageSupport;
-import Gtm.preferences.PreferenceConstants;
-import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.GtmEditor;
 
 
@@ -146,55 +141,14 @@ public class ImportStationsAction extends BasicGtmAction {
 							}
 						}
 						monitor.worked(1000);
-						
-						
-						/*
-						 * trying to link border stations via geo-coordinates
-						 * 
-						 * result depends on the data quality which was poor in the test data
-						 * 
-						 */
-						
-						
-						
-						
-						Float accuracy = ((float)PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO_ACCURACY)) / (60 * 60);
-						
-						if (PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO)) {
-							monitor.subTask(NationalLanguageSupport.ImportStationsAction_CONNECT_BORDER_STATIONS);
-							for (Station station1 : borderStations) {
-								
-								for (Station station2 : borderStations) {
 									
-									if (station1 != station2 && 
-										station1.getLatitude() > 0 &&
-										station2.getLatitude() > 0 &&
-										station1.getLongitude() > 0 &&
-										station2.getLongitude() > 0 &&
-										Math.abs(station1.getLatitude() - station2.getLatitude()) < accuracy &&
-										Math.abs(station1.getLongitude() - station2.getLongitude()) < accuracy) {
-										
-										StationRelation rel1 = GtmFactory.eINSTANCE.createStationRelation();
-										rel1.setRelationType(StationRelationType.SAME_STATION);
-										rel1.setStation(station2);
-										StationRelation rel2 = GtmFactory.eINSTANCE.createStationRelation();
-										rel2.setRelationType(StationRelationType.SAME_STATION);
-										rel2.setStation(station1);
-										
-										station1.getRelations().add(rel1);
-										station2.getRelations().add(rel2);
-									}
-								}									
-							}
-						}
-						monitor.worked(10);						
 						
 						monitor.subTask(NationalLanguageSupport.ImportStationsAction_16);
 						final int addedStationsF = newStations.size();
 						Command addCommand = AddCommand.create(domain, tool.getCodeLists().getStations(), GtmPackage.Literals.STATIONS__STATIONS, newStations);
 						if (addCommand != null & addCommand.canExecute()) {
 							domain.getCommandStack().execute(addCommand);
-							GtmUtils.writeConsoleError(NationalLanguageSupport.ImportStationsAction_17 + Integer.toString(addedStationsF)+")", editor); //$NON-NLS-2$
+							GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportStationsAction_17 + Integer.toString(addedStationsF)+")", editor); //$NON-NLS-2$
 						}
 						monitor.worked(1000);
 						
@@ -231,7 +185,7 @@ public class ImportStationsAction extends BasicGtmAction {
 					} catch (IOException e) {
 						String message = NationalLanguageSupport.ImportStationsAction_22 + " - " + e.getMessage();
 						editor.getSite().getShell().getDisplay().asyncExec(() -> {
-							ConsoleUtil.printError(NationalLanguageSupport.ConverterToLegacy_42, message);
+							GtmUtils.writeConsoleError(message, editor);
 						});
 					} catch (Exception e) {
 						String message = NationalLanguageSupport.ImportStationsAction_23  + " - " + e.getMessage();

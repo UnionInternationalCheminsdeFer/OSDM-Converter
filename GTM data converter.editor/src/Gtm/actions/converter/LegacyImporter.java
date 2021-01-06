@@ -14,13 +14,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.TimeZone;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
-import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
@@ -44,8 +42,6 @@ import Gtm.LegacySeriesList;
 import Gtm.LegacySeriesType;
 import Gtm.LegacyViastation;
 import Gtm.Station;
-import Gtm.StationRelation;
-import Gtm.StationRelationType;
 import Gtm.actions.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.preferences.PreferenceConstants;
@@ -808,14 +804,24 @@ public class LegacyImporter {
 				}
 			
 				if (lStation.getShortName() != null && 
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getShortName())) {
+					(station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getShortName()))) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getShortName());
 					if (com.canExecute()) {
 						command.append(com);
 					}
 				}
+				
+				if ((lStation.getShortName() == null || lStation.getShortName().length() == 0) && 
+					lStation.getName() !=null &&
+					(station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getName()))) {
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getName());
+					if (com.canExecute()) {
+						command.append(com);
+					}
+				}				
+				
 				if (lStation.getName() != null && 
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName())) {
+					(station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName()))) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
 					if (com.canExecute()) {
 						command.append(com);					
@@ -823,7 +829,7 @@ public class LegacyImporter {
 				}
 
 				if (lStation.getNameUTF8() != null && 
-					station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getNameUTF8())) {
+					(station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getNameUTF8()))) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getNameUTF8());
 					if (com.canExecute()) {
 						command.append(com);					
@@ -843,62 +849,6 @@ public class LegacyImporter {
 		if (command != null && !command.isEmpty()) {
 			domain.getCommandStack().execute(command);
 		}
-		
-		HashSet<Station> borderStations = new HashSet<Station>();
-		for (Station station : tool.getCodeLists().getStations().getStations()) {
-			if (station.getLegacyBorderPointCode() > 0 || station.isBorderStation()) {
-				borderStations.add(station);
-			}
-		}
-		
-
-		
-		
-		if (PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO)) {
-
-			CompoundCommand com2 = new CompoundCommand();
-			
-			Float accuracy = ((float)PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO_ACCURACY)) / (60 * 60);
-			
-			for (Station station1 : borderStations) {
-				
-				for (Station station2 : borderStations) {
-					
-					if (station1 != station2 && 
-						station1.getLatitude() > 0 &&
-						station2.getLatitude() > 0 &&
-						station1.getLongitude() > 0 &&
-						station2.getLongitude() > 0 &&
-						Math.abs(station1.getLatitude() - station2.getLatitude()) < accuracy &&
-						Math.abs(station1.getLongitude() - station2.getLongitude()) < accuracy) {
-						
-						StationRelation rel1 = GtmFactory.eINSTANCE.createStationRelation();
-						rel1.setRelationType(StationRelationType.SAME_STATION);
-						rel1.setStation(station2);
-						Command comm3 = AddCommand.create(domain, station1, GtmPackage.Literals.STATION__RELATIONS, rel1);
-						if (comm3 != null && comm3.canExecute()) {
-							com2.append(comm3);	
-						}	
-						
-	
-						StationRelation rel2 = GtmFactory.eINSTANCE.createStationRelation();
-						rel2.setRelationType(StationRelationType.SAME_STATION);
-						rel2.setStation(station1);
-						Command comm4 = AddCommand.create(domain, station2, GtmPackage.Literals.STATION__RELATIONS, rel2);
-						if (comm4 != null && comm4.canExecute()) {
-							com2.append(comm3);	
-						}						
-	
-					}
-				}									
-			}
-			
-			if (com2 != null && !com2.isEmpty()) {
-				domain.getCommandStack().execute(com2);
-			}
-		}
-		
-		
 		
 	}
 		

@@ -4312,6 +4312,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getRegionalConstraint_LinkedFares() {
+		return (EReference)regionalConstraintEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRegionalValidity() {
 		return regionalValidityEClass;
 	}
@@ -8442,6 +8451,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(regionalConstraintEClass, REGIONAL_CONSTRAINT__REGIONAL_VALIDITY);
 		createEAttribute(regionalConstraintEClass, REGIONAL_CONSTRAINT__DATA_SOURCE);
 		createEAttribute(regionalConstraintEClass, REGIONAL_CONSTRAINT__DATA_DESCRIPTION);
+		createEReference(regionalConstraintEClass, REGIONAL_CONSTRAINT__LINKED_FARES);
 
 		regionalValidityEClass = createEClass(REGIONAL_VALIDITY);
 		createEAttribute(regionalValidityEClass, REGIONAL_VALIDITY__SEQ_NB);
@@ -9380,6 +9390,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getRegionalConstraint_RegionalValidity(), this.getRegionalValidity(), null, "regionalValidity", null, 0, -1, RegionalConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRegionalConstraint_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, RegionalConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRegionalConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, RegionalConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRegionalConstraint_LinkedFares(), this.getFareElement(), null, "linkedFares", null, 0, -1, RegionalConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(regionalValidityEClass, RegionalValidity.class, "RegionalValidity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRegionalValidity_SeqNb(), ecorePackage.getEInt(), "seqNb", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
