@@ -665,7 +665,7 @@ public class LegacyExporter {
 		sb.append(String.format("%4s",series.getCarrierCode())); //$NON-NLS-1$
 		//	25 Carrier code separator 2 '>' 1 M  79 This field always contains the symbol '>'’ 
 		sb.append(">");		 //$NON-NLS-1$
-		//	26 Itinerary alpha numeric 58 O TAP TSI Technical Document B.5 80-1 37  
+		//	26 Itinerary alpha numeric 58 O TAP TSI Technical Document B.5 80-137  
 		sb.append(String.format("%-58s",GtmUtils.limitStringLengthWithConsoleEntry(series.getRouteDescription(),58,editor,NationalLanguageSupport.LegacyExporter_8)));		 //$NON-NLS-1$
 		//	27 Flag 7 for combination of carrier code and itinerary numeric 1 M  138 Indicates combination of fields 24 and 26; 0 or 3 (see point 2.2) 
 		sb.append("0");			 //$NON-NLS-1$

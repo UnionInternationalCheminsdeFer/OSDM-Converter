@@ -6,7 +6,7 @@ package Gtm.provider;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.RegionalConstraint;
-
+import Gtm.RouteDescriptionBuilder;
 import java.util.Collection;
 import java.util.List;
 
@@ -231,14 +231,18 @@ public class RegionalConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((RegionalConstraint)object).getDataDescription();
-		return label == null || label.length() == 0 ?
-			getString("_UI_RegionalConstraint_type") :
-			getString("_UI_RegionalConstraint_type") + " " + label;
+		RegionalConstraint c = (RegionalConstraint) object;
+		String label = null;
+		if (c.getRegionalValidity() != null && !c.getRegionalValidity().isEmpty()) {
+			label = RouteDescriptionBuilder.getRouteDescription(c.getRegionalValidity());
+		} else {
+			label = getString("_UI_RegionalConstraint_type");
+		}
+		return label;
 	}
 
 

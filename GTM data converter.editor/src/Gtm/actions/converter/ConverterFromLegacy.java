@@ -63,7 +63,6 @@ import Gtm.RegionalConstraint;
 import Gtm.RegionalConstraints;
 import Gtm.RegionalValidity;
 import Gtm.RoundingType;
-import Gtm.RouteDescriptionBuilder;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.SalesRestriction;
 import Gtm.ServiceConstraint;
@@ -88,29 +87,33 @@ import Gtm.presentation.GtmEditor;
  */
 public class ConverterFromLegacy {
 	
-	/** The local stations. */
-	private HashMap<Integer,Station> localStations = null;
+	/** The local stations in the legacy data country. */
+	private HashMap<Integer,Station> localStations = new HashMap<Integer,Station>();
 	
-	/** The legacy stations. */
-	private HashMap<Integer,Legacy108Station> legacyStations = null;
+	/** The legacy stations listed by their legacy code. */
+	private HashMap<Integer,Legacy108Station> legacyStations = new HashMap<Integer,Legacy108Station>();
 	
-	/** The carriers. */
-	private HashMap<String,Carrier> carriers = null;
+	/** The carriers by RCS code. */
+	private HashMap<String,Carrier> carriers = new HashMap<String,Carrier>();
 	
 	/** The carrier constraints. */
-	private HashMap<String, CarrierConstraint> carrierConstraints = null;
+	private HashMap<String, CarrierConstraint> carrierConstraints = new HashMap<String,CarrierConstraint>();
 	
-	/** The station code to fare station set mapping */
-	private HashMap<Integer,FareStationSetDefinition> fareStationSets = null;
+	/**  The code to fare station set mapping. */
+	private HashMap<Integer,FareStationSetDefinition> fareStationSets = new HashMap<Integer,FareStationSetDefinition>();
 	
-	/** The connection points without border code */
-	private HashMap<Integer,ConnectionPoint> legacyStationConnectionPoints = null;
+	/**  The border code to connection points mapping. */
+	private HashMap<Integer,ConnectionPoint> legacyStationConnectionPoints = new HashMap<Integer,ConnectionPoint>();
 	
-	/** The connection points without border code */
-	private HashMap<Station,ConnectionPoint> singleStationConnectionPoints = null;
+	/**  The station to connection points mapping for connection points without without border code. */
+	private HashMap<Station,ConnectionPoint> singleStationConnectionPoints = new HashMap<Station,ConnectionPoint>();
 	
-	/** The connectionPoints with border code */
-	private HashMap<Integer,ConnectionPoint> borderConnectionPoints = null;
+	/**  The connectionPoints with border code. */
+	private HashMap<Integer,ConnectionPoint> borderConnectionPoints = new HashMap<Integer,ConnectionPoint>();
+	
+	
+	/**  The connectionPoints with border code. */
+	private HashMap<Integer,LegacyBorderPoint> borderPoints = new HashMap<Integer,LegacyBorderPoint>();
 	
 	/** The my country. */
 	private Country myCountry = null;
@@ -133,20 +136,20 @@ public class ConverterFromLegacy {
 	 * @param editor the editor
 	 */
 	public ConverterFromLegacy(GTMTool tool, EditingDomain domain, GtmEditor editor) {
-		localStations = new HashMap<Integer,Station>();
-		carriers = new HashMap<String,Carrier>();
-		legacyStations = new HashMap<Integer,Legacy108Station>();
-		carrierConstraints = new HashMap<String,CarrierConstraint>();
-		fareStationSets  = new HashMap<Integer,FareStationSetDefinition>();
-		legacyStationConnectionPoints = new HashMap<Integer,ConnectionPoint>();
-		singleStationConnectionPoints = new HashMap<Station,ConnectionPoint>();
-		borderConnectionPoints = new HashMap<Integer,ConnectionPoint>();
 		this.tool = tool;
 		this.editor = editor;
-		this.domain = domain;
-
-		myCountry = tool.getConversionFromLegacy().getParams().getCountry();
+		this.domain = domain;		
+	}
 		
+	public void initializeConverter() {
+		
+		Country myCountry = tool.getConversionFromLegacy().getParams().getCountry();
+		if (myCountry == null) {
+			String message = NationalLanguageSupport.ConverterFromLegacy_0;
+			GtmUtils.writeConsoleError(message, editor);
+			return;
+		}
+			
 		for (Station station : tool.getCodeLists().getStations().getStations()) {
 			if (station.getCountry().getCode() == myCountry.getCode()) {
 				try {
@@ -163,18 +166,23 @@ public class ConverterFromLegacy {
 		}
 
 		for (Legacy108Station station : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations()) {
-				legacyStations.put(station.getStationCode(), station);
+			legacyStations.put(station.getStationCode(), station);
 		}
 		
-	}
+		if (tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints() != null) {
+			for (LegacyBorderPoint lbp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
+				borderPoints.put(lbp.getBorderPointCode(), lbp);
+			}
+		}	
 		
+	}
 	
 	
 	
 	/**
 	 * Delete old conversion results.
 	 *
-	 * @return the int
+	 * @return the number of deleted objects
 	 */
 	public int deleteOldConversionResults() {
 		int deleted = 0;
@@ -289,20 +297,13 @@ public class ConverterFromLegacy {
 
 
 	/**
-	 * Convert to gtm model.
+	 * Convert to OSDM model.
 	 *
 	 * @param monitor the monitor
-	 * @return the int
+	 * @return the number of fares created
 	 */
 	public int convertToGtm(IProgressMonitor monitor) {
-		
-		Country country = tool.getConversionFromLegacy().getParams().getCountry();
-		if (country == null) {
-			String message = NationalLanguageSupport.ConverterFromLegacy_0;
-			writeConsoleError(message);
-			return 0;
-		}
-		
+				
 		ArrayList<Price> priceList = new ArrayList<Price>();
 		ArrayList<AfterSalesRule> afterSalesRules = new ArrayList<AfterSalesRule>();
 		ArrayList<RegionalConstraint> regions = new ArrayList<RegionalConstraint>();
@@ -382,7 +383,7 @@ public class ConverterFromLegacy {
 					
 					//check basic features
 					if (fareTemplate.getServiceClass() == null) {					
-						GtmUtils.writeConsoleError("Service class missing in template " + fareTemplate.getDataDescription(), editor);
+						GtmUtils.writeConsoleError("Service class missing in template: " + fareTemplate.getDataDescription(), editor);
 						break;
 					}
 				
@@ -439,11 +440,26 @@ public class ConverterFromLegacy {
 		}
 		monitor.worked(1);
 		
+		
+		localStations.clear();
+		carriers.clear();
+		legacyStations.clear();
+		carrierConstraints.clear();
+		fareStationSets.clear();
+		legacyStationConnectionPoints.clear();
+		singleStationConnectionPoints.clear();
+		borderConnectionPoints.clear();
+		
+		System.gc();
+		
 		return added;
 	}
 
 
+	/** The direction original. */
 	private static int DIRECTION_ORIGINAL = 1;
+	
+	/** The direction reversed. */
 	private static int DIRECTION_REVERSED = 2;
 	
 	/**
@@ -451,7 +467,6 @@ public class ConverterFromLegacy {
 	 *
 	 * @param series the series
 	 * @param fareTemplate the fare template
-	 * @param number the number of converted series
 	 * @param dateRange the date range of the series sales validity
 	 * @param regionalConstraint the regional constraint
 	 * @param regionalConstraintR the regional constraint of the return direction
@@ -477,7 +492,7 @@ public class ConverterFromLegacy {
 			
 		} catch (ConverterException e) {
 			String message = NationalLanguageSupport.ConverterFromLegacy_4 + Integer.toString(series.getNumber()) + NationalLanguageSupport.ConverterFromLegacy_5;
-			writeConsoleError(message);
+			GtmUtils.writeConsoleError(message, editor);
 		}
 		return;
 	}	
@@ -532,6 +547,14 @@ public class ConverterFromLegacy {
 
 	
 	
+	/**
+	 * Creates the fee.
+	 *
+	 * @param price the price
+	 * @param feeTemplate the fee template
+	 * @param priceList the price list
+	 * @return the price
+	 */
 	private Price createFee(Price price, AfterSalesTemplate feeTemplate, ArrayList<Price> priceList) {
 		
 		if (price == null || price.getCurrencies()== null || price.getCurrencies().isEmpty()) return null;
@@ -714,6 +737,13 @@ public class ConverterFromLegacy {
 	}
 
 
+	/**
+	 * Equal vat details.
+	 *
+	 * @param vat1 the vat 1
+	 * @param vat2 the vat 2
+	 * @return true, if successful
+	 */
 	private static boolean equalVatDetails(EList<VATDetail> vat1, EList<VATDetail> vat2) {
 
 		if (vat1.size() != vat2.size()) return false;
@@ -832,7 +862,7 @@ public class ConverterFromLegacy {
 		Country country = tool.getConversionFromLegacy().getParams().getCountry();
 		if (country == null) {
 			String message = NationalLanguageSupport.ConverterFromLegacy_6;
-			writeConsoleError(message);
+			GtmUtils.writeConsoleError(message, editor);
 			throw new ConverterException(message);
 		}
 		
@@ -885,8 +915,8 @@ public class ConverterFromLegacy {
 						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 					} catch (ConverterException e) {
 						String message = NationalLanguageSupport.ConverterFromLegacy_13 + Integer.toString(series.getNumber()) + NationalLanguageSupport.ConverterFromLegacy_14 + e.getMessage();
-						writeConsoleError(message);
-						throw new ConverterException(message);
+						GtmUtils.writeConsoleError(message, editor);
+						throw e;
 					}
 				} else if (lastPosition == mainRoutePosition) {
 					//start alternatives to the main route
@@ -900,8 +930,8 @@ public class ConverterFromLegacy {
 						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 					} catch (ConverterException e) {
 						String message = NationalLanguageSupport.ConverterFromLegacy_15 + Integer.toString(series.getNumber()) + ") : " + e.getMessage(); //$NON-NLS-2$
-						writeConsoleError(message);
-						throw new ConverterException(message);
+						GtmUtils.writeConsoleError(message, editor);
+						throw e;
 					}					
 				} else {
 					// add another alternative
@@ -913,7 +943,7 @@ public class ConverterFromLegacy {
 						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 					} catch (ConverterException e) {
 						String message = NationalLanguageSupport.ConverterFromLegacy_17 + Integer.toString(series.getNumber()) + ") :" + e.getMessage(); //$NON-NLS-2$
-						writeConsoleError(message);
+						GtmUtils.writeConsoleError(message, editor);
 						throw e;
 					}		
 				}
@@ -922,21 +952,28 @@ public class ConverterFromLegacy {
 					addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 				} catch (ConverterException e) {
 					String message = NationalLanguageSupport.ConverterFromLegacy_19 + Integer.toString(series.getNumber()) + ") : " + e.getMessage(); //$NON-NLS-2$
-					writeConsoleError(message);
+					GtmUtils.writeConsoleError(message, editor);
 					throw new ConverterException(message);
 				}		
 			}
 		}
 		
 		//handle arrival
-		viaArrival.setDataDescription(viaArrival.getDescription());
 		mainRoute.add(viaArrival);	
-		
-		constraint.setDataDescription(RouteDescriptionBuilder.getRouteDescription(constraint.getRegionalValidity()));
-		
+	
 		return constraint;
 	}
 	
+	/**
+	 * Gets the via station.
+	 *
+	 * @param tool the tool
+	 * @param country the country
+	 * @param code the code
+	 * @param seriesNumber the series number
+	 * @return the via station
+	 * @throws ConverterException the converter exception
+	 */
 	private ViaStation getViaStation(GTMTool tool, Country country, int code,int seriesNumber) throws ConverterException {
 
 		Station station = null;
@@ -953,14 +990,13 @@ public class ConverterFromLegacy {
 				return null;
 			}
 			String message = NationalLanguageSupport.ConverterFromLegacy_7 + Integer.toString(seriesNumber) + NationalLanguageSupport.ConverterFromLegacy_8 + Integer.toString(code);
-			writeConsoleError(message);
+			GtmUtils.writeConsoleError(message, editor);
 			throw new ConverterException(message);
 		}
 		
 		ViaStation viaStation = GtmFactory.eINSTANCE.createViaStation();
 		viaStation.setStation(station);
 		viaStation.setFareStationSet(fareStationSet);
-		viaStation.setDataDescription(viaStation.getDescription());
 		return viaStation;
 	}
 
@@ -994,20 +1030,21 @@ public class ConverterFromLegacy {
 
 		if (departureStation == null || arrivalStation == null) return;
 		
-		int borderpointcode = 0;
+		int borderpointcodeDeparture = 0;
 		if (departureStation.getStation()!= null) {
-			 borderpointcode = departureStation.getStation().getLegacyBorderPointCode();
+			 borderpointcodeDeparture = departureStation.getStation().getLegacyBorderPointCode();
 		}
-    	ConnectionPoint point1 = findConnectionPoint(tool,borderpointcode,departureStation);  
+    	ConnectionPoint point1 = findConnectionPoint(tool,borderpointcodeDeparture,departureStation);  
     	
     	if (point1 == null) {
     		GtmUtils.writeConsoleError("Connection point missing for Series: " + Integer.valueOf(series.getNumber()).toString(), editor);
     	}
 		
+    	int borderpointcodeArrival = 0;
 		if (arrivalStation.getStation()!= null) {
-			 borderpointcode = arrivalStation.getStation().getLegacyBorderPointCode();
-		}
-    	ConnectionPoint point2 = findConnectionPoint(tool,borderpointcode,arrivalStation);	
+			 borderpointcodeArrival = arrivalStation.getStation().getLegacyBorderPointCode();
+		} 
+    	ConnectionPoint point2 = findConnectionPoint(tool,borderpointcodeArrival,arrivalStation);	
     	
     	if (point2 == null) {
     		GtmUtils.writeConsoleError("Connection point missing for Series: " + Integer.valueOf(series.getNumber()).toString(), editor);
@@ -1116,7 +1153,7 @@ public class ConverterFromLegacy {
 						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 					} catch (ConverterException e) {
 						String message = NationalLanguageSupport.ConverterFromLegacy_29 + Integer.toString(series.getNumber()) + ") : " + e.getMessage(); //$NON-NLS-2$
-						writeConsoleError(message);
+						GtmUtils.writeConsoleError(message, editor);
 						throw new ConverterException(message);
 					}
 				} else if (lastPosition == mainRoutePosition) {
@@ -1130,8 +1167,8 @@ public class ConverterFromLegacy {
 					try {
 						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 					} catch (ConverterException e) {
-						String message = "error in series: " + Integer.toString(series.getNumber()) + ") : " + e.getMessage(); //$NON-NLS-2$
-						writeConsoleError(message);
+						String message = "error in series: " + Integer.toString(series.getNumber()) + ": " + e.getMessage(); //$NON-NLS-2$
+						GtmUtils.writeConsoleError(message, editor);
 						throw new ConverterException(message);
 					}					
 				} else {
@@ -1144,7 +1181,7 @@ public class ConverterFromLegacy {
 						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 					} catch (ConverterException e) {
 						String message = NationalLanguageSupport.ConverterFromLegacy_33 + Integer.toString(series.getNumber()) + ") :" + e.getMessage(); //$NON-NLS-2$
-						writeConsoleError(message);
+						GtmUtils.writeConsoleError(message, editor);
 						throw e;
 					}		
 				}
@@ -1154,16 +1191,14 @@ public class ConverterFromLegacy {
 					addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 				} catch (ConverterException e) {
 					String message = NationalLanguageSupport.ConverterFromLegacy_35 + Integer.toString(series.getNumber()) + NationalLanguageSupport.ConverterFromLegacy_36 + e.getMessage();
-					writeConsoleError(message);
+					GtmUtils.writeConsoleError(message, editor);
 				}		
 			}
 		}
 		
 		
 		mainRoute.add(viaArrival);				
-		
-		constraint.setDataDescription(RouteDescriptionBuilder.getRouteDescription(constraint.getRegionalValidity()));
-		
+	
 		return constraint;
 	}
 	
@@ -1201,10 +1236,8 @@ public class ConverterFromLegacy {
 	 * fond or create a connection point for the given station 108.1 code and country
 	 *
 	 * @param tool the tool
-	 * @param stationCode the station code
+	 * @param code the code
 	 * @param country the country
-	 * @param points 
-	 * @return 
 	 * @return the connection point
 	 */
 	private void findOrCreateConnectionPoint(GTMTool tool, int code, Country country) {
@@ -1234,7 +1267,7 @@ public class ConverterFromLegacy {
 		}
 		ConnectionPoint p = null;
 		if (borderpoint > 0) {
-			p = borderConnectionPoints.get(code);
+			p = borderConnectionPoints.get(borderpoint);
 		} else {
 			p = legacyStationConnectionPoints.get(code);
 		}
@@ -1270,7 +1303,7 @@ public class ConverterFromLegacy {
 			StationSet stationSet = GtmFactory.eINSTANCE.createStationSet();
 			stationSet.getStations().addAll(fssd.getStations());		
 			point.getConnectedStationSets().add(stationSet);
-			point.setDescription("created from series endpoint only - border point code missing");
+			point.setDescription("created from series endpoint only");
 			legacyStationConnectionPoints.put(code, point);
 			return;
 		}
@@ -1283,7 +1316,7 @@ public class ConverterFromLegacy {
 			StationSet stationSet = GtmFactory.eINSTANCE.createStationSet();
 			stationSet.getStations().add(station);		
 			point.getConnectedStationSets().add(stationSet);
-			point.setDescription("created from series endpoint only - border point code missing");
+			point.setDescription("created from series endpoint only");
 			legacyStationConnectionPoints.put(code,point);
 			singleStationConnectionPoints.put(station,point);
 			return;
@@ -1298,7 +1331,7 @@ public class ConverterFromLegacy {
 	 * @param lastRoute the last route
 	 * @param legacyViaStation the legacy via station
 	 * @param country the country
-	 * @param seriesNumber 
+	 * @param seriesNumber the series number
 	 * @throws ConverterException the converter exception
 	 */
 	private void addToRoute(EList<ViaStation> lastRoute, LegacyViastation legacyViaStation, Country country, int seriesNumber) throws ConverterException {
@@ -1327,7 +1360,7 @@ public class ConverterFromLegacy {
 	 *
 	 * @param tool the tool
 	 * @param country the country
-	 * @param localCode the local code
+	 * @param localCode the legacy code of a station
 	 * @return the station
 	 * @throws ConverterException the converter exception in case the station is not found and not mapped to something else
 	 */
@@ -1339,32 +1372,72 @@ public class ConverterFromLegacy {
 		if (station != null) {
 			return station;
 		}
+		
 		ServiceConstraint constraint = tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().findServiceConstraint(localCode);
 		if (constraint != null){
 			return null;
 		}
+		
+		//real station
+		station = localStations.get(localCode);
+		if (station != null) return station;
+		
 			
 		//borderpoint?	
+		Legacy108Station ls = legacyStations.get(localCode);
+		if (ls == null) return null;
+		
+		
+		//if it is a border point get the station from the right side of the border
+		if (ls.getBorderPointCode() > 0) {
+			Station s = getBorderStation(ls.getBorderPointCode());
+			if (s != null) return s;
+		}
+		
+
 		if (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings() != null) {
 			LegacyBorderPointMapping map = tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings().getMappingByBorderPointCode(localCode);
-			if (map != null) {
-				station = map.getStation();
+			if (map != null && map.getStation() != null) {
+				return map.getStation();
+			}
+		}
+
+		String message = NationalLanguageSupport.ConverterFromLegacy_40 + Integer.toString(localCode) ;
+		GtmUtils.writeConsoleError(message, editor);
+		return null;
+	}
+	
+	/**
+	 * find the station to replace the virtual border point station
+	 *
+	 * @param borderpointcode  the code of the border point
+	 * @return the station
+	 */
+	private Station getBorderStation(int borderPointCode) {
+		
+		LegacyBorderPoint lbp = borderPoints.get(borderPointCode);
+		if (lbp == null) return null;
+		
+		if (lbp.getBorderSides() != null) {
+			for (LegacyBorderSide bs : lbp.getBorderSides()) {
+				
+				if (bs.getCarrier().equals(tool.getConversionFromLegacy().getLegacy108().getCarrier())) {
+					if (bs.getStations() != null && !bs.getStations().getStations().isEmpty() ) {
+					  return bs.getStations().getStations().get(0);
+					}
+				}
 			}
 		}
 		
-		//real station
-		station = localStations.get(Integer.valueOf(localCode));
-
-		if (station == null) {
-			
-			if (!isMappedStation(localCode)) {
-				String message = NationalLanguageSupport.ConverterFromLegacy_40 + Integer.toString(localCode) ;
-				writeConsoleError(message);
-			}
+		if (lbp.getOnBorderStations() != null && lbp.getOnBorderStations().getStations() != null && !lbp.getOnBorderStations().getStations().getStations().isEmpty() ) {
+			return lbp.getOnBorderStations().getStations().getStations().get(0);
 		}
-		return station;
+		
+		return null;
 	}
-	
+
+
+
 
 	/**
 	 * Convert series to price.
@@ -1373,7 +1446,8 @@ public class ConverterFromLegacy {
 	 * @param series the series
 	 * @param fareTemplate the fare template
 	 * @param dateRange the date range
-	 * @param regionalConstraint 
+	 * @param priceList the price list
+	 * @param regionalConstraint the regional constraint
 	 * @return the price
 	 * @throws ConverterException the converter exception
 	 */
@@ -1434,7 +1508,7 @@ public class ConverterFromLegacy {
 		} catch (Exception e) {
 			e.printStackTrace();
 			String message = NationalLanguageSupport.ConverterFromLegacy_42 + Integer.toString(series.getNumber()) + ")"; //$NON-NLS-2$
-			writeConsoleError(message);
+			GtmUtils.writeConsoleError(message, editor);
 			return null;
 		}
 	}
@@ -1443,8 +1517,7 @@ public class ConverterFromLegacy {
 	 * Creates the price.
 	 *
 	 * @param amount the amount
-	 * @param regionalConstraint 
-	 * @param series 
+	 * @param regionalConstraint the regional constraint
 	 * @return the price
 	 */
 	private Price createPrice(float amount, RegionalConstraint regionalConstraint) {
@@ -1463,6 +1536,12 @@ public class ConverterFromLegacy {
 		
 	}
 
+	/**
+	 * Adds the vat.
+	 *
+	 * @param curPrice the cur price
+	 * @param regionalConstraint the regional constraint
+	 */
 	private void addVat(CurrencyPrice curPrice, RegionalConstraint regionalConstraint) {
 		
 		//no vat data
@@ -1584,12 +1663,13 @@ public class ConverterFromLegacy {
 	 * @param series the series
 	 * @param fareTemplate the fare template
 	 * @param direction the direction
-	 * @param priceList 
-	 * @param afterSalesRules 
-	 * @param dateRange 
-	 * @param regionalConstraint 
-	 * @param price 
-	 * @param legacyFareCounter 
+	 * @param legacyFareCounter the legacy fare counter
+	 * @param price the price
+	 * @param regionalConstraint the regional constraint
+	 * @param dateRange the date range
+	 * @param afterSalesRules the after sales rules
+	 * @param priceList the price list
+	 * @param fares the fares
 	 * @return the fare element
 	 * @throws ConverterException the converter exception
 	 */
@@ -1708,7 +1788,6 @@ public class ConverterFromLegacy {
 			
 			ConnectionPoint connectionPoint = convertImportedBorderPoint(lp);
 			if (connectionPoint != null) {
-				connectionPoint.setDataSource(DataSource.IMPORTED);
 				borderConnectionPoints.put(lp.getBorderPointCode(), connectionPoint);
 			}
 		}
@@ -1716,24 +1795,20 @@ public class ConverterFromLegacy {
 	
 		//add additional connection points from series
 		Set<Integer> legacyStationCodes = getSeriesEndStations();
-		Country country = tool.getConversionFromLegacy().getParams().getCountry();
-		if (country == null) {
-			String message = NationalLanguageSupport.ConverterFromLegacy_48;
-			writeConsoleError(message);
-		}		
+
 		for (Integer stationCode : legacyStationCodes) {
-			findOrCreateConnectionPoint(tool, stationCode, country);
+			findOrCreateConnectionPoint(tool, stationCode, myCountry);
 		}
 		
 		
 		if (!borderConnectionPoints.isEmpty()) {
-			Command command = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, borderConnectionPoints);
+			Command command = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, borderConnectionPoints.values());
 			if  (command != null && command.canExecute()) {
 				domain.getCommandStack().execute(command);
 			}
 		}
 		if (!legacyStationConnectionPoints.isEmpty()) {
-			Command command = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, legacyStationConnectionPoints);
+			Command command = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, legacyStationConnectionPoints.values());
 			if  (command != null && command.canExecute()) {
 				domain.getCommandStack().execute(command);
 			}
@@ -1742,6 +1817,12 @@ public class ConverterFromLegacy {
 		return borderConnectionPoints.size() + legacyStationConnectionPoints.size();
 	}
 
+	/**
+	 * Convert imported border point.
+	 *
+	 * @param lBorder the l border
+	 * @return the connection point
+	 */
 	private ConnectionPoint convertImportedBorderPoint(LegacyBorderPoint lBorder) {
 		
 		boolean carrierInvolved = false;
@@ -1767,9 +1848,8 @@ public class ConverterFromLegacy {
 			point.setLegacyBorderPointCode(lBorder.getBorderPointCode());
 			point.setDataSource(DataSource.IMPORTED);
 			StationSet stations = EcoreUtil.copy(lBorder.getOnBorderStations().getStations());
-			if (stations != null && !stations.getStations().isEmpty()) {
-				point.getConnectedStationSets().add(stations);
-			}
+			stations.getStations().addAll(lBorder.getOnBorderStations().getStations().getStations());
+			point.getConnectedStationSets().add(stations);
 			return point;
 		}
 		if (lBorder.getBorderSides()!= null && lBorder.getBorderSides().size() > 1) {
@@ -1777,11 +1857,11 @@ public class ConverterFromLegacy {
 			point.setLegacyBorderPointCode(lBorder.getBorderPointCode());
 			point.setDataSource(DataSource.IMPORTED);
 			for (LegacyBorderSide side : lBorder.getBorderSides()) {
-				
 				StationSet stations = EcoreUtil.copy(side.getStations());
-				if (stations != null && !stations.getStations().isEmpty()) {
-					point.getConnectedStationSets().add(stations);
+				if (side.getStations() != null && !side.getStations().getStations().isEmpty()) {
+					stations.getStations().addAll(side.getStations().getStations());
 				}
+				point.getConnectedStationSets().add(stations);
 			}
 			return point;			
 		}
@@ -1789,6 +1869,11 @@ public class ConverterFromLegacy {
 		
 	}
 
+	/**
+	 * Gets the series end stations.
+	 *
+	 * @return the series end stations
+	 */
 	private Set<Integer> getSeriesEndStations(){
 		
 		Set<Integer> stationCodes = new HashSet<Integer>();
@@ -1805,28 +1890,26 @@ public class ConverterFromLegacy {
 	/**
 	 * Check distance.
 	 *
-	 * @param station1 the station 1
-	 * @param station2 the station 2
 	 * @return true, if successful
-
-	private boolean checkDistance(Station station1, Station station2) {
-		
-		
-		Float accuracy = ((float)PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO_ACCURACY)) / (60 * 60);
-		
-		if (station1 != station2 && 
-			station1.getLatitude() > 0 &&
-			station2.getLatitude() > 0 &&
-			station1.getLongitude() > 0 &&
-			station2.getLongitude() > 0 &&
-			Math.abs(station1.getLatitude() - station2.getLatitude()) < accuracy &&
-			Math.abs(station1.getLongitude() - station2.getLongitude()) < accuracy) {
-				
-			return true;
-				
-		}
-		return false;
-	}
+	 * 
+	 * 	private boolean checkDistance(Station station1, Station station2) {
+	 * 		
+	 * 		
+	 * 		Float accuracy = ((float)PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO_ACCURACY)) / (60 * 60);
+	 * 		
+	 * 		if (station1 != station2 && 
+	 * 			station1.getLatitude() > 0 &&
+	 * 			station2.getLatitude() > 0 &&
+	 * 			station1.getLongitude() > 0 &&
+	 * 			station2.getLongitude() > 0 &&
+	 * 			Math.abs(station1.getLatitude() - station2.getLatitude()) < accuracy &&
+	 * 			Math.abs(station1.getLongitude() - station2.getLongitude()) < accuracy) {
+	 * 				
+	 * 			return true;
+	 * 				
+	 * 		}
+	 * 		return false;
+	 * 	}
 	 */
 
 	/**
@@ -2018,8 +2101,9 @@ public class ConverterFromLegacy {
 	}
 	
 	/**
-	 * find manually created fare station sets
+	 * find manually created fare station sets.
 	 *
+	 * @param code the code
 	 * @return the fare station set
 	 */
 	private FareStationSetDefinition findManualyDefinedStationSet(Integer code) {
@@ -2097,23 +2181,13 @@ public class ConverterFromLegacy {
 			domain.getCommandStack().execute(new DirtyCommand());
 		} else {
 			String message = NationalLanguageSupport.ConverterFromLegacy_52 + command.getDescription();
-			writeConsoleError(message);
+			GtmUtils.writeConsoleError(message, editor);
 		}
 		
 		System.gc();
 		
 	}
 	
-	/**
-	 * Write console error.
-	 *
-	 * @param message the message
-	 */
-	private void writeConsoleError(String message) {
-		GtmUtils.writeConsoleError(message, editor);
-	}
-
-
 
 	
 }

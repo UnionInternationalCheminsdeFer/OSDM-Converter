@@ -116,6 +116,8 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 					int deleted = converter.deleteOldConversionResults();
 					GtmUtils.writeConsoleInfo(NationalLanguageSupport.ConvertLegacy2GtmAction_7 + Integer.toString(deleted),editor);
 					monitor.worked(1);
+					
+					converter.initializeConverter();
 				
 					monitor.subTask(NationalLanguageSupport.ConvertLegacy2GtmAction_8);
 					int added = converter.convertFareStationSets();

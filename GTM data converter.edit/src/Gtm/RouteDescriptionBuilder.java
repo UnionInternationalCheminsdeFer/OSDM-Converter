@@ -8,11 +8,21 @@ import Gtm.Station;
 import Gtm.ViaStation;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RouteDescriptionBuilder.
+ */
 public class RouteDescriptionBuilder {
 	
 
 	
 	
+	/**
+	 * Gets the route description.
+	 *
+	 * @param rvl the rvl
+	 * @return the route description
+	 */
 	public static String getRouteDescription(EList<RegionalValidity> rvl) {
 		
 		StringBuilder sb = new StringBuilder();
@@ -33,6 +43,12 @@ public class RouteDescriptionBuilder {
 	
 	
 	
+	/**
+	 * Gets the main via.
+	 *
+	 * @param rvl the rvl
+	 * @return the main via
+	 */
 	private static ViaStation getMainVia(EList<RegionalValidity> rvl) {
 		
 		if (rvl == null || rvl.isEmpty()) {
@@ -45,6 +61,12 @@ public class RouteDescriptionBuilder {
 	}
 
 	
+	/**
+	 * Gets the via description.
+	 *
+	 * @param regionalValidity the regional validity
+	 * @return the via description
+	 */
 	public static String getViaDescription(EList<RegionalValidity> regionalValidity) {
 		
 		if (regionalValidity.isEmpty()) {
@@ -84,6 +106,12 @@ public class RouteDescriptionBuilder {
 
 	}
 
+	/**
+	 * Gets the route description 
+	 *
+	 * @param via the via
+	 * @return the route description
+	 */
 	public static String getRouteDescription(ViaStation via) {
 		
 		if (via.getStation()!= null) {
@@ -113,6 +141,12 @@ public class RouteDescriptionBuilder {
 
 	}
 	
+	/**
+	 * Gets the route description.
+	 *
+	 * @param route the route
+	 * @return the route description
+	 */
 	public static String getRouteDescription(AlternativeRoute route) {
 		
 			if (route.getStations()==null || route.getStations().isEmpty()) return "";
@@ -137,6 +171,12 @@ public class RouteDescriptionBuilder {
 			return routeLable.toString();	
 	}
 	
+	/**
+	 * Gets the route description.
+	 *
+	 * @param route the route
+	 * @return the route description
+	 */
 	public static String getRouteDescription(Route route) {
 		
 		if (route.getStations()==null || route.getStations().isEmpty()) return "";
@@ -155,6 +195,12 @@ public class RouteDescriptionBuilder {
 	}
 	
 	
+	/**
+	 * Gets the last station code name.
+	 *
+	 * @param viaStation the via station
+	 * @return the last station code name
+	 */
 	private static String getLastStationCodeName(ViaStation viaStation) {
 		
 		if (viaStation == null) {
@@ -170,6 +216,12 @@ public class RouteDescriptionBuilder {
 		return null;
 	}
 
+	/**
+	 * Gets the first station code name.
+	 *
+	 * @param viaStation the via station
+	 * @return the first station code name
+	 */
 	private static String getFirstStationCodeName(ViaStation viaStation) {
 		
 		if (viaStation == null) {
@@ -185,6 +237,12 @@ public class RouteDescriptionBuilder {
 		return null;
 	}
 	
+	/**
+	 * Gets the full name.
+	 *
+	 * @param station the station
+	 * @return the full name
+	 */
 	public static String getFullName(Station station) {
 		
 
@@ -208,6 +266,12 @@ public class RouteDescriptionBuilder {
 		return null;
 	}
 	
+	/**
+	 * Gets the short name case ASCII.
+	 *
+	 * @param station the station
+	 * @return the short name case ASCII
+	 */
 	public static String getShortNameCaseASCII(Station station) {
 		
 		if (station.getShortNameCaseASCII() != null && station.getShortNameCaseASCII().length() > 0) {
