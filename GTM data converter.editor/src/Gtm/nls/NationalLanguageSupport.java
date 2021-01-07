@@ -345,21 +345,16 @@ public class NationalLanguageSupport extends NLS{
 	public static String LegacyImporter_9;
 
 	public static String PreferencePage_0;
-
 	public static String PreferencePage_1;
-
 	public static String PreferencePage_2;
-	
 	public static String PreferencePage_3;
-
 	public static String PreferencePage_4;
-
 	public static String ProblemsReporter_1;
+	public static String PreferencePage_accuracy;
+	public static String PreferencePage_optional_vias;
+	public static String PreferencePage_folder_size;
 
 	public static String ImportStationsAction_CONNECT_BORDER_STATIONS;
-
-	public static String PreferencePage_accuracy;
-
 	public static String ImportLegacyAction_Monitor;
 
 

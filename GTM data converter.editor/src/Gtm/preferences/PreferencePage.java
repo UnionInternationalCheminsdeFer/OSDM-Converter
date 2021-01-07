@@ -3,6 +3,7 @@ package Gtm.preferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -60,9 +61,17 @@ public class PreferencePage
         addField(
 					new BooleanFieldEditor(
 						PreferenceConstants.P_REMOVE_OPTIONAL_VIAS,
-						"Ignore optional via stations",
+						NationalLanguageSupport.PreferencePage_optional_vias,
 						getFieldEditorParent()));
     	
+        
+    	addField(
+					new IntegerFieldEditor(
+							PreferenceConstants.P_LIST_FOLDER_SIZE,
+							NationalLanguageSupport.PreferencePage_folder_size,
+							getFieldEditorParent()));
+        
+        
     	
 	};
 

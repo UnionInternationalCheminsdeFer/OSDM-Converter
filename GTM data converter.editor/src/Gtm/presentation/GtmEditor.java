@@ -135,6 +135,8 @@ import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
 import Gtm.GTMTool;
+import Gtm.preferences.PreferenceConstants;
+import Gtm.preferences.PreferencesAccess;
 import Gtm.provider.GtmItemProviderAdapterFactory;
 import org.eclipse.emf.common.ui.URIEditorInput;
 
@@ -1437,11 +1439,12 @@ public class GtmEditor
 					contentOutlineViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
 					       @Override
 					       protected int getVirtualFolderSize(Object folder) {
-					          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
+					    	  
+					    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
+					    	   
+					          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
 					       }
 					});	
-										
-					
 					
 					contentOutlineViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 					contentOutlineViewer.setInput(editingDomain.getResourceSet());
