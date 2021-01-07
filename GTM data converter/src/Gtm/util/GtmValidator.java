@@ -2797,7 +2797,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateStationSet_AT_LEAST_ONE(StationSet stationSet, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (stationSet.getStations() != null || stationSet.getStations().isEmpty()) {
+		if (stationSet.getStations() != null && stationSet.getStations().isEmpty()) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic

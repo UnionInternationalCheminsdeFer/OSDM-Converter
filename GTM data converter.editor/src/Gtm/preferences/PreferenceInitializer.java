@@ -17,6 +17,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer
 		store.setDefault(PreferenceConstants.P_LINK_STATIONS_BY_GEO, true);
 		store.setDefault(PreferenceConstants.P_LINK_STATIONS_BY_GEO_ACCURACY, 5);
 		store.setDefault(PreferenceConstants.P_REMOVE_OPTIONAL_VIAS, false);
+		store.setDefault(PreferenceConstants.P_LIST_FOLDER_SIZE, 1000);
 	}
 
 
