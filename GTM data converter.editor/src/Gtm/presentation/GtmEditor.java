@@ -753,13 +753,26 @@ public class GtmEditor
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public class ReverseAdapterFactoryContentProvider extends AdapterFactoryContentProvider {
+	public class ReverseAdapterFactoryContentProvider extends PartitionedContentProvider {
+		
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated NOT
+		 */		
+		
+	   @Override
+	   protected int getVirtualFolderSize(Object folder) {
+	    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
+	          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
+	    }
+		
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated NOT
 		 */
 		public ReverseAdapterFactoryContentProvider(AdapterFactory adapterFactory) {
 			super(adapterFactory);
@@ -768,7 +781,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated NOT
 		 */
 		@Override
 		public Object [] getElements(Object object) {
@@ -779,7 +792,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated NOT
 		 */
 		@Override
 		public Object [] getChildren(Object object) {
@@ -790,7 +803,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated NOT
 		 */
 		@Override
 		public boolean hasChildren(Object object) {
@@ -801,7 +814,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated NOT
 		 */
 		@Override
 		public Object getParent(Object object) {
@@ -997,16 +1010,18 @@ public class GtmEditor
 				viewerPane.createControl(getContainer());
 
 				selectionViewer = (TreeViewer)viewerPane.getViewer();
-				selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				//selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 				
-				/*
 				selectionViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
 				       @Override
 				       protected int getVirtualFolderSize(Object folder) {
-				          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
+				    	  
+				    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
+				    	   
+				          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
 				       }
 				});			
-				*/			
+		
 
 				selectionViewer.setUseHashlookup(true);
 
@@ -1045,15 +1060,6 @@ public class GtmEditor
 				parentViewer.setAutoExpandLevel(30);
 				
 				parentViewer.setContentProvider(new ReverseAdapterFactoryContentProvider(adapterFactory));
-				/*
-				// we limit the maximal child elements for containers to 100
-				parentViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
-				       @Override
-				       protected int getVirtualFolderSize(Object folder) {
-				          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
-				       }
-				});
-				*/
 				
 				parentViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
@@ -1104,16 +1110,17 @@ public class GtmEditor
 					};
 				viewerPane.createControl(getContainer());
 				treeViewer = (TreeViewer)viewerPane.getViewer();
-				treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				// treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 
-				/*
 				treeViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
 				       @Override
 				       protected int getVirtualFolderSize(Object folder) {
-				          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
+				    	  
+				    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
+				    	   
+				          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
 				       }
-				});	
-				*/			
+				});			
 				
 				treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
@@ -1279,16 +1286,17 @@ public class GtmEditor
 				viewerPane.createControl(getContainer());
 
 				selectionViewer = (TreeViewer)viewerPane.getViewer();
-				selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				//selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 
-				/*
 				selectionViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
-				       @Override
-				       protected int getVirtualFolderSize(Object folder) {
-				          return folder instanceof Container ? 100 : DEFAULT_FOLDER_SIZE;
-				       }
+					       @Override
+					       protected int getVirtualFolderSize(Object folder) {
+					    	  
+					    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
+					    	   
+					          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
+					       }
 				});	
-				*/
 				
 				selectionViewer.setUseHashlookup(true);
 
