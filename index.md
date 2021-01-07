@@ -1,16 +1,16 @@
 ---
-title: OSDM Converter Tool
-subtitle: Converts old fare data format to OSDM Offline format
+title: OSDM Converter
+subtitle: Converts old the fare data format to the new OSDM Offline format
 layout: page
 show_sidebar: true
-hero_link: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter/releases/download/1.7/converter.1.7.zip
+hero_link: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter/releases/latest/
 hero_link_text: Download Converter Tool
 ---
 
 ## Introduction
 
-The **OSDM Converter Tool** allows to convert between old fare data according to **UIC IRS 10108-1** (TAP-TSI B.1) into the [OSDM Offline Model](https://unioninternationalcheminsdefer.github.io/OSDM/spec/) format released in
-**IRS-90918-10**.
+The **OSDM Converter** allows to convert old fare data according to **UIC IRS 10108-1**
+(TAP-TSI B.1) into the [OSDM Offline Model](https://unioninternationalcheminsdefer.github.io/OSDM//) format released in **IRS-90918-10**.
 
 ## Documentation
 
