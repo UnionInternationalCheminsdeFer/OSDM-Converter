@@ -166,7 +166,7 @@ public class LegacyBorderSideItemProvider
 		String label = getString("_UI_LegacyBorderSide_type");
 		
 		if (((LegacyBorderSide)object).getCarrier() != null) {
-			label = label + " " + ((LegacyBorderSide)object).getCarrier().getShortName();
+			label = label + " " + ((LegacyBorderSide)object).getCarrier().getCode() + " " + ((LegacyBorderSide)object).getCarrier().getShortName();
 		}
 		
 		return label;

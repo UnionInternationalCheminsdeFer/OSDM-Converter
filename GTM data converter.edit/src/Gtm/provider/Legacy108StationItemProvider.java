@@ -67,6 +67,7 @@ public class Legacy108StationItemProvider
 			addStationCodePropertyDescriptor(object);
 			addFareReferenceStationCodePropertyDescriptor(object);
 			addShortNamePropertyDescriptor(object);
+			addShortNameUtf8PropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -204,6 +205,28 @@ public class Legacy108StationItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Short Name Utf8 feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShortNameUtf8PropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Legacy108Station_shortNameUtf8_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Legacy108Station_shortNameUtf8_feature", "_UI_Legacy108Station_type"),
+				 GtmPackage.Literals.LEGACY108_STATION__SHORT_NAME_UTF8,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Legacy108Station.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -247,6 +270,7 @@ public class Legacy108StationItemProvider
 			case GtmPackage.LEGACY108_STATION__STATION_CODE:
 			case GtmPackage.LEGACY108_STATION__FARE_REFERENCE_STATION_CODE:
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME:
+			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

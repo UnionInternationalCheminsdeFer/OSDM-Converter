@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ReductionCard#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.ReductionCard#getServiceClasses <em>Service Classes</em>}</li>
  *   <li>{@link Gtm.ReductionCard#isIdRequiredForBooking <em>Id Required For Booking</em>}</li>
+ *   <li>{@link Gtm.ReductionCard#getIncludedReductionCards <em>Included Reduction Cards</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getReductionCard()
@@ -127,5 +128,17 @@ public interface ReductionCard extends EObject {
 	 * @generated
 	 */
 	void setIdRequiredForBooking(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Included Reduction Cards</b></em>' reference list.
+	 * The list contents are of type {@link Gtm.ReductionCard}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Included Reduction Cards</em>' reference list.
+	 * @see Gtm.GtmPackage#getReductionCard_IncludedReductionCards()
+	 * @model
+	 * @generated
+	 */
+	EList<ReductionCard> getIncludedReductionCards();
 
 } // ReductionCard

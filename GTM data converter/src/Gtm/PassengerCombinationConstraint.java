@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link Gtm.PassengerCombinationConstraint#getMaxNumber <em>Max Number</em>}</li>
+ *   <li>{@link Gtm.PassengerCombinationConstraint#getMinNumber <em>Min Number</em>}</li>
  *   <li>{@link Gtm.PassengerCombinationConstraint#getPassengerType <em>Passenger Type</em>}</li>
  * </ul>
  *
@@ -43,6 +44,28 @@ public interface PassengerCombinationConstraint extends EObject {
 	 * @generated
 	 */
 	void setMaxNumber(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Min Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Min Number</em>' attribute.
+	 * @see #setMinNumber(int)
+	 * @see Gtm.GtmPackage#getPassengerCombinationConstraint_MinNumber()
+	 * @model
+	 * @generated
+	 */
+	int getMinNumber();
+
+	/**
+	 * Sets the value of the '{@link Gtm.PassengerCombinationConstraint#getMinNumber <em>Min Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Min Number</em>' attribute.
+	 * @see #getMinNumber()
+	 * @generated
+	 */
+	void setMinNumber(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Passenger Type</b></em>' attribute.

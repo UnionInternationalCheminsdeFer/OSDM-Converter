@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSDM data converter" uid="GTMproduct" id="GTM_data_converter.editor.GTMproduct" application="GTM_data_converter.editor.GtmEditorAdvisorApplication" version="1.8" useFeatures="false" includeLaunchers="true">
+<product name="OSDM data converter" uid="GTMproduct" id="GTM_data_converter.editor.GTMproduct" application="GTM_data_converter.editor.GtmEditorAdvisorApplication" version="1.9" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/GTM data converter.editor/icons/UIC GIF square_96.gif"/>
       <text>
          UIC fare data converter 
 
-The tool provides conversion between fare data according to UIC standards 108.1 and IRS 90918-10.
+The tool provides conversion between fare data according to UIC standards 108.1 and IRS 90918-10 (OSDM).
       </text>
    </aboutInfo>
 

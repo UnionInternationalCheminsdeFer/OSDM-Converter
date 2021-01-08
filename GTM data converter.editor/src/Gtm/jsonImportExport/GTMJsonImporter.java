@@ -89,7 +89,9 @@ public class GTMJsonImporter {
 	private HashMap<Integer,ServiceBrand> serviceBrands = null;
 	private HashMap<String,NutsCode> nutsCodes = null;
 	private HashMap<String,RegionalConstraint> regionalConstraints = null;
-	private HashMap <String,FareStationSetDefinition> fareStationSets = null;
+	private HashMap<String,FareStationSetDefinition> fareStationSets = null;
+	private HashMap<String,Price>prices = null;
+	
 	
 	private EditingDomain domain = null;
 	
@@ -125,6 +127,7 @@ public class GTMJsonImporter {
 		nutsCodes = new HashMap<String,NutsCode>();	
 		regionalConstraints = new HashMap<String,RegionalConstraint>();
 		fareStationSets = new HashMap <String,FareStationSetDefinition>();
+		prices = new HashMap<String,Price>();
 		this.domain = domain;
 		
 		stations = GtmUtils.getStationMap(tool);
@@ -220,6 +223,9 @@ public class GTMJsonImporter {
 		
 		fareStructure.setFareElements(convertFareElementList(fareDataDef.getFares()));		
 			
+		
+		prices.clear();
+		regionalConstraints.clear();
 		
 		return fareStructure;
 	}
@@ -1021,6 +1027,7 @@ public class GTMJsonImporter {
 			Price p = convert(jp);
 			if (p != null) {
 				o.getPrices().add(p);
+				prices.put(p.getId(),p);
 			}
 		}
 		return o;
@@ -1429,7 +1436,7 @@ public class GTMJsonImporter {
 		f.setLegacyAccountingIdentifier(convert(jf.getLegacyAccountingIdentifier()));
 		f.setPassengerConstraint(findPassengerConstraint(jf.getPassengerConstraintRef()));
 		f.setPersonalDataConstraint(finePersonalDataConstraint(jf.getPersonalDataConstraintRef()));
-		f.setPrice(findPrice(jf.getPriceRef()));
+		f.setPrice(prices.get(jf.getPriceRef()));
 		f.setReductionConstraint(findReductionConstraint(jf.getReductionConstraintRef()));
 		
 		RegionalConstraint rc = findRegionalConstraint(jf.getRegionalConstraintRef());
@@ -1556,16 +1563,6 @@ public class GTMJsonImporter {
 		}
 		return null;
 	}
-
-
-	private Price findPrice(String id) {
-		if (id == null || id.length() < 1) return null;
-		for (Price o : fareStructure.getPrices().getPrices()) {
-			if (o.getId().equals(id)) return o;
-		}
-		return null;
-	}
-
 
 	private PersonalDataConstraint finePersonalDataConstraint(String id) {
 		if (id == null || id.length() < 1) return null;

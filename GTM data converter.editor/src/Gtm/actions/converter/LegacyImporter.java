@@ -622,6 +622,11 @@ public class LegacyImporter {
 		station.setName(nameASCII);
 		station.setNameUTF8(nameUTF8);
 		station.setShortName(shortNameASCII);
+		if (nameUTF8.length() <= shortNameASCII.length() ) {
+			station.setShortNameUtf8(nameUTF8);
+		} else {
+			station.setShortNameUtf8(shortNameASCII);
+		}
 		station.setStationCode(code);
 		station.setFareReferenceStationCode(fareReferenceStationCode);
 		
