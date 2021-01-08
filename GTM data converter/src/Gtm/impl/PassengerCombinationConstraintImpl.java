@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link Gtm.impl.PassengerCombinationConstraintImpl#getMaxNumber <em>Max Number</em>}</li>
+ *   <li>{@link Gtm.impl.PassengerCombinationConstraintImpl#getMinNumber <em>Min Number</em>}</li>
  *   <li>{@link Gtm.impl.PassengerCombinationConstraintImpl#getPassengerType <em>Passenger Type</em>}</li>
  * </ul>
  *
@@ -45,6 +46,26 @@ public class PassengerCombinationConstraintImpl extends MinimalEObjectImpl.Conta
 	 * @ordered
 	 */
 	protected int maxNumber = MAX_NUMBER_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMinNumber() <em>Min Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinNumber()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int MIN_NUMBER_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getMinNumber() <em>Min Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinNumber()
+	 * @generated
+	 * @ordered
+	 */
+	protected int minNumber = MIN_NUMBER_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPassengerType() <em>Passenger Type</em>}' attribute.
@@ -111,6 +132,27 @@ public class PassengerCombinationConstraintImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getMinNumber() {
+		return minNumber;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMinNumber(int newMinNumber) {
+		int oldMinNumber = minNumber;
+		minNumber = newMinNumber;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER, oldMinNumber, minNumber));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TravelerType getPassengerType() {
 		return passengerType;
 	}
@@ -137,6 +179,8 @@ public class PassengerCombinationConstraintImpl extends MinimalEObjectImpl.Conta
 		switch (featureID) {
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER:
 				return getMaxNumber();
+			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER:
+				return getMinNumber();
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE:
 				return getPassengerType();
 		}
@@ -153,6 +197,9 @@ public class PassengerCombinationConstraintImpl extends MinimalEObjectImpl.Conta
 		switch (featureID) {
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER:
 				setMaxNumber((Integer)newValue);
+				return;
+			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER:
+				setMinNumber((Integer)newValue);
 				return;
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE:
 				setPassengerType((TravelerType)newValue);
@@ -172,6 +219,9 @@ public class PassengerCombinationConstraintImpl extends MinimalEObjectImpl.Conta
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER:
 				setMaxNumber(MAX_NUMBER_EDEFAULT);
 				return;
+			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER:
+				setMinNumber(MIN_NUMBER_EDEFAULT);
+				return;
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE:
 				setPassengerType(PASSENGER_TYPE_EDEFAULT);
 				return;
@@ -189,6 +239,8 @@ public class PassengerCombinationConstraintImpl extends MinimalEObjectImpl.Conta
 		switch (featureID) {
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER:
 				return maxNumber != MAX_NUMBER_EDEFAULT;
+			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER:
+				return minNumber != MIN_NUMBER_EDEFAULT;
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE:
 				return passengerType != PASSENGER_TYPE_EDEFAULT;
 		}
@@ -207,6 +259,8 @@ public class PassengerCombinationConstraintImpl extends MinimalEObjectImpl.Conta
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (maxNumber: ");
 		result.append(maxNumber);
+		result.append(", minNumber: ");
+		result.append(minNumber);
 		result.append(", passengerType: ");
 		result.append(passengerType);
 		result.append(')');

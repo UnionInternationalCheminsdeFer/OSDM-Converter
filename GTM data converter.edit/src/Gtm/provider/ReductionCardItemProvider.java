@@ -66,6 +66,7 @@ public class ReductionCardItemProvider
 			addNamePropertyDescriptor(object);
 			addServiceClassesPropertyDescriptor(object);
 			addIdRequiredForBookingPropertyDescriptor(object);
+			addIncludedReductionCardsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -176,6 +177,28 @@ public class ReductionCardItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Included Reduction Cards feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIncludedReductionCardsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReductionCard_includedReductionCards_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ReductionCard_includedReductionCards_feature", "_UI_ReductionCard_type"),
+				 GtmPackage.Literals.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

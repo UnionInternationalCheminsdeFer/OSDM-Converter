@@ -47,6 +47,7 @@ import Gtm.LegacySeries;
 import Gtm.LegacySeriesList;
 import Gtm.LegacySeriesType;
 import Gtm.LegacyViastation;
+import Gtm.OnBorderStations;
 import Gtm.Price;
 import Gtm.RegionalConstraint;
 import Gtm.RegionalValidity;
@@ -534,6 +535,7 @@ public class 	ConverterToLegacy {
 				ls.setName(sn.getNameCaseASCII());
 				ls.setNameUTF8(sn.getNameCaseUTF8());
 				ls.setShortName(sn.getShortNameCaseASCII());
+				ls.setShortNameUtf8(sn.getShortNameCaseUTF8());
 				ls.setStationCode(Integer.parseInt(sn.getCode()));
 				ls.setBorderPointCode(sn.getLegacyBorderPointCode());
 				ls.setFareReferenceStationCode(getFareReferenceCode(sn));
@@ -625,6 +627,7 @@ public class 	ConverterToLegacy {
 				return lbs;
 			}
 		}
+				
 		return null;
 	}
 
@@ -762,8 +765,10 @@ public class 	ConverterToLegacy {
 		}
 		
 		if (series.getFromStation() == 0) {
-			series.setFromStation(getFirstStationCode(mainVia,regionalConstraint.getExitConnectionPoint()));
-			series.setFromStationName(getFirstStationCodeName(mainVia,regionalConstraint.getExitConnectionPoint()));	
+			Legacy108Station ls = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
+			if (ls == null) return null;
+			series.setFromStation(ls.getStationCode());
+			series.setFromStationName(ls.getName());	
 		}
 	
 		if (series.getFromStation() == 0) return null;
@@ -792,8 +797,10 @@ public class 	ConverterToLegacy {
 		series.setSupplyingCarrierCode(tool.getGeneralTariffModel().getDelivery().getProvider().getCode());
 		
 		if (series.getToStation() == 0) {
-			series.setToStation(getLastStationCode(mainVia,regionalConstraint.getExitConnectionPoint()));
-			series.setToStationName(getLastStationCodeName(mainVia,regionalConstraint.getExitConnectionPoint()));
+			Legacy108Station ls = getLastLegacyStation(mainVia,regionalConstraint.getExitConnectionPoint());
+			if (ls == null) return null;
+			series.setToStation(ls.getStationCode());
+			series.setToStationName(ls.getName());	
 		}
 		
 		if (series.getToStation() == 0) return null;
@@ -810,14 +817,25 @@ public class 	ConverterToLegacy {
 		
 		if (connectionPoint.getLegacyBorderPointCode() != 0) {
 				
+			//check for the station in the border point data
+			ArrayList<Station> s = null;
 			LegacyBorderPoint lbp = getLegacyBorderPoint (connectionPoint.getLegacyBorderPointCode() );
-			LegacyBorderSide lbs  = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(),lbp);
-			if (lbs != null) {
-				return legacyStations.get(lbs.getLegacyStationCode());
+			if (lbp != null) {
+				LegacyBorderSide lbs  = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(),lbp);
+				if (lbs != null) {
+					return legacyStations.get(lbs.getLegacyStationCode());
+				}
+			
+				//failed, try an on border station in the required country
+
+				s = getLocalStations(tool.getConversionFromLegacy().getParams().getCountry(),lbp.getOnBorderStations());
+				if (s != null && s.size() > 0) {
+					return legacyStations.get(Integer.parseInt(s.get(0).getCode()));
+				}
 			}
 			
-			ArrayList<Station> s =  getLocalStations(tool.getConversionFromLegacy().getParams().getCountry(), connectionPoint);
-			
+			//failed again 
+			s =  getLocalStations(tool.getConversionFromLegacy().getParams().getCountry(), connectionPoint);
 			if (s != null && s.size() > 0) {
 				return legacyStations.get(Integer.parseInt(s.get(0).getCode()));
 			}
@@ -828,6 +846,27 @@ public class 	ConverterToLegacy {
 	}
 	
 	
+	
+	
+	private ArrayList<Station> getLocalStations(Country country, OnBorderStations onBorderStations) {
+		if (onBorderStations == null) return null;
+		if (onBorderStations.getStations() == null) return null;		
+		if (country == null) return null;
+
+
+		ArrayList<Station> stations = new ArrayList<Station>();
+			
+		for (Station s : onBorderStations.getStations().getStations()) {
+			if (country == null || s.getCountry().getCode() == country.getCode())  {
+				stations.add(s);
+			}
+		}
+		if (stations.size() > 0) {
+			return stations;
+		}
+		return null;
+	}
+
 	private ArrayList<Station> getLocalStations(Country c, ConnectionPoint p){
 			
 		ArrayList<Station> stations = new ArrayList<Station>();
@@ -915,105 +954,60 @@ public class 	ConverterToLegacy {
 		return LegacySeriesType.STATION_STATION;
 
 	}
-
-
-	private int getFirstStationCode(ViaStation viaStation, ConnectionPoint connectionPoint) {
+	
+	private Legacy108Station getFirstLegacyStation(ViaStation viaStation, ConnectionPoint connectionPoint) {
 		if (connectionPoint != null && connectionPoint.getLegacyBorderPointCode() > 0) {
 			Legacy108Station ls = getLegacyStation(connectionPoint);
 			if (ls != null) {
-				return ls.getStationCode();
+				return ls;
 			}
 		}
-		
+
+		int code = 0;
 		ViaStation via = viaStation.getRoute().getStations().get(0);
 		if (via.getStation() != null) {
-			return Integer.parseInt(via.getStation().getCode());
+			code = Integer.parseInt(via.getStation().getCode());
 		} else if (via.getFareStationSet() != null) {
-			return Integer.parseInt(via.getFareStationSet().getCode());
+			code = Integer.parseInt(via.getFareStationSet().getCode());
 		}
-		return 0;		
+		
+		Legacy108Station ls =  legacyStations.get(code);
+		
+		if (ls == null) {
+			String message = "Missing Station Names for: " +  Integer.valueOf(code).toString();
+			GtmUtils.writeConsoleError(message, editor);
+		}
+		return ls;
+		
 	}
-	
-	private String getFirstStationCodeName(ViaStation viaStation, ConnectionPoint connectionPoint) {	
+
+
+	private Legacy108Station getLastLegacyStation(ViaStation viaStation, ConnectionPoint connectionPoint) {
+		
 		if (connectionPoint != null && connectionPoint.getLegacyBorderPointCode() > 0) {
 			Legacy108Station ls = getLegacyStation(connectionPoint);
 			if (ls != null) {
-				return ls.getName();
-			}
-		}
-		
-		ViaStation via = viaStation.getRoute().getStations().get(0);
-		if (via.getStation() != null) {
-			return getName(via.getStation());
-		} else if (via.getFareStationSet() != null) {
-			return via.getFareStationSet().getName();
-		}
-		
-		return null;
-	}
-	
-	private int getLastStationCode(ViaStation viaStation, ConnectionPoint connectionPoint) {
-		if (connectionPoint != null && connectionPoint.getLegacyBorderPointCode() > 0) {
-			Legacy108Station ls = getLegacyStation(connectionPoint);
-			if (ls != null) {
-				return ls.getStationCode();
+				return ls;
 			}
 		}		
 		
+		int code = 0;
 		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
 		if (via.getStation() != null) {
-			return Integer.parseInt(via.getStation().getCode());
+			code = Integer.parseInt(via.getStation().getCode());
 		} else if (via.getFareStationSet() != null) {
-			return Integer.parseInt(via.getFareStationSet().getCode());
+			code = Integer.parseInt(via.getFareStationSet().getCode());
 		}
 
-		return 0;
+		Legacy108Station ls =  legacyStations.get(code);
+		
+		if (ls == null) {
+			String message = "Missing Station Names for: " +  Integer.valueOf(code).toString();
+			GtmUtils.writeConsoleError(message, editor);
+		}
+		return ls;
 	}
 	
-	private String getLastStationCodeName(ViaStation viaStation, ConnectionPoint connectionPoint) {
-
-		if (connectionPoint != null && connectionPoint.getLegacyBorderPointCode() > 0) {
-			Legacy108Station ls = getLegacyStation(connectionPoint);
-			if (ls != null) {
-				return ls.getName();
-			}
-		}		
-		
-		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
-		if (via.getStation() != null) {
-			return getName(via.getStation());
-		} else if (via.getFareStationSet() != null) {
-			return via.getFareStationSet().getName();
-		}
-		return null;
-	}
-
-
-
-
-	private String getName(Station station) {
-		
-		if (station.getShortNameCaseASCII() != null && station.getShortNameCaseASCII().length() > 0) {
-			return station.getShortNameCaseASCII().trim();
-		}
-		if (station.getNameCaseASCII() != null && station.getNameCaseASCII().length() > 0) {
-			return station.getNameCaseASCII().trim();
-		}
-		if (station.getName() != null && station.getName().length() > 0) {
-			return GtmUtils.toPrintableAscII(station.getName()).trim();
-		}			
-		if (station.getShortNameCaseUTF8() != null && station.getShortNameCaseUTF8().length() > 0) {
-			return GtmUtils.toPrintableAscII(station.getShortNameCaseUTF8()).trim();
-		}			
-		if (station.getNameCaseUTF8() != null && station.getNameCaseUTF8().length() > 0) {
-			return GtmUtils.toPrintableAscII(station.getNameCaseUTF8()).trim();
-		}		
-
-		return null;
-	}
-	
-
-
 	private List<FareElement> selectFares() {
 		
 		ArrayList<FareElement> fares = new ArrayList<FareElement>();

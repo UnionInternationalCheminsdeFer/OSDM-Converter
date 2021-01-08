@@ -63,6 +63,7 @@ public class PassengerCombinationConstraintItemProvider
 			super.getPropertyDescriptors(object);
 
 			addMaxNumberPropertyDescriptor(object);
+			addMinNumberPropertyDescriptor(object);
 			addPassengerTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -82,6 +83,28 @@ public class PassengerCombinationConstraintItemProvider
 				 getString("_UI_PassengerCombinationConstraint_maxNumber_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_PassengerCombinationConstraint_maxNumber_feature", "_UI_PassengerCombinationConstraint_type"),
 				 GtmPackage.Literals.PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Min Number feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMinNumberPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PassengerCombinationConstraint_minNumber_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PassengerCombinationConstraint_minNumber_feature", "_UI_PassengerCombinationConstraint_type"),
+				 GtmPackage.Literals.PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER,
 				 true,
 				 false,
 				 false,
@@ -152,6 +175,7 @@ public class PassengerCombinationConstraintItemProvider
 
 		switch (notification.getFeatureID(PassengerCombinationConstraint.class)) {
 			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER:
+			case GtmPackage.PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

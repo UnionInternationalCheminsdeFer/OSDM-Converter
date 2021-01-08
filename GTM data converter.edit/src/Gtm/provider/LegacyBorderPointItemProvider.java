@@ -6,6 +6,7 @@ package Gtm.provider;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.LegacyBorderPoint;
+import Gtm.LegacyBorderSide;
 
 import java.util.Collection;
 import java.util.List;
@@ -65,6 +66,8 @@ public class LegacyBorderPointItemProvider
 			super.getPropertyDescriptors(object);
 
 			addBorderPointCodePropertyDescriptor(object);
+			addIncompleteDataPropertyDescriptor(object);
+			addDataDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +90,50 @@ public class LegacyBorderPointItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Incomplete Data feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIncompleteDataPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LegacyBorderPoint_incompleteData_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LegacyBorderPoint_incompleteData_feature", "_UI_LegacyBorderPoint_type"),
+				 GtmPackage.Literals.LEGACY_BORDER_POINT__INCOMPLETE_DATA,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Data Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LegacyBorderPoint_dataDescription_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LegacyBorderPoint_dataDescription_feature", "_UI_LegacyBorderPoint_type"),
+				 GtmPackage.Literals.LEGACY_BORDER_POINT__DATA_DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -138,12 +185,30 @@ public class LegacyBorderPointItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		LegacyBorderPoint legacyBorderPoint = (LegacyBorderPoint)object;
-		return getString("_UI_LegacyBorderPoint_type") + " " + legacyBorderPoint.getBorderPointCode();
+		StringBuilder sb = new StringBuilder();
+		sb.append(getString("_UI_LegacyBorderPoint_type"));
+		sb.append(" "+ legacyBorderPoint.getBorderPointCode());
+		if (legacyBorderPoint.getBorderSides()!= null && !legacyBorderPoint.getBorderSides().isEmpty()) {
+			sb.append(" - ");
+			boolean first = true;
+			for (LegacyBorderSide side: legacyBorderPoint.getBorderSides()) {
+				if (!first) {
+					sb.append("/");
+				}
+				sb.append(side.getCarrier().getShortName());
+				first = false;
+			}
+		}
+		if (legacyBorderPoint.getDataDescription() != null) {
+			sb.append(" ").append(legacyBorderPoint.getDataDescription());
+		}
+			
+		return sb.toString();
 	}
 
 
@@ -160,6 +225,8 @@ public class LegacyBorderPointItemProvider
 
 		switch (notification.getFeatureID(LegacyBorderPoint.class)) {
 			case GtmPackage.LEGACY_BORDER_POINT__BORDER_POINT_CODE:
+			case GtmPackage.LEGACY_BORDER_POINT__INCOMPLETE_DATA:
+			case GtmPackage.LEGACY_BORDER_POINT__DATA_DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.LEGACY_BORDER_POINT__FAKE_BORDER_STATIONS:

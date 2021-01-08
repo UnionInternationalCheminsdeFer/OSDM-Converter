@@ -517,6 +517,7 @@
       <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="passengerType" eType="#//TravelerType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IncludedFreePassengerLimit">
@@ -602,6 +603,8 @@
         eType="#//ServiceClass"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="idRequiredForBooking" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="includedReductionCards"
+        upperBound="-1" eType="#//ReductionCard"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CarrierConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraints" upperBound="-1"
@@ -1106,6 +1109,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="borderSides" upperBound="-1"
         eType="#//LegacyBorderSide" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="incompleteData" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LegacyFakeBorderStations">
     <eStructuralFeatures xsi:type="ecore:EReference" name="stations" eType="#//StationSet"
@@ -1242,6 +1247,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fareReferenceStationCode"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortNameUtf8" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LegacyRouteFares">
     <eStructuralFeatures xsi:type="ecore:EReference" name="routeFare" upperBound="-1"

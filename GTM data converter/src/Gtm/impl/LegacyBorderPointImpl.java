@@ -35,6 +35,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.LegacyBorderPointImpl#getFakeBorderStations <em>Fake Border Stations</em>}</li>
  *   <li>{@link Gtm.impl.LegacyBorderPointImpl#getOnBorderStations <em>On Border Stations</em>}</li>
  *   <li>{@link Gtm.impl.LegacyBorderPointImpl#getBorderSides <em>Border Sides</em>}</li>
+ *   <li>{@link Gtm.impl.LegacyBorderPointImpl#isIncompleteData <em>Incomplete Data</em>}</li>
+ *   <li>{@link Gtm.impl.LegacyBorderPointImpl#getDataDescription <em>Data Description</em>}</li>
  * </ul>
  *
  * @generated
@@ -89,6 +91,46 @@ public class LegacyBorderPointImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected EList<LegacyBorderSide> borderSides;
+
+	/**
+	 * The default value of the '{@link #isIncompleteData() <em>Incomplete Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIncompleteData()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INCOMPLETE_DATA_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIncompleteData() <em>Incomplete Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIncompleteData()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean incompleteData = INCOMPLETE_DATA_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDataDescription() <em>Data Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DATA_DESCRIPTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDataDescription() <em>Data Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String dataDescription = DATA_DESCRIPTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -233,6 +275,48 @@ public class LegacyBorderPointImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isIncompleteData() {
+		return incompleteData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIncompleteData(boolean newIncompleteData) {
+		boolean oldIncompleteData = incompleteData;
+		incompleteData = newIncompleteData;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY_BORDER_POINT__INCOMPLETE_DATA, oldIncompleteData, incompleteData));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDataDescription() {
+		return dataDescription;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataDescription(String newDataDescription) {
+		String oldDataDescription = dataDescription;
+		dataDescription = newDataDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY_BORDER_POINT__DATA_DESCRIPTION, oldDataDescription, dataDescription));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -262,6 +346,10 @@ public class LegacyBorderPointImpl extends MinimalEObjectImpl.Container implemen
 				return getOnBorderStations();
 			case GtmPackage.LEGACY_BORDER_POINT__BORDER_SIDES:
 				return getBorderSides();
+			case GtmPackage.LEGACY_BORDER_POINT__INCOMPLETE_DATA:
+				return isIncompleteData();
+			case GtmPackage.LEGACY_BORDER_POINT__DATA_DESCRIPTION:
+				return getDataDescription();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -288,6 +376,12 @@ public class LegacyBorderPointImpl extends MinimalEObjectImpl.Container implemen
 				getBorderSides().clear();
 				getBorderSides().addAll((Collection<? extends LegacyBorderSide>)newValue);
 				return;
+			case GtmPackage.LEGACY_BORDER_POINT__INCOMPLETE_DATA:
+				setIncompleteData((Boolean)newValue);
+				return;
+			case GtmPackage.LEGACY_BORDER_POINT__DATA_DESCRIPTION:
+				setDataDescription((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -312,6 +406,12 @@ public class LegacyBorderPointImpl extends MinimalEObjectImpl.Container implemen
 			case GtmPackage.LEGACY_BORDER_POINT__BORDER_SIDES:
 				getBorderSides().clear();
 				return;
+			case GtmPackage.LEGACY_BORDER_POINT__INCOMPLETE_DATA:
+				setIncompleteData(INCOMPLETE_DATA_EDEFAULT);
+				return;
+			case GtmPackage.LEGACY_BORDER_POINT__DATA_DESCRIPTION:
+				setDataDescription(DATA_DESCRIPTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -332,6 +432,10 @@ public class LegacyBorderPointImpl extends MinimalEObjectImpl.Container implemen
 				return onBorderStations != null;
 			case GtmPackage.LEGACY_BORDER_POINT__BORDER_SIDES:
 				return borderSides != null && !borderSides.isEmpty();
+			case GtmPackage.LEGACY_BORDER_POINT__INCOMPLETE_DATA:
+				return incompleteData != INCOMPLETE_DATA_EDEFAULT;
+			case GtmPackage.LEGACY_BORDER_POINT__DATA_DESCRIPTION:
+				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -348,6 +452,10 @@ public class LegacyBorderPointImpl extends MinimalEObjectImpl.Container implemen
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (borderPointCode: ");
 		result.append(borderPointCode);
+		result.append(", incompleteData: ");
+		result.append(incompleteData);
+		result.append(", dataDescription: ");
+		result.append(dataDescription);
 		result.append(')');
 		return result.toString();
 	}

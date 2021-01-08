@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.Legacy108StationImpl#getStationCode <em>Station Code</em>}</li>
  *   <li>{@link Gtm.impl.Legacy108StationImpl#getFareReferenceStationCode <em>Fare Reference Station Code</em>}</li>
  *   <li>{@link Gtm.impl.Legacy108StationImpl#getShortName <em>Short Name</em>}</li>
+ *   <li>{@link Gtm.impl.Legacy108StationImpl#getShortNameUtf8 <em>Short Name Utf8</em>}</li>
  * </ul>
  *
  * @generated
@@ -148,6 +149,26 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected String shortName = SHORT_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getShortNameUtf8() <em>Short Name Utf8</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortNameUtf8()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SHORT_NAME_UTF8_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getShortNameUtf8() <em>Short Name Utf8</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortNameUtf8()
+	 * @generated
+	 * @ordered
+	 */
+	protected String shortNameUtf8 = SHORT_NAME_UTF8_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -299,6 +320,27 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getShortNameUtf8() {
+		return shortNameUtf8;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setShortNameUtf8(String newShortNameUtf8) {
+		String oldShortNameUtf8 = shortNameUtf8;
+		shortNameUtf8 = newShortNameUtf8;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8, oldShortNameUtf8, shortNameUtf8));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -314,6 +356,8 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 				return getFareReferenceStationCode();
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME:
 				return getShortName();
+			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
+				return getShortNameUtf8();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -343,6 +387,9 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 				return;
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME:
 				setShortName((String)newValue);
+				return;
+			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
+				setShortNameUtf8((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -374,6 +421,9 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME:
 				setShortName(SHORT_NAME_EDEFAULT);
 				return;
+			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
+				setShortNameUtf8(SHORT_NAME_UTF8_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -398,6 +448,8 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 				return fareReferenceStationCode != FARE_REFERENCE_STATION_CODE_EDEFAULT;
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME:
 				return SHORT_NAME_EDEFAULT == null ? shortName != null : !SHORT_NAME_EDEFAULT.equals(shortName);
+			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
+				return SHORT_NAME_UTF8_EDEFAULT == null ? shortNameUtf8 != null : !SHORT_NAME_UTF8_EDEFAULT.equals(shortNameUtf8);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -424,6 +476,8 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 		result.append(fareReferenceStationCode);
 		result.append(", shortName: ");
 		result.append(shortName);
+		result.append(", shortNameUtf8: ");
+		result.append(shortNameUtf8);
 		result.append(')');
 		return result.toString();
 	}

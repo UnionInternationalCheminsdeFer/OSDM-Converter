@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.LegacyBorderPoint#getFakeBorderStations <em>Fake Border Stations</em>}</li>
  *   <li>{@link Gtm.LegacyBorderPoint#getOnBorderStations <em>On Border Stations</em>}</li>
  *   <li>{@link Gtm.LegacyBorderPoint#getBorderSides <em>Border Sides</em>}</li>
+ *   <li>{@link Gtm.LegacyBorderPoint#isIncompleteData <em>Incomplete Data</em>}</li>
+ *   <li>{@link Gtm.LegacyBorderPoint#getDataDescription <em>Data Description</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getLegacyBorderPoint()
@@ -103,5 +105,49 @@ public interface LegacyBorderPoint extends EObject {
 	 * @generated
 	 */
 	EList<LegacyBorderSide> getBorderSides();
+
+	/**
+	 * Returns the value of the '<em><b>Incomplete Data</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Incomplete Data</em>' attribute.
+	 * @see #setIncompleteData(boolean)
+	 * @see Gtm.GtmPackage#getLegacyBorderPoint_IncompleteData()
+	 * @model
+	 * @generated
+	 */
+	boolean isIncompleteData();
+
+	/**
+	 * Sets the value of the '{@link Gtm.LegacyBorderPoint#isIncompleteData <em>Incomplete Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Incomplete Data</em>' attribute.
+	 * @see #isIncompleteData()
+	 * @generated
+	 */
+	void setIncompleteData(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Data Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Description</em>' attribute.
+	 * @see #setDataDescription(String)
+	 * @see Gtm.GtmPackage#getLegacyBorderPoint_DataDescription()
+	 * @model
+	 * @generated
+	 */
+	String getDataDescription();
+
+	/**
+	 * Sets the value of the '{@link Gtm.LegacyBorderPoint#getDataDescription <em>Data Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Description</em>' attribute.
+	 * @see #getDataDescription()
+	 * @generated
+	 */
+	void setDataDescription(String value);
 
 } // LegacyBorderPoint

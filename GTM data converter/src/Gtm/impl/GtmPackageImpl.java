@@ -3727,8 +3727,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPassengerCombinationConstraint_PassengerType() {
+	public EAttribute getPassengerCombinationConstraint_MinNumber() {
 		return (EAttribute)passengerCombinationConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPassengerCombinationConstraint_PassengerType() {
+		return (EAttribute)passengerCombinationConstraintEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4089,6 +4098,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getReductionCard_IdRequiredForBooking() {
 		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReductionCard_IncludedReductionCards() {
+		return (EReference)reductionCardEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -6454,6 +6472,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getLegacyBorderPoint_IncompleteData() {
+		return (EAttribute)legacyBorderPointEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacyBorderPoint_DataDescription() {
+		return (EAttribute)legacyBorderPointEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOnBorderStations() {
 		return onBorderStationsEClass;
 	}
@@ -7131,6 +7167,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getLegacy108Station_ShortName() {
 		return (EAttribute)legacy108StationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacy108Station_ShortNameUtf8() {
+		return (EAttribute)legacy108StationEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -8368,6 +8413,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		passengerCombinationConstraintEClass = createEClass(PASSENGER_COMBINATION_CONSTRAINT);
 		createEAttribute(passengerCombinationConstraintEClass, PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER);
+		createEAttribute(passengerCombinationConstraintEClass, PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER);
 		createEAttribute(passengerCombinationConstraintEClass, PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE);
 
 		includedFreePassengerLimitEClass = createEClass(INCLUDED_FREE_PASSENGER_LIMIT);
@@ -8421,6 +8467,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(reductionCardEClass, REDUCTION_CARD__NAME);
 		createEReference(reductionCardEClass, REDUCTION_CARD__SERVICE_CLASSES);
 		createEAttribute(reductionCardEClass, REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING);
+		createEReference(reductionCardEClass, REDUCTION_CARD__INCLUDED_REDUCTION_CARDS);
 
 		carrierConstraintsEClass = createEClass(CARRIER_CONSTRAINTS);
 		createEReference(carrierConstraintsEClass, CARRIER_CONSTRAINTS__CARRIER_CONSTRAINTS);
@@ -8741,6 +8788,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(legacyBorderPointEClass, LEGACY_BORDER_POINT__FAKE_BORDER_STATIONS);
 		createEReference(legacyBorderPointEClass, LEGACY_BORDER_POINT__ON_BORDER_STATIONS);
 		createEReference(legacyBorderPointEClass, LEGACY_BORDER_POINT__BORDER_SIDES);
+		createEAttribute(legacyBorderPointEClass, LEGACY_BORDER_POINT__INCOMPLETE_DATA);
+		createEAttribute(legacyBorderPointEClass, LEGACY_BORDER_POINT__DATA_DESCRIPTION);
 
 		legacyFakeBorderStationsEClass = createEClass(LEGACY_FAKE_BORDER_STATIONS);
 		createEReference(legacyFakeBorderStationsEClass, LEGACY_FAKE_BORDER_STATIONS__STATIONS);
@@ -8833,6 +8882,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacy108StationEClass, LEGACY108_STATION__STATION_CODE);
 		createEAttribute(legacy108StationEClass, LEGACY108_STATION__FARE_REFERENCE_STATION_CODE);
 		createEAttribute(legacy108StationEClass, LEGACY108_STATION__SHORT_NAME);
+		createEAttribute(legacy108StationEClass, LEGACY108_STATION__SHORT_NAME_UTF8);
 
 		legacyRouteFaresEClass = createEClass(LEGACY_ROUTE_FARES);
 		createEReference(legacyRouteFaresEClass, LEGACY_ROUTE_FARES__ROUTE_FARE);
@@ -9307,6 +9357,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		initEClass(passengerCombinationConstraintEClass, PassengerCombinationConstraint.class, "PassengerCombinationConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPassengerCombinationConstraint_MaxNumber(), ecorePackage.getEInt(), "maxNumber", null, 0, 1, PassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPassengerCombinationConstraint_MinNumber(), ecorePackage.getEInt(), "minNumber", null, 0, 1, PassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPassengerCombinationConstraint_PassengerType(), this.getTravelerType(), "passengerType", null, 0, 1, PassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(includedFreePassengerLimitEClass, IncludedFreePassengerLimit.class, "IncludedFreePassengerLimit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -9360,6 +9411,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getReductionCard_Name(), this.getText(), null, "name", null, 0, 1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getReductionCard_ServiceClasses(), this.getServiceClass(), null, "serviceClasses", null, 0, -1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReductionCard_IdRequiredForBooking(), ecorePackage.getEBoolean(), "idRequiredForBooking", "false", 0, 1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getReductionCard_IncludedReductionCards(), this.getReductionCard(), null, "includedReductionCards", null, 0, -1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(carrierConstraintsEClass, CarrierConstraints.class, "CarrierConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCarrierConstraints_CarrierConstraints(), this.getCarrierConstraint(), null, "carrierConstraints", null, 0, -1, CarrierConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9683,6 +9735,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getLegacyBorderPoint_FakeBorderStations(), this.getLegacyFakeBorderStations(), null, "fakeBorderStations", null, 0, 1, LegacyBorderPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLegacyBorderPoint_OnBorderStations(), this.getOnBorderStations(), null, "onBorderStations", null, 0, 1, LegacyBorderPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLegacyBorderPoint_BorderSides(), this.getLegacyBorderSide(), null, "borderSides", null, 0, -1, LegacyBorderPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacyBorderPoint_IncompleteData(), ecorePackage.getEBoolean(), "incompleteData", null, 0, 1, LegacyBorderPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacyBorderPoint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, LegacyBorderPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacyFakeBorderStationsEClass, LegacyFakeBorderStations.class, "LegacyFakeBorderStations", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLegacyFakeBorderStations_Stations(), this.getStationSet(), null, "stations", null, 0, 1, LegacyFakeBorderStations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9783,6 +9837,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacy108Station_StationCode(), ecorePackage.getEInt(), "stationCode", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacy108Station_FareReferenceStationCode(), ecorePackage.getEInt(), "fareReferenceStationCode", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacy108Station_ShortName(), ecorePackage.getEString(), "shortName", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacy108Station_ShortNameUtf8(), ecorePackage.getEString(), "shortNameUtf8", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacyRouteFaresEClass, LegacyRouteFares.class, "LegacyRouteFares", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLegacyRouteFares_RouteFare(), this.getLegacyRouteFare(), null, "routeFare", null, 0, -1, LegacyRouteFares.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

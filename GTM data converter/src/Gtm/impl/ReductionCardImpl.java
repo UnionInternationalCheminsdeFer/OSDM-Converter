@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link Gtm.impl.ReductionCardImpl#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.impl.ReductionCardImpl#getServiceClasses <em>Service Classes</em>}</li>
  *   <li>{@link Gtm.impl.ReductionCardImpl#isIdRequiredForBooking <em>Id Required For Booking</em>}</li>
+ *   <li>{@link Gtm.impl.ReductionCardImpl#getIncludedReductionCards <em>Included Reduction Cards</em>}</li>
  * </ul>
  *
  * @generated
@@ -109,6 +110,16 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 	 * @ordered
 	 */
 	protected boolean idRequiredForBooking = ID_REQUIRED_FOR_BOOKING_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getIncludedReductionCards() <em>Included Reduction Cards</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIncludedReductionCards()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ReductionCard> includedReductionCards;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -264,6 +275,18 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ReductionCard> getIncludedReductionCards() {
+		if (includedReductionCards == null) {
+			includedReductionCards = new EObjectResolvingEList<ReductionCard>(ReductionCard.class, this, GtmPackage.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS);
+		}
+		return includedReductionCards;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -279,6 +302,8 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 				return getServiceClasses();
 			case GtmPackage.REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING:
 				return isIdRequiredForBooking();
+			case GtmPackage.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS:
+				return getIncludedReductionCards();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -308,6 +333,10 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 			case GtmPackage.REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING:
 				setIdRequiredForBooking((Boolean)newValue);
 				return;
+			case GtmPackage.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS:
+				getIncludedReductionCards().clear();
+				getIncludedReductionCards().addAll((Collection<? extends ReductionCard>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -335,6 +364,9 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 			case GtmPackage.REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING:
 				setIdRequiredForBooking(ID_REQUIRED_FOR_BOOKING_EDEFAULT);
 				return;
+			case GtmPackage.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS:
+				getIncludedReductionCards().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -357,6 +389,8 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 				return serviceClasses != null && !serviceClasses.isEmpty();
 			case GtmPackage.REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING:
 				return idRequiredForBooking != ID_REQUIRED_FOR_BOOKING_EDEFAULT;
+			case GtmPackage.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS:
+				return includedReductionCards != null && !includedReductionCards.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -285,6 +285,8 @@ public class NationalLanguageSupport extends NLS{
 
 	public static String GtmValidator_337;
 
+	public static String GtmValidator_338;
+	
 	public static String GtmValidator_35;
 
 	public static String GtmValidator_4;

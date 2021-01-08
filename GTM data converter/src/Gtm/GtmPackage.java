@@ -3425,13 +3425,22 @@ public interface GtmPackage extends EPackage {
 	int PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER = 0;
 
 	/**
+	 * The feature id for the '<em><b>Min Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER = 1;
+
+	/**
 	 * The feature id for the '<em><b>Passenger Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE = 1;
+	int PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE = 2;
 
 	/**
 	 * The number of structural features of the '<em>Passenger Combination Constraint</em>' class.
@@ -3440,7 +3449,7 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PASSENGER_COMBINATION_CONSTRAINT_FEATURE_COUNT = 2;
+	int PASSENGER_COMBINATION_CONSTRAINT_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Passenger Combination Constraint</em>' class.
@@ -4076,13 +4085,22 @@ public interface GtmPackage extends EPackage {
 	int REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING = 4;
 
 	/**
+	 * The feature id for the '<em><b>Included Reduction Cards</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_CARD__INCLUDED_REDUCTION_CARDS = 5;
+
+	/**
 	 * The number of structural features of the '<em>Reduction Card</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCTION_CARD_FEATURE_COUNT = 5;
+	int REDUCTION_CARD_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Reduction Card</em>' class.
@@ -7738,13 +7756,31 @@ public interface GtmPackage extends EPackage {
 	int LEGACY_BORDER_POINT__BORDER_SIDES = 3;
 
 	/**
+	 * The feature id for the '<em><b>Incomplete Data</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEGACY_BORDER_POINT__INCOMPLETE_DATA = 4;
+
+	/**
+	 * The feature id for the '<em><b>Data Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEGACY_BORDER_POINT__DATA_DESCRIPTION = 5;
+
+	/**
 	 * The number of structural features of the '<em>Legacy Border Point</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LEGACY_BORDER_POINT_FEATURE_COUNT = 4;
+	int LEGACY_BORDER_POINT_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Legacy Border Point</em>' class.
@@ -8566,13 +8602,22 @@ public interface GtmPackage extends EPackage {
 	int LEGACY108_STATION__SHORT_NAME = 5;
 
 	/**
+	 * The feature id for the '<em><b>Short Name Utf8</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEGACY108_STATION__SHORT_NAME_UTF8 = 6;
+
+	/**
 	 * The number of structural features of the '<em>Legacy108 Station</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LEGACY108_STATION_FEATURE_COUNT = 6;
+	int LEGACY108_STATION_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Legacy108 Station</em>' class.
@@ -12337,6 +12382,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getPassengerCombinationConstraint_MaxNumber();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.PassengerCombinationConstraint#getMinNumber <em>Min Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Min Number</em>'.
+	 * @see Gtm.PassengerCombinationConstraint#getMinNumber()
+	 * @see #getPassengerCombinationConstraint()
+	 * @generated
+	 */
+	EAttribute getPassengerCombinationConstraint_MinNumber();
+
+	/**
 	 * Returns the meta object for the attribute '{@link Gtm.PassengerCombinationConstraint#getPassengerType <em>Passenger Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12774,6 +12830,17 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getReductionCard_IdRequiredForBooking();
+
+	/**
+	 * Returns the meta object for the reference list '{@link Gtm.ReductionCard#getIncludedReductionCards <em>Included Reduction Cards</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Included Reduction Cards</em>'.
+	 * @see Gtm.ReductionCard#getIncludedReductionCards()
+	 * @see #getReductionCard()
+	 * @generated
+	 */
+	EReference getReductionCard_IncludedReductionCards();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.CarrierConstraints <em>Carrier Constraints</em>}'.
@@ -15604,6 +15671,28 @@ public interface GtmPackage extends EPackage {
 	EReference getLegacyBorderPoint_BorderSides();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.LegacyBorderPoint#isIncompleteData <em>Incomplete Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Incomplete Data</em>'.
+	 * @see Gtm.LegacyBorderPoint#isIncompleteData()
+	 * @see #getLegacyBorderPoint()
+	 * @generated
+	 */
+	EAttribute getLegacyBorderPoint_IncompleteData();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Gtm.LegacyBorderPoint#getDataDescription <em>Data Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Description</em>'.
+	 * @see Gtm.LegacyBorderPoint#getDataDescription()
+	 * @see #getLegacyBorderPoint()
+	 * @generated
+	 */
+	EAttribute getLegacyBorderPoint_DataDescription();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.OnBorderStations <em>On Border Stations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16415,6 +16504,17 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLegacy108Station_ShortName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Gtm.Legacy108Station#getShortNameUtf8 <em>Short Name Utf8</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Short Name Utf8</em>'.
+	 * @see Gtm.Legacy108Station#getShortNameUtf8()
+	 * @see #getLegacy108Station()
+	 * @generated
+	 */
+	EAttribute getLegacy108Station_ShortNameUtf8();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.LegacyRouteFares <em>Legacy Route Fares</em>}'.
@@ -19632,6 +19732,14 @@ public interface GtmPackage extends EPackage {
 		EAttribute PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER = eINSTANCE.getPassengerCombinationConstraint_MaxNumber();
 
 		/**
+		 * The meta object literal for the '<em><b>Min Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER = eINSTANCE.getPassengerCombinationConstraint_MinNumber();
+
+		/**
 		 * The meta object literal for the '<em><b>Passenger Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -19982,6 +20090,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING = eINSTANCE.getReductionCard_IdRequiredForBooking();
+
+		/**
+		 * The meta object literal for the '<em><b>Included Reduction Cards</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REDUCTION_CARD__INCLUDED_REDUCTION_CARDS = eINSTANCE.getReductionCard_IncludedReductionCards();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.CarrierConstraintsImpl <em>Carrier Constraints</em>}' class.
@@ -22184,6 +22300,22 @@ public interface GtmPackage extends EPackage {
 		EReference LEGACY_BORDER_POINT__BORDER_SIDES = eINSTANCE.getLegacyBorderPoint_BorderSides();
 
 		/**
+		 * The meta object literal for the '<em><b>Incomplete Data</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LEGACY_BORDER_POINT__INCOMPLETE_DATA = eINSTANCE.getLegacyBorderPoint_IncompleteData();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LEGACY_BORDER_POINT__DATA_DESCRIPTION = eINSTANCE.getLegacyBorderPoint_DataDescription();
+
+		/**
 		 * The meta object literal for the '{@link Gtm.impl.OnBorderStationsImpl <em>On Border Stations</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -22828,6 +22960,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LEGACY108_STATION__SHORT_NAME = eINSTANCE.getLegacy108Station_ShortName();
+
+		/**
+		 * The meta object literal for the '<em><b>Short Name Utf8</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LEGACY108_STATION__SHORT_NAME_UTF8 = eINSTANCE.getLegacy108Station_ShortNameUtf8();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.LegacyRouteFaresImpl <em>Legacy Route Fares</em>}' class.

@@ -696,6 +696,7 @@
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//PassengerCombinationConstraint" labelFeature="#//Gtm/PassengerCombinationConstraint/passengerType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerCombinationConstraint/maxNumber"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerCombinationConstraint/minNumber"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerCombinationConstraint/passengerType"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//IncludedFreePassengerLimit">
@@ -750,6 +751,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionCard/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionCard/serviceClasses"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReductionCard/idRequiredForBooking"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionCard/includedReductionCards"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//CarrierConstraints">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierConstraints/carrierConstraints"/>
@@ -1076,6 +1078,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyBorderPoint/fakeBorderStations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyBorderPoint/onBorderStations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyBorderPoint/borderSides"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyBorderPoint/incompleteData"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyBorderPoint/dataDescription"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//LegacyFakeBorderStations">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyFakeBorderStations/stations"/>
@@ -1176,6 +1180,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/stationCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/fareReferenceStationCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/shortName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/shortNameUtf8"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//LegacyRouteFares">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyRouteFares/routeFare"/>

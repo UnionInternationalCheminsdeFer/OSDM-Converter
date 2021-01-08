@@ -4,6 +4,8 @@ package Gtm.provider;
 
 
 import Gtm.GtmPackage;
+import Gtm.LegacyBorderSide;
+import Gtm.Station;
 import Gtm.StationSet;
 
 import java.util.Collection;
@@ -105,12 +107,24 @@ public class StationSetItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = getString("_UI_StationSet_type");
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(getString("_UI_StationSet_type"));
 		
 		if (((StationSet)object).getStations().isEmpty()) {
-			label = label + " - empty";
-		} 
-		return label;
+			sb.append(" - empty");
+		} else {
+			sb.append(" ");
+			boolean first = true;
+			for (Station s: ((StationSet)object).getStations()) {
+				if (!first) {
+					sb.append("/");
+				}
+				sb.append(s.getName());
+				first = false;
+			}
+		}
+		return sb.toString();
 	}
 
 

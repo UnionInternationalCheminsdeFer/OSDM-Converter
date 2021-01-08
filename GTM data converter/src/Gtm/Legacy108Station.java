@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Legacy108Station#getStationCode <em>Station Code</em>}</li>
  *   <li>{@link Gtm.Legacy108Station#getFareReferenceStationCode <em>Fare Reference Station Code</em>}</li>
  *   <li>{@link Gtm.Legacy108Station#getShortName <em>Short Name</em>}</li>
+ *   <li>{@link Gtm.Legacy108Station#getShortNameUtf8 <em>Short Name Utf8</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getLegacy108Station()
@@ -157,5 +158,27 @@ public interface Legacy108Station extends EObject {
 	 * @generated
 	 */
 	void setShortName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Short Name Utf8</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Short Name Utf8</em>' attribute.
+	 * @see #setShortNameUtf8(String)
+	 * @see Gtm.GtmPackage#getLegacy108Station_ShortNameUtf8()
+	 * @model
+	 * @generated
+	 */
+	String getShortNameUtf8();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Legacy108Station#getShortNameUtf8 <em>Short Name Utf8</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Short Name Utf8</em>' attribute.
+	 * @see #getShortNameUtf8()
+	 * @generated
+	 */
+	void setShortNameUtf8(String value);
 
 } // Legacy108Station

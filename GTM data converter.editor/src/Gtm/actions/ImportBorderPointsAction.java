@@ -187,24 +187,34 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 				
 				if (p.getBorderPointCode() == 0) return null;
 				
+				boolean side1Ok = true;
 				int legacyStationCode1 = 0;
+				try {
+					legacyStationCode1 = Integer.parseInt(strings[2]);			
+				} catch (Exception e) {
+					side1Ok=false;
+					writeConsoleError("border point import: legacy station code missing in border point: " + errorId,editor);
+				}
+				
+				boolean side2Ok = true;
 				int legacyStationCode2 = 0;			
 				try {
-					legacyStationCode1 = Integer.parseInt(strings[2]);
 					legacyStationCode2 = Integer.parseInt(strings[4]);					
 				} catch (Exception e) {
+					side2Ok=false;
 					writeConsoleError("border point import: legacy station code missing in border point: " + errorId,editor);
-					return null;
 				}
+				
+				if (side1Ok == false && side2Ok == false) return null;
 
 				while (strings[1].length() < 4) {
 					strings[1] = "0" + strings[1];
 				}
 				Carrier carrier1 = findCarrier(tool, strings[1]);
 				if (carrier1 == null) {
+					side1Ok=false;
 					String message = "border point import: first carrier " + carrierString1 + " not found in border point: " + errorId;
 					writeConsoleError(message,editor);
-					return null;
 				}
 				
 				while (strings[3].length() < 4) {
@@ -212,60 +222,80 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 				}
 				Carrier carrier2 = findCarrier(tool, strings[3]);
 				if (carrier2 == null) {
+					side2Ok=false;
 					String message = "border point import: second carrier " + carrierString2 + " not found in border point: " + errorId;
 					writeConsoleError(message,editor);
-					return null;
 				}
-
-	
 				
+				if (side1Ok == false && side2Ok == false) return null;				
+					
 				StationSet setfake = addStationSet(strings[5],stationMap,editor,strings[0]);				
 				LegacyFakeBorderStations fakeStations = GtmFactory.eINSTANCE.createLegacyFakeBorderStations();
 				fakeStations.setStations(setfake);
 				
 				StationSet set1 = addStationSet(strings[6],stationMap, editor,strings[0]);
 				if (set1 == null || set1.getStations() == null || set1.getStations().isEmpty()) {
+					side1Ok=false;
 					String message = "border point import: border stations for first carrier  " + carrierString1 + " missing in border point: " + errorId;
 					writeConsoleError(message,editor);
-					return null;
 				}
-				LegacyBorderSide bps1 = GtmFactory.eINSTANCE.createLegacyBorderSide();
-				bps1.setCarrier(carrier1);
-				bps1.setStations(set1);
-				bps1.setLegacyStationCode(legacyStationCode1);				
 				
 				StationSet set2 = addStationSet(strings[7],stationMap, editor, strings[0]);
 				if (set2 == null || set2.getStations() == null || set2.getStations().isEmpty()) {
+					side2Ok=false;
 					String message = "border point import: border stations for second carrier " + carrierString2 + " missing in border point: " + errorId;
 					writeConsoleError(message,editor);
-					return null;
-				}				
-				LegacyBorderSide bps2 = GtmFactory.eINSTANCE.createLegacyBorderSide();
-				bps2.setCarrier(carrier2);		
-				bps2.setStations(set2);
-				bps2.setLegacyStationCode(legacyStationCode2);
+				}			
+				
+				if (side1Ok == false && side2Ok == false) return null;	
 
+				LegacyBorderSide bps1 = GtmFactory.eINSTANCE.createLegacyBorderSide();
+				if (side1Ok) {
+					bps1.setCarrier(carrier1);
+					bps1.setStations(set1);
+					bps1.setLegacyStationCode(legacyStationCode1);	
+				}
+
+				LegacyBorderSide bps2 = GtmFactory.eINSTANCE.createLegacyBorderSide();
+				if 	(side2Ok) {
+					bps2.setCarrier(carrier2);		
+					bps2.setStations(set2);
+					bps2.setLegacyStationCode(legacyStationCode2);
+				}
+					
 				//on border stations are stations that are in both columns
 				OnBorderStations onBorderStations = GtmFactory.eINSTANCE.createOnBorderStations();
 				StationSet set4 = GtmFactory.eINSTANCE.createStationSet();
 				onBorderStations.setStations(set4);			
-				for (Station station : bps1.getStations().getStations()) {
-					if (bps2.getStations().getStations().contains(station)) {
-						onBorderStations.getStations().getStations().add(station);
-						bps2.getStations().getStations().remove(station);
+				if (bps1.getStations() != null && bps2.getStations() != null) {
+					for (Station station : bps1.getStations().getStations()) {
+						if (bps2.getStations().getStations().contains(station)) {
+							onBorderStations.getStations().getStations().add(station);
+							bps2.getStations().getStations().remove(station);
+						}
 					}
 				}
-				for (Station station : onBorderStations.getStations().getStations()) {
-					if (bps1.getStations().getStations().contains(station)) {
-						bps1.getStations().getStations().remove(station);
+				if (bps1.getStations() != null &&  onBorderStations.getStations() != null) {
+					for (Station station : onBorderStations.getStations().getStations()) {
+						if (bps1.getStations().getStations().contains(station)) {
+							bps1.getStations().getStations().remove(station);
+						}
 					}
 				}
-
 				
-				if (bps1.getCarrier() != null || (bps1.getStations() != null && !bps1.getStations().getStations().isEmpty())) {
+				if (!side1Ok) {
+					p.setDataDescription("Incomplete Data! Border Side 1 is missing");
+					p.setIncompleteData(true);
+				};	
+				if (!side2Ok) {
+					p.setDataDescription("Incomplete Data! Border Side 2 is missing");
+					p.setIncompleteData(true);
+				};	
+				
+				if (side1Ok && bps1.getCarrier() != null || (bps1.getStations() != null && !bps1.getStations().getStations().isEmpty())) {
 					p.getBorderSides().add(bps1);
 				}
-				if (bps2.getCarrier() != null || (bps2.getStations() != null && !bps2.getStations().getStations().isEmpty())) {				
+				if (side2Ok && bps2.getCarrier() != null || (bps2.getStations() != null && !bps2.getStations().getStations().isEmpty())) {				
 					p.getBorderSides().add(bps2);
 				}
 				if (fakeStations.getStations() != null && !fakeStations.getStations().getStations().isEmpty()) {

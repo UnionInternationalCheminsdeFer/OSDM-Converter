@@ -880,7 +880,7 @@ public class ConverterFromLegacy {
 		}
 		
 		//set connection points 
-		setConnectionPoints(series, viaDeparture, viaArrival, constraint, true);
+		setConnectionPoints(series.getNumber(), viaDeparture, viaArrival, constraint);
 		
 		
 		//handle route
@@ -1026,7 +1026,7 @@ public class ConverterFromLegacy {
 	 * @param reversed the reversed
 	 * @throws ConverterException the converter exception
 	 */
-	private void setConnectionPoints(LegacySeries series, ViaStation departureStation, ViaStation arrivalStation, RegionalConstraint constraint , boolean reversed) throws ConverterException {
+	private void setConnectionPoints(int series, ViaStation departureStation, ViaStation arrivalStation, RegionalConstraint constraint ) throws ConverterException {
 
 		if (departureStation == null || arrivalStation == null) return;
 		
@@ -1037,7 +1037,7 @@ public class ConverterFromLegacy {
     	ConnectionPoint point1 = findConnectionPoint(tool,borderpointcodeDeparture,departureStation);  
     	
     	if (point1 == null) {
-    		GtmUtils.writeConsoleError("Connection point missing for Series: " + Integer.valueOf(series.getNumber()).toString(), editor);
+    		GtmUtils.writeConsoleError("Connection point missing for Series: " + Integer.valueOf(series).toString(), editor);
     	}
 		
     	int borderpointcodeArrival = 0;
@@ -1047,17 +1047,11 @@ public class ConverterFromLegacy {
     	ConnectionPoint point2 = findConnectionPoint(tool,borderpointcodeArrival,arrivalStation);	
     	
     	if (point2 == null) {
-    		GtmUtils.writeConsoleError("Connection point missing for Series: " + Integer.valueOf(series.getNumber()).toString(), editor);
+    		GtmUtils.writeConsoleError("Connection point missing for Series: " + Integer.valueOf(series).toString(), editor);
     	}
     	
-		
-		if (reversed) {
-			constraint.setEntryConnectionPoint(point2);
-	    	constraint.setExitConnectionPoint(point1);	
-		} else {
-	    	constraint.setEntryConnectionPoint(point2);
-	    	constraint.setExitConnectionPoint(point1);			
-		}
+    	constraint.setEntryConnectionPoint(point1);
+    	constraint.setExitConnectionPoint(point2);			
 
 	}
 
@@ -1121,7 +1115,7 @@ public class ConverterFromLegacy {
 		}
 				
 		//set connection points 
-		setConnectionPoints(series, viaDeparture, viaArrival,constraint, false);
+		setConnectionPoints(series.getNumber(), viaDeparture, viaArrival,constraint);
 				
 		//create route
 		ViaStation mainViaStation = GtmFactory.eINSTANCE.createViaStation();
@@ -2146,7 +2140,7 @@ public class ConverterFromLegacy {
 					station.setNameCaseASCII(lStation.getName());
 					station.setNameCaseUTF8(lStation.getNameUTF8());
 					station.setShortNameCaseASCII(lStation.getShortName());
-					station.setShortNameCaseUTF8(lStation.getShortName());					
+					station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
 					station.setLegacyBorderPointCode(lStation.getBorderPointCode());
 					stationNames.getStationName().add(station);
 				}
