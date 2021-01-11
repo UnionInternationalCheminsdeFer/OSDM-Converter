@@ -372,13 +372,12 @@ public class GtmActionBarContributor
 	}
 	
 
-	/*
 	/**
 	 * When the active editor changes, this remembers the change and registers with it as a selection provider.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
-
+    */
 	@Override
 	public void setActiveEditor(IEditorPart part) {
 		
@@ -409,7 +408,6 @@ public class GtmActionBarContributor
 			}
 		}
 	}
-		 */
 
 	/**
 	 * This implements {@link org.eclipse.jface.viewers.ISelectionChangedListener},
@@ -435,26 +433,44 @@ public class GtmActionBarContributor
 		}	
 		*/	
 
-		// Query the new selection for appropriate new child/sibling descriptors
+		// Query the new selection for appropriate new child/sibling descriptors and generate actions
 		//
 		Collection<?> newChildDescriptors = null;
 		Collection<?> newSiblingDescriptors = null;
-
+		
+		ISelection s = null;
 		ISelection selection = event.getSelection();
+
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) {
 			Object object = ((IStructuredSelection)selection).getFirstElement();
 
 			EditingDomain domain = ((IEditingDomainProvider)activeEditorPart).getEditingDomain();
 
-			newChildDescriptors = domain.getNewChildDescriptors(object, null);
-			newSiblingDescriptors = domain.getNewChildDescriptors(null, object);
+			if (object instanceof VirtualFolderItemProvider) {
+				if (copyAction != null) {
+					copyAction.setEnabled(false);
+				}
+				VirtualFolderItemProvider pcp = (VirtualFolderItemProvider) object;
+				newChildDescriptors = domain.getNewChildDescriptors(pcp.getParent(object), null);
+				createChildActions = generateCreateChildActions(newChildDescriptors, new StructuredSelection(pcp.getParent(object)));	
+				newSiblingDescriptors = domain.getNewChildDescriptors(null,pcp.getParent(object));
+				createSiblingActions = generateCreateSiblingActions(newSiblingDescriptors, new StructuredSelection(pcp.getParent(object)));	
+				for (IAction a : createSiblingActions) {
+					a.setEnabled(false);
+				}
+			
+			} else {
+				if (copyAction != null) {
+					copyAction.setEnabled(true);
+				}
+				newChildDescriptors = domain.getNewChildDescriptors(object, null);
+				createChildActions = generateCreateChildActions(newChildDescriptors, s);
+				newSiblingDescriptors = domain.getNewChildDescriptors(null, object);
+				createSiblingActions = generateCreateSiblingActions(newSiblingDescriptors, selection);
+			}
 		}
 
 		// Generate actions for selection; populate and redraw the menus.
-		//
-		createChildActions = generateCreateChildActions(newChildDescriptors, selection);
-		createSiblingActions = generateCreateSiblingActions(newSiblingDescriptors, selection);
-		
 
 		if (createChildMenuManager != null) {
 			populateManager(createChildMenuManager, createChildActions, null);
@@ -475,9 +491,7 @@ public class GtmActionBarContributor
 			gtmMenuManager.update(true);
 		}
 		*/
-		
 
-		
 	}
 
 	/**
