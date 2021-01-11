@@ -399,7 +399,10 @@ public class StationItemProvider
 		if (station.getNameCaseUTF8() != null) {
 			sb.append(station.getNameCaseUTF8()).append(" - ").append(station.getCountry().getCode()).append(" ").append(station.getCode());
 		} else {
-			sb.append(station.getName()).append(" - ").append(station.getCountry().getCode()).append(" ").append(station.getCode());
+			sb.append(station.getName());
+			if (station.getCountry() != null) {
+				sb.append(" - ").append(station.getCountry().getCode()).append(" ").append(station.getCode());
+			}
 		}
 		
 		return sb.toString();

@@ -1,7 +1,6 @@
 package Gtm.presentation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -9,12 +8,6 @@ import java.util.WeakHashMap;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -31,10 +24,10 @@ import Gtm.actions.GtmUtils;
  */
 public class PartitionedContentProvider extends AdapterFactoryContentProvider {
 
-    //private final Image folderImage = new Image(Display.getCurrent(), PartitionedContentProvider.class.getResourceAsStream("virtual_folder.gif"));
-
-    
+   
     private Object folderImage = null; 
+    
+    VirtualFolderItemProvider folderItemProvider = null;
     
     protected final static int DEFAULT_FOLDER_SIZE = -1;
 
@@ -42,7 +35,6 @@ public class PartitionedContentProvider extends AdapterFactoryContentProvider {
 
     public PartitionedContentProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
-        
         ImageDescriptor id = GtmUtils.getImageDescriptor("/icons/virtual_folder.gif");
         folderImage = id.createImage();
     }
@@ -63,7 +55,6 @@ public class PartitionedContentProvider extends AdapterFactoryContentProvider {
         }
 
         if (map.get(object) == null) {
-
             map.put(object, splitChildren(children, (EObject) object, virtualFolderSize));
         }
 
@@ -82,7 +73,7 @@ public class PartitionedContentProvider extends AdapterFactoryContentProvider {
             int startIndex = i * folderSize;
             int endIndex = Math.min(startIndex + folderSize, children.length);
 
-            result.add(new VirtualFolderItemProvider(adapterFactory, parent, startIndex, endIndex, children));
+            result.add(new VirtualFolderItemProvider(adapterFactory, parent, startIndex, endIndex, children, folderImage));
 
         }
 
@@ -146,61 +137,6 @@ public class PartitionedContentProvider extends AdapterFactoryContentProvider {
         return DEFAULT_FOLDER_SIZE;
     };
 
-    /**
-     * Item provider for virtual folders that contain the parent's child
-     * elements.
-     */
-    private final class VirtualFolderItemProvider extends ItemProviderAdapter implements IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource,
-            IEditingDomainItemProvider {
-
-        private int startIndex;
-        private int endIndex;
-        private Object[] originalChildElements;
-        private EObject parent;
-
-        public VirtualFolderItemProvider(AdapterFactory adapterFactory, EObject parent, int startIndex, int endIndex, Object[] originalChildElements) {
-            super(adapterFactory);
-            this.parent = parent;
-            this.startIndex = startIndex;
-            this.endIndex = endIndex;
-            this.originalChildElements = originalChildElements;
-        }
-
-        private boolean contains(Object object) {
-
-            for (int i = startIndex; i < endIndex; i++) {
-                if (object.equals(originalChildElements[i])) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private Object[] createPartitionedArray() {
-            return Arrays.copyOfRange(originalChildElements, startIndex, endIndex);
-        }
-
-        @Override
-        public boolean hasChildren(Object object) {
-            return object instanceof VirtualFolderItemProvider;
-        }
-
-        @Override
-        public Object getParent(Object object) {
-            return ((VirtualFolderItemProvider) object).parent;
-        }
-
-        @Override
-        public Object getImage(Object object) {
-            return folderImage;
-        }
-
-        @Override
-        public String getText(Object object) {
-            return "[" + startIndex + " ... " + (endIndex - 1) + "]";
-        }
-
-    }
+ 
 
 }

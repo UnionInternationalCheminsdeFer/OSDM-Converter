@@ -755,14 +755,14 @@ public class GtmEditor
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	//PartitionedContentProvider
 	public class ReverseAdapterFactoryContentProvider extends PartitionedContentProvider {
 		
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated NOT
-		 */		
-		
+		 */	
 	   @Override
 	   protected int getVirtualFolderSize(Object folder) {
 	    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
@@ -781,7 +781,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated NOT
+		 * @generated 
 		 */
 		@Override
 		public Object [] getElements(Object object) {
@@ -792,7 +792,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated NOT
+		 * @generated
 		 */
 		@Override
 		public Object [] getChildren(Object object) {
@@ -803,7 +803,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated NOT
+		 * @generated
 		 */
 		@Override
 		public boolean hasChildren(Object object) {
@@ -814,7 +814,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated NOT
+		 * @generated 
 		 */
 		@Override
 		public Object getParent(Object object) {
@@ -1011,18 +1011,8 @@ public class GtmEditor
 
 				selectionViewer = (TreeViewer)viewerPane.getViewer();
 				//selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-				
-				selectionViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
-				       @Override
-				       protected int getVirtualFolderSize(Object folder) {
-				    	  
-				    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
-				    	   
-				          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
-				       }
-				});			
+				selectionViewer.setContentProvider(getNewPartitionedContentProvider(adapterFactory)); 
 		
-
 				selectionViewer.setUseHashlookup(true);
 
 				selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
@@ -1110,17 +1100,8 @@ public class GtmEditor
 					};
 				viewerPane.createControl(getContainer());
 				treeViewer = (TreeViewer)viewerPane.getViewer();
-				// treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-
-				treeViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
-				       @Override
-				       protected int getVirtualFolderSize(Object folder) {
-				    	  
-				    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
-				    	   
-				          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
-				       }
-				});			
+				//treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				treeViewer.setContentProvider(getNewPartitionedContentProvider(adapterFactory)); 
 				
 				treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
@@ -1287,16 +1268,7 @@ public class GtmEditor
 
 				selectionViewer = (TreeViewer)viewerPane.getViewer();
 				//selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-
-				selectionViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
-					       @Override
-					       protected int getVirtualFolderSize(Object folder) {
-					    	  
-					    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
-					    	   
-					          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
-					       }
-				});	
+				selectionViewer.setContentProvider(getNewPartitionedContentProvider(adapterFactory)); 
 				
 				selectionViewer.setUseHashlookup(true);
 
@@ -1349,6 +1321,26 @@ public class GtmEditor
 			 });
 		
 
+	}
+	
+	/**
+	 * If there is just one page in the multi-page editor part,
+	 * this hides the single tab at the bottom.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	private IContentProvider getNewPartitionedContentProvider(ComposedAdapterFactory adapterFactory) {
+		
+		return new PartitionedContentProvider(adapterFactory) {
+		       @Override
+		       protected int getVirtualFolderSize(Object folder) {
+		    	  
+		    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
+		    	   
+		          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
+		       }
+		};	
 	}
 
 	/**
@@ -1442,17 +1434,8 @@ public class GtmEditor
 					//
 					contentOutlineViewer.setUseHashlookup(true);
 					//contentOutlineViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+					contentOutlineViewer.setContentProvider(getNewPartitionedContentProvider(adapterFactory)); 
 
-					
-					contentOutlineViewer.setContentProvider(new PartitionedContentProvider(adapterFactory) {
-					       @Override
-					       protected int getVirtualFolderSize(Object folder) {
-					    	  
-					    	  int folderSize = PreferencesAccess.getIntFromPreferenceStore(PreferenceConstants.P_LIST_FOLDER_SIZE);;
-					    	   
-					          return folder instanceof Container ? folderSize : DEFAULT_FOLDER_SIZE;
-					       }
-					});	
 					
 					contentOutlineViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 					contentOutlineViewer.setInput(editingDomain.getResourceSet());
@@ -1467,6 +1450,8 @@ public class GtmEditor
 					  contentOutlineViewer.setSelection(new StructuredSelection(editingDomain.getResourceSet().getResources().get(0)), true);
 					}
 				}
+
+
 
 				@Override
 				public void makeContributions(IMenuManager menuManager, IToolBarManager toolBarManager, IStatusLineManager statusLineManager) {
