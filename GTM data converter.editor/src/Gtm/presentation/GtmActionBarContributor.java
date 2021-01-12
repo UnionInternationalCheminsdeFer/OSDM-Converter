@@ -464,7 +464,7 @@ public class GtmActionBarContributor
 					copyAction.setEnabled(true);
 				}
 				newChildDescriptors = domain.getNewChildDescriptors(object, null);
-				createChildActions = generateCreateChildActions(newChildDescriptors, s);
+				createChildActions = generateCreateChildActions(newChildDescriptors, selection);
 				newSiblingDescriptors = domain.getNewChildDescriptors(null, object);
 				createSiblingActions = generateCreateSiblingActions(newSiblingDescriptors, selection);
 			}
