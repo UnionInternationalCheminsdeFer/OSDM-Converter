@@ -6,7 +6,7 @@ see online Application Guide on: https://unioninternationalcheminsdefer.github.i
 
 latest Release: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter/releases
 
-download binaries: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter/releases/download
+download binaries: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter/releases
 
 
 ## OSDM Specification IRS 90918-10:
