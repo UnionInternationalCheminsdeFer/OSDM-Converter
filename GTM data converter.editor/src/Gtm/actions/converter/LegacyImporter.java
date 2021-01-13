@@ -75,15 +75,13 @@ public class LegacyImporter {
 			if (!Charset.isSupported(charset)) {
 				String message = NationalLanguageSupport.LegacyImporter_2;
 				GtmUtils.writeConsoleInfo(message, editor);
-				charset = null; 
-				return;
+				charset = "ISO-8859-1"; 
 			};
 
 		} catch (Exception e) {
 			String message = NationalLanguageSupport.LegacyImporter_3;
 			GtmUtils.writeConsoleError(message, editor);
 			e.printStackTrace();
-			return;
 		}
 		
 		this.timeZone = legacy108.getTimeZone().getName();
@@ -211,8 +209,8 @@ public class LegacyImporter {
 		String number  					= st.substring(4, 9);
 		String flag  					= st.substring(9, 10);
 				
-		String validFromString 			= st.substring(211,219);		
-		String validUntilString 		= st.substring(221,229);				
+		String validFromString 			= st.substring(10,18);		
+		String validUntilString 		= st.substring(20,28);				
 		
 		if (flag.equals("2")) return null; //$NON-NLS-1$
 		
