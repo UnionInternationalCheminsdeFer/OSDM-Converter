@@ -438,7 +438,6 @@ public class GtmActionBarContributor
 		Collection<?> newChildDescriptors = null;
 		Collection<?> newSiblingDescriptors = null;
 		
-		ISelection s = null;
 		ISelection selection = event.getSelection();
 
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) {

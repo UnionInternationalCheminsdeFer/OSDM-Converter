@@ -1708,7 +1708,11 @@ public class ConverterFromLegacy {
 		fare.setRegionalConstraint(regionalConstraint);
 		regionalConstraint.getLinkedFares().add(fare);
 		
-		fare.setSalesAvailability(findSalesAvailability(tool,dateRange));
+		if (fareTemplate.getSalesAvailability() != null) {
+			fare.setSalesAvailability(fareTemplate.getSalesAvailability());
+		} else {
+			fare.setSalesAvailability(findSalesAvailability(tool,dateRange));
+		}
 		mapConstraintsAndDescriptions(fare, series);
 		if (price != null && fare != null) {
 			fare.setAfterSalesRule(convertAfterSalesRules(price, fareTemplate, afterSalesRules, priceList));
@@ -1923,7 +1927,17 @@ public class ConverterFromLegacy {
 			
 			DateRange.addUniqueRanges(validityRanges, seriesRanges);
 			
-			
+		}
+		
+		boolean conversionNeeded = false;
+		for (FareTemplate t : tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
+			if (t.getSalesAvailability() == null){
+				 conversionNeeded = true;
+			}
+		}
+		
+		if (!conversionNeeded) {
+			return 0;
 		}
 		
 		CompoundCommand command = new CompoundCommand();
