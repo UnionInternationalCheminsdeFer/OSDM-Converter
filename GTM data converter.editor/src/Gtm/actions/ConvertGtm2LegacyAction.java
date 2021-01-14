@@ -88,10 +88,10 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 			
 			Country country = tool.getConversionFromLegacy().getParams().getCountry();
 			if (country == null) {
-				String message = NationalLanguageSupport.ConvertGtm2LegacyAction_4;
+				String message = NationalLanguageSupport.ConvertGtm2LegacyAction_CountryMissing;
 				GtmUtils.writeConsoleWarning(message, null);
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-				dialog.setText(NationalLanguageSupport.ConvertGtm2LegacyAction_5);
+				dialog.setText(message);
 				dialog.open(); 
 				return;
 			}

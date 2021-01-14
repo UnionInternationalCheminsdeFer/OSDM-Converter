@@ -78,26 +78,23 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 			
 			Country country = tool.getConversionFromLegacy().getParams().getCountry();
 			if (country == null) {
-				String message = NationalLanguageSupport.ConvertLegacy2GtmAction_2;
+				String message = NationalLanguageSupport.ConvertGtm2LegacyAction_CountryMissing;
 				GtmUtils.writeConsoleError(message, editor);
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-				dialog.setText(NationalLanguageSupport.ConvertLegacy2GtmAction_3);
+				dialog.setText(message);
 				dialog.open(); 
 				return;
 			}
 			
 			if (tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() == null || 
 				tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty()	) {
-				String message = "No fare templates defined!";
+				String message = NationalLanguageSupport.ConvertLegacy2GtmAction_FareTemplatesMissing;
 				GtmUtils.writeConsoleError(message, editor);
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-				dialog.setText(NationalLanguageSupport.ConvertLegacy2GtmAction_18);
+				dialog.setText(NationalLanguageSupport.ConvertLegacy2GtmAction_FareTemplatesMissing);
 				dialog.open(); 
 				return;
 			}
-			
-			
-
 			
 			ConverterFromLegacy converter = new ConverterFromLegacy(tool,domain,editor);
 			

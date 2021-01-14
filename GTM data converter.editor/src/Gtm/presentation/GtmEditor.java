@@ -1937,10 +1937,13 @@ public class GtmEditor
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EditingDomainActionBarContributor getActionBarContributor() {
-		return (EditingDomainActionBarContributor)getEditorSite().getActionBarContributor();
+		if (getEditorSite() != null) {
+			return (EditingDomainActionBarContributor)getEditorSite().getActionBarContributor();
+		}
+		return null;
 	}
 
 	/**
