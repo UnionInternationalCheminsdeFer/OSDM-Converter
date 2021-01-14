@@ -10,7 +10,7 @@ hero_link_text: Download Converter Tool
 ## Introduction
 
 The **OSDM Converter** allows to convert old fare data according to **UIC IRS 10108-1**
-(TAP-TSI B.1) into the [OSDM Offline Model](https://unioninternationalcheminsdefer.github.io/OSDM//) format released in **IRS-90918-10**.
+(TAP-TSI B.1) into the [OSDM Model](https://unioninternationalcheminsdefer.github.io/OSDM//) format released in **IRS-90918-10** and back.
 
 ## Documentation
 
