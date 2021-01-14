@@ -167,7 +167,8 @@ public class LegacyExporter {
 		// 2 Series numeric 5 M  5-9 Serves to assign fares to a specific series 
 		sb.append(String.format("%05d",ticket.getSeriesNumber())); //$NON-NLS-1$
 		// 3 Flag for series numeric 5 M  10-14 0, 1 or 2 (cf. Subsection 2.2) 
-		sb.append("00000"); //$NON-NLS-1$
+		// bug in specification: flag is one digit only
+		sb.append("0"); //$NON-NLS-1$
 		// 4 First day of validity of fare numeric 8 M  15-22 Expressed as: "YYYYMMDD" 
 		sb.append(dateFormat.format(fromDate)); 		
 		// 5 version number numeric 2 M  23-24 Serial numbering for versions on the fare date; "01" for the first issue; "02" for the second 
