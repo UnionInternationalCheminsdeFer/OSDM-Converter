@@ -16,7 +16,8 @@ public class NationalLanguageSupport extends NLS{
 
 
 	public static String BasicGtmAction_0;
-	public static String ConverterFromLegacy_0;
+	
+	public static String ConvertGtm2LegacyAction_CountryMissing;
 	public static String ConverterFromLegacy_1;
 	public static String ConverterFromLegacy_10;
 	public static String ConverterFromLegacy_11;
@@ -50,7 +51,6 @@ public class NationalLanguageSupport extends NLS{
 	public static String ConverterFromLegacy_45;
 	public static String ConverterFromLegacy_46;
 	public static String ConverterFromLegacy_47;
-	public static String ConverterFromLegacy_48;
 	public static String ConverterFromLegacy_49;
 	public static String ConverterFromLegacy_5;
 	public static String ConverterFromLegacy_50;
@@ -62,8 +62,6 @@ public class NationalLanguageSupport extends NLS{
     public static String ConverterFromLegacy_56;
 	public static String ConverterFromLegacy_57;
 	public static String ConverterFromLegacy_58;
-	
-	public static String ConverterFromLegacy_6;
 
 	public static String ConverterFromLegacy_7;
 
@@ -74,16 +72,12 @@ public class NationalLanguageSupport extends NLS{
 	public static String ConvertGtm2LegacyAction_0;
 	public static String ConvertGtm2LegacyAction_2;
 	public static String ConvertGtm2LegacyAction_3;
-	public static String ConvertGtm2LegacyAction_4;
-	public static String ConvertGtm2LegacyAction_5;
 	public static String ConvertGtm2LegacyAction_6;
 	public static String ConvertGtm2LegacyAction_7;
 	public static String ConvertGtm2LegacyAction_8;
 	public static String ConvertGtm2LegacyAction_9;
 	public static String ConvertLegacy2GtmAction_0;
 	public static String ConvertLegacy2GtmAction_1;
-	public static String ConvertLegacy2GtmAction_2;
-	public static String ConvertLegacy2GtmAction_3;
 	public static String ConvertLegacy2GtmAction_4;
 	public static String ConvertLegacy2GtmAction_5;
 	public static String ConvertLegacy2GtmAction_6;
@@ -197,8 +191,6 @@ public class NationalLanguageSupport extends NLS{
 	public static String ImportCarriersAction_1;
 	public static String ImportCarriersAction_11;
 	public static String ImportCarriersAction_13;
-	public static String ImportCarriersAction_2;
-	public static String ImportCarriersAction_3;
 	public static String ImportCarriersAction_4;
 	public static String ImportCarriersAction_5;
 	public static String ImportCarriersAction_6;
@@ -248,8 +240,6 @@ public class NationalLanguageSupport extends NLS{
 	public static String ImportNutsCodesAction_1;
 	public static String ImportNutsCodesAction_11;
 	public static String ImportNutsCodesAction_13;
-	public static String ImportNutsCodesAction_2;
-	public static String ImportNutsCodesAction_3;
 	public static String ImportNutsCodesAction_4;
 	public static String ImportNutsCodesAction_5;
 	public static String ImportNutsCodesAction_6;
@@ -260,8 +250,6 @@ public class NationalLanguageSupport extends NLS{
 	public static String ImportServiceBrandsAction_1;
 	public static String ImportServiceBrandsAction_11;
 	public static String ImportServiceBrandsAction_13;
-	public static String ImportServiceBrandsAction_2;
-	public static String ImportServiceBrandsAction_3;
 	public static String ImportServiceBrandsAction_4;
 	public static String ImportServiceBrandsAction_5;
 	public static String ImportServiceBrandsAction_6;
@@ -374,6 +362,12 @@ public class NationalLanguageSupport extends NLS{
 	public static String ImportBorderPointsAction_13;
 	public static String ImportBorderPointsAction_12;
 	public static String ImportBorderPointsAction_14;
+
+
+
+	public static String ConvertLegacy2GtmAction_FareTemplatesMissing;
+
+
 	
     static {
         // initialize resource bundle

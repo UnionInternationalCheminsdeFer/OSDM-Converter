@@ -4258,7 +4258,7 @@ public class GtmValidator extends EObjectValidator {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
-						(Diagnostic.ERROR,
+						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_195,
@@ -4332,7 +4332,7 @@ public class GtmValidator extends EObjectValidator {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
-						(Diagnostic.ERROR,
+						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_201,

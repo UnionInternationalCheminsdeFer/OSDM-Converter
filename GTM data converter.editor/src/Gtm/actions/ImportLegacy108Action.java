@@ -53,10 +53,10 @@ public class ImportLegacy108Action extends BasicGtmAction {
 		
 		Country country = tool.getConversionFromLegacy().getParams().getCountry();
 		if (country == null) {
-			String message = NationalLanguageSupport.ConvertLegacy2GtmAction_2;
+			String message = NationalLanguageSupport.ConvertGtm2LegacyAction_CountryMissing;
 			GtmUtils.writeConsoleError(message, editor);
 			MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-			dialog.setText(NationalLanguageSupport.ConvertLegacy2GtmAction_3);
+			dialog.setText(message);
 			dialog.open(); 
 			return;
 		}

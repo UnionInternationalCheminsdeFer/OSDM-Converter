@@ -13,12 +13,16 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 
 import org.eclipse.emf.edit.ui.action.ControlAction;
+import org.eclipse.emf.edit.ui.action.CopyAction;
 import org.eclipse.emf.edit.ui.action.CreateChildAction;
 import org.eclipse.emf.edit.ui.action.CreateSiblingAction;
+import org.eclipse.emf.edit.ui.action.CutAction;
+import org.eclipse.emf.edit.ui.action.DeleteAction;
 import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
 import org.eclipse.emf.edit.ui.action.LoadResourceAction;
-
-
+import org.eclipse.emf.edit.ui.action.PasteAction;
+import org.eclipse.emf.edit.ui.action.RedoAction;
+import org.eclipse.emf.edit.ui.action.UndoAction;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -231,8 +235,26 @@ public class GtmActionBarContributor
 		validateAction = new GtmValidateAction();
 		controlAction = new ControlAction();
 		
+		if (deleteAction == null) {
+			deleteAction = new DeleteAction();
+		} 
+		if (cutAction == null) {
+			cutAction = new CutAction();
+		}
+		if (copyAction == null) {
+			copyAction = new CopyAction();
+		}
+		if (pasteAction == null) {
+			pasteAction = new PasteAction();
+		}
+		if (undoAction == null) {
+			undoAction = new UndoAction();
+		}
+		if (redoAction == null) {
+			redoAction = new RedoAction();
+		}
+		
 		extendActionBarContributor();
-
 		
 	}
 	
@@ -244,39 +266,55 @@ public class GtmActionBarContributor
 	 */
 	public void extendActionBarContributor() {
 		
+		if (importStationsAction == null) {
+			importStationsAction = new ImportStationsAction(this);
+		}
+		if (importCarriersAction == null) {
+			importCarriersAction = new ImportCarriersAction(this);
+		}
+		if (importServiceBrandsAction == null ) {
+			importServiceBrandsAction = new ImportServiceBrandsAction(this);
+		}
+		if (importNutsCodesAction == null) {
+			importNutsCodesAction = new ImportNutsCodesAction(this);
+		}
+		if (importBorderPointsAction == null) {
+			importBorderPointsAction = new ImportBorderPointsAction(this);
+		}
+		if (importLegacy108Action == null) {
+			importLegacy108Action = new ImportLegacy108Action(this);
+		}
+		if (convertLegacy2GtmAction == null) {
+			convertLegacy2GtmAction = new ConvertLegacy2GtmAction(this);
+		}
+		if (exportGTMJsonAction == null) {
+			exportGTMJsonAction = new ExportGTMJsonAction(this);	
+		}
+		if (importGTMJsonAction == null) {		
+			importGTMJsonAction = new ImportGTMJsonAction(this);
+		}
+		if (convertGtm2LegacyAction == null) {			
+			convertGtm2LegacyAction = new ConvertGtm2LegacyAction(this);
+		}
+		if (exportLegacyAction == null) {			
+			exportLegacyAction = new ExportLegacyAction(this);
+		}
+		
 		if (gtmActions == null) {
 			gtmActions = new ArrayList<BaseSelectionListenerAction>();
 		}
 		if (gtmActions.isEmpty()) {
-			importStationsAction = new ImportStationsAction(this);
 			gtmActions.add(importStationsAction);
-			importCarriersAction = new ImportCarriersAction(this);
 			gtmActions.add(importCarriersAction);
-			importServiceBrandsAction = new ImportServiceBrandsAction(this);
 			gtmActions.add(importServiceBrandsAction);
-			importNutsCodesAction = new ImportNutsCodesAction(this);
 			gtmActions.add(importNutsCodesAction);	
-			importBorderPointsAction = new ImportBorderPointsAction(this);
 			gtmActions.add(importBorderPointsAction);	
-			importLegacy108Action = new ImportLegacy108Action(this);
 			gtmActions.add(importLegacy108Action);	
-			convertLegacy2GtmAction = new ConvertLegacy2GtmAction(this);
 			gtmActions.add(convertLegacy2GtmAction);	
-			exportGTMJsonAction = new ExportGTMJsonAction(this);
 			gtmActions.add(exportGTMJsonAction);				
-			importGTMJsonAction = new ImportGTMJsonAction(this);
 			gtmActions.add(importGTMJsonAction);	
-			convertGtm2LegacyAction = new ConvertGtm2LegacyAction(this);
 			gtmActions.add(convertGtm2LegacyAction);
-			exportLegacyAction = new ExportLegacyAction(this);
 			gtmActions.add(exportLegacyAction);	
-
-			//gtmActions.add(new ImportLegacyDistanceFareAction(this));
-			//gtmActions.add(new ImportLegacyRouteFareAction(this));
-			//gtmActions.add(new ImportLegacyStationsAction(this));			
-			//gtmActions.add(new ImportLegacySeriesAction(this));
-			//gtmActions.add(new ImportLegacyAllFareAction(this));
-			//gtmActions.add(new ImportLegacyIndividualSeriesAction(this));
 		}
 
 		
@@ -292,7 +330,14 @@ public class GtmActionBarContributor
 	@Override
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
 		contributeToToolBarGen(toolBarManager);
-
+		
+		if (toolBarManager == null) return;
+		
+		if (importBorderPointsAction == null) {
+			extendActionBarContributor();
+			toolBarManager.add(new Separator("gtm-settings"));
+			toolBarManager.add(new Separator("gtm-additions"));
+		}
 		toolBarManager.insertAfter("gtm-additions",importBorderPointsAction);
 		toolBarManager.insertAfter("gtm-additions",importNutsCodesAction);
 		toolBarManager.insertAfter("gtm-additions",importServiceBrandsAction);

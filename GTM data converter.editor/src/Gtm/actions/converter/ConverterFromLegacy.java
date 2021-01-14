@@ -145,7 +145,14 @@ public class ConverterFromLegacy {
 		
 		Country myCountry = tool.getConversionFromLegacy().getParams().getCountry();
 		if (myCountry == null) {
-			String message = NationalLanguageSupport.ConverterFromLegacy_0;
+			String message = NationalLanguageSupport.ConvertGtm2LegacyAction_CountryMissing;
+			GtmUtils.writeConsoleError(message, editor);
+			return;
+		}
+		
+		if (tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() == null ||
+			tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty()){
+			String message = NationalLanguageSupport.ConvertLegacy2GtmAction_FareTemplatesMissing;
 			GtmUtils.writeConsoleError(message, editor);
 			return;
 		}
@@ -861,7 +868,7 @@ public class ConverterFromLegacy {
 		
 		Country country = tool.getConversionFromLegacy().getParams().getCountry();
 		if (country == null) {
-			String message = NationalLanguageSupport.ConverterFromLegacy_6;
+			String message = NationalLanguageSupport.ConvertGtm2LegacyAction_CountryMissing;
 			GtmUtils.writeConsoleError(message, editor);
 			throw new ConverterException(message);
 		}
