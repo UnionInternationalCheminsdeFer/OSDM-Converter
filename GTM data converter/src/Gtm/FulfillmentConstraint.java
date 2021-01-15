@@ -20,12 +20,15 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FulfillmentConstraint#getRequiredControlDataExchange <em>Required Control Data Exchange</em>}</li>
  *   <li>{@link Gtm.FulfillmentConstraint#isIndividualTicketingPermitted <em>Individual Ticketing Permitted</em>}</li>
  *   <li>{@link Gtm.FulfillmentConstraint#getAcceptedBarcodes <em>Accepted Barcodes</em>}</li>
- *   <li>{@link Gtm.FulfillmentConstraint#getRequiredBarcodes <em>Required Barcodes</em>}</li>
  *   <li>{@link Gtm.FulfillmentConstraint#getDataDescription <em>Data Description</em>}</li>
+ *   <li>{@link Gtm.FulfillmentConstraint#getAcceptedBarcodeTypes <em>Accepted Barcode Types</em>}</li>
+ *   <li>{@link Gtm.FulfillmentConstraint#getRequiredBarcodeTypes <em>Required Barcode Types</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFulfillmentConstraint()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='AT_LEAST_ONE_ACCEPTED_TYPE'"
+ * @model features="requiredBarcodes" 
+ *        requiredBarcodesType="Gtm.RequiredBarcodes" requiredBarcodesContainment="true" requiredBarcodesSuppressedGetVisibility="true"
+ *        annotation="http://www.eclipse.org/emf/2002/Ecore constraints='AT_LEAST_ONE_ACCEPTED_TYPE'"
  * @generated
  */
 public interface FulfillmentConstraint extends EObject {
@@ -125,18 +128,6 @@ public interface FulfillmentConstraint extends EObject {
 	void setAcceptedBarcodes(AcceptedBarcodes value);
 
 	/**
-	 * Returns the value of the '<em><b>Required Barcodes</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Required Barcodes</em>' containment reference.
-	 * @see #setRequiredBarcodes(RequiredBarcodes)
-	 * @see Gtm.GtmPackage#getFulfillmentConstraint_RequiredBarcodes()
-	 * @model containment="true"
-	 * @generated
-	 */
-	RequiredBarcodes getRequiredBarcodes();
-
-	/**
 	 * Sets the value of the '{@link Gtm.FulfillmentConstraint#getRequiredBarcodes <em>Required Barcodes</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -167,5 +158,33 @@ public interface FulfillmentConstraint extends EObject {
 	 * @generated
 	 */
 	void setDataDescription(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Accepted Barcode Types</b></em>' attribute list.
+	 * The list contents are of type {@link Gtm.BarcodeTypes}.
+	 * The literals are from the enumeration {@link Gtm.BarcodeTypes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Accepted Barcode Types</em>' attribute list.
+	 * @see Gtm.BarcodeTypes
+	 * @see Gtm.GtmPackage#getFulfillmentConstraint_AcceptedBarcodeTypes()
+	 * @model
+	 * @generated
+	 */
+	EList<BarcodeTypes> getAcceptedBarcodeTypes();
+
+	/**
+	 * Returns the value of the '<em><b>Required Barcode Types</b></em>' attribute list.
+	 * The list contents are of type {@link Gtm.BarcodeTypes}.
+	 * The literals are from the enumeration {@link Gtm.BarcodeTypes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Required Barcode Types</em>' attribute list.
+	 * @see Gtm.BarcodeTypes
+	 * @see Gtm.GtmPackage#getFulfillmentConstraint_RequiredBarcodeTypes()
+	 * @model
+	 * @generated
+	 */
+	EList<BarcodeTypes> getRequiredBarcodeTypes();
 
 } // FulfillmentConstraint

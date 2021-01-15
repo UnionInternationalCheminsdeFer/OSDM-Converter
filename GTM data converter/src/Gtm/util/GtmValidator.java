@@ -5163,17 +5163,7 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRequiredBarcodes(RequiredBarcodes requiredBarcodes, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(requiredBarcodes, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(requiredBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(requiredBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(requiredBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(requiredBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(requiredBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(requiredBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(requiredBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(requiredBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validateRequiredBarcodes_AT_LEAST_ONE(requiredBarcodes, diagnostics, context);
-		return result;
+		return validate_EveryDefaultConstraint(requiredBarcodes, diagnostics, context);
 	}
 
 	/**
@@ -5207,43 +5197,9 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAcceptedBarcodes(AcceptedBarcodes acceptedBarcodes, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(acceptedBarcodes, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(acceptedBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(acceptedBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(acceptedBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(acceptedBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(acceptedBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(acceptedBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(acceptedBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(acceptedBarcodes, diagnostics, context);
-		if (result || diagnostics != null) result &= validateAcceptedBarcodes_AT_LEAST_ONE(acceptedBarcodes, diagnostics, context);
-		return result;
+		return validate_EveryDefaultConstraint(acceptedBarcodes, diagnostics, context);
 	}
 
-	/**
-	 * Validates the AT_LEAST_ONE constraint of '<em>Accepted Barcodes</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean validateAcceptedBarcodes_AT_LEAST_ONE(AcceptedBarcodes acceptedBarcodes, DiagnosticChain diagnostics, Map<Object, Object> context) {
-
-		if (acceptedBarcodes.getAcceptedBarcodes() == null || acceptedBarcodes.getAcceptedBarcodes().isEmpty()) {
-			if (diagnostics != null) {
-				diagnostics.add
-					(createSimpleDiagnostic
-						(Diagnostic.ERROR,
-						 DIAGNOSTIC_SOURCE,
-						 0,
-						 NationalLanguageSupport.GtmValidator_251,
-						 new Object[] { "AT_LEAST_ONE", getObjectLabel(acceptedBarcodes, context) }, //$NON-NLS-1$
-						 new Object[] { acceptedBarcodes },
-						 context));
-			}
-			return false;
-		}
-		return true;
-	}
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -2935,6 +2935,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFulfillmentConstraint_AcceptedBarcodeTypes() {
+		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFulfillmentConstraint_RequiredBarcodeTypes() {
+		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRequiredBarcodes() {
 		return requiredBarcodesEClass;
 	}
@@ -8308,6 +8326,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODES);
 		createEReference(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__REQUIRED_BARCODES);
 		createEAttribute(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION);
+		createEAttribute(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES);
+		createEAttribute(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES);
 
 		requiredBarcodesEClass = createEClass(REQUIRED_BARCODES);
 		createEAttribute(requiredBarcodesEClass, REQUIRED_BARCODES__REQUIRED_BARCODES);
@@ -9249,6 +9269,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFulfillmentConstraint_AcceptedBarcodes(), this.getAcceptedBarcodes(), null, "acceptedBarcodes", null, 0, 1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFulfillmentConstraint_RequiredBarcodes(), this.getRequiredBarcodes(), null, "requiredBarcodes", null, 0, 1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFulfillmentConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFulfillmentConstraint_AcceptedBarcodeTypes(), this.getBarcodeTypes(), "acceptedBarcodeTypes", null, 0, -1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFulfillmentConstraint_RequiredBarcodeTypes(), this.getBarcodeTypes(), "requiredBarcodeTypes", null, 0, -1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(requiredBarcodesEClass, RequiredBarcodes.class, "RequiredBarcodes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRequiredBarcodes_RequiredBarcodes(), this.getBarcodeTypes(), "requiredBarcodes", null, 0, -1, RequiredBarcodes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10384,18 +10406,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		   source,
 		   new String[] {
 			   "constraints", "AT_LEAST_ONE_ACCEPTED_TYPE"
-		   });
-		addAnnotation
-		  (requiredBarcodesEClass,
-		   source,
-		   new String[] {
-			   "constraints", "AT_LEAST_ONE"
-		   });
-		addAnnotation
-		  (acceptedBarcodesEClass,
-		   source,
-		   new String[] {
-			   "constraints", "AT_LEAST_ONE"
 		   });
 		addAnnotation
 		  (fareElementEClass,

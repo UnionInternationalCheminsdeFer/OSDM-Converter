@@ -583,9 +583,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/acceptedFulfilmentTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/requiredControlDataExchange"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/individualTicketingPermitted"/>
-      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FulfillmentConstraint/acceptedBarcodes"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FulfillmentConstraint/requiredBarcodes"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//FulfillmentConstraint/acceptedBarcodes"
+          suppressedGetVisibility="false"/>
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Gtm.ecore#//FulfillmentConstraint/requiredBarcodes"
+          suppressedGetVisibility="true"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/dataDescription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/acceptedBarcodeTypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/requiredBarcodeTypes"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//RequiredBarcodes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RequiredBarcodes/requiredBarcodes"/>

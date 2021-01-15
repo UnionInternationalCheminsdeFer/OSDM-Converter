@@ -1212,14 +1212,10 @@ public class GTMJsonImporter {
 		f.setId(jf.getId());
 		f.setIndividualTicketingPermitted(jf.getIndividualTicketingPermitted());
 		if (jf.getAcceptedBarCodes() != null && !jf.getAcceptedBarCodes().isEmpty()) {
-			AcceptedBarcodes ab = GtmFactory.eINSTANCE.createAcceptedBarcodes();
-			f.setAcceptedBarcodes(ab);
-			ab.getAcceptedBarcodes().addAll(convertBarCodeTypes(jf.getAcceptedBarCodes()));
+			f.getAcceptedBarcodeTypes().addAll(convertBarCodeTypes(jf.getAcceptedBarCodes()));
 		}
 		if (jf.getRequiredBarCodes() != null && !jf.getRequiredBarCodes().isEmpty()) {
-			RequiredBarcodes rb = GtmFactory.eINSTANCE.createRequiredBarcodes();
-			f.setRequiredBarcodes(rb);
-			rb.getRequiredBarcodes().addAll(convertBarCodeTypes(jf.getRequiredBarCodes()));
+			f.getRequiredBarcodeTypes().addAll(convertBarCodeTypes(jf.getRequiredBarCodes()));
 		}
 		f.getAcceptedFulfilmentTypes().addAll(convertFulfillmentTypes(jf.getAcceptedControlSecurityTypes()));
 		f.getRequiredControlDataExchange().addAll(convertControlDataExchange(jf.getRequiredSiS()));
