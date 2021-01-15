@@ -2310,13 +2310,31 @@ public interface GtmPackage extends EPackage {
 	int FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION = 6;
 
 	/**
+	 * The feature id for the '<em><b>Accepted Barcode Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES = 7;
+
+	/**
+	 * The feature id for the '<em><b>Required Barcode Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES = 8;
+
+	/**
 	 * The number of structural features of the '<em>Fulfillment Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FULFILLMENT_CONSTRAINT_FEATURE_COUNT = 7;
+	int FULFILLMENT_CONSTRAINT_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>Fulfillment Constraint</em>' class.
@@ -11410,11 +11428,11 @@ public interface GtmPackage extends EPackage {
 	EReference getFulfillmentConstraint_AcceptedBarcodes();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link Gtm.FulfillmentConstraint#getRequiredBarcodes <em>Required Barcodes</em>}'.
+	 * Returns the meta object for the containment reference '{@link Gtm.FulfillmentConstraint <em>Required Barcodes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Required Barcodes</em>'.
-	 * @see Gtm.FulfillmentConstraint#getRequiredBarcodes()
+	 * @see Gtm.FulfillmentConstraint
 	 * @see #getFulfillmentConstraint()
 	 * @generated
 	 */
@@ -11430,6 +11448,28 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFulfillmentConstraint_DataDescription();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link Gtm.FulfillmentConstraint#getAcceptedBarcodeTypes <em>Accepted Barcode Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Accepted Barcode Types</em>'.
+	 * @see Gtm.FulfillmentConstraint#getAcceptedBarcodeTypes()
+	 * @see #getFulfillmentConstraint()
+	 * @generated
+	 */
+	EAttribute getFulfillmentConstraint_AcceptedBarcodeTypes();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link Gtm.FulfillmentConstraint#getRequiredBarcodeTypes <em>Required Barcode Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Required Barcode Types</em>'.
+	 * @see Gtm.FulfillmentConstraint#getRequiredBarcodeTypes()
+	 * @see #getFulfillmentConstraint()
+	 * @generated
+	 */
+	EAttribute getFulfillmentConstraint_RequiredBarcodeTypes();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.RequiredBarcodes <em>Required Barcodes</em>}'.
@@ -18992,6 +19032,22 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION = eINSTANCE.getFulfillmentConstraint_DataDescription();
+
+		/**
+		 * The meta object literal for the '<em><b>Accepted Barcode Types</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES = eINSTANCE.getFulfillmentConstraint_AcceptedBarcodeTypes();
+
+		/**
+		 * The meta object literal for the '<em><b>Required Barcode Types</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES = eINSTANCE.getFulfillmentConstraint_RequiredBarcodeTypes();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.RequiredBarcodesImpl <em>Required Barcodes</em>}' class.

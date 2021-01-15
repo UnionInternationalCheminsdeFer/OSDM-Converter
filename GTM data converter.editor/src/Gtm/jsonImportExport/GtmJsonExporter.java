@@ -1509,14 +1509,14 @@ public class GtmJsonExporter {
 		FulfillmentConstraintDef fcJ = new FulfillmentConstraintDef();
 		fcJ.setId(fc.getId());
 		
-		if (fc.getAcceptedBarcodes() != null && fc.getAcceptedBarcodes().getAcceptedBarcodes() != null && !fc.getAcceptedBarcodes().getAcceptedBarcodes().isEmpty()) {
-			fcJ.setAcceptedBarCodes(convertBarCodeTypes(fc.getAcceptedBarcodes().getAcceptedBarcodes()));
+		if (fc.getAcceptedBarcodeTypes() != null && fc.getAcceptedBarcodeTypes().isEmpty()) {
+			fcJ.setAcceptedBarCodes(convertBarCodeTypes(fc.getAcceptedBarcodeTypes()));
 		}
 		fcJ.setAcceptedControlSecurityTypes(convertFulFillmentTypesToJson(fc.getAcceptedFulfilmentTypes()));
 		fcJ.setIndividualTicketingPermitted(fc.isIndividualTicketingPermitted());
 		
-		if (fc.getRequiredBarcodes() != null && fc.getRequiredBarcodes().getRequiredBarcodes() != null && !fc.getRequiredBarcodes().getRequiredBarcodes().isEmpty()) {
-			fcJ.setRequiredBarCodes(convertBarCodeTypes(fc.getRequiredBarcodes().getRequiredBarcodes()));
+		if (fc.getRequiredBarcodeTypes() != null && fc.getRequiredBarcodeTypes().isEmpty()) {
+			fcJ.setRequiredBarCodes(convertBarCodeTypes(fc.getRequiredBarcodeTypes()));
 		}
 		fcJ.setRequiredSiS(convertControlDataExchangeTypesToJson(fc.getRequiredControlDataExchange()));
 		

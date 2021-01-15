@@ -3,6 +3,7 @@
 package Gtm.impl;
 
 import Gtm.AcceptedBarcodes;
+import Gtm.BarcodeTypes;
 import Gtm.ControlDataExchangeTypes;
 import Gtm.FulfillmentConstraint;
 import Gtm.FulfillmentType;
@@ -39,6 +40,8 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getAcceptedBarcodes <em>Accepted Barcodes</em>}</li>
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getRequiredBarcodes <em>Required Barcodes</em>}</li>
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getDataDescription <em>Data Description</em>}</li>
+ *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getAcceptedBarcodeTypes <em>Accepted Barcode Types</em>}</li>
+ *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getRequiredBarcodeTypes <em>Required Barcode Types</em>}</li>
  * </ul>
  *
  * @generated
@@ -143,6 +146,26 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 	 * @ordered
 	 */
 	protected String dataDescription = DATA_DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getAcceptedBarcodeTypes() <em>Accepted Barcode Types</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAcceptedBarcodeTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BarcodeTypes> acceptedBarcodeTypes;
+
+	/**
+	 * The cached value of the '{@link #getRequiredBarcodeTypes() <em>Required Barcode Types</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRequiredBarcodeTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BarcodeTypes> requiredBarcodeTypes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -308,6 +331,30 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<BarcodeTypes> getAcceptedBarcodeTypes() {
+		if (acceptedBarcodeTypes == null) {
+			acceptedBarcodeTypes = new EDataTypeUniqueEList<BarcodeTypes>(BarcodeTypes.class, this, GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES);
+		}
+		return acceptedBarcodeTypes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<BarcodeTypes> getRequiredBarcodeTypes() {
+		if (requiredBarcodeTypes == null) {
+			requiredBarcodeTypes = new EDataTypeUniqueEList<BarcodeTypes>(BarcodeTypes.class, this, GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES);
+		}
+		return requiredBarcodeTypes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -374,6 +421,10 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 				return getRequiredBarcodes();
 			case GtmPackage.FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION:
 				return getDataDescription();
+			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES:
+				return getAcceptedBarcodeTypes();
+			case GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES:
+				return getRequiredBarcodeTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -410,6 +461,14 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 			case GtmPackage.FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION:
 				setDataDescription((String)newValue);
 				return;
+			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES:
+				getAcceptedBarcodeTypes().clear();
+				getAcceptedBarcodeTypes().addAll((Collection<? extends BarcodeTypes>)newValue);
+				return;
+			case GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES:
+				getRequiredBarcodeTypes().clear();
+				getRequiredBarcodeTypes().addAll((Collection<? extends BarcodeTypes>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -443,6 +502,12 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 			case GtmPackage.FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION:
 				setDataDescription(DATA_DESCRIPTION_EDEFAULT);
 				return;
+			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES:
+				getAcceptedBarcodeTypes().clear();
+				return;
+			case GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES:
+				getRequiredBarcodeTypes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -469,6 +534,10 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 				return requiredBarcodes != null;
 			case GtmPackage.FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION:
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
+			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES:
+				return acceptedBarcodeTypes != null && !acceptedBarcodeTypes.isEmpty();
+			case GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES:
+				return requiredBarcodeTypes != null && !requiredBarcodeTypes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -493,6 +562,10 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 		result.append(individualTicketingPermitted);
 		result.append(", dataDescription: ");
 		result.append(dataDescription);
+		result.append(", acceptedBarcodeTypes: ");
+		result.append(acceptedBarcodeTypes);
+		result.append(", requiredBarcodeTypes: ");
+		result.append(requiredBarcodeTypes);
 		result.append(')');
 		return result.toString();
 	}
