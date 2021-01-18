@@ -68,7 +68,6 @@ public class TravelValidityConstraintItemProvider
 			addDataDescriptionPropertyDescriptor(object);
 			addValidDaysPropertyDescriptor(object);
 			addTravelDaysPropertyDescriptor(object);
-			addRangePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -157,28 +156,6 @@ public class TravelValidityConstraintItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Range feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRangePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TravelValidityConstraint_range_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TravelValidityConstraint_range_feature", "_UI_TravelValidityConstraint_type"),
-				 GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__RANGE,
-				 true,
-				 false,
-				 false,
-				 null,
 				 null,
 				 null));
 	}
