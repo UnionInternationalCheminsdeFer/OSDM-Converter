@@ -4,6 +4,7 @@ package Gtm;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -23,6 +24,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see Gtm.GtmFactory
  * @model kind="package"
+ *        annotation="http://www.eclipse.org/emf/2002/Ecore conversionDelegates='http:///org/eclipse/emf/ecore/util/DateConversionDelegate'"
  * @generated
  */
 public interface GtmPackage extends EPackage {
@@ -9604,6 +9606,26 @@ public interface GtmPackage extends EPackage {
 	int WEEK_DAY = 189;
 
 	/**
+	 * The meta object id for the '<em>Date As Date</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.util.Date
+	 * @see Gtm.impl.GtmPackageImpl#getDateAsDate()
+	 * @generated
+	 */
+	int DATE_AS_DATE = 190;
+
+	/**
+	 * The meta object id for the '<em>Date As Date Time</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.util.Date
+	 * @see Gtm.impl.GtmPackageImpl#getDateAsDateTime()
+	 * @generated
+	 */
+	int DATE_AS_DATE_TIME = 191;
+
+	/**
 	 * The meta object id for the '{@link Gtm.DataSource <em>Data Source</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17553,6 +17575,30 @@ public interface GtmPackage extends EPackage {
 	EEnum getWeekDay();
 
 	/**
+	 * Returns the meta object for data type '{@link java.util.Date <em>Date As Date</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Date As Date</em>'.
+	 * @see java.util.Date
+	 * @model instanceClass="java.util.Date"
+	 *        annotation="http:///org/eclipse/emf/ecore/util/DateConversionDelegate format='//SimpleDateFormat/yyyy-MM-dd'"
+	 * @generated
+	 */
+	EDataType getDateAsDate();
+
+	/**
+	 * Returns the meta object for data type '{@link java.util.Date <em>Date As Date Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Date As Date Time</em>'.
+	 * @see java.util.Date
+	 * @model instanceClass="java.util.Date"
+	 *        annotation="http:///org/eclipse/emf/ecore/util/DateConversionDelegate format='//SimpleDateFormat/yyyy-MM-dd\'T\'HH:mm'"
+	 * @generated
+	 */
+	EDataType getDateAsDateTime();
+
+	/**
 	 * Returns the meta object for enum '{@link Gtm.DataSource <em>Data Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -23882,6 +23928,26 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum WEEK_DAY = eINSTANCE.getWeekDay();
+
+		/**
+		 * The meta object literal for the '<em>Date As Date</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.util.Date
+		 * @see Gtm.impl.GtmPackageImpl#getDateAsDate()
+		 * @generated
+		 */
+		EDataType DATE_AS_DATE = eINSTANCE.getDateAsDate();
+
+		/**
+		 * The meta object literal for the '<em>Date As Date Time</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.util.Date
+		 * @see Gtm.impl.GtmPackageImpl#getDateAsDateTime()
+		 * @generated
+		 */
+		EDataType DATE_AS_DATE_TIME = eINSTANCE.getDateAsDateTime();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.DataSource <em>Data Source</em>}' enum.

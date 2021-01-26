@@ -26,7 +26,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.equinox.event;bundle-version="1.5.300",
  org.eclipse.e4.ui.workbench.renderers.swt;bundle-version="0.14.900",
  GTM_data_converter,
- org.eclipse.ant.core;bundle-version="3.5.600"
+ org.eclipse.ant.core;bundle-version="3.5.600",
+ org.eclipse.nebula.widgets.cdatetime;bundle-version="1.5.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: gtm,
  org.apache.batik;version="1.11.0"

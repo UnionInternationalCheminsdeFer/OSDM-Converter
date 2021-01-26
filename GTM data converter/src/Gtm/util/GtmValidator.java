@@ -470,6 +470,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateTravelerType((TravelerType)value, diagnostics, context);
 			case GtmPackage.WEEK_DAY:
 				return validateWeekDay((WeekDay)value, diagnostics, context);
+			case GtmPackage.DATE_AS_DATE:
+				return validateDateAsDate((Date)value, diagnostics, context);
+			case GtmPackage.DATE_AS_DATE_TIME:
+				return validateDateAsDateTime((Date)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -7099,6 +7103,24 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateWeekDay(WeekDay weekDay, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDateAsDate(Date dateAsDate, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDateAsDateTime(Date dateAsDateTime, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

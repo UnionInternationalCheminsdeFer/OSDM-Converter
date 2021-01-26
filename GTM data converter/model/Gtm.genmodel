@@ -368,6 +368,8 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//WeekDay/SATURDAY"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//WeekDay/SUNDAY"/>
     </genEnums>
+    <genDataTypes ecoreDataType="Gtm.ecore#//DateAsDate"/>
+    <genDataTypes ecoreDataType="Gtm.ecore#//DateAsDateTime"/>
     <genClasses ecoreClass="Gtm.ecore#//GTMTool">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//GTMTool/conversionFromLegacy"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//GTMTool/codeLists"/>

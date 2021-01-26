@@ -82,7 +82,7 @@ public interface Calendar extends EObject {
 	 * @return the value of the '<em>From Date</em>' attribute.
 	 * @see #setFromDate(Date)
 	 * @see Gtm.GtmPackage#getCalendar_FromDate()
-	 * @model
+	 * @model dataType="Gtm.DateAsDate"
 	 * @generated
 	 */
 	Date getFromDate();
@@ -104,7 +104,7 @@ public interface Calendar extends EObject {
 	 * @return the value of the '<em>Until Date</em>' attribute.
 	 * @see #setUntilDate(Date)
 	 * @see Gtm.GtmPackage#getCalendar_UntilDate()
-	 * @model
+	 * @model dataType="Gtm.DateAsDate"
 	 * @generated
 	 */
 	Date getUntilDate();
@@ -148,7 +148,7 @@ public interface Calendar extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dates</em>' attribute list.
 	 * @see Gtm.GtmPackage#getCalendar_Dates()
-	 * @model
+	 * @model dataType="Gtm.DateAsDate"
 	 * @generated
 	 */
 	EList<Date> getDates();

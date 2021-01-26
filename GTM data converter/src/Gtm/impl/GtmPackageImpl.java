@@ -5,8 +5,10 @@ package Gtm.impl;
 import Gtm.*;
 import Gtm.util.GtmValidator;
 
+import java.util.Date;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -1318,6 +1320,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum weekDayEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType dateAsDateEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType dateAsDateTimeEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -8056,6 +8072,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getDateAsDate() {
+		return dateAsDateEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getDateAsDateTime() {
+		return dateAsDateTimeEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getDataSource() {
 		return dataSourceEEnum;
 	}
@@ -9012,6 +9046,10 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		timeUnitEEnum = createEEnum(TIME_UNIT);
 		travelerTypeEEnum = createEEnum(TRAVELER_TYPE);
 		weekDayEEnum = createEEnum(WEEK_DAY);
+
+		// Create data types
+		dateAsDateEDataType = createEDataType(DATE_AS_DATE);
+		dateAsDateTimeEDataType = createEDataType(DATE_AS_DATE_TIME);
 	}
 
 	/**
@@ -9523,10 +9561,10 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEClass(calendarEClass, Calendar.class, "Calendar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCalendar_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCalendar_Id(), ecorePackage.getEString(), "id", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCalendar_FromDate(), ecorePackage.getEDate(), "fromDate", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCalendar_UntilDate(), ecorePackage.getEDate(), "untilDate", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCalendar_FromDate(), this.getDateAsDate(), "fromDate", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCalendar_UntilDate(), this.getDateAsDate(), "untilDate", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCalendar_UtcOffset(), ecorePackage.getEInt(), "utcOffset", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCalendar_Dates(), ecorePackage.getEDate(), "dates", null, 0, -1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCalendar_Dates(), this.getDateAsDate(), "dates", null, 0, -1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCalendar_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(reservationParametersEClass, ReservationParameters.class, "ReservationParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -10283,12 +10321,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(weekDayEEnum, WeekDay.SATURDAY);
 		addEEnumLiteral(weekDayEEnum, WeekDay.SUNDAY);
 
+		// Initialize data types
+		initEDataType(dateAsDateEDataType, Date.class, "DateAsDate", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(dateAsDateTimeEDataType, Date.class, "DateAsDateTime", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+
 		// Create resource
 		createResource(eNS_URI);
 
 		// Create annotations
 		// http://www.eclipse.org/emf/2002/Ecore
 		createEcoreAnnotations();
+		// http:///org/eclipse/emf/ecore/util/DateConversionDelegate
+		createDateConversionDelegateAnnotations();
 	}
 
 	/**
@@ -10299,6 +10343,12 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	protected void createEcoreAnnotations() {
 		String source = "http://www.eclipse.org/emf/2002/Ecore";
+		addAnnotation
+		  (this,
+		   source,
+		   new String[] {
+			   "conversionDelegates", "http:///org/eclipse/emf/ecore/util/DateConversionDelegate"
+		   });
 		addAnnotation
 		  (codeListsEClass,
 		   source,
@@ -10724,6 +10774,28 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		   source,
 		   new String[] {
 			   "constraints", "CHARACTER_SET_MUST TIME_ZONE_MUST CARRIER_MUST"
+		   });
+	}
+
+	/**
+	 * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/DateConversionDelegate</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createDateConversionDelegateAnnotations() {
+		String source = "http:///org/eclipse/emf/ecore/util/DateConversionDelegate";
+		addAnnotation
+		  (dateAsDateEDataType,
+		   source,
+		   new String[] {
+			   "format", "//SimpleDateFormat/yyyy-MM-dd"
+		   });
+		addAnnotation
+		  (dateAsDateTimeEDataType,
+		   source,
+		   new String[] {
+			   "format", "//SimpleDateFormat/yyyy-MM-dd\'T\'HH:mm"
 		   });
 	}
 
