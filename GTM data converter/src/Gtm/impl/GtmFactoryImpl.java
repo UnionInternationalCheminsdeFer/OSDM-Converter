@@ -4,6 +4,7 @@ package Gtm.impl;
 
 import Gtm.*;
 
+import java.util.Date;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -304,6 +305,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createTravelerTypeFromString(eDataType, initialValue);
 			case GtmPackage.WEEK_DAY:
 				return createWeekDayFromString(eDataType, initialValue);
+			case GtmPackage.DATE_AS_DATE:
+				return createDateAsDateFromString(eDataType, initialValue);
+			case GtmPackage.DATE_AS_DATE_TIME:
+				return createDateAsDateTimeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -405,6 +410,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertTravelerTypeToString(eDataType, instanceValue);
 			case GtmPackage.WEEK_DAY:
 				return convertWeekDayToString(eDataType, instanceValue);
+			case GtmPackage.DATE_AS_DATE:
+				return convertDateAsDateToString(eDataType, instanceValue);
+			case GtmPackage.DATE_AS_DATE_TIME:
+				return convertDateAsDateTimeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -2648,6 +2657,42 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 */
 	public String convertWeekDayToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Date createDateAsDateFromString(EDataType eDataType, String initialValue) {
+		return (Date)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDateAsDateToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Date createDateAsDateTimeFromString(EDataType eDataType, String initialValue) {
+		return (Date)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDateAsDateTimeToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

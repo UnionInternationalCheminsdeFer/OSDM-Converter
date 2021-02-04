@@ -26,9 +26,7 @@ public enum CombinationModel implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SEPARATE_TICKET(1, "SEPARATE_TICKET", "SEPARATE_TICKET"),
-
-	/**
+	SEPARATE_TICKET(1, "SEPARATE_TICKET", "SEPARATE_TICKET"), /**
 	 * The '<em><b>SEPARATE CONTRACT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -36,9 +34,7 @@ public enum CombinationModel implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SEPARATE_CONTRACT(2, "SEPARATE_CONTRACT", "SEPARATE_CONTRACT"),
-
-	/**
+	SEPARATE_CONTRACT(2, "SEPARATE_CONTRACT", "SEPARATE_CONTRACT"), /**
 	 * The '<em><b>CLUSTERING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -470,6 +470,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateTravelerType((TravelerType)value, diagnostics, context);
 			case GtmPackage.WEEK_DAY:
 				return validateWeekDay((WeekDay)value, diagnostics, context);
+			case GtmPackage.DATE_AS_DATE:
+				return validateDateAsDate((Date)value, diagnostics, context);
+			case GtmPackage.DATE_AS_DATE_TIME:
+				return validateDateAsDateTime((Date)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -3720,7 +3724,7 @@ public class GtmValidator extends EObjectValidator {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
-						(Diagnostic.ERROR,
+						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_159,
@@ -4396,7 +4400,7 @@ public class GtmValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Validates the CEÒNVERSION_MISSING constraint of '<em>Fare Element</em>'.
+	 * Validates the CEï¿½NVERSION_MISSING constraint of '<em>Fare Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
@@ -4411,7 +4415,7 @@ public class GtmValidator extends EObjectValidator {
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_207,
-						 new Object[] { "CEÒNVERSION_MISSING", getObjectLabel(fareElement, context) }, //$NON-NLS-1$
+						 new Object[] { "CEï¿½NVERSION_MISSING", getObjectLabel(fareElement, context) }, //$NON-NLS-1$
 						 new Object[] { fareElement },
 						 context));
 			}
@@ -7099,6 +7103,24 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateWeekDay(WeekDay weekDay, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDateAsDate(Date dateAsDate, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDateAsDateTime(Date dateAsDateTime, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

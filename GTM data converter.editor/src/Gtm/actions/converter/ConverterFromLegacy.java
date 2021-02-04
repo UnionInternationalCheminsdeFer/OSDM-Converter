@@ -1616,6 +1616,7 @@ public class ConverterFromLegacy {
 			}
 		}  else {
 			float price = 0;
+			boolean distanceFound = false;
 			
 			int distance = 0;
 			if (travelClass == 1) {
@@ -1627,9 +1628,7 @@ public class ConverterFromLegacy {
 				//distance = 0 indicates no price in that class!
 				if (distance == 0) return null;
 			}
-			
-			
-					
+							
 			//get the lowest price where the distance is ok
 			for (LegacyDistanceFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
 				if ( (     fare.getValidFrom().before(dateRange.getStartDate())
@@ -1638,16 +1637,20 @@ public class ConverterFromLegacy {
 					   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {
 				
 					if (travelClass == 1) {
-						if (distance > fare.getDistance() && fare.getFare1st() > price) {
+						if (distance <= fare.getDistance() && (fare.getFare1st() < price || !distanceFound)) {
 							price = fare.getFare1st();
+							distanceFound = true;
 						}
 					} else {
-						if (distance > fare.getDistance() && fare.getFare2nd() > price) {
+						if (distance <= fare.getDistance() && (fare.getFare2nd() < price || !distanceFound)) {
 							price = fare.getFare2nd();
+							distanceFound = true;
 						}				
 					}
 				}
 			}
+			
+			if (!distanceFound) return null;
 			
 			return price/100;
 		}
