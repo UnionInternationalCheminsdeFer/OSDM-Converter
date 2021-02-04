@@ -71,6 +71,8 @@ public class FareTemplateItemProvider
 			addTypePropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
 			addTextPropertyDescriptor(object);
+			addFareConstraintBundlePropertyDescriptor(object);
+			addSeparateContractFareConstraintBundlePropertyDescriptor(object);
 			addServiceConstraintPropertyDescriptor(object);
 			addCarrierConstraintPropertyDescriptor(object);
 			addServiceClassPropertyDescriptor(object);
@@ -247,6 +249,50 @@ public class FareTemplateItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Fare Constraint Bundle feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFareConstraintBundlePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareTemplate_fareConstraintBundle_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_fareConstraintBundle_feature", "_UI_FareTemplate_type"),
+				 GtmPackage.Literals.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Separate Contract Fare Constraint Bundle feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSeparateContractFareConstraintBundlePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareTemplate_separateContractFareConstraintBundle_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_separateContractFareConstraintBundle_feature", "_UI_FareTemplate_type"),
+				 GtmPackage.Literals.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Service Constraint feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -348,7 +394,7 @@ public class FareTemplateItemProvider
 				 getString("_UI_FareTemplate_salesAvailability_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_salesAvailability_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__SALES_AVAILABILITY,
-				 true,
+				 false,
 				 false,
 				 true,
 				 null,
@@ -370,7 +416,7 @@ public class FareTemplateItemProvider
 				 getString("_UI_FareTemplate_travelValidity_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_travelValidity_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__TRAVEL_VALIDITY,
-				 true,
+				 false,
 				 false,
 				 true,
 				 null,
@@ -392,7 +438,7 @@ public class FareTemplateItemProvider
 				 getString("_UI_FareTemplate_combinationConstraint_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_combinationConstraint_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__COMBINATION_CONSTRAINT,
-				 true,
+				 false,
 				 false,
 				 true,
 				 null,
@@ -414,7 +460,7 @@ public class FareTemplateItemProvider
 				 getString("_UI_FareTemplate_separateContractCombinationConstraint_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_separateContractCombinationConstraint_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__SEPARATE_CONTRACT_COMBINATION_CONSTRAINT,
-				 true,
+				 false,
 				 false,
 				 true,
 				 null,
@@ -458,7 +504,7 @@ public class FareTemplateItemProvider
 				 getString("_UI_FareTemplate_personalDataConstraint_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_personalDataConstraint_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__PERSONAL_DATA_CONSTRAINT,
-				 true,
+				 false,
 				 false,
 				 true,
 				 null,
@@ -524,7 +570,7 @@ public class FareTemplateItemProvider
 				 getString("_UI_FareTemplate_fulfillmentConstraint_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_fulfillmentConstraint_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__FULFILLMENT_CONSTRAINT,
-				 true,
+				 false,
 				 false,
 				 true,
 				 null,

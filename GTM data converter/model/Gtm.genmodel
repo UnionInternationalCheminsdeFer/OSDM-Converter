@@ -67,9 +67,8 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//Clusters/PROMO"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//CombinationModel">
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CombinationModel/SEPARATE_TICKET"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CombinationModel/SEPARATE_CONTRACT"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CombinationModel/CLUSTERING"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CombinationModel/SEPARATE_CONTRACT"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CombinationModel/COMBINING"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ControlDataExchangeTypes">
@@ -513,6 +512,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/calendars"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/texts"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/reductionCards"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/fareConstraintBundles"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/fareElements"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/combinationConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/salesAvailabilityConstraints"/>
@@ -522,6 +522,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/carrierConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/serviceConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/passengerConstraints"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/totalPassengerCombinationConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/reductionConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/personalDataConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/afterSalesRules"/>
@@ -585,6 +586,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/acceptedFulfilmentTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/requiredControlDataExchange"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/individualTicketingPermitted"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FulfillmentConstraint/separateFulFillmentRequired"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//FulfillmentConstraint/acceptedBarcodes"
           suppressedGetVisibility="false"/>
       <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
@@ -613,6 +615,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareElement/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareElement/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareElement/dataDescription"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareElement/fareConstraintBundle"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareElement/text"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareElement/price"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareElement/regionalConstraint"/>
@@ -635,6 +638,31 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareElement/legacyAccountingIdentifier"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareElement/legacyConversion"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareElement/individualContracts"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//TotalPassengerCombinationConstraints">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TotalPassengerCombinationConstraints/totalPassengerCombinationConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//TotalPassengerCombinationConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TotalPassengerCombinationConstraint/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TotalPassengerCombinationConstraint/dataDescription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TotalPassengerCombinationConstraint/maxTotalPassengerWeight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TotalPassengerCombinationConstraint/minTotalPassengerWeight"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//FareConstraintBundles">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundles/fareConstraintBundles"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//FareConstraintBundle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareConstraintBundle/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareConstraintBundle/dataDescription"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/carrierConstraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/serviceClass"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/serviceLevel"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/salesAvailability"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/travelValidity"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/combinationConstraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/personalDataConstraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/fulfillmentConstraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/totalPassengerConstraint"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//FareStationSetDefinitions">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStationSetDefinitions/fareStationSetDefinitions"/>
@@ -693,8 +721,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/reservationAgeLimit"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/isAncilliary"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/passengerWeight"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/maxTotalPassengerWeight"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/minTotalPassengerWeight"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/maxTotalPassengerWeight"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/minTotalPassengerWeight"/>
       <genFeatures property="None" children="true" createChild="true" propertyDescription="included free passengrs"
           ecoreFeature="ecore:EReference Gtm.ecore#//PassengerConstraint/includedFreePassengers"/>
       <genFeatures property="None" children="true" createChild="true" propertyDescription="excluded free passengers"
@@ -1046,20 +1074,28 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/afterSalesTemplate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/dataDescription"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/text"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/fareConstraintBundle"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/separateContractFareConstraintBundle"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/serviceConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/carrierConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/serviceClass"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/serviceLevel"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/salesAvailability"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/travelValidity"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/combinationConstraint"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/separateContractCombinationConstraint"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/salesAvailability"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/travelValidity"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/combinationConstraint"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/separateContractCombinationConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/fareDetailDescription"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/legacyAccountingIdentifier"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/personalDataConstraint"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/personalDataConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/reservationParameter"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/reductionConstraint"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/fulfillmentConstraint"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/fulfillmentConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/passengerConstraint"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/legacyConversion"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/individualContracts"/>

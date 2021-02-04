@@ -174,6 +174,14 @@ public class GtmValidator extends EObjectValidator {
 				return validateFareElements((FareElements)value, diagnostics, context);
 			case GtmPackage.FARE_ELEMENT:
 				return validateFareElement((FareElement)value, diagnostics, context);
+			case GtmPackage.TOTAL_PASSENGER_COMBINATION_CONSTRAINTS:
+				return validateTotalPassengerCombinationConstraints((TotalPassengerCombinationConstraints)value, diagnostics, context);
+			case GtmPackage.TOTAL_PASSENGER_COMBINATION_CONSTRAINT:
+				return validateTotalPassengerCombinationConstraint((TotalPassengerCombinationConstraint)value, diagnostics, context);
+			case GtmPackage.FARE_CONSTRAINT_BUNDLES:
+				return validateFareConstraintBundles((FareConstraintBundles)value, diagnostics, context);
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE:
+				return validateFareConstraintBundle((FareConstraintBundle)value, diagnostics, context);
 			case GtmPackage.FARE_STATION_SET_DEFINITIONS:
 				return validateFareStationSetDefinitions((FareStationSetDefinitions)value, diagnostics, context);
 			case GtmPackage.FARE_STATION_SET_DEFINITION:
@@ -4400,7 +4408,7 @@ public class GtmValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Validates the CEÒNVERSION_MISSING constraint of '<em>Fare Element</em>'.
+	 * Validates the CEï¿½NVERSION_MISSING constraint of '<em>Fare Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
@@ -4415,13 +4423,49 @@ public class GtmValidator extends EObjectValidator {
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_207,
-						 new Object[] { "CEÒNVERSION_MISSING", getObjectLabel(fareElement, context) }, //$NON-NLS-1$
+						 new Object[] { "CEï¿½NVERSION_MISSING", getObjectLabel(fareElement, context) }, //$NON-NLS-1$
 						 new Object[] { fareElement },
 						 context));
 			}
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTotalPassengerCombinationConstraints(TotalPassengerCombinationConstraints totalPassengerCombinationConstraints, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(totalPassengerCombinationConstraints, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTotalPassengerCombinationConstraint(TotalPassengerCombinationConstraint totalPassengerCombinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(totalPassengerCombinationConstraint, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateFareConstraintBundles(FareConstraintBundles fareConstraintBundles, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(fareConstraintBundles, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateFareConstraintBundle(FareConstraintBundle fareConstraintBundle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(fareConstraintBundle, diagnostics, context);
 	}
 
 	/**

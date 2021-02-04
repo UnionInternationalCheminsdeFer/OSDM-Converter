@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FulfillmentConstraint#getAcceptedFulfilmentTypes <em>Accepted Fulfilment Types</em>}</li>
  *   <li>{@link Gtm.FulfillmentConstraint#getRequiredControlDataExchange <em>Required Control Data Exchange</em>}</li>
  *   <li>{@link Gtm.FulfillmentConstraint#isIndividualTicketingPermitted <em>Individual Ticketing Permitted</em>}</li>
+ *   <li>{@link Gtm.FulfillmentConstraint#isSeparateFulFillmentRequired <em>Separate Ful Fillment Required</em>}</li>
  *   <li>{@link Gtm.FulfillmentConstraint#getAcceptedBarcodes <em>Accepted Barcodes</em>}</li>
  *   <li>{@link Gtm.FulfillmentConstraint#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.FulfillmentConstraint#getAcceptedBarcodeTypes <em>Accepted Barcode Types</em>}</li>
@@ -104,6 +105,28 @@ public interface FulfillmentConstraint extends EObject {
 	 * @generated
 	 */
 	void setIndividualTicketingPermitted(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Separate Ful Fillment Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Separate Ful Fillment Required</em>' attribute.
+	 * @see #setSeparateFulFillmentRequired(boolean)
+	 * @see Gtm.GtmPackage#getFulfillmentConstraint_SeparateFulFillmentRequired()
+	 * @model
+	 * @generated
+	 */
+	boolean isSeparateFulFillmentRequired();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FulfillmentConstraint#isSeparateFulFillmentRequired <em>Separate Ful Fillment Required</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Separate Ful Fillment Required</em>' attribute.
+	 * @see #isSeparateFulFillmentRequired()
+	 * @generated
+	 */
+	void setSeparateFulFillmentRequired(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Accepted Barcodes</b></em>' containment reference.

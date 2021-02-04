@@ -50,7 +50,7 @@ public class FareCombinationModelImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 * @ordered
 	 */
-	protected static final CombinationModel MODEL_EDEFAULT = CombinationModel.SEPARATE_TICKET;
+	protected static final CombinationModel MODEL_EDEFAULT = CombinationModel.CLUSTERING;
 
 	/**
 	 * The cached value of the '{@link #getModel() <em>Model</em>}' attribute.
