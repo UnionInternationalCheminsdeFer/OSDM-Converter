@@ -2,6 +2,7 @@ package Gtm.actions;
 
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.MissingResourceException;
 
@@ -15,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -38,9 +40,11 @@ import Gtm.Countries;
 import Gtm.Country;
 import Gtm.Currencies;
 import Gtm.Currency;
+import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.FareStationSetDefinition;
 import Gtm.FareStructure;
+import Gtm.FareTemplate;
 import Gtm.FulfillmentConstraint;
 import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
@@ -63,7 +67,9 @@ import Gtm.ServiceConstraint;
 import Gtm.ServiceLevel;
 import Gtm.Station;
 import Gtm.Text;
+import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
+import Gtm.actions.constraintBundles.ConstraintBundleFactory;
 import Gtm.console.ConsoleUtil;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.preferences.PreferenceConstants;
@@ -330,10 +336,130 @@ public class GtmUtils {
 				if (fare.getZoneDefinitions() == null) {
 					command.append(new SetCommand(domain, fare, GtmPackage.Literals.FARE_STRUCTURE__ZONE_DEFINITIONS, GtmFactory.eINSTANCE.createZoneDefinitions()));
 				}	
+				
+				if (fare.getFareConstraintBundles() == null) {
+					command.append(new SetCommand(domain, fare, GtmPackage.Literals.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, GtmFactory.eINSTANCE.createFareConstraintBundles()));
+				}			
+							
 			}
 		}
+			
 		return command;
 	}
+	
+	
+	public static CompoundCommand getMigrate2Version2Command (GTMTool tool, EditingDomain domain) {
+		
+		CompoundCommand command = new CompoundCommand();
+		
+		if (tool.getGeneralTariffModel() == null || 
+			tool.getGeneralTariffModel().getFareStructure() == null) {
+
+			return null;
+		}
+		
+		//migration needed?
+		if (tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles() != null) {
+			//already migrated
+			return null;
+		}
+		
+		ArrayList<TotalPassengerCombinationConstraint> tpcs = new ArrayList<TotalPassengerCombinationConstraint>(); 
+		
+		if (!tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints().isEmpty()) {
+			
+			 tpcs = ConstraintBundleFactory.createTotalPassengerCombinationConstraints(tool.getGeneralTariffModel().getFareStructure());
+			
+			 //add bundles
+			 command.append(AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getTotalPassengerCombinationConstraints(), GtmPackage.Literals.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS , tpcs));
+
+		}
+		
+		
+		//migrate fares and templates
+		if (tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() != null &&
+			!tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty()	) {
+			
+			//migrate fares
+			ArrayList<FareConstraintBundle> bundles = ConstraintBundleFactory.createFareConstraintBundles(tool.getGeneralTariffModel().getFareStructure(), tool.getConversionFromLegacy().getParams().getLegacyFareTemplates(), tpcs);		
+
+			//add bundles
+			command.append(AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles(), GtmPackage.Literals.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, bundles));
+
+			//update fare templates
+			for (FareTemplate fareTemplate :  tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
+				
+				FareConstraintBundle bundle = ConstraintBundleFactory.findFittingBundle(fareTemplate, bundles);
+				
+				if (bundle != null && fareTemplate.getFareConstraintBundle() == null) {
+					command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE, bundle));
+					command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__FULFILLMENT_CONSTRAINT, null));
+					command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__CARRIER_CONSTRAINT, null));
+					command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__COMBINATION_CONSTRAINT, null));
+					command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__PERSONAL_DATA_CONSTRAINT, null));
+					command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__SALES_AVAILABILITY, null));
+					command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__TRAVEL_VALIDITY, null));
+				
+					if (fareTemplate.getSeparateContractCombinationConstraint() != null) {
+						
+						FareConstraintBundle bundleSeparateContract = ConstraintBundleFactory.findFittingSeparateTicketBundle(fareTemplate, bundles);
+						
+						command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE, bundleSeparateContract));
+						command.append(SetCommand.create(domain, fareTemplate, GtmPackage.Literals.FARE_TEMPLATE__SEPARATE_CONTRACT_COMBINATION_CONSTRAINT, null));
+						command.append(SetCommand.create(domain, bundleSeparateContract.getFulfillmentConstraint(), GtmPackage.Literals.FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED, true));
+						
+					}
+					
+				}
+			}
+			
+			
+			//update fares
+			for (FareElement fare :  tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {
+				
+				FareConstraintBundle bundle = ConstraintBundleFactory.findFittingBundle(fare, bundles);
+				
+				if (bundle != null && fare.getFareConstraintBundle() == null) {
+					command.append(SetCommand.create(domain, fare, GtmPackage.Literals.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE, bundle));
+					command.append(SetCommand.create(domain, fare, GtmPackage.Literals.FARE_ELEMENT__FULFILLMENT_CONSTRAINT, null));
+					command.append(SetCommand.create(domain, fare, GtmPackage.Literals.FARE_ELEMENT__CARRIER_CONSTRAINT, null));
+					command.append(SetCommand.create(domain, fare, GtmPackage.Literals.FARE_ELEMENT__COMBINATION_CONSTRAINT, null));
+					command.append(SetCommand.create(domain, fare, GtmPackage.Literals.FARE_ELEMENT__PERSONAL_DATA_CONSTRAINT, null));
+					command.append(SetCommand.create(domain, fare, GtmPackage.Literals.FARE_ELEMENT__SALES_AVAILABILITY, null));
+					command.append(SetCommand.create(domain, fare, GtmPackage.Literals.FARE_ELEMENT__TRAVEL_VALIDITY, null));		
+				}
+			}
+			
+		} else {
+			
+			//migrate fares
+			ArrayList<FareConstraintBundle> bundles = ConstraintBundleFactory.createFareConstraintBundles(tool.getGeneralTariffModel().getFareStructure(), tpcs);		
+			
+			//add bundles
+			command.append(AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles(), GtmPackage.Literals.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, bundles));
+
+			//update fares
+			for (FareElement fare :  tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {
+				
+				FareConstraintBundle bundle = ConstraintBundleFactory.findFittingBundle(fare, bundles);
+				
+				if (bundle != null) {
+					command.append(SetCommand.create(domain, fare, GtmPackage.Literals.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE, bundle));
+				}
+			}
+		}
+		
+		for (PassengerConstraint pc : tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
+			command.append(SetCommand.create(domain, pc, GtmPackage.Literals.PASSENGER_CONSTRAINT__MAX_TOTAL_PASSENGER_WEIGHT, null));
+			command.append(SetCommand.create(domain, pc, GtmPackage.Literals.PASSENGER_CONSTRAINT__MIN_TOTAL_PASSENGER_WEIGHT, null));
+		}
+		
+		
+		if (command.isEmpty()) return null;
+		
+		return command;
+	}	
+
 	
 	
 	private static FareStructure createInitialFareStructure() {
@@ -363,6 +489,8 @@ public class GtmUtils {
 		fareStructure.setTravelValidityConstraints(GtmFactory.eINSTANCE.createTravelValidityConstraints());
 		fareStructure.setFareStationSetDefinitions(GtmFactory.eINSTANCE.createFareStationSetDefinitions());	
 		fareStructure.setZoneDefinitions(GtmFactory.eINSTANCE.createZoneDefinitions());
+		fareStructure.setFareConstraintBundles(GtmFactory.eINSTANCE.createFareConstraintBundles());
+		fareStructure.setTotalPassengerCombinationConstraints(GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraints());
 		return fareStructure;
 	}
 
@@ -798,7 +926,25 @@ public class GtmUtils {
 				setId(domain, object,GtmPackage.Literals.FARE_STATION_SET_DEFINITION__ID, command, listName,i);
 			}
 		}						
-        
+
+		listName = baseName + "S_"; //$NON-NLS-1$
+		i = 0;
+		for (FareConstraintBundle object : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				setId(domain, object,GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__ID, command, listName,i);
+			}
+		}	
+		
+		listName = baseName + "T_"; //$NON-NLS-1$
+		i = 0;
+		for (TotalPassengerCombinationConstraint object : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				setId(domain, object,GtmPackage.Literals.TOTAL_PASSENGER_COMBINATION_CONSTRAINT__ID, command, listName,i);
+			}
+		}			
+		
         return command;
 		
 	}

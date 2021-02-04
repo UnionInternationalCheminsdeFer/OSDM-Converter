@@ -63,6 +63,13 @@ public abstract class BasicGtmAction extends BaseSelectionListenerAction {
 			if (preparationCommand != null && !preparationCommand.isEmpty() && preparationCommand.canExecute()) {
 				domain.getCommandStack().execute(preparationCommand);
 			}
+			
+			//migrate data to version 2
+			CompoundCommand migrate = GtmUtils.getMigrate2Version2Command(tool, domain);
+			if (migrate != null && !migrate.isEmpty() && migrate.canExecute()) {
+				domain.getCommandStack().execute(migrate);
+			}
+			
 		}
 		
 		protected void prepareStructure() {

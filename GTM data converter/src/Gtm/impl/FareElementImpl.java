@@ -6,6 +6,7 @@ import Gtm.AfterSalesRule;
 import Gtm.CarrierConstraint;
 import Gtm.CombinationConstraint;
 import Gtm.DataSource;
+import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.FareType;
 import Gtm.FulfillmentConstraint;
@@ -49,6 +50,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link Gtm.impl.FareElementImpl#getId <em>Id</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#getType <em>Type</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#getDataDescription <em>Data Description</em>}</li>
+ *   <li>{@link Gtm.impl.FareElementImpl#getFareConstraintBundle <em>Fare Constraint Bundle</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#getText <em>Text</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#getPrice <em>Price</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#getRegionalConstraint <em>Regional Constraint</em>}</li>
@@ -135,6 +137,16 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 	 * @ordered
 	 */
 	protected String dataDescription = DATA_DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getFareConstraintBundle() <em>Fare Constraint Bundle</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFareConstraintBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected FareConstraintBundle fareConstraintBundle;
 
 	/**
 	 * The cached value of the '{@link #getText() <em>Text</em>}' reference.
@@ -466,6 +478,44 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 		dataDescription = newDataDescription;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_ELEMENT__DATA_DESCRIPTION, oldDataDescription, dataDescription));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FareConstraintBundle getFareConstraintBundle() {
+		if (fareConstraintBundle != null && fareConstraintBundle.eIsProxy()) {
+			InternalEObject oldFareConstraintBundle = (InternalEObject)fareConstraintBundle;
+			fareConstraintBundle = (FareConstraintBundle)eResolveProxy(oldFareConstraintBundle);
+			if (fareConstraintBundle != oldFareConstraintBundle) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE, oldFareConstraintBundle, fareConstraintBundle));
+			}
+		}
+		return fareConstraintBundle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FareConstraintBundle basicGetFareConstraintBundle() {
+		return fareConstraintBundle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFareConstraintBundle(FareConstraintBundle newFareConstraintBundle) {
+		FareConstraintBundle oldFareConstraintBundle = fareConstraintBundle;
+		fareConstraintBundle = newFareConstraintBundle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE, oldFareConstraintBundle, fareConstraintBundle));
 	}
 
 	/**
@@ -1260,6 +1310,9 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 				return getType();
 			case GtmPackage.FARE_ELEMENT__DATA_DESCRIPTION:
 				return getDataDescription();
+			case GtmPackage.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE:
+				if (resolve) return getFareConstraintBundle();
+				return basicGetFareConstraintBundle();
 			case GtmPackage.FARE_ELEMENT__TEXT:
 				if (resolve) return getText();
 				return basicGetText();
@@ -1342,6 +1395,9 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 				return;
 			case GtmPackage.FARE_ELEMENT__DATA_DESCRIPTION:
 				setDataDescription((String)newValue);
+				return;
+			case GtmPackage.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE:
+				setFareConstraintBundle((FareConstraintBundle)newValue);
 				return;
 			case GtmPackage.FARE_ELEMENT__TEXT:
 				setText((Text)newValue);
@@ -1431,6 +1487,9 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 			case GtmPackage.FARE_ELEMENT__DATA_DESCRIPTION:
 				setDataDescription(DATA_DESCRIPTION_EDEFAULT);
 				return;
+			case GtmPackage.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE:
+				setFareConstraintBundle((FareConstraintBundle)null);
+				return;
 			case GtmPackage.FARE_ELEMENT__TEXT:
 				setText((Text)null);
 				return;
@@ -1515,6 +1574,8 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 				return type != TYPE_EDEFAULT;
 			case GtmPackage.FARE_ELEMENT__DATA_DESCRIPTION:
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
+			case GtmPackage.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE:
+				return fareConstraintBundle != null;
 			case GtmPackage.FARE_ELEMENT__TEXT:
 				return text != null;
 			case GtmPackage.FARE_ELEMENT__PRICE:

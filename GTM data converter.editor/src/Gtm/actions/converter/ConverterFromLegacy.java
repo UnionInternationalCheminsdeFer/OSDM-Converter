@@ -1638,11 +1638,11 @@ public class ConverterFromLegacy {
 					   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {
 				
 					if (travelClass == 1) {
-						if (distance > fare.getDistance() && fare.getFare1st() > price) {
+						if (distance >= fare.getDistance() && fare.getFare1st() > price) {
 							price = fare.getFare1st();
 						}
 					} else {
-						if (distance > fare.getDistance() && fare.getFare2nd() > price) {
+						if (distance >= fare.getDistance() && fare.getFare2nd() > price) {
 							price = fare.getFare2nd();
 						}				
 					}
@@ -1699,9 +1699,9 @@ public class ConverterFromLegacy {
 		}
 		
 		if (isSeparateContract(series)) {
-			fare.setCombinationConstraint(fareTemplate.getSeparateContractCombinationConstraint());
+			fare.setFareConstraintBundle(fareTemplate.getSeparateContractFareConstraintBundle());
 		} else {
-			fare.setCombinationConstraint(fareTemplate.getCombinationConstraint());
+			fare.setFareConstraintBundle(fareTemplate.getFareConstraintBundle());
 		}
 		fare.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_44 + Integer.toString(series.getNumber()) +NationalLanguageSupport.ConverterFromLegacy_45 + fareTemplate.getDataDescription());;
 
@@ -1738,18 +1738,14 @@ public class ConverterFromLegacy {
 	private void template2Fare(FareElement fare,FareTemplate fareTemplate) {
 		
 		fare.setFareDetailDescription(fareTemplate.getFareDetailDescription());
-		fare.setFulfillmentConstraint(fareTemplate.getFulfillmentConstraint());
 		fare.setIndividualContracts(fareTemplate.isIndividualContracts());		
 		fare.setPassengerConstraint(fareTemplate.getPassengerConstraint());
 		fare.setReductionConstraint(fareTemplate.getReductionConstraint());
-		fare.setPersonalDataConstraint(fareTemplate.getPersonalDataConstraint());
 		fare.setReservationParameter(fareTemplate.getReservationParameter());
-		fare.setSalesAvailability(fareTemplate.getSalesAvailability());
 		fare.setServiceClass(fareTemplate.getServiceClass());
 		fare.setServiceConstraint(fareTemplate.getServiceConstraint());
 		fare.setServiceLevel(fareTemplate.getServiceLevel());
 		fare.setText(fareTemplate.getText());
-		fare.setTravelValidity(fareTemplate.getTravelValidity());
 		fare.setType(fareTemplate.getType());
 		fare.setLegacyConversion(fareTemplate.getLegacyConversion());
 		

@@ -673,11 +673,12 @@ public class 	ConverterToLegacy {
 		 * 
 		 */
 		boolean separateTicket = true;
-		for (FareCombinationModel	model : fare.getCombinationConstraint().getCombinationModels()) {
-			if (model.getModel() != CombinationModel.SEPARATE_TICKET) {
-				separateTicket = false;
-			}
+		if (fare.getFareConstraintBundle() != null &&
+			fare.getFareConstraintBundle().getFulfillmentConstraint() != null &&
+			fare.getFareConstraintBundle().getFulfillmentConstraint().isSeparateFulFillmentRequired()) {
+			separateTicket = true;
 		}
+		
 		if (separateTicket) {
 			LegacySeparateContractSeries scl = GtmFactory.eINSTANCE.createLegacySeparateContractSeries();
 			scl.setSeries(series);

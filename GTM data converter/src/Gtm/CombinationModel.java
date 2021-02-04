@@ -19,16 +19,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum CombinationModel implements Enumerator {
 	/**
-	 * The '<em><b>SEPARATE TICKET</b></em>' literal object.
+	 * The '<em><b>CLUSTERING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #SEPARATE_TICKET_VALUE
+	 * @see #CLUSTERING_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	SEPARATE_TICKET(1, "SEPARATE_TICKET", "SEPARATE_TICKET"),
-
-	/**
+	CLUSTERING(3, "CLUSTERING", "CLUSTERING"), /**
 	 * The '<em><b>SEPARATE CONTRACT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -37,16 +35,6 @@ public enum CombinationModel implements Enumerator {
 	 * @ordered
 	 */
 	SEPARATE_CONTRACT(2, "SEPARATE_CONTRACT", "SEPARATE_CONTRACT"),
-
-	/**
-	 * The '<em><b>CLUSTERING</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CLUSTERING_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	CLUSTERING(3, "CLUSTERING", "CLUSTERING"),
 
 	/**
 	 * The '<em><b>COMBINING</b></em>' literal object.
@@ -59,15 +47,15 @@ public enum CombinationModel implements Enumerator {
 	COMBINING(4, "COMBINING", "COMBINING");
 
 	/**
-	 * The '<em><b>SEPARATE TICKET</b></em>' literal value.
+	 * The '<em><b>CLUSTERING</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #SEPARATE_TICKET
+	 * @see #CLUSTERING
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SEPARATE_TICKET_VALUE = 1;
+	public static final int CLUSTERING_VALUE = 3;
 
 	/**
 	 * The '<em><b>SEPARATE CONTRACT</b></em>' literal value.
@@ -79,17 +67,6 @@ public enum CombinationModel implements Enumerator {
 	 * @ordered
 	 */
 	public static final int SEPARATE_CONTRACT_VALUE = 2;
-
-	/**
-	 * The '<em><b>CLUSTERING</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CLUSTERING
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CLUSTERING_VALUE = 3;
 
 	/**
 	 * The '<em><b>COMBINING</b></em>' literal value.
@@ -110,9 +87,8 @@ public enum CombinationModel implements Enumerator {
 	 */
 	private static final CombinationModel[] VALUES_ARRAY =
 		new CombinationModel[] {
-			SEPARATE_TICKET,
-			SEPARATE_CONTRACT,
 			CLUSTERING,
+			SEPARATE_CONTRACT,
 			COMBINING,
 		};
 
@@ -170,9 +146,8 @@ public enum CombinationModel implements Enumerator {
 	 */
 	public static CombinationModel get(int value) {
 		switch (value) {
-			case SEPARATE_TICKET_VALUE: return SEPARATE_TICKET;
-			case SEPARATE_CONTRACT_VALUE: return SEPARATE_CONTRACT;
 			case CLUSTERING_VALUE: return CLUSTERING;
+			case SEPARATE_CONTRACT_VALUE: return SEPARATE_CONTRACT;
 			case COMBINING_VALUE: return COMBINING;
 		}
 		return null;
