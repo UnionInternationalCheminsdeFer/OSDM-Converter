@@ -1638,11 +1638,11 @@ public class ConverterFromLegacy {
 					   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {
 				
 					if (travelClass == 1) {
-						if (distance > fare.getDistance() && fare.getFare1st() > price) {
+						if (distance >= fare.getDistance() && fare.getFare1st() > price) {
 							price = fare.getFare1st();
 						}
 					} else {
-						if (distance > fare.getDistance() && fare.getFare2nd() > price) {
+						if (distance >= fare.getDistance() && fare.getFare2nd() > price) {
 							price = fare.getFare2nd();
 						}				
 					}
