@@ -325,34 +325,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass totalPassengerCombinationConstraintsEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass totalPassengerCombinationConstraintEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass fareConstraintBundlesEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass fareConstraintBundleEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass fareStationSetDefinitionsEClass = null;
 
 	/**
@@ -2421,7 +2393,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_FareConstraintBundles() {
+	public EReference getFareStructure_FareElements() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -2430,7 +2402,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_FareElements() {
+	public EReference getFareStructure_CombinationConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -2439,7 +2411,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_CombinationConstraints() {
+	public EReference getFareStructure_SalesAvailabilityConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -2448,7 +2420,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_SalesAvailabilityConstraints() {
+	public EReference getFareStructure_TravelValidityConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -2457,7 +2429,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_TravelValidityConstraints() {
+	public EReference getFareStructure_RegionalConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -2466,7 +2438,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_RegionalConstraints() {
+	public EReference getFareStructure_ConnectionPoints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -2475,7 +2447,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_ConnectionPoints() {
+	public EReference getFareStructure_CarrierConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -2484,7 +2456,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_CarrierConstraints() {
+	public EReference getFareStructure_ServiceConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -2493,7 +2465,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_ServiceConstraints() {
+	public EReference getFareStructure_PassengerConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -2502,7 +2474,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_PassengerConstraints() {
+	public EReference getFareStructure_ReductionConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -2511,7 +2483,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_TotalPassengerCombinationConstraints() {
+	public EReference getFareStructure_PersonalDataConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -2520,7 +2492,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_ReductionConstraints() {
+	public EReference getFareStructure_AfterSalesRules() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -2529,7 +2501,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_PersonalDataConstraints() {
+	public EReference getFareStructure_Prices() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -2538,7 +2510,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_AfterSalesRules() {
+	public EReference getFareStructure_FulfillmentConstraints() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -2547,7 +2519,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_Prices() {
+	public EReference getFareStructure_ReservationParameters() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -2556,7 +2528,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_FulfillmentConstraints() {
+	public EReference getFareStructure_SupportedOnlineServices() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -2565,7 +2537,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_ReservationParameters() {
+	public EReference getFareStructure_FareResourceLocations() {
 		return (EReference)fareStructureEClass.getEStructuralFeatures().get(23);
 	}
 
@@ -2574,26 +2546,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareStructure_SupportedOnlineServices() {
-		return (EReference)fareStructureEClass.getEStructuralFeatures().get(24);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareStructure_FareResourceLocations() {
-		return (EReference)fareStructureEClass.getEStructuralFeatures().get(25);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getFareStructure_ZoneDefinitions() {
-		return (EReference)fareStructureEClass.getEStructuralFeatures().get(26);
+		return (EReference)fareStructureEClass.getEStructuralFeatures().get(24);
 	}
 
 	/**
@@ -2970,17 +2924,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFulfillmentConstraint_SeparateFulFillmentRequired() {
-		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getFulfillmentConstraint_AcceptedBarcodes() {
-		return (EReference)fulfillmentConstraintEClass.getEStructuralFeatures().get(5);
+		return (EReference)fulfillmentConstraintEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2989,7 +2934,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EReference getFulfillmentConstraint_RequiredBarcodes() {
-		return (EReference)fulfillmentConstraintEClass.getEStructuralFeatures().get(6);
+		return (EReference)fulfillmentConstraintEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2998,7 +2943,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFulfillmentConstraint_DataDescription() {
-		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3007,7 +2952,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFulfillmentConstraint_AcceptedBarcodeTypes() {
-		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(8);
+		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -3016,7 +2961,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFulfillmentConstraint_RequiredBarcodeTypes() {
-		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(9);
+		return (EAttribute)fulfillmentConstraintEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -3150,7 +3095,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_FareConstraintBundle() {
+	public EReference getFareElement_Text() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -3159,7 +3104,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_Text() {
+	public EReference getFareElement_Price() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -3168,7 +3113,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_Price() {
+	public EReference getFareElement_RegionalConstraint() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -3177,7 +3122,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_RegionalConstraint() {
+	public EReference getFareElement_ServiceConstraint() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -3186,7 +3131,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_ServiceConstraint() {
+	public EReference getFareElement_CarrierConstraint() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -3195,7 +3140,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_CarrierConstraint() {
+	public EReference getFareElement_ServiceClass() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -3204,7 +3149,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_ServiceClass() {
+	public EReference getFareElement_ServiceLevel() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -3213,7 +3158,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_ServiceLevel() {
+	public EReference getFareElement_SalesAvailability() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -3222,7 +3167,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_SalesAvailability() {
+	public EReference getFareElement_TravelValidity() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -3231,7 +3176,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_TravelValidity() {
+	public EReference getFareElement_CombinationConstraint() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -3240,7 +3185,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_CombinationConstraint() {
+	public EReference getFareElement_FareDetailDescription() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -3249,7 +3194,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_FareDetailDescription() {
+	public EReference getFareElement_PersonalDataConstraint() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -3258,7 +3203,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_PersonalDataConstraint() {
+	public EReference getFareElement_ReservationParameter() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -3267,7 +3212,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_ReservationParameter() {
+	public EReference getFareElement_ReductionConstraint() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -3276,7 +3221,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_ReductionConstraint() {
+	public EReference getFareElement_FulfillmentConstraint() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -3285,7 +3230,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_FulfillmentConstraint() {
+	public EReference getFareElement_PassengerConstraint() {
 		return (EReference)fareElementEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -3294,17 +3239,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareElement_PassengerConstraint() {
-		return (EReference)fareElementEClass.getEStructuralFeatures().get(19);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getFareElement_RegulatoryConditions() {
-		return (EAttribute)fareElementEClass.getEStructuralFeatures().get(20);
+		return (EAttribute)fareElementEClass.getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -3313,7 +3249,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EReference getFareElement_AfterSalesRule() {
-		return (EReference)fareElementEClass.getEStructuralFeatures().get(21);
+		return (EReference)fareElementEClass.getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -3322,7 +3258,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFareElement_DataSource() {
-		return (EAttribute)fareElementEClass.getEStructuralFeatures().get(22);
+		return (EAttribute)fareElementEClass.getEStructuralFeatures().get(21);
 	}
 
 	/**
@@ -3331,7 +3267,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EReference getFareElement_LegacyAccountingIdentifier() {
-		return (EReference)fareElementEClass.getEStructuralFeatures().get(23);
+		return (EReference)fareElementEClass.getEStructuralFeatures().get(22);
 	}
 
 	/**
@@ -3340,7 +3276,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFareElement_LegacyConversion() {
-		return (EAttribute)fareElementEClass.getEStructuralFeatures().get(24);
+		return (EAttribute)fareElementEClass.getEStructuralFeatures().get(23);
 	}
 
 	/**
@@ -3349,196 +3285,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFareElement_IndividualContracts() {
-		return (EAttribute)fareElementEClass.getEStructuralFeatures().get(25);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getTotalPassengerCombinationConstraints() {
-		return totalPassengerCombinationConstraintsEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTotalPassengerCombinationConstraints_TotalPassengerCombinationConstraint() {
-		return (EReference)totalPassengerCombinationConstraintsEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getTotalPassengerCombinationConstraint() {
-		return totalPassengerCombinationConstraintEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTotalPassengerCombinationConstraint_Id() {
-		return (EAttribute)totalPassengerCombinationConstraintEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTotalPassengerCombinationConstraint_DataDescription() {
-		return (EAttribute)totalPassengerCombinationConstraintEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTotalPassengerCombinationConstraint_MaxTotalPassengerWeight() {
-		return (EAttribute)totalPassengerCombinationConstraintEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTotalPassengerCombinationConstraint_MinTotalPassengerWeight() {
-		return (EAttribute)totalPassengerCombinationConstraintEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFareConstraintBundles() {
-		return fareConstraintBundlesEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundles_FareConstraintBundles() {
-		return (EReference)fareConstraintBundlesEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFareConstraintBundle() {
-		return fareConstraintBundleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFareConstraintBundle_Id() {
-		return (EAttribute)fareConstraintBundleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFareConstraintBundle_DataDescription() {
-		return (EAttribute)fareConstraintBundleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_CarrierConstraint() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_ServiceClass() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_ServiceLevel() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_SalesAvailability() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_TravelValidity() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_CombinationConstraint() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_PersonalDataConstraint() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_FulfillmentConstraint() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(9);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareConstraintBundle_TotalPassengerConstraint() {
-		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(10);
+		return (EAttribute)fareElementEClass.getEStructuralFeatures().get(24);
 	}
 
 	/**
@@ -6471,7 +6218,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_FareConstraintBundle() {
+	public EReference getFareTemplate_ServiceConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -6480,7 +6227,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_SeparateContractFareConstraintBundle() {
+	public EReference getFareTemplate_CarrierConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -6489,7 +6236,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ServiceConstraint() {
+	public EReference getFareTemplate_ServiceClass() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -6498,7 +6245,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_CarrierConstraint() {
+	public EReference getFareTemplate_ServiceLevel() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -6507,7 +6254,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ServiceClass() {
+	public EReference getFareTemplate_SalesAvailability() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -6516,7 +6263,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ServiceLevel() {
+	public EReference getFareTemplate_TravelValidity() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -6525,7 +6272,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_SalesAvailability() {
+	public EReference getFareTemplate_CombinationConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -6534,7 +6281,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_TravelValidity() {
+	public EReference getFareTemplate_SeparateContractCombinationConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -6543,7 +6290,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_CombinationConstraint() {
+	public EReference getFareTemplate_FareDetailDescription() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -6552,7 +6299,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_SeparateContractCombinationConstraint() {
+	public EReference getFareTemplate_LegacyAccountingIdentifier() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -6561,7 +6308,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_FareDetailDescription() {
+	public EReference getFareTemplate_PersonalDataConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -6570,7 +6317,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_LegacyAccountingIdentifier() {
+	public EReference getFareTemplate_ReservationParameter() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -6579,7 +6326,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_PersonalDataConstraint() {
+	public EReference getFareTemplate_ReductionConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -6588,7 +6335,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ReservationParameter() {
+	public EReference getFareTemplate_FulfillmentConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -6597,7 +6344,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ReductionConstraint() {
+	public EReference getFareTemplate_PassengerConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -6606,26 +6353,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_FulfillmentConstraint() {
-		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(23);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareTemplate_PassengerConstraint() {
-		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(24);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getFareTemplate_LegacyConversion() {
-		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(25);
+		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(23);
 	}
 
 	/**
@@ -6634,7 +6363,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFareTemplate_IndividualContracts() {
-		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(26);
+		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(24);
 	}
 
 	/**
@@ -6643,7 +6372,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFareTemplate_RegulatoryConditions() {
-		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(27);
+		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(25);
 	}
 
 	/**
@@ -8558,7 +8287,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareStructureEClass, FARE_STRUCTURE__CALENDARS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__TEXTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__REDUCTION_CARDS);
-		createEReference(fareStructureEClass, FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__FARE_ELEMENTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__COMBINATION_CONSTRAINTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__SALES_AVAILABILITY_CONSTRAINTS);
@@ -8568,7 +8296,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareStructureEClass, FARE_STRUCTURE__CARRIER_CONSTRAINTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__SERVICE_CONSTRAINTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__PASSENGER_CONSTRAINTS);
-		createEReference(fareStructureEClass, FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__REDUCTION_CONSTRAINTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__PERSONAL_DATA_CONSTRAINTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__AFTER_SALES_RULES);
@@ -8630,7 +8357,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__ACCEPTED_FULFILMENT_TYPES);
 		createEAttribute(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__REQUIRED_CONTROL_DATA_EXCHANGE);
 		createEAttribute(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__INDIVIDUAL_TICKETING_PERMITTED);
-		createEAttribute(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED);
 		createEReference(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODES);
 		createEReference(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__REQUIRED_BARCODES);
 		createEAttribute(fulfillmentConstraintEClass, FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION);
@@ -8656,7 +8382,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareElementEClass, FARE_ELEMENT__ID);
 		createEAttribute(fareElementEClass, FARE_ELEMENT__TYPE);
 		createEAttribute(fareElementEClass, FARE_ELEMENT__DATA_DESCRIPTION);
-		createEReference(fareElementEClass, FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE);
 		createEReference(fareElementEClass, FARE_ELEMENT__TEXT);
 		createEReference(fareElementEClass, FARE_ELEMENT__PRICE);
 		createEReference(fareElementEClass, FARE_ELEMENT__REGIONAL_CONSTRAINT);
@@ -8679,31 +8404,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareElementEClass, FARE_ELEMENT__LEGACY_ACCOUNTING_IDENTIFIER);
 		createEAttribute(fareElementEClass, FARE_ELEMENT__LEGACY_CONVERSION);
 		createEAttribute(fareElementEClass, FARE_ELEMENT__INDIVIDUAL_CONTRACTS);
-
-		totalPassengerCombinationConstraintsEClass = createEClass(TOTAL_PASSENGER_COMBINATION_CONSTRAINTS);
-		createEReference(totalPassengerCombinationConstraintsEClass, TOTAL_PASSENGER_COMBINATION_CONSTRAINTS__TOTAL_PASSENGER_COMBINATION_CONSTRAINT);
-
-		totalPassengerCombinationConstraintEClass = createEClass(TOTAL_PASSENGER_COMBINATION_CONSTRAINT);
-		createEAttribute(totalPassengerCombinationConstraintEClass, TOTAL_PASSENGER_COMBINATION_CONSTRAINT__ID);
-		createEAttribute(totalPassengerCombinationConstraintEClass, TOTAL_PASSENGER_COMBINATION_CONSTRAINT__DATA_DESCRIPTION);
-		createEAttribute(totalPassengerCombinationConstraintEClass, TOTAL_PASSENGER_COMBINATION_CONSTRAINT__MAX_TOTAL_PASSENGER_WEIGHT);
-		createEAttribute(totalPassengerCombinationConstraintEClass, TOTAL_PASSENGER_COMBINATION_CONSTRAINT__MIN_TOTAL_PASSENGER_WEIGHT);
-
-		fareConstraintBundlesEClass = createEClass(FARE_CONSTRAINT_BUNDLES);
-		createEReference(fareConstraintBundlesEClass, FARE_CONSTRAINT_BUNDLES__FARE_CONSTRAINT_BUNDLES);
-
-		fareConstraintBundleEClass = createEClass(FARE_CONSTRAINT_BUNDLE);
-		createEAttribute(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__ID);
-		createEAttribute(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__SALES_AVAILABILITY);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__TRAVEL_VALIDITY);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__COMBINATION_CONSTRAINT);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__PERSONAL_DATA_CONSTRAINT);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__FULFILLMENT_CONSTRAINT);
-		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT);
 
 		fareStationSetDefinitionsEClass = createEClass(FARE_STATION_SET_DEFINITIONS);
 		createEReference(fareStationSetDefinitionsEClass, FARE_STATION_SET_DEFINITIONS__FARE_STATION_SET_DEFINITIONS);
@@ -9104,8 +8804,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__AFTER_SALES_TEMPLATE);
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__DATA_DESCRIPTION);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__TEXT);
-		createEReference(fareTemplateEClass, FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE);
-		createEReference(fareTemplateEClass, FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__SERVICE_CONSTRAINT);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__CARRIER_CONSTRAINT);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__SERVICE_CLASS);
@@ -9534,7 +9232,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareStructure_Calendars(), this.getCalendars(), null, "calendars", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_Texts(), this.getTexts(), null, "texts", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_ReductionCards(), this.getReductionCards(), null, "reductionCards", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareStructure_FareConstraintBundles(), this.getFareConstraintBundles(), null, "fareConstraintBundles", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_FareElements(), this.getFareElements(), null, "fareElements", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_CombinationConstraints(), this.getCombinationConstraints(), null, "combinationConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_SalesAvailabilityConstraints(), this.getSalesAvailabilityConstraints(), null, "salesAvailabilityConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9544,7 +9241,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareStructure_CarrierConstraints(), this.getCarrierConstraints(), null, "carrierConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_ServiceConstraints(), this.getServiceConstraints(), null, "serviceConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_PassengerConstraints(), this.getPassengerConstraints(), null, "passengerConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareStructure_TotalPassengerCombinationConstraints(), this.getTotalPassengerCombinationConstraints(), null, "totalPassengerCombinationConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_ReductionConstraints(), this.getReductionConstraints(), null, "reductionConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_PersonalDataConstraints(), this.getPersonalDataConstraints(), null, "personalDataConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_AfterSalesRules(), this.getAfterSalesRules(), null, "afterSalesRules", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9608,7 +9304,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFulfillmentConstraint_AcceptedFulfilmentTypes(), this.getFulfillmentType(), "acceptedFulfilmentTypes", null, 0, -1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFulfillmentConstraint_RequiredControlDataExchange(), this.getControlDataExchangeTypes(), "requiredControlDataExchange", null, 0, -1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFulfillmentConstraint_IndividualTicketingPermitted(), ecorePackage.getEBoolean(), "individualTicketingPermitted", "false", 0, 1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFulfillmentConstraint_SeparateFulFillmentRequired(), ecorePackage.getEBoolean(), "separateFulFillmentRequired", null, 0, 1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFulfillmentConstraint_AcceptedBarcodes(), this.getAcceptedBarcodes(), null, "acceptedBarcodes", null, 0, 1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFulfillmentConstraint_RequiredBarcodes(), this.getRequiredBarcodes(), null, "requiredBarcodes", null, 0, 1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFulfillmentConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, FulfillmentConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9634,7 +9329,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareElement_Id(), ecorePackage.getEString(), "id", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareElement_Type(), this.getFareType(), "type", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareElement_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareElement_FareConstraintBundle(), this.getFareConstraintBundle(), null, "fareConstraintBundle", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareElement_Text(), this.getText(), null, "text", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareElement_Price(), this.getPrice(), null, "price", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareElement_RegionalConstraint(), this.getRegionalConstraint(), null, "regionalConstraint", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9657,31 +9351,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareElement_LegacyAccountingIdentifier(), this.getLegacyAccountingIdentifier(), null, "legacyAccountingIdentifier", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareElement_LegacyConversion(), this.getLegacyConversionType(), "legacyConversion", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareElement_IndividualContracts(), ecorePackage.getEBoolean(), "individualContracts", "false", 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(totalPassengerCombinationConstraintsEClass, TotalPassengerCombinationConstraints.class, "TotalPassengerCombinationConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTotalPassengerCombinationConstraints_TotalPassengerCombinationConstraint(), this.getTotalPassengerCombinationConstraint(), null, "totalPassengerCombinationConstraint", null, 0, -1, TotalPassengerCombinationConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(totalPassengerCombinationConstraintEClass, TotalPassengerCombinationConstraint.class, "TotalPassengerCombinationConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTotalPassengerCombinationConstraint_Id(), ecorePackage.getEString(), "id", null, 0, 1, TotalPassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTotalPassengerCombinationConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, TotalPassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTotalPassengerCombinationConstraint_MaxTotalPassengerWeight(), ecorePackage.getEFloat(), "maxTotalPassengerWeight", null, 0, 1, TotalPassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTotalPassengerCombinationConstraint_MinTotalPassengerWeight(), ecorePackage.getEFloat(), "minTotalPassengerWeight", null, 0, 1, TotalPassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(fareConstraintBundlesEClass, FareConstraintBundles.class, "FareConstraintBundles", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFareConstraintBundles_FareConstraintBundles(), this.getFareConstraintBundle(), null, "fareConstraintBundles", null, 0, -1, FareConstraintBundles.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(fareConstraintBundleEClass, FareConstraintBundle.class, "FareConstraintBundle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFareConstraintBundle_Id(), ecorePackage.getEString(), "id", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFareConstraintBundle_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_CarrierConstraint(), this.getCarrierConstraint(), null, "carrierConstraint", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_ServiceClass(), this.getServiceClass(), null, "serviceClass", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_ServiceLevel(), this.getServiceLevel(), null, "serviceLevel", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_SalesAvailability(), this.getSalesAvailabilityConstraint(), null, "salesAvailability", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_TravelValidity(), this.getTravelValidityConstraint(), null, "travelValidity", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_CombinationConstraint(), this.getCombinationConstraint(), null, "combinationConstraint", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_PersonalDataConstraint(), this.getPersonalDataConstraint(), null, "personalDataConstraint", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_FulfillmentConstraint(), this.getFulfillmentConstraint(), null, "fulfillmentConstraint", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareConstraintBundle_TotalPassengerConstraint(), this.getTotalPassengerCombinationConstraint(), null, "totalPassengerConstraint", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fareStationSetDefinitionsEClass, FareStationSetDefinitions.class, "FareStationSetDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFareStationSetDefinitions_FareStationSetDefinitions(), this.getFareStationSetDefinition(), null, "fareStationSetDefinitions", null, 0, -1, FareStationSetDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10086,8 +9755,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareTemplate_AfterSalesTemplate(), this.getAfterSalesTemplate(), null, "afterSalesTemplate", null, 0, -1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareTemplate_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_Text(), this.getText(), null, "text", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareTemplate_FareConstraintBundle(), this.getFareConstraintBundle(), null, "fareConstraintBundle", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFareTemplate_SeparateContractFareConstraintBundle(), this.getFareConstraintBundle(), null, "separateContractFareConstraintBundle", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_ServiceConstraint(), this.getServiceConstraint(), null, "serviceConstraint", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_CarrierConstraint(), this.getCarrierConstraint(), null, "carrierConstraint", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_ServiceClass(), this.getServiceClass(), null, "serviceClass", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10353,8 +10020,9 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(clustersEEnum, Clusters.PROMO);
 
 		initEEnum(combinationModelEEnum, CombinationModel.class, "CombinationModel");
-		addEEnumLiteral(combinationModelEEnum, CombinationModel.CLUSTERING);
+		addEEnumLiteral(combinationModelEEnum, CombinationModel.SEPARATE_TICKET);
 		addEEnumLiteral(combinationModelEEnum, CombinationModel.SEPARATE_CONTRACT);
+		addEEnumLiteral(combinationModelEEnum, CombinationModel.CLUSTERING);
 		addEEnumLiteral(combinationModelEEnum, CombinationModel.COMBINING);
 
 		initEEnum(controlDataExchangeTypesEEnum, ControlDataExchangeTypes.class, "ControlDataExchangeTypes");

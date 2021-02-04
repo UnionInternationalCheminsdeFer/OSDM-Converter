@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getAcceptedFulfilmentTypes <em>Accepted Fulfilment Types</em>}</li>
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getRequiredControlDataExchange <em>Required Control Data Exchange</em>}</li>
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#isIndividualTicketingPermitted <em>Individual Ticketing Permitted</em>}</li>
- *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#isSeparateFulFillmentRequired <em>Separate Ful Fillment Required</em>}</li>
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getAcceptedBarcodes <em>Accepted Barcodes</em>}</li>
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getRequiredBarcodes <em>Required Barcodes</em>}</li>
  *   <li>{@link Gtm.impl.FulfillmentConstraintImpl#getDataDescription <em>Data Description</em>}</li>
@@ -107,26 +106,6 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 	 * @ordered
 	 */
 	protected boolean individualTicketingPermitted = INDIVIDUAL_TICKETING_PERMITTED_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #isSeparateFulFillmentRequired() <em>Separate Ful Fillment Required</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSeparateFulFillmentRequired()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean SEPARATE_FUL_FILLMENT_REQUIRED_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isSeparateFulFillmentRequired() <em>Separate Ful Fillment Required</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSeparateFulFillmentRequired()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean separateFulFillmentRequired = SEPARATE_FUL_FILLMENT_REQUIRED_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getAcceptedBarcodes() <em>Accepted Barcodes</em>}' containment reference.
@@ -425,27 +404,6 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSeparateFulFillmentRequired() {
-		return separateFulFillmentRequired;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSeparateFulFillmentRequired(boolean newSeparateFulFillmentRequired) {
-		boolean oldSeparateFulFillmentRequired = separateFulFillmentRequired;
-		separateFulFillmentRequired = newSeparateFulFillmentRequired;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED, oldSeparateFulFillmentRequired, separateFulFillmentRequired));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -457,8 +415,6 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 				return getRequiredControlDataExchange();
 			case GtmPackage.FULFILLMENT_CONSTRAINT__INDIVIDUAL_TICKETING_PERMITTED:
 				return isIndividualTicketingPermitted();
-			case GtmPackage.FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED:
-				return isSeparateFulFillmentRequired();
 			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODES:
 				return getAcceptedBarcodes();
 			case GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_BARCODES:
@@ -495,9 +451,6 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 				return;
 			case GtmPackage.FULFILLMENT_CONSTRAINT__INDIVIDUAL_TICKETING_PERMITTED:
 				setIndividualTicketingPermitted((Boolean)newValue);
-				return;
-			case GtmPackage.FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED:
-				setSeparateFulFillmentRequired((Boolean)newValue);
 				return;
 			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODES:
 				setAcceptedBarcodes((AcceptedBarcodes)newValue);
@@ -540,9 +493,6 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 			case GtmPackage.FULFILLMENT_CONSTRAINT__INDIVIDUAL_TICKETING_PERMITTED:
 				setIndividualTicketingPermitted(INDIVIDUAL_TICKETING_PERMITTED_EDEFAULT);
 				return;
-			case GtmPackage.FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED:
-				setSeparateFulFillmentRequired(SEPARATE_FUL_FILLMENT_REQUIRED_EDEFAULT);
-				return;
 			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODES:
 				setAcceptedBarcodes((AcceptedBarcodes)null);
 				return;
@@ -578,8 +528,6 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 				return requiredControlDataExchange != null && !requiredControlDataExchange.isEmpty();
 			case GtmPackage.FULFILLMENT_CONSTRAINT__INDIVIDUAL_TICKETING_PERMITTED:
 				return individualTicketingPermitted != INDIVIDUAL_TICKETING_PERMITTED_EDEFAULT;
-			case GtmPackage.FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED:
-				return separateFulFillmentRequired != SEPARATE_FUL_FILLMENT_REQUIRED_EDEFAULT;
 			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODES:
 				return acceptedBarcodes != null;
 			case GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_BARCODES:
@@ -612,8 +560,6 @@ public class FulfillmentConstraintImpl extends MinimalEObjectImpl.Container impl
 		result.append(requiredControlDataExchange);
 		result.append(", individualTicketingPermitted: ");
 		result.append(individualTicketingPermitted);
-		result.append(", separateFulFillmentRequired: ");
-		result.append(separateFulFillmentRequired);
 		result.append(", dataDescription: ");
 		result.append(dataDescription);
 		result.append(", acceptedBarcodeTypes: ");

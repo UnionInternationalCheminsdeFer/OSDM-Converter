@@ -22,8 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareTemplate#getAfterSalesTemplate <em>After Sales Template</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getText <em>Text</em>}</li>
- *   <li>{@link Gtm.FareTemplate#getFareConstraintBundle <em>Fare Constraint Bundle</em>}</li>
- *   <li>{@link Gtm.FareTemplate#getSeparateContractFareConstraintBundle <em>Separate Contract Fare Constraint Bundle</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getServiceConstraint <em>Service Constraint</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getCarrierConstraint <em>Carrier Constraint</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getServiceClass <em>Service Class</em>}</li>
@@ -247,50 +245,6 @@ public interface FareTemplate extends EObject {
 	 * @generated
 	 */
 	void setText(Text value);
-
-	/**
-	 * Returns the value of the '<em><b>Fare Constraint Bundle</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Fare Constraint Bundle</em>' reference.
-	 * @see #setFareConstraintBundle(FareConstraintBundle)
-	 * @see Gtm.GtmPackage#getFareTemplate_FareConstraintBundle()
-	 * @model
-	 * @generated
-	 */
-	FareConstraintBundle getFareConstraintBundle();
-
-	/**
-	 * Sets the value of the '{@link Gtm.FareTemplate#getFareConstraintBundle <em>Fare Constraint Bundle</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Fare Constraint Bundle</em>' reference.
-	 * @see #getFareConstraintBundle()
-	 * @generated
-	 */
-	void setFareConstraintBundle(FareConstraintBundle value);
-
-	/**
-	 * Returns the value of the '<em><b>Separate Contract Fare Constraint Bundle</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Separate Contract Fare Constraint Bundle</em>' reference.
-	 * @see #setSeparateContractFareConstraintBundle(FareConstraintBundle)
-	 * @see Gtm.GtmPackage#getFareTemplate_SeparateContractFareConstraintBundle()
-	 * @model
-	 * @generated
-	 */
-	FareConstraintBundle getSeparateContractFareConstraintBundle();
-
-	/**
-	 * Sets the value of the '{@link Gtm.FareTemplate#getSeparateContractFareConstraintBundle <em>Separate Contract Fare Constraint Bundle</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Separate Contract Fare Constraint Bundle</em>' reference.
-	 * @see #getSeparateContractFareConstraintBundle()
-	 * @generated
-	 */
-	void setSeparateContractFareConstraintBundle(FareConstraintBundle value);
 
 	/**
 	 * Returns the value of the '<em><b>Service Constraint</b></em>' reference.

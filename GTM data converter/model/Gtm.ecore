@@ -243,8 +243,6 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reductionCards" eType="#//ReductionCards"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fareConstraintBundles"
-        eType="#//FareConstraintBundles" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fareElements" eType="#//FareElements"
         containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="combinationConstraints"
@@ -263,8 +261,6 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="passengerConstraints" eType="#//PassengerConstraints"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerCombinationConstraints"
-        eType="#//TotalPassengerCombinationConstraints" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reductionConstraints" eType="#//ReductionConstraints"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="personalDataConstraints"
@@ -369,8 +365,6 @@
         upperBound="-1" eType="#//ControlDataExchangeTypes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="individualTicketingPermitted"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="separateFulFillmentRequired"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="acceptedBarcodes" eType="#//AcceptedBarcodes"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requiredBarcodes" eType="#//RequiredBarcodes"
@@ -408,7 +402,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//FareType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fareConstraintBundle" eType="#//FareConstraintBundle"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="price" eType="#//Price"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="regionalConstraint" eType="#//RegionalConstraint"/>
@@ -438,39 +431,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacyConversion" eType="#//LegacyConversionType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="individualContracts" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TotalPassengerCombinationConstraints">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerCombinationConstraint"
-        upperBound="-1" eType="#//TotalPassengerCombinationConstraint" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TotalPassengerCombinationConstraint">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxTotalPassengerWeight"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minTotalPassengerWeight"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FareConstraintBundles">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fareConstraintBundles"
-        upperBound="-1" eType="#//FareConstraintBundle" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FareConstraintBundle">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceClass" eType="#//ServiceClass"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceLevel" eType="#//ServiceLevel"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="salesAvailability" eType="#//SalesAvailabilityConstraint"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="travelValidity" eType="#//TravelValidityConstraint"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="combinationConstraint"
-        eType="#//CombinationConstraint"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="personalDataConstraint"
-        eType="#//PersonalDataConstraint"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fulfillmentConstraint"
-        eType="#//FulfillmentConstraint"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerConstraint"
-        eType="#//TotalPassengerCombinationConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareStationSetDefinitions">
     <eOperations name="findFareSet" eType="#//FareStationSetDefinition">
@@ -1111,9 +1071,6 @@
         eType="#//AfterSalesTemplate" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fareConstraintBundle" eType="#//FareConstraintBundle"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="separateContractFareConstraintBundle"
-        eType="#//FareConstraintBundle"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraint" eType="#//ServiceConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceClass" eType="#//ServiceClass"/>
@@ -1445,8 +1402,9 @@
     <eLiterals name="PROMO" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CombinationModel">
-    <eLiterals name="CLUSTERING" value="3"/>
+    <eLiterals name="SEPARATE_TICKET" value="1"/>
     <eLiterals name="SEPARATE_CONTRACT" value="2"/>
+    <eLiterals name="CLUSTERING" value="3"/>
     <eLiterals name="COMBINING" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ControlDataExchangeTypes">

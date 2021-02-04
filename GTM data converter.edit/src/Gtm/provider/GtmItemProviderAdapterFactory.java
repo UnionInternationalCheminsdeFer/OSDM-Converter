@@ -1032,98 +1032,6 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link Gtm.TotalPassengerCombinationConstraints} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected TotalPassengerCombinationConstraintsItemProvider totalPassengerCombinationConstraintsItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link Gtm.TotalPassengerCombinationConstraints}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createTotalPassengerCombinationConstraintsAdapter() {
-		if (totalPassengerCombinationConstraintsItemProvider == null) {
-			totalPassengerCombinationConstraintsItemProvider = new TotalPassengerCombinationConstraintsItemProvider(this);
-		}
-
-		return totalPassengerCombinationConstraintsItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link Gtm.TotalPassengerCombinationConstraint} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected TotalPassengerCombinationConstraintItemProvider totalPassengerCombinationConstraintItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link Gtm.TotalPassengerCombinationConstraint}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createTotalPassengerCombinationConstraintAdapter() {
-		if (totalPassengerCombinationConstraintItemProvider == null) {
-			totalPassengerCombinationConstraintItemProvider = new TotalPassengerCombinationConstraintItemProvider(this);
-		}
-
-		return totalPassengerCombinationConstraintItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link Gtm.FareConstraintBundles} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FareConstraintBundlesItemProvider fareConstraintBundlesItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link Gtm.FareConstraintBundles}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFareConstraintBundlesAdapter() {
-		if (fareConstraintBundlesItemProvider == null) {
-			fareConstraintBundlesItemProvider = new FareConstraintBundlesItemProvider(this);
-		}
-
-		return fareConstraintBundlesItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link Gtm.FareConstraintBundle} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FareConstraintBundleItemProvider fareConstraintBundleItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link Gtm.FareConstraintBundle}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFareConstraintBundleAdapter() {
-		if (fareConstraintBundleItemProvider == null) {
-			fareConstraintBundleItemProvider = new FareConstraintBundleItemProvider(this);
-		}
-
-		return fareConstraintBundleItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.FareStationSetDefinitions} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3706,10 +3614,6 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (stationNamesItemProvider != null) stationNamesItemProvider.dispose();
 		if (fareElementsItemProvider != null) fareElementsItemProvider.dispose();
 		if (fareElementItemProvider != null) fareElementItemProvider.dispose();
-		if (totalPassengerCombinationConstraintsItemProvider != null) totalPassengerCombinationConstraintsItemProvider.dispose();
-		if (totalPassengerCombinationConstraintItemProvider != null) totalPassengerCombinationConstraintItemProvider.dispose();
-		if (fareConstraintBundlesItemProvider != null) fareConstraintBundlesItemProvider.dispose();
-		if (fareConstraintBundleItemProvider != null) fareConstraintBundleItemProvider.dispose();
 		if (fareStationSetDefinitionsItemProvider != null) fareStationSetDefinitionsItemProvider.dispose();
 		if (fareStationSetDefinitionItemProvider != null) fareStationSetDefinitionItemProvider.dispose();
 		if (legacyAccountingIdentifierItemProvider != null) legacyAccountingIdentifierItemProvider.dispose();

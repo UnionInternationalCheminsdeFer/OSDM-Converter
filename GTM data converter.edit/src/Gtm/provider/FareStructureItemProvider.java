@@ -84,7 +84,6 @@ public class FareStructureItemProvider
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__CALENDARS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__TEXTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__REDUCTION_CARDS);
-			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__FARE_ELEMENTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__COMBINATION_CONSTRAINTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__SALES_AVAILABILITY_CONSTRAINTS);
@@ -94,7 +93,6 @@ public class FareStructureItemProvider
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__CARRIER_CONSTRAINTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__SERVICE_CONSTRAINTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__PASSENGER_CONSTRAINTS);
-			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__REDUCTION_CONSTRAINTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__PERSONAL_DATA_CONSTRAINTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__AFTER_SALES_RULES);
@@ -163,7 +161,6 @@ public class FareStructureItemProvider
 			case GtmPackage.FARE_STRUCTURE__CALENDARS:
 			case GtmPackage.FARE_STRUCTURE__TEXTS:
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CARDS:
-			case GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES:
 			case GtmPackage.FARE_STRUCTURE__FARE_ELEMENTS:
 			case GtmPackage.FARE_STRUCTURE__COMBINATION_CONSTRAINTS:
 			case GtmPackage.FARE_STRUCTURE__SALES_AVAILABILITY_CONSTRAINTS:
@@ -173,7 +170,6 @@ public class FareStructureItemProvider
 			case GtmPackage.FARE_STRUCTURE__CARRIER_CONSTRAINTS:
 			case GtmPackage.FARE_STRUCTURE__SERVICE_CONSTRAINTS:
 			case GtmPackage.FARE_STRUCTURE__PASSENGER_CONSTRAINTS:
-			case GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS:
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CONSTRAINTS:
 			case GtmPackage.FARE_STRUCTURE__PERSONAL_DATA_CONSTRAINTS:
 			case GtmPackage.FARE_STRUCTURE__AFTER_SALES_RULES:
@@ -237,11 +233,6 @@ public class FareStructureItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GtmPackage.Literals.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES,
-				 GtmFactory.eINSTANCE.createFareConstraintBundles()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(GtmPackage.Literals.FARE_STRUCTURE__FARE_ELEMENTS,
 				 GtmFactory.eINSTANCE.createFareElements()));
 
@@ -284,11 +275,6 @@ public class FareStructureItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.FARE_STRUCTURE__PASSENGER_CONSTRAINTS,
 				 GtmFactory.eINSTANCE.createPassengerConstraints()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GtmPackage.Literals.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS,
-				 GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraints()));
 
 		newChildDescriptors.add
 			(createChildParameter

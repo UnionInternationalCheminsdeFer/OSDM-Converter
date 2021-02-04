@@ -5,7 +5,6 @@ package Gtm.impl;
 import Gtm.AfterSalesTemplate;
 import Gtm.CarrierConstraint;
 import Gtm.CombinationConstraint;
-import Gtm.FareConstraintBundle;
 import Gtm.FareTemplate;
 import Gtm.FareType;
 import Gtm.FulfillmentConstraint;
@@ -56,8 +55,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.FareTemplateImpl#getAfterSalesTemplate <em>After Sales Template</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getText <em>Text</em>}</li>
- *   <li>{@link Gtm.impl.FareTemplateImpl#getFareConstraintBundle <em>Fare Constraint Bundle</em>}</li>
- *   <li>{@link Gtm.impl.FareTemplateImpl#getSeparateContractFareConstraintBundle <em>Separate Contract Fare Constraint Bundle</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getServiceConstraint <em>Service Constraint</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getCarrierConstraint <em>Carrier Constraint</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getServiceClass <em>Service Class</em>}</li>
@@ -219,26 +216,6 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * @ordered
 	 */
 	protected Text text;
-
-	/**
-	 * The cached value of the '{@link #getFareConstraintBundle() <em>Fare Constraint Bundle</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFareConstraintBundle()
-	 * @generated
-	 * @ordered
-	 */
-	protected FareConstraintBundle fareConstraintBundle;
-
-	/**
-	 * The cached value of the '{@link #getSeparateContractFareConstraintBundle() <em>Separate Contract Fare Constraint Bundle</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSeparateContractFareConstraintBundle()
-	 * @generated
-	 * @ordered
-	 */
-	protected FareConstraintBundle separateContractFareConstraintBundle;
 
 	/**
 	 * The cached value of the '{@link #getServiceConstraint() <em>Service Constraint</em>}' reference.
@@ -675,82 +652,6 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 		text = newText;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__TEXT, oldText, text));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FareConstraintBundle getFareConstraintBundle() {
-		if (fareConstraintBundle != null && fareConstraintBundle.eIsProxy()) {
-			InternalEObject oldFareConstraintBundle = (InternalEObject)fareConstraintBundle;
-			fareConstraintBundle = (FareConstraintBundle)eResolveProxy(oldFareConstraintBundle);
-			if (fareConstraintBundle != oldFareConstraintBundle) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE, oldFareConstraintBundle, fareConstraintBundle));
-			}
-		}
-		return fareConstraintBundle;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FareConstraintBundle basicGetFareConstraintBundle() {
-		return fareConstraintBundle;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFareConstraintBundle(FareConstraintBundle newFareConstraintBundle) {
-		FareConstraintBundle oldFareConstraintBundle = fareConstraintBundle;
-		fareConstraintBundle = newFareConstraintBundle;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE, oldFareConstraintBundle, fareConstraintBundle));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FareConstraintBundle getSeparateContractFareConstraintBundle() {
-		if (separateContractFareConstraintBundle != null && separateContractFareConstraintBundle.eIsProxy()) {
-			InternalEObject oldSeparateContractFareConstraintBundle = (InternalEObject)separateContractFareConstraintBundle;
-			separateContractFareConstraintBundle = (FareConstraintBundle)eResolveProxy(oldSeparateContractFareConstraintBundle);
-			if (separateContractFareConstraintBundle != oldSeparateContractFareConstraintBundle) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE, oldSeparateContractFareConstraintBundle, separateContractFareConstraintBundle));
-			}
-		}
-		return separateContractFareConstraintBundle;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FareConstraintBundle basicGetSeparateContractFareConstraintBundle() {
-		return separateContractFareConstraintBundle;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSeparateContractFareConstraintBundle(FareConstraintBundle newSeparateContractFareConstraintBundle) {
-		FareConstraintBundle oldSeparateContractFareConstraintBundle = separateContractFareConstraintBundle;
-		separateContractFareConstraintBundle = newSeparateContractFareConstraintBundle;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE, oldSeparateContractFareConstraintBundle, separateContractFareConstraintBundle));
 	}
 
 	/**
@@ -1424,12 +1325,6 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__TEXT:
 				if (resolve) return getText();
 				return basicGetText();
-			case GtmPackage.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE:
-				if (resolve) return getFareConstraintBundle();
-				return basicGetFareConstraintBundle();
-			case GtmPackage.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE:
-				if (resolve) return getSeparateContractFareConstraintBundle();
-				return basicGetSeparateContractFareConstraintBundle();
 			case GtmPackage.FARE_TEMPLATE__SERVICE_CONSTRAINT:
 				if (resolve) return getServiceConstraint();
 				return basicGetServiceConstraint();
@@ -1517,12 +1412,6 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return;
 			case GtmPackage.FARE_TEMPLATE__TEXT:
 				setText((Text)newValue);
-				return;
-			case GtmPackage.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE:
-				setFareConstraintBundle((FareConstraintBundle)newValue);
-				return;
-			case GtmPackage.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE:
-				setSeparateContractFareConstraintBundle((FareConstraintBundle)newValue);
 				return;
 			case GtmPackage.FARE_TEMPLATE__SERVICE_CONSTRAINT:
 				setServiceConstraint((ServiceConstraint)newValue);
@@ -1615,12 +1504,6 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__TEXT:
 				setText((Text)null);
 				return;
-			case GtmPackage.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE:
-				setFareConstraintBundle((FareConstraintBundle)null);
-				return;
-			case GtmPackage.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE:
-				setSeparateContractFareConstraintBundle((FareConstraintBundle)null);
-				return;
 			case GtmPackage.FARE_TEMPLATE__SERVICE_CONSTRAINT:
 				setServiceConstraint((ServiceConstraint)null);
 				return;
@@ -1703,10 +1586,6 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
 			case GtmPackage.FARE_TEMPLATE__TEXT:
 				return text != null;
-			case GtmPackage.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE:
-				return fareConstraintBundle != null;
-			case GtmPackage.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE:
-				return separateContractFareConstraintBundle != null;
 			case GtmPackage.FARE_TEMPLATE__SERVICE_CONSTRAINT:
 				return serviceConstraint != null;
 			case GtmPackage.FARE_TEMPLATE__CARRIER_CONSTRAINT:

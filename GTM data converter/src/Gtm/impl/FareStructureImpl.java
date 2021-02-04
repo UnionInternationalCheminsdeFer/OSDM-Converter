@@ -7,7 +7,6 @@ import Gtm.Calendars;
 import Gtm.CarrierConstraints;
 import Gtm.CombinationConstraints;
 import Gtm.ConnectionPoints;
-import Gtm.FareConstraintBundles;
 import Gtm.FareElements;
 import Gtm.FareResourceLocations;
 import Gtm.FareStationSetDefinitions;
@@ -28,7 +27,6 @@ import Gtm.ServiceLevelDefinitions;
 import Gtm.StationNames;
 import Gtm.SupportedOnlineServices;
 import Gtm.Texts;
-import Gtm.TotalPassengerCombinationConstraints;
 import Gtm.TravelValidityConstraints;
 import Gtm.ZoneDefinitions;
 import org.eclipse.emf.common.notify.Notification;
@@ -54,7 +52,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.FareStructureImpl#getCalendars <em>Calendars</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getTexts <em>Texts</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getReductionCards <em>Reduction Cards</em>}</li>
- *   <li>{@link Gtm.impl.FareStructureImpl#getFareConstraintBundles <em>Fare Constraint Bundles</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getFareElements <em>Fare Elements</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getCombinationConstraints <em>Combination Constraints</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getSalesAvailabilityConstraints <em>Sales Availability Constraints</em>}</li>
@@ -64,7 +61,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.FareStructureImpl#getCarrierConstraints <em>Carrier Constraints</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getServiceConstraints <em>Service Constraints</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getPassengerConstraints <em>Passenger Constraints</em>}</li>
- *   <li>{@link Gtm.impl.FareStructureImpl#getTotalPassengerCombinationConstraints <em>Total Passenger Combination Constraints</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getReductionConstraints <em>Reduction Constraints</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getPersonalDataConstraints <em>Personal Data Constraints</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getAfterSalesRules <em>After Sales Rules</em>}</li>
@@ -148,16 +144,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 	 * @ordered
 	 */
 	protected ReductionCards reductionCards;
-
-	/**
-	 * The cached value of the '{@link #getFareConstraintBundles() <em>Fare Constraint Bundles</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFareConstraintBundles()
-	 * @generated
-	 * @ordered
-	 */
-	protected FareConstraintBundles fareConstraintBundles;
 
 	/**
 	 * The cached value of the '{@link #getFareElements() <em>Fare Elements</em>}' containment reference.
@@ -248,16 +234,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 	 * @ordered
 	 */
 	protected PassengerConstraints passengerConstraints;
-
-	/**
-	 * The cached value of the '{@link #getTotalPassengerCombinationConstraints() <em>Total Passenger Combination Constraints</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTotalPassengerCombinationConstraints()
-	 * @generated
-	 * @ordered
-	 */
-	protected TotalPassengerCombinationConstraints totalPassengerCombinationConstraints;
 
 	/**
 	 * The cached value of the '{@link #getReductionConstraints() <em>Reduction Constraints</em>}' containment reference.
@@ -975,49 +951,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FareConstraintBundles getFareConstraintBundles() {
-		return fareConstraintBundles;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetFareConstraintBundles(FareConstraintBundles newFareConstraintBundles, NotificationChain msgs) {
-		FareConstraintBundles oldFareConstraintBundles = fareConstraintBundles;
-		fareConstraintBundles = newFareConstraintBundles;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, oldFareConstraintBundles, newFareConstraintBundles);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFareConstraintBundles(FareConstraintBundles newFareConstraintBundles) {
-		if (newFareConstraintBundles != fareConstraintBundles) {
-			NotificationChain msgs = null;
-			if (fareConstraintBundles != null)
-				msgs = ((InternalEObject)fareConstraintBundles).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, null, msgs);
-			if (newFareConstraintBundles != null)
-				msgs = ((InternalEObject)newFareConstraintBundles).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, null, msgs);
-			msgs = basicSetFareConstraintBundles(newFareConstraintBundles, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, newFareConstraintBundles, newFareConstraintBundles));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public SalesAvailabilityConstraints getSalesAvailabilityConstraints() {
 		return salesAvailabilityConstraints;
 	}
@@ -1183,49 +1116,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__PASSENGER_CONSTRAINTS, newPassengerConstraints, newPassengerConstraints));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TotalPassengerCombinationConstraints getTotalPassengerCombinationConstraints() {
-		return totalPassengerCombinationConstraints;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetTotalPassengerCombinationConstraints(TotalPassengerCombinationConstraints newTotalPassengerCombinationConstraints, NotificationChain msgs) {
-		TotalPassengerCombinationConstraints oldTotalPassengerCombinationConstraints = totalPassengerCombinationConstraints;
-		totalPassengerCombinationConstraints = newTotalPassengerCombinationConstraints;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS, oldTotalPassengerCombinationConstraints, newTotalPassengerCombinationConstraints);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTotalPassengerCombinationConstraints(TotalPassengerCombinationConstraints newTotalPassengerCombinationConstraints) {
-		if (newTotalPassengerCombinationConstraints != totalPassengerCombinationConstraints) {
-			NotificationChain msgs = null;
-			if (totalPassengerCombinationConstraints != null)
-				msgs = ((InternalEObject)totalPassengerCombinationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS, null, msgs);
-			if (newTotalPassengerCombinationConstraints != null)
-				msgs = ((InternalEObject)newTotalPassengerCombinationConstraints).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS, null, msgs);
-			msgs = basicSetTotalPassengerCombinationConstraints(newTotalPassengerCombinationConstraints, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS, newTotalPassengerCombinationConstraints, newTotalPassengerCombinationConstraints));
 	}
 
 	/**
@@ -1551,8 +1441,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return basicSetTexts(null, msgs);
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CARDS:
 				return basicSetReductionCards(null, msgs);
-			case GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES:
-				return basicSetFareConstraintBundles(null, msgs);
 			case GtmPackage.FARE_STRUCTURE__FARE_ELEMENTS:
 				return basicSetFareElements(null, msgs);
 			case GtmPackage.FARE_STRUCTURE__COMBINATION_CONSTRAINTS:
@@ -1571,8 +1459,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return basicSetServiceConstraints(null, msgs);
 			case GtmPackage.FARE_STRUCTURE__PASSENGER_CONSTRAINTS:
 				return basicSetPassengerConstraints(null, msgs);
-			case GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS:
-				return basicSetTotalPassengerCombinationConstraints(null, msgs);
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CONSTRAINTS:
 				return basicSetReductionConstraints(null, msgs);
 			case GtmPackage.FARE_STRUCTURE__PERSONAL_DATA_CONSTRAINTS:
@@ -1617,8 +1503,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return getTexts();
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CARDS:
 				return getReductionCards();
-			case GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES:
-				return getFareConstraintBundles();
 			case GtmPackage.FARE_STRUCTURE__FARE_ELEMENTS:
 				return getFareElements();
 			case GtmPackage.FARE_STRUCTURE__COMBINATION_CONSTRAINTS:
@@ -1637,8 +1521,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return getServiceConstraints();
 			case GtmPackage.FARE_STRUCTURE__PASSENGER_CONSTRAINTS:
 				return getPassengerConstraints();
-			case GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS:
-				return getTotalPassengerCombinationConstraints();
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CONSTRAINTS:
 				return getReductionConstraints();
 			case GtmPackage.FARE_STRUCTURE__PERSONAL_DATA_CONSTRAINTS:
@@ -1691,9 +1573,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CARDS:
 				setReductionCards((ReductionCards)newValue);
 				return;
-			case GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES:
-				setFareConstraintBundles((FareConstraintBundles)newValue);
-				return;
 			case GtmPackage.FARE_STRUCTURE__FARE_ELEMENTS:
 				setFareElements((FareElements)newValue);
 				return;
@@ -1720,9 +1599,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return;
 			case GtmPackage.FARE_STRUCTURE__PASSENGER_CONSTRAINTS:
 				setPassengerConstraints((PassengerConstraints)newValue);
-				return;
-			case GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS:
-				setTotalPassengerCombinationConstraints((TotalPassengerCombinationConstraints)newValue);
 				return;
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CONSTRAINTS:
 				setReductionConstraints((ReductionConstraints)newValue);
@@ -1784,9 +1660,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CARDS:
 				setReductionCards((ReductionCards)null);
 				return;
-			case GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES:
-				setFareConstraintBundles((FareConstraintBundles)null);
-				return;
 			case GtmPackage.FARE_STRUCTURE__FARE_ELEMENTS:
 				setFareElements((FareElements)null);
 				return;
@@ -1813,9 +1686,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return;
 			case GtmPackage.FARE_STRUCTURE__PASSENGER_CONSTRAINTS:
 				setPassengerConstraints((PassengerConstraints)null);
-				return;
-			case GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS:
-				setTotalPassengerCombinationConstraints((TotalPassengerCombinationConstraints)null);
 				return;
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CONSTRAINTS:
 				setReductionConstraints((ReductionConstraints)null);
@@ -1870,8 +1740,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return texts != null;
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CARDS:
 				return reductionCards != null;
-			case GtmPackage.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES:
-				return fareConstraintBundles != null;
 			case GtmPackage.FARE_STRUCTURE__FARE_ELEMENTS:
 				return fareElements != null;
 			case GtmPackage.FARE_STRUCTURE__COMBINATION_CONSTRAINTS:
@@ -1890,8 +1758,6 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return serviceConstraints != null;
 			case GtmPackage.FARE_STRUCTURE__PASSENGER_CONSTRAINTS:
 				return passengerConstraints != null;
-			case GtmPackage.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS:
-				return totalPassengerCombinationConstraints != null;
 			case GtmPackage.FARE_STRUCTURE__REDUCTION_CONSTRAINTS:
 				return reductionConstraints != null;
 			case GtmPackage.FARE_STRUCTURE__PERSONAL_DATA_CONSTRAINTS:

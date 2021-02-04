@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareStructure#getCalendars <em>Calendars</em>}</li>
  *   <li>{@link Gtm.FareStructure#getTexts <em>Texts</em>}</li>
  *   <li>{@link Gtm.FareStructure#getReductionCards <em>Reduction Cards</em>}</li>
- *   <li>{@link Gtm.FareStructure#getFareConstraintBundles <em>Fare Constraint Bundles</em>}</li>
  *   <li>{@link Gtm.FareStructure#getFareElements <em>Fare Elements</em>}</li>
  *   <li>{@link Gtm.FareStructure#getCombinationConstraints <em>Combination Constraints</em>}</li>
  *   <li>{@link Gtm.FareStructure#getSalesAvailabilityConstraints <em>Sales Availability Constraints</em>}</li>
@@ -30,7 +29,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareStructure#getCarrierConstraints <em>Carrier Constraints</em>}</li>
  *   <li>{@link Gtm.FareStructure#getServiceConstraints <em>Service Constraints</em>}</li>
  *   <li>{@link Gtm.FareStructure#getPassengerConstraints <em>Passenger Constraints</em>}</li>
- *   <li>{@link Gtm.FareStructure#getTotalPassengerCombinationConstraints <em>Total Passenger Combination Constraints</em>}</li>
  *   <li>{@link Gtm.FareStructure#getReductionConstraints <em>Reduction Constraints</em>}</li>
  *   <li>{@link Gtm.FareStructure#getPersonalDataConstraints <em>Personal Data Constraints</em>}</li>
  *   <li>{@link Gtm.FareStructure#getAfterSalesRules <em>After Sales Rules</em>}</li>
@@ -268,28 +266,6 @@ public interface FareStructure extends EObject {
 	void setPassengerConstraints(PassengerConstraints value);
 
 	/**
-	 * Returns the value of the '<em><b>Total Passenger Combination Constraints</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Total Passenger Combination Constraints</em>' containment reference.
-	 * @see #setTotalPassengerCombinationConstraints(TotalPassengerCombinationConstraints)
-	 * @see Gtm.GtmPackage#getFareStructure_TotalPassengerCombinationConstraints()
-	 * @model containment="true"
-	 * @generated
-	 */
-	TotalPassengerCombinationConstraints getTotalPassengerCombinationConstraints();
-
-	/**
-	 * Sets the value of the '{@link Gtm.FareStructure#getTotalPassengerCombinationConstraints <em>Total Passenger Combination Constraints</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Total Passenger Combination Constraints</em>' containment reference.
-	 * @see #getTotalPassengerCombinationConstraints()
-	 * @generated
-	 */
-	void setTotalPassengerCombinationConstraints(TotalPassengerCombinationConstraints value);
-
-	/**
 	 * Returns the value of the '<em><b>Reduction Constraints</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -398,28 +374,6 @@ public interface FareStructure extends EObject {
 	 * @generated
 	 */
 	void setReductionCards(ReductionCards value);
-
-	/**
-	 * Returns the value of the '<em><b>Fare Constraint Bundles</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Fare Constraint Bundles</em>' containment reference.
-	 * @see #setFareConstraintBundles(FareConstraintBundles)
-	 * @see Gtm.GtmPackage#getFareStructure_FareConstraintBundles()
-	 * @model containment="true"
-	 * @generated
-	 */
-	FareConstraintBundles getFareConstraintBundles();
-
-	/**
-	 * Sets the value of the '{@link Gtm.FareStructure#getFareConstraintBundles <em>Fare Constraint Bundles</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Fare Constraint Bundles</em>' containment reference.
-	 * @see #getFareConstraintBundles()
-	 * @generated
-	 */
-	void setFareConstraintBundles(FareConstraintBundles value);
 
 	/**
 	 * Returns the value of the '<em><b>Service Level Definitions</b></em>' containment reference.

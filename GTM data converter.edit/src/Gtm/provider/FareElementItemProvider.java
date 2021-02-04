@@ -67,7 +67,6 @@ public class FareElementItemProvider
 			addIdPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
-			addFareConstraintBundlePropertyDescriptor(object);
 			addTextPropertyDescriptor(object);
 			addPricePropertyDescriptor(object);
 			addRegionalConstraintPropertyDescriptor(object);
@@ -155,28 +154,6 @@ public class FareElementItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Fare Constraint Bundle feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFareConstraintBundlePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareElement_fareConstraintBundle_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_fareConstraintBundle_feature", "_UI_FareElement_type"),
-				 GtmPackage.Literals.FARE_ELEMENT__FARE_CONSTRAINT_BUNDLE,
-				 true,
-				 false,
-				 true,
-				 null,
 				 null,
 				 null));
 	}
