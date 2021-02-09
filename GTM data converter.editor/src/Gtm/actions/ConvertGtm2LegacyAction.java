@@ -19,10 +19,10 @@ import org.eclipse.swt.widgets.MessageBox;
 import Gtm.Country;
 import Gtm.GTMTool;
 import Gtm.actions.converter.ConverterToLegacy;
-import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
+import Gtm.utils.GtmUtils;
 
 
 public class ConvertGtm2LegacyAction extends BasicGtmAction {

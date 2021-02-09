@@ -42,11 +42,11 @@ import Gtm.LegacySeriesList;
 import Gtm.LegacySeriesType;
 import Gtm.LegacyViastation;
 import Gtm.Station;
-import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils;
 
 public class LegacyImporter {
 	

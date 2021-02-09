@@ -13,9 +13,9 @@ import org.eclipse.swt.widgets.MessageBox;
 import Gtm.Country;
 import Gtm.GTMTool;
 import Gtm.actions.converter.ConverterFromLegacy;
-import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils;
 
 
 // TODO: Auto-generated Javadoc

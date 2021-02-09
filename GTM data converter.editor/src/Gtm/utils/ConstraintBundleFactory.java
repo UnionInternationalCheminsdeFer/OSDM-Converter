@@ -1,4 +1,4 @@
-package Gtm.actions.constraintBundles;
+package Gtm.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -47,8 +47,8 @@ import org.eclipse.ui.IWorkbench;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
-import Gtm.actions.utils.GtmUtils;
 import Gtm.provider.GtmEditPlugin;
+import Gtm.utils.GtmUtils;
 
 import java.io.File;
 

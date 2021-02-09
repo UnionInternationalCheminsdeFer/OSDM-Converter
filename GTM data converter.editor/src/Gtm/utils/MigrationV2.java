@@ -1,4 +1,4 @@
-package Gtm.actions.utils;
+package Gtm.utils;
 
 import java.util.ArrayList;
 
@@ -17,9 +17,8 @@ import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.GtmPackage;
 import Gtm.TotalPassengerCombinationConstraint;
-import Gtm.actions.constraintBundles.ConstraintBundleFactory;
 
-public class MigrationCommandV2 {
+public class MigrationV2 {
 	
 	public static void migrateV2(EditingDomain domain) {
 			

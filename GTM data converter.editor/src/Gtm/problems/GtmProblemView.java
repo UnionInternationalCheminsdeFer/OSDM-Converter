@@ -22,9 +22,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.part.ViewPart;
 
-import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils;
 
 public class GtmProblemView extends ViewPart {
 	

@@ -27,10 +27,10 @@ import Gtm.LegacyFakeBorderStations;
 import Gtm.OnBorderStations;
 import Gtm.Station;
 import Gtm.StationSet;
-import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
+import Gtm.utils.GtmUtils;
 
 public class ImportBorderPointsAction extends ImportCsvDataAction {
 

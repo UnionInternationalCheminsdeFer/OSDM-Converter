@@ -149,6 +149,8 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
       <plugin id="org.eclipse.jface.text"/>
+      <plugin id="org.eclipse.nebula.cwt"/>
+      <plugin id="org.eclipse.nebula.widgets.cdatetime"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
       <plugin id="org.eclipse.osgi.services"/>

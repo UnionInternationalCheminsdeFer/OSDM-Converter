@@ -10,8 +10,8 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
 
 import Gtm.GTMTool;
-import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
+import Gtm.utils.GtmUtils;
 
 public abstract class BasicGtmAction extends BaseSelectionListenerAction {
 	

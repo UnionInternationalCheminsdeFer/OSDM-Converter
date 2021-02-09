@@ -29,9 +29,9 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Station;
-import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils;
 
 
 public class ImportStationsAction extends BasicGtmAction {

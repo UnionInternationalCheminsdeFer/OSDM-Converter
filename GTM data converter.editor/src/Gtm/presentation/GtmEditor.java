@@ -135,10 +135,11 @@ import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
 import Gtm.GTMTool;
-import Gtm.actions.utils.MigrationCommandV2;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.provider.GtmItemProviderAdapterFactory;
+import Gtm.utils.MigrationV2;
+
 import org.eclipse.emf.common.ui.URIEditorInput;
 
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -1289,7 +1290,7 @@ public class GtmEditor
 				setPageText(pageIndex, getString("_UI_SelectionPage_label"));
 				
 				
-				MigrationCommandV2.migrateV2(editingDomain);
+				MigrationV2.migrateV2(editingDomain);
 				
 				
 			}

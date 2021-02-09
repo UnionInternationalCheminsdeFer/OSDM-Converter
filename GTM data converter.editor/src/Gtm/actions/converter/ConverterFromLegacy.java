@@ -181,9 +181,7 @@ public class ConverterFromLegacy {
 				borderPoints.put(lbp.getBorderPointCode(), lbp);
 			}
 		}	
-		
 	}
-	
 	
 	
 	/**

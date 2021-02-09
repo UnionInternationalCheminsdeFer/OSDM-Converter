@@ -1,4 +1,4 @@
-package Gtm.actions.utils;
+package Gtm.utils;
 
 
 import java.net.URL;
