@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import Gtm.actions.GtmUtils;
+import Gtm.actions.utils.GtmUtils;
 
 /**
  * This content provider works like a normal

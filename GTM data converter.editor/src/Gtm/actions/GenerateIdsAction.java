@@ -6,6 +6,7 @@ import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import Gtm.FareStructure;
 import Gtm.GTMTool;
+import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 
 

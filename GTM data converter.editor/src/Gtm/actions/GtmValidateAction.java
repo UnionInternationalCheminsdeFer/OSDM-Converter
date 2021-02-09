@@ -3,6 +3,7 @@ package Gtm.actions;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.edit.ui.action.ValidateAction;
 
+import Gtm.actions.utils.GtmUtils;
 import Gtm.problems.GtmProblemView;
 
 

@@ -42,7 +42,7 @@ import Gtm.LegacySeriesList;
 import Gtm.LegacySeriesType;
 import Gtm.LegacyViastation;
 import Gtm.Station;
-import Gtm.actions.GtmUtils;
+import Gtm.actions.utils.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
@@ -199,7 +199,7 @@ public class LegacyImporter {
 
 	private LegacySeparateContractSeries decodeTCVLLine(String st, String charset) {
 		
-		// 1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ÖBB 
+		// 1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ï¿½BB 
 		// 2 Series numeric 5 M  5-9 Serves to assign fares to a specific series 
 		// 3 Flag for series numeric 5 M  10-14 0, 1 or 2 (cf. Subsection 2.2) 
 		// 4 First day of validity of fare numeric 8 M  15-22 Expressed as: "YYYYMMDD" 	
@@ -541,7 +541,7 @@ public class LegacyImporter {
 	
 	private Legacy108Station decodeTCVGLine(String st , String charset) {
 		
-		//	1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ÖBB 
+		//	1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ï¿½BB 
 		//	2 station code numeric 5 M TAP TSI Technical Document B.9 5-9  
 		//	3 Key flag for station code numeric 1 M  10 0, 1 or 2 (see point 2.2) 
 		//	4 Old railway code numeric 5 O TAP TSI Technical Document B.9 11-15 This field is only used when stations are first introduced. 
@@ -571,8 +571,8 @@ public class LegacyImporter {
 		//	28 Flag 10 for fare reference station numeric 1 M  135 0 or 3 (see point 2.2) 
 		//	29  code for accounting station numeric 5 O TAP TSI Technical Document B.9 136-140 This field is only used if there is a separate accounting station. 
 		//	30 Flag 11 for accounting station numeric 1 M  141 0 or 3 (see point 2.2) 
-		//	31 Station latitude numeric 10 O  142-1 51 Latitude using Gauss-Krüger coordinate system 10-digit figure with 6 decimal places 
-		//	32 Station’s longitude numeric 10 O  152-161 Longitude using Gauss-Krüger coordinate system 10-digit figure with 6 decimal places 
+		//	31 Station latitude numeric 10 O  142-1 51 Latitude using Gauss-Krï¿½ger coordinate system 10-digit figure with 6 decimal places 
+		//	32 Stationï¿½s longitude numeric 10 O  152-161 Longitude using Gauss-Krï¿½ger coordinate system 10-digit figure with 6 decimal places 
 		//	33 Flag 12 for geographic details numeric 1 M  162 This field relates to fields 31-32;  0 or 3 (see point 2.2) 
 		//	34 First day of validity of fare numeric 8 M  163-170 Expressed as: 'YYYYMMDD' 
 		//	35 Version number numeric 2 M  171-172 Sequential version number related to the fare date; '01' for the first issue, '02' for the second, etc. 

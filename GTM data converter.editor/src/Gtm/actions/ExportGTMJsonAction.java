@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.osgi.service.prefs.BackingStoreException;
 
 import Gtm.GTMTool;
+import Gtm.actions.utils.GtmUtils;
 import Gtm.jsonImportExport.GtmJsonExporter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.DirtyCommand;

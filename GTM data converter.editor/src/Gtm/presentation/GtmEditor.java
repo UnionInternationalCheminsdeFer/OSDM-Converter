@@ -135,6 +135,7 @@ import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
 import Gtm.GTMTool;
+import Gtm.actions.utils.MigrationCommandV2;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.provider.GtmItemProviderAdapterFactory;
@@ -1243,6 +1244,8 @@ public class GtmEditor
 		// Creates the model from the editor input
 		//
 		createModel();
+		
+		
 
 		// Only creates the other pages if there is something that can be edited
 		//
@@ -1284,6 +1287,11 @@ public class GtmEditor
 				createContextMenuFor(selectionViewer);
 				int pageIndex = addPage(viewerPane.getControl());
 				setPageText(pageIndex, getString("_UI_SelectionPage_label"));
+				
+				
+				MigrationCommandV2.migrateV2(editingDomain);
+				
+				
 			}
 
 
