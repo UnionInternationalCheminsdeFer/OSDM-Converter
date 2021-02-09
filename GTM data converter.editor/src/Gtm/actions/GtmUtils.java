@@ -38,6 +38,7 @@ import Gtm.Countries;
 import Gtm.Country;
 import Gtm.Currencies;
 import Gtm.Currency;
+import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.FareStationSetDefinition;
 import Gtm.FareStructure;
@@ -63,6 +64,7 @@ import Gtm.ServiceConstraint;
 import Gtm.ServiceLevel;
 import Gtm.Station;
 import Gtm.Text;
+import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
 import Gtm.console.ConsoleUtil;
 import Gtm.nls.NationalLanguageSupport;
@@ -798,6 +800,26 @@ public class GtmUtils {
 				setId(domain, object,GtmPackage.Literals.FARE_STATION_SET_DEFINITION__ID, command, listName,i);
 			}
 		}						
+		
+		
+		listName = baseName + "S_"; //$NON-NLS-1$
+		i = 0;
+		for (TotalPassengerCombinationConstraint object : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				setId(domain, object,GtmPackage.Literals.TOTAL_PASSENGER_COMBINATION_CONSTRAINT__ID, command, listName,i);
+			}
+		}	
+		
+		listName = baseName + "T_"; //$NON-NLS-1$
+		i = 0;
+		for (FareConstraintBundle object : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				setId(domain, object,GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__ID, command, listName,i);
+			}
+		}			
+		
         
         return command;
 		
