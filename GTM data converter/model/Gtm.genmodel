@@ -653,16 +653,16 @@
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//FareConstraintBundle">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareConstraintBundle/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareConstraintBundle/defaultFareType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareConstraintBundle/dataDescription"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/carrierConstraint"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/serviceClass"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/serviceLevel"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/salesAvailability"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/travelValidity"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/combinationConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/personalDataConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/fulfillmentConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareConstraintBundle/totalPassengerConstraint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareConstraintBundle/defaultRegulatoryConditions"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//FareStationSetDefinitions">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStationSetDefinitions/fareStationSetDefinitions"/>

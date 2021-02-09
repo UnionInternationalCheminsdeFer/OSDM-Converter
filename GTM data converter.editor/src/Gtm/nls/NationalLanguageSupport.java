@@ -9,6 +9,10 @@ public class NationalLanguageSupport extends NLS{
 
 
 
+	public static String GtmJsonExporter_6a;
+	public static String GtmJsonExporter_6b;
+
+
 	public static String ImportGTMJsonAction_10;
 	public static String ImportGTMJsonAction_11;
 	public static String ImportGTMJsonAction_12;

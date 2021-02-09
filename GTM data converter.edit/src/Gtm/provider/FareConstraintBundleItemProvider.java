@@ -62,16 +62,16 @@ public class FareConstraintBundleItemProvider
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
+			addDefaultFareTypePropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
 			addCarrierConstraintPropertyDescriptor(object);
-			addServiceClassPropertyDescriptor(object);
-			addServiceLevelPropertyDescriptor(object);
 			addSalesAvailabilityPropertyDescriptor(object);
 			addTravelValidityPropertyDescriptor(object);
 			addCombinationConstraintPropertyDescriptor(object);
 			addPersonalDataConstraintPropertyDescriptor(object);
 			addFulfillmentConstraintPropertyDescriptor(object);
 			addTotalPassengerConstraintPropertyDescriptor(object);
+			addDefaultRegulatoryConditionsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -90,6 +90,28 @@ public class FareConstraintBundleItemProvider
 				 getString("_UI_FareConstraintBundle_id_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_id_feature", "_UI_FareConstraintBundle_type"),
 				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__ID,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Default Fare Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefaultFareTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareConstraintBundle_defaultFareType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_defaultFareType_feature", "_UI_FareConstraintBundle_type"),
+				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE,
 				 true,
 				 false,
 				 false,
@@ -134,50 +156,6 @@ public class FareConstraintBundleItemProvider
 				 getString("_UI_FareConstraintBundle_carrierConstraint_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_carrierConstraint_feature", "_UI_FareConstraintBundle_type"),
 				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Service Class feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addServiceClassPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareConstraintBundle_serviceClass_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_serviceClass_feature", "_UI_FareConstraintBundle_type"),
-				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Service Level feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addServiceLevelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareConstraintBundle_serviceLevel_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_serviceLevel_feature", "_UI_FareConstraintBundle_type"),
-				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL,
 				 true,
 				 false,
 				 true,
@@ -319,6 +297,28 @@ public class FareConstraintBundleItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Default Regulatory Conditions feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefaultRegulatoryConditionsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareConstraintBundle_defaultRegulatoryConditions_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_defaultRegulatoryConditions_feature", "_UI_FareConstraintBundle_type"),
+				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns FareConstraintBundle.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -357,7 +357,9 @@ public class FareConstraintBundleItemProvider
 
 		switch (notification.getFeatureID(FareConstraintBundle.class)) {
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__ID:
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE:
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION:
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

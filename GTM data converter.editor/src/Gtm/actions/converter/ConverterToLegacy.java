@@ -687,14 +687,16 @@ public class 	ConverterToLegacy {
 	}
 
 	private LegacyRouteFare convertToFare(FareElement fare, LegacySeries series) throws ConverterException {
+		
+		if (fare == null || fare.getFareConstraintBundle() == null) return null;
 
 		//search for legacy route fare to add class
 		LegacyRouteFare legacyFare = legacyFares.get(series.getRouteDescription());
 		if (legacyFare == null) {	
 			legacyFare = GtmFactory.eINSTANCE.createLegacyRouteFare();
 			legacyFare.setSeriesNumber(series.getNumber());
-			legacyFare.setValidFrom(fare.getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-			legacyFare.setValidUntil(fare.getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
+			legacyFare.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
+			legacyFare.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
 			legacyFare.setSeries(series);		
 		} 
 		if (fare.getServiceClass().getId() == ClassId.B) {
@@ -722,6 +724,7 @@ public class 	ConverterToLegacy {
 
 		
 		if (fare.getRegionalConstraint() == null ||
+			fare.getFareConstraintBundle() == null ||
 			fare.getRegionalConstraint().getRegionalValidity() == null ||
 			fare.getRegionalConstraint().getRegionalValidity().isEmpty() ||
 			fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null ) {
@@ -741,8 +744,8 @@ public class 	ConverterToLegacy {
 		
 		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
 		
-		series.setValidFrom(fare.getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-		series.setValidUntil(fare.getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
+		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
+		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
 
 		return series;
 	}
@@ -1032,10 +1035,11 @@ public class 	ConverterToLegacy {
 		if (fare.getReductionConstraint() != null)  return false;
 		
 		//must have one sales availability 
-		if (fare.getSalesAvailability() == null) return false;
-		if (fare.getSalesAvailability().getRestrictions() == null) return false;
-		if (fare.getSalesAvailability().getRestrictions().isEmpty()) return false;
-		if (fare.getSalesAvailability().getRestrictions().size() == 0) return false;
+		if (fare.getFareConstraintBundle() == null ||
+			fare.getFareConstraintBundle().getSalesAvailability() == null) return false;
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions() == null) return false;
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().isEmpty()) return false;
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().size() == 0) return false;
 		
 		//must have one calendar
 		if (fare.getSalesAvailability().getRestrictions().get(0).getSalesDates() == null ) return false;
@@ -1144,8 +1148,9 @@ public class 	ConverterToLegacy {
 	}
 
 	private boolean isFullFlexCombi(FareElement fare) {
-		if (fare.getCombinationConstraint() ==  null) return false;
-		for (FareCombinationModel model : fare.getCombinationConstraint().getCombinationModels()) {
+		if (fare.getFareConstraintBundle() == null || 
+			fare.getFareConstraintBundle().getCombinationConstraint() ==  null) return false;
+		for (FareCombinationModel model : fare.getFareConstraintBundle().getCombinationConstraint().getCombinationModels()) {
 			
 			//must allow clustering in full flex
 			if (model.getModel() == CombinationModel.CLUSTERING &&

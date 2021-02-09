@@ -2,6 +2,7 @@
  */
 package Gtm;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,16 +15,16 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link Gtm.FareConstraintBundle#getId <em>Id</em>}</li>
+ *   <li>{@link Gtm.FareConstraintBundle#getDefaultFareType <em>Default Fare Type</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getCarrierConstraint <em>Carrier Constraint</em>}</li>
- *   <li>{@link Gtm.FareConstraintBundle#getServiceClass <em>Service Class</em>}</li>
- *   <li>{@link Gtm.FareConstraintBundle#getServiceLevel <em>Service Level</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getSalesAvailability <em>Sales Availability</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getTravelValidity <em>Travel Validity</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getCombinationConstraint <em>Combination Constraint</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getPersonalDataConstraint <em>Personal Data Constraint</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getFulfillmentConstraint <em>Fulfillment Constraint</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getTotalPassengerConstraint <em>Total Passenger Constraint</em>}</li>
+ *   <li>{@link Gtm.FareConstraintBundle#getDefaultRegulatoryConditions <em>Default Regulatory Conditions</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareConstraintBundle()
@@ -52,6 +53,31 @@ public interface FareConstraintBundle extends EObject {
 	 * @generated
 	 */
 	void setId(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Default Fare Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link Gtm.FareType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default Fare Type</em>' attribute.
+	 * @see Gtm.FareType
+	 * @see #setDefaultFareType(FareType)
+	 * @see Gtm.GtmPackage#getFareConstraintBundle_DefaultFareType()
+	 * @model unique="false"
+	 * @generated
+	 */
+	FareType getDefaultFareType();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareConstraintBundle#getDefaultFareType <em>Default Fare Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default Fare Type</em>' attribute.
+	 * @see Gtm.FareType
+	 * @see #getDefaultFareType()
+	 * @generated
+	 */
+	void setDefaultFareType(FareType value);
 
 	/**
 	 * Returns the value of the '<em><b>Data Description</b></em>' attribute.
@@ -96,50 +122,6 @@ public interface FareConstraintBundle extends EObject {
 	 * @generated
 	 */
 	void setCarrierConstraint(CarrierConstraint value);
-
-	/**
-	 * Returns the value of the '<em><b>Service Class</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Service Class</em>' reference.
-	 * @see #setServiceClass(ServiceClass)
-	 * @see Gtm.GtmPackage#getFareConstraintBundle_ServiceClass()
-	 * @model
-	 * @generated
-	 */
-	ServiceClass getServiceClass();
-
-	/**
-	 * Sets the value of the '{@link Gtm.FareConstraintBundle#getServiceClass <em>Service Class</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Service Class</em>' reference.
-	 * @see #getServiceClass()
-	 * @generated
-	 */
-	void setServiceClass(ServiceClass value);
-
-	/**
-	 * Returns the value of the '<em><b>Service Level</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Service Level</em>' reference.
-	 * @see #setServiceLevel(ServiceLevel)
-	 * @see Gtm.GtmPackage#getFareConstraintBundle_ServiceLevel()
-	 * @model
-	 * @generated
-	 */
-	ServiceLevel getServiceLevel();
-
-	/**
-	 * Sets the value of the '{@link Gtm.FareConstraintBundle#getServiceLevel <em>Service Level</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Service Level</em>' reference.
-	 * @see #getServiceLevel()
-	 * @generated
-	 */
-	void setServiceLevel(ServiceLevel value);
 
 	/**
 	 * Returns the value of the '<em><b>Sales Availability</b></em>' reference.
@@ -272,5 +254,19 @@ public interface FareConstraintBundle extends EObject {
 	 * @generated
 	 */
 	void setTotalPassengerConstraint(TotalPassengerCombinationConstraint value);
+
+	/**
+	 * Returns the value of the '<em><b>Default Regulatory Conditions</b></em>' attribute list.
+	 * The list contents are of type {@link Gtm.RegulatoryCondition}.
+	 * The literals are from the enumeration {@link Gtm.RegulatoryCondition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default Regulatory Conditions</em>' attribute list.
+	 * @see Gtm.RegulatoryCondition
+	 * @see Gtm.GtmPackage#getFareConstraintBundle_DefaultRegulatoryConditions()
+	 * @model
+	 * @generated
+	 */
+	EList<RegulatoryCondition> getDefaultRegulatoryConditions();
 
 } // FareConstraintBundle

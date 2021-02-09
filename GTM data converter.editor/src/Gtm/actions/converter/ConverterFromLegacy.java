@@ -1703,9 +1703,11 @@ public class ConverterFromLegacy {
 		}
 		
 		if (isSeparateContract(series)) {
-			fare.setCombinationConstraint(fareTemplate.getSeparateContractCombinationConstraint());
+			fare.setFareConstraintBundle(fareTemplate.getSeparateContractFareConstraintBundle());
+			//C2.0 fare.setCombinationConstraint(fareTemplate.getSeparateContractCombinationConstraint());
 		} else {
-			fare.setCombinationConstraint(fareTemplate.getCombinationConstraint());
+			fare.setFareConstraintBundle(fareTemplate.getFareConstraintBundle());
+			//C2.0 fare.setCombinationConstraint(fareTemplate.getCombinationConstraint());
 		}
 		fare.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_44 + Integer.toString(series.getNumber()) +NationalLanguageSupport.ConverterFromLegacy_45 + fareTemplate.getDataDescription());;
 
@@ -1721,8 +1723,9 @@ public class ConverterFromLegacy {
 		
 		if (fareTemplate.getSalesAvailability() != null) {
 			fare.setSalesAvailability(fareTemplate.getSalesAvailability());
-		} else {
-			fare.setSalesAvailability(findSalesAvailability(tool,dateRange));
+		} else if (fare.getFareConstraintBundle().getSalesAvailability() == null){
+			//C2.0 TODO
+			fare.getFareConstraintBundle().setSalesAvailability(findSalesAvailability(tool,dateRange));
 		}
 		mapConstraintsAndDescriptions(fare, series);
 		if (price != null && fare != null) {
@@ -1742,18 +1745,18 @@ public class ConverterFromLegacy {
 	private void template2Fare(FareElement fare,FareTemplate fareTemplate) {
 		
 		fare.setFareDetailDescription(fareTemplate.getFareDetailDescription());
-		fare.setFulfillmentConstraint(fareTemplate.getFulfillmentConstraint());
+		//C2.0 fare.setFulfillmentConstraint(fareTemplate.getFulfillmentConstraint());
 		fare.setIndividualContracts(fareTemplate.isIndividualContracts());		
 		fare.setPassengerConstraint(fareTemplate.getPassengerConstraint());
 		fare.setReductionConstraint(fareTemplate.getReductionConstraint());
-		fare.setPersonalDataConstraint(fareTemplate.getPersonalDataConstraint());
+		//C2.0 fare.setPersonalDataConstraint(fareTemplate.getPersonalDataConstraint());
 		fare.setReservationParameter(fareTemplate.getReservationParameter());
-		fare.setSalesAvailability(fareTemplate.getSalesAvailability());
+		//C2.0 fare.setSalesAvailability(fareTemplate.getSalesAvailability());
 		fare.setServiceClass(fareTemplate.getServiceClass());
 		fare.setServiceConstraint(fareTemplate.getServiceConstraint());
 		fare.setServiceLevel(fareTemplate.getServiceLevel());
 		fare.setText(fareTemplate.getText());
-		fare.setTravelValidity(fareTemplate.getTravelValidity());
+		//C2.0 fare.setTravelValidity(fareTemplate.getTravelValidity());
 		fare.setType(fareTemplate.getType());
 		fare.setLegacyConversion(fareTemplate.getLegacyConversion());
 		

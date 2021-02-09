@@ -5,22 +5,25 @@ package Gtm.impl;
 import Gtm.CarrierConstraint;
 import Gtm.CombinationConstraint;
 import Gtm.FareConstraintBundle;
+import Gtm.FareType;
 import Gtm.FulfillmentConstraint;
 import Gtm.GtmPackage;
 import Gtm.PersonalDataConstraint;
+import Gtm.RegulatoryCondition;
 import Gtm.SalesAvailabilityConstraint;
-import Gtm.ServiceClass;
-import Gtm.ServiceLevel;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,16 +34,16 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getId <em>Id</em>}</li>
+ *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getDefaultFareType <em>Default Fare Type</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getCarrierConstraint <em>Carrier Constraint</em>}</li>
- *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getServiceClass <em>Service Class</em>}</li>
- *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getServiceLevel <em>Service Level</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getSalesAvailability <em>Sales Availability</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getTravelValidity <em>Travel Validity</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getCombinationConstraint <em>Combination Constraint</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getPersonalDataConstraint <em>Personal Data Constraint</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getFulfillmentConstraint <em>Fulfillment Constraint</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getTotalPassengerConstraint <em>Total Passenger Constraint</em>}</li>
+ *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getDefaultRegulatoryConditions <em>Default Regulatory Conditions</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +68,26 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * @ordered
 	 */
 	protected String id = ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDefaultFareType() <em>Default Fare Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultFareType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final FareType DEFAULT_FARE_TYPE_EDEFAULT = FareType.NRT;
+
+	/**
+	 * The cached value of the '{@link #getDefaultFareType() <em>Default Fare Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultFareType()
+	 * @generated
+	 * @ordered
+	 */
+	protected FareType defaultFareType = DEFAULT_FARE_TYPE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getDataDescription() <em>Data Description</em>}' attribute.
@@ -95,26 +118,6 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * @ordered
 	 */
 	protected CarrierConstraint carrierConstraint;
-
-	/**
-	 * The cached value of the '{@link #getServiceClass() <em>Service Class</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getServiceClass()
-	 * @generated
-	 * @ordered
-	 */
-	protected ServiceClass serviceClass;
-
-	/**
-	 * The cached value of the '{@link #getServiceLevel() <em>Service Level</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getServiceLevel()
-	 * @generated
-	 * @ordered
-	 */
-	protected ServiceLevel serviceLevel;
 
 	/**
 	 * The cached value of the '{@link #getSalesAvailability() <em>Sales Availability</em>}' reference.
@@ -177,6 +180,16 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	protected TotalPassengerCombinationConstraint totalPassengerConstraint;
 
 	/**
+	 * The cached value of the '{@link #getDefaultRegulatoryConditions() <em>Default Regulatory Conditions</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultRegulatoryConditions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<RegulatoryCondition> defaultRegulatoryConditions;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -214,6 +227,27 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 		id = newId;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_CONSTRAINT_BUNDLE__ID, oldId, id));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FareType getDefaultFareType() {
+		return defaultFareType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultFareType(FareType newDefaultFareType) {
+		FareType oldDefaultFareType = defaultFareType;
+		defaultFareType = newDefaultFareType == null ? DEFAULT_FARE_TYPE_EDEFAULT : newDefaultFareType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE, oldDefaultFareType, defaultFareType));
 	}
 
 	/**
@@ -273,82 +307,6 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 		carrierConstraint = newCarrierConstraint;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT, oldCarrierConstraint, carrierConstraint));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ServiceClass getServiceClass() {
-		if (serviceClass != null && serviceClass.eIsProxy()) {
-			InternalEObject oldServiceClass = (InternalEObject)serviceClass;
-			serviceClass = (ServiceClass)eResolveProxy(oldServiceClass);
-			if (serviceClass != oldServiceClass) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS, oldServiceClass, serviceClass));
-			}
-		}
-		return serviceClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ServiceClass basicGetServiceClass() {
-		return serviceClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setServiceClass(ServiceClass newServiceClass) {
-		ServiceClass oldServiceClass = serviceClass;
-		serviceClass = newServiceClass;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS, oldServiceClass, serviceClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ServiceLevel getServiceLevel() {
-		if (serviceLevel != null && serviceLevel.eIsProxy()) {
-			InternalEObject oldServiceLevel = (InternalEObject)serviceLevel;
-			serviceLevel = (ServiceLevel)eResolveProxy(oldServiceLevel);
-			if (serviceLevel != oldServiceLevel) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL, oldServiceLevel, serviceLevel));
-			}
-		}
-		return serviceLevel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ServiceLevel basicGetServiceLevel() {
-		return serviceLevel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setServiceLevel(ServiceLevel newServiceLevel) {
-		ServiceLevel oldServiceLevel = serviceLevel;
-		serviceLevel = newServiceLevel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL, oldServiceLevel, serviceLevel));
 	}
 
 	/**
@@ -584,22 +542,30 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<RegulatoryCondition> getDefaultRegulatoryConditions() {
+		if (defaultRegulatoryConditions == null) {
+			defaultRegulatoryConditions = new EDataTypeUniqueEList<RegulatoryCondition>(RegulatoryCondition.class, this, GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS);
+		}
+		return defaultRegulatoryConditions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__ID:
 				return getId();
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE:
+				return getDefaultFareType();
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION:
 				return getDataDescription();
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT:
 				if (resolve) return getCarrierConstraint();
 				return basicGetCarrierConstraint();
-			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS:
-				if (resolve) return getServiceClass();
-				return basicGetServiceClass();
-			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL:
-				if (resolve) return getServiceLevel();
-				return basicGetServiceLevel();
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SALES_AVAILABILITY:
 				if (resolve) return getSalesAvailability();
 				return basicGetSalesAvailability();
@@ -618,6 +584,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT:
 				if (resolve) return getTotalPassengerConstraint();
 				return basicGetTotalPassengerConstraint();
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
+				return getDefaultRegulatoryConditions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -627,23 +595,21 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__ID:
 				setId((String)newValue);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE:
+				setDefaultFareType((FareType)newValue);
+				return;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION:
 				setDataDescription((String)newValue);
 				return;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT:
 				setCarrierConstraint((CarrierConstraint)newValue);
-				return;
-			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS:
-				setServiceClass((ServiceClass)newValue);
-				return;
-			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL:
-				setServiceLevel((ServiceLevel)newValue);
 				return;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SALES_AVAILABILITY:
 				setSalesAvailability((SalesAvailabilityConstraint)newValue);
@@ -663,6 +629,10 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT:
 				setTotalPassengerConstraint((TotalPassengerCombinationConstraint)newValue);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
+				getDefaultRegulatoryConditions().clear();
+				getDefaultRegulatoryConditions().addAll((Collection<? extends RegulatoryCondition>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -678,17 +648,14 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__ID:
 				setId(ID_EDEFAULT);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE:
+				setDefaultFareType(DEFAULT_FARE_TYPE_EDEFAULT);
+				return;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION:
 				setDataDescription(DATA_DESCRIPTION_EDEFAULT);
 				return;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT:
 				setCarrierConstraint((CarrierConstraint)null);
-				return;
-			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS:
-				setServiceClass((ServiceClass)null);
-				return;
-			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL:
-				setServiceLevel((ServiceLevel)null);
 				return;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SALES_AVAILABILITY:
 				setSalesAvailability((SalesAvailabilityConstraint)null);
@@ -708,6 +675,9 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT:
 				setTotalPassengerConstraint((TotalPassengerCombinationConstraint)null);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
+				getDefaultRegulatoryConditions().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -722,14 +692,12 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 		switch (featureID) {
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE:
+				return defaultFareType != DEFAULT_FARE_TYPE_EDEFAULT;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION:
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT:
 				return carrierConstraint != null;
-			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS:
-				return serviceClass != null;
-			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL:
-				return serviceLevel != null;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__SALES_AVAILABILITY:
 				return salesAvailability != null;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__TRAVEL_VALIDITY:
@@ -742,6 +710,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 				return fulfillmentConstraint != null;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT:
 				return totalPassengerConstraint != null;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
+				return defaultRegulatoryConditions != null && !defaultRegulatoryConditions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -758,8 +728,12 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (id: ");
 		result.append(id);
+		result.append(", defaultFareType: ");
+		result.append(defaultFareType);
 		result.append(", dataDescription: ");
 		result.append(dataDescription);
+		result.append(", defaultRegulatoryConditions: ");
+		result.append(defaultRegulatoryConditions);
 		result.append(')');
 		return result.toString();
 	}

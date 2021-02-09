@@ -457,10 +457,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareConstraintBundle">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultFareType" unique="false"
+        eType="#//FareType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceClass" eType="#//ServiceClass"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceLevel" eType="#//ServiceLevel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="salesAvailability" eType="#//SalesAvailabilityConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="travelValidity" eType="#//TravelValidityConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="combinationConstraint"
@@ -471,6 +471,8 @@
         eType="#//FulfillmentConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerConstraint"
         eType="#//TotalPassengerCombinationConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultRegulatoryConditions"
+        upperBound="-1" eType="#//RegulatoryCondition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareStationSetDefinitions">
     <eOperations name="findFareSet" eType="#//FareStationSetDefinition">

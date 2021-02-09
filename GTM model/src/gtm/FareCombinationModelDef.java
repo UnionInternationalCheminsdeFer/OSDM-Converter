@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "model",
     "combinableCarrier",
@@ -21,12 +21,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class FareCombinationModelDef {
 
     /**
-     * Possible models are SEPARATE_TICKET, SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.
+     * Possible models are SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.
      * (Required)
      * 
      */
     @JsonProperty("model")
-    @JsonPropertyDescription("Possible models are SEPARATE_TICKET, SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.")
+    @JsonPropertyDescription("Possible models are SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.")
     private String model;
     /**
      * List of all carriers where the model can be applied, in case the list is empty all combinations are allowed.
@@ -72,7 +72,7 @@ public class FareCombinationModelDef {
     private List<String> allowedCommonContracts = new ArrayList<String>();
 
     /**
-     * Possible models are SEPARATE_TICKET, SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.
+     * Possible models are SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.
      * (Required)
      * 
      */
@@ -82,7 +82,7 @@ public class FareCombinationModelDef {
     }
 
     /**
-     * Possible models are SEPARATE_TICKET, SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.
+     * Possible models are SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.
      * (Required)
      * 
      */

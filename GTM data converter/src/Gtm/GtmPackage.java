@@ -2979,13 +2979,22 @@ public interface GtmPackage extends EPackage {
 	int FARE_CONSTRAINT_BUNDLE__ID = 0;
 
 	/**
+	 * The feature id for the '<em><b>Default Fare Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE = 1;
+
+	/**
 	 * The feature id for the '<em><b>Data Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION = 1;
+	int FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Carrier Constraint</b></em>' reference.
@@ -2994,25 +3003,7 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT = 2;
-
-	/**
-	 * The feature id for the '<em><b>Service Class</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS = 3;
-
-	/**
-	 * The feature id for the '<em><b>Service Level</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL = 4;
+	int FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Sales Availability</b></em>' reference.
@@ -3021,7 +3012,7 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE__SALES_AVAILABILITY = 5;
+	int FARE_CONSTRAINT_BUNDLE__SALES_AVAILABILITY = 4;
 
 	/**
 	 * The feature id for the '<em><b>Travel Validity</b></em>' reference.
@@ -3030,7 +3021,7 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE__TRAVEL_VALIDITY = 6;
+	int FARE_CONSTRAINT_BUNDLE__TRAVEL_VALIDITY = 5;
 
 	/**
 	 * The feature id for the '<em><b>Combination Constraint</b></em>' reference.
@@ -3039,7 +3030,7 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE__COMBINATION_CONSTRAINT = 7;
+	int FARE_CONSTRAINT_BUNDLE__COMBINATION_CONSTRAINT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Personal Data Constraint</b></em>' reference.
@@ -3048,7 +3039,7 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE__PERSONAL_DATA_CONSTRAINT = 8;
+	int FARE_CONSTRAINT_BUNDLE__PERSONAL_DATA_CONSTRAINT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Fulfillment Constraint</b></em>' reference.
@@ -3057,7 +3048,7 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE__FULFILLMENT_CONSTRAINT = 9;
+	int FARE_CONSTRAINT_BUNDLE__FULFILLMENT_CONSTRAINT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Total Passenger Constraint</b></em>' reference.
@@ -3066,7 +3057,16 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT = 10;
+	int FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT = 9;
+
+	/**
+	 * The feature id for the '<em><b>Default Regulatory Conditions</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS = 10;
 
 	/**
 	 * The number of structural features of the '<em>Fare Constraint Bundle</em>' class.
@@ -12364,6 +12364,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getFareConstraintBundle_Id();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.FareConstraintBundle#getDefaultFareType <em>Default Fare Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default Fare Type</em>'.
+	 * @see Gtm.FareConstraintBundle#getDefaultFareType()
+	 * @see #getFareConstraintBundle()
+	 * @generated
+	 */
+	EAttribute getFareConstraintBundle_DefaultFareType();
+
+	/**
 	 * Returns the meta object for the attribute '{@link Gtm.FareConstraintBundle#getDataDescription <em>Data Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12384,28 +12395,6 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFareConstraintBundle_CarrierConstraint();
-
-	/**
-	 * Returns the meta object for the reference '{@link Gtm.FareConstraintBundle#getServiceClass <em>Service Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Service Class</em>'.
-	 * @see Gtm.FareConstraintBundle#getServiceClass()
-	 * @see #getFareConstraintBundle()
-	 * @generated
-	 */
-	EReference getFareConstraintBundle_ServiceClass();
-
-	/**
-	 * Returns the meta object for the reference '{@link Gtm.FareConstraintBundle#getServiceLevel <em>Service Level</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Service Level</em>'.
-	 * @see Gtm.FareConstraintBundle#getServiceLevel()
-	 * @see #getFareConstraintBundle()
-	 * @generated
-	 */
-	EReference getFareConstraintBundle_ServiceLevel();
 
 	/**
 	 * Returns the meta object for the reference '{@link Gtm.FareConstraintBundle#getSalesAvailability <em>Sales Availability</em>}'.
@@ -12472,6 +12461,17 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFareConstraintBundle_TotalPassengerConstraint();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link Gtm.FareConstraintBundle#getDefaultRegulatoryConditions <em>Default Regulatory Conditions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Default Regulatory Conditions</em>'.
+	 * @see Gtm.FareConstraintBundle#getDefaultRegulatoryConditions()
+	 * @see #getFareConstraintBundle()
+	 * @generated
+	 */
+	EAttribute getFareConstraintBundle_DefaultRegulatoryConditions();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.FareStationSetDefinitions <em>Fare Station Set Definitions</em>}'.
@@ -20136,6 +20136,14 @@ public interface GtmPackage extends EPackage {
 		EAttribute FARE_CONSTRAINT_BUNDLE__ID = eINSTANCE.getFareConstraintBundle_Id();
 
 		/**
+		 * The meta object literal for the '<em><b>Default Fare Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE = eINSTANCE.getFareConstraintBundle_DefaultFareType();
+
+		/**
 		 * The meta object literal for the '<em><b>Data Description</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -20150,22 +20158,6 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FARE_CONSTRAINT_BUNDLE__CARRIER_CONSTRAINT = eINSTANCE.getFareConstraintBundle_CarrierConstraint();
-
-		/**
-		 * The meta object literal for the '<em><b>Service Class</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FARE_CONSTRAINT_BUNDLE__SERVICE_CLASS = eINSTANCE.getFareConstraintBundle_ServiceClass();
-
-		/**
-		 * The meta object literal for the '<em><b>Service Level</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FARE_CONSTRAINT_BUNDLE__SERVICE_LEVEL = eINSTANCE.getFareConstraintBundle_ServiceLevel();
 
 		/**
 		 * The meta object literal for the '<em><b>Sales Availability</b></em>' reference feature.
@@ -20214,6 +20206,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT = eINSTANCE.getFareConstraintBundle_TotalPassengerConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Regulatory Conditions</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS = eINSTANCE.getFareConstraintBundle_DefaultRegulatoryConditions();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.FareStationSetDefinitionsImpl <em>Fare Station Set Definitions</em>}' class.
