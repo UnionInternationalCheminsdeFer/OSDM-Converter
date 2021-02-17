@@ -372,6 +372,12 @@ public class NationalLanguageSupport extends NLS{
 	public static String ConvertLegacy2GtmAction_FareTemplatesMissing;
 
 
+
+	public static String ConvertGtmMigartionV2;
+	public static String ConvertGtmMigartionV2_prepareBundles;
+	public static String ConvertGtmMigartionV2_addBundles;
+
+
 	
     static {
         // initialize resource bundle

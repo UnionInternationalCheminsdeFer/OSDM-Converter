@@ -4,6 +4,7 @@ package Gtm.impl;
 
 import Gtm.CarrierConstraint;
 import Gtm.CombinationConstraint;
+import Gtm.DataSource;
 import Gtm.FareConstraintBundle;
 import Gtm.FareType;
 import Gtm.FulfillmentConstraint;
@@ -44,6 +45,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getFulfillmentConstraint <em>Fulfillment Constraint</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getTotalPassengerConstraint <em>Total Passenger Constraint</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getDefaultRegulatoryConditions <em>Default Regulatory Conditions</em>}</li>
+ *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getDataSource <em>Data Source</em>}</li>
  * </ul>
  *
  * @generated
@@ -188,6 +190,26 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * @ordered
 	 */
 	protected EList<RegulatoryCondition> defaultRegulatoryConditions;
+
+	/**
+	 * The default value of the '{@link #getDataSource() <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DataSource DATA_SOURCE_EDEFAULT = DataSource.MANUAL;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataSource dataSource = DATA_SOURCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -554,6 +576,27 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataSource(DataSource newDataSource) {
+		DataSource oldDataSource = dataSource;
+		dataSource = newDataSource == null ? DATA_SOURCE_EDEFAULT : newDataSource;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE, oldDataSource, dataSource));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -586,6 +629,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 				return basicGetTotalPassengerConstraint();
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
 				return getDefaultRegulatoryConditions();
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
+				return getDataSource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -633,6 +678,9 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 				getDefaultRegulatoryConditions().clear();
 				getDefaultRegulatoryConditions().addAll((Collection<? extends RegulatoryCondition>)newValue);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
+				setDataSource((DataSource)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -678,6 +726,9 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
 				getDefaultRegulatoryConditions().clear();
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
+				setDataSource(DATA_SOURCE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -712,6 +763,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 				return totalPassengerConstraint != null;
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
 				return defaultRegulatoryConditions != null && !defaultRegulatoryConditions.isEmpty();
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
+				return dataSource != DATA_SOURCE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -734,6 +787,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 		result.append(dataDescription);
 		result.append(", defaultRegulatoryConditions: ");
 		result.append(defaultRegulatoryConditions);
+		result.append(", dataSource: ");
+		result.append(dataSource);
 		result.append(')');
 		return result.toString();
 	}

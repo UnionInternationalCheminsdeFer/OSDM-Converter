@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see Gtm.GtmPackage#getTotalPassengerCombinationConstraint()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='MIN_MAX_MUST NOT_REFERENCED'"
  * @generated
  */
 public interface TotalPassengerCombinationConstraint extends EObject {
@@ -70,12 +70,13 @@ public interface TotalPassengerCombinationConstraint extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Max Total Passenger Weight</b></em>' attribute.
+	 * The default value is <code>"999"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Max Total Passenger Weight</em>' attribute.
 	 * @see #setMaxTotalPassengerWeight(float)
 	 * @see Gtm.GtmPackage#getTotalPassengerCombinationConstraint_MaxTotalPassengerWeight()
-	 * @model
+	 * @model default="999"
 	 * @generated
 	 */
 	float getMaxTotalPassengerWeight();
@@ -92,12 +93,13 @@ public interface TotalPassengerCombinationConstraint extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Min Total Passenger Weight</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Min Total Passenger Weight</em>' attribute.
 	 * @see #setMinTotalPassengerWeight(float)
 	 * @see Gtm.GtmPackage#getTotalPassengerCombinationConstraint_MinTotalPassengerWeight()
-	 * @model
+	 * @model default="0"
 	 * @generated
 	 */
 	float getMinTotalPassengerWeight();

@@ -14,9 +14,9 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
 import Gtm.*;
-import Gtm.actions.GtmUtils;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
+import Gtm.utils.GtmUtils;
 import gtm.AfterSalesConditionDef;
 import gtm.AfterSalesRuleDef;
 import gtm.AllowedChange;

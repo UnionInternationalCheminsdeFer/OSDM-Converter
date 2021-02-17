@@ -2,25 +2,33 @@ package Gtm.utils;
 
 import java.util.ArrayList;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import Gtm.FareConstraintBundle;
+import Gtm.FareConstraintBundles;
 import Gtm.FareElement;
 import Gtm.FareTemplate;
 import Gtm.GTMTool;
+import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.TotalPassengerCombinationConstraint;
+import Gtm.TotalPassengerCombinationConstraints;
+import Gtm.nls.NationalLanguageSupport;
+import Gtm.presentation.GtmEditor;
+import Gtm.presentation.GtmEditorPlugin;
 
 public class MigrationV2 {
 	
-	public static void migrateV2(EditingDomain domain) {
+	public static void migrateV2(EditingDomain domain,GtmEditor editor) {
 			
 		Resource resource = domain.getResourceSet().getResources().get(0);
 	   	
@@ -28,22 +36,112 @@ public class MigrationV2 {
 		EObject object = it.next();
 		
 		if (object == null) return;
-
-		GTMTool tool = null;
-		if (object instanceof GTMTool){
-			tool = (GTMTool) object;
-		} else {
-			return;
-		}
-		
-		CompoundCommand command =  getMigrationV2Command (tool,domain);
-		
-		if (command != null && !command.isEmpty()) {
-			domain.getCommandStack().execute(command);
-		}
+	
+		runMigration(domain, editor);
 	}
 	
 	
+	private static void runMigration(EditingDomain domain, GtmEditor editor) {
+		
+		Resource resource = domain.getResourceSet().getResources().get(0);
+	   	
+		TreeIterator<EObject> it = resource.getAllContents();
+		EObject object = it.next();
+		
+		if (object == null) return;
+
+		if (!(object instanceof GTMTool)){
+			return;
+		}
+
+		if (!conversionNeeded((GTMTool)object)){
+			return;
+		}
+		
+		IRunnableWithProgress operation =	new IRunnableWithProgress() {
+			// This is the method that gets invoked when the operation runs.
+			
+			public void run(IProgressMonitor monitor) {
+				
+				Resource resource = domain.getResourceSet().getResources().get(0);
+			   	
+				TreeIterator<EObject> it = resource.getAllContents();
+				EObject object = it.next();
+				
+				if (object == null) return;
+
+				GTMTool tool = null;
+				if (object instanceof GTMTool){
+					tool = (GTMTool) object;
+				} else {
+					return;
+				}
+
+				monitor.beginTask(NationalLanguageSupport.ConvertGtmMigartionV2, 2); 
+
+				monitor.subTask(NationalLanguageSupport.ConvertGtmMigartionV2_prepareBundles);
+				CompoundCommand command =  getMigrationV2Command (tool,domain);	
+				monitor.worked(1);
+				
+				monitor.subTask(NationalLanguageSupport.ConvertGtmMigartionV2_addBundles);
+				if (command != null && !command.isEmpty()) {
+					domain.getCommandStack().execute(command);
+				}
+				monitor.worked(1);
+				
+
+				monitor.done();
+			}
+		};	
+		
+		try {
+			// This runs the operation, and shows progress.		
+			editor.disconnectViews();
+	
+			new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
+
+		} catch (Exception exception) {
+			// Something went wrong that shouldn't.
+			exception.printStackTrace();
+			GtmEditorPlugin.INSTANCE.log(exception);				
+		} finally {
+			if (editor != null) {
+				editor.reconnectViews();
+			}
+		}			
+
+		return;
+
+	}
+	
+	
+	private static boolean conversionNeeded(GTMTool tool) {
+		
+		if (  //we have no bundles
+			 (tool.getGeneralTariffModel() == null || 
+			  tool.getGeneralTariffModel().getFareStructure() == null ||
+			  tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles() == null || 
+			  tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles().isEmpty() ) 
+			&& 
+			 ( //and either fares 
+				  (tool.getGeneralTariffModel() != null &&
+				   tool.getGeneralTariffModel().getFareStructure() != null &&
+				   tool.getGeneralTariffModel().getFareStructure().getFareElements() != null &&
+				   tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements() != null &&
+				  !tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements().isEmpty() )
+			 || (//or fare templates are there
+				  tool.getConversionFromLegacy() != null &&
+				  tool.getConversionFromLegacy().getParams() != null &&
+				  tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() != null &&
+				  !tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty() )
+			 ) 
+			) {
+			return true;
+		}
+		return false;
+	}
+
+
 	public static CompoundCommand getMigrationV2Command (GTMTool tool, EditingDomain domain) {
 		
 		CompoundCommand command = new CompoundCommand();
@@ -66,10 +164,14 @@ public class MigrationV2 {
 					totalPassengerCombinationConstraints);
 			
 			//add passenger combination constraint
-			Command com1 = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS, totalPassengerCombinationConstraints);
+			TotalPassengerCombinationConstraints tps = GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraints();
+			tps.getTotalPassengerCombinationConstraint().addAll(totalPassengerCombinationConstraints);
+			Command com1 = SetCommand.create(domain, tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__TOTAL_PASSENGER_COMBINATION_CONSTRAINTS, tps);
 			
 			//add fare constraint bundles
-			Command com2 = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, fareConstraintBundles);
+			FareConstraintBundles fbs = GtmFactory.eINSTANCE.createFareConstraintBundles();
+			fbs.getFareConstraintBundles().addAll(fareConstraintBundles);
+			Command com2 = SetCommand.create(domain, tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__FARE_CONSTRAINT_BUNDLES, fbs);
 
 			if (com1 != null && com1.canExecute()) {
 				command.append(com1);
@@ -164,6 +266,8 @@ public class MigrationV2 {
 			 
 			 
 		 }
+		 
+		 if (!command.isEmpty() && command.canExecute()) return command;
 		
 		return null;
 	}
@@ -179,64 +283,57 @@ public class MigrationV2 {
 		 
 		 if (bundle != null) {
 			Command com1 =  SetCommand.create(domain, template, GtmPackage.Literals.FARE_TEMPLATE__FARE_CONSTRAINT_BUNDLE, bundle);
-			if (com1 != null) {
+			if (com1 != null && com1.canExecute()) {
 				command.append(com1);
 			}
 				
 			if (template.getCombinationConstraint() != null) {
 				Command com2 =  SetCommand.create(domain, template, GtmPackage.Literals.FARE_TEMPLATE__COMBINATION_CONSTRAINT, null);
-				if (com2 != null) {
+				if (com2 != null && com2.canExecute()) {
 					command.append(com2);
 				}
 			}
 		 
 			if (template.getFulfillmentConstraint() != null) {
 				Command com2 =  SetCommand.create(domain, template, GtmPackage.Literals.FARE_TEMPLATE__FULFILLMENT_CONSTRAINT, null);
-				if (com2 != null) {
+				if (com2 != null && com2.canExecute()) {
 					command.append(com2);
 				}
 			}			
 			
 			if (template.getPersonalDataConstraint() != null) {
 				Command com2 =  SetCommand.create(domain, template, GtmPackage.Literals.FARE_TEMPLATE__PERSONAL_DATA_CONSTRAINT, null);
-				if (com2 != null) {
+				if (com2 != null && com2.canExecute()) {
 					command.append(com2);
 				}
 			}				
 			
 			if (template.getSalesAvailability() != null) {
 				Command com2 =  SetCommand.create(domain, template, GtmPackage.Literals.FARE_TEMPLATE__SALES_AVAILABILITY, null);
-				if (com2 != null) {
+				if (com2 != null && com2.canExecute()) {
 					command.append(com2);
 				}
 			}				
 			
 			if (template.getTravelValidity() != null) {
 				Command com2 =  SetCommand.create(domain, template, GtmPackage.Literals.FARE_TEMPLATE__TRAVEL_VALIDITY, null);
-				if (com2 != null) {
+				if (com2 != null && com2.canExecute()) {
 					command.append(com2);
 				}
 			}	
 			
 			if (separateTicketBundle != null) {
 				Command com2 =  SetCommand.create(domain, template, GtmPackage.Literals.FARE_TEMPLATE__SEPARATE_CONTRACT_FARE_CONSTRAINT_BUNDLE, separateTicketBundle);
-				if (com2 != null) {
+				if (com2 != null && com2.canExecute()) {
 					command.append(com2);
 				}
 			}
 		}
-		 
-
 		
-		if (command.isEmpty() && command.canExecute()) {
+		if (!command.isEmpty() && command.canExecute()) {
 			return command;
 		}
-		return command;
+		return null;
 	}
-	
-
-	
-	
-	
 
 }

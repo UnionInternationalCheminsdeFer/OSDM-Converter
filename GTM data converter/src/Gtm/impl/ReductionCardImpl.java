@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link Gtm.impl.ReductionCardImpl#getServiceClasses <em>Service Classes</em>}</li>
  *   <li>{@link Gtm.impl.ReductionCardImpl#isIdRequiredForBooking <em>Id Required For Booking</em>}</li>
  *   <li>{@link Gtm.impl.ReductionCardImpl#getIncludedReductionCards <em>Included Reduction Cards</em>}</li>
+ *   <li>{@link Gtm.impl.ReductionCardImpl#isUicCode <em>Uic Code</em>}</li>
  * </ul>
  *
  * @generated
@@ -120,6 +121,26 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 	 * @ordered
 	 */
 	protected EList<ReductionCard> includedReductionCards;
+
+	/**
+	 * The default value of the '{@link #isUicCode() <em>Uic Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUicCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean UIC_CODE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isUicCode() <em>Uic Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUicCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean uicCode = UIC_CODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -287,6 +308,27 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isUicCode() {
+		return uicCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUicCode(boolean newUicCode) {
+		boolean oldUicCode = uicCode;
+		uicCode = newUicCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.REDUCTION_CARD__UIC_CODE, oldUicCode, uicCode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -304,6 +346,8 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 				return isIdRequiredForBooking();
 			case GtmPackage.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS:
 				return getIncludedReductionCards();
+			case GtmPackage.REDUCTION_CARD__UIC_CODE:
+				return isUicCode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -337,6 +381,9 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 				getIncludedReductionCards().clear();
 				getIncludedReductionCards().addAll((Collection<? extends ReductionCard>)newValue);
 				return;
+			case GtmPackage.REDUCTION_CARD__UIC_CODE:
+				setUicCode((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -367,6 +414,9 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 			case GtmPackage.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS:
 				getIncludedReductionCards().clear();
 				return;
+			case GtmPackage.REDUCTION_CARD__UIC_CODE:
+				setUicCode(UIC_CODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -391,6 +441,8 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 				return idRequiredForBooking != ID_REQUIRED_FOR_BOOKING_EDEFAULT;
 			case GtmPackage.REDUCTION_CARD__INCLUDED_REDUCTION_CARDS:
 				return includedReductionCards != null && !includedReductionCards.isEmpty();
+			case GtmPackage.REDUCTION_CARD__UIC_CODE:
+				return uicCode != UIC_CODE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -409,6 +461,8 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 		result.append(id);
 		result.append(", idRequiredForBooking: ");
 		result.append(idRequiredForBooking);
+		result.append(", uicCode: ");
+		result.append(uicCode);
 		result.append(')');
 		return result.toString();
 	}

@@ -471,18 +471,6 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GtmPackage.REDUCTION_CARDS: {
-				ReductionCards reductionCards = (ReductionCards)theEObject;
-				T result = caseReductionCards(reductionCards);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GtmPackage.REDUCTION_CARD: {
-				ReductionCard reductionCard = (ReductionCard)theEObject;
-				T result = caseReductionCard(reductionCard);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GtmPackage.CARRIER_CONSTRAINTS: {
 				CarrierConstraints carrierConstraints = (CarrierConstraints)theEObject;
 				T result = caseCarrierConstraints(carrierConstraints);
@@ -733,6 +721,18 @@ public class GtmSwitch<T> extends Switch<T> {
 			case GtmPackage.FARE_COMBINATION_MODEL: {
 				FareCombinationModel fareCombinationModel = (FareCombinationModel)theEObject;
 				T result = caseFareCombinationModel(fareCombinationModel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.REDUCTION_CARDS: {
+				ReductionCards reductionCards = (ReductionCards)theEObject;
+				T result = caseReductionCards(reductionCards);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.REDUCTION_CARD: {
+				ReductionCard reductionCard = (ReductionCard)theEObject;
+				T result = caseReductionCard(reductionCard);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

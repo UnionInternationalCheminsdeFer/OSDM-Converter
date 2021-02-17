@@ -77,7 +77,7 @@ public class TotalPassengerCombinationConstraintImpl extends MinimalEObjectImpl.
 	 * @generated
 	 * @ordered
 	 */
-	protected static final float MAX_TOTAL_PASSENGER_WEIGHT_EDEFAULT = 0.0F;
+	protected static final float MAX_TOTAL_PASSENGER_WEIGHT_EDEFAULT = 999.0F;
 
 	/**
 	 * The cached value of the '{@link #getMaxTotalPassengerWeight() <em>Max Total Passenger Weight</em>}' attribute.

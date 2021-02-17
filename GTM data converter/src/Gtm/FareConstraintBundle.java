@@ -25,10 +25,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareConstraintBundle#getFulfillmentConstraint <em>Fulfillment Constraint</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getTotalPassengerConstraint <em>Total Passenger Constraint</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getDefaultRegulatoryConditions <em>Default Regulatory Conditions</em>}</li>
+ *   <li>{@link Gtm.FareConstraintBundle#getDataSource <em>Data Source</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareConstraintBundle()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='SALES_AVAILABILITY_MUST TRAVEL_VALIDITY_MUST FULFILLMENT_CONSTRAINT_MUST COMBINATION_CONSTRAINT_MUST TOTAL_PASSENGER_CONSTRAINT_WARNING NOT_REFERENCED'"
  * @generated
  */
 public interface FareConstraintBundle extends EObject {
@@ -268,5 +269,30 @@ public interface FareConstraintBundle extends EObject {
 	 * @generated
 	 */
 	EList<RegulatoryCondition> getDefaultRegulatoryConditions();
+
+	/**
+	 * Returns the value of the '<em><b>Data Source</b></em>' attribute.
+	 * The literals are from the enumeration {@link Gtm.DataSource}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Source</em>' attribute.
+	 * @see Gtm.DataSource
+	 * @see #setDataSource(DataSource)
+	 * @see Gtm.GtmPackage#getFareConstraintBundle_DataSource()
+	 * @model
+	 * @generated
+	 */
+	DataSource getDataSource();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareConstraintBundle#getDataSource <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Source</em>' attribute.
+	 * @see Gtm.DataSource
+	 * @see #getDataSource()
+	 * @generated
+	 */
+	void setDataSource(DataSource value);
 
 } // FareConstraintBundle

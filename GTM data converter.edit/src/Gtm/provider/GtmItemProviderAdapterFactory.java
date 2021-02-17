@@ -3731,8 +3731,6 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (salesRestrictionItemProvider != null) salesRestrictionItemProvider.dispose();
 		if (endOfSaleItemProvider != null) endOfSaleItemProvider.dispose();
 		if (startOfSaleItemProvider != null) startOfSaleItemProvider.dispose();
-		if (reductionCardsItemProvider != null) reductionCardsItemProvider.dispose();
-		if (reductionCardItemProvider != null) reductionCardItemProvider.dispose();
 		if (carrierConstraintsItemProvider != null) carrierConstraintsItemProvider.dispose();
 		if (carrierConstraintItemProvider != null) carrierConstraintItemProvider.dispose();
 		if (serviceConstraintsItemProvider != null) serviceConstraintsItemProvider.dispose();
@@ -3775,6 +3773,8 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (carrierResourceLocationItemProvider != null) carrierResourceLocationItemProvider.dispose();
 		if (crossBorderConditionItemProvider != null) crossBorderConditionItemProvider.dispose();
 		if (fareCombinationModelItemProvider != null) fareCombinationModelItemProvider.dispose();
+		if (reductionCardsItemProvider != null) reductionCardsItemProvider.dispose();
+		if (reductionCardItemProvider != null) reductionCardItemProvider.dispose();
 		if (reductionConstraintItemProvider != null) reductionConstraintItemProvider.dispose();
 		if (requiredReductionCardItemProvider != null) requiredReductionCardItemProvider.dispose();
 		if (conversionFromLegacyItemProvider != null) conversionFromLegacyItemProvider.dispose();

@@ -75,14 +75,9 @@ public class FareElementItemProvider
 			addCarrierConstraintPropertyDescriptor(object);
 			addServiceClassPropertyDescriptor(object);
 			addServiceLevelPropertyDescriptor(object);
-			addSalesAvailabilityPropertyDescriptor(object);
-			addTravelValidityPropertyDescriptor(object);
-			addCombinationConstraintPropertyDescriptor(object);
 			addFareDetailDescriptionPropertyDescriptor(object);
-			addPersonalDataConstraintPropertyDescriptor(object);
 			addReservationParameterPropertyDescriptor(object);
 			addReductionConstraintPropertyDescriptor(object);
-			addFulfillmentConstraintPropertyDescriptor(object);
 			addPassengerConstraintPropertyDescriptor(object);
 			addRegulatoryConditionsPropertyDescriptor(object);
 			addAfterSalesRulePropertyDescriptor(object);
@@ -336,72 +331,6 @@ public class FareElementItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Sales Availability feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSalesAvailabilityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareElement_salesAvailability_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_salesAvailability_feature", "_UI_FareElement_type"),
-				 GtmPackage.Literals.FARE_ELEMENT__SALES_AVAILABILITY,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Travel Validity feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTravelValidityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareElement_travelValidity_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_travelValidity_feature", "_UI_FareElement_type"),
-				 GtmPackage.Literals.FARE_ELEMENT__TRAVEL_VALIDITY,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Combination Constraint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCombinationConstraintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareElement_combinationConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_combinationConstraint_feature", "_UI_FareElement_type"),
-				 GtmPackage.Literals.FARE_ELEMENT__COMBINATION_CONSTRAINT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Fare Detail Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -415,28 +344,6 @@ public class FareElementItemProvider
 				 getString("_UI_FareElement_fareDetailDescription_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_fareDetailDescription_feature", "_UI_FareElement_type"),
 				 GtmPackage.Literals.FARE_ELEMENT__FARE_DETAIL_DESCRIPTION,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Personal Data Constraint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPersonalDataConstraintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareElement_personalDataConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_personalDataConstraint_feature", "_UI_FareElement_type"),
-				 GtmPackage.Literals.FARE_ELEMENT__PERSONAL_DATA_CONSTRAINT,
 				 true,
 				 false,
 				 true,
@@ -481,28 +388,6 @@ public class FareElementItemProvider
 				 getString("_UI_FareElement_reductionConstraint_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_reductionConstraint_feature", "_UI_FareElement_type"),
 				 GtmPackage.Literals.FARE_ELEMENT__REDUCTION_CONSTRAINT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Fulfillment Constraint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFulfillmentConstraintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareElement_fulfillmentConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_fulfillmentConstraint_feature", "_UI_FareElement_type"),
-				 GtmPackage.Literals.FARE_ELEMENT__FULFILLMENT_CONSTRAINT,
 				 true,
 				 false,
 				 true,

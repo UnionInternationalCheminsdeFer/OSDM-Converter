@@ -34,6 +34,7 @@ import Gtm.Country;
 import Gtm.CurrencyPrice;
 import Gtm.DataSource;
 import Gtm.EndOfSale;
+import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.FareElements;
 import Gtm.FareStationSetDefinition;
@@ -75,12 +76,12 @@ import Gtm.TaxScope;
 import Gtm.VATDetail;
 import Gtm.VatTemplate;
 import Gtm.ViaStation;
-import Gtm.actions.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 //import Gtm.preferences.PreferenceConstants;
 //import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils;
 
 /**
  * The Class ConverterFromLegacy.
@@ -285,6 +286,14 @@ public class ConverterFromLegacy {
 		}
 		executeAndFlush(command,domain);
 		
+		command = new CompoundCommand();		
+		for (FareConstraintBundle sa : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
+			if (sa.getDataSource() == DataSource.CONVERTED) {
+				command.append(DeleteCommand.create(domain, sa) );
+			}
+		}
+		executeAndFlush(command,domain);
+		
 		if ( tool.getConversionFromLegacy().getParams() != null && 
 			 tool.getConversionFromLegacy().getParams().getLegacyStationMappings() != null) {
 			command = new CompoundCommand();		
@@ -295,6 +304,8 @@ public class ConverterFromLegacy {
 			}
 			executeAndFlush(command,domain);
 		}
+		
+		
 		
 
 		return deleted;

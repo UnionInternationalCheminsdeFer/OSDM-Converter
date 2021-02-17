@@ -224,10 +224,6 @@ public class GtmValidator extends EObjectValidator {
 				return validateEndOfSale((EndOfSale)value, diagnostics, context);
 			case GtmPackage.START_OF_SALE:
 				return validateStartOfSale((StartOfSale)value, diagnostics, context);
-			case GtmPackage.REDUCTION_CARDS:
-				return validateReductionCards((ReductionCards)value, diagnostics, context);
-			case GtmPackage.REDUCTION_CARD:
-				return validateReductionCard((ReductionCard)value, diagnostics, context);
 			case GtmPackage.CARRIER_CONSTRAINTS:
 				return validateCarrierConstraints((CarrierConstraints)value, diagnostics, context);
 			case GtmPackage.CARRIER_CONSTRAINT:
@@ -312,6 +308,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateCrossBorderCondition((CrossBorderCondition)value, diagnostics, context);
 			case GtmPackage.FARE_COMBINATION_MODEL:
 				return validateFareCombinationModel((FareCombinationModel)value, diagnostics, context);
+			case GtmPackage.REDUCTION_CARDS:
+				return validateReductionCards((ReductionCards)value, diagnostics, context);
+			case GtmPackage.REDUCTION_CARD:
+				return validateReductionCard((ReductionCard)value, diagnostics, context);
 			case GtmPackage.REDUCTION_CONSTRAINT:
 				return validateReductionConstraint((ReductionConstraint)value, diagnostics, context);
 			case GtmPackage.REQUIRED_REDUCTION_CARD:
@@ -1115,13 +1115,11 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_PRICE_FACTOR_MUST(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_TYPE_MUST(fareTemplate, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFareTemplate_TRAVEL_VALIDITY_MUST(fareTemplate, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFareTemplate_COMBINATION_CONSTRAINT_MUST(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_PASSENGER_CONSTRAINT_MUST(fareTemplate, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFareTemplate_FULFILMENT_CONSTRAINT_MUST(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_LEGACY_CONVERSION_MUST(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_SERVICE_CLASS_MUST(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_PRICE_OR_FACTOR(fareTemplate, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareTemplate_BUNDLE_MUST(fareTemplate, diagnostics, context);
 		return result;
 	}
 
@@ -1283,7 +1281,7 @@ public class GtmValidator extends EObjectValidator {
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_47,
-						 new Object[] { NationalLanguageSupport.GtmValidator_48, getObjectLabel(fareTemplate, context) },
+						 new Object[] {"PASSENGER_CONSTRAINT_MUST", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
 						 new Object[] { fareTemplate },
 						 context));
 			}
@@ -1356,7 +1354,7 @@ public class GtmValidator extends EObjectValidator {
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_53,
-						 new Object[] { NationalLanguageSupport.GtmValidator_54, getObjectLabel(fareTemplate, context) },
+						 new Object[] {"SERVICE_CLASS_MUST", getObjectLabel(fareTemplate, context) },  //$NON-NLS-1$
 						 new Object[] { fareTemplate },
 						 context));
 			}
@@ -1382,6 +1380,30 @@ public class GtmValidator extends EObjectValidator {
 						 0,
 						 NationalLanguageSupport.GtmValidator_55,
 						 new Object[] { "PRICE_OR_FACTOR", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
+						 new Object[] { fareTemplate },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the BUNDLE_MUST constraint of '<em>Fare Template</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareTemplate_BUNDLE_MUST(FareTemplate fareTemplate, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareTemplate.getFareConstraintBundle() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_TemplateMustContainBundle,
+						 new Object[] { "BUNDLE_MUST", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
 						 new Object[] { fareTemplate },
 						 context));
 			}
@@ -1901,6 +1923,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(calendar, diagnostics, context);
 		if (result || diagnostics != null) result &= validateCalendar_START_END_DATE_ORDER(calendar, diagnostics, context);
 		if (result || diagnostics != null) result &= validateCalendar_DATES_WITHIN_RANGE(calendar, diagnostics, context);
+		if (result || diagnostics != null) result &= validateCalendar_NOT_REFERENCED(calendar, diagnostics, context);
 		return result;
 	}
 
@@ -1954,6 +1977,34 @@ public class GtmValidator extends EObjectValidator {
 						 0,
 						 NationalLanguageSupport.GtmValidator_76,
 						 new Object[] { "DATES_WITHIN_RANGE", getObjectLabel(calendar, context) }, //$NON-NLS-1$
+						 new Object[] { calendar },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Calendar</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateCalendar_NOT_REFERENCED(Calendar calendar, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		FareStructure fareData = GtmUtils.getFareStructure(calendar);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(calendar,fareData.getSalesAvailabilityConstraints())
+			    || GtmUtils.isReferenced(calendar,fareData.getTravelValidityConstraints())  )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(calendar) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(calendar, context) },
 						 new Object[] { calendar },
 						 context));
 			}
@@ -2679,6 +2730,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateConnectionPoint_LEGACY_BORDER_POINT_MISSING(connectionPoint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateConnectionPoint_STATION_SET_AT_LEAST_ONE(connectionPoint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateConnectionPoint_NAME_UTF8_FORMAT(connectionPoint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateConnectionPoint_NOT_REFERENCED(connectionPoint, diagnostics, context);
 		return result;
 	}
 
@@ -2780,6 +2832,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Connection Point</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateConnectionPoint_NOT_REFERENCED(ConnectionPoint connectionPoint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(connectionPoint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(connectionPoint,fareData.getRegionalConstraints()) )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(connectionPoint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(connectionPoint, context) },
+						 new Object[] { connectionPoint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -3021,6 +3100,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(reductionCard, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(reductionCard, diagnostics, context);
 		if (result || diagnostics != null) result &= validateReductionCard_ISUER_MUST_FOR_NON_GENERIC(reductionCard, diagnostics, context);
+		if (result || diagnostics != null) result &= validateReductionCard_NOT_REFERENCED(reductionCard, diagnostics, context);
 		return result;
 	}
 
@@ -3032,8 +3112,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateReductionCard_ISUER_MUST_FOR_NON_GENERIC(ReductionCard reductionCard, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (reductionCard.getCardIssuer() == null &&
-			GenericReductionCards.getByName(reductionCard.getId()) == null ) {
+		if (reductionCard.getCardIssuer() == null && ( reductionCard.isUicCode() || GenericReductionCards.getByName(reductionCard.getId()) == null) ) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -3048,6 +3127,34 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Reduction Card</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateReductionCard_NOT_REFERENCED(ReductionCard reductionCard, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(reductionCard);
+		if ( (fareData == null && ( reductionCard.isUicCode() || GenericReductionCards.getByName(reductionCard.getId()) == null)) ||
+			 ! (   GtmUtils.isReferenced(reductionCard,fareData.getReductionCards())
+			    || GtmUtils.isReferenced(reductionCard,fareData.getReductionConstraints())  )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(reductionCard) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionCard, context) },
+						 new Object[] { reductionCard },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -3068,6 +3175,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateRegionalConstraint_AT_LEAST_ONE_REGIONAL_VALIDITY(regionalConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateRegionalConstraint_WARNING_DISTANCE_TOO_SHORT(regionalConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateRegionalConstraint_WARNING_DISTANCE_TOO_LONG(regionalConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateRegionalConstraint_NOT_REFERENCED(regionalConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -3138,6 +3246,32 @@ public class GtmValidator extends EObjectValidator {
 						 0,
 						 NationalLanguageSupport.GtmValidator_127,
 						 new Object[] { "WARNING_DISTANCE_TOO_LONG", getObjectLabel(regionalConstraint, context) }, //$NON-NLS-1$
+						 new Object[] { regionalConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Regional Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateRegionalConstraint_NOT_REFERENCED(RegionalConstraint regionalConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(regionalConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(regionalConstraint,fareData.getFareElements())  )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(regionalConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(regionalConstraint, context) },
 						 new Object[] { regionalConstraint },
 						 context));
 			}
@@ -3717,6 +3851,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(travelValidityConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateTravelValidityConstraint_TRAVEL_DAYS_NOT_NULL(travelValidityConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateTravelValidityConstraint_WARNING_TRAVEL_DAYS_TOO_LONG(travelValidityConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTravelValidityConstraint_NOT_REFERENCED(travelValidityConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -3768,6 +3903,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Travel Validity Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateTravelValidityConstraint_NOT_REFERENCED(TravelValidityConstraint travelValidityConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(travelValidityConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(travelValidityConstraint,fareData.getFareConstraintBundles())  )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(travelValidityConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(travelValidityConstraint, context) },
+						 new Object[] { travelValidityConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -4148,13 +4310,10 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateFareElement_PRICE_MUST(fareElement, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareElement_TEXT_MUST(fareElement, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareElement_SERVICE_CLASS_MUST(fareElement, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFareElement_SALES_AVAILABILITY_MUST(fareElement, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFareElement_TRAVEL_VALIDITY_MUST(fareElement, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFareElement_COMBINATION_CONSTRAINT_MUST(fareElement, diagnostics, context);
-		if (result || diagnostics != null) result &= validateFareElement_FULFILLMENT_CONSTRAINT_MUST(fareElement, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareElement_PASSENGER_CONSTRAINT_MUST(fareElement, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareElement_LEGACY_ACCOUNTING_MISSING(fareElement, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareElement_CONVERSION_MISSING(fareElement, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareElement_BUNDLE_MUST(fareElement, diagnostics, context);
 		return result;
 	}
 
@@ -4433,6 +4592,30 @@ public class GtmValidator extends EObjectValidator {
 	}
 
 	/**
+	 * Validates the BUNDLE_MUST constraint of '<em>Fare Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareElement_BUNDLE_MUST(FareElement fareElement, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareElement.getFareConstraintBundle() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_FareMustContainBundle,
+						 new Object[] { "BUNDLE_MUST", getObjectLabel(fareElement, context) }, //$NON-NLS-1$
+						 new Object[] { fareElement },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4447,7 +4630,69 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateTotalPassengerCombinationConstraint(TotalPassengerCombinationConstraint totalPassengerCombinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(totalPassengerCombinationConstraint, diagnostics, context);
+		if (!validate_NoCircularContainment(totalPassengerCombinationConstraint, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTotalPassengerCombinationConstraint_MIN_MAX_MUST(totalPassengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTotalPassengerCombinationConstraint_NOT_REFERENCED(totalPassengerCombinationConstraint, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the MIN_MAX_MUST constraint of '<em>Total Passenger Combination Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateTotalPassengerCombinationConstraint_MIN_MAX_MUST(TotalPassengerCombinationConstraint totalPassengerCombinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (totalPassengerCombinationConstraint.getMaxTotalPassengerWeight() == 0 && totalPassengerCombinationConstraint.getMinTotalPassengerWeight() == 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_PassengerCombination,
+						 new Object[] { "MIN_MAX_MUST", getObjectLabel(totalPassengerCombinationConstraint, context) }, //$NON-NLS-1$
+						 new Object[] { totalPassengerCombinationConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Total Passenger Combination Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateTotalPassengerCombinationConstraint_NOT_REFERENCED(TotalPassengerCombinationConstraint totalPassengerCombinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(totalPassengerCombinationConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(totalPassengerCombinationConstraint,fareData.getFareConstraintBundles()))  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(totalPassengerCombinationConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(totalPassengerCombinationConstraint, context) },
+						 new Object[] { totalPassengerCombinationConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -4465,7 +4710,169 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFareConstraintBundle(FareConstraintBundle fareConstraintBundle, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(fareConstraintBundle, diagnostics, context);
+		if (!validate_NoCircularContainment(fareConstraintBundle, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareConstraintBundle_SALES_AVAILABILITY_MUST(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareConstraintBundle_TRAVEL_VALIDITY_MUST(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareConstraintBundle_FULFILLMENT_CONSTRAINT_MUST(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareConstraintBundle_COMBINATION_CONSTRAINT_MUST(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareConstraintBundle_TOTAL_PASSENGER_CONSTRAINT_WARNING(fareConstraintBundle, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareConstraintBundle_NOT_REFERENCED(fareConstraintBundle, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the SALES_AVAILABILITY_MUST constraint of '<em>Fare Constraint Bundle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareConstraintBundle_SALES_AVAILABILITY_MUST(FareConstraintBundle fareConstraintBundle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareConstraintBundle.getSalesAvailability() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_BundleSalesAvailability,
+						 new Object[] { "SALES_AVAILABILITY_MUST", getObjectLabel(fareConstraintBundle, context) }, //$NON-NLS-1$
+						 new Object[] { fareConstraintBundle },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the TRAVEL_VALIDITY_MUST constraint of '<em>Fare Constraint Bundle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareConstraintBundle_TRAVEL_VALIDITY_MUST(FareConstraintBundle fareConstraintBundle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareConstraintBundle.getTravelValidity() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_BundleTravelValidity,
+						 new Object[] { "TRAVEL_VALIDITY_MUST", getObjectLabel(fareConstraintBundle, context) }, //$NON-NLS-1$
+						 new Object[] { fareConstraintBundle },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the FULFILLMENT_CONSTRAINT_MUST constraint of '<em>Fare Constraint Bundle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareConstraintBundle_FULFILLMENT_CONSTRAINT_MUST(FareConstraintBundle fareConstraintBundle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareConstraintBundle.getFulfillmentConstraint() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_BundleFulfillmentConstraint,
+						 new Object[] { "FULFILLMENT_CONSTRAINT_MUST", getObjectLabel(fareConstraintBundle, context) }, //$NON-NLS-1$
+						 new Object[] { fareConstraintBundle },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the COMBINATION_CONSTRAINT_MUST constraint of '<em>Fare Constraint Bundle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareConstraintBundle_COMBINATION_CONSTRAINT_MUST(FareConstraintBundle fareConstraintBundle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareConstraintBundle.getCombinationConstraint() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_BundleCombinationConstraint,
+						 new Object[] { "COMBINATION_CONSTRAINT_MUST", getObjectLabel(fareConstraintBundle, context) }, //$NON-NLS-1$
+						 new Object[] { fareConstraintBundle },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the TOTAL_PASSENGER_CONSTRAINT_WARNING constraint of '<em>Fare Constraint Bundle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareConstraintBundle_TOTAL_PASSENGER_CONSTRAINT_WARNING(FareConstraintBundle fareConstraintBundle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareConstraintBundle.getTotalPassengerConstraint() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_BundleTotalPassengersConstraint,
+						 new Object[] { "TOTAL_PASSENGER_CONSTRAINT_WARNING", getObjectLabel(fareConstraintBundle, context) }, //$NON-NLS-1$
+						 new Object[] { fareConstraintBundle },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Fare Constraint Bundle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareConstraintBundle_NOT_REFERENCED(FareConstraintBundle fareConstraintBundle, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(fareConstraintBundle);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(fareConstraintBundle,fareData.getFareElements()) )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(fareConstraintBundle) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(fareConstraintBundle, context) },
+						 new Object[] { fareConstraintBundle },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -4744,6 +5151,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(salesAvailabilityConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(salesAvailabilityConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateSalesAvailabilityConstraint_AT_LEAST_ONE(salesAvailabilityConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateSalesAvailabilityConstraint_NOT_REFERENCED(salesAvailabilityConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -4770,6 +5178,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Sales Availability Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateSalesAvailabilityConstraint_NOT_REFERENCED(SalesAvailabilityConstraint salesAvailabilityConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(salesAvailabilityConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(salesAvailabilityConstraint,fareData.getFareConstraintBundles()) )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(salesAvailabilityConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(salesAvailabilityConstraint, context) },
+						 new Object[] { salesAvailabilityConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -4891,6 +5326,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(combinationConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(combinationConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateCombinationConstraint_AT_LEAST_ONE(combinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateCombinationConstraint_NOT_REFERENCED(combinationConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -4917,6 +5353,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Combination Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateCombinationConstraint_NOT_REFERENCED(CombinationConstraint combinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(combinationConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(combinationConstraint,fareData.getFareConstraintBundles())  )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(combinationConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(combinationConstraint, context) },
+						 new Object[] { combinationConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -5906,6 +6369,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(passengerCombinationConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePassengerCombinationConstraint_NUMBER_AT_LEAST_ONE(passengerCombinationConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePassengerCombinationConstraint_TRAVELLER_TYPE_MUST(passengerCombinationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validatePassengerCombinationConstraint_NOT_REFERENCED(passengerCombinationConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -5957,6 +6421,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Passenger Combination Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validatePassengerCombinationConstraint_NOT_REFERENCED(PassengerCombinationConstraint passengerCombinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(passengerCombinationConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(passengerCombinationConstraint,fareData.getFareElements()) )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(passengerCombinationConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(passengerCombinationConstraint, context) },
+						 new Object[] { passengerCombinationConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -6189,6 +6680,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(personalDataConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(personalDataConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePersonalDataConstraint_AT_LEAST_ONE_REQUIRED_ITEM(personalDataConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validatePersonalDataConstraint_NOT_REFERENCED(personalDataConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -6215,6 +6707,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Personal Data Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validatePersonalDataConstraint_NOT_REFERENCED(PersonalDataConstraint personalDataConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(personalDataConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(personalDataConstraint,fareData.getFareConstraintBundles())  )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(personalDataConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(personalDataConstraint, context) },
+						 new Object[] { personalDataConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -6432,6 +6951,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(reductionConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(reductionConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateReductionConstraint_AT_LEAST_ONE(reductionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateReductionConstraint_NOT_REFERENCED(reductionConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -6458,6 +6978,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Reduction Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateReductionConstraint_NOT_REFERENCED(ReductionConstraint reductionConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(reductionConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(reductionConstraint,fareData.getFareElements())  )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(reductionConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionConstraint, context) },
+						 new Object[] { reductionConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**
@@ -6561,6 +7108,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(fulfillmentConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(fulfillmentConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFulfillmentConstraint_AT_LEAST_ONE_ACCEPTED_TYPE(fulfillmentConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFulfillmentConstraint_NOT_REFERENCED(fulfillmentConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -6587,6 +7135,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Validates the NOT_REFERENCED constraint of '<em>Fulfillment Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFulfillmentConstraint_NOT_REFERENCED(FulfillmentConstraint fulfillmentConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(fulfillmentConstraint);
+		if ( (fareData == null) ||
+			 ! (   GtmUtils.isReferenced(fulfillmentConstraint,fareData.getFareConstraintBundles())  )  ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 GtmUtils.getLabelText(fulfillmentConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(fulfillmentConstraint, context) },
+						 new Object[] { fulfillmentConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+
 	}
 
 	/**

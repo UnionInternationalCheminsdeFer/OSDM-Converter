@@ -1290,7 +1290,7 @@ public class GtmEditor
 				setPageText(pageIndex, getString("_UI_SelectionPage_label"));
 				
 				
-				MigrationV2.migrateV2(editingDomain);
+				MigrationV2.migrateV2(editingDomain, this);
 				
 				
 			}

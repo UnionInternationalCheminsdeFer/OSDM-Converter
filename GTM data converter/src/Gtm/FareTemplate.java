@@ -45,7 +45,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareTemplate()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='PRICE_FACTOR_MUST TYPE_MUST TRAVEL_VALIDITY_MUST COMBINATION_CONSTRAINT_MUST PASSENGER_CONSTRAINT_MUST FULFILMENT_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST'"
  * @generated
  */
 public interface FareTemplate extends EObject {

@@ -77,15 +77,9 @@ public class FareTemplateItemProvider
 			addCarrierConstraintPropertyDescriptor(object);
 			addServiceClassPropertyDescriptor(object);
 			addServiceLevelPropertyDescriptor(object);
-			addSalesAvailabilityPropertyDescriptor(object);
-			addTravelValidityPropertyDescriptor(object);
-			addCombinationConstraintPropertyDescriptor(object);
-			addSeparateContractCombinationConstraintPropertyDescriptor(object);
 			addFareDetailDescriptionPropertyDescriptor(object);
-			addPersonalDataConstraintPropertyDescriptor(object);
 			addReservationParameterPropertyDescriptor(object);
 			addReductionConstraintPropertyDescriptor(object);
-			addFulfillmentConstraintPropertyDescriptor(object);
 			addPassengerConstraintPropertyDescriptor(object);
 			addLegacyConversionPropertyDescriptor(object);
 			addIndividualContractsPropertyDescriptor(object);
@@ -381,94 +375,6 @@ public class FareTemplateItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Sales Availability feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSalesAvailabilityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareTemplate_salesAvailability_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_salesAvailability_feature", "_UI_FareTemplate_type"),
-				 GtmPackage.Literals.FARE_TEMPLATE__SALES_AVAILABILITY,
-				 false,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Travel Validity feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTravelValidityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareTemplate_travelValidity_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_travelValidity_feature", "_UI_FareTemplate_type"),
-				 GtmPackage.Literals.FARE_TEMPLATE__TRAVEL_VALIDITY,
-				 false,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Combination Constraint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCombinationConstraintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareTemplate_combinationConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_combinationConstraint_feature", "_UI_FareTemplate_type"),
-				 GtmPackage.Literals.FARE_TEMPLATE__COMBINATION_CONSTRAINT,
-				 false,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Separate Contract Combination Constraint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSeparateContractCombinationConstraintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareTemplate_separateContractCombinationConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_separateContractCombinationConstraint_feature", "_UI_FareTemplate_type"),
-				 GtmPackage.Literals.FARE_TEMPLATE__SEPARATE_CONTRACT_COMBINATION_CONSTRAINT,
-				 false,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Fare Detail Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -483,28 +389,6 @@ public class FareTemplateItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_fareDetailDescription_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__FARE_DETAIL_DESCRIPTION,
 				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Personal Data Constraint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPersonalDataConstraintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareTemplate_personalDataConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_personalDataConstraint_feature", "_UI_FareTemplate_type"),
-				 GtmPackage.Literals.FARE_TEMPLATE__PERSONAL_DATA_CONSTRAINT,
-				 false,
 				 false,
 				 true,
 				 null,
@@ -549,28 +433,6 @@ public class FareTemplateItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_reductionConstraint_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__REDUCTION_CONSTRAINT,
 				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Fulfillment Constraint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFulfillmentConstraintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FareTemplate_fulfillmentConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_fulfillmentConstraint_feature", "_UI_FareTemplate_type"),
-				 GtmPackage.Literals.FARE_TEMPLATE__FULFILLMENT_CONSTRAINT,
-				 false,
 				 false,
 				 true,
 				 null,

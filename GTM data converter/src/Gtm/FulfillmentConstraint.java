@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see Gtm.GtmPackage#getFulfillmentConstraint()
  * @model features="requiredBarcodes" 
  *        requiredBarcodesType="Gtm.RequiredBarcodes" requiredBarcodesContainment="true" requiredBarcodesSuppressedGetVisibility="true"
- *        annotation="http://www.eclipse.org/emf/2002/Ecore constraints='AT_LEAST_ONE_ACCEPTED_TYPE'"
+ *        annotation="http://www.eclipse.org/emf/2002/Ecore constraints='AT_LEAST_ONE_ACCEPTED_TYPE NOT_REFERENCED'"
  * @generated
  */
 public interface FulfillmentConstraint extends EObject {

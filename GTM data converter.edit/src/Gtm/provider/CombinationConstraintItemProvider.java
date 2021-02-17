@@ -4,6 +4,7 @@ package Gtm.provider;
 
 
 import Gtm.CombinationConstraint;
+import Gtm.FareCombinationModel;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 
@@ -159,11 +160,24 @@ public class CombinationConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CombinationConstraint)object).getDataDescription();
+		
+		CombinationConstraint con = (CombinationConstraint)object;
+		StringBuilder sb = new StringBuilder();
+		if (con.getDataDescription() != null) {
+			sb.append(con.getDataDescription());
+		} else {
+			for (FareCombinationModel model :con.getCombinationModels()) {
+				if (model.getReferenceCluster() != null) {
+					sb.append(model.getReferenceCluster().getName());
+				}
+			}
+			
+		}
+		String label = sb.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CombinationConstraint_type") :
 			getString("_UI_CombinationConstraint_type") + " " + label;

@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.TextImpl#getShortTextUTF8 <em>Short Text UTF8</em>}</li>
  *   <li>{@link Gtm.impl.TextImpl#getShortTextICAO <em>Short Text ICAO</em>}</li>
  *   <li>{@link Gtm.impl.TextImpl#getTranslations <em>Translations</em>}</li>
+ *   <li>{@link Gtm.impl.TextImpl#isStandardText <em>Standard Text</em>}</li>
  * </ul>
  *
  * @generated
@@ -150,6 +151,26 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 	 * @ordered
 	 */
 	protected EList<Translation> translations;
+
+	/**
+	 * The default value of the '{@link #isStandardText() <em>Standard Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isStandardText()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean STANDARD_TEXT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isStandardText() <em>Standard Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isStandardText()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean standardText = STANDARD_TEXT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -292,6 +313,27 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isStandardText() {
+		return standardText;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStandardText(boolean newStandardText) {
+		boolean oldStandardText = standardText;
+		standardText = newStandardText;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.TEXT__STANDARD_TEXT, oldStandardText, standardText));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -321,6 +363,8 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 				return getShortTextICAO();
 			case GtmPackage.TEXT__TRANSLATIONS:
 				return getTranslations();
+			case GtmPackage.TEXT__STANDARD_TEXT:
+				return isStandardText();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -353,6 +397,9 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 				getTranslations().clear();
 				getTranslations().addAll((Collection<? extends Translation>)newValue);
 				return;
+			case GtmPackage.TEXT__STANDARD_TEXT:
+				setStandardText((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -383,6 +430,9 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 			case GtmPackage.TEXT__TRANSLATIONS:
 				getTranslations().clear();
 				return;
+			case GtmPackage.TEXT__STANDARD_TEXT:
+				setStandardText(STANDARD_TEXT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -407,6 +457,8 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 				return SHORT_TEXT_ICAO_EDEFAULT == null ? shortTextICAO != null : !SHORT_TEXT_ICAO_EDEFAULT.equals(shortTextICAO);
 			case GtmPackage.TEXT__TRANSLATIONS:
 				return translations != null && !translations.isEmpty();
+			case GtmPackage.TEXT__STANDARD_TEXT:
+				return standardText != STANDARD_TEXT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -431,6 +483,8 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		result.append(shortTextUTF8);
 		result.append(", shortTextICAO: ");
 		result.append(shortTextICAO);
+		result.append(", standardText: ");
+		result.append(standardText);
 		result.append(')');
 		return result.toString();
 	}

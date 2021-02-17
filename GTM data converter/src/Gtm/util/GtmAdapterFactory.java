@@ -336,14 +336,6 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createStartOfSaleAdapter();
 			}
 			@Override
-			public Adapter caseReductionCards(ReductionCards object) {
-				return createReductionCardsAdapter();
-			}
-			@Override
-			public Adapter caseReductionCard(ReductionCard object) {
-				return createReductionCardAdapter();
-			}
-			@Override
 			public Adapter caseCarrierConstraints(CarrierConstraints object) {
 				return createCarrierConstraintsAdapter();
 			}
@@ -510,6 +502,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseFareCombinationModel(FareCombinationModel object) {
 				return createFareCombinationModelAdapter();
+			}
+			@Override
+			public Adapter caseReductionCards(ReductionCards object) {
+				return createReductionCardsAdapter();
+			}
+			@Override
+			public Adapter caseReductionCard(ReductionCard object) {
+				return createReductionCardAdapter();
 			}
 			@Override
 			public Adapter caseReductionConstraint(ReductionConstraint object) {

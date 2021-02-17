@@ -72,6 +72,7 @@ public class FareConstraintBundleItemProvider
 			addFulfillmentConstraintPropertyDescriptor(object);
 			addTotalPassengerConstraintPropertyDescriptor(object);
 			addDefaultRegulatoryConditionsPropertyDescriptor(object);
+			addDataSourcePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -319,6 +320,28 @@ public class FareConstraintBundleItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Data Source feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataSourcePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareConstraintBundle_dataSource_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_dataSource_feature", "_UI_FareConstraintBundle_type"),
+				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns FareConstraintBundle.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -333,14 +356,48 @@ public class FareConstraintBundleItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FareConstraintBundle)object).getId();
-		return label == null || label.length() == 0 ?
-			getString("_UI_FareConstraintBundle_type") :
-			getString("_UI_FareConstraintBundle_type") + " " + label;
+		
+		StringBuilder sb = new StringBuilder();
+		FareConstraintBundle bundle = (FareConstraintBundle)object;
+		
+		if (bundle.getDataDescription() != null) {
+			return getString("_UI_FareConstraintBundle_type") + " " + bundle.getDataDescription();
+		} else {
+			
+			if (bundle.getCombinationConstraint() != null) {
+				CombinationConstraintItemProvider labelProvider = (CombinationConstraintItemProvider) adapterFactory.adapt(bundle.getCombinationConstraint(), CombinationConstraintItemProvider.class);
+				sb.append(labelProvider.getText(bundle.getCombinationConstraint()));
+			}
+			if (bundle.getFulfillmentConstraint() != null) {
+				if (sb.length() > 0 && !(sb.lastIndexOf("-") == (sb.length() - 1))) sb.append("-");
+				FulfillmentConstraintItemProvider labelProvider = (FulfillmentConstraintItemProvider) adapterFactory.adapt(bundle.getFulfillmentConstraint(), FulfillmentConstraintItemProvider.class);
+				sb.append(labelProvider.getText(bundle.getFulfillmentConstraint()));				
+			}
+			if (bundle.getSalesAvailability() != null) {
+				if (sb.length() > 0 && !(sb.lastIndexOf("-") == (sb.length() - 1))) sb.append("-");
+				SalesAvailabilityConstraintItemProvider labelProvider = (SalesAvailabilityConstraintItemProvider) adapterFactory.adapt(bundle.getSalesAvailability(), SalesAvailabilityConstraintItemProvider.class);
+				sb.append(labelProvider.getText(bundle.getSalesAvailability()));				
+			}			
+			if (bundle.getTravelValidity() != null) {
+				if (sb.length() > 0 && !(sb.lastIndexOf("-") == (sb.length() - 1))) sb.append("-");
+				TravelValidityConstraintItemProvider labelProvider = (TravelValidityConstraintItemProvider) adapterFactory.adapt(bundle.getTravelValidity(), TravelValidityConstraintItemProvider.class);
+				sb.append(labelProvider.getText(bundle.getTravelValidity()));				
+			}				
+			if (bundle.getTotalPassengerConstraint() != null) {
+				if (sb.length() > 0 && !(sb.lastIndexOf("-") == (sb.length() - 1))) sb.append("-");
+				TotalPassengerCombinationConstraintItemProvider labelProvider = (TotalPassengerCombinationConstraintItemProvider) adapterFactory.adapt(bundle.getTotalPassengerConstraint(), TotalPassengerCombinationConstraintItemProvider.class);
+				sb.append(labelProvider.getText(bundle.getTotalPassengerConstraint()));				
+			}				
+			
+			String label = sb.toString();
+			return label == null || label.length() == 0 ?
+					getString("_UI_FareConstraintBundle_type") :
+					getString("_UI_FareConstraintBundle_type") + " " + label;
+		}
 	}
 
 
@@ -360,6 +417,7 @@ public class FareConstraintBundleItemProvider
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_FARE_TYPE:
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_DESCRIPTION:
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS:
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
