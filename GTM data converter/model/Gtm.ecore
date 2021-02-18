@@ -1518,6 +1518,15 @@
     <eLiterals name="UIC_RIT_2_2" value="18"/>
     <eLiterals name="UIC_RIT_3_1" value="19"/>
     <eLiterals name="UIC_RIT_3_2" value="20"/>
+    <eLiterals name="UIC_RIT_3" value="21"/>
+    <eLiterals name="UIC_RIT_2" value="22"/>
+    <eLiterals name="UIC_RIT_1" value="23"/>
+    <eLiterals name="UIC_INTERRAIL" value="25"/>
+    <eLiterals name="UIC_EURAIL" value="26"/>
+    <eLiterals name="UIC_RAILPLUS" value="27"/>
+    <eLiterals name="UIC_FIP_DUTY" value="28"/>
+    <eLiterals name="UIC_FIP_LEISURE_FREE" value="29"/>
+    <eLiterals name="UIC_FIP_LEISURE_REDU" value="30"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HemisphereEW">
     <eLiterals name="EAST"/>

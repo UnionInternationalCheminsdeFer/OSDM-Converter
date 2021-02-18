@@ -162,7 +162,79 @@ public enum GenericReductionCards implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	UIC_RIT_32(20, "UIC_RIT_3_2", "UIC_RIT_3_2");
+	UIC_RIT_32(20, "UIC_RIT_3_2", "UIC_RIT_3_2"), /**
+	 * The '<em><b>UIC RIT 3</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_RIT_3_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_RIT_3(21, "UIC_RIT_3", "UIC_RIT_3"), /**
+	 * The '<em><b>UIC RIT 2</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_RIT_2_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_RIT_2(22, "UIC_RIT_2", "UIC_RIT_2"), /**
+	 * The '<em><b>UIC RIT 1</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_RIT_1_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_RIT_1(23, "UIC_RIT_1", "UIC_RIT_1"), /**
+	 * The '<em><b>UIC INTERRAIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_INTERRAIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_INTERRAIL(25, "UIC_INTERRAIL", "UIC_INTERRAIL"), /**
+	 * The '<em><b>UIC EURAIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EURAIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_EURAIL(26, "UIC_EURAIL", "UIC_EURAIL"), /**
+	 * The '<em><b>UIC RAILPLUS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_RAILPLUS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_RAILPLUS(27, "UIC_RAILPLUS", "UIC_RAILPLUS"), /**
+	 * The '<em><b>UIC FIP DUTY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_FIP_DUTY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_FIP_DUTY(28, "UIC_FIP_DUTY", "UIC_FIP_DUTY"), /**
+	 * The '<em><b>UIC FIP LEISURE FREE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_FIP_LEISURE_FREE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_FIP_LEISURE_FREE(29, "UIC_FIP_LEISURE_FREE", "UIC_FIP_LEISURE_FREE"), /**
+	 * The '<em><b>UIC FIP LEISURE REDU</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_FIP_LEISURE_REDU_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_FIP_LEISURE_REDU(30, "UIC_FIP_LEISURE_REDU", "UIC_FIP_LEISURE_REDU");
 
 	/**
 	 * The '<em><b>UIC EURAIL 1</b></em>' literal value.
@@ -363,6 +435,105 @@ public enum GenericReductionCards implements Enumerator {
 	public static final int UIC_RIT_32_VALUE = 20;
 
 	/**
+	 * The '<em><b>UIC RIT 3</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_RIT_3
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_RIT_3_VALUE = 21;
+
+	/**
+	 * The '<em><b>UIC RIT 2</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_RIT_2
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_RIT_2_VALUE = 22;
+
+	/**
+	 * The '<em><b>UIC RIT 1</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_RIT_1
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_RIT_1_VALUE = 23;
+
+	/**
+	 * The '<em><b>UIC INTERRAIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_INTERRAIL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_INTERRAIL_VALUE = 25;
+
+	/**
+	 * The '<em><b>UIC EURAIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EURAIL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_EURAIL_VALUE = 26;
+
+	/**
+	 * The '<em><b>UIC RAILPLUS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_RAILPLUS
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_RAILPLUS_VALUE = 27;
+
+	/**
+	 * The '<em><b>UIC FIP DUTY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_FIP_DUTY
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_FIP_DUTY_VALUE = 28;
+
+	/**
+	 * The '<em><b>UIC FIP LEISURE FREE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_FIP_LEISURE_FREE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_FIP_LEISURE_FREE_VALUE = 29;
+
+	/**
+	 * The '<em><b>UIC FIP LEISURE REDU</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_FIP_LEISURE_REDU
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_FIP_LEISURE_REDU_VALUE = 30;
+
+	/**
 	 * An array of all the '<em><b>Generic Reduction Cards</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -388,6 +559,15 @@ public enum GenericReductionCards implements Enumerator {
 			UIC_RIT_22,
 			UIC_RIT_31,
 			UIC_RIT_32,
+			UIC_RIT_3,
+			UIC_RIT_2,
+			UIC_RIT_1,
+			UIC_INTERRAIL,
+			UIC_EURAIL,
+			UIC_RAILPLUS,
+			UIC_FIP_DUTY,
+			UIC_FIP_LEISURE_FREE,
+			UIC_FIP_LEISURE_REDU,
 		};
 
 	/**
@@ -460,6 +640,15 @@ public enum GenericReductionCards implements Enumerator {
 			case UIC_RIT_22_VALUE: return UIC_RIT_22;
 			case UIC_RIT_31_VALUE: return UIC_RIT_31;
 			case UIC_RIT_32_VALUE: return UIC_RIT_32;
+			case UIC_RIT_3_VALUE: return UIC_RIT_3;
+			case UIC_RIT_2_VALUE: return UIC_RIT_2;
+			case UIC_RIT_1_VALUE: return UIC_RIT_1;
+			case UIC_INTERRAIL_VALUE: return UIC_INTERRAIL;
+			case UIC_EURAIL_VALUE: return UIC_EURAIL;
+			case UIC_RAILPLUS_VALUE: return UIC_RAILPLUS;
+			case UIC_FIP_DUTY_VALUE: return UIC_FIP_DUTY;
+			case UIC_FIP_LEISURE_FREE_VALUE: return UIC_FIP_LEISURE_FREE;
+			case UIC_FIP_LEISURE_REDU_VALUE: return UIC_FIP_LEISURE_REDU;
 		}
 		return null;
 	}

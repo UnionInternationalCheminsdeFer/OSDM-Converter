@@ -241,6 +241,7 @@ public class ConverterFromLegacy {
 		if (prices.size() == tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices().size()) {
 			Prices priceList = GtmFactory.eINSTANCE.createPrices();
 			command.append(SetCommand.create(domain, tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__PRICES, priceList));
+			executeAndFlush(command,domain);
 		} else {
 			command.append(RemoveCommand.create(domain,tool.getGeneralTariffModel().getFareStructure().getPrices(),GtmPackage.Literals.PRICES__PRICES, prices) );
 			executeAndFlush(command,domain);

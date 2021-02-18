@@ -3,6 +3,8 @@ package Gtm.util;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 import Gtm.FareStructure;
@@ -59,7 +61,14 @@ public class GtmUtils {
 			if ( a instanceof ItemProviderAdapter) {
 				return ((ItemProviderAdapter)a).getText(object);
 			}
-			
+		}
+		
+		EcoreItemProviderAdapterFactory factory = new EcoreItemProviderAdapterFactory();
+		if(factory.isFactoryForType(IItemLabelProvider.class)){
+			IItemLabelProvider labelProvider = (IItemLabelProvider)	factory.adapt(object, IItemLabelProvider.class);
+			if(labelProvider != null){
+				return labelProvider.getText(object);
+			}
 		}
 	
 		return null;

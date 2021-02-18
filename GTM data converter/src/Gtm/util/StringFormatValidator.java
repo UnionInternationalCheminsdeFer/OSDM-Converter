@@ -7,9 +7,10 @@ public class StringFormatValidator {
 	
 	// printable ASCII codes: "^[ -~]*$"
 	
+
    private static Pattern stationUTFForbiddenPattern = Pattern.compile("\\*");
-   private static Pattern stationASCPattern = Pattern.compile("^[a-zA-Z0-9.,;:- +]+");
-   private static Pattern ASCPattern = Pattern.compile("^[a-zA-Z0-9.,;:+ -]+");
+   private static Pattern stationASCPattern = Pattern.compile("^[a-zA-Z0-9.,;:-\\\\+\\\\s]+");
+   private static Pattern ASCPattern = Pattern.compile("^[a-zA-Z0-9.,;:-\\\\+\\\\s]+");
 	
 	public static boolean isASCII(String s) {
 		if (s == null) return false;

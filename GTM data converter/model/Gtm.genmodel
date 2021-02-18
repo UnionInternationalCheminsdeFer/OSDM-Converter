@@ -127,6 +127,15 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_RIT_2_2"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_RIT_3_1"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_RIT_3_2"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_RIT_3"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_RIT_2"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_RIT_1"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_INTERRAIL"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_EURAIL"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_RAILPLUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_FIP_DUTY"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_FIP_LEISURE_FREE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_FIP_LEISURE_REDU"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//HemisphereEW">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//HemisphereEW/EAST"/>

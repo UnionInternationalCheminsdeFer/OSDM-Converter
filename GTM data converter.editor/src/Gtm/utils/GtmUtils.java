@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.command.SetCommand;
@@ -21,7 +22,10 @@ import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
@@ -71,20 +75,35 @@ import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
+import Gtm.provider.GtmItemProviderAdapterFactory;
 
 public class GtmUtils {
 	
 	
 	public static GtmEditor getActiveEditor() {
-	   	
-	   	IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		return (GtmEditor) editor;
 
+		if (PlatformUI.getWorkbench() != null &&
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()!= null &&
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor() != null) {
+		   	return (GtmEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor() ;
+		}
+
+		
+		IWorkbench wb = PlatformUI.getWorkbench();
+		if (wb == null) return null;
+		for (IWorkbenchWindow win : wb.getWorkbenchWindows()) {
+				if (win.getPartService().getActivePart() instanceof GtmEditor) {
+					return (GtmEditor)  win.getPartService().getActivePart();
+				}
+		}
+		return null;
 	}
 	
 	public static GTMTool getGtmTool(IEditingDomainProvider editingDomainProvider) {
 	   		   	
-	   	IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+	   	IEditorPart editor =  getActiveEditor();
+	   	if (editor == null) return null;
 		EditingDomain domain = ((GtmEditor) editor).getEditingDomain();
 		Resource resource = domain.getResourceSet().getResources().get(0);
 	   	
@@ -102,8 +121,9 @@ public class GtmUtils {
 	
 	public static GTMTool getGtmTool() {
 	   	
-	   	IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		EditingDomain domain = ((GtmEditor) editor).getEditingDomain();
+	   	IEditorPart editor =  getActiveEditor();
+	   	if (editor == null) return null;
+	   	EditingDomain domain = ((GtmEditor) editor).getEditingDomain();
 		Resource resource = domain.getResourceSet().getResources().get(0);
 	   	
 		TreeIterator<EObject> it = resource.getAllContents();
@@ -134,8 +154,9 @@ public class GtmUtils {
 	}
 	
 	public static EditingDomain getActiveDomain() {
-	   	IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		return ((GtmEditor) editor).getEditingDomain();
+	   	IEditorPart editor =  getActiveEditor();
+	   	if (editor == null) return null;
+	   	return ((GtmEditor) editor).getEditingDomain();
 	}
 	
 
@@ -1034,8 +1055,9 @@ public class GtmUtils {
 		}
 		try {
 			if (editor == null || message == null || message.length() == 0) {
-				GtmEditor e = GtmUtils.getActiveEditor();
-				e.getSite().getShell().getDisplay().asyncExec(() -> {
+				Display display = getDisplay();
+				if (display == null) return;
+				display.asyncExec(() -> {
 					ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53,"Error: " + message);
 				});	
 			} else {
@@ -1048,6 +1070,17 @@ public class GtmUtils {
 		}
 	}
 	
+	public static Display getDisplay() {
+		GtmEditor e = GtmUtils.getActiveEditor();
+		Display display = null;
+		if (e != null) {
+			display = e.getSite().getShell().getDisplay();
+		} else {
+			display = Display.getDefault();
+		}
+		return display;
+	}
+	
 	public static void writeConsoleInfo(String message, GtmEditor editor) {
 		if (message == null || message.length() == 0) {
 			return;
@@ -1055,8 +1088,9 @@ public class GtmUtils {
 		
 		try {
 			if (editor == null) {
-				GtmEditor e = GtmUtils.getActiveEditor();
-				e.getSite().getShell().getDisplay().asyncExec(() -> {
+				Display display = getDisplay();
+				if (display == null) return;
+				display.asyncExec(() -> {
 					ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53,"Info: " + message);
 				});	
 			} else {
@@ -1076,8 +1110,9 @@ public class GtmUtils {
 		
 		try {
 			if (editor == null) {
-				GtmEditor e = GtmUtils.getActiveEditor();
-				e.getSite().getShell().getDisplay().asyncExec(() -> {
+				Display display = getDisplay();
+				if (display == null) return;
+				display.asyncExec(() -> {
 					ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53,"Warning: " +  message);
 				});					
 			} else {
@@ -1113,11 +1148,12 @@ public class GtmUtils {
 		
 		if (object == null) return "";
 		
-		for (Adapter a :  object.eAdapters()) {
-			if ( a instanceof ItemProviderAdapter) {
-				return ((ItemProviderAdapter)a).getText(object);
+		GtmItemProviderAdapterFactory factory = new GtmItemProviderAdapterFactory();
+		if(factory.isFactoryForType(IItemLabelProvider.class)){
+			IItemLabelProvider labelProvider = (IItemLabelProvider)	factory.adapt(object, IItemLabelProvider.class);
+			if(labelProvider != null){
+				return labelProvider.getText(object);
 			}
-			
 		}
 	
 		return null;

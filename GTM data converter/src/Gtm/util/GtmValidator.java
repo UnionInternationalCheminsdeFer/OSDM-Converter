@@ -1398,7 +1398,7 @@ public class GtmValidator extends EObjectValidator {
 		if (fareTemplate.getFareConstraintBundle() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+					(createSimpleDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
@@ -1999,14 +1999,14 @@ public class GtmValidator extends EObjectValidator {
 			    || GtmUtils.isReferenced(calendar,fareData.getTravelValidityConstraints())  )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+				(createSimpleDiagnostic
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(calendar) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(calendar, context) },
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(calendar, context) }, //$NON-NLS-1$
 						 new Object[] { calendar },
-						 context));
+						 context));						
 			}
 			return false;
 		}
@@ -2846,14 +2846,15 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(connectionPoint,fareData.getRegionalConstraints()) )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+				(createSimpleDiagnostic
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(connectionPoint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(connectionPoint, context) },
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(connectionPoint, context) }, //$NON-NLS-1$
 						 new Object[] { connectionPoint },
-						 context));
+						 context));				
+				
 			}
 			return false;
 		}
@@ -3112,7 +3113,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateReductionCard_ISUER_MUST_FOR_NON_GENERIC(ReductionCard reductionCard, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (reductionCard.getCardIssuer() == null && ( reductionCard.isUicCode() || GenericReductionCards.getByName(reductionCard.getId()) == null) ) {
+		if (reductionCard.getCardIssuer() == null && !reductionCard.isUicCode() && GenericReductionCards.getByName(reductionCard.getId()) == null ) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -3142,12 +3143,12 @@ public class GtmValidator extends EObjectValidator {
 			    || GtmUtils.isReferenced(reductionCard,fareData.getReductionConstraints())  )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+				(createSimpleDiagnostic
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(reductionCard) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionCard, context) },
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionCard, context) }, //$NON-NLS-1$
 						 new Object[] { reductionCard },
 						 context));
 			}
@@ -3264,16 +3265,18 @@ public class GtmValidator extends EObjectValidator {
 		FareStructure fareData = GtmUtils.getFareStructure(regionalConstraint);
 		if ( (fareData == null) ||
 			 ! (   GtmUtils.isReferenced(regionalConstraint,fareData.getFareElements())  )  ) {
+			
+			
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+				(createSimpleDiagnostic
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(regionalConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(regionalConstraint, context) },
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(regionalConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { regionalConstraint },
-						 context));
+						 context));				
 			}
 			return false;
 		}
@@ -3917,14 +3920,15 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(travelValidityConstraint,fareData.getFareConstraintBundles())  )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+				(createSimpleDiagnostic
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(travelValidityConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(travelValidityConstraint, context) },
-						 new Object[] { travelValidityConstraint },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(travelValidityConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  travelValidityConstraint },
+						 context));					
+
 			}
 			return false;
 		}
@@ -4601,7 +4605,7 @@ public class GtmValidator extends EObjectValidator {
 		if (fareElement.getFareConstraintBundle() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+					(createSimpleDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
@@ -4654,7 +4658,7 @@ public class GtmValidator extends EObjectValidator {
 		if (totalPassengerCombinationConstraint.getMaxTotalPassengerWeight() == 0 && totalPassengerCombinationConstraint.getMinTotalPassengerWeight() == 0) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+					(createSimpleDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
@@ -4680,14 +4684,14 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(totalPassengerCombinationConstraint,fareData.getFareConstraintBundles()))  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+				(createSimpleDiagnostic
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(totalPassengerCombinationConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(totalPassengerCombinationConstraint, context) },
-						 new Object[] { totalPassengerCombinationConstraint },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(totalPassengerCombinationConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  totalPassengerCombinationConstraint },
+						 context));	
 			}
 			return false;
 		}
@@ -4738,7 +4742,7 @@ public class GtmValidator extends EObjectValidator {
 		if (fareConstraintBundle.getSalesAvailability() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+					(createSimpleDiagnostic
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
@@ -4762,7 +4766,7 @@ public class GtmValidator extends EObjectValidator {
 		if (fareConstraintBundle.getTravelValidity() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+					(createSimpleDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
@@ -4786,7 +4790,7 @@ public class GtmValidator extends EObjectValidator {
 		if (fareConstraintBundle.getFulfillmentConstraint() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+					(createSimpleDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
@@ -4810,7 +4814,7 @@ public class GtmValidator extends EObjectValidator {
 		if (fareConstraintBundle.getCombinationConstraint() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+					(createSimpleDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
@@ -4834,7 +4838,7 @@ public class GtmValidator extends EObjectValidator {
 		if (fareConstraintBundle.getTotalPassengerConstraint() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
+					(createSimpleDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
@@ -4860,14 +4864,14 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(fareConstraintBundle,fareData.getFareElements()) )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.WARNING,
+			        (createSimpleDiagnostic
+				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(fareConstraintBundle) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(fareConstraintBundle, context) },
-						 new Object[] { fareConstraintBundle },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(fareConstraintBundle, context) }, //$NON-NLS-1$
+						 new Object[] {  fareConstraintBundle },
+						 context));					
 			}
 			return false;
 		}
@@ -5014,7 +5018,7 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateFareStationSetDefinition_NAME_FORMAT(FareStationSetDefinition fareStationSetDefinition, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!StringFormatValidator.isStationASCII(fareStationSetDefinition.getName())) {
+		if (fareStationSetDefinition.getName() != null && !StringFormatValidator.isStationASCII(fareStationSetDefinition.getName())) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -5192,14 +5196,14 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(salesAvailabilityConstraint,fareData.getFareConstraintBundles()) )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.WARNING,
+		        (createSimpleDiagnostic
+				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(salesAvailabilityConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(salesAvailabilityConstraint, context) },
-						 new Object[] { salesAvailabilityConstraint },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(salesAvailabilityConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  salesAvailabilityConstraint },
+						 context));					
 			}
 			return false;
 		}
@@ -5367,14 +5371,14 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(combinationConstraint,fareData.getFareConstraintBundles())  )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.WARNING,
+		        (createSimpleDiagnostic
+				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(combinationConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(combinationConstraint, context) },
-						 new Object[] { combinationConstraint },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(combinationConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  combinationConstraint },
+						 context));					
 			}
 			return false;
 		}
@@ -6435,14 +6439,14 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(passengerCombinationConstraint,fareData.getFareElements()) )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.WARNING,
+		        (createSimpleDiagnostic
+				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(passengerCombinationConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(passengerCombinationConstraint, context) },
-						 new Object[] { passengerCombinationConstraint },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(passengerCombinationConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  passengerCombinationConstraint },
+						 context));	
 			}
 			return false;
 		}
@@ -6721,14 +6725,14 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(personalDataConstraint,fareData.getFareConstraintBundles())  )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.WARNING,
+		        (createSimpleDiagnostic
+				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(personalDataConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(personalDataConstraint, context) },
-						 new Object[] { personalDataConstraint },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(personalDataConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  personalDataConstraint },
+						 context));					
 			}
 			return false;
 		}
@@ -6992,14 +6996,14 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(reductionConstraint,fareData.getFareElements())  )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.WARNING,
+		        (createSimpleDiagnostic
+				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(reductionConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionConstraint, context) },
-						 new Object[] { reductionConstraint },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  reductionConstraint },
+						 context));						
 			}
 			return false;
 		}
@@ -7149,14 +7153,14 @@ public class GtmValidator extends EObjectValidator {
 			 ! (   GtmUtils.isReferenced(fulfillmentConstraint,fareData.getFareConstraintBundles())  )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
-					(createDiagnostic
-						(Diagnostic.WARNING,
+		        (createSimpleDiagnostic
+				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 GtmUtils.getLabelText(fulfillmentConstraint) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(fulfillmentConstraint, context) },
-						 new Object[] { fulfillmentConstraint },
-						 context));
+						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(fulfillmentConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  fulfillmentConstraint },
+						 context));							
 			}
 			return false;
 		}
