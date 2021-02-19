@@ -20,14 +20,14 @@ public class CombinationConstraint {
      */
     @JsonProperty("maxNumber")
     @JsonPropertyDescription("number of passengers allowed per accompanying passenger")
-    private Integer maxNumber;
+    private Integer maxNumber = 999;
     /**
      * number of passengers required as accompanying passenger
      * 
      */
     @JsonProperty("minNumber")
     @JsonPropertyDescription("number of passengers required as accompanying passenger")
-    private Integer minNumber;
+    private Integer minNumber = 999;
     /**
      * Subset of the values from the traveler type code list IRS 90918-10 
      * (Required)

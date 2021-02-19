@@ -270,16 +270,22 @@ public class ConstraintBundleFactory {
 			
 			if (fareTemplate.getFareConstraintBundle() != null) return null;
 			
-			if (bundle.getCarrierConstraint() == fareTemplate.getCarrierConstraint() &&
-			    bundle.getCombinationConstraint() == fareTemplate.getCombinationConstraint() &&
-				bundle.getFulfillmentConstraint() == fareTemplate.getFulfillmentConstraint() &&
-				bundle.getPersonalDataConstraint() == fareTemplate.getPersonalDataConstraint() &&
-				bundle.getTravelValidity() == fareTemplate.getTravelValidity() &&
-				bundle.getSalesAvailability() == fareTemplate.getSalesAvailability()
-				&&	(
-						fareTemplate.getPassengerConstraint() == null 
-						|| (bundle.getTotalPassengerConstraint().getMinTotalPassengerWeight() == fareTemplate.getPassengerConstraint().getMinTotalPassengerWeight()
-							&& bundle.getTotalPassengerConstraint().getMaxTotalPassengerWeight() == fareTemplate.getPassengerConstraint().getMaxTotalPassengerWeight()
+			if (   bundle.getCarrierConstraint() == fareTemplate.getCarrierConstraint() 
+				&& bundle.getCombinationConstraint() == fareTemplate.getCombinationConstraint()  
+				&& bundle.getFulfillmentConstraint() == fareTemplate.getFulfillmentConstraint()  
+				&& bundle.getPersonalDataConstraint() == fareTemplate.getPersonalDataConstraint()  
+				&& bundle.getTravelValidity() == fareTemplate.getTravelValidity()
+				&& (
+						bundle.getSalesAvailability() == fareTemplate.getSalesAvailability() 
+						||
+						(fareTemplate.getSalesAvailability() == null 
+						 && bundle.getSalesAvailability()!= null 
+						 && bundle.getSalesAvailability().getDataSource() != null 
+						 && bundle.getSalesAvailability().getDataSource().equals(DataSource.CONVERTED) )
+				)
+				&&	(    fareTemplate.getPassengerConstraint() == null 
+					  || (   bundle.getTotalPassengerConstraint().getMinTotalPassengerWeight() == fareTemplate.getPassengerConstraint().getMinTotalPassengerWeight()
+						  && bundle.getTotalPassengerConstraint().getMaxTotalPassengerWeight() == fareTemplate.getPassengerConstraint().getMaxTotalPassengerWeight()
 					 )		 
 				)) {	
 				return bundle;
@@ -295,12 +301,19 @@ public class ConstraintBundleFactory {
 			
 			if (fareTemplate.getFareConstraintBundle() != null) return null;
 			
-			if (bundle.getCarrierConstraint() == fareTemplate.getCarrierConstraint() &&
-			    bundle.getCombinationConstraint() == fareTemplate.getSeparateContractCombinationConstraint() &&
-				bundle.getFulfillmentConstraint() == fareTemplate.getFulfillmentConstraint() &&
-				bundle.getPersonalDataConstraint() == fareTemplate.getPersonalDataConstraint() &&
-				bundle.getTravelValidity() == fareTemplate.getTravelValidity() &&
-				bundle.getSalesAvailability() == fareTemplate.getSalesAvailability()
+			if (   bundle.getCarrierConstraint() == fareTemplate.getCarrierConstraint() 
+			    && bundle.getCombinationConstraint() == fareTemplate.getSeparateContractCombinationConstraint() 
+				&& bundle.getFulfillmentConstraint() == fareTemplate.getFulfillmentConstraint()
+				&& bundle.getPersonalDataConstraint() == fareTemplate.getPersonalDataConstraint() 
+				&& bundle.getTravelValidity() == fareTemplate.getTravelValidity()
+		    	&& (
+								bundle.getSalesAvailability() == fareTemplate.getSalesAvailability() 
+								||
+								(fareTemplate.getSalesAvailability() == null 
+								 && bundle.getSalesAvailability()!= null 
+								 && bundle.getSalesAvailability().getDataSource() != null 
+								 && bundle.getSalesAvailability().getDataSource().equals(DataSource.CONVERTED) )
+						)
 				&&	(
 						fareTemplate.getPassengerConstraint() == null 
 						|| (bundle.getTotalPassengerConstraint().getMinTotalPassengerWeight() == fareTemplate.getPassengerConstraint().getMinTotalPassengerWeight()

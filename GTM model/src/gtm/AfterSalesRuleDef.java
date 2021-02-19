@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "fee",
     "applicationTime",
     "applicationTimeStamp",
-    "carrierFee",
+    "isAllocatorFee",
     "individualContracts"
 })
 public class AfterSalesRuleDef {
@@ -46,12 +46,12 @@ public class AfterSalesRuleDef {
     @JsonPropertyDescription("absolute application time (UTC) in case of online services")
     private Date applicationTimeStamp;
     /**
-     * indicates that the fee belongs to the carrier
+     * indicates that the fee belongs to the allocator
      * 
      */
-    @JsonProperty("carrierFee")
-    @JsonPropertyDescription("indicates that the fee belongs to the carrier")
-    private Boolean carrierFee = true;
+    @JsonProperty("isAllocatorFee")
+    @JsonPropertyDescription("indicates that the fee belongs to the allocator")
+    private Boolean isAllocatorFee = false;
     /**
      * indicates that the after sales of this fare can be treated independently per person.
      * 
@@ -137,21 +137,21 @@ public class AfterSalesRuleDef {
     }
 
     /**
-     * indicates that the fee belongs to the carrier
+     * indicates that the fee belongs to the allocator
      * 
      */
-    @JsonProperty("carrierFee")
-    public Boolean getCarrierFee() {
-        return carrierFee;
+    @JsonProperty("isAllocatorFee")
+    public Boolean getIsAllocatorFee() {
+        return isAllocatorFee;
     }
 
     /**
-     * indicates that the fee belongs to the carrier
+     * indicates that the fee belongs to the allocator
      * 
      */
-    @JsonProperty("carrierFee")
-    public void setCarrierFee(Boolean carrierFee) {
-        this.carrierFee = carrierFee;
+    @JsonProperty("isAllocatorFee")
+    public void setIsAllocatorFee(Boolean isAllocatorFee) {
+        this.isAllocatorFee = isAllocatorFee;
     }
 
     /**
@@ -196,9 +196,9 @@ public class AfterSalesRuleDef {
         sb.append('=');
         sb.append(((this.applicationTimeStamp == null)?"<null>":this.applicationTimeStamp));
         sb.append(',');
-        sb.append("carrierFee");
+        sb.append("isAllocatorFee");
         sb.append('=');
-        sb.append(((this.carrierFee == null)?"<null>":this.carrierFee));
+        sb.append(((this.isAllocatorFee == null)?"<null>":this.isAllocatorFee));
         sb.append(',');
         sb.append("individualContracts");
         sb.append('=');
@@ -216,12 +216,12 @@ public class AfterSalesRuleDef {
     public int hashCode() {
         int result = 1;
         result = ((result* 31)+((this.transactionType == null)? 0 :this.transactionType.hashCode()));
+        result = ((result* 31)+((this.isAllocatorFee == null)? 0 :this.isAllocatorFee.hashCode()));
         result = ((result* 31)+((this.feeRef == null)? 0 :this.feeRef.hashCode()));
         result = ((result* 31)+((this.individualContracts == null)? 0 :this.individualContracts.hashCode()));
         result = ((result* 31)+((this.applicationTime == null)? 0 :this.applicationTime.hashCode()));
         result = ((result* 31)+((this.fee == null)? 0 :this.fee.hashCode()));
         result = ((result* 31)+((this.applicationTimeStamp == null)? 0 :this.applicationTimeStamp.hashCode()));
-        result = ((result* 31)+((this.carrierFee == null)? 0 :this.carrierFee.hashCode()));
         return result;
     }
 
@@ -234,7 +234,7 @@ public class AfterSalesRuleDef {
             return false;
         }
         AfterSalesRuleDef rhs = ((AfterSalesRuleDef) other);
-        return ((((((((this.transactionType == rhs.transactionType)||((this.transactionType!= null)&&this.transactionType.equals(rhs.transactionType)))&&((this.feeRef == rhs.feeRef)||((this.feeRef!= null)&&this.feeRef.equals(rhs.feeRef))))&&((this.individualContracts == rhs.individualContracts)||((this.individualContracts!= null)&&this.individualContracts.equals(rhs.individualContracts))))&&((this.applicationTime == rhs.applicationTime)||((this.applicationTime!= null)&&this.applicationTime.equals(rhs.applicationTime))))&&((this.fee == rhs.fee)||((this.fee!= null)&&this.fee.equals(rhs.fee))))&&((this.applicationTimeStamp == rhs.applicationTimeStamp)||((this.applicationTimeStamp!= null)&&this.applicationTimeStamp.equals(rhs.applicationTimeStamp))))&&((this.carrierFee == rhs.carrierFee)||((this.carrierFee!= null)&&this.carrierFee.equals(rhs.carrierFee))));
+        return ((((((((this.transactionType == rhs.transactionType)||((this.transactionType!= null)&&this.transactionType.equals(rhs.transactionType)))&&((this.isAllocatorFee == rhs.isAllocatorFee)||((this.isAllocatorFee!= null)&&this.isAllocatorFee.equals(rhs.isAllocatorFee))))&&((this.feeRef == rhs.feeRef)||((this.feeRef!= null)&&this.feeRef.equals(rhs.feeRef))))&&((this.individualContracts == rhs.individualContracts)||((this.individualContracts!= null)&&this.individualContracts.equals(rhs.individualContracts))))&&((this.applicationTime == rhs.applicationTime)||((this.applicationTime!= null)&&this.applicationTime.equals(rhs.applicationTime))))&&((this.fee == rhs.fee)||((this.fee!= null)&&this.fee.equals(rhs.fee))))&&((this.applicationTimeStamp == rhs.applicationTimeStamp)||((this.applicationTimeStamp!= null)&&this.applicationTimeStamp.equals(rhs.applicationTimeStamp))));
     }
 
 }

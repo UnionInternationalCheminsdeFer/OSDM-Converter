@@ -62,12 +62,12 @@ public class FareConstraintBundle {
     @JsonProperty("passengerCombinationRef")
     private String passengerCombinationRef;
     /**
-     * Basic UIC fare types used in 90918-10, 90918-4, and 90918-9.
+     * UIC fare types
      * (Required)
      * 
      */
     @JsonProperty("defaultFareType")
-    @JsonPropertyDescription("Basic UIC fare types used in 90918-10, 90918-4, and 90918-9.")
+    @JsonPropertyDescription("UIC fare types")
     private FareConstraintBundle.FareTypeDef defaultFareType;
     /**
      * CarrierConstraint
@@ -77,11 +77,11 @@ public class FareConstraintBundle {
     @JsonPropertyDescription("CarrierConstraint")
     private String defaultCarrierConstraintRef;
     /**
-     * general conditions applied to cover legal regulations within the area of validity. allocators must reflect these terms and conditions in the conditions of combined offers and indicate them to the customer where required. Which indications are mandatory to be shown to the customer will be defined in the SCICs CIV: terms and conditions according to COTIV regulation MD:  terms and conditions according to SMPS regulation EU-PRR: terms and conditions according to EU-PRR regulation
+     * regulatory condition
      * 
      */
     @JsonProperty("defaultRegulatoryConditions")
-    @JsonPropertyDescription("general conditions applied to cover legal regulations within the area of validity. allocators must reflect these terms and conditions in the conditions of combined offers and indicate them to the customer where required. Which indications are mandatory to be shown to the customer will be defined in the SCICs CIV: terms and conditions according to COTIV regulation MD:  terms and conditions according to SMPS regulation EU-PRR: terms and conditions according to EU-PRR regulation")
+    @JsonPropertyDescription("regulatory condition")
     private List<RegulatoryConditionsDef> defaultRegulatoryConditions = new ArrayList<RegulatoryConditionsDef>();
 
     /**
@@ -195,7 +195,7 @@ public class FareConstraintBundle {
     }
 
     /**
-     * Basic UIC fare types used in 90918-10, 90918-4, and 90918-9.
+     * UIC fare types
      * (Required)
      * 
      */
@@ -205,7 +205,7 @@ public class FareConstraintBundle {
     }
 
     /**
-     * Basic UIC fare types used in 90918-10, 90918-4, and 90918-9.
+     * UIC fare types
      * (Required)
      * 
      */
@@ -233,7 +233,7 @@ public class FareConstraintBundle {
     }
 
     /**
-     * general conditions applied to cover legal regulations within the area of validity. allocators must reflect these terms and conditions in the conditions of combined offers and indicate them to the customer where required. Which indications are mandatory to be shown to the customer will be defined in the SCICs CIV: terms and conditions according to COTIV regulation MD:  terms and conditions according to SMPS regulation EU-PRR: terms and conditions according to EU-PRR regulation
+     * regulatory condition
      * 
      */
     @JsonProperty("defaultRegulatoryConditions")
@@ -242,7 +242,7 @@ public class FareConstraintBundle {
     }
 
     /**
-     * general conditions applied to cover legal regulations within the area of validity. allocators must reflect these terms and conditions in the conditions of combined offers and indicate them to the customer where required. Which indications are mandatory to be shown to the customer will be defined in the SCICs CIV: terms and conditions according to COTIV regulation MD:  terms and conditions according to SMPS regulation EU-PRR: terms and conditions according to EU-PRR regulation
+     * regulatory condition
      * 
      */
     @JsonProperty("defaultRegulatoryConditions")

@@ -39,27 +39,33 @@ public class FareDef {
 
     /**
      * unique id of the fare item to be included in accountings
+     * (Required)
      * 
      */
     @JsonProperty("id")
     @JsonPropertyDescription("unique id of the fare item to be included in accountings")
     private String id;
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("bundleRef")
     private String bundleRef;
     /**
-     * Basic UIC fare types used in 90918-10, 90918-4, and 90918-9.
+     * UIC fare types
      * (Required)
      * 
      */
     @JsonProperty("fareType")
-    @JsonPropertyDescription("Basic UIC fare types used in 90918-10, 90918-4, and 90918-9.")
+    @JsonPropertyDescription("UIC fare types")
     private gtm.FareConstraintBundle.FareTypeDef fareType;
     /**
-     * reference to the offer name
+     * reference to the fare name
      * 
      */
     @JsonProperty("nameRef")
-    @JsonPropertyDescription("reference to the offer name")
+    @JsonPropertyDescription("reference to the fare name")
     private String nameRef;
     /**
      * reference to the price 
@@ -80,11 +86,11 @@ public class FareDef {
     @JsonProperty("carrierConstraintRef")
     private String carrierConstraintRef;
     /**
-     * general conditions applied to cover legal regulations within the area of validity. allocators must reflect these terms and conditions in the conditions of combined offers and indicate them to the customer where required. Which indications are mandatory to be shown to the customer will be defined in the SCICs CIV: terms and conditions according to COTIV regulation MD:  terms and conditions according to SMPS regulation EU-PRR: terms and conditions according to EU-PRR regulation
+     * regulatory condition
      * 
      */
     @JsonProperty("regulatoryConditions")
-    @JsonPropertyDescription("general conditions applied to cover legal regulations within the area of validity. allocators must reflect these terms and conditions in the conditions of combined offers and indicate them to the customer where required. Which indications are mandatory to be shown to the customer will be defined in the SCICs CIV: terms and conditions according to COTIV regulation MD:  terms and conditions according to SMPS regulation EU-PRR: terms and conditions according to EU-PRR regulation")
+    @JsonPropertyDescription("regulatory condition")
     private List<RegulatoryConditionsDef> regulatoryConditions = new ArrayList<RegulatoryConditionsDef>();
     @JsonProperty("serviceClassRef")
     private String serviceClassRef;
@@ -129,6 +135,7 @@ public class FareDef {
 
     /**
      * unique id of the fare item to be included in accountings
+     * (Required)
      * 
      */
     @JsonProperty("id")
@@ -138,6 +145,7 @@ public class FareDef {
 
     /**
      * unique id of the fare item to be included in accountings
+     * (Required)
      * 
      */
     @JsonProperty("id")
@@ -145,18 +153,28 @@ public class FareDef {
         this.id = id;
     }
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("bundleRef")
     public String getBundleRef() {
         return bundleRef;
     }
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("bundleRef")
     public void setBundleRef(String bundleRef) {
         this.bundleRef = bundleRef;
     }
 
     /**
-     * Basic UIC fare types used in 90918-10, 90918-4, and 90918-9.
+     * UIC fare types
      * (Required)
      * 
      */
@@ -166,7 +184,7 @@ public class FareDef {
     }
 
     /**
-     * Basic UIC fare types used in 90918-10, 90918-4, and 90918-9.
+     * UIC fare types
      * (Required)
      * 
      */
@@ -176,7 +194,7 @@ public class FareDef {
     }
 
     /**
-     * reference to the offer name
+     * reference to the fare name
      * 
      */
     @JsonProperty("nameRef")
@@ -185,7 +203,7 @@ public class FareDef {
     }
 
     /**
-     * reference to the offer name
+     * reference to the fare name
      * 
      */
     @JsonProperty("nameRef")
@@ -250,7 +268,7 @@ public class FareDef {
     }
 
     /**
-     * general conditions applied to cover legal regulations within the area of validity. allocators must reflect these terms and conditions in the conditions of combined offers and indicate them to the customer where required. Which indications are mandatory to be shown to the customer will be defined in the SCICs CIV: terms and conditions according to COTIV regulation MD:  terms and conditions according to SMPS regulation EU-PRR: terms and conditions according to EU-PRR regulation
+     * regulatory condition
      * 
      */
     @JsonProperty("regulatoryConditions")
@@ -259,7 +277,7 @@ public class FareDef {
     }
 
     /**
-     * general conditions applied to cover legal regulations within the area of validity. allocators must reflect these terms and conditions in the conditions of combined offers and indicate them to the customer where required. Which indications are mandatory to be shown to the customer will be defined in the SCICs CIV: terms and conditions according to COTIV regulation MD:  terms and conditions according to SMPS regulation EU-PRR: terms and conditions according to EU-PRR regulation
+     * regulatory condition
      * 
      */
     @JsonProperty("regulatoryConditions")

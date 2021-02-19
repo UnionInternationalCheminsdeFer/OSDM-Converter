@@ -26,8 +26,20 @@ import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MigrationV2.
+ */
 public class MigrationV2 {
 	
+	/**
+	 * Migrate V 2.
+	 * 
+	 * Migrate from data model version 1 to the data mode of OSDM 1.1 including fare constraint bundles
+	 *
+	 * @param domain the domain
+	 * @param editor the editor
+	 */
 	public static void migrateV2(EditingDomain domain,GtmEditor editor) {
 			
 		Resource resource = domain.getResourceSet().getResources().get(0);
@@ -41,6 +53,12 @@ public class MigrationV2 {
 	}
 	
 	
+	/**
+	 * Run migration.
+	 *
+	 * @param domain the domain
+	 * @param editor the editor
+	 */
 	private static void runMigration(EditingDomain domain, GtmEditor editor) {
 		
 		Resource resource = domain.getResourceSet().getResources().get(0);
@@ -115,6 +133,12 @@ public class MigrationV2 {
 	}
 	
 	
+	/**
+	 * Conversion needed.
+	 *
+	 * @param tool the tool
+	 * @return true, if successful
+	 */
 	private static boolean conversionNeeded(GTMTool tool) {
 		
 		if (  //we have no bundles
@@ -142,6 +166,13 @@ public class MigrationV2 {
 	}
 
 
+	/**
+	 * Gets the migration V 2 command.
+	 *
+	 * @param tool the tool
+	 * @param domain the domain
+	 * @return the migration V 2 command
+	 */
 	public static CompoundCommand getMigrationV2Command (GTMTool tool, EditingDomain domain) {
 		
 		CompoundCommand command = new CompoundCommand();
@@ -215,6 +246,14 @@ public class MigrationV2 {
 	}	
 	
 	
+	/**
+	 * Gets the fare update command.
+	 *
+	 * @param fare the fare
+	 * @param fareConstraintBundles the fare constraint bundles
+	 * @param domain the domain
+	 * @return the fare update command
+	 */
 	private static Command getFareUpdateCommand(FareElement fare, ArrayList<FareConstraintBundle> fareConstraintBundles,
 			EditingDomain domain) {
 		
@@ -273,6 +312,14 @@ public class MigrationV2 {
 	}
 
 
+	/**
+	 * Gets the update command.
+	 *
+	 * @param template the template
+	 * @param fareConstraintBundles the fare constraint bundles
+	 * @param domain the domain
+	 * @return the update command
+	 */
 	public static Command getUpdateCommand(FareTemplate template ,  ArrayList<FareConstraintBundle> fareConstraintBundles, EditingDomain domain) {
 
 		 FareConstraintBundle bundle = ConstraintBundleFactory.findFittingBundle(template, fareConstraintBundles);

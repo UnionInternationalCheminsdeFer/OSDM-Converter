@@ -51,12 +51,11 @@ public class FulfillmentConstraintDef {
     @JsonPropertyDescription("To guarantee security in system (SiS) of the fulfillment one of the listed interfaces is required.")
     private List<RequiredSi> requiredSiS = new ArrayList<RequiredSi>();
     /**
-     * a separate fulfillment per traveler is permitted. Individual fulfillment might not be permitted due to collective pricing of to reduce costs e.g. for ticket checks on board.
-     * (Required)
+     * a separate fulfillment per traveler is permitted
      * 
      */
     @JsonProperty("individualTicketingPermitted")
-    @JsonPropertyDescription("a separate fulfillment per traveler is permitted. Individual fulfillment might not be permitted due to collective pricing of to reduce costs e.g. for ticket checks on board.")
+    @JsonPropertyDescription("a separate fulfillment per traveler is permitted")
     private Boolean individualTicketingPermitted = false;
     /**
      * a separate fulfillment for the regional constraint is required
@@ -151,8 +150,7 @@ public class FulfillmentConstraintDef {
     }
 
     /**
-     * a separate fulfillment per traveler is permitted. Individual fulfillment might not be permitted due to collective pricing of to reduce costs e.g. for ticket checks on board.
-     * (Required)
+     * a separate fulfillment per traveler is permitted
      * 
      */
     @JsonProperty("individualTicketingPermitted")
@@ -161,8 +159,7 @@ public class FulfillmentConstraintDef {
     }
 
     /**
-     * a separate fulfillment per traveler is permitted. Individual fulfillment might not be permitted due to collective pricing of to reduce costs e.g. for ticket checks on board.
-     * (Required)
+     * a separate fulfillment per traveler is permitted
      * 
      */
     @JsonProperty("individualTicketingPermitted")

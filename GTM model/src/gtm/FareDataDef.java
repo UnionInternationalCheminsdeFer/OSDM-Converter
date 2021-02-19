@@ -25,9 +25,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "fares",
     "afterSalesConditions",
     "supportedOnlineServices",
-    "combinationConstraints",
     "salesAvailabilityConstraint",
     "travelValidityConstraints",
+    "combinationConstraints",
     "fullfillmentConstraints",
     "reductionConstraints",
     "reductionCards",
@@ -81,6 +81,11 @@ public class FareDataDef {
     private List<CarrierConstraintDef> carrierConstraints = new ArrayList<CarrierConstraintDef>();
     @JsonProperty("passengerConstraints")
     private List<PassengerConstraintDef> passengerConstraints = new ArrayList<PassengerConstraintDef>();
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("fareConstraintBundles")
     private List<FareConstraintBundle> fareConstraintBundles = new ArrayList<FareConstraintBundle>();
     @JsonProperty("passengerCombinationConstraints")
@@ -107,17 +112,17 @@ public class FareDataDef {
      * (Required)
      * 
      */
-    @JsonProperty("combinationConstraints")
-    private List<FareCombinationConstraintDef> combinationConstraints = new ArrayList<FareCombinationConstraintDef>();
+    @JsonProperty("salesAvailabilityConstraint")
+    private List<SalesAvailabilityConstraintDef> salesAvailabilityConstraint = new ArrayList<SalesAvailabilityConstraintDef>();
+    @JsonProperty("travelValidityConstraints")
+    private List<TravelValidityConstraintDef> travelValidityConstraints = new ArrayList<TravelValidityConstraintDef>();
     /**
      * 
      * (Required)
      * 
      */
-    @JsonProperty("salesAvailabilityConstraint")
-    private List<SalesAvailabilityConstraintDef> salesAvailabilityConstraint = new ArrayList<SalesAvailabilityConstraintDef>();
-    @JsonProperty("travelValidityConstraints")
-    private List<TravelValidityConstraintDef> travelValidityConstraints = new ArrayList<TravelValidityConstraintDef>();
+    @JsonProperty("combinationConstraints")
+    private List<FareCombinationConstraintDef> combinationConstraints = new ArrayList<FareCombinationConstraintDef>();
     @JsonProperty("fullfillmentConstraints")
     private List<FulfillmentConstraintDef> fullfillmentConstraints = new ArrayList<FulfillmentConstraintDef>();
     @JsonProperty("reductionConstraints")
@@ -282,11 +287,21 @@ public class FareDataDef {
         this.passengerConstraints = passengerConstraints;
     }
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("fareConstraintBundles")
     public List<FareConstraintBundle> getFareConstraintBundles() {
         return fareConstraintBundles;
     }
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("fareConstraintBundles")
     public void setFareConstraintBundles(List<FareConstraintBundle> fareConstraintBundles) {
         this.fareConstraintBundles = fareConstraintBundles;
@@ -357,26 +372,6 @@ public class FareDataDef {
      * (Required)
      * 
      */
-    @JsonProperty("combinationConstraints")
-    public List<FareCombinationConstraintDef> getCombinationConstraints() {
-        return combinationConstraints;
-    }
-
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    @JsonProperty("combinationConstraints")
-    public void setCombinationConstraints(List<FareCombinationConstraintDef> combinationConstraints) {
-        this.combinationConstraints = combinationConstraints;
-    }
-
-    /**
-     * 
-     * (Required)
-     * 
-     */
     @JsonProperty("salesAvailabilityConstraint")
     public List<SalesAvailabilityConstraintDef> getSalesAvailabilityConstraint() {
         return salesAvailabilityConstraint;
@@ -400,6 +395,26 @@ public class FareDataDef {
     @JsonProperty("travelValidityConstraints")
     public void setTravelValidityConstraints(List<TravelValidityConstraintDef> travelValidityConstraints) {
         this.travelValidityConstraints = travelValidityConstraints;
+    }
+
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @JsonProperty("combinationConstraints")
+    public List<FareCombinationConstraintDef> getCombinationConstraints() {
+        return combinationConstraints;
+    }
+
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @JsonProperty("combinationConstraints")
+    public void setCombinationConstraints(List<FareCombinationConstraintDef> combinationConstraints) {
+        this.combinationConstraints = combinationConstraints;
     }
 
     @JsonProperty("fullfillmentConstraints")
@@ -574,10 +589,6 @@ public class FareDataDef {
         sb.append('=');
         sb.append(((this.supportedOnlineServices == null)?"<null>":this.supportedOnlineServices));
         sb.append(',');
-        sb.append("combinationConstraints");
-        sb.append('=');
-        sb.append(((this.combinationConstraints == null)?"<null>":this.combinationConstraints));
-        sb.append(',');
         sb.append("salesAvailabilityConstraint");
         sb.append('=');
         sb.append(((this.salesAvailabilityConstraint == null)?"<null>":this.salesAvailabilityConstraint));
@@ -585,6 +596,10 @@ public class FareDataDef {
         sb.append("travelValidityConstraints");
         sb.append('=');
         sb.append(((this.travelValidityConstraints == null)?"<null>":this.travelValidityConstraints));
+        sb.append(',');
+        sb.append("combinationConstraints");
+        sb.append('=');
+        sb.append(((this.combinationConstraints == null)?"<null>":this.combinationConstraints));
         sb.append(',');
         sb.append("fullfillmentConstraints");
         sb.append('=');

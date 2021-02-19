@@ -44,6 +44,7 @@ import Gtm.FulfillmentConstraint;
 import Gtm.FulfillmentConstraints;
 import Gtm.FulfillmentType;
 import Gtm.GeneralTariffModel;
+import Gtm.GenericReductionCards;
 import Gtm.IncludedFreePassengerLimit;
 import Gtm.Line;
 import Gtm.NutsCode;
@@ -764,7 +765,7 @@ public class GtmJsonExporter {
 		 if (sl.getReservationParameter()!= null) {
 			 slJ.setReservationParameterId(sl.getReservationParameter().getId());
 		 }
-		 slJ.setIncludesClassName(sl.isIncludesClassName());
+		 slJ.setDoesNotIncludeClassName(!sl.isIncludesClassName());
 		
 		return slJ;
 	}
@@ -1350,7 +1351,7 @@ public class GtmJsonExporter {
 		ArrayList<ReductionCardDef> listJson = new ArrayList<ReductionCardDef>();
 		for (ReductionCard element: list.getReductionCards()) {
 			//don't export standard UIC cards
-			if (!element.isUicCode()) {
+			if (!element.isUicCode() && GenericReductionCards.getByName(element.getId()) == null ) {
 				//export only if it is used
 				if (   GtmUtils.isReferenced(element,gtm.getFareStructure().getReductionConstraints())
 					|| GtmUtils.isReferenced(element,gtm.getFareStructure().getReductionCards())) {
@@ -2203,7 +2204,7 @@ public class GtmJsonExporter {
 				
 				AfterSalesRuleDef ruleJ = new AfterSalesRuleDef();
 				
-				ruleJ.setCarrierFee(cond.isCarrierFee());
+				ruleJ.setIsAllocatorFee(!cond.isCarrierFee());
 				ruleJ.setIndividualContracts(cond.isIndividualContracts());
 				ruleJ.setTransactionType(cond.getTransactionType().getName());
 				

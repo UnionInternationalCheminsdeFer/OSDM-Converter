@@ -2003,7 +2003,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(calendar, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(calendar, context) }, //$NON-NLS-1$
 						 new Object[] { calendar },
 						 context));						
@@ -2850,7 +2850,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(connectionPoint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(connectionPoint, context) }, //$NON-NLS-1$
 						 new Object[] { connectionPoint },
 						 context));				
@@ -3147,7 +3147,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(reductionCard, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionCard, context) }, //$NON-NLS-1$
 						 new Object[] { reductionCard },
 						 context));
@@ -3273,7 +3273,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(regionalConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(regionalConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { regionalConstraint },
 						 context));				
@@ -3924,7 +3924,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(travelValidityConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(travelValidityConstraint, context) }, //$NON-NLS-1$
 						 new Object[] {  travelValidityConstraint },
 						 context));					
@@ -4688,7 +4688,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(totalPassengerCombinationConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(totalPassengerCombinationConstraint, context) }, //$NON-NLS-1$
 						 new Object[] {  totalPassengerCombinationConstraint },
 						 context));	
@@ -4868,7 +4868,7 @@ public class GtmValidator extends EObjectValidator {
 				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(fareConstraintBundle, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(fareConstraintBundle, context) }, //$NON-NLS-1$
 						 new Object[] {  fareConstraintBundle },
 						 context));					
@@ -5025,7 +5025,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_217,
+						 NationalLanguageSupport.GtmValidator_217 + " in " +  getObjectLabel(fareStationSetDefinition, context), 
 						 new Object[] { "NAME_FORMAT", getObjectLabel(fareStationSetDefinition, context) }, //$NON-NLS-1$
 						 new Object[] { fareStationSetDefinition },
 						 context));
@@ -5049,7 +5049,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_219,
+						 NationalLanguageSupport.GtmValidator_219 + " in " +  getObjectLabel(fareStationSetDefinition, context), 
 						 new Object[] { "NAME_UTF8_FORMAT", getObjectLabel(fareStationSetDefinition, context) }, //$NON-NLS-1$
 						 new Object[] { fareStationSetDefinition },
 						 context));
@@ -5094,7 +5094,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_221,
+						 NationalLanguageSupport.GtmValidator_221 + " in " +  getObjectLabel(legacyAccountingIdentifier, context), 
 						 new Object[] { "SERIES_ID_MUST", getObjectLabel(legacyAccountingIdentifier, context) }, //$NON-NLS-1$
 						 new Object[] { legacyAccountingIdentifier },
 						 context));
@@ -5120,7 +5120,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_223,
+						 NationalLanguageSupport.GtmValidator_223  + " in " +  getObjectLabel(legacyAccountingIdentifier, context), 
 						 new Object[] { "SERIES_ID_MUST", getObjectLabel(legacyAccountingIdentifier, context) }, //$NON-NLS-1$
 						 new Object[] { legacyAccountingIdentifier },
 						 context));
@@ -5174,7 +5174,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_225,
+						 NationalLanguageSupport.GtmValidator_225  + " in " +  getObjectLabel(salesAvailabilityConstraint, context), 
 						 new Object[] { "AT_LEAST_ONE", getObjectLabel(salesAvailabilityConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { salesAvailabilityConstraint },
 						 context));
@@ -5200,7 +5200,7 @@ public class GtmValidator extends EObjectValidator {
 				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(salesAvailabilityConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(salesAvailabilityConstraint, context) }, //$NON-NLS-1$
 						 new Object[] {  salesAvailabilityConstraint },
 						 context));					
@@ -5245,7 +5245,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_227,
+						 NationalLanguageSupport.GtmValidator_227  + " in " +  getObjectLabel(salesRestriction, context), 
 						 new Object[] { "START_END_DATE_ORDER", getObjectLabel(salesRestriction, context) }, //$NON-NLS-1$
 						 new Object[] { salesRestriction },
 						 context));
@@ -5262,7 +5262,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_229,
+						 NationalLanguageSupport.GtmValidator_229  + " in " +  getObjectLabel(salesRestriction, context), 
 						 new Object[] { "START_END_DATE_ORDER", getObjectLabel(salesRestriction, context) }, //$NON-NLS-1$
 						 new Object[] { salesRestriction },
 						 context));
@@ -5349,7 +5349,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_231,
+						 NationalLanguageSupport.GtmValidator_231  + " in " +  getObjectLabel(combinationConstraint, context), 
 						 new Object[] { "AT_LEAST_ONE", getObjectLabel(combinationConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { combinationConstraint },
 						 context));
@@ -5375,7 +5375,7 @@ public class GtmValidator extends EObjectValidator {
 				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(combinationConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(combinationConstraint, context) }, //$NON-NLS-1$
 						 new Object[] {  combinationConstraint },
 						 context));					
@@ -5422,7 +5422,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_233,
+						 NationalLanguageSupport.GtmValidator_233  + " in " +  getObjectLabel(validityRange, context), 
 						 new Object[] { "WARNING_TOO_SHORT", getObjectLabel(validityRange, context) }, //$NON-NLS-1$
 						 new Object[] { validityRange },
 						 context));
@@ -5439,7 +5439,7 @@ public class GtmValidator extends EObjectValidator {
 					(Diagnostic.ERROR,
 					 DIAGNOSTIC_SOURCE,
 					 0,
-					 NationalLanguageSupport.GtmValidator_235,
+					 NationalLanguageSupport.GtmValidator_235  + " in " +  getObjectLabel(validityRange, context), 
 					 new Object[] { "WARNING_TOO_SHORT", getObjectLabel(validityRange, context) }, //$NON-NLS-1$
 					 new Object[] { validityRange },
 					 context));
@@ -5465,7 +5465,7 @@ public class GtmValidator extends EObjectValidator {
 							(Diagnostic.ERROR,
 							 DIAGNOSTIC_SOURCE,
 							 0,
-							 NationalLanguageSupport.GtmValidator_237,
+							 NationalLanguageSupport.GtmValidator_237  + " in " +  getObjectLabel(validityRange, context), 
 							 new Object[] { "WARNING_TOO_SHORT", getObjectLabel(validityRange, context) }, //$NON-NLS-1$
 							 new Object[] { validityRange },
 							 context));
@@ -5484,7 +5484,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_239,
+						 NationalLanguageSupport.GtmValidator_239  + " in " +  getObjectLabel(validityRange, context), 
 						 new Object[] { "WARNING_TOO_SHORT", getObjectLabel(validityRange, context) }, //$NON-NLS-1$
 						 new Object[] { validityRange },
 						 context));
@@ -5529,7 +5529,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_241,
+						 NationalLanguageSupport.GtmValidator_241  + " in " +  getObjectLabel(timeRange, context), 
 						 new Object[] { "FROM_TO_ORDER", getObjectLabel(timeRange, context) }, //$NON-NLS-1$
 						 new Object[] { timeRange },
 						 context));
@@ -5592,7 +5592,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_243,
+						 NationalLanguageSupport.GtmValidator_243  + " in " +  getObjectLabel(returnValidityConstraint, context), 
 						 new Object[] { "EARLIEST_LAST_RETURN_ORDER", getObjectLabel(returnValidityConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { returnValidityConstraint },
 						 context));
@@ -5637,7 +5637,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_245,
+						 NationalLanguageSupport.GtmValidator_245 + " in " +  getObjectLabel(fareCombinationModel, context), 
 						 new Object[] { "MODEL_MUST", getObjectLabel(fareCombinationModel, context) }, //$NON-NLS-1$
 						 new Object[] { fareCombinationModel },
 						 context));
@@ -5662,7 +5662,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_247,
+						 NationalLanguageSupport.GtmValidator_247 + " in " +  getObjectLabel(fareCombinationModel, context),
 						 new Object[] { "REFERENCE_CLUSTER_MUST", getObjectLabel(fareCombinationModel, context) }, //$NON-NLS-1$
 						 new Object[] { fareCombinationModel },
 						 context));
@@ -5696,7 +5696,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_249,
+						 NationalLanguageSupport.GtmValidator_249 + " in " +  getObjectLabel(requiredBarcodes, context),
 						 new Object[] { "AT_LEAST_ONE", getObjectLabel(requiredBarcodes, context) }, //$NON-NLS-1$
 						 new Object[] { requiredBarcodes },
 						 context));
@@ -5750,7 +5750,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_253,
+						 NationalLanguageSupport.GtmValidator_253 + " in " +  getObjectLabel(regionalValidity, context),
 						 new Object[] { "AT_LEAST_ONE_OF_VIA_ZONE_LINE_POLYGON", getObjectLabel(regionalValidity, context) }, //$NON-NLS-1$
 						 new Object[] { regionalValidity },
 						 context));
@@ -5794,7 +5794,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_255,
+						 NationalLanguageSupport.GtmValidator_255 + " in " +  getObjectLabel(viaStation, context),
 						 new Object[] { "AT_LEAST_ONE_OBJECT_SET", getObjectLabel(viaStation, context) }, //$NON-NLS-1$
 						 new Object[] { viaStation },
 						 context));
@@ -5819,7 +5819,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_257,
+						 NationalLanguageSupport.GtmValidator_257 + " in " +  getObjectLabel(viaStation, context),
 						 new Object[] { "IF_ALTERNATIVE_ROUTES_AT_LEAST_TWO", getObjectLabel(viaStation, context) }, //$NON-NLS-1$
 						 new Object[] { viaStation },
 						 context));
@@ -5863,7 +5863,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_259,
+						 NationalLanguageSupport.GtmValidator_259 + " in " +  getObjectLabel(alternativeRoute, context),
 						 new Object[] { "AT_LEAST_ONE_VIA", getObjectLabel(alternativeRoute, context) }, //$NON-NLS-1$
 						 new Object[] { alternativeRoute },
 						 context));
@@ -5907,7 +5907,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_261,
+						 NationalLanguageSupport.GtmValidator_261 + " in " +  getObjectLabel(route, context),
 						 new Object[] { "AT_LEAST_ONE_VIA", getObjectLabel(route, context) }, //$NON-NLS-1$
 						 new Object[] { route },
 						 context));
@@ -5952,7 +5952,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_263,
+						 NationalLanguageSupport.GtmValidator_263 + " in " +  getObjectLabel(zone, context),
 						 new Object[] { "CARRIER_MUST", getObjectLabel(zone, context) }, //$NON-NLS-1$
 						 new Object[] { zone },
 						 context));
@@ -5977,7 +5977,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_265,
+						 NationalLanguageSupport.GtmValidator_265 + " in " +  getObjectLabel(zone, context),
 						 new Object[] { "ONE_OF_ZONE_ID_NUTS_CITY", getObjectLabel(zone, context) }, //$NON-NLS-1$
 						 new Object[] { zone },
 						 context));
@@ -6030,7 +6030,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_267,
+						 NationalLanguageSupport.GtmValidator_267 + " in " +  getObjectLabel(line, context),
 						 new Object[] { "CARRIER_MUST", getObjectLabel(line, context) }, //$NON-NLS-1$
 						 new Object[] { line },
 						 context));
@@ -6074,7 +6074,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_269,
+						 NationalLanguageSupport.GtmValidator_269 + " in " +  getObjectLabel(polygone, context),
 						 new Object[] { "AT_LEAST_THREE_EDGES", getObjectLabel(polygone, context) }, //$NON-NLS-1$
 						 new Object[] { polygone },
 						 context));
@@ -6127,7 +6127,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_271,
+						 NationalLanguageSupport.GtmValidator_271 + " in " +  getObjectLabel(edge, context),
 						 new Object[] { "COORDINATE_LIMITS", getObjectLabel(edge, context) }, //$NON-NLS-1$
 						 new Object[] { edge },
 						 context));
@@ -6182,7 +6182,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_273,
+						 NationalLanguageSupport.GtmValidator_273 + " in " +  getObjectLabel(zoneDefinition, context),
 						 new Object[] { "CARRIER_MUST_BE_SET", getObjectLabel(zoneDefinition, context) }, //$NON-NLS-1$
 						 new Object[] { zoneDefinition },
 						 context));
@@ -6207,7 +6207,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_275,
+						 NationalLanguageSupport.GtmValidator_275 + " in " +  getObjectLabel(zoneDefinition, context),
 						 new Object[] { "AT_LEAST_ONE_OF_SET_NUTS_POLYGON", getObjectLabel(zoneDefinition, context) }, //$NON-NLS-1$
 						 new Object[] { zoneDefinition },
 						 context));
@@ -6232,7 +6232,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_277,
+						 NationalLanguageSupport.GtmValidator_277 + " in " +  getObjectLabel(zoneDefinition, context),
 						 new Object[] { "IF_STATION_SET_AT_LEAST_TWO_STATIONS", getObjectLabel(zoneDefinition, context) }, //$NON-NLS-1$
 						 new Object[] { zoneDefinition },
 						 context));
@@ -6276,7 +6276,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_279,
+						 NationalLanguageSupport.GtmValidator_279 + " in " +  getObjectLabel(passengerConstraint, context),
 						 new Object[] { "TRAVELLER_TYPE_MUST", getObjectLabel(passengerConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { passengerConstraint },
 						 context));
@@ -6321,7 +6321,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_281,
+						 NationalLanguageSupport.GtmValidator_281 + " in " +  getObjectLabel(includedFreePassengerLimit, context),
 						 new Object[] { NationalLanguageSupport.GtmValidator_282, getObjectLabel(includedFreePassengerLimit, context) },
 						 new Object[] { includedFreePassengerLimit },
 						 context));
@@ -6346,7 +6346,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_283,
+						 NationalLanguageSupport.GtmValidator_283 + " in " +  getObjectLabel(includedFreePassengerLimit, context),
 						 new Object[] { "TRAVELLER_TYPE_MUST", getObjectLabel(includedFreePassengerLimit, context) }, //$NON-NLS-1$
 						 new Object[] { includedFreePassengerLimit },
 						 context));
@@ -6392,7 +6392,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_285,
+						 NationalLanguageSupport.GtmValidator_285 + " in " +  getObjectLabel(passengerCombinationConstraint, context),
 						 new Object[] { "NUMBER_AT_LEAST_ONE", getObjectLabel(passengerCombinationConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { passengerCombinationConstraint },
 						 context));
@@ -6417,7 +6417,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_287,
+						 NationalLanguageSupport.GtmValidator_287 + " in " +  getObjectLabel(passengerCombinationConstraint, context),
 						 new Object[] { "TRAVELLER_TYPE_MUST", getObjectLabel(passengerCombinationConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { passengerCombinationConstraint },
 						 context));
@@ -6443,7 +6443,7 @@ public class GtmValidator extends EObjectValidator {
 				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(passengerCombinationConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(passengerCombinationConstraint, context) }, //$NON-NLS-1$
 						 new Object[] {  passengerCombinationConstraint },
 						 context));	
@@ -6489,7 +6489,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_289,
+						 NationalLanguageSupport.GtmValidator_289 + " in " +  getObjectLabel(relativeTime, context),
 						 new Object[] { "WARNING_TOO_LONG", getObjectLabel(relativeTime, context) }, //$NON-NLS-1$
 						 new Object[] { relativeTime },
 						 context));
@@ -6504,7 +6504,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_291,
+						 NationalLanguageSupport.GtmValidator_291 + " in " +  getObjectLabel(relativeTime, context),
 						 new Object[] { "WARNING_TOO_LONG", getObjectLabel(relativeTime, context) }, //$NON-NLS-1$
 						 new Object[] { relativeTime },
 						 context));
@@ -6522,7 +6522,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_293,
+						 NationalLanguageSupport.GtmValidator_293 + " in " +  getObjectLabel(relativeTime, context),
 						 new Object[] { "WARNING_TOO_LONG", getObjectLabel(relativeTime, context) }, //$NON-NLS-1$
 						 new Object[] { relativeTime },
 						 context));
@@ -6549,7 +6549,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_295,
+						 NationalLanguageSupport.GtmValidator_295 + " in " +  getObjectLabel(relativeTime, context),
 						 new Object[] { "WARNING_TOO_LONG", getObjectLabel(relativeTime, context) }, //$NON-NLS-1$
 						 new Object[] { relativeTime },
 						 context));
@@ -6594,7 +6594,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_297,
+						 NationalLanguageSupport.GtmValidator_297 + " in " +  getObjectLabel(afterSalesCondition, context),
 						 new Object[] { "FEE_MUST", getObjectLabel(afterSalesCondition, context) }, //$NON-NLS-1$
 						 new Object[] { afterSalesCondition },
 						 context));
@@ -6658,7 +6658,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_299,
+						 NationalLanguageSupport.GtmValidator_299 + " in " +  getObjectLabel(afterSalesRule, context),
 						 new Object[] { "AT_LEAST_ONE", getObjectLabel(afterSalesRule, context) }, //$NON-NLS-1$
 						 new Object[] { afterSalesRule },
 						 context));
@@ -6703,7 +6703,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_301,
+						 NationalLanguageSupport.GtmValidator_301 + " in " +  getObjectLabel(personalDataConstraint, context),
 						 new Object[] { "AT_LEAST_ONE_REQUIRED_ITEM", getObjectLabel(personalDataConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { personalDataConstraint },
 						 context));
@@ -6729,7 +6729,7 @@ public class GtmValidator extends EObjectValidator {
 				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(personalDataConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(personalDataConstraint, context) }, //$NON-NLS-1$
 						 new Object[] {  personalDataConstraint },
 						 context));					
@@ -6775,7 +6775,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_303,
+						 NationalLanguageSupport.GtmValidator_303 + " in " +  getObjectLabel(requiredPersonalData, context),
 						 new Object[] { "AT_LEAST_ONE_ITEM", getObjectLabel(requiredPersonalData, context) }, //$NON-NLS-1$
 						 new Object[] { requiredPersonalData },
 						 context));
@@ -6800,7 +6800,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_305,
+						 NationalLanguageSupport.GtmValidator_305 + " in " +  getObjectLabel(requiredPersonalData, context),
 						 new Object[] { "ADD_LEAST_ONE_TRANSFER", getObjectLabel(requiredPersonalData, context) }, //$NON-NLS-1$
 						 new Object[] { requiredPersonalData },
 						 context));
@@ -6843,7 +6843,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_307,
+						 NationalLanguageSupport.GtmValidator_307 + " in " +  getObjectLabel(crossBorderCondition, context),
 						 new Object[] { "FROM_TO_COUNTRY_MUST", getObjectLabel(crossBorderCondition, context) }, //$NON-NLS-1$
 						 new Object[] { crossBorderCondition },
 						 context));
@@ -6858,7 +6858,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_309,
+						 NationalLanguageSupport.GtmValidator_309 + " in " +  getObjectLabel(crossBorderCondition, context),
 						 new Object[] { "FROM_TO_COUNTRY_MUST", getObjectLabel(crossBorderCondition, context) }, //$NON-NLS-1$
 						 new Object[] { crossBorderCondition },
 						 context));
@@ -6904,7 +6904,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_311,
+						 NationalLanguageSupport.GtmValidator_311 + " in " +  getObjectLabel(allowedPersonalDataChanges, context),
 						 new Object[] { "TIME_LIMIT_TOO_SHORT", getObjectLabel(allowedPersonalDataChanges, context) }, //$NON-NLS-1$
 						 new Object[] { allowedPersonalDataChanges },
 						 context));
@@ -6974,7 +6974,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_315,
+						 NationalLanguageSupport.GtmValidator_315 + " in " +  getObjectLabel(reductionConstraint, context),
 						 new Object[] { NationalLanguageSupport.GtmValidator_316, getObjectLabel(reductionConstraint, context) },
 						 new Object[] { reductionConstraint },
 						 context));
@@ -7000,7 +7000,7 @@ public class GtmValidator extends EObjectValidator {
 				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(reductionConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionConstraint, context) }, //$NON-NLS-1$
 						 new Object[] {  reductionConstraint },
 						 context));						
@@ -7046,7 +7046,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_317,
+						 NationalLanguageSupport.GtmValidator_317 + " in " +  getObjectLabel(requiredReductionCard, context),
 						 new Object[] { "NAME_FORMAT", getObjectLabel(requiredReductionCard, context) }, //$NON-NLS-1$
 						 new Object[] { requiredReductionCard },
 						 context));
@@ -7061,7 +7061,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_319,
+						 NationalLanguageSupport.GtmValidator_319 + " in " +  getObjectLabel(requiredReductionCard, context),
 						 new Object[] { "NAME_FORMAT", getObjectLabel(requiredReductionCard, context) }, //$NON-NLS-1$
 						 new Object[] { requiredReductionCard },
 						 context));
@@ -7086,7 +7086,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_321,
+						 NationalLanguageSupport.GtmValidator_321 + " in " +  getObjectLabel(requiredReductionCard, context),
 						 new Object[] { "CARD_MUST", getObjectLabel(requiredReductionCard, context) }, //$NON-NLS-1$
 						 new Object[] { requiredReductionCard },
 						 context));
@@ -7131,7 +7131,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_323,
+						 NationalLanguageSupport.GtmValidator_323  + " in " +  getObjectLabel(fulfillmentConstraint, context),
 						 new Object[] { "AT_LEAST_ONE_ACCEPTED_TYPE", getObjectLabel(fulfillmentConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { fulfillmentConstraint },
 						 context));
@@ -7157,7 +7157,7 @@ public class GtmValidator extends EObjectValidator {
 				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 getObjectLabel(fulfillmentConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(fulfillmentConstraint, context) }, //$NON-NLS-1$
 						 new Object[] {  fulfillmentConstraint },
 						 context));							
@@ -7203,7 +7203,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_325,
+						 NationalLanguageSupport.GtmValidator_325  + " in " +  getObjectLabel(trainResourceLocation, context),
 						 new Object[] { "CARRIER_MUST", getObjectLabel(trainResourceLocation, context) }, //$NON-NLS-1$
 						 new Object[] { trainResourceLocation },
 						 context));
@@ -7228,7 +7228,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_327,
+						 NationalLanguageSupport.GtmValidator_327 + " in " +  getObjectLabel(trainResourceLocation, context),
 						 new Object[] { "AT_LEAST_ONE_ONLINE_RESOURCE", getObjectLabel(trainResourceLocation, context) }, //$NON-NLS-1$
 						 new Object[] { trainResourceLocation },
 						 context));
@@ -7300,7 +7300,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_329,
+						 NationalLanguageSupport.GtmValidator_329 + " in " +  getObjectLabel(stationResourceLocation, context),
 						 new Object[] { "AT_LEAST_ONE_ONLINE_RESOURCE", getObjectLabel(stationResourceLocation, context) }, //$NON-NLS-1$
 						 new Object[] { stationResourceLocation },
 						 context));
@@ -7326,7 +7326,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_331,
+						 NationalLanguageSupport.GtmValidator_331 + " in " +  getObjectLabel(stationResourceLocation, context),
 						 new Object[] { "AT_LEAST_ONE_STATION_OR_CONNECTION_POINT", getObjectLabel(stationResourceLocation, context) }, //$NON-NLS-1$
 						 new Object[] { stationResourceLocation },
 						 context));
@@ -7372,7 +7372,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_333,
+						 NationalLanguageSupport.GtmValidator_333 + " in " +  getObjectLabel(onlineResource, context),
 						 new Object[] { "REQUEST_TYPE_MUST", getObjectLabel(onlineResource, context) }, //$NON-NLS-1$
 						 new Object[] { onlineResource },
 						 context));
@@ -7397,7 +7397,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_335,
+						 NationalLanguageSupport.GtmValidator_335 + " in " +  getObjectLabel(onlineResource, context),
 						 new Object[] { "INTERFACE_TYPE_MUST", getObjectLabel(onlineResource, context) }, //$NON-NLS-1$
 						 new Object[] { onlineResource },
 						 context));
@@ -7422,7 +7422,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0, 
-						 NationalLanguageSupport.GtmValidator_337,
+						 NationalLanguageSupport.GtmValidator_337 + " in " +  getObjectLabel(onlineResource, context),
 						 new Object[] { "SYSTEM_MUST", getObjectLabel(onlineResource, context) }, //$NON-NLS-1$
 						 new Object[] { onlineResource },
 						 context));

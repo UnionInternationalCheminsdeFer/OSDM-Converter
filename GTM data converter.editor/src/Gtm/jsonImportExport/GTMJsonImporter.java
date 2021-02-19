@@ -586,7 +586,7 @@ public class GTMJsonImporter {
 		ServiceLevel s = GtmFactory.eINSTANCE.createServiceLevel();
 		s.setId(js.getId());
 		s.setText(findText(js.getTextRef()));
-		s.setIncludesClassName(js.getIncludesClassName());
+		s.setIncludesClassName(!js.getDoesNotIncludeClassName());
 		s.setReservationParameter(findReservationParams(js.getReservationParameterId()));
 		return s;
 	}
@@ -1935,7 +1935,7 @@ public class GTMJsonImporter {
 		c.setApplicationTime(convert(jr.getApplicationTime()));
 		Price fee = convert(jr.getFee());
 		c.setFee(fee);
-		c.setCarrierFee(jr.getCarrierFee());
+		c.setCarrierFee(!jr.getIsAllocatorFee());
 		c.setIndividualContracts(jr.getIndividualContracts());
 		c.setTransactionType(AfterSalesTransactionType.getByName(jr.getTransactionType()));
 		return c;
