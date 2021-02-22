@@ -202,6 +202,7 @@ public class GtmJsonExporter {
 	 * 
 	 * 	private DateFormat jsondf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"); //$NON-NLS-1$
 	 */
+	
 
 	private GeneralTariffModel gtm = null;
 	
@@ -2306,7 +2307,7 @@ public class GtmJsonExporter {
 			CurrencyPriceDef curDef = new CurrencyPriceDef();
 			
 			//assume euro cent
-			curDef.setAmount((int) (100 * cur.getAmount()));
+			curDef.setAmount(GtmUtils.getEuroCent(cur.getAmount()));
 			curDef.setCurrency(cur.getCurrency().getIsoCode());
 			
 			ArrayList<VatDetailDef> vatDefs = new ArrayList<VatDetailDef>();
@@ -2314,7 +2315,7 @@ public class GtmJsonExporter {
 			for ( VATDetail vat : cur.getVATdetails()) {
 				
 				VatDetailDef vatDef = new VatDetailDef();
-				vatDef.setAmount((int) (100 * vat.getAmount()));
+				vatDef.setAmount(GtmUtils.getEuroCent(vat.getAmount()));
 				vatDef.setTaxId(vat.getTaxId());
 				vatDef.setScope(convert(vat.getScope()));
 				vatDef.setPercentage(vat.getPercentage());

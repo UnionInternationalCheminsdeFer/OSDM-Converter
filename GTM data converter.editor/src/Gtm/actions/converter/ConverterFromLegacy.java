@@ -1618,14 +1618,14 @@ public class ConverterFromLegacy {
 						&& ( fare.getValidUntil().after(dateRange.getEndDate())
 							   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {
 					if (travelClass == 1) {
-						return ((float) fare.getFare1st())/100; 
+						return GtmUtils.getEuroFromCent(fare.getFare1st()); 
 					} else {
-						return ((float) fare.getFare2nd())/100; 			
+						return GtmUtils.getEuroFromCent(fare.getFare2nd()); 			
 					}
 				}
 			}
 		}  else {
-			float price = 0;
+			int price = 0;
 			boolean distanceFound = false;
 			
 			int distance = 0;
@@ -1663,7 +1663,7 @@ public class ConverterFromLegacy {
 			}
 			if (!distanceFound) return null;
 			
-			return price/100;
+			return GtmUtils.getEuroFromCent(price);
 		}
 		return null;
 	}
@@ -2105,7 +2105,12 @@ public class ConverterFromLegacy {
 					}
 				}
 				if (def.getStations().isEmpty()) {
-					String message = NationalLanguageSupport.ConverterFromLegacy_55 + Integer.toString(legacyStation.getStationCode()) + " " + def.getName();
+					String message = NationalLanguageSupport.ConverterFromLegacy_55;
+					if (def != null && def.getName() != null) {
+						message = message + Integer.toString(legacyStation.getStationCode()) + " " + def.getName();
+					} else {
+						message = message + Integer.toString(legacyStation.getStationCode());
+					}
 					GtmUtils.writeConsoleWarning(message, editor);
 				}
 			}

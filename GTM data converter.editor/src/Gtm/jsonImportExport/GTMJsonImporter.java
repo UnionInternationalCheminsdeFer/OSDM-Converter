@@ -312,7 +312,7 @@ public class GTMJsonImporter {
 			
 				//set station name long ASCII
 				if (lStation.getName() != null && lStation.getName().length() > 1 &&
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName())) {
+					station.getNameCaseASCII() == null || !lStation.getName().equals(station.getNameCaseASCII())) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
 					if (com.canExecute()) {
 						command.append(com);
@@ -321,7 +321,7 @@ public class GTMJsonImporter {
 				
 				//set station name long UTF8
 				if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getNameUtf8())) {
+					station.getNameCaseUTF8() == null || !lStation.getNameUtf8().equals(station.getNameCaseUTF8())) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getNameUtf8());
 					if (com.canExecute()) {
 						command.append(com);					
@@ -330,15 +330,16 @@ public class GTMJsonImporter {
 
 				//set station name short ASCII
 				if (lStation.getShortName() != null && lStation.getShortName().length() > 1 &&
-					station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getShortName())) {
+					station.getShortNameCaseASCII() == null || !lStation.getShortName().equals(station.getShortNameCaseASCII())) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getShortName());
 					if (com.canExecute()) {
 						command.append(com);					
 					}
 				}	
 					
+				//set station name short UTF8
 				if (lStation.getShortNameUtf8() != null && lStation.getShortNameUtf8().length() > 1 &&
-					station.getShortNameCaseUTF8() == null || !station.getShortNameCaseUTF8().equals(lStation.getShortNameUtf8())) {
+					station.getShortNameCaseUTF8() == null || !lStation.getShortNameUtf8().equals(station.getShortNameCaseUTF8())) {
 					Command com2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_UTF8, lStation.getShortNameUtf8());
 					if (com2.canExecute()) {
 						command.append(com2);					

@@ -385,5 +385,9 @@ public class NationalLanguageSupport extends NLS{
 	public static String GtmValidator_BundleTotalPassengersConstraint;
 	public static String GtmValidator_Not_REFERENCED;
 
+	public static String GtmValidator_FareStationSet_empty;
+
+	public static String GtmValidator_FareStationSet_onlyOneStation;
+
 
 }

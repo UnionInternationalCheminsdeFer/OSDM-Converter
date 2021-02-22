@@ -713,8 +713,9 @@ public class 	ConverterToLegacy {
 	private int getPrice(Price price) throws ConverterException {
 		
 		for (CurrencyPrice  cp : price.getCurrencies()) {
-			float value = cp.getAmount() * 100;
-			return (int)value;
+			if (cp.getCurrency() == null || 
+				cp.getCurrency().getIsoCode().equals("EUR"))
+			return GtmUtils.getEuroCent(cp.getAmount());
 		}
 		throw new ConverterException(NationalLanguageSupport.ConverterToLegacy_27);
 

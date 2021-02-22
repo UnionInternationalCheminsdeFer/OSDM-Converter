@@ -1,6 +1,7 @@
 package Gtm.utils;
 
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.MissingResourceException;
@@ -13,7 +14,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.command.SetCommand;
@@ -78,6 +78,8 @@ import Gtm.presentation.GtmEditorPlugin;
 import Gtm.provider.GtmItemProviderAdapterFactory;
 
 public class GtmUtils {
+	
+	private static 	BigDecimal oneHundred = new BigDecimal("100.0");
 	
 	
 	public static GtmEditor getActiveEditor() {
@@ -1157,6 +1159,19 @@ public class GtmUtils {
 		}
 	
 		return null;
+	}
+	
+	public static int getEuroCent(float f) {
+		BigDecimal value = new BigDecimal(Float.toString(f));
+		BigDecimal amount = value.multiply(oneHundred);
+		return amount.intValue();
+	}
+	
+	public static float getEuroFromCent(int i) {
+		BigDecimal value = new BigDecimal(i);
+		value.setScale(2);
+		BigDecimal amount = value.divide(oneHundred);
+		return amount.floatValue();
 	}
 	
 }

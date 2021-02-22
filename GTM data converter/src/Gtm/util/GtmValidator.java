@@ -2208,7 +2208,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateLegacyFareStationSetMap_STATION_SET_MUST(LegacyFareStationSetMap legacyFareStationSetMap, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (legacyFareStationSetMap.getStationSet() == null) {
+		if (legacyFareStationSetMap.getStationSet() == null || legacyFareStationSetMap.getStationSet().getStations() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -2222,6 +2222,38 @@ public class GtmValidator extends EObjectValidator {
 			}
 			return false;
 		}
+		
+		if (legacyFareStationSetMap.getStationSet().getStations().isEmpty()) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_FareStationSet_empty + " - " + getObjectLabel(legacyFareStationSetMap, context), //$NON-NLS-1$
+						 new Object[] { "STATION_SET_MUST", getObjectLabel(legacyFareStationSetMap, context) }, //$NON-NLS-1$
+						 new Object[] { legacyFareStationSetMap },
+						 context));
+			}
+			return false;
+		}
+		
+		if (legacyFareStationSetMap.getStationSet().getStations().isEmpty()) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_FareStationSet_onlyOneStation + " - " + getObjectLabel(legacyFareStationSetMap, context), //$NON-NLS-1$
+						 new Object[] { "STATION_SET_MUST", getObjectLabel(legacyFareStationSetMap, context) }, //$NON-NLS-1$
+						 new Object[] { legacyFareStationSetMap },
+						 context));
+			}
+			return false;
+		}		
+		
+		
 		return true;
 	}
 

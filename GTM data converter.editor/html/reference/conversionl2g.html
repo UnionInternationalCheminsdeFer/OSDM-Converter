@@ -48,6 +48,10 @@ The referenced data items must be defined in the General Tariff Model fare struc
 
 Data structures used in the fare template reference data in the final fare structure.<br/><br/> 
 
+
+ <ul> <img src="../images/fare template.png" alt="fare templates"/> </ul>
+ <br/><br/> 
+
 <table border="1">
 <tr><td>Content</td><td>Description</td></tr>
 <tr><td>price factor</td><td>a factor to calculate the price depending on the price given in the 108.1 data. The factor is applied and the result is rounded to Euro-Cents</td></tr>
@@ -61,27 +65,33 @@ Data structures used in the fare template reference data in the final fare struc
 <li> Half-Down: rounding up to one cent for 0.6 to 0.9 cents and down for 0.1 to 0.5 cents</li>
 <li> Half-Even: rounding half up if the left digit is odd, half down otherwise (preserves the mean value)</li>
 </ul>
-
-
 </td></tr>
 <tr><td>data description</td><td>Text to name the fare template. This text as no effect on the final data.</td></tr>
 <tr><td>Fare detail description</td><td>A detailed description can be added to the fare. The fare detail description is a text that must to be edited in the fare structure first. Then it can be selected in the fare template.</td></tr>
-<tr><td>Fulfillment Constraint</td><td>A fulfillment constraint to be added to the fare. The fulfillment constraint must be edited in the fare structure first and can then be selected in the fare template.</td></tr>
 <tr><td>Id</td><td>- not in use - </td></tr>
+<tr><td>Fare constraint bundle</td><td>Fare constraint bundle holding the main constraints of this type of fare.</td></tr>
+<tr><td>Separate contract fare constraint bundle</td><td>Fare constraint bundle to be used in case the series is listed in the 108.1 TCVL file.</td></tr>
 <tr><td>Individual contracts</td><td>Indicates whether the fare allows individual contracts (handling tickets and after sales per person)  </td></tr>
 <tr><td>Legacy Conversion</td><td>Indicates whether the fare template creates fares that allow a reconversion into 108.1 data. A fare might allow reconversion or even be only included for reconversion. </td></tr>
 <tr><td>Passenger Constraint</td><td>The passenger constraint to be applied with the fare. The passenger constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><td>Personal data constraint</td><td>The personal data constraint to be applied with the fare. The personal data constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 <tr><td>Reduction Constraint</td><td>The reduction constraint to be applied with the fare. The reduction constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><td>Regional Constraint</td><td>The regional constraint will be created from the 108.1 series data.</td></tr>
 <tr><td>Reservation parameter</td><td>The reservation parameter to be applied with the fare. The reservation parameter must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
-<tr><td>Sales availability</td><td>The sales availability will be calculated from the validity in the 108.1 data. </td></tr>
-<tr><td>Separate contract combination constraint</td><td>Combination constraint to be used in case the series is listed in the 108.1 TCVL file.</td></tr>
 <tr><td>Service class</td><td>The service class to be applied with the fare. The service class must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 <tr><td>Service constraint</td><td>The service constraint to be applied with the fare. The service constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 <tr><td>Service Level</td><td>The service level to be applied with the fare. The service level must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 <tr><td>Text</td><td>The text naming the fare. The text must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
+</table>
+
+<p>The Fare Constraint Bundle holds the main constraints for a type of fare. It needs to be created within the fare structure data and holds the following constraints: </p>
+<table border="1">
+<tr><td>Content</td><td>Description</td></tr>
+<tr><td>data Description</td><td>A descriptive text of the bundle which is used in the selection list to assign the bundle to a fare template</td></tr>
+<tr><td>Combination constraint</td><td>The rules on how to combine fares with other fares.</td></tr>
+<tr><td>Sales availability</td><td>The sales availability will be calculated from the validity in the 108.1 data. </td></tr>
 <tr><td>Travel validity</td><td>The travel validity to be applied with the fare. The travel validity must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
+<tr><td>Passenger limits</td><td>The upper and lower limit of passengers to be combined on a ticket. </td></tr>
+<tr><td>Fulfillment Constraint</td><td>A fulfillment constraint to be added to the fare. The fulfillment constraint must be edited in the fare structure first and can then be selected in the fare template.</td></tr>
+<tr><td>Personal data constraint</td><td>The personal data constraint to be applied with the fare. The personal data constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 </table>
 
 
