@@ -613,7 +613,6 @@ public class 	ConverterToLegacy {
 					}
 				}
 				legacyStations.put(ls.getStationCode(),ls);
-				
 			}
 		}
 		return;
@@ -975,7 +974,7 @@ public class 	ConverterToLegacy {
 		Legacy108Station ls =  legacyStations.get(code);
 		
 		if (ls == null) {
-			String message = "Missing Station Names for: " +  Integer.valueOf(code).toString();
+			String message = "Missing Station Names for: " +  GtmUtils.getLabelText(via);
 			GtmUtils.writeConsoleError(message, editor);
 		}
 		return ls;
@@ -1003,7 +1002,7 @@ public class 	ConverterToLegacy {
 		Legacy108Station ls =  legacyStations.get(code);
 		
 		if (ls == null) {
-			String message = "Missing Station Names for: " +  Integer.valueOf(code).toString();
+			String message = "Missing Station Names for: " +  GtmUtils.getLabelText(via);
 			GtmUtils.writeConsoleError(message, editor);
 		}
 		return ls;
@@ -1042,14 +1041,20 @@ public class 	ConverterToLegacy {
 		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().isEmpty()) return false;
 		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().size() == 0) return false;
 		
-		//must have one calendar
-		if (fare.getSalesAvailability().getRestrictions().get(0).getSalesDates() == null ) return false;
-	
+
 		//must be convertible in legacy series
 		if (!hasSimpleRegionalValidity(fare)) {
 			return false;
 		}		
 		
+		// there must be a route description
+		if (fare.getRegionalConstraint() == null ||
+			fare.getRegionalConstraint().getRegionalValidity()== null || 
+			fare.getRegionalConstraint().getRegionalValidity().get(0)== null || 
+			fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null) {
+			return false;
+		}
+		//use one direction only
 		ViaStation via = fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation();
 		if (isReversedSeries(via)) {
 			return false;

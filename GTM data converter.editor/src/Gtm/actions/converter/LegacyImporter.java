@@ -619,12 +619,17 @@ public class LegacyImporter {
 		station.setBorderPointCode(borderPointCode);
 		station.setName(nameASCII);
 		station.setNameUTF8(nameUTF8);
+		if (nameUTF8.length() == 0) {
+			station.setNameUTF8(nameASCII);
+		}
 		station.setShortName(shortNameASCII);
-		if (nameUTF8.length() <= shortNameASCII.length() ) {
+		if (nameUTF8.length() > 0 && nameUTF8.length() <= shortNameASCII.length() ) {
 			station.setShortNameUtf8(nameUTF8);
 		} else {
 			station.setShortNameUtf8(shortNameASCII);
 		}
+
+		
 		station.setStationCode(code);
 		station.setFareReferenceStationCode(fareReferenceStationCode);
 		
@@ -812,16 +817,7 @@ public class LegacyImporter {
 					if (com.canExecute()) {
 						command.append(com);
 					}
-				}
-				
-				if ((lStation.getShortName() == null || lStation.getShortName().length() == 0) && 
-					lStation.getName() !=null &&
-					(station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getName()))) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getName());
-					if (com.canExecute()) {
-						command.append(com);
-					}
-				}				
+				}	
 				
 				if (lStation.getName() != null && 
 					(station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName()))) {
@@ -830,7 +826,7 @@ public class LegacyImporter {
 						command.append(com);					
 					}
 				}
-
+				
 				if (lStation.getNameUTF8() != null && 
 					(station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getNameUTF8()))) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getNameUTF8());
@@ -838,6 +834,14 @@ public class LegacyImporter {
 						command.append(com);					
 					}
 				}
+				
+				if (lStation.getShortNameUtf8()!= null && 
+					(station.getShortNameCaseUTF8() == null || !lStation.getShortNameUtf8().equals(station.getShortNameCaseUTF8()))) {
+					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getShortNameUtf8());
+					if (com.canExecute()) {
+						command.append(com);					
+					}
+				}				
 
 				if (lStation.getBorderPointCode() != lStation.getBorderPointCode()) {
 					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getBorderPointCode());

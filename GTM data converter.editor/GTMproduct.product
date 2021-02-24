@@ -56,11 +56,15 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="GTM_data_converter.edit"/>
       <plugin id="GTM_data_converter.editor"/>
       <plugin id="GTM_model"/>
+      <plugin id="com.google.guava"/>
       <plugin id="com.ibm.icu"/>
+      <plugin id="com.reprezen.swagedit.dependencies"/>
       <plugin id="fasterxml"/>
+      <plugin id="javax.activation"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.el"/>
       <plugin id="javax.inject"/>
+      <plugin id="javax.mail"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.servlet.jsp"/>
       <plugin id="javax.xml"/>

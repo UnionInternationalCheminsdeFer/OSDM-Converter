@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -176,8 +175,6 @@ public class GTMJsonImporter {
 		
 		fareStructure.setStationNames(convertStationNames(fareDataDef.getStationNames()));
 		
-		updateMERITSStations(fareDataDef.getStationNames());
-
 		fareStructure.setFareStationSetDefinitions(convertFareStationSetDefinitions(fareDataDef.getFareReferenceStationSetDefinitions()));
 
 		fareStructure.setServiceClassDefinitions(convertServiceClassDefinitions(fareDataDef.getServiceClassDefinitions()));
@@ -282,87 +279,6 @@ public class GTMJsonImporter {
 	}
 	
 	
-	private void updateMERITSStations(List<StationNamesDef> list) {
-		//correcting merits data using 108 data
-		
-		CompoundCommand command = new CompoundCommand();
-						
-		for (StationNamesDef lStation : list ) {
-			
-			Station station = stations.get(Integer.valueOf(lStation.getLocalCode() + lStation.getCountry()*100000));
-			
-			if (station != null) {
-			
-				if (lStation.getLegacyBorderPointCode() > 0) {
-				
-					if (station != null && station.isBorderStation() == false){
-						
-						Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__BORDER_STATION, true);
-						if (com != null && com.canExecute()) {
-							command.append(com);	
-						}
-						Command comm2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
-						if (comm2 != null && comm2.canExecute()) {
-							command.append(comm2);	
-						}	
-											
-					}
-				
-				}
-			
-				//set station name long ASCII
-				if (lStation.getName() != null && lStation.getName().length() > 1 &&
-					station.getNameCaseASCII() == null || !lStation.getName().equals(station.getNameCaseASCII())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
-					if (com.canExecute()) {
-						command.append(com);
-					}
-				}
-				
-				//set station name long UTF8
-				if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
-					station.getNameCaseUTF8() == null || !lStation.getNameUtf8().equals(station.getNameCaseUTF8())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getNameUtf8());
-					if (com.canExecute()) {
-						command.append(com);					
-					}
-				}
-
-				//set station name short ASCII
-				if (lStation.getShortName() != null && lStation.getShortName().length() > 1 &&
-					station.getShortNameCaseASCII() == null || !lStation.getShortName().equals(station.getShortNameCaseASCII())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getShortName());
-					if (com.canExecute()) {
-						command.append(com);					
-					}
-				}	
-					
-				//set station name short UTF8
-				if (lStation.getShortNameUtf8() != null && lStation.getShortNameUtf8().length() > 1 &&
-					station.getShortNameCaseUTF8() == null || !lStation.getShortNameUtf8().equals(station.getShortNameCaseUTF8())) {
-					Command com2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_UTF8, lStation.getShortNameUtf8());
-					if (com2.canExecute()) {
-						command.append(com2);					
-					}
-				}
-
-
-				if (lStation.getLegacyBorderPointCode() != lStation.getLegacyBorderPointCode()) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
-					if (com.canExecute()) {
-						command.append(com);					
-					}
-				}
-
-			}
-		}
-		
-		if (command != null && !command.isEmpty()) {
-			domain.getCommandStack().execute(command);
-			command = new CompoundCommand();
-		}
-
-	}
 
 
 
