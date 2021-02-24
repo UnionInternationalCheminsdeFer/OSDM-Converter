@@ -25,6 +25,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -44,6 +45,7 @@ import Gtm.Countries;
 import Gtm.Country;
 import Gtm.Currencies;
 import Gtm.Currency;
+import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.FareStationSetDefinition;
 import Gtm.FareStructure;
@@ -69,6 +71,7 @@ import Gtm.ServiceConstraint;
 import Gtm.ServiceLevel;
 import Gtm.Station;
 import Gtm.Text;
+import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
 import Gtm.console.ConsoleUtil;
 import Gtm.nls.NationalLanguageSupport;
@@ -845,7 +848,25 @@ public class GtmUtils {
 				setId(domain, object,GtmPackage.Literals.FARE_STATION_SET_DEFINITION__ID, command, listName,i);
 			}
 		}						
-        
+
+		listName = baseName + "S_"; //$NON-NLS-1$
+		i = 0;
+		for (FareConstraintBundle object : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				setId(domain, object,GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__ID, command, listName,i);
+			}
+		}
+		
+		listName = baseName + "T_"; //$NON-NLS-1$
+		i = 0;
+		for (TotalPassengerCombinationConstraint object : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				setId(domain, object,GtmPackage.Literals.TOTAL_PASSENGER_COMBINATION_CONSTRAINT__ID, command, listName,i);
+			}
+		}
+		
         return command;
 		
 	}
@@ -1076,32 +1097,24 @@ public class GtmUtils {
 	
 	
 	public static void displayAsyncErrorMessage(Exception e , String text) {
-		
-		
+			
 		GtmEditor editor = GtmUtils.getActiveEditor();
+
 		final Display display1 = editor.getSite().getShell().getDisplay();
-		final Display display2 = Display.getDefault();
-		
+		final Shell shell1 =  editor.getSite().getShell();
+			
 		if (display1 != null) {
 			display1.asyncExec(() -> {
-				MessageBox dialog =  new MessageBox(display1.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-				dialog.setText("json parsing error");
-				dialog.setMessage(e.getMessage());
+				MessageBox dialog =  new MessageBox(shell1, SWT.ICON_ERROR | SWT.OK);
+				dialog.setText(text);
+				if (e != null && e.getMessage() != null) {
+					dialog.setMessage(e.getMessage());
+				}
 				dialog.open(); 
 				e.printStackTrace();
 				GtmEditorPlugin.INSTANCE.log(e);
 				return;
 			});	
-		} else if (display2 != null) {
-			display1.asyncExec(() -> {
-				MessageBox dialog =  new MessageBox(display1.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-				dialog.setText("json parsing error");
-				dialog.setMessage(e.getMessage());
-				dialog.open(); 
-				e.printStackTrace();
-				GtmEditorPlugin.INSTANCE.log(e);
-				return;
-			});
 		}
 	}
 	
@@ -1171,7 +1184,9 @@ public class GtmUtils {
 		while (it.hasNext()) {
 			EObject next = it.next();
 			
-			if (next.eCrossReferences().contains(object)) {
+			EList<EObject> crossReferences = next.eCrossReferences();
+			
+			if (crossReferences.contains(object)) {
 				return true;
 			}
 		}

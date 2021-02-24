@@ -1188,6 +1188,7 @@ public class GTMJsonImporter {
 		TotalPassengerCombinationConstraint p = GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraint();
 		p.setMaxTotalPassengerWeight(jp.getMaxWeightedPassengers());
 		p.setMinTotalPassengerWeight(jp.getMinWeightedPassengers());
+	    p.setId(jp.getId());
 		return p;
 	}
 
@@ -1572,7 +1573,7 @@ public class GTMJsonImporter {
 	private Text findText(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (Text  o : fareStructure.getTexts().getTexts()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1581,7 +1582,7 @@ public class GTMJsonImporter {
 	private TravelValidityConstraint findTravelValidity(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (TravelValidityConstraint  o : fareStructure.getTravelValidityConstraints().getTravelValidityConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1590,7 +1591,7 @@ public class GTMJsonImporter {
 	private TotalPassengerCombinationConstraint findTotalPassengerConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (TotalPassengerCombinationConstraint  o : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1599,7 +1600,7 @@ public class GTMJsonImporter {
 	private FareConstraintBundle findBundle(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (FareConstraintBundle  o : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}		
 		return null;
 	}
@@ -1608,7 +1609,7 @@ public class GTMJsonImporter {
 	private ServiceLevel findServiceLevel(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (ServiceLevel o : fareStructure.getServiceLevelDefinitions().getServiceLevelDefinition()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1617,7 +1618,7 @@ public class GTMJsonImporter {
 	private ServiceConstraint findServiceConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (ServiceConstraint o : fareStructure.getServiceConstraints().getServiceConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1627,7 +1628,7 @@ public class GTMJsonImporter {
 		if (id == null || id.length() < 1) return null;
 		if (fareStructure.getServiceClassDefinitions() == null || fareStructure.getServiceClassDefinitions().getServiceClassDefinitions().isEmpty()) return null;
 		for (ServiceClass  o : fareStructure.getServiceClassDefinitions().getServiceClassDefinitions()) {
-			if (o.getId().getName().equals(id)) return o;
+			if (id.equals(o.getId().getName())) return o;
 		}
 		return null;
 	}
@@ -1636,7 +1637,7 @@ public class GTMJsonImporter {
 	private SalesAvailabilityConstraint findSalesAvailability(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (SalesAvailabilityConstraint  o : fareStructure.getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1645,7 +1646,7 @@ public class GTMJsonImporter {
 	private ReservationParameter findReservationParams(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (ReservationParameter  o : fareStructure.getReservationParameters().getReservationParameters()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1660,7 +1661,7 @@ public class GTMJsonImporter {
 	private ReductionConstraint findReductionConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (ReductionConstraint  o : fareStructure.getReductionConstraints().getReductionConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1668,7 +1669,7 @@ public class GTMJsonImporter {
 	private PersonalDataConstraint finePersonalDataConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (PersonalDataConstraint  o : fareStructure.getPersonalDataConstraints().getPersonalDataConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1677,7 +1678,7 @@ public class GTMJsonImporter {
 	private PassengerConstraint findPassengerConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (PassengerConstraint  o : fareStructure.getPassengerConstraints().getPassengerConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1696,7 +1697,7 @@ public class GTMJsonImporter {
 	private FulfillmentConstraint findFulfillmentConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (FulfillmentConstraint  o : fareStructure.getFulfillmentConstraints().getFulfillmentConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1705,7 +1706,7 @@ public class GTMJsonImporter {
 	private CombinationConstraint findCombinationConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (CombinationConstraint  o : fareStructure.getCombinationConstraints().getCombinationConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1714,7 +1715,7 @@ public class GTMJsonImporter {
 	private CarrierConstraint findCarrierConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (CarrierConstraint  o : fareStructure.getCarrierConstraints().getCarrierConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1723,7 +1724,7 @@ public class GTMJsonImporter {
 	private AfterSalesRule findAfterSaleRule(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (AfterSalesRule  o : fareStructure.getAfterSalesRules().getAfterSalesRules()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}

@@ -416,7 +416,8 @@ public class GtmJsonExporter {
 			if (  GtmUtils.isReferenced(element,gtm.getFareStructure().getFareConstraintBundles())) {
 				PassengerCombinationConstraintDef jP = new PassengerCombinationConstraintDef();
 				jP.setMaxWeightedPassengers(element.getMaxTotalPassengerWeight()) ;
-				jP.setMinWeightedPassengers(element.getMinTotalPassengerWeight()) ;			
+				jP.setMinWeightedPassengers(element.getMinTotalPassengerWeight()) ;	
+				jP.setId(element.getId());
 				jL.add(jP);
 			} else {
 				StringBuilder sb = new StringBuilder();
@@ -440,6 +441,8 @@ public class GtmJsonExporter {
 			if (  GtmUtils.isReferenced(bundle,gtm.getFareStructure().getFareElements())) {
 			
 				FareConstraintBundle jBundle = new FareConstraintBundle();
+				
+				jBundle.setId(bundle.getId());
 				
 				if (bundle.getCombinationConstraint() != null) {
 					jBundle.setCombinationConstraintRef(bundle.getCombinationConstraint().getId());
