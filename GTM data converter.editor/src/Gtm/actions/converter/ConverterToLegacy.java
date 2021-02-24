@@ -66,7 +66,7 @@ import Gtm.ViaStation;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
-import Gtm.utils.GtmUtils;
+import Gtm.utils.GtmUtils; 
 
 public class 	ConverterToLegacy {
 	

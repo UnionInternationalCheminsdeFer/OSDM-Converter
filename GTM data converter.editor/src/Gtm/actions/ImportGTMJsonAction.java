@@ -1,6 +1,8 @@
 package Gtm.actions;
 
 import java.io.File;
+import java.io.IOException;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.edit.command.SetCommand;
@@ -13,6 +15,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
 import Gtm.GtmPackage;
@@ -143,8 +149,33 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						prepareStructure(tool,domain);
 						monitor.worked(1);
 					
+						FareDelivery fareDelivery = null;
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_6);
-						FareDelivery fareDelivery = ImportFareDelivery.importFareDelivery(file);
+						Display display = GtmUtils.getDisplay();
+						try {
+							fareDelivery = ImportFareDelivery.importFareDelivery(file);
+						} catch (JsonParseException e) {
+							MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
+							dialog.setText("json parsing error");
+							dialog.setMessage(e.getMessage());
+							dialog.open(); 
+							e.printStackTrace();
+							return;
+						} catch (JsonMappingException e) {
+							MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
+							dialog.setText("json mapping error");
+							dialog.setMessage(e.getMessage());
+							dialog.open(); 
+							e.printStackTrace();
+							return;
+						} catch (IOException e) {
+							MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
+							dialog.setText("file error");
+							dialog.setMessage(e.getMessage());
+							dialog.open(); 
+							e.printStackTrace();
+							return;
+						}
 						monitor.worked(1);
 					
 						if (fareDelivery != null) {
