@@ -2,12 +2,13 @@
 package gtm;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @JsonPropertyOrder({
     "fromStation",
     "toStation",
@@ -44,6 +45,7 @@ public class TrainLinkDef {
      * (Required)
      * 
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss ZZZ", timezone = "UTC")
     @JsonProperty("travelDate")
     @JsonPropertyDescription("date and time of the departure where the train link starts")
     private Date travelDate;

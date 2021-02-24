@@ -22,7 +22,9 @@ import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -1069,6 +1071,37 @@ public class GtmUtils {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void displayAsyncErrorMessage(Exception e , String text) {
+		
+		
+		GtmEditor editor = GtmUtils.getActiveEditor();
+		final Display display1 = editor.getSite().getShell().getDisplay();
+		final Display display2 = Display.getDefault();
+		
+		if (display1 != null) {
+			display1.asyncExec(() -> {
+				MessageBox dialog =  new MessageBox(display1.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
+				dialog.setText("json parsing error");
+				dialog.setMessage(e.getMessage());
+				dialog.open(); 
+				e.printStackTrace();
+				GtmEditorPlugin.INSTANCE.log(e);
+				return;
+			});	
+		} else if (display2 != null) {
+			display1.asyncExec(() -> {
+				MessageBox dialog =  new MessageBox(display1.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
+				dialog.setText("json parsing error");
+				dialog.setMessage(e.getMessage());
+				dialog.open(); 
+				e.printStackTrace();
+				GtmEditorPlugin.INSTANCE.log(e);
+				return;
+			});
 		}
 	}
 	

@@ -149,33 +149,8 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						prepareStructure(tool,domain);
 						monitor.worked(1);
 					
-						FareDelivery fareDelivery = null;
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_6);
-						Display display = GtmUtils.getDisplay();
-						try {
-							fareDelivery = ImportFareDelivery.importFareDelivery(file);
-						} catch (JsonParseException e) {
-							MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-							dialog.setText("json parsing error");
-							dialog.setMessage(e.getMessage());
-							dialog.open(); 
-							e.printStackTrace();
-							return;
-						} catch (JsonMappingException e) {
-							MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-							dialog.setText("json mapping error");
-							dialog.setMessage(e.getMessage());
-							dialog.open(); 
-							e.printStackTrace();
-							return;
-						} catch (IOException e) {
-							MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-							dialog.setText("file error");
-							dialog.setMessage(e.getMessage());
-							dialog.open(); 
-							e.printStackTrace();
-							return;
-						}
+						FareDelivery fareDelivery = ImportFareDelivery.importFareDelivery(file);
 						monitor.worked(1);
 					
 						if (fareDelivery != null) {
@@ -214,10 +189,17 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 							}
 						}
 						monitor.worked(1);
-					
-					} catch (Exception e) {
-						e.printStackTrace();
-						GtmEditorPlugin.INSTANCE.log(e);
+
+					} catch (JsonParseException e) {
+						GtmUtils.displayAsyncErrorMessage(e,"json parsing error");
+						return;
+					} catch (JsonMappingException e) {
+						GtmUtils.displayAsyncErrorMessage(e,"json mapping error");
+					} catch (IOException e) {
+						GtmUtils.displayAsyncErrorMessage(e,"file error");
+					}
+					catch (Exception e) {
+						GtmUtils.displayAsyncErrorMessage(e,"unknown error");
 					} finally {
 						monitor.done();
 					}
