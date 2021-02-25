@@ -20,6 +20,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import Gtm.AlternativeRoute;
 import Gtm.Carrier;
 import Gtm.ClassId;
+import Gtm.ClassicClassType;
 import Gtm.Clusters;
 import Gtm.CombinationModel;
 import Gtm.ConnectionPoint;
@@ -1022,6 +1023,29 @@ public class 	ConverterToLegacy {
 	}
 	
 	private boolean isConvertable(FareElement fare) {
+		
+		
+		//service classes B and D are converted
+		if (fare.getLegacyConversion() != LegacyConversionType.NO  && 
+			fare.getServiceClass().getId() == ClassId.A || fare.getServiceClass().getId() == ClassId.C) {
+			String message = "Service class A or C. " + GtmUtils.getLabelText(fare) + " will not be converted";
+			GtmUtils.writeConsoleWarning(message, editor);		
+		}
+		
+		if (fare.getServiceClass().getId() == ClassId.A) return false;
+		if (fare.getServiceClass().getId() == ClassId.C) return false;
+		
+		
+		//classic classes not matching
+		if ( (fare.getServiceClass().getId() == ClassId.B && !(fare.getServiceClass().getClassicClass() == null || fare.getServiceClass().getClassicClass() == ClassicClassType.FIRST) )
+				||
+			 (fare.getServiceClass().getId() == ClassId.D && !(fare.getServiceClass().getClassicClass() == null || fare.getServiceClass().getClassicClass() == ClassicClassType.SECOND) )	
+				){
+			String message = "Service class / Classic class mismatch. " + GtmUtils.getLabelText(fare) + " will not be converted";
+			GtmUtils.writeConsoleWarning(message, editor);			
+		}
+		
+		
 		//fare excluded from conversion
 		if (fare.getLegacyConversion() == LegacyConversionType.NO) return false;
 		

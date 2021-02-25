@@ -88,7 +88,7 @@ public class GtmProblemView extends ViewPart {
 						GtmEditor editor = GtmUtils.getActiveEditor();
 						ISelection selection = new StructuredSelection(object);
 						editor.setSelection(selection);
-						
+						editor.setFocus();
 						editor.getContentOutlinePage().setSelection(selection);
 						//editor.expandTreeViews(object);
 					}

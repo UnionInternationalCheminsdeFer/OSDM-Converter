@@ -1120,6 +1120,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateFareTemplate_SERVICE_CLASS_MUST(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_PRICE_OR_FACTOR(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_BUNDLE_MUST(fareTemplate, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareTemplate_NON_CONVERTABLE_CLASS(fareTemplate, diagnostics, context);
 		return result;
 	}
 
@@ -1353,7 +1354,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_53,
+						 NationalLanguageSupport.GtmValidator_53 + " in " + getObjectLabel(fareTemplate, context),
 						 new Object[] {"SERVICE_CLASS_MUST", getObjectLabel(fareTemplate, context) },  //$NON-NLS-1$
 						 new Object[] { fareTemplate },
 						 context));
@@ -1378,7 +1379,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_55,
+						 NationalLanguageSupport.GtmValidator_55 + " in " + getObjectLabel(fareTemplate, context),
 						 new Object[] { "PRICE_OR_FACTOR", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
 						 new Object[] { fareTemplate },
 						 context));
@@ -1402,10 +1403,51 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_TemplateMustContainBundle,
+						 NationalLanguageSupport.GtmValidator_TemplateMustContainBundle + " in " + getObjectLabel(fareTemplate, context),
 						 new Object[] { "BUNDLE_MUST", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
 						 new Object[] { fareTemplate },
 						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the NON_CONVERTABLE_CLASS constraint of '<em>Fare Template</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareTemplate_NON_CONVERTABLE_CLASS(FareTemplate fareTemplate, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if ( (fareTemplate.getServiceClass().getId() == ClassId.A || fareTemplate.getServiceClass().getId() == ClassId.C)
+			  && fareTemplate.getLegacyConversion() == LegacyConversionType.YES ) {
+			if (diagnostics != null) {
+			diagnostics.add
+			(createSimpleDiagnostic
+				(Diagnostic.WARNING,
+				 DIAGNOSTIC_SOURCE,
+				 0,
+				 NationalLanguageSupport.GtmValidator_UnconvertableClass + " in " + getObjectLabel(fareTemplate, context),
+				 new Object[] { "NON_CONVERTABLE_CLASS", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
+				 new Object[] { fareTemplate },
+				 context));
+			}
+			return false;
+		};
+		
+	    if ( (fareTemplate.getServiceClass().getId() == ClassId.A || fareTemplate.getServiceClass().getId() == ClassId.C)
+			  && fareTemplate.getLegacyConversion() == LegacyConversionType.ONLY) {
+			if (diagnostics != null) {
+			 diagnostics.add
+			(createSimpleDiagnostic
+				(Diagnostic.ERROR,
+				 DIAGNOSTIC_SOURCE,
+				 0,
+				 NationalLanguageSupport.GtmValidator_UnconvertableClass + " in " + getObjectLabel(fareTemplate, context),
+				 new Object[] { "NON_CONVERTABLE_CLASS", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
+				 new Object[] { fareTemplate },
+				 context));
 			}
 			return false;
 		}
@@ -3472,12 +3514,33 @@ public class GtmValidator extends EObjectValidator {
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_135,
-						 new Object[] { NationalLanguageSupport.GtmValidator_136, getObjectLabel(serviceClass, context) },
+						 new Object[] { "CLASSIC_CLASS_MUST", getObjectLabel(serviceClass, context) },
 						 new Object[] { serviceClass },
 						 context));
 			}
 			return false;
 		}
+		
+		if ( (serviceClass.getId() == ClassId.B && !(serviceClass.getClassicClass() == null || serviceClass.getClassicClass() == ClassicClassType.FIRST) )
+				||
+			 (serviceClass.getId() == ClassId.D && !(serviceClass.getClassicClass() == null || serviceClass.getClassicClass() == ClassicClassType.SECOND) )	
+				){
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_ClassicClassNotMatching + " in " + getObjectLabel(serviceClass, context),
+						 new Object[] { NationalLanguageSupport.GtmValidator_ClassicClassNotMatching, getObjectLabel(serviceClass, context) },
+						 new Object[] { serviceClass },
+						 context));
+			}
+			return false;
+		}
+		
+		
+		
 		return true;
 	}
 
