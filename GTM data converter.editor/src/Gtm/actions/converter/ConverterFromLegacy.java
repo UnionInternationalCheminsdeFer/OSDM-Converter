@@ -263,6 +263,14 @@ public class ConverterFromLegacy {
 		}		
 		executeAndFlush(command,domain);
 		
+		for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
+			if (cc.getDataSource() == DataSource.CONVERTED) {
+				command.append(DeleteCommand.create(domain, cc) );
+			}
+		}		
+		executeAndFlush(command,domain);		
+		
+		
 		command = new CompoundCommand();		
 		for (Calendar sa : tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars()) {
 			if (sa.getDataSource() == DataSource.CONVERTED) {
@@ -338,6 +346,7 @@ public class ConverterFromLegacy {
 				Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(series.getCarrierCode());
 				if (carrier != null) {
 					CarrierConstraint constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
+					constraint.setDataSource(DataSource.CONVERTED);
 					constraint.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_2 + carrier.getName());
 					constraint.getIncludedCarriers().add(carrier);
 					carrierConstraints.put(carrier.getCode(),constraint);

@@ -4482,6 +4482,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCarrierConstraint_DataSource() {
+		return (EAttribute)carrierConstraintEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getServiceConstraints() {
 		return serviceConstraintsEClass;
 	}
@@ -8848,6 +8857,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(carrierConstraintEClass, CARRIER_CONSTRAINT__INCLUDED_CARRIERS);
 		createEReference(carrierConstraintEClass, CARRIER_CONSTRAINT__EXCLUDED_CARRIERS);
 		createEAttribute(carrierConstraintEClass, CARRIER_CONSTRAINT__DATA_DESCRIPTION);
+		createEAttribute(carrierConstraintEClass, CARRIER_CONSTRAINT__DATA_SOURCE);
 
 		serviceConstraintsEClass = createEClass(SERVICE_CONSTRAINTS);
 		createEReference(serviceConstraintsEClass, SERVICE_CONSTRAINTS__SERVICE_CONSTRAINTS);
@@ -9832,6 +9842,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getCarrierConstraint_IncludedCarriers(), this.getCarrier(), null, "includedCarriers", null, 0, -1, CarrierConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCarrierConstraint_ExcludedCarriers(), this.getCarrier(), null, "excludedCarriers", null, 0, -1, CarrierConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCarrierConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, CarrierConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCarrierConstraint_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, CarrierConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceConstraintsEClass, ServiceConstraints.class, "ServiceConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getServiceConstraints_ServiceConstraints(), this.getServiceConstraint(), null, "serviceConstraints", null, 0, -1, ServiceConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

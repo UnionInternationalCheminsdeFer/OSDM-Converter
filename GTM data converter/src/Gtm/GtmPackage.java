@@ -4426,13 +4426,22 @@ public interface GtmPackage extends EPackage {
 	int CARRIER_CONSTRAINT__DATA_DESCRIPTION = 3;
 
 	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRIER_CONSTRAINT__DATA_SOURCE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Carrier Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CARRIER_CONSTRAINT_FEATURE_COUNT = 4;
+	int CARRIER_CONSTRAINT_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Carrier Constraint</em>' class.
@@ -13619,6 +13628,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getCarrierConstraint_DataDescription();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.CarrierConstraint#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Source</em>'.
+	 * @see Gtm.CarrierConstraint#getDataSource()
+	 * @see #getCarrierConstraint()
+	 * @generated
+	 */
+	EAttribute getCarrierConstraint_DataSource();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.ServiceConstraints <em>Service Constraints</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -21156,6 +21176,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CARRIER_CONSTRAINT__DATA_DESCRIPTION = eINSTANCE.getCarrierConstraint_DataDescription();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CARRIER_CONSTRAINT__DATA_SOURCE = eINSTANCE.getCarrierConstraint_DataSource();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.ServiceConstraintsImpl <em>Service Constraints</em>}' class.

@@ -4,6 +4,7 @@ package Gtm.impl;
 
 import Gtm.Carrier;
 import Gtm.CarrierConstraint;
+import Gtm.DataSource;
 import Gtm.GtmPackage;
 
 import java.util.Collection;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link Gtm.impl.CarrierConstraintImpl#getIncludedCarriers <em>Included Carriers</em>}</li>
  *   <li>{@link Gtm.impl.CarrierConstraintImpl#getExcludedCarriers <em>Excluded Carriers</em>}</li>
  *   <li>{@link Gtm.impl.CarrierConstraintImpl#getDataDescription <em>Data Description</em>}</li>
+ *   <li>{@link Gtm.impl.CarrierConstraintImpl#getDataSource <em>Data Source</em>}</li>
  * </ul>
  *
  * @generated
@@ -95,6 +97,26 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected String dataDescription = DATA_DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDataSource() <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DataSource DATA_SOURCE_EDEFAULT = DataSource.MANUAL;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataSource dataSource = DATA_SOURCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -186,6 +208,27 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataSource(DataSource newDataSource) {
+		DataSource oldDataSource = dataSource;
+		dataSource = newDataSource == null ? DATA_SOURCE_EDEFAULT : newDataSource;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE, oldDataSource, dataSource));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -197,6 +240,8 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 				return getExcludedCarriers();
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_DESCRIPTION:
 				return getDataDescription();
+			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
+				return getDataSource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -224,6 +269,9 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_DESCRIPTION:
 				setDataDescription((String)newValue);
 				return;
+			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
+				setDataSource((DataSource)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -248,6 +296,9 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_DESCRIPTION:
 				setDataDescription(DATA_DESCRIPTION_EDEFAULT);
 				return;
+			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
+				setDataSource(DATA_SOURCE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -268,6 +319,8 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 				return excludedCarriers != null && !excludedCarriers.isEmpty();
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_DESCRIPTION:
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
+			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
+				return dataSource != DATA_SOURCE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -286,6 +339,8 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 		result.append(id);
 		result.append(", dataDescription: ");
 		result.append(dataDescription);
+		result.append(", dataSource: ");
+		result.append(dataSource);
 		result.append(')');
 		return result.toString();
 	}

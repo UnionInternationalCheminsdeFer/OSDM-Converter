@@ -46,7 +46,7 @@ public class ConstraintBundleFactory {
 			bundle.setPersonalDataConstraint(fare.getPersonalDataConstraint());
 			bundle.setTotalPassengerConstraint(findTotalPassengerConstraint(fare, tpcs));
 			bundle.setSalesAvailability(fare.getSalesAvailability());
-			bundle.setDataSource(DataSource.CONVERTED);
+			bundle.setDataSource(DataSource.MANUAL);
 			
 			return bundle;
 		}
