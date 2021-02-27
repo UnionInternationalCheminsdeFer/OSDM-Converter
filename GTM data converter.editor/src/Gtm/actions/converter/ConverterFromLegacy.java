@@ -2189,17 +2189,12 @@ public class ConverterFromLegacy {
 			//add stations from the exporter country
 			boolean found = false;
 			
-			
-	
-			
 			Station station = updateStationNames(tool,lStation);
 			if (station != null) {
 				stationNames.getStationName().add(station);
 				found = true;
 			}
 
-						
-			
 			//add station names for used border points
 			if (lStation.getBorderPointCode() > 0 ) {
 				ConnectionPoint p = borderConnectionPoints.get(lStation.getBorderPointCode());
@@ -2232,12 +2227,13 @@ public class ConverterFromLegacy {
 			}
 			
 			//will be mapped to service constraint
-			if (tool.getConversionFromLegacy().getParams() != null &&
+			if (!found && 
+				tool.getConversionFromLegacy().getParams() != null &&
 				tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings() != null &&
 				tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings().getLegacyFareStationSetMap() != null ) {
 					
-				for (LegacyFareStationSetMap map:  tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings().getLegacyFareStationSetMap()) {
-					if (map.getLegacyCode() == lStation.getStationCode()) {
+				for (LegacyStationToServiceConstraintMapping map:  tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings()) {
+					if (map.getCode() == lStation.getStationCode()) {
 						found = true;
 					}
 				}
