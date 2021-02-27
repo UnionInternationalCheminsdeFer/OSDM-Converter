@@ -267,13 +267,13 @@ public class GTMJsonImporter {
 		StationNames n = GtmFactory.eINSTANCE.createStationNames();
 		if (jl == null || jl.isEmpty()) return n;
 		
+		//link the stations, names will be added later-on to the merits code table
 		for (StationNamesDef jn : jl) {
 			
 			Station s = getStation(jn.getCountry(), jn.getLocalCode());
 			if (s != null) {
 				n.getStationName().add(s);
 			}
-			
 		}
 		return n;
 	}
@@ -1944,6 +1944,8 @@ public class GTMJsonImporter {
 		return nutsCodes.get(code);
 	}
 
-	
+	public HashMap<Integer,Station> getStations() {
+		return stations;
+	}
 
 }

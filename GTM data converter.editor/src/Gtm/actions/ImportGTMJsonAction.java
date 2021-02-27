@@ -2,6 +2,7 @@ package Gtm.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -25,7 +26,7 @@ import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
 import Gtm.GtmPackage;
 import Gtm.Station;
-import Gtm.Stations;
+import Gtm.actions.converter.StationNameMerger;
 import Gtm.jsonImportExport.GTMJsonImporter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
@@ -171,7 +172,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						} 
 						
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_9);					
-						updateMERITSStations(domain,tool.getCodeLists().getStations(), fareDelivery.getFareStructureDelivery().getFareStructure().getStationNames());
+						updateMERITSStations(domain,importer.getStations(), fareDelivery.getFareStructureDelivery().getFareStructure().getStationNames());
 						monitor.worked(1);
 
 					} catch (JsonParseException e) {
@@ -181,8 +182,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						GtmUtils.displayAsyncErrorMessage(e,"json mapping error");
 					} catch (IOException e) {
 						GtmUtils.displayAsyncErrorMessage(e,"file error");
-					}
-					catch (Exception e) {
+					} catch (Exception e) {
 						GtmUtils.displayAsyncErrorMessage(e,"unknown error");
 					} finally {
 						monitor.done();
@@ -209,15 +209,15 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 		}
 
 
-		private void updateMERITSStations(EditingDomain domain, Stations stations, List<StationNamesDef> list) {
-			//correcting merits data using 108 data
-			
+		private void updateMERITSStations(EditingDomain domain, HashMap<Integer,Station> stations, List<StationNamesDef> list) {
+
+			//correcting merits data using OSDM data			
 			CompoundCommand command = new CompoundCommand();
 							
 			for (StationNamesDef lStation : list ) {
 				
-				Station station = stations.findStation(lStation.getCountry(), lStation.getLocalCode());
-				
+				Station station = stations.get(lStation.getCountry() * 100000 + lStation.getLocalCode());
+			
 				if (station != null) {
 				
 					if (lStation.getLegacyBorderPointCode() > 0) {
@@ -233,52 +233,14 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 								command.append(comm2);	
 							}				
 						}
-					}
-				
-					//set station name long ASCII
-					if (lStation.getName() != null && lStation.getName().length() > 1 &&
-						station.getNameCaseASCII() == null || !lStation.getName().equals(station.getNameCaseASCII())) {
-						Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
-						if (com.canExecute()) {
-							command.append(com);
-						}
+					
 					}
 					
-					//set station name long UTF8
-					if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
-						station.getNameCaseUTF8() == null || !lStation.getNameUtf8().equals(station.getNameCaseUTF8())) {
-						Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getNameUtf8());
-						if (com.canExecute()) {
-							command.append(com);					
-						}
+					CompoundCommand com = StationNameMerger.createMergeStationNamesCommand(domain,lStation,station);
+					if (!com.isEmpty() && com.canExecute()) {
+						command.append(com);					
 					}
-
-					//set station name short ASCII
-					if (lStation.getShortName() != null && lStation.getShortName().length() > 1 &&
-						station.getShortNameCaseASCII() == null || !lStation.getShortName().equals(station.getShortNameCaseASCII())) {
-						Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getShortName());
-						if (com.canExecute()) {
-							command.append(com);					
-						}
-					}	
-						
-					//set station name short UTF8
-					if (lStation.getShortNameUtf8() != null && lStation.getShortNameUtf8().length() > 1 &&
-						station.getShortNameCaseUTF8() == null || !lStation.getShortNameUtf8().equals(station.getShortNameCaseUTF8())) {
-						Command com2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_UTF8, lStation.getShortNameUtf8());
-						if (com2.canExecute()) {
-							command.append(com2);					
-						}
-					}
-
-
-					if (lStation.getLegacyBorderPointCode() != lStation.getLegacyBorderPointCode()) {
-						Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
-						if (com.canExecute()) {
-							command.append(com);					
-						}
-					}
-
+					
 				}
 			}
 			

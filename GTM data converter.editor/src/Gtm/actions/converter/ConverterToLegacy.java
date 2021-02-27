@@ -319,7 +319,7 @@ public class 	ConverterToLegacy {
 			if (e.getValue().getDescriptionLocal().equals(descr.getDescriptionLocal())) return e.getKey();
 		}
 	
-		Integer fareTableId = legacyFareDescriptions.size() + 1;
+		Integer fareTableId = 1000 + legacyFareDescriptions.size();
 		descr.setTableId(fareTableId);
 		legacyFareDescriptions.put(fareTableId, descr);
 		

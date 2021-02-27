@@ -51,6 +51,7 @@ import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyDistanceFare;
 import Gtm.LegacyFareDetailMap;
+import Gtm.LegacyFareStationSetMap;
 import Gtm.LegacyFareStationSetMappings;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
@@ -228,6 +229,7 @@ public class ConverterFromLegacy {
 			command.append(RemoveCommand.create(domain,tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints(),GtmPackage.Literals.REGIONAL_CONSTRAINTS__REGIONAL_CONSTRAINTS, regions) );
 			executeAndFlush(command,domain);
 		}
+		deleted = regions.size();
 		regions.clear();
 		
 		
@@ -254,8 +256,10 @@ public class ConverterFromLegacy {
 			if (point.getDataSource() == DataSource.CONVERTED || point.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, point) );
 			}
-		}			
+		}		
+		executeAndFlush(command,domain);
 		
+		command = new CompoundCommand();
 		for (SalesAvailabilityConstraint sa : tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
 			if (sa.getDataSource() == DataSource.CONVERTED) {
 				command.append(DeleteCommand.create(domain, sa) );
@@ -263,6 +267,7 @@ public class ConverterFromLegacy {
 		}		
 		executeAndFlush(command,domain);
 		
+		command = new CompoundCommand();
 		for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
 			if (cc.getDataSource() == DataSource.CONVERTED) {
 				command.append(DeleteCommand.create(domain, cc) );
@@ -313,9 +318,6 @@ public class ConverterFromLegacy {
 			}
 			executeAndFlush(command,domain);
 		}
-		
-		
-		
 
 		return deleted;
 	}
@@ -2107,7 +2109,7 @@ public class ConverterFromLegacy {
 						def.getStations().add(station);
 					} else {
 						if (!isMappedStation(legacyStation.getStationCode())) {
-							// something strange happend
+							// something strange happened
 							String message = NationalLanguageSupport.ConverterFromLegacy_50 + Integer.toString(legacyStation.getStationCode()) + NationalLanguageSupport.ConverterFromLegacy_51;
 							GtmUtils.writeConsoleError(message, editor);
 						}
@@ -2126,7 +2128,7 @@ public class ConverterFromLegacy {
 			
 		}
 		
-		
+		int added = fareStationSetDefinitions.getFareStationSetDefinitions().size();
 		
 		Command cmd = SetCommand.create(domain,tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__FARE_STATION_SET_DEFINITIONS, fareStationSetDefinitions);
 		if (cmd.canExecute()) {
@@ -2138,7 +2140,7 @@ public class ConverterFromLegacy {
 		Command cmd2 = SetCommand.create(domain,tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS, fareStationSetMappings);
 		if (cmd.canExecute()) {
 			domain.getCommandStack().execute(cmd2);
-		    return fareStationSetMappings.getLegacyFareStationSetMap().size();
+		    return added;
 		} else {
 			return 0;
 		}		
@@ -2184,20 +2186,66 @@ public class ConverterFromLegacy {
 		StationNames stationNames = GtmFactory.eINSTANCE.createStationNames();
 				
 		for (Legacy108Station lStation : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations()) {
+			//add stations from the exporter country
+			boolean found = false;
+			
+			
+	
+			
+			Station station = updateStationNames(tool,lStation);
+			if (station != null) {
+				stationNames.getStationName().add(station);
+				found = true;
+			}
 
-			Station station;
-			try {
-				station = getStation(tool,myCountry,lStation.getStationCode());
-				if (station != null) {
-					station.setNameCaseASCII(lStation.getName());
-					station.setNameCaseUTF8(lStation.getNameUTF8());
-					station.setShortNameCaseASCII(lStation.getShortName());
-					station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
-					station.setLegacyBorderPointCode(lStation.getBorderPointCode());
-					stationNames.getStationName().add(station);
+						
+			
+			//add station names for used border points
+			if (lStation.getBorderPointCode() > 0 ) {
+				ConnectionPoint p = borderConnectionPoints.get(lStation.getBorderPointCode());
+				
+				if (p != null && p.getConnectedStationSets() != null && p.getConnectedStationSets().size() == 1) {
+					for   (StationSet set : p.getConnectedStationSets()) {
+						if (set.getStations().size() == 1) {
+							for (Station s : set.getStations()) {
+								if (!stationNames.getStationName().contains(s)) {
+									mergeStationNames(tool, lStation, s);
+									stationNames.getStationName().add(s);
+								}
+							}
+						}
+					}
 				}
-			} catch (ConverterException e) {
-				// only names
+			}
+			
+			//add  names for mapped stations
+			for (LegacyStationMap map : tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
+				
+				if (map.getLegacyCode() == lStation.getStationCode()) {
+					Station mappedStation = map.getStation();
+					if (mappedStation != null && !stationNames.getStationName().contains(mappedStation)) {
+						mergeStationNames(tool, lStation, mappedStation);
+						stationNames.getStationName().add(mappedStation);
+						found = true;
+					}
+				}
+			}
+			
+			//will be mapped to service constraint
+			if (tool.getConversionFromLegacy().getParams() != null &&
+				tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings() != null &&
+				tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings().getLegacyFareStationSetMap() != null ) {
+					
+				for (LegacyFareStationSetMap map:  tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings().getLegacyFareStationSetMap()) {
+					if (map.getLegacyCode() == lStation.getStationCode()) {
+						found = true;
+					}
+				}
+			}
+			
+			if (!found) {
+				String message = "MERITS station not found: " + lStation.getName();
+				GtmUtils.writeConsoleWarning(message, editor);
 			}
 		}
 
@@ -2208,6 +2256,47 @@ public class ConverterFromLegacy {
 		
 		return stationNames.getStationName().size();
 	}
+	
+	Station updateStationNames(GTMTool tool, Legacy108Station lStation) {
+		
+		Station station = null;
+		try {
+			station = getStation(tool,myCountry,lStation.getStationCode());
+			if (station != null) {
+				station.setNameCaseASCII(lStation.getName());
+				station.setNameCaseUTF8(lStation.getNameUTF8());
+				station.setShortNameCaseASCII(lStation.getShortName());
+				station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
+				station.setLegacyBorderPointCode(lStation.getBorderPointCode());
+			}
+		} catch (ConverterException e) {
+			// only names
+		}
+		return station;	
+	}
+	
+	Station mergeStationNames(GTMTool tool, Legacy108Station lStation, Station station) {
+		
+		if (station != null) {
+			if (station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) {
+				station.setNameCaseASCII(lStation.getName());
+			}
+			if (station.getNameCaseUTF8() == null || station.getNameCaseUTF8().length() == 0) {
+				station.setNameCaseUTF8(lStation.getNameUTF8());
+			}
+			if (station.getShortNameCaseASCII() == null || station.getShortNameCaseASCII().length() == 0) {
+				station.setShortNameCaseASCII(lStation.getShortName());
+			}
+			if (station.getShortNameCaseUTF8() == null || station.getShortNameCaseUTF8().length() == 0) {
+				station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
+			}
+			if (station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) {
+				station.setLegacyBorderPointCode(lStation.getBorderPointCode());
+			}
+		}
+		return station;	
+	}
+	
 	
 	/**
 	 * Execute and flush.
