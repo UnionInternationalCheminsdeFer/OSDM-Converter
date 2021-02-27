@@ -2139,7 +2139,7 @@ public class ConverterFromLegacy {
 	
 		Command cmd2 = SetCommand.create(domain,tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS, fareStationSetMappings);
 		if (cmd.canExecute()) {
-			domain.getCommandStack().execute(cmd2);
+		domain.getCommandStack().execute(cmd2);
 		    return added;
 		} else {
 			return 0;
