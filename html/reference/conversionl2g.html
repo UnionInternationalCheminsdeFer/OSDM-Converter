@@ -135,13 +135,11 @@ layout: default
 				edited in the fare structure first. Then it can be selected in the fare template.</td>
 		</tr>
 		<tr>
-			<th>Fulfillment Constraint</th>
-			<td>A fulfillment constraint to be added to the fare. The fulfillment constraint must be edited in the fare
-				structure first and can then be selected in the fare template.</td>
-		</tr>
+			<th>Fare constraint bundle</th>
+			<td>Fare constraint bundle holding the main constraints of this type of fare.</td>
 		<tr>
-			<th>Id</th>
-			<td>- not in use - </td>
+			<th>Separate contract fare constraint bundle</th>
+			<td>Fare constraint bundle to be used in case the series is listed in the 108.1 TCVL file.</td>
 		</tr>
 		<tr>
 			<th>Individual contracts</th>
@@ -158,18 +156,9 @@ layout: default
 				structure first and can then be selected in the fare template. </td>
 		</tr>
 		<tr>
-			<th>Personal data constraint</th>
-			<td>The personal data constraint to be applied with the fare. The personal data constraint must be edited in the
-				fare structure first and can then be selected in the fare template. </td>
-		</tr>
-		<tr>
 			<th>Reduction Constraint</th>
 			<td>The reduction constraint to be applied with the fare. The reduction constraint must be edited in the fare
 				structure first and can then be selected in the fare template. </td>
-		</tr>
-		<tr>
-			<th>Regional Constraint</th>
-			<td>The regional constraint will be created from the <b>108.1</b> series data.</td>
 		</tr>
 		<tr>
 			<th>Reservation parameter</th>
@@ -179,10 +168,6 @@ layout: default
 		<tr>
 			<th>Sales availability</th>
 			<td>The sales availability will be calculated from the validity in the <b>108.1</b> data. </td>
-		</tr>
-		<tr>
-			<th>Separate contract combination constraint</th>
-			<td>Combination constraint to be used in case the series is listed in the <b>108.1</b> <b>TCVL</b> file.</td>
 		</tr>
 		<tr>
 			<th>Service class</th>
@@ -209,6 +194,27 @@ layout: default
 			<td>The travel validity to be applied with the fare. The travel validity must be edited in the fare structure
 				first and can then be selected in the fare template. </td>
 		</tr>
+	</tbody>
+</table>
+</p>
+
+
+<p>The Fare Constraint Bundle holds the main constraints for a type of fare. It needs to be created within the fare structure data and holds the following constraints: </p>
+<table>
+	<thead>
+		<tr>
+			<td>Content</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>data Description</th><td>A descriptive text of the bundle which is used in the selection list to assign the bundle to a fare template</td></tr>
+		<tr><th>Combination constraint</th><td>The rules on how to combine fares with other fares.</td></tr>
+		<tr><th>Sales availability</th><td>The sales availability will be calculated from the validity in the 108.1 data. </td></tr>
+		<tr><th>Travel validity</th><td>The travel validity to be applied with the fare. The travel validity must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
+		<tr><th>Passenger limits</th><td>The upper and lower limit of passengers to be combined on a ticket. </td></tr>
+		<tr><th>Fulfillment Constraint</th><td>A fulfillment constraint to be added to the fare. The fulfillment constraint must be edited in the fare structure first and can then be selected in the fare template.</td></tr>
+		<tr><th>Personal data constraint</th><td>The personal data constraint to be applied with the fare. The personal data constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 	</tbody>
 </table>
 </p>
