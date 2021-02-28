@@ -4,6 +4,7 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.edit.ui.action.ValidateAction;
 
 import Gtm.problems.GtmProblemView;
+import Gtm.utils.GtmUtils;
 
 
 

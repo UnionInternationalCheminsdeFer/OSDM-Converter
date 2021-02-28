@@ -34,6 +34,7 @@ import Gtm.Country;
 import Gtm.CurrencyPrice;
 import Gtm.DataSource;
 import Gtm.EndOfSale;
+import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.FareElements;
 import Gtm.FareStationSetDefinition;
@@ -50,6 +51,7 @@ import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyDistanceFare;
 import Gtm.LegacyFareDetailMap;
+import Gtm.LegacyFareStationSetMap;
 import Gtm.LegacyFareStationSetMappings;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
@@ -75,12 +77,12 @@ import Gtm.TaxScope;
 import Gtm.VATDetail;
 import Gtm.VatTemplate;
 import Gtm.ViaStation;
-import Gtm.actions.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 //import Gtm.preferences.PreferenceConstants;
 //import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils;
 
 /**
  * The Class ConverterFromLegacy.
@@ -181,9 +183,7 @@ public class ConverterFromLegacy {
 				borderPoints.put(lbp.getBorderPointCode(), lbp);
 			}
 		}	
-		
 	}
-	
 	
 	
 	/**
@@ -229,6 +229,7 @@ public class ConverterFromLegacy {
 			command.append(RemoveCommand.create(domain,tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints(),GtmPackage.Literals.REGIONAL_CONSTRAINTS__REGIONAL_CONSTRAINTS, regions) );
 			executeAndFlush(command,domain);
 		}
+		deleted = regions.size();
 		regions.clear();
 		
 		
@@ -242,6 +243,7 @@ public class ConverterFromLegacy {
 		if (prices.size() == tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices().size()) {
 			Prices priceList = GtmFactory.eINSTANCE.createPrices();
 			command.append(SetCommand.create(domain, tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__PRICES, priceList));
+			executeAndFlush(command,domain);
 		} else {
 			command.append(RemoveCommand.create(domain,tool.getGeneralTariffModel().getFareStructure().getPrices(),GtmPackage.Literals.PRICES__PRICES, prices) );
 			executeAndFlush(command,domain);
@@ -254,14 +256,25 @@ public class ConverterFromLegacy {
 			if (point.getDataSource() == DataSource.CONVERTED || point.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, point) );
 			}
-		}			
+		}		
+		executeAndFlush(command,domain);
 		
+		command = new CompoundCommand();
 		for (SalesAvailabilityConstraint sa : tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
 			if (sa.getDataSource() == DataSource.CONVERTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}		
 		executeAndFlush(command,domain);
+		
+		command = new CompoundCommand();
+		for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
+			if (cc.getDataSource() == DataSource.CONVERTED) {
+				command.append(DeleteCommand.create(domain, cc) );
+			}
+		}		
+		executeAndFlush(command,domain);		
+		
 		
 		command = new CompoundCommand();		
 		for (Calendar sa : tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars()) {
@@ -287,6 +300,14 @@ public class ConverterFromLegacy {
 		}
 		executeAndFlush(command,domain);
 		
+		command = new CompoundCommand();		
+		for (FareConstraintBundle sa : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
+			if (sa.getDataSource() == DataSource.CONVERTED) {
+				command.append(DeleteCommand.create(domain, sa) );
+			}
+		}
+		executeAndFlush(command,domain);
+		
 		if ( tool.getConversionFromLegacy().getParams() != null && 
 			 tool.getConversionFromLegacy().getParams().getLegacyStationMappings() != null) {
 			command = new CompoundCommand();		
@@ -297,7 +318,6 @@ public class ConverterFromLegacy {
 			}
 			executeAndFlush(command,domain);
 		}
-		
 
 		return deleted;
 	}
@@ -328,6 +348,7 @@ public class ConverterFromLegacy {
 				Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(series.getCarrierCode());
 				if (carrier != null) {
 					CarrierConstraint constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
+					constraint.setDataSource(DataSource.CONVERTED);
 					constraint.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_2 + carrier.getName());
 					constraint.getIncludedCarriers().add(carrier);
 					carrierConstraints.put(carrier.getCode(),constraint);
@@ -1608,14 +1629,14 @@ public class ConverterFromLegacy {
 						&& ( fare.getValidUntil().after(dateRange.getEndDate())
 							   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {
 					if (travelClass == 1) {
-						return ((float) fare.getFare1st())/100; 
+						return GtmUtils.getEuroFromCent(fare.getFare1st()); 
 					} else {
-						return ((float) fare.getFare2nd())/100; 			
+						return GtmUtils.getEuroFromCent(fare.getFare2nd()); 			
 					}
 				}
 			}
 		}  else {
-			float price = 0;
+			int price = 0;
 			boolean distanceFound = false;
 			
 			int distance = 0;
@@ -1649,10 +1670,9 @@ public class ConverterFromLegacy {
 					}
 				}
 			}
-			
 			if (!distanceFound) return null;
 			
-			return price/100;
+			return GtmUtils.getEuroFromCent(price);
 		}
 		return null;
 	}
@@ -1702,9 +1722,11 @@ public class ConverterFromLegacy {
 		}
 		
 		if (isSeparateContract(series)) {
-			fare.setCombinationConstraint(fareTemplate.getSeparateContractCombinationConstraint());
+			fare.setFareConstraintBundle(fareTemplate.getSeparateContractFareConstraintBundle());
+			//C2.0 fare.setCombinationConstraint(fareTemplate.getSeparateContractCombinationConstraint());
 		} else {
-			fare.setCombinationConstraint(fareTemplate.getCombinationConstraint());
+			fare.setFareConstraintBundle(fareTemplate.getFareConstraintBundle());
+			//C2.0 fare.setCombinationConstraint(fareTemplate.getCombinationConstraint());
 		}
 		fare.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_44 + Integer.toString(series.getNumber()) +NationalLanguageSupport.ConverterFromLegacy_45 + fareTemplate.getDataDescription());;
 
@@ -1720,8 +1742,9 @@ public class ConverterFromLegacy {
 		
 		if (fareTemplate.getSalesAvailability() != null) {
 			fare.setSalesAvailability(fareTemplate.getSalesAvailability());
-		} else {
-			fare.setSalesAvailability(findSalesAvailability(tool,dateRange));
+		} else if (fare.getFareConstraintBundle().getSalesAvailability() == null){
+			//C2.0 TODO
+			fare.getFareConstraintBundle().setSalesAvailability(findSalesAvailability(tool,dateRange));
 		}
 		mapConstraintsAndDescriptions(fare, series);
 		if (price != null && fare != null) {
@@ -1741,18 +1764,18 @@ public class ConverterFromLegacy {
 	private void template2Fare(FareElement fare,FareTemplate fareTemplate) {
 		
 		fare.setFareDetailDescription(fareTemplate.getFareDetailDescription());
-		fare.setFulfillmentConstraint(fareTemplate.getFulfillmentConstraint());
+		//C2.0 fare.setFulfillmentConstraint(fareTemplate.getFulfillmentConstraint());
 		fare.setIndividualContracts(fareTemplate.isIndividualContracts());		
 		fare.setPassengerConstraint(fareTemplate.getPassengerConstraint());
 		fare.setReductionConstraint(fareTemplate.getReductionConstraint());
-		fare.setPersonalDataConstraint(fareTemplate.getPersonalDataConstraint());
+		//C2.0 fare.setPersonalDataConstraint(fareTemplate.getPersonalDataConstraint());
 		fare.setReservationParameter(fareTemplate.getReservationParameter());
-		fare.setSalesAvailability(fareTemplate.getSalesAvailability());
+		//C2.0 fare.setSalesAvailability(fareTemplate.getSalesAvailability());
 		fare.setServiceClass(fareTemplate.getServiceClass());
 		fare.setServiceConstraint(fareTemplate.getServiceConstraint());
 		fare.setServiceLevel(fareTemplate.getServiceLevel());
 		fare.setText(fareTemplate.getText());
-		fare.setTravelValidity(fareTemplate.getTravelValidity());
+		//C2.0 fare.setTravelValidity(fareTemplate.getTravelValidity());
 		fare.setType(fareTemplate.getType());
 		fare.setLegacyConversion(fareTemplate.getLegacyConversion());
 		
@@ -2084,21 +2107,26 @@ public class ConverterFromLegacy {
 						def.getStations().add(station);
 					} else {
 						if (!isMappedStation(legacyStation.getStationCode())) {
-							// something strange happend
+							// something strange happened
 							String message = NationalLanguageSupport.ConverterFromLegacy_50 + Integer.toString(legacyStation.getStationCode()) + NationalLanguageSupport.ConverterFromLegacy_51;
 							GtmUtils.writeConsoleError(message, editor);
 						}
 					}
 				}
 				if (def.getStations().isEmpty()) {
-					String message = NationalLanguageSupport.ConverterFromLegacy_55 + Integer.toString(legacyStation.getStationCode()) + " " + def.getName();
+					String message = NationalLanguageSupport.ConverterFromLegacy_55;
+					if (def != null && def.getName() != null) {
+						message = message + Integer.toString(legacyStation.getStationCode()) + " " + def.getName();
+					} else {
+						message = message + Integer.toString(legacyStation.getStationCode());
+					}
 					GtmUtils.writeConsoleWarning(message, editor);
 				}
 			}
 			
 		}
 		
-		
+		int added = fareStationSetDefinitions.getFareStationSetDefinitions().size();
 		
 		Command cmd = SetCommand.create(domain,tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__FARE_STATION_SET_DEFINITIONS, fareStationSetDefinitions);
 		if (cmd.canExecute()) {
@@ -2109,8 +2137,8 @@ public class ConverterFromLegacy {
 	
 		Command cmd2 = SetCommand.create(domain,tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS, fareStationSetMappings);
 		if (cmd.canExecute()) {
-			domain.getCommandStack().execute(cmd2);
-		    return fareStationSetMappings.getLegacyFareStationSetMap().size();
+		domain.getCommandStack().execute(cmd2);
+		    return added;
 		} else {
 			return 0;
 		}		
@@ -2156,20 +2184,62 @@ public class ConverterFromLegacy {
 		StationNames stationNames = GtmFactory.eINSTANCE.createStationNames();
 				
 		for (Legacy108Station lStation : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations()) {
+			//add stations from the exporter country
+			boolean found = false;
+			
+			Station station = updateStationNames(tool,lStation);
+			if (station != null) {
+				stationNames.getStationName().add(station);
+				found = true;
+			}
 
-			Station station;
-			try {
-				station = getStation(tool,myCountry,lStation.getStationCode());
-				if (station != null) {
-					station.setNameCaseASCII(lStation.getName());
-					station.setNameCaseUTF8(lStation.getNameUTF8());
-					station.setShortNameCaseASCII(lStation.getShortName());
-					station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
-					station.setLegacyBorderPointCode(lStation.getBorderPointCode());
-					stationNames.getStationName().add(station);
+			//add station names for used border points
+			if (lStation.getBorderPointCode() > 0 ) {
+				ConnectionPoint p = borderConnectionPoints.get(lStation.getBorderPointCode());
+				
+				if (p != null && p.getConnectedStationSets() != null && p.getConnectedStationSets().size() == 1) {
+					for   (StationSet set : p.getConnectedStationSets()) {
+						if (set.getStations().size() == 1) {
+							for (Station s : set.getStations()) {
+								if (!stationNames.getStationName().contains(s)) {
+									mergeStationNames(tool, lStation, s);
+									stationNames.getStationName().add(s);
+								}
+							}
+						}
+					}
 				}
-			} catch (ConverterException e) {
-				// only names
+			}
+			
+			//add  names for mapped stations
+			for (LegacyStationMap map : tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
+				
+				if (map.getLegacyCode() == lStation.getStationCode()) {
+					Station mappedStation = map.getStation();
+					if (mappedStation != null && !stationNames.getStationName().contains(mappedStation)) {
+						mergeStationNames(tool, lStation, mappedStation);
+						stationNames.getStationName().add(mappedStation);
+						found = true;
+					}
+				}
+			}
+			
+			//will be mapped to service constraint
+			if (!found && 
+				tool.getConversionFromLegacy().getParams() != null &&
+				tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings() != null &&
+				tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings().getLegacyFareStationSetMap() != null ) {
+					
+				for (LegacyStationToServiceConstraintMapping map:  tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings()) {
+					if (map.getCode() == lStation.getStationCode()) {
+						found = true;
+					}
+				}
+			}
+			
+			if (!found) {
+				String message = "MERITS station not found: " + lStation.getName();
+				GtmUtils.writeConsoleWarning(message, editor);
 			}
 		}
 
@@ -2180,6 +2250,47 @@ public class ConverterFromLegacy {
 		
 		return stationNames.getStationName().size();
 	}
+	
+	Station updateStationNames(GTMTool tool, Legacy108Station lStation) {
+		
+		Station station = null;
+		try {
+			station = getStation(tool,myCountry,lStation.getStationCode());
+			if (station != null) {
+				station.setNameCaseASCII(lStation.getName());
+				station.setNameCaseUTF8(lStation.getNameUTF8());
+				station.setShortNameCaseASCII(lStation.getShortName());
+				station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
+				station.setLegacyBorderPointCode(lStation.getBorderPointCode());
+			}
+		} catch (ConverterException e) {
+			// only names
+		}
+		return station;	
+	}
+	
+	Station mergeStationNames(GTMTool tool, Legacy108Station lStation, Station station) {
+		
+		if (station != null) {
+			if (station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) {
+				station.setNameCaseASCII(lStation.getName());
+			}
+			if (station.getNameCaseUTF8() == null || station.getNameCaseUTF8().length() == 0) {
+				station.setNameCaseUTF8(lStation.getNameUTF8());
+			}
+			if (station.getShortNameCaseASCII() == null || station.getShortNameCaseASCII().length() == 0) {
+				station.setShortNameCaseASCII(lStation.getShortName());
+			}
+			if (station.getShortNameCaseUTF8() == null || station.getShortNameCaseUTF8().length() == 0) {
+				station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
+			}
+			if (station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) {
+				station.setLegacyBorderPointCode(lStation.getBorderPointCode());
+			}
+		}
+		return station;	
+	}
+	
 	
 	/**
 	 * Execute and flush.

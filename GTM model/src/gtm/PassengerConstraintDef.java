@@ -20,9 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "isAncillaryItem",
     "combinationConstraint",
     "includedFreePassenger",
-    "passengerWeight",
-    "maxWeightedPassengers",
-    "minWeightedPassengers"
+    "passengerWeight"
 })
 public class PassengerConstraintDef {
 
@@ -58,26 +56,17 @@ public class PassengerConstraintDef {
     private Integer ageLimitForReservation;
     @JsonProperty("isAncillaryItem")
     private Boolean isAncillaryItem = false;
+    /**
+     * constraints on accompagning passengers
+     * 
+     */
     @JsonProperty("combinationConstraint")
+    @JsonPropertyDescription("constraints on accompagning passengers")
     private List<CombinationConstraint> combinationConstraint = new ArrayList<CombinationConstraint>();
     @JsonProperty("includedFreePassenger")
     private List<IncludedFreePassenger> includedFreePassenger = new ArrayList<IncludedFreePassenger>();
     @JsonProperty("passengerWeight")
     private Float passengerWeight;
-    /**
-     * The total weighted number of passengers on the offer is restricted to be equal or smaller than this maximum
-     * 
-     */
-    @JsonProperty("maxWeightedPassengers")
-    @JsonPropertyDescription("The total weighted number of passengers on the offer is restricted to be equal or smaller than this maximum")
-    private Float maxWeightedPassengers;
-    /**
-     * The total weighted number of passengers on the offer is restricted to equal or larger than this minimum
-     * 
-     */
-    @JsonProperty("minWeightedPassengers")
-    @JsonPropertyDescription("The total weighted number of passengers on the offer is restricted to equal or larger than this minimum")
-    private Float minWeightedPassengers;
 
     /**
      * 
@@ -189,11 +178,19 @@ public class PassengerConstraintDef {
         this.isAncillaryItem = isAncillaryItem;
     }
 
+    /**
+     * constraints on accompagning passengers
+     * 
+     */
     @JsonProperty("combinationConstraint")
     public List<CombinationConstraint> getCombinationConstraint() {
         return combinationConstraint;
     }
 
+    /**
+     * constraints on accompagning passengers
+     * 
+     */
     @JsonProperty("combinationConstraint")
     public void setCombinationConstraint(List<CombinationConstraint> combinationConstraint) {
         this.combinationConstraint = combinationConstraint;
@@ -217,42 +214,6 @@ public class PassengerConstraintDef {
     @JsonProperty("passengerWeight")
     public void setPassengerWeight(Float passengerWeight) {
         this.passengerWeight = passengerWeight;
-    }
-
-    /**
-     * The total weighted number of passengers on the offer is restricted to be equal or smaller than this maximum
-     * 
-     */
-    @JsonProperty("maxWeightedPassengers")
-    public Float getMaxWeightedPassengers() {
-        return maxWeightedPassengers;
-    }
-
-    /**
-     * The total weighted number of passengers on the offer is restricted to be equal or smaller than this maximum
-     * 
-     */
-    @JsonProperty("maxWeightedPassengers")
-    public void setMaxWeightedPassengers(Float maxWeightedPassengers) {
-        this.maxWeightedPassengers = maxWeightedPassengers;
-    }
-
-    /**
-     * The total weighted number of passengers on the offer is restricted to equal or larger than this minimum
-     * 
-     */
-    @JsonProperty("minWeightedPassengers")
-    public Float getMinWeightedPassengers() {
-        return minWeightedPassengers;
-    }
-
-    /**
-     * The total weighted number of passengers on the offer is restricted to equal or larger than this minimum
-     * 
-     */
-    @JsonProperty("minWeightedPassengers")
-    public void setMinWeightedPassengers(Float minWeightedPassengers) {
-        this.minWeightedPassengers = minWeightedPassengers;
     }
 
     @Override
@@ -303,14 +264,6 @@ public class PassengerConstraintDef {
         sb.append('=');
         sb.append(((this.passengerWeight == null)?"<null>":this.passengerWeight));
         sb.append(',');
-        sb.append("maxWeightedPassengers");
-        sb.append('=');
-        sb.append(((this.maxWeightedPassengers == null)?"<null>":this.maxWeightedPassengers));
-        sb.append(',');
-        sb.append("minWeightedPassengers");
-        sb.append('=');
-        sb.append(((this.minWeightedPassengers == null)?"<null>":this.minWeightedPassengers));
-        sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
         } else {
@@ -323,18 +276,16 @@ public class PassengerConstraintDef {
     public int hashCode() {
         int result = 1;
         result = ((result* 31)+((this.ageLimitForReservation == null)? 0 :this.ageLimitForReservation.hashCode()));
-        result = ((result* 31)+((this.maxWeightedPassengers == null)? 0 :this.maxWeightedPassengers.hashCode()));
+        result = ((result* 31)+((this.passengerType == null)? 0 :this.passengerType.hashCode()));
         result = ((result* 31)+((this.passengerWeight == null)? 0 :this.passengerWeight.hashCode()));
         result = ((result* 31)+((this.isAncillaryItem == null)? 0 :this.isAncillaryItem.hashCode()));
         result = ((result* 31)+((this.ageLimitToTravelAlone == null)? 0 :this.ageLimitToTravelAlone.hashCode()));
-        result = ((result* 31)+((this.nameRef == null)? 0 :this.nameRef.hashCode()));
-        result = ((result* 31)+((this.lowerAgeLimit == null)? 0 :this.lowerAgeLimit.hashCode()));
-        result = ((result* 31)+((this.passengerType == null)? 0 :this.passengerType.hashCode()));
         result = ((result* 31)+((this.combinationConstraint == null)? 0 :this.combinationConstraint.hashCode()));
         result = ((result* 31)+((this.includedFreePassenger == null)? 0 :this.includedFreePassenger.hashCode()));
+        result = ((result* 31)+((this.nameRef == null)? 0 :this.nameRef.hashCode()));
+        result = ((result* 31)+((this.lowerAgeLimit == null)? 0 :this.lowerAgeLimit.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
         result = ((result* 31)+((this.upperAgeLimit == null)? 0 :this.upperAgeLimit.hashCode()));
-        result = ((result* 31)+((this.minWeightedPassengers == null)? 0 :this.minWeightedPassengers.hashCode()));
         return result;
     }
 
@@ -347,7 +298,7 @@ public class PassengerConstraintDef {
             return false;
         }
         PassengerConstraintDef rhs = ((PassengerConstraintDef) other);
-        return ((((((((((((((this.ageLimitForReservation == rhs.ageLimitForReservation)||((this.ageLimitForReservation!= null)&&this.ageLimitForReservation.equals(rhs.ageLimitForReservation)))&&((this.maxWeightedPassengers == rhs.maxWeightedPassengers)||((this.maxWeightedPassengers!= null)&&this.maxWeightedPassengers.equals(rhs.maxWeightedPassengers))))&&((this.passengerWeight == rhs.passengerWeight)||((this.passengerWeight!= null)&&this.passengerWeight.equals(rhs.passengerWeight))))&&((this.isAncillaryItem == rhs.isAncillaryItem)||((this.isAncillaryItem!= null)&&this.isAncillaryItem.equals(rhs.isAncillaryItem))))&&((this.ageLimitToTravelAlone == rhs.ageLimitToTravelAlone)||((this.ageLimitToTravelAlone!= null)&&this.ageLimitToTravelAlone.equals(rhs.ageLimitToTravelAlone))))&&((this.nameRef == rhs.nameRef)||((this.nameRef!= null)&&this.nameRef.equals(rhs.nameRef))))&&((this.lowerAgeLimit == rhs.lowerAgeLimit)||((this.lowerAgeLimit!= null)&&this.lowerAgeLimit.equals(rhs.lowerAgeLimit))))&&((this.passengerType == rhs.passengerType)||((this.passengerType!= null)&&this.passengerType.equals(rhs.passengerType))))&&((this.combinationConstraint == rhs.combinationConstraint)||((this.combinationConstraint!= null)&&this.combinationConstraint.equals(rhs.combinationConstraint))))&&((this.includedFreePassenger == rhs.includedFreePassenger)||((this.includedFreePassenger!= null)&&this.includedFreePassenger.equals(rhs.includedFreePassenger))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.upperAgeLimit == rhs.upperAgeLimit)||((this.upperAgeLimit!= null)&&this.upperAgeLimit.equals(rhs.upperAgeLimit))))&&((this.minWeightedPassengers == rhs.minWeightedPassengers)||((this.minWeightedPassengers!= null)&&this.minWeightedPassengers.equals(rhs.minWeightedPassengers))));
+        return ((((((((((((this.ageLimitForReservation == rhs.ageLimitForReservation)||((this.ageLimitForReservation!= null)&&this.ageLimitForReservation.equals(rhs.ageLimitForReservation)))&&((this.passengerType == rhs.passengerType)||((this.passengerType!= null)&&this.passengerType.equals(rhs.passengerType))))&&((this.passengerWeight == rhs.passengerWeight)||((this.passengerWeight!= null)&&this.passengerWeight.equals(rhs.passengerWeight))))&&((this.isAncillaryItem == rhs.isAncillaryItem)||((this.isAncillaryItem!= null)&&this.isAncillaryItem.equals(rhs.isAncillaryItem))))&&((this.ageLimitToTravelAlone == rhs.ageLimitToTravelAlone)||((this.ageLimitToTravelAlone!= null)&&this.ageLimitToTravelAlone.equals(rhs.ageLimitToTravelAlone))))&&((this.combinationConstraint == rhs.combinationConstraint)||((this.combinationConstraint!= null)&&this.combinationConstraint.equals(rhs.combinationConstraint))))&&((this.includedFreePassenger == rhs.includedFreePassenger)||((this.includedFreePassenger!= null)&&this.includedFreePassenger.equals(rhs.includedFreePassenger))))&&((this.nameRef == rhs.nameRef)||((this.nameRef!= null)&&this.nameRef.equals(rhs.nameRef))))&&((this.lowerAgeLimit == rhs.lowerAgeLimit)||((this.lowerAgeLimit!= null)&&this.lowerAgeLimit.equals(rhs.lowerAgeLimit))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.upperAgeLimit == rhs.upperAgeLimit)||((this.upperAgeLimit!= null)&&this.upperAgeLimit.equals(rhs.upperAgeLimit))));
     }
 
 }

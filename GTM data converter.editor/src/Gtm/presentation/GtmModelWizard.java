@@ -48,7 +48,7 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.provider.GtmEditPlugin;
-import Gtm.actions.GtmUtils;
+import Gtm.utils.GtmUtils;
 
 import java.io.File;
 

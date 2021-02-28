@@ -8,15 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
 import Gtm.*;
-import Gtm.actions.GtmUtils;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
+import Gtm.utils.GtmUtils;
 import gtm.AfterSalesConditionDef;
 import gtm.AfterSalesRuleDef;
 import gtm.AllowedChange;
@@ -30,9 +29,9 @@ import gtm.CrossBorderConditionDef;
 import gtm.CurrencyPriceDef;
 import gtm.FareCombinationConstraintDef;
 import gtm.FareCombinationModelDef;
+import gtm.FareConstraintBundle.FareTypeDef;
 import gtm.FareDataDef;
 import gtm.FareDef;
-import gtm.FareDef.FareTypeDef;
 import gtm.FareDelivery;
 import gtm.FareDeliveryDetailsDef;
 import gtm.FareReferenceStationSetDef;
@@ -44,6 +43,7 @@ import gtm.LegacyAccountingIdentifierDef;
 import gtm.LegacyReservationParameterDef;
 import gtm.LineDef;
 import gtm.OnlineResourceDef;
+import gtm.PassengerCombinationConstraintDef;
 import gtm.PassengerConstraintDef;
 import gtm.PersonalDataConstraintDef;
 import gtm.PolygonDef;
@@ -175,8 +175,6 @@ public class GTMJsonImporter {
 		
 		fareStructure.setStationNames(convertStationNames(fareDataDef.getStationNames()));
 		
-		updateMERITSStations(fareDataDef.getStationNames());
-
 		fareStructure.setFareStationSetDefinitions(convertFareStationSetDefinitions(fareDataDef.getFareReferenceStationSetDefinitions()));
 
 		fareStructure.setServiceClassDefinitions(convertServiceClassDefinitions(fareDataDef.getServiceClassDefinitions()));
@@ -189,6 +187,7 @@ public class GTMJsonImporter {
 			fareStructure.setCarrierConstraints(convertCarrierConstraintList(fareDataDef.getCarrierConstraints()));
 		}
 		
+	
 		fareStructure.setCombinationConstraints(convertCombinationConstraintList(fareDataDef.getCombinationConstraints()));
 		
 		fareStructure.setConnectionPoints(convertConnectionPointList(fareDataDef.getConnectionPoints()));
@@ -221,6 +220,10 @@ public class GTMJsonImporter {
 
 		fareStructure.setRegionalConstraints(convertRegionalConstraints(fareDataDef.getRegionalConstraints()));
 		
+		fareStructure.setTotalPassengerCombinationConstraints(convertTotalPassengerConstraints(fareDataDef.getPassengerCombinationConstraints()));
+		
+		fareStructure.setFareConstraintBundles(convertFareConstraintBundles(fareDataDef.getFareConstraintBundles()));
+		
 		fareStructure.setFareElements(convertFareElementList(fareDataDef.getFares()));		
 			
 		
@@ -231,104 +234,51 @@ public class GTMJsonImporter {
 	}
 	
 
+	private FareConstraintBundles convertFareConstraintBundles(List<gtm.FareConstraintBundle> fareConstraintBundles) {
+		
+		FareConstraintBundles bs = GtmFactory.eINSTANCE.createFareConstraintBundles();
+		
+		for (gtm.FareConstraintBundle bJ : fareConstraintBundles) {
+			FareConstraintBundle b = convert(bJ);	
+			if (b != null) {					
+				bs.getFareConstraintBundles().add(b);
+			}
+		}
+		return bs;
+	}
+
+
+	private TotalPassengerCombinationConstraints convertTotalPassengerConstraints(List<PassengerCombinationConstraintDef> list) {
+        
+		TotalPassengerCombinationConstraints tpcs = GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraints();
+		
+		for (PassengerCombinationConstraintDef pcJ : list) {
+			TotalPassengerCombinationConstraint pc = convert(pcJ);
+			if (pc != null) {
+				tpcs.getTotalPassengerCombinationConstraint().add(pc);
+			}
+		}
+		return tpcs;
+	}
+
+
 	private StationNames convertStationNames(List<StationNamesDef> jl) {
 		
 		StationNames n = GtmFactory.eINSTANCE.createStationNames();
 		if (jl == null || jl.isEmpty()) return n;
 		
+		//link the stations, names will be added later-on to the merits code table
 		for (StationNamesDef jn : jl) {
 			
 			Station s = getStation(jn.getCountry(), jn.getLocalCode());
 			if (s != null) {
 				n.getStationName().add(s);
 			}
-			
 		}
 		return n;
 	}
 	
 	
-	private void updateMERITSStations(List<StationNamesDef> list) {
-		//correcting merits data using 108 data
-		
-		CompoundCommand command = new CompoundCommand();
-						
-		for (StationNamesDef lStation : list ) {
-			
-			Station station = stations.get(Integer.valueOf(lStation.getLocalCode() + lStation.getCountry()*100000));
-			
-			if (station != null) {
-			
-				if (lStation.getLegacyBorderPointCode() > 0) {
-				
-					if (station != null && station.isBorderStation() == false){
-						
-						Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__BORDER_STATION, true);
-						if (com != null && com.canExecute()) {
-							command.append(com);	
-						}
-						Command comm2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
-						if (comm2 != null && comm2.canExecute()) {
-							command.append(comm2);	
-						}	
-											
-					}
-				
-				}
-			
-				//set station name long ASCII
-				if (lStation.getName() != null && lStation.getName().length() > 1 &&
-					station.getNameCaseASCII() == null || !station.getNameCaseASCII().equals(lStation.getName())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, lStation.getName());
-					if (com.canExecute()) {
-						command.append(com);
-					}
-				}
-				
-				//set station name long UTF8
-				if (lStation.getName() != null && lStation.getName().length() > 1 &&
-					station.getNameCaseUTF8() == null || !station.getNameCaseUTF8().equals(lStation.getName())) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, lStation.getName());
-					if (com.canExecute()) {
-						command.append(com);					
-					}
-				}
-
-				//set station name short ASCII
-				if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
-					station.getShortNameCaseASCII() == null || !station.getShortNameCaseASCII().equals(lStation.getNameUtf8())) {
-					//TODO add short name in export format
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, lStation.getNameUtf8());
-					if (com.canExecute()) {
-						command.append(com);					
-					}
-				}	
-					
-				if (lStation.getNameUtf8() != null && lStation.getNameUtf8().length() > 1 &&
-					station.getShortNameCaseUTF8() == null || !station.getShortNameCaseUTF8().equals(lStation.getNameUtf8())) {
-					Command com2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_UTF8, lStation.getNameUtf8());
-					if (com2.canExecute()) {
-						command.append(com2);					
-					}
-				}
-
-
-				if (lStation.getLegacyBorderPointCode() != lStation.getLegacyBorderPointCode()) {
-					Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
-					if (com.canExecute()) {
-						command.append(com);					
-					}
-				}
-
-			}
-		}
-		
-		if (command != null && !command.isEmpty()) {
-			domain.getCommandStack().execute(command);
-			command = new CompoundCommand();
-		}
-
-	}
 
 
 
@@ -553,7 +503,7 @@ public class GTMJsonImporter {
 		ServiceLevel s = GtmFactory.eINSTANCE.createServiceLevel();
 		s.setId(js.getId());
 		s.setText(findText(js.getTextRef()));
-		s.setIncludesClassName(js.getIncludesClassName());
+		s.setIncludesClassName(!js.getDoesNotIncludeClassName());
 		s.setReservationParameter(findReservationParams(js.getReservationParameterId()));
 		return s;
 	}
@@ -1146,6 +1096,17 @@ public class GTMJsonImporter {
 		return o;
 	}
 
+	
+	
+	
+	private TotalPassengerCombinationConstraint convert(PassengerCombinationConstraintDef jp) {
+		if (jp == null) return null;
+		TotalPassengerCombinationConstraint p = GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraint();
+		p.setMaxTotalPassengerWeight(jp.getMaxWeightedPassengers());
+		p.setMinTotalPassengerWeight(jp.getMinWeightedPassengers());
+	    p.setId(jp.getId());
+		return p;
+	}
 
 	private PassengerConstraint convert(PassengerConstraintDef jp) {
 		if (jp == null) return null;
@@ -1156,8 +1117,6 @@ public class GTMJsonImporter {
 		p.setLowerAgeLimit(jp.getLowerAgeLimit());
 		p.setUpperAgeLimit(jp.getUpperAgeLimit());
 		p.getExcludedPassengerCombinations().addAll(convertPassengerCombinationList(jp.getCombinationConstraint()));
-		p.setMaxTotalPassengerWeight(jp.getMaxWeightedPassengers());
-		p.setMinTotalPassengerWeight(jp.getMinWeightedPassengers());
 		p.setPassengerWeight(jp.getPassengerWeight());
 		p.setReservationAgeLimit(jp.getAgeLimitForReservation());
 		p.setText(findText(jp.getNameRef()));
@@ -1211,6 +1170,7 @@ public class GTMJsonImporter {
 		FulfillmentConstraint f = GtmFactory.eINSTANCE.createFulfillmentConstraint();
 		f.setId(jf.getId());
 		f.setIndividualTicketingPermitted(jf.getIndividualTicketingPermitted());
+		f.setSeparateFulFillmentRequired(jf.getSeparateFulfillmentRequired());
 		if (jf.getAcceptedBarCodes() != null && !jf.getAcceptedBarCodes().isEmpty()) {
 			f.getAcceptedBarcodeTypes().addAll(convertBarCodeTypes(jf.getAcceptedBarCodes()));
 		}
@@ -1416,22 +1376,65 @@ public class GTMJsonImporter {
 		return o;
 	}
 
+	
+	private FareConstraintBundle convert(gtm.FareConstraintBundle jf) {
+		
+		if (jf == null) return null;
+		
+		FareConstraintBundle f = GtmFactory.eINSTANCE.createFareConstraintBundle();
+		
+		f.setId(jf.getId());
+		f.setCombinationConstraint(findCombinationConstraint(jf.getCombinationConstraintRef()));
+		f.setFulfillmentConstraint(findFulfillmentConstraint(jf.getFullfillmentConstraintRef()));
+		f.setPersonalDataConstraint(finePersonalDataConstraint(jf.getPersonalDataConstraintRef()));
+		f.setSalesAvailability(findSalesAvailability(jf.getSalesAvailabilityConstraintRef()));
+		f.setTravelValidity(findTravelValidity(jf.getTravelValidityConstraintRef()));
+		
+		f.setCarrierConstraint(findCarrierConstraint(jf.getDefaultCarrierConstraintRef()));
+		f.setTotalPassengerConstraint(findTotalPassengerConstraint(jf.getPassengerCombinationRef()));
+		f.setDefaultFareType(convert(jf.getDefaultFareType()));
+		if (jf.getDefaultRegulatoryConditions() != null && !jf.getDefaultRegulatoryConditions().isEmpty()) {
+			f.getDefaultRegulatoryConditions().addAll(convert(jf.getDefaultRegulatoryConditions()));
+		}
+		return f;
+	}
+
+	private Collection<? extends RegulatoryCondition> convert(List<RegulatoryConditionsDef> regulatoryConditions) {
+		
+		List<RegulatoryCondition> rcl = new ArrayList<RegulatoryCondition>();
+		
+		for (RegulatoryConditionsDef rcJ : regulatoryConditions) {
+			RegulatoryCondition r = RegulatoryCondition.getByName(rcJ.name());
+			rcl.add(r);
+		}
+
+		return rcl;
+	}
+
+
+
+
 
 	private FareElement convert(FareDef jf) {
 		if (jf == null) return null;
 		FareElement f = GtmFactory.eINSTANCE.createFareElement();
 		
+		
+		
 		f.setType(convert(jf.getFareType()));
 		
 		f.setId(jf.getId());
+		
+		f.setFareConstraintBundle(findBundle(jf.getBundleRef()));
+		
 		f.setAfterSalesRule(findAfterSaleRule(jf.getAfterSalesRulesRef()));
 		f.setCarrierConstraint(findCarrierConstraint(jf.getCarrierConstraintRef()));
 		f.setDataSource(DataSource.IMPORTED);
-		f.setCombinationConstraint(findCombinationConstraint(jf.getCombinationConstraintRef()));
-		f.setFulfillmentConstraint(findFulfillmentConstraint(jf.getFullfillmentConstraintRef()));
+
+		
 		f.setLegacyAccountingIdentifier(convert(jf.getLegacyAccountingIdentifier()));
 		f.setPassengerConstraint(findPassengerConstraint(jf.getPassengerConstraintRef()));
-		f.setPersonalDataConstraint(finePersonalDataConstraint(jf.getPersonalDataConstraintRef()));
+
 		f.setPrice(prices.get(jf.getPriceRef()));
 		f.setReductionConstraint(findReductionConstraint(jf.getReductionConstraintRef()));
 		
@@ -1442,12 +1445,11 @@ public class GTMJsonImporter {
 		}
 		
 		f.setReservationParameter(findReservationParams(jf.getReservationParameterRef()));
-		f.setSalesAvailability(findSalesAvailability(jf.getSalesAvailabilityConstraintRef()));
+
 		f.setServiceClass(findServiceClass(jf.getServiceClassRef()));
 		f.setServiceConstraint(findServiceConstraint(jf.getServiceConstraintRef()));
 		f.setServiceLevel(findServiceLevel(jf.getServiceLevelRef()));
 		f.setText(findText(jf.getNameRef()));
-		f.setTravelValidity(findTravelValidity(jf.getTravelValidityConstraintRef()));
 		f.setLegacyConversion(LegacyConversionType.getByName(jf.getLegacyConversion()));
 		f.setIndividualContracts(jf.getIndividualContracts());
 		
@@ -1463,6 +1465,8 @@ public class GTMJsonImporter {
 
 		return f;
 	}
+
+
 
 	private FareType convert(FareTypeDef fareType) {
 		
@@ -1485,7 +1489,7 @@ public class GTMJsonImporter {
 	private Text findText(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (Text  o : fareStructure.getTexts().getTexts()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1494,8 +1498,26 @@ public class GTMJsonImporter {
 	private TravelValidityConstraint findTravelValidity(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (TravelValidityConstraint  o : fareStructure.getTravelValidityConstraints().getTravelValidityConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
+		return null;
+	}
+	
+
+	private TotalPassengerCombinationConstraint findTotalPassengerConstraint(String id) {
+		if (id == null || id.length() < 1) return null;
+		for (TotalPassengerCombinationConstraint  o : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+			if (id.equals(o.getId())) return o;
+		}
+		return null;
+	}
+
+	
+	private FareConstraintBundle findBundle(String id) {
+		if (id == null || id.length() < 1) return null;
+		for (FareConstraintBundle  o : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
+			if (id.equals(o.getId())) return o;
+		}		
 		return null;
 	}
 
@@ -1503,7 +1525,7 @@ public class GTMJsonImporter {
 	private ServiceLevel findServiceLevel(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (ServiceLevel o : fareStructure.getServiceLevelDefinitions().getServiceLevelDefinition()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1512,7 +1534,7 @@ public class GTMJsonImporter {
 	private ServiceConstraint findServiceConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (ServiceConstraint o : fareStructure.getServiceConstraints().getServiceConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1522,7 +1544,7 @@ public class GTMJsonImporter {
 		if (id == null || id.length() < 1) return null;
 		if (fareStructure.getServiceClassDefinitions() == null || fareStructure.getServiceClassDefinitions().getServiceClassDefinitions().isEmpty()) return null;
 		for (ServiceClass  o : fareStructure.getServiceClassDefinitions().getServiceClassDefinitions()) {
-			if (o.getId().getName().equals(id)) return o;
+			if (id.equals(o.getId().getName())) return o;
 		}
 		return null;
 	}
@@ -1531,7 +1553,7 @@ public class GTMJsonImporter {
 	private SalesAvailabilityConstraint findSalesAvailability(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (SalesAvailabilityConstraint  o : fareStructure.getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1540,7 +1562,7 @@ public class GTMJsonImporter {
 	private ReservationParameter findReservationParams(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (ReservationParameter  o : fareStructure.getReservationParameters().getReservationParameters()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1555,7 +1577,7 @@ public class GTMJsonImporter {
 	private ReductionConstraint findReductionConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (ReductionConstraint  o : fareStructure.getReductionConstraints().getReductionConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1563,7 +1585,7 @@ public class GTMJsonImporter {
 	private PersonalDataConstraint finePersonalDataConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (PersonalDataConstraint  o : fareStructure.getPersonalDataConstraints().getPersonalDataConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1572,7 +1594,7 @@ public class GTMJsonImporter {
 	private PassengerConstraint findPassengerConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (PassengerConstraint  o : fareStructure.getPassengerConstraints().getPassengerConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1591,7 +1613,7 @@ public class GTMJsonImporter {
 	private FulfillmentConstraint findFulfillmentConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (FulfillmentConstraint  o : fareStructure.getFulfillmentConstraints().getFulfillmentConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1600,7 +1622,7 @@ public class GTMJsonImporter {
 	private CombinationConstraint findCombinationConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (CombinationConstraint  o : fareStructure.getCombinationConstraints().getCombinationConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1609,7 +1631,7 @@ public class GTMJsonImporter {
 	private CarrierConstraint findCarrierConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (CarrierConstraint  o : fareStructure.getCarrierConstraints().getCarrierConstraints()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1618,7 +1640,7 @@ public class GTMJsonImporter {
 	private AfterSalesRule findAfterSaleRule(String id) {
 		if (id == null || id.length() < 1) return null;
 		for (AfterSalesRule  o : fareStructure.getAfterSalesRules().getAfterSalesRules()) {
-			if (o.getId().equals(id)) return o;
+			if (id.equals(o.getId())) return o;
 		}
 		return null;
 	}
@@ -1831,7 +1853,7 @@ public class GTMJsonImporter {
 		c.setApplicationTime(convert(jr.getApplicationTime()));
 		Price fee = convert(jr.getFee());
 		c.setFee(fee);
-		c.setCarrierFee(jr.getCarrierFee());
+		c.setCarrierFee(!jr.getIsAllocatorFee());
 		c.setIndividualContracts(jr.getIndividualContracts());
 		c.setTransactionType(AfterSalesTransactionType.getByName(jr.getTransactionType()));
 		return c;
@@ -1922,6 +1944,8 @@ public class GTMJsonImporter {
 		return nutsCodes.get(code);
 	}
 
-	
+	public HashMap<Integer,Station> getStations() {
+		return stations;
+	}
 
 }

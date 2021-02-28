@@ -256,6 +256,7 @@ public class TextItemProvider
 			case GtmPackage.TEXT__TEXT_ICAO:
 			case GtmPackage.TEXT__SHORT_TEXT_UTF8:
 			case GtmPackage.TEXT__SHORT_TEXT_ICAO:
+			case GtmPackage.TEXT__STANDARD_TEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.TEXT__TRANSLATIONS:

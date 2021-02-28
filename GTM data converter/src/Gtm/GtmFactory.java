@@ -400,6 +400,42 @@ public interface GtmFactory extends EFactory {
 	FareElement createFareElement();
 
 	/**
+	 * Returns a new object of class '<em>Total Passenger Combination Constraints</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Total Passenger Combination Constraints</em>'.
+	 * @generated
+	 */
+	TotalPassengerCombinationConstraints createTotalPassengerCombinationConstraints();
+
+	/**
+	 * Returns a new object of class '<em>Total Passenger Combination Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Total Passenger Combination Constraint</em>'.
+	 * @generated
+	 */
+	TotalPassengerCombinationConstraint createTotalPassengerCombinationConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Fare Constraint Bundles</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fare Constraint Bundles</em>'.
+	 * @generated
+	 */
+	FareConstraintBundles createFareConstraintBundles();
+
+	/**
+	 * Returns a new object of class '<em>Fare Constraint Bundle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fare Constraint Bundle</em>'.
+	 * @generated
+	 */
+	FareConstraintBundle createFareConstraintBundle();
+
+	/**
 	 * Returns a new object of class '<em>Fare Station Set Definitions</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

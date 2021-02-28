@@ -236,6 +236,22 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createFareElementAdapter();
 			}
 			@Override
+			public Adapter caseTotalPassengerCombinationConstraints(TotalPassengerCombinationConstraints object) {
+				return createTotalPassengerCombinationConstraintsAdapter();
+			}
+			@Override
+			public Adapter caseTotalPassengerCombinationConstraint(TotalPassengerCombinationConstraint object) {
+				return createTotalPassengerCombinationConstraintAdapter();
+			}
+			@Override
+			public Adapter caseFareConstraintBundles(FareConstraintBundles object) {
+				return createFareConstraintBundlesAdapter();
+			}
+			@Override
+			public Adapter caseFareConstraintBundle(FareConstraintBundle object) {
+				return createFareConstraintBundleAdapter();
+			}
+			@Override
 			public Adapter caseFareStationSetDefinitions(FareStationSetDefinitions object) {
 				return createFareStationSetDefinitionsAdapter();
 			}
@@ -318,14 +334,6 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseStartOfSale(StartOfSale object) {
 				return createStartOfSaleAdapter();
-			}
-			@Override
-			public Adapter caseReductionCards(ReductionCards object) {
-				return createReductionCardsAdapter();
-			}
-			@Override
-			public Adapter caseReductionCard(ReductionCard object) {
-				return createReductionCardAdapter();
 			}
 			@Override
 			public Adapter caseCarrierConstraints(CarrierConstraints object) {
@@ -494,6 +502,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseFareCombinationModel(FareCombinationModel object) {
 				return createFareCombinationModelAdapter();
+			}
+			@Override
+			public Adapter caseReductionCards(ReductionCards object) {
+				return createReductionCardsAdapter();
+			}
+			@Override
+			public Adapter caseReductionCard(ReductionCard object) {
+				return createReductionCardAdapter();
 			}
 			@Override
 			public Adapter caseReductionConstraint(ReductionConstraint object) {
@@ -1242,6 +1258,62 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFareElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.TotalPassengerCombinationConstraints <em>Total Passenger Combination Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.TotalPassengerCombinationConstraints
+	 * @generated
+	 */
+	public Adapter createTotalPassengerCombinationConstraintsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.TotalPassengerCombinationConstraint <em>Total Passenger Combination Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.TotalPassengerCombinationConstraint
+	 * @generated
+	 */
+	public Adapter createTotalPassengerCombinationConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.FareConstraintBundles <em>Fare Constraint Bundles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.FareConstraintBundles
+	 * @generated
+	 */
+	public Adapter createFareConstraintBundlesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.FareConstraintBundle <em>Fare Constraint Bundle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.FareConstraintBundle
+	 * @generated
+	 */
+	public Adapter createFareConstraintBundleAdapter() {
 		return null;
 	}
 

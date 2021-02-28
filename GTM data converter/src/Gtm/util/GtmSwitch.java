@@ -319,6 +319,30 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.TOTAL_PASSENGER_COMBINATION_CONSTRAINTS: {
+				TotalPassengerCombinationConstraints totalPassengerCombinationConstraints = (TotalPassengerCombinationConstraints)theEObject;
+				T result = caseTotalPassengerCombinationConstraints(totalPassengerCombinationConstraints);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.TOTAL_PASSENGER_COMBINATION_CONSTRAINT: {
+				TotalPassengerCombinationConstraint totalPassengerCombinationConstraint = (TotalPassengerCombinationConstraint)theEObject;
+				T result = caseTotalPassengerCombinationConstraint(totalPassengerCombinationConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.FARE_CONSTRAINT_BUNDLES: {
+				FareConstraintBundles fareConstraintBundles = (FareConstraintBundles)theEObject;
+				T result = caseFareConstraintBundles(fareConstraintBundles);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE: {
+				FareConstraintBundle fareConstraintBundle = (FareConstraintBundle)theEObject;
+				T result = caseFareConstraintBundle(fareConstraintBundle);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.FARE_STATION_SET_DEFINITIONS: {
 				FareStationSetDefinitions fareStationSetDefinitions = (FareStationSetDefinitions)theEObject;
 				T result = caseFareStationSetDefinitions(fareStationSetDefinitions);
@@ -444,18 +468,6 @@ public class GtmSwitch<T> extends Switch<T> {
 				StartOfSale startOfSale = (StartOfSale)theEObject;
 				T result = caseStartOfSale(startOfSale);
 				if (result == null) result = caseRelativeTime(startOfSale);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GtmPackage.REDUCTION_CARDS: {
-				ReductionCards reductionCards = (ReductionCards)theEObject;
-				T result = caseReductionCards(reductionCards);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GtmPackage.REDUCTION_CARD: {
-				ReductionCard reductionCard = (ReductionCard)theEObject;
-				T result = caseReductionCard(reductionCard);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -709,6 +721,18 @@ public class GtmSwitch<T> extends Switch<T> {
 			case GtmPackage.FARE_COMBINATION_MODEL: {
 				FareCombinationModel fareCombinationModel = (FareCombinationModel)theEObject;
 				T result = caseFareCombinationModel(fareCombinationModel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.REDUCTION_CARDS: {
+				ReductionCards reductionCards = (ReductionCards)theEObject;
+				T result = caseReductionCards(reductionCards);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.REDUCTION_CARD: {
+				ReductionCard reductionCard = (ReductionCard)theEObject;
+				T result = caseReductionCard(reductionCard);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1562,6 +1586,66 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFareElement(FareElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Total Passenger Combination Constraints</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Total Passenger Combination Constraints</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTotalPassengerCombinationConstraints(TotalPassengerCombinationConstraints object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Total Passenger Combination Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Total Passenger Combination Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTotalPassengerCombinationConstraint(TotalPassengerCombinationConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fare Constraint Bundles</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fare Constraint Bundles</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFareConstraintBundles(FareConstraintBundles object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fare Constraint Bundle</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fare Constraint Bundle</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFareConstraintBundle(FareConstraintBundle object) {
 		return null;
 	}
 

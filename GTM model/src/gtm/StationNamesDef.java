@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "localCode",
     "name",
     "nameUtf8",
+    "shortName",
+    "shortNameUtf8",
     "legacyBorderPointCode"
 })
 public class StationNamesDef {
@@ -49,6 +51,20 @@ public class StationNamesDef {
     @JsonProperty("nameUtf8")
     @JsonPropertyDescription("station name with upper and lower case letters in UTF8")
     private String nameUtf8;
+    /**
+     * station name with upper and lower case letters in ASCII
+     * 
+     */
+    @JsonProperty("shortName")
+    @JsonPropertyDescription("station name with upper and lower case letters in ASCII")
+    private String shortName;
+    /**
+     * station name with upper and lower case letters in UTF8
+     * 
+     */
+    @JsonProperty("shortNameUtf8")
+    @JsonPropertyDescription("station name with upper and lower case letters in UTF8")
+    private String shortNameUtf8;
     @JsonProperty("legacyBorderPointCode")
     private Integer legacyBorderPointCode;
 
@@ -124,6 +140,42 @@ public class StationNamesDef {
         this.nameUtf8 = nameUtf8;
     }
 
+    /**
+     * station name with upper and lower case letters in ASCII
+     * 
+     */
+    @JsonProperty("shortName")
+    public String getShortName() {
+        return shortName;
+    }
+
+    /**
+     * station name with upper and lower case letters in ASCII
+     * 
+     */
+    @JsonProperty("shortName")
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    /**
+     * station name with upper and lower case letters in UTF8
+     * 
+     */
+    @JsonProperty("shortNameUtf8")
+    public String getShortNameUtf8() {
+        return shortNameUtf8;
+    }
+
+    /**
+     * station name with upper and lower case letters in UTF8
+     * 
+     */
+    @JsonProperty("shortNameUtf8")
+    public void setShortNameUtf8(String shortNameUtf8) {
+        this.shortNameUtf8 = shortNameUtf8;
+    }
+
     @JsonProperty("legacyBorderPointCode")
     public Integer getLegacyBorderPointCode() {
         return legacyBorderPointCode;
@@ -154,6 +206,14 @@ public class StationNamesDef {
         sb.append('=');
         sb.append(((this.nameUtf8 == null)?"<null>":this.nameUtf8));
         sb.append(',');
+        sb.append("shortName");
+        sb.append('=');
+        sb.append(((this.shortName == null)?"<null>":this.shortName));
+        sb.append(',');
+        sb.append("shortNameUtf8");
+        sb.append('=');
+        sb.append(((this.shortNameUtf8 == null)?"<null>":this.shortNameUtf8));
+        sb.append(',');
         sb.append("legacyBorderPointCode");
         sb.append('=');
         sb.append(((this.legacyBorderPointCode == null)?"<null>":this.legacyBorderPointCode));
@@ -169,11 +229,13 @@ public class StationNamesDef {
     @Override
     public int hashCode() {
         int result = 1;
-        result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
         result = ((result* 31)+((this.country == null)? 0 :this.country.hashCode()));
+        result = ((result* 31)+((this.legacyBorderPointCode == null)? 0 :this.legacyBorderPointCode.hashCode()));
+        result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
         result = ((result* 31)+((this.nameUtf8 == null)? 0 :this.nameUtf8 .hashCode()));
         result = ((result* 31)+((this.localCode == null)? 0 :this.localCode.hashCode()));
-        result = ((result* 31)+((this.legacyBorderPointCode == null)? 0 :this.legacyBorderPointCode.hashCode()));
+        result = ((result* 31)+((this.shortName == null)? 0 :this.shortName.hashCode()));
+        result = ((result* 31)+((this.shortNameUtf8 == null)? 0 :this.shortNameUtf8 .hashCode()));
         return result;
     }
 
@@ -186,7 +248,7 @@ public class StationNamesDef {
             return false;
         }
         StationNamesDef rhs = ((StationNamesDef) other);
-        return ((((((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name)))&&((this.country == rhs.country)||((this.country!= null)&&this.country.equals(rhs.country))))&&((this.nameUtf8 == rhs.nameUtf8)||((this.nameUtf8 != null)&&this.nameUtf8 .equals(rhs.nameUtf8))))&&((this.localCode == rhs.localCode)||((this.localCode!= null)&&this.localCode.equals(rhs.localCode))))&&((this.legacyBorderPointCode == rhs.legacyBorderPointCode)||((this.legacyBorderPointCode!= null)&&this.legacyBorderPointCode.equals(rhs.legacyBorderPointCode))));
+        return ((((((((this.country == rhs.country)||((this.country!= null)&&this.country.equals(rhs.country)))&&((this.legacyBorderPointCode == rhs.legacyBorderPointCode)||((this.legacyBorderPointCode!= null)&&this.legacyBorderPointCode.equals(rhs.legacyBorderPointCode))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.nameUtf8 == rhs.nameUtf8)||((this.nameUtf8 != null)&&this.nameUtf8 .equals(rhs.nameUtf8))))&&((this.localCode == rhs.localCode)||((this.localCode!= null)&&this.localCode.equals(rhs.localCode))))&&((this.shortName == rhs.shortName)||((this.shortName!= null)&&this.shortName.equals(rhs.shortName))))&&((this.shortNameUtf8 == rhs.shortNameUtf8)||((this.shortNameUtf8 != null)&&this.shortNameUtf8 .equals(rhs.shortNameUtf8))));
     }
 
 }

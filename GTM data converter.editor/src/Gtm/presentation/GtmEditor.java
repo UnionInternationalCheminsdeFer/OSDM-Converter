@@ -138,6 +138,8 @@ import Gtm.GTMTool;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.provider.GtmItemProviderAdapterFactory;
+import Gtm.utils.MigrationV2;
+
 import org.eclipse.emf.common.ui.URIEditorInput;
 
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -1243,6 +1245,8 @@ public class GtmEditor
 		// Creates the model from the editor input
 		//
 		createModel();
+		
+		
 
 		// Only creates the other pages if there is something that can be edited
 		//
@@ -1284,6 +1288,11 @@ public class GtmEditor
 				createContextMenuFor(selectionViewer);
 				int pageIndex = addPage(viewerPane.getControl());
 				setPageText(pageIndex, getString("_UI_SelectionPage_label"));
+				
+				
+				MigrationV2.migrateV2(editingDomain, this);
+				
+				
 			}
 
 

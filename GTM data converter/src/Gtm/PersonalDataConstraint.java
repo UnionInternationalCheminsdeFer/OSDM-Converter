@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see Gtm.GtmPackage#getPersonalDataConstraint()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='AT_LEAST_ONE_REQUIRED_ITEM'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='AT_LEAST_ONE_REQUIRED_ITEM NOT_REFERENCED'"
  * @generated
  */
 public interface PersonalDataConstraint extends EObject {

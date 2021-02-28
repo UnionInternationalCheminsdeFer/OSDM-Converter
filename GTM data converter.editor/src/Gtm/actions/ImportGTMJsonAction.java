@@ -1,7 +1,12 @@
 package Gtm.actions;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -13,14 +18,20 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
 import Gtm.GtmPackage;
 import Gtm.Station;
+import Gtm.actions.converter.StationNameMerger;
 import Gtm.jsonImportExport.GTMJsonImporter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
+import Gtm.utils.GtmUtils;
 import export.ImportFareDelivery;
 import gtm.FareDelivery;
 import gtm.StationNamesDef;
@@ -160,32 +171,19 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 							monitor.worked(1);
 						} 
 						
-						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_9);
-						
-						CompoundCommand command = new CompoundCommand();
-							
-						for (StationNamesDef jS : fareDelivery.getFareStructureDelivery().getFareStructure().getStationNames() ) {
-								
-							Station s = tool.getCodeLists().getStations().findStation(jS.getCountry(), jS.getLocalCode());
-							if (s != null) {
-									
-								command.append(SetCommand.create(domain, s,GtmPackage.Literals.STATION__NAME_CASE_ASCII,jS.getName()));
-								command.append(SetCommand.create(domain, s,GtmPackage.Literals.STATION__NAME_CASE_UTF8,jS.getNameUtf8()));		
-								command.append(SetCommand.create(domain, s,GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII,jS.getName()));		
-								command.append(SetCommand.create(domain, s,GtmPackage.Literals.STATION__SHORT_NAME_CASE_UTF8,jS.getNameUtf8()));	
-								command.append(SetCommand.create(domain, s,GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, jS.getLegacyBorderPointCode()));
-								
-								if (command.canExecute()) {
-									domain.getCommandStack().execute(command);
-									command = new CompoundCommand();
-								}	
-							}
-						}
+						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_9);					
+						updateMERITSStations(domain,importer.getStations(), fareDelivery.getFareStructureDelivery().getFareStructure().getStationNames());
 						monitor.worked(1);
-					
+
+					} catch (JsonParseException e) {
+						GtmUtils.displayAsyncErrorMessage(e,"json parsing error");
+						return;
+					} catch (JsonMappingException e) {
+						GtmUtils.displayAsyncErrorMessage(e,"json mapping error");
+					} catch (IOException e) {
+						GtmUtils.displayAsyncErrorMessage(e,"file error");
 					} catch (Exception e) {
-						e.printStackTrace();
-						GtmEditorPlugin.INSTANCE.log(e);
+						GtmUtils.displayAsyncErrorMessage(e,"unknown error");
 					} finally {
 						monitor.done();
 					}
@@ -211,6 +209,47 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 		}
 
 
+		private void updateMERITSStations(EditingDomain domain, HashMap<Integer,Station> stations, List<StationNamesDef> list) {
+
+			//correcting merits data using OSDM data			
+			CompoundCommand command = new CompoundCommand();
+							
+			for (StationNamesDef lStation : list ) {
+				
+				Station station = stations.get(lStation.getCountry() * 100000 + lStation.getLocalCode());
+			
+				if (station != null) {
+				
+					if (lStation.getLegacyBorderPointCode() > 0) {
+					
+						if (station != null && station.isBorderStation() == false){
+							
+							Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__BORDER_STATION, true);
+							if (com != null && com.canExecute()) {
+								command.append(com);	
+							}
+							Command comm2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, lStation.getLegacyBorderPointCode());
+							if (comm2 != null && comm2.canExecute()) {
+								command.append(comm2);	
+							}				
+						}
+					
+					}
+					
+					CompoundCommand com = StationNameMerger.createMergeStationNamesCommand(domain,lStation,station);
+					if (!com.isEmpty() && com.canExecute()) {
+						command.append(com);					
+					}
+					
+				}
+			}
+			
+			if (command != null && !command.isEmpty()) {
+				domain.getCommandStack().execute(command);
+				command = new CompoundCommand();
+			}
+
+		}
 
 	
 

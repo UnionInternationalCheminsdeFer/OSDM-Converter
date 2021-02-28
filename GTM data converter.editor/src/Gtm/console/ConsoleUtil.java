@@ -75,8 +75,11 @@ public class ConsoleUtil {
 	public final static Color DEFAULT_INFO =  new Color(null,0,0,255);
 	
 	/** Default color used for logging warning messages to the console. */
-	public final static Color DEFAULT_WARNING =  new Color(null,255,255,0);
+	public final static Color DEFAULT_WARNING =  new Color(null,255,165,0);
 
+	/** Default color used for logging warning messages to the console. */
+	public final static Color DEFAULT_COLOR =  new Color(null,0,0,0);
+	
 	/**
 	 * Registers the console with the Eclipse Console Manager.
 	 * 
@@ -221,7 +224,8 @@ public class ConsoleUtil {
 	 * @param msg  - the warning message
 	 */
 	public static void println(String name, String msg){
-		MessageConsoleStream defaultStream = getDefaultStream(name, DEFAULT);		
+		MessageConsoleStream defaultStream = getDefaultStream(name, DEFAULT);	
+		defaultStream.setColor(DEFAULT_COLOR);
 		defaultStream.println(msg);			
 	}
 	

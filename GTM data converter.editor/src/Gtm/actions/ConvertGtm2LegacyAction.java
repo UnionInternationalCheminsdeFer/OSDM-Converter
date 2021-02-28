@@ -21,7 +21,7 @@ import Gtm.GTMTool;
 import Gtm.actions.converter.ConverterToLegacy;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
-import Gtm.presentation.GtmEditorPlugin;
+import Gtm.utils.GtmUtils;
 
 
 public class ConvertGtm2LegacyAction extends BasicGtmAction {
@@ -129,8 +129,7 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 
 			} catch (Exception exception) {
 				// Something went wrong that shouldn't.
-				exception.printStackTrace();
-				GtmEditorPlugin.INSTANCE.log(exception);				
+				GtmUtils.displayAsyncErrorMessage(exception, "unknown error");	
 			} finally {
 				editor.reconnectViews();
 			}			

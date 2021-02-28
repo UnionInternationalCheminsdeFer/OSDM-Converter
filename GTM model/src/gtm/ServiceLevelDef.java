@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "combiningServiceClassIds",
     "textRef",
     "text",
-    "includesClassName",
+    "doesNotIncludeClassName",
     "reservationParameterId"
 })
 public class ServiceLevelDef {
@@ -53,9 +53,9 @@ public class ServiceLevelDef {
      * indicates that the class name is included
      * 
      */
-    @JsonProperty("includesClassName")
+    @JsonProperty("doesNotIncludeClassName")
     @JsonPropertyDescription("indicates that the class name is included")
-    private Boolean includesClassName = true;
+    private Boolean doesNotIncludeClassName = false;
     @JsonProperty("reservationParameterId")
     private String reservationParameterId;
 
@@ -139,18 +139,18 @@ public class ServiceLevelDef {
      * indicates that the class name is included
      * 
      */
-    @JsonProperty("includesClassName")
-    public Boolean getIncludesClassName() {
-        return includesClassName;
+    @JsonProperty("doesNotIncludeClassName")
+    public Boolean getDoesNotIncludeClassName() {
+        return doesNotIncludeClassName;
     }
 
     /**
      * indicates that the class name is included
      * 
      */
-    @JsonProperty("includesClassName")
-    public void setIncludesClassName(Boolean includesClassName) {
-        this.includesClassName = includesClassName;
+    @JsonProperty("doesNotIncludeClassName")
+    public void setDoesNotIncludeClassName(Boolean doesNotIncludeClassName) {
+        this.doesNotIncludeClassName = doesNotIncludeClassName;
     }
 
     @JsonProperty("reservationParameterId")
@@ -183,9 +183,9 @@ public class ServiceLevelDef {
         sb.append('=');
         sb.append(((this.text == null)?"<null>":this.text));
         sb.append(',');
-        sb.append("includesClassName");
+        sb.append("doesNotIncludeClassName");
         sb.append('=');
-        sb.append(((this.includesClassName == null)?"<null>":this.includesClassName));
+        sb.append(((this.doesNotIncludeClassName == null)?"<null>":this.doesNotIncludeClassName));
         sb.append(',');
         sb.append("reservationParameterId");
         sb.append('=');
@@ -203,7 +203,7 @@ public class ServiceLevelDef {
     public int hashCode() {
         int result = 1;
         result = ((result* 31)+((this.reservationParameterId == null)? 0 :this.reservationParameterId.hashCode()));
-        result = ((result* 31)+((this.includesClassName == null)? 0 :this.includesClassName.hashCode()));
+        result = ((result* 31)+((this.doesNotIncludeClassName == null)? 0 :this.doesNotIncludeClassName.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
         result = ((result* 31)+((this.textRef == null)? 0 :this.textRef.hashCode()));
         result = ((result* 31)+((this.text == null)? 0 :this.text.hashCode()));
@@ -220,7 +220,7 @@ public class ServiceLevelDef {
             return false;
         }
         ServiceLevelDef rhs = ((ServiceLevelDef) other);
-        return (((((((this.reservationParameterId == rhs.reservationParameterId)||((this.reservationParameterId!= null)&&this.reservationParameterId.equals(rhs.reservationParameterId)))&&((this.includesClassName == rhs.includesClassName)||((this.includesClassName!= null)&&this.includesClassName.equals(rhs.includesClassName))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.textRef == rhs.textRef)||((this.textRef!= null)&&this.textRef.equals(rhs.textRef))))&&((this.text == rhs.text)||((this.text!= null)&&this.text.equals(rhs.text))))&&((this.combiningServiceClassIds == rhs.combiningServiceClassIds)||((this.combiningServiceClassIds!= null)&&this.combiningServiceClassIds.equals(rhs.combiningServiceClassIds))));
+        return (((((((this.reservationParameterId == rhs.reservationParameterId)||((this.reservationParameterId!= null)&&this.reservationParameterId.equals(rhs.reservationParameterId)))&&((this.doesNotIncludeClassName == rhs.doesNotIncludeClassName)||((this.doesNotIncludeClassName!= null)&&this.doesNotIncludeClassName.equals(rhs.doesNotIncludeClassName))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.textRef == rhs.textRef)||((this.textRef!= null)&&this.textRef.equals(rhs.textRef))))&&((this.text == rhs.text)||((this.text!= null)&&this.text.equals(rhs.text))))&&((this.combiningServiceClassIds == rhs.combiningServiceClassIds)||((this.combiningServiceClassIds!= null)&&this.combiningServiceClassIds.equals(rhs.combiningServiceClassIds))));
     }
 
 }

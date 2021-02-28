@@ -20,6 +20,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import Gtm.AlternativeRoute;
 import Gtm.Carrier;
 import Gtm.ClassId;
+import Gtm.ClassicClassType;
 import Gtm.Clusters;
 import Gtm.CombinationModel;
 import Gtm.ConnectionPoint;
@@ -63,10 +64,10 @@ import Gtm.Text;
 import Gtm.Translation;
 import Gtm.TravelerType;
 import Gtm.ViaStation;
-import Gtm.actions.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils; 
 
 public class 	ConverterToLegacy {
 	
@@ -318,7 +319,7 @@ public class 	ConverterToLegacy {
 			if (e.getValue().getDescriptionLocal().equals(descr.getDescriptionLocal())) return e.getKey();
 		}
 	
-		Integer fareTableId = legacyFareDescriptions.size() + 1;
+		Integer fareTableId = 1000 + legacyFareDescriptions.size();
 		descr.setTableId(fareTableId);
 		legacyFareDescriptions.put(fareTableId, descr);
 		
@@ -613,7 +614,6 @@ public class 	ConverterToLegacy {
 					}
 				}
 				legacyStations.put(ls.getStationCode(),ls);
-				
 			}
 		}
 		return;
@@ -672,13 +672,10 @@ public class 	ConverterToLegacy {
 		 * if all models require separate tickets the series will be added to the TCVL list
 		 * 
 		 */
-		boolean separateTicket = true;
-		for (FareCombinationModel	model : fare.getCombinationConstraint().getCombinationModels()) {
-			if (model.getModel() != CombinationModel.SEPARATE_TICKET) {
-				separateTicket = false;
-			}
-		}
-		if (separateTicket) {
+	
+		if (fare.getFareConstraintBundle() != null &&
+			fare.getFareConstraintBundle().getFulfillmentConstraint() != null &&
+			fare.getFareConstraintBundle().getFulfillmentConstraint().isSeparateFulFillmentRequired()) {
 			LegacySeparateContractSeries scl = GtmFactory.eINSTANCE.createLegacySeparateContractSeries();
 			scl.setSeries(series);
 			legacySeparateContractSeries.add(scl);
@@ -690,14 +687,16 @@ public class 	ConverterToLegacy {
 	}
 
 	private LegacyRouteFare convertToFare(FareElement fare, LegacySeries series) throws ConverterException {
+		
+		if (fare == null || fare.getFareConstraintBundle() == null) return null;
 
 		//search for legacy route fare to add class
 		LegacyRouteFare legacyFare = legacyFares.get(series.getRouteDescription());
 		if (legacyFare == null) {	
 			legacyFare = GtmFactory.eINSTANCE.createLegacyRouteFare();
 			legacyFare.setSeriesNumber(series.getNumber());
-			legacyFare.setValidFrom(fare.getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-			legacyFare.setValidUntil(fare.getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
+			legacyFare.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
+			legacyFare.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
 			legacyFare.setSeries(series);		
 		} 
 		if (fare.getServiceClass().getId() == ClassId.B) {
@@ -714,8 +713,9 @@ public class 	ConverterToLegacy {
 	private int getPrice(Price price) throws ConverterException {
 		
 		for (CurrencyPrice  cp : price.getCurrencies()) {
-			float value = cp.getAmount() * 100;
-			return (int)value;
+			if (cp.getCurrency() == null || 
+				cp.getCurrency().getIsoCode().equals("EUR"))
+			return GtmUtils.getEuroCent(cp.getAmount());
 		}
 		throw new ConverterException(NationalLanguageSupport.ConverterToLegacy_27);
 
@@ -725,6 +725,7 @@ public class 	ConverterToLegacy {
 
 		
 		if (fare.getRegionalConstraint() == null ||
+			fare.getFareConstraintBundle() == null ||
 			fare.getRegionalConstraint().getRegionalValidity() == null ||
 			fare.getRegionalConstraint().getRegionalValidity().isEmpty() ||
 			fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null ) {
@@ -744,8 +745,8 @@ public class 	ConverterToLegacy {
 		
 		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
 		
-		series.setValidFrom(fare.getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-		series.setValidUntil(fare.getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
+		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
+		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
 
 		return series;
 	}
@@ -974,7 +975,7 @@ public class 	ConverterToLegacy {
 		Legacy108Station ls =  legacyStations.get(code);
 		
 		if (ls == null) {
-			String message = "Missing Station Names for: " +  Integer.valueOf(code).toString();
+			String message = "Missing Station Names for: " +  GtmUtils.getLabelText(via);
 			GtmUtils.writeConsoleError(message, editor);
 		}
 		return ls;
@@ -1002,7 +1003,7 @@ public class 	ConverterToLegacy {
 		Legacy108Station ls =  legacyStations.get(code);
 		
 		if (ls == null) {
-			String message = "Missing Station Names for: " +  Integer.valueOf(code).toString();
+			String message = "Missing Station Names for: " +  GtmUtils.getLabelText(via);
 			GtmUtils.writeConsoleError(message, editor);
 		}
 		return ls;
@@ -1022,6 +1023,29 @@ public class 	ConverterToLegacy {
 	}
 	
 	private boolean isConvertable(FareElement fare) {
+		
+		
+		//service classes B and D are converted
+		if (fare.getLegacyConversion() != LegacyConversionType.NO  && 
+			fare.getServiceClass().getId() == ClassId.A || fare.getServiceClass().getId() == ClassId.C) {
+			String message = "Service class A or C. " + GtmUtils.getLabelText(fare) + " will not be converted";
+			GtmUtils.writeConsoleWarning(message, editor);		
+		}
+		
+		if (fare.getServiceClass().getId() == ClassId.A) return false;
+		if (fare.getServiceClass().getId() == ClassId.C) return false;
+		
+		
+		//classic classes not matching
+		if ( (fare.getServiceClass().getId() == ClassId.B && !(fare.getServiceClass().getClassicClass() == null || fare.getServiceClass().getClassicClass() == ClassicClassType.FIRST) )
+				||
+			 (fare.getServiceClass().getId() == ClassId.D && !(fare.getServiceClass().getClassicClass() == null || fare.getServiceClass().getClassicClass() == ClassicClassType.SECOND) )	
+				){
+			String message = "Service class / Classic class mismatch. " + GtmUtils.getLabelText(fare) + " will not be converted";
+			GtmUtils.writeConsoleWarning(message, editor);			
+		}
+		
+		
 		//fare excluded from conversion
 		if (fare.getLegacyConversion() == LegacyConversionType.NO) return false;
 		
@@ -1035,19 +1059,26 @@ public class 	ConverterToLegacy {
 		if (fare.getReductionConstraint() != null)  return false;
 		
 		//must have one sales availability 
-		if (fare.getSalesAvailability() == null) return false;
-		if (fare.getSalesAvailability().getRestrictions() == null) return false;
-		if (fare.getSalesAvailability().getRestrictions().isEmpty()) return false;
-		if (fare.getSalesAvailability().getRestrictions().size() == 0) return false;
+		if (fare.getFareConstraintBundle() == null ||
+			fare.getFareConstraintBundle().getSalesAvailability() == null) return false;
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions() == null) return false;
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().isEmpty()) return false;
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().size() == 0) return false;
 		
-		//must have one calendar
-		if (fare.getSalesAvailability().getRestrictions().get(0).getSalesDates() == null ) return false;
-	
+
 		//must be convertible in legacy series
 		if (!hasSimpleRegionalValidity(fare)) {
 			return false;
 		}		
 		
+		// there must be a route description
+		if (fare.getRegionalConstraint() == null ||
+			fare.getRegionalConstraint().getRegionalValidity()== null || 
+			fare.getRegionalConstraint().getRegionalValidity().get(0)== null || 
+			fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null) {
+			return false;
+		}
+		//use one direction only
 		ViaStation via = fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation();
 		if (isReversedSeries(via)) {
 			return false;
@@ -1147,8 +1178,9 @@ public class 	ConverterToLegacy {
 	}
 
 	private boolean isFullFlexCombi(FareElement fare) {
-		if (fare.getCombinationConstraint() ==  null) return false;
-		for (FareCombinationModel model : fare.getCombinationConstraint().getCombinationModels()) {
+		if (fare.getFareConstraintBundle() == null || 
+			fare.getFareConstraintBundle().getCombinationConstraint() ==  null) return false;
+		for (FareCombinationModel model : fare.getFareConstraintBundle().getCombinationConstraint().getCombinationModels()) {
 			
 			//must allow clustering in full flex
 			if (model.getModel() == CombinationModel.CLUSTERING &&

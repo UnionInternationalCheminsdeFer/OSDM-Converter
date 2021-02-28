@@ -21,10 +21,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ReductionCard#getServiceClasses <em>Service Classes</em>}</li>
  *   <li>{@link Gtm.ReductionCard#isIdRequiredForBooking <em>Id Required For Booking</em>}</li>
  *   <li>{@link Gtm.ReductionCard#getIncludedReductionCards <em>Included Reduction Cards</em>}</li>
+ *   <li>{@link Gtm.ReductionCard#isUicCode <em>Uic Code</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getReductionCard()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='ISUER_MUST_FOR_NON_GENERIC'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED'"
  * @generated
  */
 public interface ReductionCard extends EObject {
@@ -140,5 +141,28 @@ public interface ReductionCard extends EObject {
 	 * @generated
 	 */
 	EList<ReductionCard> getIncludedReductionCards();
+
+	/**
+	 * Returns the value of the '<em><b>Uic Code</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Uic Code</em>' attribute.
+	 * @see #setUicCode(boolean)
+	 * @see Gtm.GtmPackage#getReductionCard_UicCode()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isUicCode();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ReductionCard#isUicCode <em>Uic Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Uic Code</em>' attribute.
+	 * @see #isUicCode()
+	 * @generated
+	 */
+	void setUicCode(boolean value);
 
 } // ReductionCard

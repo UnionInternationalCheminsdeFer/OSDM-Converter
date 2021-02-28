@@ -12,3 +12,4 @@ Bundle-ClassPath: lib/,
  .
 Export-Package: export,
  gtm
+Import-Package: Gtm.util

@@ -137,7 +137,7 @@ public class CalendarItemProvider
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null,
-				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd\'T\'HH:mm")));
+				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd")));
 	}
 
 	/**
@@ -160,7 +160,7 @@ public class CalendarItemProvider
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null,
-				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd\'T\'HH:mm")));
+				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd")));
 	}
 
 	/**
@@ -205,7 +205,7 @@ public class CalendarItemProvider
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null,
-				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd\'T\'HH:mm")));
+				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd")));
 	}
 
 	/**

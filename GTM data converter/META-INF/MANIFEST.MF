@@ -15,3 +15,5 @@ Require-Bundle: org.eclipse.core.runtime;x-installation:=greedy;resolution:=opti
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport
 Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.emf.ecore.provider,
+ org.eclipse.emf.edit.provider

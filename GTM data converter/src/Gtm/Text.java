@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Text#getShortTextUTF8 <em>Short Text UTF8</em>}</li>
  *   <li>{@link Gtm.Text#getShortTextICAO <em>Short Text ICAO</em>}</li>
  *   <li>{@link Gtm.Text#getTranslations <em>Translations</em>}</li>
+ *   <li>{@link Gtm.Text#isStandardText <em>Standard Text</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getText()
@@ -149,5 +150,28 @@ public interface Text extends EObject {
 	 * @generated
 	 */
 	EList<Translation> getTranslations();
+
+	/**
+	 * Returns the value of the '<em><b>Standard Text</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Standard Text</em>' attribute.
+	 * @see #setStandardText(boolean)
+	 * @see Gtm.GtmPackage#getText_StandardText()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isStandardText();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Text#isStandardText <em>Standard Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Standard Text</em>' attribute.
+	 * @see #isStandardText()
+	 * @generated
+	 */
+	void setStandardText(boolean value);
 
 } // Text

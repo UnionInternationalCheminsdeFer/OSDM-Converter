@@ -7,7 +7,7 @@
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EDataType" name="DateAsDate" instanceClassName="java.util.Date">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="propertyEditorFactory" value="editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd'T'HH:mm"/>
+      <details key="propertyEditorFactory" value="editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd"/>
     </eAnnotations>
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/DateConversionDelegate">
       <details key="format" value="//SimpleDateFormat/yyyy-MM-dd"/>
@@ -15,7 +15,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="DateAsDateTime" instanceClassName="java.util.Date">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="propertyEditorFactory" value="editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd"/>
+      <details key="propertyEditorFactory" value="editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd'T'HH:mm"/>
     </eAnnotations>
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/DateConversionDelegate">
       <details key="format" value="//SimpleDateFormat/yyyy-MM-dd'T'HH:mm"/>
@@ -243,6 +243,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reductionCards" eType="#//ReductionCards"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fareConstraintBundles"
+        eType="#//FareConstraintBundles" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fareElements" eType="#//FareElements"
         containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="combinationConstraints"
@@ -261,6 +263,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="passengerConstraints" eType="#//PassengerConstraints"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerCombinationConstraints"
+        eType="#//TotalPassengerCombinationConstraints" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reductionConstraints" eType="#//ReductionConstraints"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="personalDataConstraints"
@@ -289,7 +293,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionPoint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="NAME_FORMAT LEGACY_BORDER_POINT_MISSING STATION_SET_AT_LEAST_ONE NAME_UTF8_FORMAT"/>
+      <details key="constraints" value="NAME_FORMAT LEGACY_BORDER_POINT_MISSING STATION_SET_AT_LEAST_ONE NAME_UTF8_FORMAT NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -356,7 +360,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FulfillmentConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="AT_LEAST_ONE_ACCEPTED_TYPE"/>
+      <details key="constraints" value="AT_LEAST_ONE_ACCEPTED_TYPE NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="acceptedFulfilmentTypes"
@@ -365,6 +369,8 @@
         upperBound="-1" eType="#//ControlDataExchangeTypes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="individualTicketingPermitted"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="separateFulFillmentRequired"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="acceptedBarcodes" eType="#//AcceptedBarcodes"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requiredBarcodes" eType="#//RequiredBarcodes"
@@ -397,11 +403,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="TYPE_MUST PRICE_MUST TEXT_MUST SERVICE_CLASS_MUST SALES_AVAILABILITY_MUST TRAVEL_VALIDITY_MUST COMBINATION_CONSTRAINT_MUST FULFILLMENT_CONSTRAINT_MUST PASSENGER_CONSTRAINT_MUST LEGACY_ACCOUNTING_MISSING CONVERSION_MISSING"/>
+      <details key="constraints" value="TYPE_MUST PRICE_MUST TEXT_MUST SERVICE_CLASS_MUST PASSENGER_CONSTRAINT_MUST LEGACY_ACCOUNTING_MISSING CONVERSION_MISSING BUNDLE_MUST"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//FareType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fareConstraintBundle" eType="#//FareConstraintBundle"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="price" eType="#//Price"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="regionalConstraint" eType="#//RegionalConstraint"/>
@@ -431,6 +438,48 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacyConversion" eType="#//LegacyConversionType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="individualContracts" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TotalPassengerCombinationConstraints">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerCombinationConstraint"
+        upperBound="-1" eType="#//TotalPassengerCombinationConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TotalPassengerCombinationConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="MIN_MAX_MUST NOT_REFERENCED"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxTotalPassengerWeight"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="999"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minTotalPassengerWeight"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="0"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FareConstraintBundles">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fareConstraintBundles"
+        upperBound="-1" eType="#//FareConstraintBundle" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FareConstraintBundle">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="SALES_AVAILABILITY_MUST TRAVEL_VALIDITY_MUST FULFILLMENT_CONSTRAINT_MUST COMBINATION_CONSTRAINT_MUST TOTAL_PASSENGER_CONSTRAINT_WARNING NOT_REFERENCED"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultFareType" unique="false"
+        eType="#//FareType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="salesAvailability" eType="#//SalesAvailabilityConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="travelValidity" eType="#//TravelValidityConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="combinationConstraint"
+        eType="#//CombinationConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="personalDataConstraint"
+        eType="#//PersonalDataConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fulfillmentConstraint"
+        eType="#//FulfillmentConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerConstraint"
+        eType="#//TotalPassengerCombinationConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultRegulatoryConditions"
+        upperBound="-1" eType="#//RegulatoryCondition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareStationSetDefinitions">
     <eOperations name="findFareSet" eType="#//FareStationSetDefinition">
@@ -472,7 +521,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PersonalDataConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="AT_LEAST_ONE_REQUIRED_ITEM"/>
+      <details key="constraints" value="AT_LEAST_ONE_REQUIRED_ITEM NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requiredPersonalData" upperBound="-1"
@@ -520,9 +569,9 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="passengerWeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxTotalPassengerWeight"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="999"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minTotalPassengerWeight"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="includedFreePassengers"
         upperBound="-1" eType="#//IncludedFreePassengerLimit" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludedPassengerCombinations"
@@ -531,7 +580,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PassengerCombinationConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST"/>
+      <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -550,7 +599,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CombinationConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="AT_LEAST_ONE"/>
+      <details key="constraints" value="AT_LEAST_ONE NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -563,7 +612,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TravelValidityConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG"/>
+      <details key="constraints" value="TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -585,7 +634,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SalesAvailabilityConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="AT_LEAST_ONE"/>
+      <details key="constraints" value="AT_LEAST_ONE NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -605,24 +654,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EndOfSale" eSuperTypes="#//RelativeTime"/>
   <eClassifiers xsi:type="ecore:EClass" name="StartOfSale" eSuperTypes="#//RelativeTime"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ReductionCards">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reductionCards" upperBound="-1"
-        eType="#//ReductionCard" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReductionCard">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="ISUER_MUST_FOR_NON_GENERIC"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cardIssuer" eType="#//Carrier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//Text"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceClasses" upperBound="-1"
-        eType="#//ServiceClass"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idRequiredForBooking" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="includedReductionCards"
-        upperBound="-1" eType="#//ReductionCard"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CarrierConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraints" upperBound="-1"
         eType="#//CarrierConstraint" containment="true"/>
@@ -637,6 +668,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludedCarriers" upperBound="-1"
         eType="#//Carrier"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraints" upperBound="-1"
@@ -659,7 +691,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RegionalConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="AT_LEAST_ONE_REGIONAL_VALIDITY WARNING_DISTANCE_TOO_SHORT WARNING_DISTANCE_TOO_LONG"/>
+      <details key="constraints" value="AT_LEAST_ONE_REGIONAL_VALIDITY WARNING_DISTANCE_TOO_SHORT WARNING_DISTANCE_TOO_LONG NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
@@ -703,6 +735,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortTextICAO" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="translations" upperBound="-1"
         eType="#//Translation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Translation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -763,7 +797,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Calendar">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="START_END_DATE_ORDER DATES_WITHIN_RANGE"/>
+      <details key="constraints" value="START_END_DATE_ORDER DATES_WITHIN_RANGE NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -988,9 +1022,29 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="allowedCommonContracts"
         upperBound="-1" eType="#//Carrier"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReductionCards">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reductionCards" upperBound="-1"
+        eType="#//ReductionCard" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReductionCard">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cardIssuer" eType="#//Carrier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceClasses" upperBound="-1"
+        eType="#//ServiceClass"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idRequiredForBooking" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="includedReductionCards"
+        upperBound="-1" eType="#//ReductionCard"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uicCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReductionConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="AT_LEAST_ONE"/>
+      <details key="constraints" value="AT_LEAST_ONE NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requiredReductionCards"
@@ -1059,7 +1113,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareTemplate">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="PRICE_FACTOR_MUST TYPE_MUST TRAVEL_VALIDITY_MUST COMBINATION_CONSTRAINT_MUST PASSENGER_CONSTRAINT_MUST FULFILMENT_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR"/>
+      <details key="constraints" value="PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="priceFactor" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Float"
         unsettable="true"/>
@@ -1071,6 +1125,9 @@
         eType="#//AfterSalesTemplate" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fareConstraintBundle" eType="#//FareConstraintBundle"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="separateContractFareConstraintBundle"
+        eType="#//FareConstraintBundle"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraint" eType="#//ServiceConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceClass" eType="#//ServiceClass"/>
@@ -1402,9 +1459,8 @@
     <eLiterals name="PROMO" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CombinationModel">
-    <eLiterals name="SEPARATE_TICKET" value="1"/>
-    <eLiterals name="SEPARATE_CONTRACT" value="2"/>
     <eLiterals name="CLUSTERING" value="3"/>
+    <eLiterals name="SEPARATE_CONTRACT" value="2"/>
     <eLiterals name="COMBINING" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ControlDataExchangeTypes">
@@ -1445,15 +1501,33 @@
     <eLiterals name="NONE"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="GenericReductionCards">
-    <eLiterals name="UIC_EURAIL" value="1"/>
-    <eLiterals name="UIC_INTERRAIL" value="2"/>
-    <eLiterals name="UIC_FIP_DUTY" value="3"/>
-    <eLiterals name="UIC_FIP_LEISURE_FREE" value="4"/>
-    <eLiterals name="UIC_FIP_LEISURE_REDU" value="5"/>
-    <eLiterals name="UIC_RAILPLUS" value="6"/>
-    <eLiterals name="UIC_RIT_1" value="7"/>
-    <eLiterals name="UIC_RIT_2" value="8"/>
-    <eLiterals name="UIC_RIT_3" value="9"/>
+    <eLiterals name="UIC_EURAIL_1" value="4"/>
+    <eLiterals name="UIC_EURAIL_2" value="11"/>
+    <eLiterals name="UIC_INTERRAIL_1" value="2"/>
+    <eLiterals name="UIC_INTERRAIL_2" value="2"/>
+    <eLiterals name="UIC_FIP_DUTY_1" value="5"/>
+    <eLiterals name="UIC_FIP_DUTY_2" value="6"/>
+    <eLiterals name="UIC_FIP_LEISURE_FREE_1" value="7"/>
+    <eLiterals name="UIC_FIP_LEISURE_FREE_2" value="8"/>
+    <eLiterals name="UIC_FIP_LEISURE_REDU_1" value="9"/>
+    <eLiterals name="UIC_FIP_LEISURE_REDU_2" value="10"/>
+    <eLiterals name="UIC_RAILPLUS_1" value="11"/>
+    <eLiterals name="UIC_RAILPLUS_2" value="14"/>
+    <eLiterals name="UIC_RIT_1_1" value="15"/>
+    <eLiterals name="UIC_RIT_1_2" value="16"/>
+    <eLiterals name="UIC_RIT_2_1" value="17"/>
+    <eLiterals name="UIC_RIT_2_2" value="18"/>
+    <eLiterals name="UIC_RIT_3_1" value="19"/>
+    <eLiterals name="UIC_RIT_3_2" value="20"/>
+    <eLiterals name="UIC_RIT_3" value="21"/>
+    <eLiterals name="UIC_RIT_2" value="22"/>
+    <eLiterals name="UIC_RIT_1" value="23"/>
+    <eLiterals name="UIC_INTERRAIL" value="25"/>
+    <eLiterals name="UIC_EURAIL" value="26"/>
+    <eLiterals name="UIC_RAILPLUS" value="27"/>
+    <eLiterals name="UIC_FIP_DUTY" value="28"/>
+    <eLiterals name="UIC_FIP_LEISURE_FREE" value="29"/>
+    <eLiterals name="UIC_FIP_LEISURE_REDU" value="30"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HemisphereEW">
     <eLiterals name="EAST"/>

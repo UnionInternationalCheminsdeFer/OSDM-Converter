@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareElement#getId <em>Id</em>}</li>
  *   <li>{@link Gtm.FareElement#getType <em>Type</em>}</li>
  *   <li>{@link Gtm.FareElement#getDataDescription <em>Data Description</em>}</li>
+ *   <li>{@link Gtm.FareElement#getFareConstraintBundle <em>Fare Constraint Bundle</em>}</li>
  *   <li>{@link Gtm.FareElement#getText <em>Text</em>}</li>
  *   <li>{@link Gtm.FareElement#getPrice <em>Price</em>}</li>
  *   <li>{@link Gtm.FareElement#getRegionalConstraint <em>Regional Constraint</em>}</li>
@@ -42,7 +43,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareElement()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='TYPE_MUST PRICE_MUST TEXT_MUST SERVICE_CLASS_MUST SALES_AVAILABILITY_MUST TRAVEL_VALIDITY_MUST COMBINATION_CONSTRAINT_MUST FULFILLMENT_CONSTRAINT_MUST PASSENGER_CONSTRAINT_MUST LEGACY_ACCOUNTING_MISSING CONVERSION_MISSING'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='TYPE_MUST PRICE_MUST TEXT_MUST SERVICE_CLASS_MUST PASSENGER_CONSTRAINT_MUST LEGACY_ACCOUNTING_MISSING CONVERSION_MISSING BUNDLE_MUST'"
  * @generated
  */
 public interface FareElement extends EObject {
@@ -114,6 +115,28 @@ public interface FareElement extends EObject {
 	 * @generated
 	 */
 	void setDataDescription(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Fare Constraint Bundle</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Fare Constraint Bundle</em>' reference.
+	 * @see #setFareConstraintBundle(FareConstraintBundle)
+	 * @see Gtm.GtmPackage#getFareElement_FareConstraintBundle()
+	 * @model
+	 * @generated
+	 */
+	FareConstraintBundle getFareConstraintBundle();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareElement#getFareConstraintBundle <em>Fare Constraint Bundle</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Fare Constraint Bundle</em>' reference.
+	 * @see #getFareConstraintBundle()
+	 * @generated
+	 */
+	void setFareConstraintBundle(FareConstraintBundle value);
 
 	/**
 	 * Returns the value of the '<em><b>Text</b></em>' reference.

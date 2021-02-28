@@ -3,6 +3,7 @@
 package Gtm.provider;
 
 
+import Gtm.Carrier;
 import Gtm.CarrierConstraint;
 import Gtm.GtmPackage;
 
@@ -65,6 +66,7 @@ public class CarrierConstraintItemProvider
 			addIncludedCarriersPropertyDescriptor(object);
 			addExcludedCarriersPropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
+			addDataSourcePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -158,6 +160,28 @@ public class CarrierConstraintItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Data Source feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataSourcePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CarrierConstraint_dataSource_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CarrierConstraint_dataSource_feature", "_UI_CarrierConstraint_type"),
+				 GtmPackage.Literals.CARRIER_CONSTRAINT__DATA_SOURCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns CarrierConstraint.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -172,14 +196,29 @@ public class CarrierConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CarrierConstraint)object).getDataDescription();
-		return label == null || label.length() == 0 ?
-			getString("_UI_CarrierConstraint_type") :
-			getString("_UI_CarrierConstraint_type") + " " + label;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(getString("_UI_CarrierConstraint_type")).append(" - ");
+		CarrierConstraint constraint = (CarrierConstraint)object;
+		if (constraint.getDataDescription() != null && constraint.getDataDescription().length() > 0) {
+			sb.append(constraint.getDataDescription());
+		} else if (constraint.getIncludedCarriers() != null && !constraint.getIncludedCarriers().isEmpty()) {
+			sb.append("included: ");
+			for (Carrier carrier : constraint.getIncludedCarriers()) {
+				sb.append(carrier.getName());
+			}
+		} else if (constraint.getExcludedCarriers() != null && !constraint.getExcludedCarriers().isEmpty()) {
+			sb.append("excluded: ");
+			for (Carrier carrier : constraint.getExcludedCarriers()) {
+				sb.append(carrier.getName());
+			}
+		}
+		return sb.toString();
+		
 	}
 
 
@@ -197,6 +236,7 @@ public class CarrierConstraintItemProvider
 		switch (notification.getFeatureID(CarrierConstraint.class)) {
 			case GtmPackage.CARRIER_CONSTRAINT__ID:
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_DESCRIPTION:
+			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

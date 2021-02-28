@@ -64,6 +64,7 @@ public class FulfillmentConstraintItemProvider
 			addAcceptedFulfilmentTypesPropertyDescriptor(object);
 			addRequiredControlDataExchangePropertyDescriptor(object);
 			addIndividualTicketingPermittedPropertyDescriptor(object);
+			addSeparateFulFillmentRequiredPropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
 			addAcceptedBarcodeTypesPropertyDescriptor(object);
 			addRequiredBarcodeTypesPropertyDescriptor(object);
@@ -160,6 +161,28 @@ public class FulfillmentConstraintItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Separate Ful Fillment Required feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSeparateFulFillmentRequiredPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FulfillmentConstraint_separateFulFillmentRequired_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FulfillmentConstraint_separateFulFillmentRequired_feature", "_UI_FulfillmentConstraint_type"),
+				 GtmPackage.Literals.FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Data Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -240,11 +263,21 @@ public class FulfillmentConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FulfillmentConstraint)object).getDataDescription();
+		
+		FulfillmentConstraint f = (FulfillmentConstraint) object;
+		StringBuffer sb = new StringBuffer();
+		if (f.getDataDescription()!= null) {
+			sb.append(f.getDataDescription());
+		} else {
+			if (f.isSeparateFulFillmentRequired()) {
+				sb.append("separate ticketing");
+			}
+		}
+		String label = sb.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_FulfillmentConstraint_type") :
 			getString("_UI_FulfillmentConstraint_type") + " " + label;
@@ -267,6 +300,7 @@ public class FulfillmentConstraintItemProvider
 			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_FULFILMENT_TYPES:
 			case GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_CONTROL_DATA_EXCHANGE:
 			case GtmPackage.FULFILLMENT_CONSTRAINT__INDIVIDUAL_TICKETING_PERMITTED:
+			case GtmPackage.FULFILLMENT_CONSTRAINT__SEPARATE_FUL_FILLMENT_REQUIRED:
 			case GtmPackage.FULFILLMENT_CONSTRAINT__DATA_DESCRIPTION:
 			case GtmPackage.FULFILLMENT_CONSTRAINT__ACCEPTED_BARCODE_TYPES:
 			case GtmPackage.FULFILLMENT_CONSTRAINT__REQUIRED_BARCODE_TYPES:

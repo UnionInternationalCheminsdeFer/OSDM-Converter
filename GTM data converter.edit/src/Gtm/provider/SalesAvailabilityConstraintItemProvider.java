@@ -182,11 +182,32 @@ public class SalesAvailabilityConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((SalesAvailabilityConstraint)object).getDataDescription();
+		
+		SalesAvailabilityConstraint a = (SalesAvailabilityConstraint)object;
+		StringBuilder sb = new StringBuilder();
+		if (a.getDataDescription() != null) {
+			sb.append(a.getDataDescription());
+		} else {
+			if (   a.getRestrictions() != null
+				&& a.getRestrictions().get(0) != null
+				&& a.getRestrictions().get(0).getSalesDates() != null
+				&& a.getRestrictions().get(0).getSalesDates().getFromDate() != null) {
+				sb.append(a.getRestrictions().get(0).getSalesDates().getFromDate());
+			}
+			if (   a.getRestrictions() != null
+				&& a.getRestrictions().get(0) != null
+				&& a.getRestrictions().get(0).getSalesDates() != null
+				&& a.getRestrictions().get(0).getSalesDates().getUntilDate() != null) {
+				sb.append("-").append(a.getRestrictions().get(0).getSalesDates().getUntilDate());
+			}			
+		}
+		
+		
+		String label = sb.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_SalesAvailabilityConstraint_type") :
 			getString("_UI_SalesAvailabilityConstraint_type") + " " + label;

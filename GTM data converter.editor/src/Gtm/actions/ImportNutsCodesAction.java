@@ -26,6 +26,7 @@ import Gtm.NutsCode;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
+import Gtm.utils.GtmUtils;
 
 public class ImportNutsCodesAction extends ImportCsvDataAction {
 

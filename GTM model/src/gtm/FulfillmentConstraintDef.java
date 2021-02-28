@@ -15,7 +15,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "acceptedBarCodes",
     "requiredBarCodes",
     "requiredSiS",
-    "individualTicketingPermitted"
+    "individualTicketingPermitted",
+    "separateFulfillmentRequired"
 })
 public class FulfillmentConstraintDef {
 
@@ -51,12 +52,18 @@ public class FulfillmentConstraintDef {
     private List<RequiredSi> requiredSiS = new ArrayList<RequiredSi>();
     /**
      * a separate fulfillment per traveler is permitted
-     * (Required)
      * 
      */
     @JsonProperty("individualTicketingPermitted")
     @JsonPropertyDescription("a separate fulfillment per traveler is permitted")
-    private Boolean individualTicketingPermitted;
+    private Boolean individualTicketingPermitted = false;
+    /**
+     * a separate fulfillment for the regional constraint is required
+     * 
+     */
+    @JsonProperty("separateFulfillmentRequired")
+    @JsonPropertyDescription("a separate fulfillment for the regional constraint is required")
+    private Boolean separateFulfillmentRequired = false;
 
     /**
      * 
@@ -144,7 +151,6 @@ public class FulfillmentConstraintDef {
 
     /**
      * a separate fulfillment per traveler is permitted
-     * (Required)
      * 
      */
     @JsonProperty("individualTicketingPermitted")
@@ -154,12 +160,29 @@ public class FulfillmentConstraintDef {
 
     /**
      * a separate fulfillment per traveler is permitted
-     * (Required)
      * 
      */
     @JsonProperty("individualTicketingPermitted")
     public void setIndividualTicketingPermitted(Boolean individualTicketingPermitted) {
         this.individualTicketingPermitted = individualTicketingPermitted;
+    }
+
+    /**
+     * a separate fulfillment for the regional constraint is required
+     * 
+     */
+    @JsonProperty("separateFulfillmentRequired")
+    public Boolean getSeparateFulfillmentRequired() {
+        return separateFulfillmentRequired;
+    }
+
+    /**
+     * a separate fulfillment for the regional constraint is required
+     * 
+     */
+    @JsonProperty("separateFulfillmentRequired")
+    public void setSeparateFulfillmentRequired(Boolean separateFulfillmentRequired) {
+        this.separateFulfillmentRequired = separateFulfillmentRequired;
     }
 
     @Override
@@ -190,6 +213,10 @@ public class FulfillmentConstraintDef {
         sb.append('=');
         sb.append(((this.individualTicketingPermitted == null)?"<null>":this.individualTicketingPermitted));
         sb.append(',');
+        sb.append("separateFulfillmentRequired");
+        sb.append('=');
+        sb.append(((this.separateFulfillmentRequired == null)?"<null>":this.separateFulfillmentRequired));
+        sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
         } else {
@@ -206,6 +233,7 @@ public class FulfillmentConstraintDef {
         result = ((result* 31)+((this.requiredSiS == null)? 0 :this.requiredSiS.hashCode()));
         result = ((result* 31)+((this.individualTicketingPermitted == null)? 0 :this.individualTicketingPermitted.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
+        result = ((result* 31)+((this.separateFulfillmentRequired == null)? 0 :this.separateFulfillmentRequired.hashCode()));
         result = ((result* 31)+((this.requiredBarCodes == null)? 0 :this.requiredBarCodes.hashCode()));
         return result;
     }
@@ -219,7 +247,7 @@ public class FulfillmentConstraintDef {
             return false;
         }
         FulfillmentConstraintDef rhs = ((FulfillmentConstraintDef) other);
-        return (((((((this.acceptedBarCodes == rhs.acceptedBarCodes)||((this.acceptedBarCodes!= null)&&this.acceptedBarCodes.equals(rhs.acceptedBarCodes)))&&((this.acceptedControlSecurityTypes == rhs.acceptedControlSecurityTypes)||((this.acceptedControlSecurityTypes!= null)&&this.acceptedControlSecurityTypes.equals(rhs.acceptedControlSecurityTypes))))&&((this.requiredSiS == rhs.requiredSiS)||((this.requiredSiS!= null)&&this.requiredSiS.equals(rhs.requiredSiS))))&&((this.individualTicketingPermitted == rhs.individualTicketingPermitted)||((this.individualTicketingPermitted!= null)&&this.individualTicketingPermitted.equals(rhs.individualTicketingPermitted))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.requiredBarCodes == rhs.requiredBarCodes)||((this.requiredBarCodes!= null)&&this.requiredBarCodes.equals(rhs.requiredBarCodes))));
+        return ((((((((this.acceptedBarCodes == rhs.acceptedBarCodes)||((this.acceptedBarCodes!= null)&&this.acceptedBarCodes.equals(rhs.acceptedBarCodes)))&&((this.acceptedControlSecurityTypes == rhs.acceptedControlSecurityTypes)||((this.acceptedControlSecurityTypes!= null)&&this.acceptedControlSecurityTypes.equals(rhs.acceptedControlSecurityTypes))))&&((this.requiredSiS == rhs.requiredSiS)||((this.requiredSiS!= null)&&this.requiredSiS.equals(rhs.requiredSiS))))&&((this.individualTicketingPermitted == rhs.individualTicketingPermitted)||((this.individualTicketingPermitted!= null)&&this.individualTicketingPermitted.equals(rhs.individualTicketingPermitted))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.separateFulfillmentRequired == rhs.separateFulfillmentRequired)||((this.separateFulfillmentRequired!= null)&&this.separateFulfillmentRequired.equals(rhs.separateFulfillmentRequired))))&&((this.requiredBarCodes == rhs.requiredBarCodes)||((this.requiredBarCodes!= null)&&this.requiredBarCodes.equals(rhs.requiredBarCodes))));
     }
 
 }

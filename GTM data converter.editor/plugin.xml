@@ -146,8 +146,7 @@
    </extension>
    <extension point="org.eclipse.help.contexts">
      	<contexts
-           file="$nl$\contexts.xml"
-           plugin="barCodeExportFile.editor">
+           file="$nl$\contexts.xml">
      	</contexts>
    </extension>
    

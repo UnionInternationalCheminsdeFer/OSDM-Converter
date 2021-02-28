@@ -375,5 +375,21 @@ public class NationalLanguageSupport extends NLS{
 
     public static String Validation_GenericConstraint_diagnostic;
 
+	public static String GtmValidator_TemplateMustContainBundle;
+	public static String GtmValidator_FareMustContainBundle;
+	public static String GtmValidator_PassengerCombination;
+	public static String GtmValidator_BundleSalesAvailability;
+	public static String GtmValidator_BundleTravelValidity;
+	public static String GtmValidator_BundleFulfillmentConstraint;
+	public static String GtmValidator_BundleCombinationConstraint;
+	public static String GtmValidator_BundleTotalPassengersConstraint;
+	public static String GtmValidator_Not_REFERENCED;
+
+	public static String GtmValidator_FareStationSet_empty;
+	public static String GtmValidator_FareStationSet_onlyOneStation;
+	public static String GtmValidator_UnconvertableClass;
+
+	public static String GtmValidator_ClassicClassNotMatching;
+
 
 }

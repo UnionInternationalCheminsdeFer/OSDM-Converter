@@ -4,13 +4,11 @@ import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
 
 import Gtm.GTMTool;
 import Gtm.nls.NationalLanguageSupport;
+import Gtm.utils.GtmUtils;
 
 public abstract class BasicGtmAction extends BaseSelectionListenerAction {
 	
@@ -35,9 +33,7 @@ public abstract class BasicGtmAction extends BaseSelectionListenerAction {
 			EditingDomain domain = GtmUtils.getActiveDomain();
 			
 			if (tool == null) {
-				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-				dialog.setText(NationalLanguageSupport.BasicGtmAction_0);
-				dialog.open(); 
+				GtmUtils.writeConsoleWarning(NationalLanguageSupport.BasicGtmAction_0,GtmUtils.getActiveEditor());
 				return;
 			}
 			

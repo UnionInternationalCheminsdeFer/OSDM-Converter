@@ -243,6 +243,7 @@ public class ReductionCardItemProvider
 		switch (notification.getFeatureID(ReductionCard.class)) {
 			case GtmPackage.REDUCTION_CARD__ID:
 			case GtmPackage.REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING:
+			case GtmPackage.REDUCTION_CARD__UIC_CODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

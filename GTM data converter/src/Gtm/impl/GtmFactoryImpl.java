@@ -100,6 +100,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.STATION_NAMES: return createStationNames();
 			case GtmPackage.FARE_ELEMENTS: return createFareElements();
 			case GtmPackage.FARE_ELEMENT: return createFareElement();
+			case GtmPackage.TOTAL_PASSENGER_COMBINATION_CONSTRAINTS: return createTotalPassengerCombinationConstraints();
+			case GtmPackage.TOTAL_PASSENGER_COMBINATION_CONSTRAINT: return createTotalPassengerCombinationConstraint();
+			case GtmPackage.FARE_CONSTRAINT_BUNDLES: return createFareConstraintBundles();
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE: return createFareConstraintBundle();
 			case GtmPackage.FARE_STATION_SET_DEFINITIONS: return createFareStationSetDefinitions();
 			case GtmPackage.FARE_STATION_SET_DEFINITION: return createFareStationSetDefinition();
 			case GtmPackage.LEGACY_ACCOUNTING_IDENTIFIER: return createLegacyAccountingIdentifier();
@@ -121,8 +125,6 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.SALES_RESTRICTION: return createSalesRestriction();
 			case GtmPackage.END_OF_SALE: return createEndOfSale();
 			case GtmPackage.START_OF_SALE: return createStartOfSale();
-			case GtmPackage.REDUCTION_CARDS: return createReductionCards();
-			case GtmPackage.REDUCTION_CARD: return createReductionCard();
 			case GtmPackage.CARRIER_CONSTRAINTS: return createCarrierConstraints();
 			case GtmPackage.CARRIER_CONSTRAINT: return createCarrierConstraint();
 			case GtmPackage.SERVICE_CONSTRAINTS: return createServiceConstraints();
@@ -165,6 +167,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.CARRIER_RESOURCE_LOCATION: return createCarrierResourceLocation();
 			case GtmPackage.CROSS_BORDER_CONDITION: return createCrossBorderCondition();
 			case GtmPackage.FARE_COMBINATION_MODEL: return createFareCombinationModel();
+			case GtmPackage.REDUCTION_CARDS: return createReductionCards();
+			case GtmPackage.REDUCTION_CARD: return createReductionCard();
 			case GtmPackage.REDUCTION_CONSTRAINT: return createReductionConstraint();
 			case GtmPackage.REQUIRED_REDUCTION_CARD: return createRequiredReductionCard();
 			case GtmPackage.CONVERSION_FROM_LEGACY: return createConversionFromLegacy();
@@ -837,6 +841,46 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public FareElement createFareElement() {
 		FareElementImpl fareElement = new FareElementImpl();
 		return fareElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TotalPassengerCombinationConstraints createTotalPassengerCombinationConstraints() {
+		TotalPassengerCombinationConstraintsImpl totalPassengerCombinationConstraints = new TotalPassengerCombinationConstraintsImpl();
+		return totalPassengerCombinationConstraints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TotalPassengerCombinationConstraint createTotalPassengerCombinationConstraint() {
+		TotalPassengerCombinationConstraintImpl totalPassengerCombinationConstraint = new TotalPassengerCombinationConstraintImpl();
+		return totalPassengerCombinationConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FareConstraintBundles createFareConstraintBundles() {
+		FareConstraintBundlesImpl fareConstraintBundles = new FareConstraintBundlesImpl();
+		return fareConstraintBundles;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FareConstraintBundle createFareConstraintBundle() {
+		FareConstraintBundleImpl fareConstraintBundle = new FareConstraintBundleImpl();
+		return fareConstraintBundle;
 	}
 
 	/**

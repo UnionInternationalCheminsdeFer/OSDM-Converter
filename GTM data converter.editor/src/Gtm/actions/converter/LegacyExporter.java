@@ -20,9 +20,9 @@ import Gtm.Legacy108Station;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
 import Gtm.LegacySeries;
-import Gtm.actions.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils;
 
 public class LegacyExporter {
 	
@@ -162,7 +162,7 @@ public class LegacyExporter {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		// 	1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ÖBB 
+		// 	1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ï¿½BB 
 		sb.append(String.format("%4s", provider));   //$NON-NLS-1$
 		// 2 Series numeric 5 M  5-9 Serves to assign fares to a specific series 
 		sb.append(String.format("%05d",ticket.getSeriesNumber())); //$NON-NLS-1$
@@ -206,7 +206,7 @@ public class LegacyExporter {
 		
 		StringBuilder sb = new StringBuilder();
 
-		// 	1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ÖBB 
+		// 	1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ï¿½BB 
 		sb.append(String.format("%4s", provider));   //$NON-NLS-1$
 		//	2 Fare table number numeric 4 M  5-8 The file is to be made available in ascending order of this field. 
 		sb.append(String.format("%04d", fare.getTableId()));   //$NON-NLS-1$
@@ -412,9 +412,9 @@ public class LegacyExporter {
 		
 		StringBuilder sb = new StringBuilder();
 
-		// 	1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ÖBB 
+		// 	1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ï¿½BB 
 		sb.append(String.format("%4s", provider));   //$NON-NLS-1$
-		//	2 Shortened name of the supplier RU alpha numeric 30 M  5-34 e.g. ÖBB
+		//	2 Shortened name of the supplier RU alpha numeric 30 M  5-34 e.g. ï¿½BB
 		sb.append(String.format("%-30s", providerName)); //$NON-NLS-1$
 		//	3 File name alpha numeric 8 M  35-42 e.g. TCVG0081 The file is to be made available in ascending order of this field 
 		sb.append(String.format("%-8s", fileName)); //$NON-NLS-1$
@@ -472,7 +472,7 @@ public class LegacyExporter {
 			table = 9999;
 		}
 		
-		//  1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ÖBB 
+		//  1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ï¿½BB 
 		sb.append(String.format("%4s", provider));   //$NON-NLS-1$
 		//	2 Fare table number numeric 4 M  5-8 The fare table number can be used to locate key information about this fare table in the 'Fare table description' file 
 		sb.append(String.format("%04d",table)); //$NON-NLS-1$
@@ -535,7 +535,7 @@ public class LegacyExporter {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		//	1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ÖBB 
+		//	1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ï¿½BB 
 		sb.append(String.format("%4s", provider));   //$NON-NLS-1$
 		//	2 station code numeric 5 M TAP TSI Technical Document B.9 5-9  
 		sb.append(String.format("%05d", station.getStationCode()));   //$NON-NLS-1$
@@ -595,9 +595,9 @@ public class LegacyExporter {
 		sb.append("00000");	 //$NON-NLS-1$
 		//	30 Flag 11 for accounting station numeric 1 M  141 0 or 3 (see point 2.2) 
 		sb.append("0");	 //$NON-NLS-1$
-		//	31 Station latitude numeric 10 O  142-1 51 Latitude using Gauss-Krüger coordinate system 10-digit figure with 6 decimal places 
+		//	31 Station latitude numeric 10 O  142-1 51 Latitude using Gauss-Krï¿½ger coordinate system 10-digit figure with 6 decimal places 
 		sb.append("0000000000");	 //$NON-NLS-1$
-		//	32 Station’s longitude numeric 10 O  152-161 Longitude using Gauss-Krüger coordinate system 10-digit figure with 6 decimal places 
+		//	32 Stationï¿½s longitude numeric 10 O  152-161 Longitude using Gauss-Krï¿½ger coordinate system 10-digit figure with 6 decimal places 
 		sb.append("0000000000");	 //$NON-NLS-1$
 		//	33 Flag 12 for geographic details numeric 1 M  162 This field relates to fields 31-32;  0 or 3 (see point 2.2) 
 		sb.append("0");	 //$NON-NLS-1$
@@ -616,7 +616,7 @@ public class LegacyExporter {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		//	1  code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ÖBB 
+		//	1  code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for ï¿½BB 
 		sb.append(String.format("%4s", provider));   //$NON-NLS-1$
 		//	2 Series number numeric 5 M TAP TSI Technical Document B.8 5-9 Coding for distance and routing between two stations or two fare points within a given country. 
 		sb.append(String.format("%05d", series.getNumber()));   //$NON-NLS-1$
@@ -664,7 +664,7 @@ public class LegacyExporter {
 		sb.append("<");		 //$NON-NLS-1$
 		//	24 Carrier code numeric 4 M TAP TSI Technical Document B.8 75-78 4-character -code for the contractual carrier on this route 
 		sb.append(String.format("%4s",series.getCarrierCode())); //$NON-NLS-1$
-		//	25 Carrier code separator 2 '>' 1 M  79 This field always contains the symbol '>'’ 
+		//	25 Carrier code separator 2 '>' 1 M  79 This field always contains the symbol '>'ï¿½ 
 		sb.append(">");		 //$NON-NLS-1$
 		//	26 Itinerary alpha numeric 58 O TAP TSI Technical Document B.5 80-137  
 		sb.append(String.format("%-58s",GtmUtils.limitStringLengthWithConsoleEntry(series.getRouteDescription(),58,editor,NationalLanguageSupport.LegacyExporter_8)));		 //$NON-NLS-1$

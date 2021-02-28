@@ -240,12 +240,13 @@ public interface PassengerConstraint extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Max Total Passenger Weight</b></em>' attribute.
+	 * The default value is <code>"999"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Max Total Passenger Weight</em>' attribute.
 	 * @see #setMaxTotalPassengerWeight(float)
 	 * @see Gtm.GtmPackage#getPassengerConstraint_MaxTotalPassengerWeight()
-	 * @model
+	 * @model default="999"
 	 * @generated
 	 */
 	float getMaxTotalPassengerWeight();
@@ -262,12 +263,13 @@ public interface PassengerConstraint extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Min Total Passenger Weight</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Min Total Passenger Weight</em>' attribute.
 	 * @see #setMinTotalPassengerWeight(float)
 	 * @see Gtm.GtmPackage#getPassengerConstraint_MinTotalPassengerWeight()
-	 * @model
+	 * @model default="0"
 	 * @generated
 	 */
 	float getMinTotalPassengerWeight();

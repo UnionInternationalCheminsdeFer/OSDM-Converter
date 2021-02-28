@@ -22,9 +22,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.part.ViewPart;
 
-import Gtm.actions.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.GtmUtils;
 
 public class GtmProblemView extends ViewPart {
 	
@@ -88,7 +88,7 @@ public class GtmProblemView extends ViewPart {
 						GtmEditor editor = GtmUtils.getActiveEditor();
 						ISelection selection = new StructuredSelection(object);
 						editor.setSelection(selection);
-						
+						editor.setFocus();
 						editor.getContentOutlinePage().setSelection(selection);
 						//editor.expandTreeViews(object);
 					}

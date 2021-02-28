@@ -18,6 +18,7 @@ import Gtm.actions.converter.LegacyExporter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
+import Gtm.utils.GtmUtils;
 
 
 public class ExportLegacyAction extends BasicGtmAction {

@@ -33,6 +33,7 @@ import Gtm.ControlDataExchangeTypes;
 import Gtm.CurrencyPrice;
 import Gtm.Edge;
 import Gtm.FareCombinationModel;
+import Gtm.FareConstraintBundles;
 import Gtm.FareElement;
 import Gtm.FareElements;
 import Gtm.FareResourceLocations;
@@ -43,6 +44,7 @@ import Gtm.FulfillmentConstraint;
 import Gtm.FulfillmentConstraints;
 import Gtm.FulfillmentType;
 import Gtm.GeneralTariffModel;
+import Gtm.GenericReductionCards;
 import Gtm.IncludedFreePassengerLimit;
 import Gtm.Line;
 import Gtm.NutsCode;
@@ -73,7 +75,6 @@ import Gtm.ReservationParameters;
 import Gtm.ReservationPreferenceGroup;
 import Gtm.ReturnValidityConstraint;
 import Gtm.Route;
-import Gtm.RouteDescriptionBuilder;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.SalesAvailabilityConstraints;
 import Gtm.SalesRestriction;
@@ -94,6 +95,8 @@ import Gtm.TaxScope;
 import Gtm.Text;
 import Gtm.Texts;
 import Gtm.TimeRange;
+import Gtm.TotalPassengerCombinationConstraint;
+import Gtm.TotalPassengerCombinationConstraints;
 import Gtm.TrainResourceLocation;
 import Gtm.TrainResourceLocations;
 import Gtm.Translation;
@@ -106,8 +109,8 @@ import Gtm.WeekDay;
 import Gtm.Zone;
 import Gtm.ZoneDefinition;
 import Gtm.ZoneDefinitions;
-import Gtm.actions.GtmUtils;
 import Gtm.nls.NationalLanguageSupport;
+import Gtm.utils.GtmUtils;
 import gtm.AfterSalesConditionDef;
 import gtm.AfterSalesRuleDef;
 import gtm.AllowedChange;
@@ -123,9 +126,10 @@ import gtm.CurrencyPriceDef;
 import gtm.ExcludedTimeRange;
 import gtm.FareCombinationConstraintDef;
 import gtm.FareCombinationModelDef;
+import gtm.FareConstraintBundle;
+import gtm.FareConstraintBundle.FareTypeDef;
 import gtm.FareDataDef;
 import gtm.FareDef;
-import gtm.FareDef.FareTypeDef;
 import gtm.FareDelivery;
 import gtm.FareDeliveryDef;
 import gtm.FareDeliveryDetailsDef;
@@ -139,6 +143,7 @@ import gtm.LegacyAccountingIdentifierDef;
 import gtm.LegacyReservationParameterDef;
 import gtm.LineDef;
 import gtm.OnlineResourceDef;
+import gtm.PassengerCombinationConstraintDef;
 import gtm.PassengerConstraintDef;
 import gtm.PersonalDataConstraintDef;
 import gtm.PolygonDef;
@@ -197,15 +202,22 @@ public class GtmJsonExporter {
 	 * 
 	 * 	private DateFormat jsondf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"); //$NON-NLS-1$
 	 */
-
 	
-	public GtmJsonExporter () {
-		
+
+	private GeneralTariffModel gtm = null;
+	
+	public GtmJsonExporter () {	}
+
+	public GtmJsonExporter (GeneralTariffModel gtm) {
+		this.gtm = gtm;
 	}
 	
 	public FareDelivery convertToJson(GeneralTariffModel gtm, IProgressMonitor monitor) {
 		
+		
 		if (gtm == null || gtm.getDelivery() == null || gtm.getFareStructure() == null) return null;
+		
+		this.gtm = gtm;
 		
 	
 		FareDelivery export = new FareDelivery();
@@ -225,7 +237,7 @@ public class GtmJsonExporter {
 		monitor.worked(1);
 		
 		monitor.subTask(NationalLanguageSupport.GtmJsonExporter_2);
-		if (gtm.getFareStructure().getCalendars() != null) {
+		if (gtm.getFareStructure().getCalendars() != null) {		
 			fares.setCalendars(convertCalendars(gtm.getFareStructure().getCalendars()));
 		}
 		monitor.worked(1);
@@ -245,6 +257,18 @@ public class GtmJsonExporter {
 		monitor.subTask(NationalLanguageSupport.GtmJsonExporter_5);
 		if (gtm.getFareStructure().getConnectionPoints() != null) {
 			fares.setConnectionPoints(convertConnectionPoints(gtm.getFareStructure().getConnectionPoints()));
+		}
+		monitor.worked(1);
+		
+		monitor.subTask(NationalLanguageSupport.GtmJsonExporter_6a);
+		if (gtm.getFareStructure().getTotalPassengerCombinationConstraints() != null) {
+			fares.setPassengerCombinationConstraints(convertTotalPassengerConstraints(gtm.getFareStructure().getTotalPassengerCombinationConstraints()));
+		}
+		monitor.worked(1);
+		
+		monitor.subTask(NationalLanguageSupport.GtmJsonExporter_6b);
+		if (gtm.getFareStructure().getFareConstraintBundles() != null) {
+			fares.setFareConstraintBundles(convertFareBundles(gtm.getFareStructure().getFareConstraintBundles()));
 		}
 		monitor.worked(1);
 				
@@ -379,6 +403,82 @@ public class GtmJsonExporter {
 
 
 
+	private List<PassengerCombinationConstraintDef> convertTotalPassengerConstraints(
+			TotalPassengerCombinationConstraints totalPassengerCombinationConstraints) {
+		
+		if (totalPassengerCombinationConstraints == null) return null;
+		
+		List<PassengerCombinationConstraintDef> jL = new ArrayList<PassengerCombinationConstraintDef>();
+		
+		for (TotalPassengerCombinationConstraint element :  totalPassengerCombinationConstraints.getTotalPassengerCombinationConstraint()) {
+			
+			//export only if it is used
+			if (  GtmUtils.isReferenced(element,gtm.getFareStructure().getFareConstraintBundles())) {
+				PassengerCombinationConstraintDef jP = new PassengerCombinationConstraintDef();
+				jP.setMaxWeightedPassengers(element.getMaxTotalPassengerWeight()) ;
+				jP.setMinWeightedPassengers(element.getMinTotalPassengerWeight()) ;	
+				jP.setId(element.getId());
+				jL.add(jP);
+			} else {
+				StringBuilder sb = new StringBuilder();
+				sb.append(GtmUtils.getLabelText(element)).append(" is not referenced, it will not be exported");
+				GtmUtils.writeConsoleInfo(sb.toString(),null);
+			}
+		}
+
+		return jL;
+	}
+
+	private List<FareConstraintBundle> convertFareBundles(FareConstraintBundles fareConstraintBundles) {
+		
+		if (fareConstraintBundles == null) return null;
+		
+		List<FareConstraintBundle> l = new ArrayList<FareConstraintBundle>();
+		
+		for (Gtm.FareConstraintBundle bundle : fareConstraintBundles.getFareConstraintBundles()) {
+			
+			//export only if it is used
+			if (  GtmUtils.isReferenced(bundle,gtm.getFareStructure().getFareElements())) {
+			
+				FareConstraintBundle jBundle = new FareConstraintBundle();
+				
+				jBundle.setId(bundle.getId());
+				
+				if (bundle.getCombinationConstraint() != null) {
+					jBundle.setCombinationConstraintRef(bundle.getCombinationConstraint().getId());
+				}
+				if (bundle.getCarrierConstraint() != null) {
+					jBundle.setDefaultCarrierConstraintRef(bundle.getCarrierConstraint().getId());
+				}
+				if (bundle.getFulfillmentConstraint() != null) {
+					jBundle.setFullfillmentConstraintRef(bundle.getFulfillmentConstraint().getId());
+				}
+				if (bundle.getPersonalDataConstraint() != null) {
+					jBundle.setPersonalDataConstraintRef(bundle.getPersonalDataConstraint().getId());
+				}
+				if (bundle.getSalesAvailability() != null) {
+					jBundle.setSalesAvailabilityConstraintRef(bundle.getSalesAvailability().getId());
+				}
+				if (bundle.getTotalPassengerConstraint() != null) {
+					jBundle.setPassengerCombinationRef(bundle.getTotalPassengerConstraint().getId());
+				}
+				if (bundle.getSalesAvailability() != null) {
+					jBundle.setSalesAvailabilityConstraintRef(bundle.getSalesAvailability().getId());
+				}
+				if (bundle.getTravelValidity() != null) {
+					jBundle.setTravelValidityConstraintRef(bundle.getTravelValidity().getId());
+				}
+				l.add(jBundle);
+			} else {
+				StringBuilder sb = new StringBuilder();
+				sb.append(GtmUtils.getLabelText(bundle)).append(" is not referenced, it will not be exported");
+				GtmUtils.writeConsoleInfo(sb.toString(),null);
+			}
+		}
+
+		return l;
+	}
+
 	private List<StationNamesDef> convertStationNames(StationNames names) {
 		ArrayList<StationNamesDef> jl = new ArrayList<StationNamesDef>();
 		if (names == null || names.getStationName() == null || names.getStationName().isEmpty()) return jl;
@@ -390,10 +490,10 @@ public class GtmJsonExporter {
 				js.setCountry(s.getCountry().getCode());
 				js.setLocalCode(Integer.parseInt(s.getCode()));
 				
-				js.setName(RouteDescriptionBuilder.getFullName(s));
-				js.setNameUtf8(RouteDescriptionBuilder.getShortNameCaseASCII(s));
-				//TODO add short names
-				//js.setNameUtf8(s.getNameCaseUTF8());
+				js.setName(s.getNameCaseASCII());
+				js.setNameUtf8(s.getNameCaseUTF8());
+				js.setShortName(s.getShortNameCaseASCII());
+				js.setShortNameUtf8(s.getShortNameCaseUTF8());
 				js.setLegacyBorderPointCode(s.getLegacyBorderPointCode());
 				jl.add(js);
 			}
@@ -588,12 +688,16 @@ public class GtmJsonExporter {
 
 
 
-	private static List<TextDef> convertTexts(Texts list) {
+	private List<TextDef> convertTexts(Texts list) {
 		if (list == null) return null;
 		if (list.getTexts().isEmpty()) return null;
 		ArrayList<TextDef> listJson = new ArrayList<TextDef>();
 		for (Text element: list.getTexts()) {
-			listJson.add(convertToJson(element));
+			if (!element.isStandardText()) {
+				if (GtmUtils.isReferenced(element,gtm.getFareStructure() )) {
+					listJson.add(convertToJson(element));
+				}
+			}
 		}
 		return listJson;
 	}
@@ -665,7 +769,7 @@ public class GtmJsonExporter {
 		 if (sl.getReservationParameter()!= null) {
 			 slJ.setReservationParameterId(sl.getReservationParameter().getId());
 		 }
-		 slJ.setIncludesClassName(sl.isIncludesClassName());
+		 slJ.setDoesNotIncludeClassName(!sl.isIncludesClassName());
 		
 		return slJ;
 	}
@@ -1194,12 +1298,19 @@ public class GtmJsonExporter {
 	}
 
 
-	private static List<ReductionConstraintDef> convertReductionConstraints(ReductionConstraints list) {
+	private List<ReductionConstraintDef> convertReductionConstraints(ReductionConstraints list) {
 		if (list == null) return null;
 		if (list.getReductionConstraints().isEmpty()) return null;
 		ArrayList<ReductionConstraintDef> listJson = new ArrayList<ReductionConstraintDef>();
 		for (ReductionConstraint element: list.getReductionConstraints()) {
-			listJson.add(convertToJson(element));
+			//export only if it is used
+			if (GtmUtils.isReferenced(element,gtm.getFareStructure().getFareElements())) {
+				listJson.add(convertToJson(element));
+			} else {
+				StringBuilder sb = new StringBuilder();
+				sb.append(GtmUtils.getLabelText(element)).append(" is not referenced, it will not be exported");
+				GtmUtils.writeConsoleInfo(sb.toString(),null);
+			}
 		}
 		return listJson;
 	}
@@ -1238,13 +1349,25 @@ public class GtmJsonExporter {
 
 
 
-	private static List<ReductionCardDef> convertReductionCards(ReductionCards list) {
+	private List<ReductionCardDef> convertReductionCards(ReductionCards list) {
 		if (list == null) return null;
 		if (list.getReductionCards().isEmpty()) return null;
 		ArrayList<ReductionCardDef> listJson = new ArrayList<ReductionCardDef>();
 		for (ReductionCard element: list.getReductionCards()) {
-			listJson.add(convertToJson(element));
+			//don't export standard UIC cards
+			if (!element.isUicCode() && GenericReductionCards.getByName(element.getId()) == null ) {
+				//export only if it is used
+				if (   GtmUtils.isReferenced(element,gtm.getFareStructure().getReductionConstraints())
+					|| GtmUtils.isReferenced(element,gtm.getFareStructure().getReductionCards())) {
+					listJson.add(convertToJson(element));	
+				} else {
+					StringBuilder sb = new StringBuilder();
+					sb.append(GtmUtils.getLabelText(element)).append(" is not referenced, it will not be exported");
+					GtmUtils.writeConsoleInfo(sb.toString(),null);
+				}
+			}
 		}
+			
 		return listJson;
 	}
 
@@ -1275,12 +1398,38 @@ public class GtmJsonExporter {
 			cardJ.setNameRef(card.getName().getId());
 			//cardJ.setName(convertToJson(card.getName()));
 		}
-
+		
+		if (card.getIncludedReductionCards() != null && !card.getIncludedReductionCards().isEmpty()) {
+			
+			
+			List<ReductionCardReferenceDef> lj = new ArrayList<ReductionCardReferenceDef>();
+			
+			for (ReductionCard iCard: card.getIncludedReductionCards()) {
+				
+				ReductionCardReferenceDef jcr = convertToCardRef(iCard);
+				
+				if (jcr != null) {
+					lj.add(jcr);
+				}
+			}
+			if (!lj.isEmpty()) {
+				cardJ.setIncludedCards(lj);
+			}
+		}
+		
 		return cardJ;
 	}
 
-
-
+	private static ReductionCardReferenceDef convertToCardRef(ReductionCard card) {
+		
+		ReductionCardReferenceDef jcr = new ReductionCardReferenceDef ();
+		
+		jcr.setCardName(card.getId());
+		if (card.getCardIssuer() != null) {
+			jcr.setIssuer(card.getCardIssuer().getCode());
+		}
+		return jcr;
+	}
 
 	private static List<PriceDef> convertPrices(Prices list) {
 		if (list == null) return null;
@@ -1295,12 +1444,19 @@ public class GtmJsonExporter {
 
 
 
-	private static List<PersonalDataConstraintDef> convertPersonalDataConstraints(PersonalDataConstraints list) {
+	private List<PersonalDataConstraintDef> convertPersonalDataConstraints(PersonalDataConstraints list) {
 		if (list == null) return null;
 		if (list.getPersonalDataConstraints().isEmpty()) return null;
 		ArrayList<PersonalDataConstraintDef> listJson = new ArrayList<PersonalDataConstraintDef>();
 		for (PersonalDataConstraint element: list.getPersonalDataConstraints()) {
-			listJson.add(convertToJson(element));
+			//export only if it is used
+			if (GtmUtils.isReferenced(element,gtm.getFareStructure().getFareConstraintBundles())) {
+				listJson.add(convertToJson(element));
+			} else {
+				StringBuilder sb = new StringBuilder();
+				sb.append(GtmUtils.getLabelText(element)).append(" is not referenced, it will not be exported");
+				GtmUtils.writeConsoleInfo(sb.toString(),null);
+			}
 		}
 		return listJson;
 	}
@@ -1461,6 +1617,8 @@ public class GtmJsonExporter {
 				CombinationConstraint freeJ = new CombinationConstraint();
 				
 				freeJ.setMaxNumber(freeP.getMaxNumber());
+				freeJ.setMinNumber(freeP.getMinNumber());
+				
 				if (freeP.getPassengerType() != null) {
 					freeJ.setPassengerTypeRef(freeP.getPassengerType().getName());
 				}
@@ -1473,8 +1631,6 @@ public class GtmJsonExporter {
 		
 		passJ.setIsAncillaryItem(pass.isIsAncilliary());
 		passJ.setLowerAgeLimit(pass.getLowerAgeLimit());
-		passJ.setMaxWeightedPassengers(pass.getMaxTotalPassengerWeight());
-		passJ.setMinWeightedPassengers(pass.getMinTotalPassengerWeight());
 		if (pass.getText()!= null) {
 			passJ.setNameRef(pass.getText().getId());
 		}
@@ -1514,6 +1670,7 @@ public class GtmJsonExporter {
 		}
 		fcJ.setAcceptedControlSecurityTypes(convertFulFillmentTypesToJson(fc.getAcceptedFulfilmentTypes()));
 		fcJ.setIndividualTicketingPermitted(fc.isIndividualTicketingPermitted());
+		fcJ.setSeparateFulfillmentRequired(fc.isSeparateFulFillmentRequired());
 		
 		if (fc.getRequiredBarcodeTypes() != null && fc.getRequiredBarcodeTypes().isEmpty()) {
 			fcJ.setRequiredBarCodes(convertBarCodeTypes(fc.getRequiredBarcodeTypes()));
@@ -1730,17 +1887,15 @@ public class GtmJsonExporter {
 			fareJ.setCarrierConstraintRef(fare.getCarrierConstraint().getId());
 		}
 		
-		if (fare.getCombinationConstraint()!= null) {
-			fareJ.setCombinationConstraintRef(fare.getCombinationConstraint().getId());
+		if (fare.getFareConstraintBundle()!= null) {
+			fareJ.setBundleRef(fare.getFareConstraintBundle().getId());
 		}
 		
 		if (fare.getFareDetailDescription() != null){
 			fareJ.setFareDetailDescriptionRef(fare.getFareDetailDescription().getId());
 		}
 		
-		if (fare.getFulfillmentConstraint() != null) {
-			fareJ.setFullfillmentConstraintRef(fare.getFulfillmentConstraint().getId());
-		}
+
 		
 		if (fare.getLegacyAccountingIdentifier()!= null) {
 			
@@ -1762,11 +1917,7 @@ public class GtmJsonExporter {
 		if (fare.getPassengerConstraint() != null) {
 			fareJ.setPassengerConstraintRef(fare.getPassengerConstraint().getId());
 		}
-		
-		if (fare.getPersonalDataConstraint()!= null) {
-			fareJ.setPersonalDataConstraintRef(fare.getPersonalDataConstraint().getId());
-		}
-		
+			
 		if (fare.getPrice() != null) {
 			fareJ.setPriceRef(fare.getPrice().getId());
 		}
@@ -1782,15 +1933,7 @@ public class GtmJsonExporter {
 		if (fare.getReservationParameter() != null) {
 			fareJ.setReservationParameterRef(fare.getReservationParameter().getId());
 		}
-		
-		if (fare.getSalesAvailability()!=null) {
-			fareJ.setSalesAvailabilityConstraintRef(fare.getSalesAvailability().getId());
-		}
-		
-		if (fare.getTravelValidity() != null) {
-			fareJ.setTravelValidityConstraintRef(fare.getTravelValidity().getId());
-		} 
-		
+			
 		if (fare.getServiceClass()!= null) {
 			fareJ.setServiceClassRef(fare.getServiceClass().getId().getName());
 		}
@@ -1808,8 +1951,7 @@ public class GtmJsonExporter {
 		} else {
 			fareJ.setLegacyConversion("NO"); //$NON-NLS-1$
 		}
-		
-		
+				
 		fare.setIndividualContracts(fareJ.getIndividualContracts());
 		
 		//regulatory regimes
@@ -1848,12 +1990,20 @@ public class GtmJsonExporter {
 
 	}
 
-	private static List<ConnectionPointDef> convertConnectionPoints(ConnectionPoints list) {
+	private List<ConnectionPointDef> convertConnectionPoints(ConnectionPoints list) {
 		if (list == null) return null;
 		if (list.getConnectionPoints().isEmpty()) return null;
 		ArrayList<ConnectionPointDef> listJson = new ArrayList<ConnectionPointDef>();
 		for (ConnectionPoint element: list.getConnectionPoints()) {
-			listJson.add(convertToJson(element));
+			
+			//export only if it is used
+			if (GtmUtils.isReferenced(element,gtm.getFareStructure().getRegionalConstraints())) {
+				listJson.add(convertToJson(element));
+			} else {
+				StringBuilder sb = new StringBuilder();
+				sb.append(GtmUtils.getLabelText(element)).append(" is not referenced, it will not be exported");
+				GtmUtils.writeConsoleInfo(sb.toString(),null);
+			}
 		}
 		return listJson;
 	}
@@ -1916,12 +2066,20 @@ public class GtmJsonExporter {
 
 
 
-	private static List<FareCombinationConstraintDef> convertCombinationConstraints(CombinationConstraints list) {
+	private List<FareCombinationConstraintDef> convertCombinationConstraints(CombinationConstraints list) {
 		if (list == null) return null;
 		if (list.getCombinationConstraints().isEmpty()) return null;
 		ArrayList<FareCombinationConstraintDef> listJson = new ArrayList<FareCombinationConstraintDef>();
 		for (Gtm.CombinationConstraint element: list.getCombinationConstraints()) {
-			listJson.add(convertToJson(element));
+			
+			//export only if it is used
+			if (GtmUtils.isReferenced(element,gtm.getFareStructure().getFareConstraintBundles())) {
+				listJson.add(convertToJson(element));
+			} else {
+				StringBuilder sb = new StringBuilder();
+				sb.append(GtmUtils.getLabelText(element)).append(" is not referenced, it will not be exported");
+				GtmUtils.writeConsoleInfo(sb.toString(),null);
+			}
 		}
 		return listJson;
 	}
@@ -1932,11 +2090,8 @@ public class GtmJsonExporter {
 	private static FareCombinationConstraintDef convertToJson(Gtm.CombinationConstraint fc) {
 		if (fc == null) return null;
 		FareCombinationConstraintDef fcJ = new FareCombinationConstraintDef();
-		
 		fcJ.setId(fc.getId());
-		
 		fcJ.setCombinationModels(convertCombinationModelsToJson(fc.getCombinationModels()));
-		
 		return fcJ;
 	}
 
@@ -2002,7 +2157,15 @@ public class GtmJsonExporter {
 		if (list.getCalendars().isEmpty()) return null;
 		ArrayList<CalendarDef> listJson = new ArrayList<CalendarDef>();
 		for (Calendar element: list.getCalendars()) {
-			listJson.add(convertToJson(element));
+			//export only if it is used
+			if (   GtmUtils.isReferenced(element,gtm.getFareStructure().getSalesAvailabilityConstraints())
+				|| GtmUtils.isReferenced(element,gtm.getFareStructure().getTravelValidityConstraints())) {
+				listJson.add(convertToJson(element));
+			} else {
+				StringBuilder sb = new StringBuilder();
+				sb.append(GtmUtils.getLabelText(element)).append(" is not referenced, it will not be exported");
+				GtmUtils.writeConsoleInfo(sb.toString(),null);
+			}
 		}
 		return listJson;
 	}
@@ -2045,7 +2208,7 @@ public class GtmJsonExporter {
 				
 				AfterSalesRuleDef ruleJ = new AfterSalesRuleDef();
 				
-				ruleJ.setCarrierFee(cond.isCarrierFee());
+				ruleJ.setIsAllocatorFee(!cond.isCarrierFee());
 				ruleJ.setIndividualContracts(cond.isIndividualContracts());
 				ruleJ.setTransactionType(cond.getTransactionType().getName());
 				
@@ -2147,7 +2310,7 @@ public class GtmJsonExporter {
 			CurrencyPriceDef curDef = new CurrencyPriceDef();
 			
 			//assume euro cent
-			curDef.setAmount((int) (100 * cur.getAmount()));
+			curDef.setAmount(GtmUtils.getEuroCent(cur.getAmount()));
 			curDef.setCurrency(cur.getCurrency().getIsoCode());
 			
 			ArrayList<VatDetailDef> vatDefs = new ArrayList<VatDetailDef>();
@@ -2155,7 +2318,7 @@ public class GtmJsonExporter {
 			for ( VATDetail vat : cur.getVATdetails()) {
 				
 				VatDetailDef vatDef = new VatDetailDef();
-				vatDef.setAmount((int) (100 * vat.getAmount()));
+				vatDef.setAmount(GtmUtils.getEuroCent(vat.getAmount()));
 				vatDef.setTaxId(vat.getTaxId());
 				vatDef.setScope(convert(vat.getScope()));
 				vatDef.setPercentage(vat.getPercentage());
