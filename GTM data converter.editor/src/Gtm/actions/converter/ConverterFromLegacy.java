@@ -1649,9 +1649,7 @@ public class ConverterFromLegacy {
 				//distance = 0 indicates no price in that class!
 				if (distance == 0) return null;
 			}
-			
-			
-					
+							
 			//get the lowest price where the distance is ok
 			for (LegacyDistanceFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
 				if ( (     fare.getValidFrom().before(dateRange.getStartDate())
