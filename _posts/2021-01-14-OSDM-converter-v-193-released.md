@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "OSDM Converter V.1.9.2 Released"
+title: "OSDM Converter V.1.9.3 Released"
 author: Clemens Gantert
 date: 2021-01-14 07:00:33 +0100
 categories: osdm update
