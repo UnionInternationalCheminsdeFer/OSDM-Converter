@@ -1364,6 +1364,10 @@ public class GTMJsonImporter {
 		
 		boolean importConvertablesOnly = PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_IMPORT_CONVERABLE_ONLY);
 		
+		if (importConvertablesOnly) {
+			GtmUtils.writeConsoleInfo("import convertable fares only",null);
+		}
+		
 		if (jl == null || jl.isEmpty()) return null;
 		FareElements o = GtmFactory.eINSTANCE.createFareElements();
 		for (FareDef jf : jl) {
