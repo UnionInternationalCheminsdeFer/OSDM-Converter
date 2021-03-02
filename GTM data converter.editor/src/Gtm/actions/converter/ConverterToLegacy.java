@@ -1074,7 +1074,7 @@ public class 	ConverterToLegacy {
 		// there must be a route description
 		if (fare.getRegionalConstraint() == null ||
 			fare.getRegionalConstraint().getRegionalValidity()== null || 
-			fare.getRegionalConstraint().getRegionalValidity().get(0)== null || 
+			fare.getRegionalConstraint().getRegionalValidity().isEmpty() || 
 			fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null) {
 			return false;
 		}
