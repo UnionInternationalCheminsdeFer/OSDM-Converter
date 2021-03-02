@@ -510,6 +510,7 @@ public class GTMJsonImporter {
 
 
 	private ServiceConstraints convertServiceConstraints(List<ServiceConstraintDef> jl) {
+		if (jl == null) return null;
 		ServiceConstraints o = GtmFactory.eINSTANCE.createServiceConstraints();
 		for (ServiceConstraintDef sc : jl) {
 			o.getServiceConstraints().add(convert(sc));
@@ -899,6 +900,7 @@ public class GTMJsonImporter {
 
 
 	private ReductionConstraints convertReductionConstraints(List<ReductionConstraintDef> jl) {
+		if (jl == null) return null;
 		ReductionConstraints o = GtmFactory.eINSTANCE.createReductionConstraints();
 		for (ReductionConstraintDef jr : jl) {
 			o.getReductionConstraints().add(convert(jr));
