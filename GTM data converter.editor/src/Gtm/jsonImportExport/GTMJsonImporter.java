@@ -237,7 +237,7 @@ public class GTMJsonImporter {
 	private FareConstraintBundles convertFareConstraintBundles(List<gtm.FareConstraintBundle> fareConstraintBundles) {
 		
 		FareConstraintBundles bs = GtmFactory.eINSTANCE.createFareConstraintBundles();
-		
+		if (fareConstraintBundles == null) return bs;
 		for (gtm.FareConstraintBundle bJ : fareConstraintBundles) {
 			FareConstraintBundle b = convert(bJ);	
 			if (b != null) {					
@@ -251,7 +251,7 @@ public class GTMJsonImporter {
 	private TotalPassengerCombinationConstraints convertTotalPassengerConstraints(List<PassengerCombinationConstraintDef> list) {
         
 		TotalPassengerCombinationConstraints tpcs = GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraints();
-		
+		if (list == null) return tpcs;
 		for (PassengerCombinationConstraintDef pcJ : list) {
 			TotalPassengerCombinationConstraint pc = convert(pcJ);
 			if (pc != null) {
@@ -283,8 +283,9 @@ public class GTMJsonImporter {
 
 
 	private ZoneDefinitions convertZoneDefinitions(List<ZoneDefinitionDef> jl) {
-		if (jl == null || jl.isEmpty()) return null;
+
 		ZoneDefinitions zs = GtmFactory.eINSTANCE.createZoneDefinitions();
+		if (jl == null || jl.isEmpty()) return zs;
 		for (ZoneDefinitionDef jz : jl ) {
 			zs.getZoneDefinition().add(convert(jz));			
 		}
@@ -323,9 +324,10 @@ public class GTMJsonImporter {
 
 
 	private FareStationSetDefinitions convertFareStationSetDefinitions(List<FareReferenceStationSetDef> list) {
-		if (list == null || list.isEmpty()) return null;
-		FareStationSetDefinitions o = GtmFactory.eINSTANCE.createFareStationSetDefinitions();
 
+		FareStationSetDefinitions o = GtmFactory.eINSTANCE.createFareStationSetDefinitions();
+		if (list == null || list.isEmpty()) return o;
+		
 		for (FareReferenceStationSetDef jz : list) {
 			FareStationSetDefinition fssd = convert(jz);
 			if (fssd != null) {
@@ -356,6 +358,7 @@ public class GTMJsonImporter {
 	private Collection<? extends Station> convertStationRefList(FareReferenceStationSetDef jz) {
 		
 		ArrayList<Station> sl = new ArrayList<Station>();
+		if (jz == null) return sl;
 		for (StationDef sd: jz.getStations()) {
 			Station s = stations.get(Integer.parseInt(sd.getCode()));	
 			if (s != null) {
@@ -367,7 +370,9 @@ public class GTMJsonImporter {
 
 
 	private TravelValidityConstraints convertTravelValidityConstraints(List<TravelValidityConstraintDef> jo) {
+		
 		TravelValidityConstraints o = GtmFactory.eINSTANCE.createTravelValidityConstraints();
+		if (jo == null) return o;
 		for (TravelValidityConstraintDef jc : jo) {
 			o.getTravelValidityConstraints().add(convert(jc));
 		}
@@ -489,8 +494,9 @@ public class GTMJsonImporter {
 
 
 	private ServiceLevelDefinitions convertServiceLevelDefinitions(List<ServiceLevelDef> list) {
-		if (list == null || list.isEmpty()) return null;
+
 		ServiceLevelDefinitions o = GtmFactory.eINSTANCE.createServiceLevelDefinitions();
+		if (list == null || list.isEmpty()) return o;
 		
 		for (ServiceLevelDef js : list) {
 			o.getServiceLevelDefinition().add(convert(js));
@@ -511,6 +517,7 @@ public class GTMJsonImporter {
 
 	private ServiceConstraints convertServiceConstraints(List<ServiceConstraintDef> jl) {
 		ServiceConstraints o = GtmFactory.eINSTANCE.createServiceConstraints();
+		if (jl == null) return o;
 		for (ServiceConstraintDef sc : jl) {
 			o.getServiceConstraints().add(convert(sc));
 		}
@@ -538,8 +545,8 @@ public class GTMJsonImporter {
 
 
 	private ServiceClassDefinitions convertServiceClassDefinitions(List<ServiceClassDefinitionDef> jl) {
-		if (jl == null || jl.isEmpty()) return null;
 		ServiceClassDefinitions o = GtmFactory.eINSTANCE.createServiceClassDefinitions();
+		if (jl == null || jl.isEmpty()) return o;
 		for (ServiceClassDefinitionDef js : jl) {
 			o.getServiceClassDefinitions().add(convert(js));
 		}
@@ -900,6 +907,7 @@ public class GTMJsonImporter {
 
 	private ReductionConstraints convertReductionConstraints(List<ReductionConstraintDef> jl) {
 		ReductionConstraints o = GtmFactory.eINSTANCE.createReductionConstraints();
+		if (jl == null) return o;
 		for (ReductionConstraintDef jr : jl) {
 			o.getReductionConstraints().add(convert(jr));
 		}
@@ -1267,7 +1275,7 @@ public class GTMJsonImporter {
 
 	private TrainResourceLocations convertTrainResourceLocations(List<TrainResourceLocationDef> jl) {
 		TrainResourceLocations l = GtmFactory.eINSTANCE.createTrainResourceLocations();
-		if (jl == null || jl.isEmpty()) return null;
+		if (jl == null || jl.isEmpty()) return l;
 		for (TrainResourceLocationDef jt : jl) {
 			l.getTrainResourceLocations().add(convert(jt));
 		}
@@ -1340,8 +1348,9 @@ public class GTMJsonImporter {
 
 
 	private CarrierResourceLocations convertCarrierResourceLocations(List<CarrierResourceLocationDef> jl) {
-		if (jl == null || jl.isEmpty()) return null;
+
 		CarrierResourceLocations o = GtmFactory.eINSTANCE.createCarrierResourceLocations();
+		if (jl == null || jl.isEmpty()) return o;
 		for (CarrierResourceLocationDef jr : jl) {
 			o.getCarrierResourceLocations().add(convert(jr));
 		}
@@ -1364,8 +1373,13 @@ public class GTMJsonImporter {
 		
 		boolean importConvertablesOnly = PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_IMPORT_CONVERABLE_ONLY);
 		
-		if (jl == null || jl.isEmpty()) return null;
+		if (importConvertablesOnly) {
+			GtmUtils.writeConsoleInfo("import convertable fares only",null);
+		}
+
 		FareElements o = GtmFactory.eINSTANCE.createFareElements();
+		if (jl == null || jl.isEmpty()) return o;
+
 		for (FareDef jf : jl) {
 			
 			FareElement fare = convert(jf);
@@ -1402,6 +1416,7 @@ public class GTMJsonImporter {
 	private Collection<? extends RegulatoryCondition> convert(List<RegulatoryConditionsDef> regulatoryConditions) {
 		
 		List<RegulatoryCondition> rcl = new ArrayList<RegulatoryCondition>();
+		if (regulatoryConditions == null) return rcl;
 		
 		for (RegulatoryConditionsDef rcJ : regulatoryConditions) {
 			RegulatoryCondition r = RegulatoryCondition.getByName(rcJ.name());
@@ -1719,8 +1734,9 @@ public class GTMJsonImporter {
 
 
 	private CarrierConstraints convertCarrierConstraintList(List<CarrierConstraintDef> jo) {
-		if (jo == null) return null;
+
 		CarrierConstraints o = GtmFactory.eINSTANCE.createCarrierConstraints();
+		if (jo == null) return o;
 		for (CarrierConstraintDef cc : jo) {
 			CarrierConstraint c = convert(cc);
 			if (c != null) {
@@ -1830,9 +1846,9 @@ public class GTMJsonImporter {
 
 
 	private AfterSalesRules convertAfterSalesRulesList(List<AfterSalesConditionDef> jl) {
-		if (jl == null || jl.isEmpty()) return null;
+
 		AfterSalesRules o = GtmFactory.eINSTANCE.createAfterSalesRules();
-		
+		if (jl == null || jl.isEmpty()) return o;
 		for (AfterSalesConditionDef ja : jl) {
 			AfterSalesRule r = GtmFactory.eINSTANCE.createAfterSalesRule();
 			r.setId(ja.getId());

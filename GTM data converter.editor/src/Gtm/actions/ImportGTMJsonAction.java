@@ -157,10 +157,24 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						FareDelivery fareDelivery = ImportFareDelivery.importFareDelivery(file);
 						monitor.worked(1);
 					
+						int deliveredFares = 0;
+						if (fareDelivery != null &&
+							fareDelivery.getFareStructureDelivery() != null &&
+							fareDelivery.getFareStructureDelivery().getFareStructure() != null &&
+							fareDelivery.getFareStructureDelivery().getFareStructure().getFares() != null) {
+							deliveredFares = fareDelivery.getFareStructureDelivery().getFareStructure().getFares().size();						
+						}
+						int importedFares = 0;
 						if (fareDelivery != null) {
 
 							monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_7);
 							GeneralTariffModel model = importer.convertFromJson(fareDelivery);
+							if (model != null &&
+								model.getFareStructure() != null &&
+								model.getFareStructure().getFareElements() != null && 
+								model.getFareStructure().getFareElements().getFareElements() != null) {
+								importedFares = model.getFareStructure().getFareElements().getFareElements().size();
+							}
 							monitor.worked(1);
 
 							monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_8);
@@ -174,6 +188,15 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_9);					
 						updateMERITSStations(domain,importer.getStations(), fareDelivery.getFareStructureDelivery().getFareStructure().getStationNames());
 						monitor.worked(1);
+						
+						StringBuilder sb = new StringBuilder();
+						sb.append("Fares delivered: ");
+						sb.append(deliveredFares);
+						sb.append(" / Fares imported: ");
+						sb.append(importedFares);
+						
+						GtmUtils.displayAsyncInfoMessage("OSDM import completed", sb.toString());
+						//GtmUtils.writeConsoleInfo("OSDM import completed", editor);
 
 					} catch (JsonParseException e) {
 						GtmUtils.displayAsyncErrorMessage(e,"json parsing error");

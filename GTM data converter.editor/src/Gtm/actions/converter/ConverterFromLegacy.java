@@ -51,7 +51,6 @@ import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyDistanceFare;
 import Gtm.LegacyFareDetailMap;
-import Gtm.LegacyFareStationSetMap;
 import Gtm.LegacyFareStationSetMappings;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
@@ -814,7 +813,7 @@ public class ConverterFromLegacy {
 			if ( sa.getDataSource() == DataSource.CONVERTED) {
 				
 				if (sa.getRestrictions() != null &&
-					sa.getRestrictions().get(0) != null &&
+					!sa.getRestrictions().isEmpty() &&	
 					sa.getRestrictions().get(0).getSalesDates() != null &&
 					sa.getRestrictions().get(0).getSalesDates().getFromDate() != null &&
 					sa.getRestrictions().get(0).getSalesDates().getUntilDate() != null) {

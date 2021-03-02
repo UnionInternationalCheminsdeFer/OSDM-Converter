@@ -193,13 +193,13 @@ public class SalesAvailabilityConstraintItemProvider
 			sb.append(a.getDataDescription());
 		} else {
 			if (   a.getRestrictions() != null
-				&& a.getRestrictions().get(0) != null
+				&& !a.getRestrictions().isEmpty()	
 				&& a.getRestrictions().get(0).getSalesDates() != null
 				&& a.getRestrictions().get(0).getSalesDates().getFromDate() != null) {
 				sb.append(a.getRestrictions().get(0).getSalesDates().getFromDate());
 			}
 			if (   a.getRestrictions() != null
-				&& a.getRestrictions().get(0) != null
+				&& !a.getRestrictions().isEmpty()
 				&& a.getRestrictions().get(0).getSalesDates() != null
 				&& a.getRestrictions().get(0).getSalesDates().getUntilDate() != null) {
 				sb.append("-").append(a.getRestrictions().get(0).getSalesDates().getUntilDate());

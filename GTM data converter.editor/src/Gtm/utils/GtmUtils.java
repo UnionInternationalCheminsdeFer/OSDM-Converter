@@ -1100,15 +1100,20 @@ public class GtmUtils {
 			
 		GtmEditor editor = GtmUtils.getActiveEditor();
 
-		final Display display1 = editor.getSite().getShell().getDisplay();
+		Display display = getDisplay();
 		final Shell shell1 =  editor.getSite().getShell();
 			
-		if (display1 != null) {
-			display1.asyncExec(() -> {
+		if (display != null) {
+			display.asyncExec(() -> {
 				MessageBox dialog =  new MessageBox(shell1, SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(text);
 				if (e != null && e.getMessage() != null) {
 					dialog.setMessage(e.getMessage());
+				}
+				if (dialog.getMessage() != null) {
+					GtmUtils.writeConsoleError(text + " - " + dialog.getMessage(), editor);
+				} else {
+					GtmUtils.writeConsoleError(text, editor);
 				}
 				dialog.open(); 
 				e.printStackTrace();
@@ -1117,6 +1122,26 @@ public class GtmUtils {
 			});	
 		}
 	}
+	
+	public static void displayAsyncInfoMessage(String text, String details) {
+		
+		GtmEditor editor = GtmUtils.getActiveEditor();
+
+		Display display = getDisplay();
+		final Shell shell1 =  editor.getSite().getShell();
+			
+		if (display != null) {
+			display.asyncExec(() -> {
+				MessageBox dialog =  new MessageBox(shell1, SWT.ICON_INFORMATION | SWT.OK);
+				dialog.setText(text);
+				dialog.setMessage(details);
+				GtmUtils.writeConsoleInfo(text + " - " + details, editor);
+				dialog.open(); 
+				return;
+			});	
+		}
+	}
+
 	
 	public static Display getDisplay() {
 		GtmEditor e = GtmUtils.getActiveEditor();
