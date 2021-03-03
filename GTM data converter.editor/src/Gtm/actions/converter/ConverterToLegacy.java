@@ -184,6 +184,8 @@ public class 	ConverterToLegacy {
 		if (!comm.isEmpty() && comm.canExecute()) {
 			domain.getCommandStack().execute(comm);
 		}		
+		
+		
 		monitor.worked(1);
 		
 	
@@ -200,6 +202,10 @@ public class 	ConverterToLegacy {
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
+		if ( lsl.getSeries() != null) {
+			String message = String.format("108 series created: %d", lsl.getSeries().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
 		monitor.worked(1);
 		
 		
@@ -213,6 +219,11 @@ public class 	ConverterToLegacy {
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
+		if ( lfs.getRouteFare() != null) {
+			String message = String.format("108 route fares added: %d", lfs.getRouteFare().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
+		
 		monitor.worked(1);
 		
 		
@@ -226,6 +237,10 @@ public class 	ConverterToLegacy {
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
+		if ( lss.getLegacyStations() != null) {
+			String message = String.format("108 stations added: %d", lss.getLegacyStations().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
 		monitor.worked(1);
 
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_13);	
@@ -236,6 +251,10 @@ public class 	ConverterToLegacy {
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
+		if (lfds.getLegacyFares() != null) {
+			String message = String.format("108 fares added: %d", lfds.getLegacyFares().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}		
 		monitor.worked(1);
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_14);	
@@ -244,6 +263,10 @@ public class 	ConverterToLegacy {
 		com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_SEPARATE_CONTRACT_SERIES, lscsl);
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
+		}
+		if (lscsl.getSeparateContractSeries() != null) {
+			String message = String.format("108 separate contract series TCVL added: %d", lscsl.getSeparateContractSeries().size());
+			GtmUtils.writeConsoleInfo(message, editor);
 		}
 		monitor.worked(1);
 		
@@ -324,7 +347,7 @@ public class 	ConverterToLegacy {
 		legacyFareDescriptions.put(fareTableId, descr);
 		
 		
-		return legacyFareDescriptions.size();
+		return fareTableId;
 	}
 
 	private Legacy108FareDescription createFareDescription(FareElement fare) {
