@@ -229,7 +229,7 @@ public class 	ConverterToLegacy {
 		
 		List<Legacy108Station> stationsCol = new ArrayList<Legacy108Station>();
 		stationsCol.addAll(legacyStations.values());
-		Collections.sort(stationsCol,new StationComparator());
+		Collections.sort(stationsCol,new LegacyStationComparator());
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_12);	
 		Legacy108Stations lss = GtmFactory.eINSTANCE.createLegacy108Stations();
 		lss.getLegacyStations().addAll(stationsCol);
