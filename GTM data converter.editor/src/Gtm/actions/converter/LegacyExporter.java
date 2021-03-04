@@ -126,13 +126,9 @@ public class LegacyExporter {
 			
 			
 		} catch (IOException e) {
-			
-			MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
+						
 			String message = NationalLanguageSupport.LegacyExporter_7 + e.getLocalizedMessage();
-			dialog.setText(message);
-			dialog.open(); 
-			writeConsoleError(message);
-			e.printStackTrace();
+			GtmUtils.displayAsyncErrorMessage(e,message);
 			return;
 
 		}
@@ -155,6 +151,7 @@ public class LegacyExporter {
 			writer.write(getSeparateTicketLine(ticket));
 		}
  		writer.close();
+		GtmUtils.writeConsoleInfo("TCVL-File written in " + exportPath, editor);
 	}
 
 
@@ -198,6 +195,7 @@ public class LegacyExporter {
 			writer.write(getFareLine(fare));
 		}
  		writer.close();
+		GtmUtils.writeConsoleInfo("TCVP-File written in " + exportPath, editor);
 	}
 
 
@@ -282,6 +280,7 @@ public class LegacyExporter {
 			}
 		}
 		writer.close();
+		GtmUtils.writeConsoleInfo("Price-File " + fileName + " written in " + exportPath, editor);
 		
 	}
 
@@ -303,6 +302,8 @@ public class LegacyExporter {
 			writer.write(getSeriesLine(series));
 		}
 		writer.close();
+		GtmUtils.writeConsoleInfo("TCVS-File written in " + exportPath, editor);
+
 		
 	}
 
@@ -320,6 +321,7 @@ public class LegacyExporter {
 			writer.write(getStationLine(station));
 		}
 		writer.close();
+		GtmUtils.writeConsoleInfo("TCVG-File written in " + exportPath, editor);
 		
 	}
 
@@ -394,13 +396,11 @@ public class LegacyExporter {
 			}			
 			
 			writer.close();
-			
-			
-			
+			GtmUtils.writeConsoleInfo("TCV-File written in " + exportPath, editor);
 			
 		} catch (IOException e) {
 			String message = "could not write TCV file in: " + exportPath.toString();
-			writeConsoleError(message);
+			GtmUtils.writeConsoleError(message,editor);
 			e.printStackTrace();
 		}
 
@@ -789,8 +789,5 @@ public class LegacyExporter {
 		
 	}
 
-	private void writeConsoleError(String message) {
-		GtmUtils.writeConsoleError(message,editor);
-	}
 
 }

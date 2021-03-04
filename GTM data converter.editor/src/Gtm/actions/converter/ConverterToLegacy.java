@@ -184,6 +184,8 @@ public class 	ConverterToLegacy {
 		if (!comm.isEmpty() && comm.canExecute()) {
 			domain.getCommandStack().execute(comm);
 		}		
+		
+		
 		monitor.worked(1);
 		
 	
@@ -200,6 +202,10 @@ public class 	ConverterToLegacy {
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
+		if ( lsl.getSeries() != null) {
+			String message = String.format("108-TCVS series created: %d", lsl.getSeries().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
 		monitor.worked(1);
 		
 		
@@ -213,6 +219,11 @@ public class 	ConverterToLegacy {
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
+		if ( lfs.getRouteFare() != null) {
+			String message = String.format("108 route fares added: %d", lfs.getRouteFare().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
+		
 		monitor.worked(1);
 		
 		
@@ -226,6 +237,10 @@ public class 	ConverterToLegacy {
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
+		if ( lss.getLegacyStations() != null) {
+			String message = String.format("108-TCVG stations added: %d", lss.getLegacyStations().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
 		monitor.worked(1);
 
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_13);	
@@ -236,6 +251,10 @@ public class 	ConverterToLegacy {
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
+		if (lfds.getLegacyFares() != null) {
+			String message = String.format("108-TCVP fares added: %d", lfds.getLegacyFares().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}		
 		monitor.worked(1);
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_14);	
@@ -244,6 +263,10 @@ public class 	ConverterToLegacy {
 		com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_SEPARATE_CONTRACT_SERIES, lscsl);
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
+		}
+		if (lscsl.getSeparateContractSeries() != null) {
+			String message = String.format("108-TCVL separate contract series added: %d", lscsl.getSeparateContractSeries().size());
+			GtmUtils.writeConsoleInfo(message, editor);
 		}
 		monitor.worked(1);
 		
@@ -324,7 +347,7 @@ public class 	ConverterToLegacy {
 		legacyFareDescriptions.put(fareTableId, descr);
 		
 		
-		return legacyFareDescriptions.size();
+		return fareTableId;
 	}
 
 	private Legacy108FareDescription createFareDescription(FareElement fare) {
@@ -527,26 +550,18 @@ public class 	ConverterToLegacy {
 
 	private void convertStations() {
 			
-		for (Station sn : tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName()) {
+		for (Station station : tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName()) {
 			
-			if (sn.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
-			
-				Legacy108Station ls = GtmFactory.eINSTANCE.createLegacy108Station();
+			if (station.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
 				
-				ls.setName(sn.getNameCaseASCII());
-				ls.setNameUTF8(sn.getNameCaseUTF8());
-				ls.setShortName(sn.getShortNameCaseASCII());
-				ls.setShortNameUtf8(sn.getShortNameCaseUTF8());
-				ls.setStationCode(Integer.parseInt(sn.getCode()));
-				ls.setBorderPointCode(sn.getLegacyBorderPointCode());
-				ls.setFareReferenceStationCode(getFareReferenceCode(sn));
+
+				Legacy108Station ls = convertStation(station);
 	
 				legacyStations.put(ls.getStationCode(),ls);
 				
 				if (ls.getBorderPointCode() > 0) {
 					legacyBorderStations.put(ls.getBorderPointCode(), ls);
 				}
-				
 			}
 		}
 		
@@ -631,6 +646,23 @@ public class 	ConverterToLegacy {
 		return null;
 	}
 
+	
+	private Legacy108Station convertStation(Station sn)  {
+		
+		Legacy108Station ls = GtmFactory.eINSTANCE.createLegacy108Station();
+		
+		ls.setName(sn.getNameCaseASCII());
+		ls.setNameUTF8(sn.getNameCaseUTF8());
+		ls.setShortName(sn.getShortNameCaseASCII());
+		ls.setShortNameUtf8(sn.getShortNameCaseUTF8());
+		ls.setStationCode(Integer.parseInt(sn.getCode()));
+		ls.setBorderPointCode(sn.getLegacyBorderPointCode());
+		ls.setFareReferenceStationCode(getFareReferenceCode(sn));
+
+		legacyStations.put(ls.getStationCode(),ls);
+		
+		return ls;
+	}
 
 	private int getFareReferenceCode(Station station) {
 		
@@ -975,8 +1007,31 @@ public class 	ConverterToLegacy {
 		Legacy108Station ls =  legacyStations.get(code);
 		
 		if (ls == null) {
-			String message = "Missing Station Names for: " +  GtmUtils.getLabelText(via);
-			GtmUtils.writeConsoleError(message, editor);
+				if (via.getStation() != null) {
+
+				//station name not in list of stations in the country
+				Legacy108Station l = convertStation(via.getStation());
+			
+				legacyStations.put(l.getStationCode(),l);
+			
+				if (l.getBorderPointCode() > 0) {
+					legacyBorderStations.put(l.getBorderPointCode(), l);
+				}
+			
+				ls = l;
+			
+				String message = null;
+				if (via.getStation().getCountry() != null && via.getStation().getCountry().getName() != null ) {
+					message = "Station outside of country missing in border point data: " +  GtmUtils.getLabelText(via.getStation()) + " in " +  via.getStation().getCountry().getName();
+				} else {
+					message = "Station outside of country missing in border point data: " +  GtmUtils.getLabelText(via.getStation());					
+				}
+				GtmUtils.writeConsoleWarning(message, editor);
+			
+			} else {
+				String message = "Fare Station Set names not found: " +  GtmUtils.getLabelText(via) ;
+				GtmUtils.writeConsoleError(message, editor);
+			}
 		}
 		return ls;
 		
@@ -1003,8 +1058,31 @@ public class 	ConverterToLegacy {
 		Legacy108Station ls =  legacyStations.get(code);
 		
 		if (ls == null) {
-			String message = "Missing Station Names for: " +  GtmUtils.getLabelText(via);
+			if (via.getStation() != null) {
+
+			//station name not in list of stations in the country
+			Legacy108Station l = convertStation(via.getStation());
+		
+			legacyStations.put(l.getStationCode(),l);
+		
+			if (l.getBorderPointCode() > 0) {
+				legacyBorderStations.put(l.getBorderPointCode(), l);
+			}
+		
+			ls = l;
+		
+			String message = null;
+			if (via.getStation().getCountry() != null && via.getStation().getCountry().getName() != null ) {
+				message = "Station outside of country missing in border point data: " +  GtmUtils.getLabelText(via.getStation()) + " in " +  via.getStation().getCountry().getName();
+			} else {
+				message = "Station outside of country missing in border point data: " +  GtmUtils.getLabelText(via.getStation());					
+			}
+			GtmUtils.writeConsoleWarning(message, editor);
+		
+		} else {
+			String message = "Fare Station Set names not found: " +  GtmUtils.getLabelText(via) ;
 			GtmUtils.writeConsoleError(message, editor);
+		}
 		}
 		return ls;
 	}
