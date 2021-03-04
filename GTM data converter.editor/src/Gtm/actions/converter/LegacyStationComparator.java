@@ -15,8 +15,5 @@ public class LegacyStationComparator implements Comparator<Object> {
 		return ((Legacy108Station)o1).getName().compareTo(((Legacy108Station)o2).getName());
 
 	}
-	
-	
-	
 
 }
