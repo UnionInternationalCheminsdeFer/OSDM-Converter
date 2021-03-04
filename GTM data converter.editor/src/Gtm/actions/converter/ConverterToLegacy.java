@@ -543,7 +543,7 @@ public class 	ConverterToLegacy {
 				return;
 			}
 			if (ls.getName() == null || ls.getName().length() == 0) {
-				String message = "Station name missing: " + GtmUtils.getLabelText(ls);
+				String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
 				GtmUtils.writeConsoleError(message, editor);
 			} else {
 				legacyStations.put(ls.getStationCode(), ls);
@@ -563,7 +563,7 @@ public class 	ConverterToLegacy {
 				Legacy108Station ls = convertStation(station);
 
 				if (ls.getName() == null || ls.getName().length() == 0) {
-					String message = "Station name missing: " + GtmUtils.getLabelText(ls);
+					String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
 					GtmUtils.writeConsoleError(message, editor);
 				} else {
 					legacyStations.put(ls.getStationCode(),ls);
@@ -617,7 +617,7 @@ public class 	ConverterToLegacy {
 						ls.setShortName(nameUTF8);
 						ls.setBorderPointCode(lbp.getBorderPointCode());
 						if (ls.getName() == null || ls.getName().length() == 0) {
-							String message = "Station name missing: " + GtmUtils.getLabelText(ls);
+							String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
 							GtmUtils.writeConsoleError(message, editor);
 						} else {
 							legacyStations.put(ls.getStationCode(),ls);
@@ -644,7 +644,7 @@ public class 	ConverterToLegacy {
 					}
 				}
 				if (ls.getName() == null || ls.getName().length() == 0) {
-					String message = "Station name missing: " + GtmUtils.getLabelText(ls);
+					String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
 					GtmUtils.writeConsoleError(message, editor);
 				} else {			
 					legacyStations.put(ls.getStationCode(),ls);
@@ -1031,7 +1031,7 @@ public class 	ConverterToLegacy {
 				Legacy108Station l = convertStation(via.getStation());
 				
 				if (l.getName() == null || l.getName().length() == 0) {
-					String message = "Station name missing: " + GtmUtils.getLabelText(l);
+					String message = "Station name missing: code " + Integer.toString(l.getStationCode());
 					GtmUtils.writeConsoleError(message, editor);
 				} else {			
 					legacyStations.put(l.getStationCode(),l);
@@ -1087,7 +1087,7 @@ public class 	ConverterToLegacy {
 			Legacy108Station l = convertStation(via.getStation());
 			
 			if (l.getName() == null || l.getName().length() == 0) {
-				String message = "Station name missing: " + GtmUtils.getLabelText(l);
+				String message = "Station name missing: code " + Integer.toString(l.getStationCode());
 				GtmUtils.writeConsoleError(message, editor);
 			} else {
 				legacyStations.put(l.getStationCode(),l);
