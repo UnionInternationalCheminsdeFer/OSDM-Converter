@@ -13,6 +13,7 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
 import Gtm.*;
+import Gtm.actions.converter.StationComparator;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.utils.GtmUtils;
@@ -275,6 +276,9 @@ public class GTMJsonImporter {
 				n.getStationName().add(s);
 			}
 		}
+		
+		n.getStationName().sort(new StationComparator());
+		
 		return n;
 	}
 	

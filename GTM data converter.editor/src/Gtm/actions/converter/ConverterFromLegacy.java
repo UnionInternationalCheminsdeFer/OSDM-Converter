@@ -1622,10 +1622,11 @@ public class ConverterFromLegacy {
 			
 			for (LegacyRouteFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()){
 			
-				if (fare.getSeriesNumber() == series.getNumber() 
-						&& ( fare.getValidFrom().before(dateRange.getStartDate())
-								|| fare.getValidFrom().equals(dateRange.getStartDate()) )
-						&& ( fare.getValidUntil().after(dateRange.getEndDate())
+				if (   fare.getFareTableNumber() == series.getFareTableNumber()
+				    && fare.getSeriesNumber() == series.getNumber() 
+					&& ( fare.getValidFrom().before(dateRange.getStartDate())
+							   || fare.getValidFrom().equals(dateRange.getStartDate()) )
+					&& ( fare.getValidUntil().after(dateRange.getEndDate())
 							   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {
 					if (travelClass == 1) {
 						return GtmUtils.getEuroFromCent(fare.getFare1st()); 
@@ -1651,7 +1652,8 @@ public class ConverterFromLegacy {
 							
 			//get the lowest price where the distance is ok
 			for (LegacyDistanceFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
-				if ( (     fare.getValidFrom().before(dateRange.getStartDate())
+				if (   fare.getFareTableNumber() == series.getFareTableNumber()				
+					&& (   fare.getValidFrom().before(dateRange.getStartDate())
 						|| fare.getValidFrom().equals(dateRange.getStartDate()) )
 					&& ( fare.getValidUntil().after(dateRange.getEndDate())
 					   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {

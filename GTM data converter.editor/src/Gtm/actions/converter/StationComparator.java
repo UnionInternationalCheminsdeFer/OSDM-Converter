@@ -2,15 +2,15 @@ package Gtm.actions.converter;
 
 import java.util.Comparator;
 
-import Gtm.Legacy108Station;
+import Gtm.Station;
 
-public class StationComparator implements Comparator<Object> {
+public class StationComparator implements Comparator<Station> {
 
-	@Override
-	public int compare(Object o1, Object o2) {
+
+		@Override
+		public int compare(Station o1, Station o2) {
+			return o1.getNameCaseASCII().compareTo(o2.getName());
+		}
+
 		
-		return Integer.compare( ((Legacy108Station)o1).getStationCode(), ((Legacy108Station)o2).getStationCode());
-
-	}
-
 }

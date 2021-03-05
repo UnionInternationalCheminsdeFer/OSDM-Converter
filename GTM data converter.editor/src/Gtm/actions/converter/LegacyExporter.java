@@ -139,7 +139,7 @@ public class LegacyExporter {
 		
 		String provider = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0).getSupplyingCarrierCode();
 		
-		BufferedWriter writer = getWriter(exportPath, "TCVL" + provider); //$NON-NLS-1$
+		BufferedWriter writer = getWriter(exportPath, "TCVL" + provider + ".txt"); //$NON-NLS-1$
 		
 		boolean firstLine = true;
 		
@@ -183,7 +183,7 @@ public class LegacyExporter {
 		
 		String provider = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0).getSupplyingCarrierCode();
 		
-		BufferedWriter writer = getWriter(exportPath, "TCVP" + provider); //$NON-NLS-1$
+		BufferedWriter writer = getWriter(exportPath, "TCVP" + provider + ".txt"); //$NON-NLS-1$
 		
 		boolean firstLine = true;
 		
@@ -260,9 +260,9 @@ public class LegacyExporter {
 		
 		String fileName = null;
 		if (fareTableNumber == 0 || fareTableNumber > 9998) {
-			fileName = 9999 + provider;  
+			fileName = 9999 + provider + ".txt";  
 		} else {
-			fileName = String.format("%04d", fareTableNumber) + provider;   //$NON-NLS-1$
+			fileName = String.format("%04d", fareTableNumber) + provider + ".txt";   //$NON-NLS-1$
 		}
 		
 		BufferedWriter writer = getWriter(exportPath,fileName);
@@ -289,7 +289,7 @@ public class LegacyExporter {
 		
 		String provider = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0).getSupplyingCarrierCode();
 				
-		BufferedWriter writer = getWriter(exportPath, "TCVS" + provider); //$NON-NLS-1$
+		BufferedWriter writer = getWriter(exportPath, "TCVS" + provider + ".txt"); //$NON-NLS-1$
 
 		
 		boolean firstLine = true;
@@ -309,7 +309,7 @@ public class LegacyExporter {
 
 	private void exportTCVGfile() throws IOException {
 				
-		BufferedWriter writer = getWriter(exportPath, "TCVG" + provider); //$NON-NLS-1$
+		BufferedWriter writer = getWriter(exportPath, "TCVG" + provider + ".txt"); //$NON-NLS-1$
 		
 		boolean firstLine = true;
 		
@@ -329,7 +329,7 @@ public class LegacyExporter {
 		
 		String providerName = tool.getCodeLists().getCarriers().findCarrier(provider).getShortName();
 				
-		BufferedWriter writer = getWriter(exportPath, "TCV" + provider); //$NON-NLS-1$
+		BufferedWriter writer = getWriter(exportPath, "TCV" + provider + ".txt"); //$NON-NLS-1$
 		
 		try {
 			
@@ -337,7 +337,7 @@ public class LegacyExporter {
 		
 				for (Legacy108FareDescription fare : tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares()) {
 			
-					String fileName = String.format("%04d", fare.getTableId())+provider;   //$NON-NLS-1$
+					String fileName = String.format("%04d", fare.getTableId()) + provider;   //$NON-NLS-1$
 				
 					String line0 = getHeaderLine(fileName, provider, providerName,
 							tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().size(),
@@ -349,7 +349,7 @@ public class LegacyExporter {
 				}
 			} else {
 	
-				String fileName = String.format("%04d", 9999 )+provider;   //$NON-NLS-1$
+				String fileName = String.format("%04d", 9999 ) + provider;   //$NON-NLS-1$
 				
 				String line0 = getHeaderLine(fileName, provider, providerName,
 					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().size(),
