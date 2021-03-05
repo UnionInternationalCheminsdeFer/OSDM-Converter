@@ -56,6 +56,9 @@ public class LegacyImporter {
 	private Path TCVfilePath = null;
 	private Legacy108 legacy108 = null;
 	private String timeZone = null;
+	private LegacyRouteFares resultListRouteFares = null;
+	private LegacyDistanceFares resultListDistanceFares = null;
+	
 	EditingDomain domain = null;
 	GtmEditor editor = null;
 	
@@ -129,12 +132,24 @@ public class LegacyImporter {
 			workSteps = 26 / fareFiles.size();
 		}
 		
+		
+   	   resultListRouteFares = GtmFactory.eINSTANCE.createLegacyRouteFares();
+       resultListDistanceFares = GtmFactory.eINSTANCE.createLegacyDistanceFares();
 		for (String fileName : fareFiles) {
 			monitor.subTask(NationalLanguageSupport.ImportLegayTask_TCVfareFile + " " + fileName);
 			Path filePath = Paths.get(directory.toString(), fileName);
 			File fareFile =  filePath.toFile();
 			importFare(fareFile);
 			monitor.worked(workSteps);
+		}
+        CompoundCommand command = new CompoundCommand();
+   		command.append(SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_ROUTE_FARES, resultListRouteFares) );
+       	command.append(SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_DISTANCE_FARES, resultListDistanceFares) );
+		if (resultListRouteFares != null && resultListRouteFares.getRouteFare() != null) {
+			GtmUtils.writeConsoleInfo("route fares imported: " + Integer.toString(resultListRouteFares.getRouteFare().size()), editor);
+		}
+		if (resultListDistanceFares != null && resultListDistanceFares.getDistanceFare() != null) {
+			GtmUtils.writeConsoleInfo("distance fares imported: " + Integer.toString(resultListDistanceFares.getDistanceFare().size()), editor);
 		}
 		
 		if (PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO)) {
@@ -322,15 +337,8 @@ public class LegacyImporter {
 		if (br == null) return;
 		
 	       String st; 
-	        
-			LegacyRouteFares resultListRouteFares = GtmFactory.eINSTANCE.createLegacyRouteFares();
-			
-			LegacyDistanceFares resultListDistanceFares = GtmFactory.eINSTANCE.createLegacyDistanceFares();
-			
-			Legacy108 legacy108 = tool.getConversionFromLegacy().getLegacy108();
-			
-			
-	        try {
+	        		
+	       try {
 				while ((st = br.readLine()) != null) {
 					
 				  if ((st.length() == 174))	{
@@ -358,22 +366,6 @@ public class LegacyImporter {
 				e.printStackTrace();
 				return;
 			} 
-	        
-	        CompoundCommand command = new CompoundCommand();
-	        
-	        if (!resultListRouteFares.getRouteFare().isEmpty()) {
-	    		command.append(SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_ROUTE_FARES, resultListRouteFares) );
-	        }
-	        if (!resultListDistanceFares.getDistanceFare().isEmpty()) {        
-	        	command.append(SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_DISTANCE_FARES, resultListDistanceFares) );
-	        }
-
-
-			if (!command.isEmpty() && command.canExecute()) {
-				domain.getCommandStack().execute(command);
-				String message = NationalLanguageSupport.LegacyImporter_15 + Integer.toString(resultListRouteFares.getRouteFare().size());
-				GtmUtils.writeConsoleInfo(message, editor);
-			}
 			
 	}
 
@@ -383,7 +375,7 @@ public class LegacyImporter {
 			if (st.length() != 174)	return null;
 			
 			//String carrier 		= st.substring(0, 4);
-			//String number  			= st.substring(4, 8);
+			//String number  		= st.substring(4, 8);
 			String series    		= st.substring(8,13);
 
 			String fare1st 	 		= st.substring(132,139);	
