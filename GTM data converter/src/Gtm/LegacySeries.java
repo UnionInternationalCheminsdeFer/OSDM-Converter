@@ -34,6 +34,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.LegacySeries#getViastations <em>Viastations</em>}</li>
  *   <li>{@link Gtm.LegacySeries#getValidFrom <em>Valid From</em>}</li>
  *   <li>{@link Gtm.LegacySeries#getValidUntil <em>Valid Until</em>}</li>
+ *   <li>{@link Gtm.LegacySeries#getBusCode <em>Bus Code</em>}</li>
+ *   <li>{@link Gtm.LegacySeries#getFerryCode <em>Ferry Code</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getLegacySeries()
@@ -219,6 +221,50 @@ public interface LegacySeries extends EObject {
 	 * @generated
 	 */
 	void setValidUntil(Date value);
+
+	/**
+	 * Returns the value of the '<em><b>Bus Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bus Code</em>' attribute.
+	 * @see #setBusCode(String)
+	 * @see Gtm.GtmPackage#getLegacySeries_BusCode()
+	 * @model
+	 * @generated
+	 */
+	String getBusCode();
+
+	/**
+	 * Sets the value of the '{@link Gtm.LegacySeries#getBusCode <em>Bus Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bus Code</em>' attribute.
+	 * @see #getBusCode()
+	 * @generated
+	 */
+	void setBusCode(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Ferry Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ferry Code</em>' attribute.
+	 * @see #setFerryCode(String)
+	 * @see Gtm.GtmPackage#getLegacySeries_FerryCode()
+	 * @model
+	 * @generated
+	 */
+	String getFerryCode();
+
+	/**
+	 * Sets the value of the '{@link Gtm.LegacySeries#getFerryCode <em>Ferry Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ferry Code</em>' attribute.
+	 * @see #getFerryCode()
+	 * @generated
+	 */
+	void setFerryCode(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.

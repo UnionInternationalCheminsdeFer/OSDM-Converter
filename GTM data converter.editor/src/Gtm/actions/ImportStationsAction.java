@@ -168,13 +168,11 @@ public class ImportStationsAction extends BasicGtmAction {
 							}
 							if (station.getLongitude() != newStation.getLongitude()) {
 								command.append(SetCommand.create(domain, station,GtmPackage.Literals.STATION__LONGITUDE, newStation.getLongitude()));										
-							}
-							if (station.getRelations() != null && !station.getRelations().isEmpty()) {
-								command.append(RemoveCommand.create(domain,station, GtmPackage.Literals.STATION__RELATIONS,station.getRelations()));										
-							}							
-							if (newStation.getRelations() != null && !newStation.getRelations().isEmpty()) {
-								command.append(AddCommand.create(domain,station,GtmPackage.Literals.STATION__RELATIONS, newStation.getRelations()));										
+							}					
+							if (newStation.isBorderStation() != station.isBorderStation() ) {
+								command.append(SetCommand.create(domain,station, GtmPackage.Literals.STATION__BORDER_STATION,station.isBorderStation()));										
 							}								
+							
 							
 						}
 						if (command != null & !command.isEmpty() & command.canExecute()) {

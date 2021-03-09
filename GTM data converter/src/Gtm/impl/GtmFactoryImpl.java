@@ -221,6 +221,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case GtmPackage.TRANSPORT_MODE:
+				return createTransportModeFromString(eDataType, initialValue);
 			case GtmPackage.STATION_RELATION_TYPE:
 				return createStationRelationTypeFromString(eDataType, initialValue);
 			case GtmPackage.STATION_FARE_DETAIL_TYPE:
@@ -326,6 +328,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GtmPackage.TRANSPORT_MODE:
+				return convertTransportModeToString(eDataType, instanceValue);
 			case GtmPackage.STATION_RELATION_TYPE:
 				return convertStationRelationTypeToString(eDataType, instanceValue);
 			case GtmPackage.STATION_FARE_DETAIL_TYPE:
@@ -1911,6 +1915,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public LegacyViastation createLegacyViastation() {
 		LegacyViastationImpl legacyViastation = new LegacyViastationImpl();
 		return legacyViastation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TransportMode createTransportModeFromString(EDataType eDataType, String initialValue) {
+		TransportMode result = TransportMode.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTransportModeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

@@ -5,6 +5,7 @@ package Gtm.impl;
 import Gtm.GtmPackage;
 import Gtm.ServiceBrand;
 
+import Gtm.TransportMode;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.ServiceBrandImpl#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.impl.ServiceBrandImpl#getAbbreviation <em>Abbreviation</em>}</li>
  *   <li>{@link Gtm.impl.ServiceBrandImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link Gtm.impl.ServiceBrandImpl#getTransportMode <em>Transport Mode</em>}</li>
  * </ul>
  *
  * @generated
@@ -108,6 +110,26 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 	 * @ordered
 	 */
 	protected String description = DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTransportMode() <em>Transport Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTransportMode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final TransportMode TRANSPORT_MODE_EDEFAULT = TransportMode.TRAIN;
+
+	/**
+	 * The cached value of the '{@link #getTransportMode() <em>Transport Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTransportMode()
+	 * @generated
+	 * @ordered
+	 */
+	protected TransportMode transportMode = TRANSPORT_MODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -217,6 +239,27 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TransportMode getTransportMode() {
+		return transportMode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTransportMode(TransportMode newTransportMode) {
+		TransportMode oldTransportMode = transportMode;
+		transportMode = newTransportMode == null ? TRANSPORT_MODE_EDEFAULT : newTransportMode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.SERVICE_BRAND__TRANSPORT_MODE, oldTransportMode, transportMode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -228,6 +271,8 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 				return getAbbreviation();
 			case GtmPackage.SERVICE_BRAND__DESCRIPTION:
 				return getDescription();
+			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
+				return getTransportMode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -251,6 +296,9 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 				return;
 			case GtmPackage.SERVICE_BRAND__DESCRIPTION:
 				setDescription((String)newValue);
+				return;
+			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
+				setTransportMode((TransportMode)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -276,6 +324,9 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 			case GtmPackage.SERVICE_BRAND__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
+			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
+				setTransportMode(TRANSPORT_MODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -296,6 +347,8 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 				return ABBREVIATION_EDEFAULT == null ? abbreviation != null : !ABBREVIATION_EDEFAULT.equals(abbreviation);
 			case GtmPackage.SERVICE_BRAND__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
+				return transportMode != TRANSPORT_MODE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -318,6 +371,8 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 		result.append(abbreviation);
 		result.append(", description: ");
 		result.append(description);
+		result.append(", transportMode: ");
+		result.append(transportMode);
 		result.append(')');
 		return result.toString();
 	}

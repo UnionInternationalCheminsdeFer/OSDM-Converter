@@ -653,11 +653,19 @@ public class LegacyExporter {
 		//	18 Flag 4 for usual route numeric 1 M  69 0 or 3 (see point 2.2) 
 		sb.append("0");		 //$NON-NLS-1$
 		//	19 Bus code alpha numeric 1 O  70 'B' entered here in the case of bus services 
-		sb.append(" ");	 //$NON-NLS-1$
+		if (series.getBusCode() != null && series.getBusCode().length() > 0) {
+			sb.append(String.format("%1s", series.getBusCode()));
+		} else {
+			sb.append(" ");		 //$NON-NLS-1$
+		}
 		//	20 Flag 5 for bus code numeric 1 M  71 0 or 3 (see point 2.2) 
 		sb.append("0");		 //$NON-NLS-1$
 		//	21 Ferry code alpha numeric 1 O  72 'S' entered here in the case of ferry services 
-		sb.append(" ");		 //$NON-NLS-1$
+		if (series.getFerryCode() != null && series.getFerryCode().length() > 0) {
+			sb.append(String.format("%1s", series.getFerryCode()));
+		} else {
+			sb.append(" ");		 //$NON-NLS-1$
+		}
 		//	22 Flag 6 for ferry code numeric 1 M  73 0 or 3 (see point 2.2) 
 		sb.append("0");		 //$NON-NLS-1$
 		//	23 Carrier code separator 1 '<' 1 M  74 This field always contains the symbol '<'. 

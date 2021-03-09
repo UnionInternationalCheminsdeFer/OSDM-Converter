@@ -50,6 +50,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.LegacySeriesImpl#getViastations <em>Viastations</em>}</li>
  *   <li>{@link Gtm.impl.LegacySeriesImpl#getValidFrom <em>Valid From</em>}</li>
  *   <li>{@link Gtm.impl.LegacySeriesImpl#getValidUntil <em>Valid Until</em>}</li>
+ *   <li>{@link Gtm.impl.LegacySeriesImpl#getBusCode <em>Bus Code</em>}</li>
+ *   <li>{@link Gtm.impl.LegacySeriesImpl#getFerryCode <em>Ferry Code</em>}</li>
  * </ul>
  *
  * @generated
@@ -404,6 +406,46 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 	protected Date validUntil = VALID_UNTIL_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getBusCode() <em>Bus Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBusCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BUS_CODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBusCode() <em>Bus Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBusCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected String busCode = BUS_CODE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFerryCode() <em>Ferry Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFerryCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FERRY_CODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFerryCode() <em>Ferry Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFerryCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected String ferryCode = FERRY_CODE_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -587,6 +629,48 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 		validUntil = newValidUntil;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY_SERIES__VALID_UNTIL, oldValidUntil, validUntil));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getBusCode() {
+		return busCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBusCode(String newBusCode) {
+		String oldBusCode = busCode;
+		busCode = newBusCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY_SERIES__BUS_CODE, oldBusCode, busCode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getFerryCode() {
+		return ferryCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFerryCode(String newFerryCode) {
+		String oldFerryCode = ferryCode;
+		ferryCode = newFerryCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY_SERIES__FERRY_CODE, oldFerryCode, ferryCode));
 	}
 
 	/**
@@ -876,6 +960,10 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 				return getValidFrom();
 			case GtmPackage.LEGACY_SERIES__VALID_UNTIL:
 				return getValidUntil();
+			case GtmPackage.LEGACY_SERIES__BUS_CODE:
+				return getBusCode();
+			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
+				return getFerryCode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -941,6 +1029,12 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 			case GtmPackage.LEGACY_SERIES__VALID_UNTIL:
 				setValidUntil((Date)newValue);
 				return;
+			case GtmPackage.LEGACY_SERIES__BUS_CODE:
+				setBusCode((String)newValue);
+				return;
+			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
+				setFerryCode((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1004,6 +1098,12 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 			case GtmPackage.LEGACY_SERIES__VALID_UNTIL:
 				setValidUntil(VALID_UNTIL_EDEFAULT);
 				return;
+			case GtmPackage.LEGACY_SERIES__BUS_CODE:
+				setBusCode(BUS_CODE_EDEFAULT);
+				return;
+			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
+				setFerryCode(FERRY_CODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1050,6 +1150,10 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 				return VALID_FROM_EDEFAULT == null ? validFrom != null : !VALID_FROM_EDEFAULT.equals(validFrom);
 			case GtmPackage.LEGACY_SERIES__VALID_UNTIL:
 				return VALID_UNTIL_EDEFAULT == null ? validUntil != null : !VALID_UNTIL_EDEFAULT.equals(validUntil);
+			case GtmPackage.LEGACY_SERIES__BUS_CODE:
+				return BUS_CODE_EDEFAULT == null ? busCode != null : !BUS_CODE_EDEFAULT.equals(busCode);
+			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
+				return FERRY_CODE_EDEFAULT == null ? ferryCode != null : !FERRY_CODE_EDEFAULT.equals(ferryCode);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1096,6 +1200,10 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 		result.append(validFrom);
 		result.append(", validUntil: ");
 		result.append(validUntil);
+		result.append(", busCode: ");
+		result.append(busCode);
+		result.append(", ferryCode: ");
+		result.append(ferryCode);
 		result.append(')');
 		return result.toString();
 	}

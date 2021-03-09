@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ServiceBrand#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.ServiceBrand#getAbbreviation <em>Abbreviation</em>}</li>
  *   <li>{@link Gtm.ServiceBrand#getDescription <em>Description</em>}</li>
+ *   <li>{@link Gtm.ServiceBrand#getTransportMode <em>Transport Mode</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getServiceBrand()
@@ -111,5 +112,31 @@ public interface ServiceBrand extends EObject {
 	 * @generated
 	 */
 	void setDescription(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Transport Mode</b></em>' attribute.
+	 * The default value is <code>"train"</code>.
+	 * The literals are from the enumeration {@link Gtm.TransportMode}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Transport Mode</em>' attribute.
+	 * @see Gtm.TransportMode
+	 * @see #setTransportMode(TransportMode)
+	 * @see Gtm.GtmPackage#getServiceBrand_TransportMode()
+	 * @model default="train"
+	 * @generated
+	 */
+	TransportMode getTransportMode();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ServiceBrand#getTransportMode <em>Transport Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Transport Mode</em>' attribute.
+	 * @see Gtm.TransportMode
+	 * @see #getTransportMode()
+	 * @generated
+	 */
+	void setTransportMode(TransportMode value);
 
 } // ServiceBrand

@@ -1074,6 +1074,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum transportModeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass legacyFareTemplatesEClass = null;
 
 	/**
@@ -1694,6 +1701,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getServiceBrand_Description() {
 		return (EAttribute)serviceBrandEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getServiceBrand_TransportMode() {
+		return (EAttribute)serviceBrandEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -7812,6 +7828,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getLegacySeries_BusCode() {
+		return (EAttribute)legacySeriesEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacySeries_FerryCode() {
+		return (EAttribute)legacySeriesEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLegacySeparateContractSeriesList() {
 		return legacySeparateContractSeriesListEClass;
 	}
@@ -8003,6 +8037,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getLegacyViastation_Optional() {
 		return (EAttribute)legacyViastationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTransportMode() {
+		return transportModeEEnum;
 	}
 
 	/**
@@ -8495,6 +8538,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(serviceBrandEClass, SERVICE_BRAND__NAME);
 		createEAttribute(serviceBrandEClass, SERVICE_BRAND__ABBREVIATION);
 		createEAttribute(serviceBrandEClass, SERVICE_BRAND__DESCRIPTION);
+		createEAttribute(serviceBrandEClass, SERVICE_BRAND__TRANSPORT_MODE);
 
 		countriesEClass = createEClass(COUNTRIES);
 		createEReference(countriesEClass, COUNTRIES__COUNTRIES);
@@ -9315,6 +9359,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(legacySeriesEClass, LEGACY_SERIES__VIASTATIONS);
 		createEAttribute(legacySeriesEClass, LEGACY_SERIES__VALID_FROM);
 		createEAttribute(legacySeriesEClass, LEGACY_SERIES__VALID_UNTIL);
+		createEAttribute(legacySeriesEClass, LEGACY_SERIES__BUS_CODE);
+		createEAttribute(legacySeriesEClass, LEGACY_SERIES__FERRY_CODE);
 
 		legacySeparateContractSeriesListEClass = createEClass(LEGACY_SEPARATE_CONTRACT_SERIES_LIST);
 		createEReference(legacySeparateContractSeriesListEClass, LEGACY_SEPARATE_CONTRACT_SERIES_LIST__SEPARATE_CONTRACT_SERIES);
@@ -9344,6 +9390,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacyViastationEClass, LEGACY_VIASTATION__OPTIONAL);
 
 		// Create enums
+		transportModeEEnum = createEEnum(TRANSPORT_MODE);
 		stationRelationTypeEEnum = createEEnum(STATION_RELATION_TYPE);
 		stationFareDetailTypeEEnum = createEEnum(STATION_FARE_DETAIL_TYPE);
 		regulatoryConditionEEnum = createEEnum(REGULATORY_CONDITION);
@@ -9463,6 +9510,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getServiceBrand_Name(), ecorePackage.getEString(), "name", null, 0, 1, ServiceBrand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceBrand_Abbreviation(), ecorePackage.getEString(), "abbreviation", null, 0, 1, ServiceBrand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceBrand_Description(), ecorePackage.getEString(), "description", null, 0, 1, ServiceBrand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceBrand_TransportMode(), this.getTransportMode(), "transportMode", "train", 0, 1, ServiceBrand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(countriesEClass, Countries.class, "Countries", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCountries_Countries(), this.getCountry(), null, "countries", null, 0, -1, Countries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10311,6 +10359,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getLegacySeries_Viastations(), this.getLegacyViastation(), null, "viastations", null, 0, -1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacySeries_ValidFrom(), ecorePackage.getEDate(), "validFrom", null, 1, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacySeries_ValidUntil(), ecorePackage.getEDate(), "validUntil", null, 1, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacySeries_BusCode(), ecorePackage.getEString(), "busCode", null, 0, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacySeries_FerryCode(), ecorePackage.getEString(), "ferryCode", null, 0, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacySeparateContractSeriesListEClass, LegacySeparateContractSeriesList.class, "LegacySeparateContractSeriesList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLegacySeparateContractSeriesList_SeparateContractSeries(), this.getLegacySeparateContractSeries(), null, "separateContractSeries", null, 0, -1, LegacySeparateContractSeriesList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10340,6 +10390,25 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacyViastation_Optional(), ecorePackage.getEBoolean(), "optional", "false", 0, 1, LegacyViastation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
+		initEEnum(transportModeEEnum, TransportMode.class, "TransportMode");
+		addEEnumLiteral(transportModeEEnum, TransportMode.TRAIN);
+		addEEnumLiteral(transportModeEEnum, TransportMode.SHIP);
+		addEEnumLiteral(transportModeEEnum, TransportMode.BUS);
+		addEEnumLiteral(transportModeEEnum, TransportMode.HIGH_SPEED_TRAIN);
+		addEEnumLiteral(transportModeEEnum, TransportMode.INTERCITY);
+		addEEnumLiteral(transportModeEEnum, TransportMode.INTER_REGIONAL);
+		addEEnumLiteral(transportModeEEnum, TransportMode.REGIONAL);
+		addEEnumLiteral(transportModeEEnum, TransportMode.SUB_URBAN);
+		addEEnumLiteral(transportModeEEnum, TransportMode.NIGHT_TRAIN);
+		addEEnumLiteral(transportModeEEnum, TransportMode.MOTOR_RAIL);
+		addEEnumLiteral(transportModeEEnum, TransportMode.MOUNTAIN_TRAIN);
+		addEEnumLiteral(transportModeEEnum, TransportMode.HISTORIC_TRAIN);
+		addEEnumLiteral(transportModeEEnum, TransportMode.PLANE);
+		addEEnumLiteral(transportModeEEnum, TransportMode.COACH_GROUP);
+		addEEnumLiteral(transportModeEEnum, TransportMode.SHARED_TAXI);
+		addEEnumLiteral(transportModeEEnum, TransportMode.TRAM);
+		addEEnumLiteral(transportModeEEnum, TransportMode.UNDER_GROUND);
+
 		initEEnum(stationRelationTypeEEnum, StationRelationType.class, "StationRelationType");
 		addEEnumLiteral(stationRelationTypeEEnum, StationRelationType.SAME_STATION);
 		addEEnumLiteral(stationRelationTypeEEnum, StationRelationType.PATH_CONNECTED_STATION);

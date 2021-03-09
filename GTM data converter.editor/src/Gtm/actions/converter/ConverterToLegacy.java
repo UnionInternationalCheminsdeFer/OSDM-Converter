@@ -62,6 +62,7 @@ import Gtm.Station;
 import Gtm.StationSet;
 import Gtm.Text;
 import Gtm.Translation;
+import Gtm.TransportMode;
 import Gtm.TravelerType;
 import Gtm.ViaStation;
 import Gtm.nls.NationalLanguageSupport;
@@ -531,9 +532,15 @@ public class 	ConverterToLegacy {
 	private void convertfareStations() {
 		for (FareStationSetDefinition fs : tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions()) {
 			
-			Legacy108Station ls = GtmFactory.eINSTANCE.createLegacy108Station();
-				
-			ls.setStationCode(Integer.parseInt(fs.getCode()));
+			int code = Integer.parseInt(fs.getCode());
+			
+			Legacy108Station ls = legacyStations.get(code);
+			
+			if (ls == null) {
+				ls = GtmFactory.eINSTANCE.createLegacy108Station();
+			} 
+			
+			ls.setStationCode(code);
 			ls.setName(fs.getName());
 			ls.setNameUTF8(fs.getNameUtf8());
 			ls.setShortName(fs.getName());
@@ -627,30 +634,7 @@ public class 	ConverterToLegacy {
 			}
 		}
 		
-		if (tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions() != null) {
-			for (FareStationSetDefinition fs : tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions()) {
-				
-				Legacy108Station ls = GtmFactory.eINSTANCE.createLegacy108Station();
-				ls.setStationCode(Integer.parseInt(fs.getCode()));	
-				ls.setName(fs.getName());
-				ls.setNameUTF8(fs.getName());
-				ls.setShortName(fs.getName());
-				ls.setFareReferenceStationCode(fs.getLegacyCode());
-				
-				for (Station station:   fs.getStations()) {
-					Legacy108Station lss = legacyStations.get(Integer.parseInt(station.getCode()));
-					if (lss != null ) {
-						lss.setFareReferenceStationCode(fs.getLegacyCode());
-					}
-				}
-				if (ls.getName() == null || ls.getName().length() == 0) {
-					String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
-					GtmUtils.writeConsoleError(message, editor);
-				} else {			
-					legacyStations.put(ls.getStationCode(),ls);
-				}
-			}
-		}
+
 		return;
 	}
 	
@@ -732,6 +716,7 @@ public class 	ConverterToLegacy {
 		}
 		
 		routeFare.setFareTableNumber(addFareDescription(fare));
+		series.setFareTableNumber(routeFare.getFareTableNumber());
 
 		return routeFare;
 	}
@@ -798,6 +783,21 @@ public class 	ConverterToLegacy {
 		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
 		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
 
+		
+		if (fare.getServiceConstraint() != null && fare.getServiceConstraint().getIncludedServiceBrands() != null) {
+			for (ServiceBrand brand : fare.getServiceConstraint().getIncludedServiceBrands()) {
+				if (brand.getTransportMode() != null) {
+					if (brand.getTransportMode().equals(TransportMode.BUS)) {
+						series.setBusCode("B");
+					} 
+				}
+				if (brand.getTransportMode() != null) {
+					if (brand.getTransportMode().equals(TransportMode.SHIP)) {
+						series.setFerryCode("S");
+					} 
+				}			
+			}
+		}
 		return series;
 	}
 	
@@ -1321,5 +1321,7 @@ public class 	ConverterToLegacy {
 	private void writeConsoleError(String message) {
 		GtmUtils.writeConsoleError(message, editor);
 	}
+	
+	
 	
 }

@@ -142,15 +142,22 @@ public class LegacyImporter {
 			importFare(fareFile);
 			monitor.worked(workSteps);
 		}
-        CompoundCommand command = new CompoundCommand();
-   		command.append(SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_ROUTE_FARES, resultListRouteFares) );
-       	command.append(SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_DISTANCE_FARES, resultListDistanceFares) );
+   		Command c1 = SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_ROUTE_FARES, resultListRouteFares);
+   		if (c1 != null && c1.canExecute()) {
+   			domain.getCommandStack().execute(c1);
+   		}
+   		Command c2 = SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_DISTANCE_FARES, resultListDistanceFares);
+   		if (c2 != null && c2.canExecute()) {
+   			domain.getCommandStack().execute(c2);
+   		}
 		if (resultListRouteFares != null && resultListRouteFares.getRouteFare() != null) {
 			GtmUtils.writeConsoleInfo("route fares imported: " + Integer.toString(resultListRouteFares.getRouteFare().size()), editor);
 		}
 		if (resultListDistanceFares != null && resultListDistanceFares.getDistanceFare() != null) {
 			GtmUtils.writeConsoleInfo("distance fares imported: " + Integer.toString(resultListDistanceFares.getDistanceFare().size()), editor);
 		}
+		
+		
 		
 		if (PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_LINK_STATIONS_BY_GEO)) {
 			monitor.subTask(NationalLanguageSupport.ImportLegayTask_BorderPoints);
@@ -788,7 +795,11 @@ public class LegacyImporter {
 			
 				if (lStation.getBorderPointCode() > 0) {
 				
-					if (station != null && station.isBorderStation() == false){
+					if (station != null ){
+						
+						if (!station.isBorderStation()) {
+							GtmUtils.writeConsoleWarning("Border station flag is missing in Merits station data: " + GtmUtils.getLabelText(station), editor);
+						}
 						
 						Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__BORDER_STATION, true);
 						if (com != null && com.canExecute()) {
@@ -798,9 +809,7 @@ public class LegacyImporter {
 						if (comm2 != null && comm2.canExecute()) {
 							command.append(comm2);	
 						}					
-					
 					}
-				
 				}
 			
 				if (lStation.getShortName() != null && 

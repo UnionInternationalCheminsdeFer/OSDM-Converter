@@ -10,6 +10,25 @@
   <foreignModel>gtm.xsd</foreignModel>
   <genPackages prefix="Gtm" resource="XML" disposableProviderFactory="true" extensibleProviderFactory="true"
       childCreationExtenders="true" ecorePackage="Gtm.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//TransportMode">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/train"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/ship"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/bus"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/highSpeedTrain"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/intercity"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/interRegional"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/regional"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/subUrban"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/nightTrain"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/motorRail"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/mountainTrain"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/historicTrain"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/plane"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/coachGroup"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/sharedTaxi"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/tram"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/underGround"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//StationRelationType">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//StationRelationType/SAME_STATION"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//StationRelationType/PATH_CONNECTED_STATION"/>
@@ -419,6 +438,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ServiceBrand/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ServiceBrand/abbreviation"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ServiceBrand/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ServiceBrand/transportMode"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Countries">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Countries/countries"/>
@@ -1288,6 +1308,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacySeries/viastations"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/validFrom"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/validUntil"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/busCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/ferryCode"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//LegacySeparateContractSeriesList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacySeparateContractSeriesList/separateContractSeries"/>
