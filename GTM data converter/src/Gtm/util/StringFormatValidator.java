@@ -9,13 +9,13 @@ public class StringFormatValidator {
 	
 
    private static Pattern stationUTFForbiddenPattern = Pattern.compile("\\*");
-   private static Pattern stationASCPattern = Pattern.compile("^[a-zA-Z0-9().,;:-\\\\+\\\\s]+");
-   private static Pattern ASCPattern = Pattern.compile("^[a-zA-Z0-9().,;:-\\\\+\\\\s]+");
+   private static Pattern stationASCPattern = Pattern.compile("[\\x20-\\x7E]+");
+   private static Pattern ASCPattern = Pattern.compile("[\\x20-\\x7E]+");
 	
 	public static boolean isASCII(String s) {
 		if (s == null) return false;
 		if (s.length() < 1) return false;
-	    Matcher mtch = ASCPattern.matcher(s);
+		Matcher mtch = ASCPattern.matcher(s);
 	    return mtch.matches();
 	}
 

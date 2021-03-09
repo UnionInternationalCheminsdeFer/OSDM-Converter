@@ -22,6 +22,7 @@ import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.ServiceBrand;
 import Gtm.ServiceBrands;
+import Gtm.TransportMode;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
@@ -111,6 +112,8 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 			                command.append(cmd3);        	
 			        		Command cmd4 = new SetCommand(domain, brand, GtmPackage.Literals.SERVICE_BRAND__DESCRIPTION, newBrand.getDescription());
 			                command.append(cmd4);   
+			        		Command cmd5 = new SetCommand(domain, brand, GtmPackage.Literals.SERVICE_BRAND__TRANSPORT_MODE, newBrand.getTransportMode());
+			                command.append(cmd5);   			                
 			                updated++;
 			           	}
 			        			
@@ -118,8 +121,8 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 			        
 			        if (command != null && !command.isEmpty()) {
 			        	domain.getCommandStack().execute(command);
-						GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportServiceBrandsAction_9 + Integer.toString(added)+")", editor ); //$NON-NLS-2$
-						GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportServiceBrandsAction_11 + Integer.toString(updated) + ")", editor ); //$NON-NLS-2$
+						GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportServiceBrandsAction_9 + Integer.toString(added), editor ); //$NON-NLS-2$
+						GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportServiceBrandsAction_11 + Integer.toString(updated), editor ); //$NON-NLS-2$
 			        }	
 					monitor.worked(10);
 					monitor.done();
@@ -137,11 +140,7 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 			editor.disconnectViews();
 			new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
 		} catch (Exception exception) {
-			MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
-			dialog.setText(NationalLanguageSupport.ImportServiceBrandsAction_13);
-			dialog.setMessage(exception.getMessage());
-			dialog.open(); 
-			GtmEditorPlugin.INSTANCE.log(exception);
+			GtmUtils.displayAsyncErrorMessage(exception, NationalLanguageSupport.ImportServiceBrandsAction_13);
 		} finally {
 		editor.reconnectViews();
 		}
@@ -162,6 +161,18 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 				brand.setAbbreviation(strings[1]);
 				brand.setName(strings[2]);
 				brand.setDescription(strings[3]);
+				
+				try {
+					if (strings.length > 4) {
+						int tm = Integer.parseInt(strings[4]);
+						TransportMode mode = TransportMode.get(tm);
+						if (mode != null) {
+							brand.setTransportMode(mode);
+						}
+					}
+				} catch (Exception e) {
+					GtmUtils.writeConsoleError("service brand transport mode not recognized in " + GtmUtils.getLabelText(brand), null);
+				}
 				return brand;
 			}
 		} catch (Exception e){

@@ -390,6 +390,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyDistanceFare((LegacyDistanceFare)value, diagnostics, context);
 			case GtmPackage.LEGACY_VIASTATION:
 				return validateLegacyViastation((LegacyViastation)value, diagnostics, context);
+			case GtmPackage.TRANSPORT_MODE:
+				return validateTransportMode((TransportMode)value, diagnostics, context);
 			case GtmPackage.STATION_RELATION_TYPE:
 				return validateStationRelationType((StationRelationType)value, diagnostics, context);
 			case GtmPackage.STATION_FARE_DETAIL_TYPE:
@@ -2510,6 +2512,15 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateLegacyViastation(LegacyViastation legacyViastation, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(legacyViastation, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTransportMode(TransportMode transportMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
 	}
 
 	/**

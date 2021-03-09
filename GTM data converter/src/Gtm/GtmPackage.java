@@ -382,13 +382,22 @@ public interface GtmPackage extends EPackage {
 	int SERVICE_BRAND__DESCRIPTION = 3;
 
 	/**
+	 * The feature id for the '<em><b>Transport Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_BRAND__TRANSPORT_MODE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Service Brand</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_BRAND_FEATURE_COUNT = 4;
+	int SERVICE_BRAND_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Service Brand</em>' class.
@@ -9310,13 +9319,31 @@ public interface GtmPackage extends EPackage {
 	int LEGACY_SERIES__VALID_UNTIL = 16;
 
 	/**
+	 * The feature id for the '<em><b>Bus Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEGACY_SERIES__BUS_CODE = 17;
+
+	/**
+	 * The feature id for the '<em><b>Ferry Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEGACY_SERIES__FERRY_CODE = 18;
+
+	/**
 	 * The number of structural features of the '<em>Legacy Series</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LEGACY_SERIES_FEATURE_COUNT = 17;
+	int LEGACY_SERIES_FEATURE_COUNT = 19;
 
 	/**
 	 * The number of operations of the '<em>Legacy Series</em>' class.
@@ -9571,6 +9598,16 @@ public interface GtmPackage extends EPackage {
 	int LEGACY_VIASTATION_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link Gtm.TransportMode <em>Transport Mode</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Gtm.TransportMode
+	 * @see Gtm.impl.GtmPackageImpl#getTransportMode()
+	 * @generated
+	 */
+	int TRANSPORT_MODE = 150;
+
+	/**
 	 * The meta object id for the '{@link Gtm.StationRelationType <em>Station Relation Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9578,7 +9615,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getStationRelationType()
 	 * @generated
 	 */
-	int STATION_RELATION_TYPE = 150;
+	int STATION_RELATION_TYPE = 151;
 
 	/**
 	 * The meta object id for the '{@link Gtm.StationFareDetailType <em>Station Fare Detail Type</em>}' enum.
@@ -9588,7 +9625,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getStationFareDetailType()
 	 * @generated
 	 */
-	int STATION_FARE_DETAIL_TYPE = 151;
+	int STATION_FARE_DETAIL_TYPE = 152;
 
 	/**
 	 * The meta object id for the '{@link Gtm.RegulatoryCondition <em>Regulatory Condition</em>}' enum.
@@ -9598,7 +9635,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getRegulatoryCondition()
 	 * @generated
 	 */
-	int REGULATORY_CONDITION = 152;
+	int REGULATORY_CONDITION = 153;
 
 	/**
 	 * The meta object id for the '{@link Gtm.AfterSalesTransactionType <em>After Sales Transaction Type</em>}' enum.
@@ -9608,7 +9645,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getAfterSalesTransactionType()
 	 * @generated
 	 */
-	int AFTER_SALES_TRANSACTION_TYPE = 153;
+	int AFTER_SALES_TRANSACTION_TYPE = 154;
 
 	/**
 	 * The meta object id for the '{@link Gtm.BarcodeTypes <em>Barcode Types</em>}' enum.
@@ -9618,7 +9655,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getBarcodeTypes()
 	 * @generated
 	 */
-	int BARCODE_TYPES = 154;
+	int BARCODE_TYPES = 155;
 
 	/**
 	 * The meta object id for the '{@link Gtm.ClassicClassType <em>Classic Class Type</em>}' enum.
@@ -9628,7 +9665,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getClassicClassType()
 	 * @generated
 	 */
-	int CLASSIC_CLASS_TYPE = 155;
+	int CLASSIC_CLASS_TYPE = 156;
 
 	/**
 	 * The meta object id for the '{@link Gtm.CharacterSet <em>Character Set</em>}' enum.
@@ -9638,7 +9675,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCharacterSet()
 	 * @generated
 	 */
-	int CHARACTER_SET = 157;
+	int CHARACTER_SET = 158;
 
 	/**
 	 * The meta object id for the '{@link Gtm.Clusters <em>Clusters</em>}' enum.
@@ -9648,7 +9685,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getClusters()
 	 * @generated
 	 */
-	int CLUSTERS = 158;
+	int CLUSTERS = 159;
 
 	/**
 	 * The meta object id for the '{@link Gtm.CombinationModel <em>Combination Model</em>}' enum.
@@ -9658,7 +9695,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCombinationModel()
 	 * @generated
 	 */
-	int COMBINATION_MODEL = 159;
+	int COMBINATION_MODEL = 160;
 
 	/**
 	 * The meta object id for the '{@link Gtm.ControlDataExchangeTypes <em>Control Data Exchange Types</em>}' enum.
@@ -9668,7 +9705,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getControlDataExchangeTypes()
 	 * @generated
 	 */
-	int CONTROL_DATA_EXCHANGE_TYPES = 160;
+	int CONTROL_DATA_EXCHANGE_TYPES = 161;
 
 	/**
 	 * The meta object id for the '{@link Gtm.FareType <em>Fare Type</em>}' enum.
@@ -9678,7 +9715,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getFareType()
 	 * @generated
 	 */
-	int FARE_TYPE = 162;
+	int FARE_TYPE = 163;
 
 	/**
 	 * The meta object id for the '{@link Gtm.FulfillmentType <em>Fulfillment Type</em>}' enum.
@@ -9688,7 +9725,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getFulfillmentType()
 	 * @generated
 	 */
-	int FULFILLMENT_TYPE = 163;
+	int FULFILLMENT_TYPE = 164;
 
 	/**
 	 * The meta object id for the '{@link Gtm.GeoSystem <em>Geo System</em>}' enum.
@@ -9698,7 +9735,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getGeoSystem()
 	 * @generated
 	 */
-	int GEO_SYSTEM = 164;
+	int GEO_SYSTEM = 165;
 
 	/**
 	 * The meta object id for the '{@link Gtm.GeoUnit <em>Geo Unit</em>}' enum.
@@ -9708,7 +9745,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getGeoUnit()
 	 * @generated
 	 */
-	int GEO_UNIT = 165;
+	int GEO_UNIT = 166;
 
 	/**
 	 * The meta object id for the '{@link Gtm.GraphicalReservationType <em>Graphical Reservation Type</em>}' enum.
@@ -9718,7 +9755,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getGraphicalReservationType()
 	 * @generated
 	 */
-	int GRAPHICAL_RESERVATION_TYPE = 166;
+	int GRAPHICAL_RESERVATION_TYPE = 167;
 
 	/**
 	 * The meta object id for the '{@link Gtm.HemisphereEW <em>Hemisphere EW</em>}' enum.
@@ -9728,7 +9765,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getHemisphereEW()
 	 * @generated
 	 */
-	int HEMISPHERE_EW = 168;
+	int HEMISPHERE_EW = 169;
 
 	/**
 	 * The meta object id for the '{@link Gtm.HemisphereNS <em>Hemisphere NS</em>}' enum.
@@ -9738,7 +9775,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getHemisphereNS()
 	 * @generated
 	 */
-	int HEMISPHERE_NS = 169;
+	int HEMISPHERE_NS = 170;
 
 	/**
 	 * The meta object id for the '{@link Gtm.InterfaceType <em>Interface Type</em>}' enum.
@@ -9748,7 +9785,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getInterfaceType()
 	 * @generated
 	 */
-	int INTERFACE_TYPE = 170;
+	int INTERFACE_TYPE = 171;
 
 	/**
 	 * The meta object id for the '{@link Gtm.LegacyCalculationType <em>Legacy Calculation Type</em>}' enum.
@@ -9758,7 +9795,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getLegacyCalculationType()
 	 * @generated
 	 */
-	int LEGACY_CALCULATION_TYPE = 171;
+	int LEGACY_CALCULATION_TYPE = 172;
 
 	/**
 	 * The meta object id for the '{@link Gtm.LegacyPassengerType <em>Legacy Passenger Type</em>}' enum.
@@ -9768,7 +9805,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getLegacyPassengerType()
 	 * @generated
 	 */
-	int LEGACY_PASSENGER_TYPE = 172;
+	int LEGACY_PASSENGER_TYPE = 173;
 
 	/**
 	 * The meta object id for the '{@link Gtm.LegacySeriesType <em>Legacy Series Type</em>}' enum.
@@ -9778,7 +9815,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getLegacySeriesType()
 	 * @generated
 	 */
-	int LEGACY_SERIES_TYPE = 173;
+	int LEGACY_SERIES_TYPE = 174;
 
 	/**
 	 * The meta object id for the '{@link Gtm.LegacyConversionType <em>Legacy Conversion Type</em>}' enum.
@@ -9788,7 +9825,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getLegacyConversionType()
 	 * @generated
 	 */
-	int LEGACY_CONVERSION_TYPE = 174;
+	int LEGACY_CONVERSION_TYPE = 175;
 
 	/**
 	 * The meta object id for the '{@link Gtm.OfferRequestType <em>Offer Request Type</em>}' enum.
@@ -9798,7 +9835,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getOfferRequestType()
 	 * @generated
 	 */
-	int OFFER_REQUEST_TYPE = 175;
+	int OFFER_REQUEST_TYPE = 176;
 
 	/**
 	 * The meta object id for the '{@link Gtm.OnlineServiceType <em>Online Service Type</em>}' enum.
@@ -9808,7 +9845,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getOnlineServiceType()
 	 * @generated
 	 */
-	int ONLINE_SERVICE_TYPE = 176;
+	int ONLINE_SERVICE_TYPE = 177;
 
 	/**
 	 * The meta object id for the '{@link Gtm.PersonalDataItemsType <em>Personal Data Items Type</em>}' enum.
@@ -9818,7 +9855,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPersonalDataItemsType()
 	 * @generated
 	 */
-	int PERSONAL_DATA_ITEMS_TYPE = 177;
+	int PERSONAL_DATA_ITEMS_TYPE = 178;
 
 	/**
 	 * The meta object id for the '{@link Gtm.PersonalDataTransferType <em>Personal Data Transfer Type</em>}' enum.
@@ -9828,7 +9865,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPersonalDataTransferType()
 	 * @generated
 	 */
-	int PERSONAL_DATA_TRANSFER_TYPE = 178;
+	int PERSONAL_DATA_TRANSFER_TYPE = 179;
 
 	/**
 	 * The meta object id for the '{@link Gtm.PersonalDataChangeReason <em>Personal Data Change Reason</em>}' enum.
@@ -9838,7 +9875,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPersonalDataChangeReason()
 	 * @generated
 	 */
-	int PERSONAL_DATA_CHANGE_REASON = 179;
+	int PERSONAL_DATA_CHANGE_REASON = 180;
 
 	/**
 	 * The meta object id for the '{@link Gtm.ReservationTravelClass <em>Reservation Travel Class</em>}' enum.
@@ -9848,7 +9885,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationTravelClass()
 	 * @generated
 	 */
-	int RESERVATION_TRAVEL_CLASS = 180;
+	int RESERVATION_TRAVEL_CLASS = 181;
 
 	/**
 	 * The meta object id for the '{@link Gtm.ReservationServiceLevel <em>Reservation Service Level</em>}' enum.
@@ -9858,7 +9895,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationServiceLevel()
 	 * @generated
 	 */
-	int RESERVATION_SERVICE_LEVEL = 181;
+	int RESERVATION_SERVICE_LEVEL = 182;
 
 	/**
 	 * The meta object id for the '{@link Gtm.ReservationService <em>Reservation Service</em>}' enum.
@@ -9868,7 +9905,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationService()
 	 * @generated
 	 */
-	int RESERVATION_SERVICE = 182;
+	int RESERVATION_SERVICE = 183;
 
 	/**
 	 * The meta object id for the '{@link Gtm.ReservationBerthType <em>Reservation Berth Type</em>}' enum.
@@ -9878,7 +9915,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationBerthType()
 	 * @generated
 	 */
-	int RESERVATION_BERTH_TYPE = 183;
+	int RESERVATION_BERTH_TYPE = 184;
 
 	/**
 	 * The meta object id for the '{@link Gtm.SchemaVersion <em>Schema Version</em>}' enum.
@@ -9888,7 +9925,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getSchemaVersion()
 	 * @generated
 	 */
-	int SCHEMA_VERSION = 185;
+	int SCHEMA_VERSION = 186;
 
 	/**
 	 * The meta object id for the '{@link Gtm.TimeZone <em>Time Zone</em>}' enum.
@@ -9898,7 +9935,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTimeZone()
 	 * @generated
 	 */
-	int TIME_ZONE = 187;
+	int TIME_ZONE = 188;
 
 	/**
 	 * The meta object id for the '{@link Gtm.TaxScope <em>Tax Scope</em>}' enum.
@@ -9908,7 +9945,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTaxScope()
 	 * @generated
 	 */
-	int TAX_SCOPE = 188;
+	int TAX_SCOPE = 189;
 
 	/**
 	 * The meta object id for the '{@link Gtm.TimeReferenceType <em>Time Reference Type</em>}' enum.
@@ -9918,7 +9955,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTimeReferenceType()
 	 * @generated
 	 */
-	int TIME_REFERENCE_TYPE = 189;
+	int TIME_REFERENCE_TYPE = 190;
 
 	/**
 	 * The meta object id for the '{@link Gtm.TimeRangeScope <em>Time Range Scope</em>}' enum.
@@ -9928,7 +9965,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTimeRangeScope()
 	 * @generated
 	 */
-	int TIME_RANGE_SCOPE = 190;
+	int TIME_RANGE_SCOPE = 191;
 
 	/**
 	 * The meta object id for the '{@link Gtm.TimeUnit <em>Time Unit</em>}' enum.
@@ -9938,7 +9975,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTimeUnit()
 	 * @generated
 	 */
-	int TIME_UNIT = 191;
+	int TIME_UNIT = 192;
 
 	/**
 	 * The meta object id for the '{@link Gtm.TravelerType <em>Traveler Type</em>}' enum.
@@ -9948,7 +9985,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTravelerType()
 	 * @generated
 	 */
-	int TRAVELER_TYPE = 192;
+	int TRAVELER_TYPE = 193;
 
 	/**
 	 * The meta object id for the '{@link Gtm.WeekDay <em>Week Day</em>}' enum.
@@ -9958,7 +9995,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getWeekDay()
 	 * @generated
 	 */
-	int WEEK_DAY = 193;
+	int WEEK_DAY = 194;
 
 	/**
 	 * The meta object id for the '<em>Date As Date</em>' data type.
@@ -9968,7 +10005,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getDateAsDate()
 	 * @generated
 	 */
-	int DATE_AS_DATE = 194;
+	int DATE_AS_DATE = 195;
 
 	/**
 	 * The meta object id for the '<em>Date As Date Time</em>' data type.
@@ -9978,7 +10015,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getDateAsDateTime()
 	 * @generated
 	 */
-	int DATE_AS_DATE_TIME = 195;
+	int DATE_AS_DATE_TIME = 196;
 
 	/**
 	 * The meta object id for the '{@link Gtm.DataSource <em>Data Source</em>}' enum.
@@ -9988,7 +10025,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getDataSource()
 	 * @generated
 	 */
-	int DATA_SOURCE = 161;
+	int DATA_SOURCE = 162;
 
 	/**
 	 * The meta object id for the '{@link Gtm.ClassId <em>Class Id</em>}' enum.
@@ -9998,7 +10035,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getClassId()
 	 * @generated
 	 */
-	int CLASS_ID = 156;
+	int CLASS_ID = 157;
 
 	/**
 	 * The meta object id for the '{@link Gtm.GenericReductionCards <em>Generic Reduction Cards</em>}' enum.
@@ -10008,7 +10045,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getGenericReductionCards()
 	 * @generated
 	 */
-	int GENERIC_REDUCTION_CARDS = 167;
+	int GENERIC_REDUCTION_CARDS = 168;
 
 
 	/**
@@ -10019,7 +10056,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getServiceMode()
 	 * @generated
 	 */
-	int SERVICE_MODE = 186;
+	int SERVICE_MODE = 187;
 
 
 	/**
@@ -10030,7 +10067,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getRoundingType()
 	 * @generated
 	 */
-	int ROUNDING_TYPE = 184;
+	int ROUNDING_TYPE = 185;
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.GTMTool <em>GTM Tool</em>}'.
@@ -10299,6 +10336,17 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getServiceBrand_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Gtm.ServiceBrand#getTransportMode <em>Transport Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transport Mode</em>'.
+	 * @see Gtm.ServiceBrand#getTransportMode()
+	 * @see #getServiceBrand()
+	 * @generated
+	 */
+	EAttribute getServiceBrand_TransportMode();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.Countries <em>Countries</em>}'.
@@ -17619,6 +17667,28 @@ public interface GtmPackage extends EPackage {
 	EAttribute getLegacySeries_ValidUntil();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.LegacySeries#getBusCode <em>Bus Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bus Code</em>'.
+	 * @see Gtm.LegacySeries#getBusCode()
+	 * @see #getLegacySeries()
+	 * @generated
+	 */
+	EAttribute getLegacySeries_BusCode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Gtm.LegacySeries#getFerryCode <em>Ferry Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ferry Code</em>'.
+	 * @see Gtm.LegacySeries#getFerryCode()
+	 * @see #getLegacySeries()
+	 * @generated
+	 */
+	EAttribute getLegacySeries_FerryCode();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.LegacySeparateContractSeriesList <em>Legacy Separate Contract Series List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17854,6 +17924,16 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLegacyViastation_Optional();
+
+	/**
+	 * Returns the meta object for enum '{@link Gtm.TransportMode <em>Transport Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Transport Mode</em>'.
+	 * @see Gtm.TransportMode
+	 * @generated
+	 */
+	EEnum getTransportMode();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.LegacyFareTemplates <em>Legacy Fare Templates</em>}'.
@@ -18574,6 +18654,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SERVICE_BRAND__DESCRIPTION = eINSTANCE.getServiceBrand_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Transport Mode</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_BRAND__TRANSPORT_MODE = eINSTANCE.getServiceBrand_TransportMode();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.CountriesImpl <em>Countries</em>}' class.
@@ -24284,6 +24372,22 @@ public interface GtmPackage extends EPackage {
 		EAttribute LEGACY_SERIES__VALID_UNTIL = eINSTANCE.getLegacySeries_ValidUntil();
 
 		/**
+		 * The meta object literal for the '<em><b>Bus Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LEGACY_SERIES__BUS_CODE = eINSTANCE.getLegacySeries_BusCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Ferry Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LEGACY_SERIES__FERRY_CODE = eINSTANCE.getLegacySeries_FerryCode();
+
+		/**
 		 * The meta object literal for the '{@link Gtm.impl.LegacySeparateContractSeriesListImpl <em>Legacy Separate Contract Series List</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -24468,6 +24572,16 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LEGACY_VIASTATION__OPTIONAL = eINSTANCE.getLegacyViastation_Optional();
+
+		/**
+		 * The meta object literal for the '{@link Gtm.TransportMode <em>Transport Mode</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Gtm.TransportMode
+		 * @see Gtm.impl.GtmPackageImpl#getTransportMode()
+		 * @generated
+		 */
+		EEnum TRANSPORT_MODE = eINSTANCE.getTransportMode();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.LegacyFareTemplatesImpl <em>Legacy Fare Templates</em>}' class.
