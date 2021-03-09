@@ -35,7 +35,6 @@ public enum CombinationModel implements Enumerator {
 	 * @ordered
 	 */
 	SEPARATE_CONTRACT(2, "SEPARATE_CONTRACT", "SEPARATE_CONTRACT"),
-
 	/**
 	 * The '<em><b>COMBINING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
