@@ -79,7 +79,7 @@ public enum LegacySeriesType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STATION_STATION_VALUE = 2;
+	public static final int STATION_STATION_VALUE = 3;
 
 	/**
 	 * An array of all the '<em><b>Legacy Series Type</b></em>' enumerators.
