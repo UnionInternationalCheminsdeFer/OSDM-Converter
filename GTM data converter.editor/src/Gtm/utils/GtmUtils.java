@@ -4,12 +4,9 @@ package Gtm.utils;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.MissingResourceException;
-
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
-import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -20,7 +17,6 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -82,11 +78,23 @@ import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.provider.GtmItemProviderAdapterFactory;
 
+/**
+ * The Class GtmUtils.
+ * 
+ * utilities to handle commands, messages message boxes
+ * 
+ */
 public class GtmUtils {
 	
+	/** The one hundred. */
 	private static 	BigDecimal oneHundred = new BigDecimal("100.0");
 	
 	
+	/**
+	 * Gets the active editor.
+	 *
+	 * @return the active editor
+	 */
 	public static GtmEditor getActiveEditor() {
 
 		if (PlatformUI.getWorkbench() != null &&
@@ -107,6 +115,12 @@ public class GtmUtils {
 		return null;
 	}
 	
+	/**
+	 * Gets the gtm tool data node.
+	 *
+	 * @param editingDomainProvider the editing domain provider
+	 * @return the gtm tool
+	 */
 	public static GTMTool getGtmTool(IEditingDomainProvider editingDomainProvider) {
 	   		   	
 	   	IEditorPart editor =  getActiveEditor();
@@ -126,6 +140,11 @@ public class GtmUtils {
 		}
 	}
 	
+	/**
+	 * Gets the gtm tool data node.
+	 *
+	 * @return the gtm tool
+	 */
 	public static GTMTool getGtmTool() {
 	   	
 	   	IEditorPart editor =  getActiveEditor();
@@ -145,6 +164,12 @@ public class GtmUtils {
 		}
 	}
 	
+	/**
+	 * Execute and flush a command and ask for the garbage collector.
+	 *
+	 * @param command the command
+	 * @param domain the domain
+	 */
 	public static void executeAndFlush(CompoundCommand command, EditingDomain domain) {
 		
 		if (command != null && domain != null && !command.isEmpty() && command.canExecute()) {
@@ -160,6 +185,11 @@ public class GtmUtils {
 		
 	}
 	
+	/**
+	 * Gets the active domain.
+	 *
+	 * @return the active domain
+	 */
 	public static EditingDomain getActiveDomain() {
 	   	IEditorPart editor =  getActiveEditor();
 	   	if (editor == null) return null;
@@ -168,6 +198,13 @@ public class GtmUtils {
 	
 
 	
+	/**
+	 * Gets the preparation command to initialize the data structure
+	 *
+	 * @param tool the tool
+	 * @param domain the domain
+	 * @return the preparation command
+	 */
 	public static CompoundCommand getPreparationCommand (GTMTool tool, EditingDomain domain) {
 		
 		CompoundCommand command = new CompoundCommand();
@@ -371,6 +408,11 @@ public class GtmUtils {
 	}
 	
 	
+	/**
+	 * Creates the initial fare structure.
+	 *
+	 * @return the fare structure
+	 */
 	private static FareStructure createInitialFareStructure() {
 		FareStructure fareStructure = GtmFactory.eINSTANCE.createFareStructure();
 		
@@ -404,6 +446,11 @@ public class GtmUtils {
 	}
 
 
+	/**
+	 * Creates the initial code lists.
+	 *
+	 * @return the code lists
+	 */
 	private static CodeLists createInitialCodeLists() {
 		CodeLists codes = GtmFactory.eINSTANCE.createCodeLists();
 		codes.setCarriers(GtmFactory.eINSTANCE.createCarriers());
@@ -417,6 +464,11 @@ public class GtmUtils {
 	}
 
 
+	/**
+	 * Creates the initial legacy 108.
+	 *
+	 * @return the legacy 108
+	 */
 	private static Legacy108 createInitialLegacy108() {
 		Legacy108 legacy108 = GtmFactory.eINSTANCE.createLegacy108();
 		
@@ -429,6 +481,11 @@ public class GtmUtils {
 	}
 
 
+	/**
+	 * Populate initial model.
+	 *
+	 * @param tool the tool
+	 */
 	public static void populateInitialModel(GTMTool tool){
 		
 		tool.setCodeLists(createInitialCodeLists());
@@ -466,6 +523,11 @@ public class GtmUtils {
 		
 	}
 	
+	/**
+	 * Creates the initial general tariff model.
+	 *
+	 * @return the general tariff model
+	 */
 	private static GeneralTariffModel createInitialGeneralTariffModel() {
 		GeneralTariffModel model = GtmFactory.eINSTANCE.createGeneralTariffModel();
 
@@ -475,6 +537,11 @@ public class GtmUtils {
 	}
 
 
+	/**
+	 * Creates the initial conversion from legacy.
+	 *
+	 * @return the conversion from legacy
+	 */
 	private static ConversionFromLegacy createInitialConversionFromLegacy() {
 		ConversionFromLegacy conversion = GtmFactory.eINSTANCE.createConversionFromLegacy();
 		conversion.setParams(createInitialConversionParams());
@@ -485,6 +552,11 @@ public class GtmUtils {
 	}
 
 
+	/**
+	 * Creates the initial conversion params.
+	 *
+	 * @return the conversion params
+	 */
 	private static ConversionParams createInitialConversionParams() {
 		ConversionParams params = GtmFactory.eINSTANCE.createConversionParams();
 		params.setLegacyStationMappings(GtmFactory.eINSTANCE.createLegacyStationMappings());
@@ -496,6 +568,13 @@ public class GtmUtils {
 	}
 
 
+	/**
+	 * Find carrier.
+	 *
+	 * @param tool the tool
+	 * @param code the code
+	 * @return the carrier
+	 */
 	private static Carrier findCarrier(GTMTool tool, String code) {
 		
 		if (tool == null || tool.getCodeLists() == null || tool.getCodeLists() == null) {
@@ -511,6 +590,14 @@ public class GtmUtils {
 	}
 
 
+	/**
+	 * Creates the reduction card.
+	 *
+	 * @param fareStructure the fare structure
+	 * @param id the id
+	 * @param name the name
+	 * @param carrier the carrier
+	 */
 	private static void createReductionCard(FareStructure fareStructure, String id, String name, Carrier carrier) {
 		
 		Text text =  GtmFactory.eINSTANCE.createText();
@@ -532,6 +619,13 @@ public class GtmUtils {
 
 
 
+	/**
+	 * Creates the populate countries command.
+	 *
+	 * @param domain the domain
+	 * @param codeLists the code lists
+	 * @return the command
+	 */
 	public Command createPopulateCountriesCommand(EditingDomain domain, CodeLists codeLists) {
 
 		
@@ -544,6 +638,11 @@ public class GtmUtils {
 		return command;
 	}
 	
+	/**
+	 * Populate UI ccountries.
+	 *
+	 * @param countries the countries
+	 */
 	public static void populateUICcountries(Countries countries){ 
 		
 		countries.getCountries().add(createCountry(10,"Finland","FI")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -612,16 +711,28 @@ public class GtmUtils {
 		
 	}
 	
+	/**
+	 * Populate UIC laguages.
+	 *
+	 * @param languages the languages
+	 */
 	public static void populateUICLaguages(Languages languages){
 		
 		languages.getLanguages().add(createLanguage("de", "German")); //$NON-NLS-1$ //$NON-NLS-2$
 		languages.getLanguages().add(createLanguage("ru", "Russian")); //$NON-NLS-1$ //$NON-NLS-2$
-		languages.getLanguages().add(createLanguage(NationalLanguageSupport.GtmUtils_142, "French")); //$NON-NLS-2$
+		languages.getLanguages().add(createLanguage("fr", "French"));  //$NON-NLS-1$ //$NON-NLS-2$
 		languages.getLanguages().add(createLanguage("it", "Italian")); //$NON-NLS-1$ //$NON-NLS-2$
-		languages.getLanguages().add(createLanguage("en", "English"));		 //$NON-NLS-1$ //$NON-NLS-2$
+		languages.getLanguages().add(createLanguage("en", "English"));	//$NON-NLS-1$ //$NON-NLS-2$
 		
 	}
 	
+	/**
+	 * Creates the language.
+	 *
+	 * @param code the code
+	 * @param name the name
+	 * @return the language
+	 */
 	public static Language createLanguage(String code, String name) {
 		Language language = GtmFactory.eINSTANCE.createLanguage();
 		language.setCode(code);
@@ -630,6 +741,14 @@ public class GtmUtils {
 	}
 
 
+	/**
+	 * Creates the country.
+	 *
+	 * @param code the code
+	 * @param name the name
+	 * @param ISOcodeA2 the IS ocode A 2
+	 * @return the country
+	 */
 	public static Country createCountry(int code, String name, String ISOcodeA2) {		
 		Country country = GtmFactory.eINSTANCE.createCountry();
 		country.setCode(code);
@@ -638,6 +757,11 @@ public class GtmUtils {
 		return country;
 	}
 	
+	/**
+	 * Populate currencies.
+	 *
+	 * @param currencies the currencies
+	 */
 	public static void populateCurrencies(Currencies currencies) {
 		
 		Currency currency = GtmFactory.eINSTANCE.createCurrency();
@@ -646,10 +770,22 @@ public class GtmUtils {
 		currencies.getCurrencies().add(currency);
 	}
 	
+	/**
+	 * Populate service brands.
+	 *
+	 * @param brands the brands
+	 */
 	public static void populateServiceBrands(ServiceBrands brands) {
 		
 	}
 	
+	/**
+	 * Sets the fare ids.
+	 *
+	 * @param tool the tool
+	 * @param domain the domain
+	 * @return the compound command
+	 */
 	public static CompoundCommand setFareIds(GTMTool tool, EditingDomain domain) {
 		
 		if (tool == null || domain == null) return null;
@@ -668,6 +804,13 @@ public class GtmUtils {
 
 	}
 
+	/**
+	 * Sets the unique ids of contraints and fares.
+	 *
+	 * @param tool the tool
+	 * @param domain the domain
+	 * @return the compound command
+	 */
 	public static CompoundCommand setIds(GTMTool tool, EditingDomain domain) {
 		
 		if (tool == null || domain == null) return null;
@@ -687,7 +830,6 @@ public class GtmUtils {
 			i++;
 			if (object.getId() == null || object.getId().isEmpty()) {
 				setId(domain, object,GtmPackage.Literals.AFTER_SALES_RULE__ID, command, listName,i);
-				//setId(domain, object,GtmPackage.Literals.AFTER_SALES_RULE__ID, command);
 			}
 		}
 		
@@ -697,7 +839,6 @@ public class GtmUtils {
 			i++;
 			if (object.getId() == null || object.getId().isEmpty()) {
 				setId(domain, object,GtmPackage.Literals.CALENDAR__ID, command, listName,i);
-				//setId(domain, object,GtmPackage.Literals.CALENDAR__ID, command);
 			}
 		}
 
@@ -872,6 +1013,16 @@ public class GtmUtils {
 	}
 
 	
+	/**
+	 * Sets the id.
+	 *
+	 * @param domain the domain
+	 * @param object the object
+	 * @param feature the feature
+	 * @param command the command
+	 * @param listName the list name
+	 * @param index the index
+	 */
 	private static void setId(EditingDomain domain, EObject object, EStructuralFeature feature, CompoundCommand command, String listName, int index) {
 		SetCommand cmd = new SetCommand(domain, object,feature, listName+"_"+Integer.toString(index)); //$NON-NLS-1$
 		if (cmd.canExecute()) {
@@ -879,6 +1030,14 @@ public class GtmUtils {
 		}
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param domain the domain
+	 * @param object the object
+	 * @param feature the feature
+	 * @param command the command
+	 */
 	private static void setId(EditingDomain domain, EObject object, EStructuralFeature feature, CompoundCommand command) {
 		SetCommand cmd = new SetCommand(domain, object,feature, EcoreUtil.generateUUID());
 		if (cmd.canExecute()) {
@@ -889,7 +1048,7 @@ public class GtmUtils {
 	
 	/**
 	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path
+	 * plug-in relative path.
 	 *
 	 * @param path the path
 	 * @return the image descriptor
@@ -901,6 +1060,11 @@ public class GtmUtils {
 		return ImageDescriptor.createFromURL(fileURL);
 	}
 	
+	/**
+	 * Clear command stack and mark it as dirty.
+	 *
+	 * @param domain the domain
+	 */
 	public static void clearCommandStack(EditingDomain domain) {
 		//clears the command stack to reduce the memory footprint
 		boolean isDirty = false;
@@ -914,6 +1078,9 @@ public class GtmUtils {
 		}
 	}
 	
+	/**
+	 * Clear command stack and mark it as dirty.
+	 */
 	public static void clearCommandStack() {
 		//clears the command stack to reduce the memory footprint
 		boolean isDirty = false;
@@ -928,82 +1095,14 @@ public class GtmUtils {
 	}
 	
 	
+
+
 	/**
-	 * Gets the description.
+	 * To printable asc II.
 	 *
-	 * @param object the object
-	 * @return the description
+	 * @param text the text
+	 * @return the string
 	 */
-	public static String getTypedDescription(EObject object) {
-		String typeName = ""; //$NON-NLS-1$
-		EObject eObject = ((EObject) object);
-
-		typeName = getTypeDescription(eObject);
-		String adapterText = getItemLabelProviderText(object);
-
-		if (adapterText != null && typeName != null) {
-			if (adapterText.startsWith(typeName)) {
-				return adapterText;
-			} else {
-				return typeName + " " + adapterText; //$NON-NLS-1$
-			}
-		}
-		return typeName;
-	}
-
-	private static String getItemLabelProviderText(EObject object) {
-		if(object == null){
-			return ""; //$NON-NLS-1$
-		}
-		String adapterText = null;
-		EList<Adapter> eAdapters = object.eAdapters();
-		for (Adapter adapter : eAdapters) {
-			if(adapter instanceof IItemLabelProvider){
-				adapterText = ((IItemLabelProvider) adapter).getText(object);
-				break;
-			}
-		}	
-		
-		return adapterText;
-
-	}
-
-	private static String getTypeDescription(EObject object) {
-			String typeName = ""; //$NON-NLS-1$
-			if (object instanceof EObject) {
-				EObject eObject = ((EObject) object);
-				String typeKey = eObject.eClass().getName();
-
-
-				ItemProviderAdapter provider = null;
-				EList<Adapter> eAdapters = object.eAdapters();
-				for (Adapter adapter : eAdapters) {
-					if(adapter instanceof ItemProviderAdapter){
-						provider = ((ItemProviderAdapter) adapter);
-					}
-				}
-
-				if (provider != null) {
-					String resource = "_UI_" + typeKey + "_type"; //$NON-NLS-1$ //$NON-NLS-2$
-					if (resource.equals("_UI_EReference_type")  ) { //$NON-NLS-1$
-						typeName = ""; //$NON-NLS-1$
-					} else if ( resource.equals("_UI_EObject_type")) { //$NON-NLS-1$
-						typeName = NationalLanguageSupport.GtmUtils_182;
-					} else if ( resource.equals("_UI_EAttribute_type")) { //$NON-NLS-1$
-						typeName = "";					 //$NON-NLS-1$
-					} else {
-						try {
-							typeName = provider.getString(resource, true);
-						} catch (MissingResourceException e) {
-							//
-						}
-					}
-
-				}
-			}
-			return typeName;
-		}
-
 	public static String toPrintableAscII(String text) {
         // strips off all non-ASCII characters
         text = text.replaceAll("[^\\x00-\\x7F]", ""); //$NON-NLS-1$ //$NON-NLS-2$
@@ -1016,11 +1115,27 @@ public class GtmUtils {
 
 	}
 	
+	/**
+	 * Limit string length.
+	 *
+	 * @param s the s
+	 * @param maxChar the max char
+	 * @return the string
+	 */
 	public static String limitStringLength(String s, int maxChar) {
 		if (s == null) return " "; //$NON-NLS-1$
 		return s.substring(0, Math.min(maxChar, s.length()));
 	}
 
+	/**
+	 * Limit string length with console entry.
+	 *
+	 * @param s the s
+	 * @param maxChar the max char
+	 * @param editor the editor
+	 * @param text the text
+	 * @return the string
+	 */
 	public static String limitStringLengthWithConsoleEntry(String s, int maxChar, GtmEditor editor, String text) {
 		if (s == null) return " "; //$NON-NLS-1$
 		if (s.length() <= maxChar) return s;
@@ -1031,6 +1146,13 @@ public class GtmUtils {
 		return truncated;
 	}
 	
+	/**
+	 * Import station.
+	 *
+	 * @param filter the filter
+	 * @param country the country
+	 * @return true, if successful
+	 */
 	public static boolean importStation(String filter, int country) {
 		if (country < 1 || country > 99) return false;
 		
@@ -1048,6 +1170,12 @@ public class GtmUtils {
 		
 	}
 	
+	/**
+	 * Gets the station map.
+	 *
+	 * @param tool the tool
+	 * @return the station map
+	 */
 	public static HashMap<Integer,Station> getStationMap(GTMTool tool)	{
 		
 	    if (tool == null || tool.getConversionFromLegacy() == null || tool.getConversionFromLegacy().getParams() == null )	{
@@ -1066,6 +1194,12 @@ public class GtmUtils {
 		return stations;
 	}
 	
+	/**
+	 * Gets the station code.
+	 *
+	 * @param s the s
+	 * @return the station code
+	 */
 	public static String getStationCode(Station s) {
 		String code = String.format("%02d%5s", s.getCountry().getCode(),s.getCode());
 		code.replace(' ','0');		
@@ -1073,6 +1207,12 @@ public class GtmUtils {
 	}
 	
 	
+	/**
+	 * Write console error.
+	 *
+	 * @param message the message
+	 * @param editor the editor
+	 */
 	public static void writeConsoleError(String message, GtmEditor editor) {
 		
 		if (message == null || message.length() == 0) {
@@ -1096,6 +1236,12 @@ public class GtmUtils {
 	}
 	
 	
+	/**
+	 * Display async error message.
+	 *
+	 * @param e the e
+	 * @param text the text
+	 */
 	public static void displayAsyncErrorMessage(Exception e , String text) {
 			
 		GtmEditor editor = GtmUtils.getActiveEditor();
@@ -1123,6 +1269,12 @@ public class GtmUtils {
 		}
 	}
 	
+	/**
+	 * Display async info message.
+	 *
+	 * @param text the text
+	 * @param details the details
+	 */
 	public static void displayAsyncInfoMessage(String text, String details) {
 		
 		GtmEditor editor = GtmUtils.getActiveEditor();
@@ -1143,6 +1295,11 @@ public class GtmUtils {
 	}
 
 	
+	/**
+	 * Gets the display.
+	 *
+	 * @return the display
+	 */
 	public static Display getDisplay() {
 		GtmEditor e = GtmUtils.getActiveEditor();
 		Display display = null;
@@ -1154,6 +1311,12 @@ public class GtmUtils {
 		return display;
 	}
 	
+	/**
+	 * Write console info.
+	 *
+	 * @param message the message
+	 * @param editor the editor
+	 */
 	public static void writeConsoleInfo(String message, GtmEditor editor) {
 		if (message == null || message.length() == 0) {
 			return;
@@ -1176,6 +1339,12 @@ public class GtmUtils {
 		}
 	}
 	
+	/**
+	 * Write console warning.
+	 *
+	 * @param message the message
+	 * @param editor the editor
+	 */
 	public static void writeConsoleWarning(String message, GtmEditor editor) {
 		if (message == null || message.length() == 0) {
 			return;
@@ -1200,6 +1369,13 @@ public class GtmUtils {
 	
 
 	
+	/**
+	 * Checks if is referenced.
+	 *
+	 * @param object the object
+	 * @param tree the tree
+	 * @return true, if is referenced
+	 */
 	public static boolean isReferenced(EObject object, EObject tree) {
 		
 		if (object == null || tree == null) return false;
@@ -1219,6 +1395,12 @@ public class GtmUtils {
 	}
 	
 	
+	/**
+	 * Gets the label text for an eObject.
+	 *
+	 * @param object the object
+	 * @return the label text
+	 */
 	public static String getLabelText(EObject object) {
 		
 		if (object == null) return "";
@@ -1234,12 +1416,24 @@ public class GtmUtils {
 		return null;
 	}
 	
+	/**
+	 * Gets the euro cent.
+	 *
+	 * @param f the f
+	 * @return the euro cent
+	 */
 	public static int getEuroCent(float f) {
 		BigDecimal value = new BigDecimal(Float.toString(f));
 		BigDecimal amount = value.multiply(oneHundred);
 		return amount.intValue();
 	}
 	
+	/**
+	 * Gets the euro from cent.
+	 *
+	 * @param i the i
+	 * @return the euro from cent
+	 */
 	public static float getEuroFromCent(int i) {
 		BigDecimal value = new BigDecimal(i);
 		value.setScale(2);

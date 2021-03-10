@@ -83,6 +83,7 @@ import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
 
+
 /**
  * The Class ConverterFromLegacy.
  */
@@ -116,13 +117,13 @@ public class ConverterFromLegacy {
 	/**  The connectionPoints with border code. */
 	private HashMap<Integer,LegacyBorderPoint> borderPoints = new HashMap<Integer,LegacyBorderPoint>();
 	
-	/** The my country. */
+	/** The country */
 	private Country myCountry = null;
 	
 	/** The tool. */
 	private GTMTool tool = null;
 	
-	/** The domain. */
+	/** The editing domain. */
 	private EditingDomain domain = null;
 	
 	/** The editor. */
@@ -142,6 +143,9 @@ public class ConverterFromLegacy {
 		this.domain = domain;		
 	}
 		
+	/**
+	 * Initialize converter.
+	 */
 	public void initializeConverter() {
 		
 		Country myCountry = tool.getConversionFromLegacy().getParams().getCountry();
@@ -325,7 +329,7 @@ public class ConverterFromLegacy {
 	/**
 	 * Convert to OSDM model.
 	 *
-	 * @param monitor the monitor
+	 * @param monitor the progress monitor
 	 * @return the number of fares created
 	 */
 	public int convertToGtm(IProgressMonitor monitor) {
@@ -765,11 +769,11 @@ public class ConverterFromLegacy {
 
 
 	/**
-	 * Equal vat details.
+	 * compare two vat detail objects.
 	 *
 	 * @param vat1 the vat 1
 	 * @param vat2 the vat 2
-	 * @return true, if successful
+	 * @return true, if the content is equal
 	 */
 	private static boolean equalVatDetails(EList<VATDetail> vat1, EList<VATDetail> vat2) {
 
@@ -1003,6 +1007,8 @@ public class ConverterFromLegacy {
 	 */
 	private ViaStation getViaStation(GTMTool tool, Country country, int code,int seriesNumber) throws ConverterException {
 
+		
+		//priority is for Fare Station Set. In case it is not a fare station set use a station
 		Station station = null;
 		FareStationSetDefinition fareStationSet = null;
 		fareStationSet = findFareStation(code);
@@ -1029,7 +1035,6 @@ public class ConverterFromLegacy {
 
 
 
-
 	/**
 	 * Creates the regional constraint.
 	 *
@@ -1047,10 +1052,9 @@ public class ConverterFromLegacy {
 	 * Sets the connection points.
 	 *
 	 * @param series the series
-	 * @param departureStation the departure station  
-	 * @param arrivalStation the arrival station  
+	 * @param departureStation the departure station
+	 * @param arrivalStation the arrival station
 	 * @param constraint the constraint
-	 * @param reversed the reversed
 	 * @throws ConverterException the converter exception
 	 */
 	private void setConnectionPoints(int series, ViaStation departureStation, ViaStation arrivalStation, RegionalConstraint constraint ) throws ConverterException {
@@ -1429,9 +1433,9 @@ public class ConverterFromLegacy {
 	}
 	
 	/**
-	 * find the station to replace the virtual border point station
+	 * find the station to replace the virtual border point station.
 	 *
-	 * @param borderpointcode  the code of the border point
+	 * @param borderPointCode the border point code
 	 * @return the station
 	 */
 	private Station getBorderStation(int borderPointCode) {
@@ -2084,11 +2088,12 @@ public class ConverterFromLegacy {
 			for (Legacy108Station legacyStation : stationList.get(code)) {
 				
 				if (legacyStation.getStationCode() == legacyStation.getFareReferenceStationCode())  {
-					//this is the station defining the name
+					//the short name is for fare station sets
 					def.setName(legacyStation.getShortName());
-					def.setNameUtf8(legacyStation.getNameUTF8());
+					def.setNameUtf8(legacyStation.getShortName());
+
 					try {
-						//the fare station set might also be a real station (strange case)
+						//the fare station set is also be a real station (strange case)
 						Station station = getStation(tool, myCountry, legacyStation.getStationCode());
 						if (station != null) {
 							def.getStations().add(station);
@@ -2254,6 +2259,13 @@ public class ConverterFromLegacy {
 		return stationNames.getStationName().size();
 	}
 	
+	/**
+	 * Update station names.
+	 *
+	 * @param tool the tool
+	 * @param lStation the l station
+	 * @return the station
+	 */
 	Station updateStationNames(GTMTool tool, Legacy108Station lStation) {
 		
 		Station station = null;
@@ -2272,6 +2284,14 @@ public class ConverterFromLegacy {
 		return station;	
 	}
 	
+	/**
+	 * Merge station names.
+	 *
+	 * @param tool the tool
+	 * @param lStation the l station
+	 * @param station the station
+	 * @return the station
+	 */
 	Station mergeStationNames(GTMTool tool, Legacy108Station lStation, Station station) {
 		
 		if (station != null) {
