@@ -1576,7 +1576,7 @@
   <eClassifiers xsi:type="ecore:EEnum" name="LegacySeriesType">
     <eLiterals name="border_destination" value="2"/>
     <eLiterals name="transit" value="1"/>
-    <eLiterals name="station_station" value="2"/>
+    <eLiterals name="station_station" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LegacyConversionType">
     <eLiterals name="NO" value="1"/>

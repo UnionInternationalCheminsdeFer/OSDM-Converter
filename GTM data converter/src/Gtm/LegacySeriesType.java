@@ -46,7 +46,7 @@ public enum LegacySeriesType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	STATION_STATION(2, "station_station", "station_station");
+	STATION_STATION(3, "station_station", "station_station");
 
 	/**
 	 * The '<em><b>Border destination</b></em>' literal value.
@@ -150,6 +150,7 @@ public enum LegacySeriesType implements Enumerator {
 		switch (value) {
 			case BORDER_DESTINATION_VALUE: return BORDER_DESTINATION;
 			case TRANSIT_VALUE: return TRANSIT;
+			case STATION_STATION_VALUE: return STATION_STATION;
 		}
 		return null;
 	}
