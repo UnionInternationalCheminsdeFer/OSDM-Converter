@@ -1708,6 +1708,21 @@ public class ConverterFromLegacy {
 		
 		FareElement fare = GtmFactory.eINSTANCE.createFareElement();
 		template2Fare(fare, fareTemplate);
+		if (series.getBusCode() != null && series.getFerryCode() != null && "B".equals(series.getBusCode())  && "S".equals(series.getFerryCode())) {
+			if (tool.getConversionFromLegacy().getParams().getBusFerryMapping() != null) {
+				if (tool.getConversionFromLegacy().getParams().getBusFerryMapping().getBusFerryConstraint() != null) {
+					fare.setServiceConstraint(tool.getConversionFromLegacy().getParams().getBusFerryMapping().getBusFerryConstraint());
+				}
+			}
+		} else if (series.getBusCode() != null && "B".equals(series.getBusCode())) {
+			if (tool.getConversionFromLegacy().getParams().getBusFerryMapping().getBusServiceConstraint() != null) {
+				fare.setServiceConstraint(tool.getConversionFromLegacy().getParams().getBusFerryMapping().getBusServiceConstraint());
+			}
+		} else if (series.getFerryCode() != null && "S".equals(series.getFerryCode())) {
+			if (tool.getConversionFromLegacy().getParams().getBusFerryMapping().getBusFerryConstraint() != null) {
+				fare.setServiceConstraint(tool.getConversionFromLegacy().getParams().getBusFerryMapping().getFerryConstraint());
+			}
+		}
 		
 		LegacyAccountingIdentifier accountingIdentifier = GtmFactory.eINSTANCE.createLegacyAccountingIdentifier();
 		accountingIdentifier.setAddSeriesId(0);
@@ -1750,7 +1765,6 @@ public class ConverterFromLegacy {
 		if (fareTemplate.getSalesAvailability() != null) {
 			fare.setSalesAvailability(fareTemplate.getSalesAvailability());
 		} else if (fare.getFareConstraintBundle().getSalesAvailability() == null){
-			//C2.0 TODO
 			fare.getFareConstraintBundle().setSalesAvailability(findSalesAvailability(tool,dateRange));
 		}
 		mapConstraintsAndDescriptions(fare, series);

@@ -248,6 +248,9 @@ public class GtmUtils {
 				if (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings() == null) {
 					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_BORDER_POINT_MAPPINGS,GtmFactory.eINSTANCE.createLegacyBoderPointMappings()));									
 				}
+				if (tool.getConversionFromLegacy().getParams().getBusFerryMapping() == null) {
+					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING,GtmFactory.eINSTANCE.createLegacyBusFerryMapping()));									
+				}
 			}
 		}
 		
@@ -564,6 +567,8 @@ public class GtmUtils {
 		params.setLegacyFareStationMappings(GtmFactory.eINSTANCE.createLegacyFareStationSetMappings());
 		params.setLegacyBorderPointMappings(GtmFactory.eINSTANCE.createLegacyBoderPointMappings());
 		params.setLegacyStationToServiceBrandMappings(GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
+		params.setBusFerryMapping(GtmFactory.eINSTANCE.createLegacyBusFerryMapping());									
+		
 		return params;
 	}
 

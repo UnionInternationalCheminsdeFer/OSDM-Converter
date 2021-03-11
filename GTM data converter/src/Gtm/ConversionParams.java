@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ConversionParams#isConvertFareDescriptions <em>Convert Fare Descriptions</em>}</li>
  *   <li>{@link Gtm.ConversionParams#isConvertServiceConstraints <em>Convert Service Constraints</em>}</li>
  *   <li>{@link Gtm.ConversionParams#getVatTemplates <em>Vat Templates</em>}</li>
+ *   <li>{@link Gtm.ConversionParams#getBusFerryMapping <em>Bus Ferry Mapping</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getConversionParams()
@@ -364,5 +365,27 @@ public interface ConversionParams extends EObject {
 	 * @generated
 	 */
 	void setVatTemplates(VatTemplates value);
+
+	/**
+	 * Returns the value of the '<em><b>Bus Ferry Mapping</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bus Ferry Mapping</em>' containment reference.
+	 * @see #setBusFerryMapping(LegacyBusFerryMapping)
+	 * @see Gtm.GtmPackage#getConversionParams_BusFerryMapping()
+	 * @model containment="true"
+	 * @generated
+	 */
+	LegacyBusFerryMapping getBusFerryMapping();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ConversionParams#getBusFerryMapping <em>Bus Ferry Mapping</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bus Ferry Mapping</em>' containment reference.
+	 * @see #getBusFerryMapping()
+	 * @generated
+	 */
+	void setBusFerryMapping(LegacyBusFerryMapping value);
 
 } // ConversionParams

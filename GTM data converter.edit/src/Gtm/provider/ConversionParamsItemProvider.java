@@ -181,6 +181,7 @@ public class ConversionParamsItemProvider
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__END_OF_SALE);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__START_OF_SALE);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__VAT_TEMPLATES);
+			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING);
 		}
 		return childrenFeatures;
 	}
@@ -249,6 +250,7 @@ public class ConversionParamsItemProvider
 			case GtmPackage.CONVERSION_PARAMS__END_OF_SALE:
 			case GtmPackage.CONVERSION_PARAMS__START_OF_SALE:
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
+			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -310,6 +312,11 @@ public class ConversionParamsItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.CONVERSION_PARAMS__VAT_TEMPLATES,
 				 GtmFactory.eINSTANCE.createVatTemplates()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING,
+				 GtmFactory.eINSTANCE.createLegacyBusFerryMapping()));
 	}
 
 	/**

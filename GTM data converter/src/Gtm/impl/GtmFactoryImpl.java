@@ -194,6 +194,7 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.LEGACY_BORDER_POINT_MAPPING: return createLegacyBorderPointMapping();
 			case GtmPackage.LEGACY_FARE_STATION_SET_MAPPINGS: return createLegacyFareStationSetMappings();
 			case GtmPackage.LEGACY_FARE_STATION_SET_MAP: return createLegacyFareStationSetMap();
+			case GtmPackage.LEGACY_BUS_FERRY_MAPPING: return createLegacyBusFerryMapping();
 			case GtmPackage.LEGACY108: return createLegacy108();
 			case GtmPackage.LEGACY108_FARE_DESCRIPTION: return createLegacy108FareDescription();
 			case GtmPackage.LEGACY108_FARES_DESCRIPTIONS: return createLegacy108FaresDescriptions();
@@ -1775,6 +1776,16 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public LegacyFareStationSetMap createLegacyFareStationSetMap() {
 		LegacyFareStationSetMapImpl legacyFareStationSetMap = new LegacyFareStationSetMapImpl();
 		return legacyFareStationSetMap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LegacyBusFerryMapping createLegacyBusFerryMapping() {
+		LegacyBusFerryMappingImpl legacyBusFerryMapping = new LegacyBusFerryMappingImpl();
+		return legacyBusFerryMapping;
 	}
 
 	/**

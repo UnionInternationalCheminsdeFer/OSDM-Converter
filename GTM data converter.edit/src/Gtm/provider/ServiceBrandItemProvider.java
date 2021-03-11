@@ -205,6 +205,8 @@ public class ServiceBrandItemProvider
 		String abb = ((ServiceBrand)object).getAbbreviation();
 		if (name == null || name.length() == 0) {
 			name = desc;
+		} else {
+			name = name + " - "  + desc;
 		}
 		if (name == null || name.length() == 0) {
 			name = abb;

@@ -1237,6 +1237,15 @@ public interface GtmFactory extends EFactory {
 	LegacyFareStationSetMap createLegacyFareStationSetMap();
 
 	/**
+	 * Returns a new object of class '<em>Legacy Bus Ferry Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Legacy Bus Ferry Mapping</em>'.
+	 * @generated
+	 */
+	LegacyBusFerryMapping createLegacyBusFerryMapping();
+
+	/**
 	 * Returns a new object of class '<em>Legacy108</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

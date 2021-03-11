@@ -1117,6 +1117,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="vatTemplates" eType="#//VatTemplates"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="busFerryMapping" eType="#//LegacyBusFerryMapping"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VatTemplates">
     <eStructuralFeatures xsi:type="ecore:EReference" name="vatTemplates" upperBound="-1"
@@ -1287,6 +1289,14 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacyCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stationSet" eType="#//FareStationSetDefinition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LegacyBusFerryMapping">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="MATCHING_TRANSPORT_MODE"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="busServiceConstraint" eType="#//ServiceConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ferryConstraint" eType="#//ServiceConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="busFerryConstraint" eType="#//ServiceConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Legacy108">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">

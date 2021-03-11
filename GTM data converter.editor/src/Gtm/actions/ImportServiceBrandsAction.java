@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -23,9 +24,9 @@ import Gtm.GtmPackage;
 import Gtm.ServiceBrand;
 import Gtm.ServiceBrands;
 import Gtm.TransportMode;
+import Gtm.actions.converter.ServiceBrandComparator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
-import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
 
 public class ImportServiceBrandsAction extends ImportCsvDataAction {
@@ -125,6 +126,9 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 						GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportServiceBrandsAction_11 + Integer.toString(updated), editor ); //$NON-NLS-2$
 			        }	
 					monitor.worked(10);
+					
+					ECollections.sort(tool.getCodeLists().getServiceBrands().getServiceBrands(), new ServiceBrandComparator());			
+					
 					monitor.done();
 					
 				} catch (IOException e) {
@@ -158,9 +162,9 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 			if (strings[0].length() < 4) {
 				ServiceBrand brand = GtmFactory.eINSTANCE.createServiceBrand();
 				brand.setCode(Integer.parseInt(strings[0]));
-				brand.setAbbreviation(strings[1]);
-				brand.setName(strings[2]);
-				brand.setDescription(strings[3]);
+				brand.setAbbreviation(strings[1].trim());
+				brand.setName(strings[2].trim());
+				brand.setDescription(strings[3].trim());
 				
 				try {
 					if (strings.length > 4) {

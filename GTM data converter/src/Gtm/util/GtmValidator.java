@@ -362,6 +362,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyFareStationSetMappings((LegacyFareStationSetMappings)value, diagnostics, context);
 			case GtmPackage.LEGACY_FARE_STATION_SET_MAP:
 				return validateLegacyFareStationSetMap((LegacyFareStationSetMap)value, diagnostics, context);
+			case GtmPackage.LEGACY_BUS_FERRY_MAPPING:
+				return validateLegacyBusFerryMapping((LegacyBusFerryMapping)value, diagnostics, context);
 			case GtmPackage.LEGACY108:
 				return validateLegacy108((Legacy108)value, diagnostics, context);
 			case GtmPackage.LEGACY108_FARE_DESCRIPTION:
@@ -2306,6 +2308,116 @@ public class GtmValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateLegacyBusFerryMapping(LegacyBusFerryMapping legacyBusFerryMapping, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(legacyBusFerryMapping, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(legacyBusFerryMapping, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(legacyBusFerryMapping, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(legacyBusFerryMapping, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(legacyBusFerryMapping, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(legacyBusFerryMapping, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(legacyBusFerryMapping, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(legacyBusFerryMapping, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(legacyBusFerryMapping, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLegacyBusFerryMapping_MATCHING_TRANSPORT_MODE(legacyBusFerryMapping, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the MATCHING_TRANSPORT_MODE constraint of '<em>Legacy Bus Ferry Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateLegacyBusFerryMapping_MATCHING_TRANSPORT_MODE(LegacyBusFerryMapping mapping, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+
+		if (mapping.getBusServiceConstraint() != null && mapping.getBusServiceConstraint().getIncludedServiceBrands() != null) {
+			boolean containsBus = false;
+			for (ServiceBrand brand : mapping.getBusServiceConstraint().getIncludedServiceBrands()) {
+				 if (brand.getTransportMode().equals(TransportMode.BUS)) {
+					 containsBus = true;
+				 }
+			}
+			if (!containsBus) {
+				if (diagnostics != null) {
+					diagnostics.add
+						(createSimpleDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							 0,
+							 "ServiceConstraint for Bus Series does not contain a bus Service Brand: " + " - " + getObjectLabel(mapping, context), //$NON-NLS-1$
+							 new Object[] { "MATCHING_TRANSPORT_MODE", getObjectLabel(mapping, context) },
+							 new Object[] { mapping },
+							 context));
+				}
+				return false;
+			}
+		}
+		
+
+		if (mapping.getFerryConstraint() != null && mapping.getFerryConstraint().getIncludedServiceBrands() != null) {
+			boolean containsFerry = false;
+			for (ServiceBrand brand : mapping.getFerryConstraint().getIncludedServiceBrands()) {
+				 if (brand.getTransportMode().equals(TransportMode.SHIP)) {
+					 containsFerry = true;
+				 }
+			}
+			if (!containsFerry) {
+				if (diagnostics != null) {
+					diagnostics.add
+						(createSimpleDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							 0,
+							 "ServiceConstraint for Ferry Series does not contain a Ship Service Brand: " + " - " + getObjectLabel(mapping, context), //$NON-NLS-1$
+							 new Object[] { "MATCHING_TRANSPORT_MODE", getObjectLabel(mapping, context) },
+							 new Object[] { mapping },
+							 context));
+				}
+				return false;
+			}
+		}
+		
+		if (mapping.getBusFerryConstraint() != null && mapping.getBusFerryConstraint().getIncludedServiceBrands() != null) {
+			boolean containsBus = false;
+			boolean containsFerry = false;
+			for (ServiceBrand brand : mapping.getBusFerryConstraint().getIncludedServiceBrands()) {
+				 if (brand.getTransportMode().equals(TransportMode.BUS)) {
+					 containsBus = true;
+				 }
+				 if (brand.getTransportMode().equals(TransportMode.SHIP)) {
+					 containsFerry = true;
+				 }
+			}
+			if (!containsBus || !containsFerry) {
+				if (diagnostics != null) {
+					diagnostics.add
+						(createSimpleDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							 0,
+							 "ServiceConstraint for combined Bus and Ferry Series does not contain bus and ship Service Brands: " + " - " + getObjectLabel(mapping, context), //$NON-NLS-1$
+							 new Object[] { "MATCHING_TRANSPORT_MODE", getObjectLabel(mapping, context) },
+							 new Object[] { mapping },
+							 context));
+				}
+				return false;
+			}
+		}
+		
+		
+		
+		
+		
+		
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateLegacyDistanceFare(LegacyDistanceFare legacyDistanceFare, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(legacyDistanceFare, diagnostics, context);
 	}
@@ -2827,6 +2939,8 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateConnectionPoint_NAME_FORMAT(ConnectionPoint connectionPoint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
+		if (connectionPoint.getName() == null || connectionPoint.getName().length() == 0 ) return true;
+		
 		if (!StringFormatValidator.isStationASCII(connectionPoint.getName())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -3731,7 +3845,7 @@ public class GtmValidator extends EObjectValidator {
 	public boolean validateStation_NAME_CASE_UTF8_FORMAT(Station station, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
 		//don't check missing data in MERITS for the time being
-		if (station.getNameCaseUTF8() == null) return true;
+		if (station.getNameCaseUTF8() == null || station.getNameCaseUTF8().length() == 0) return true;
 		
 		if (!StringFormatValidator.isStationUTF8(station.getNameCaseUTF8())) {
 			if (diagnostics != null) {
@@ -3759,7 +3873,7 @@ public class GtmValidator extends EObjectValidator {
 	public boolean validateStation_NAME_CASE_ASCII_FORMAT(Station station, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
 		//don't check missing data in MERITS for the time being
-		if (station.getNameCaseASCII() == null) return true;
+		if (station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) return true;
 		
 		if (!StringFormatValidator.isStationASCII(station.getNameCaseASCII())) {
 			if (diagnostics != null) {
@@ -3787,7 +3901,7 @@ public class GtmValidator extends EObjectValidator {
 	public boolean validateStation_SHORT_NAME_CASE_ASCII_FORMAT(Station station, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		
 		//don't check missing data in MERITS for the time being
-		if (station.getShortNameCaseASCII() == null) return true;
+		if (station.getShortNameCaseASCII() == null || station.getShortNameCaseASCII().length() == 0) return true;
 		
 		if (!StringFormatValidator.isStationASCII(station.getShortNameCaseASCII())) {
 			if (diagnostics != null) {
@@ -3815,7 +3929,7 @@ public class GtmValidator extends EObjectValidator {
 	public boolean validateStation_SHORT_NAME_CASE_UTF8_FORMAT(Station station, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		
 		//don't check missing data in MERITS for the time being
-		if (station.getShortNameCaseUTF8() == null) return true;
+		if (station.getShortNameCaseUTF8() == null || station.getShortNameCaseUTF8().length() == 0) return true;
 		
 		if (!StringFormatValidator.isStationUTF8(station.getShortNameCaseUTF8())) {
 			if (diagnostics != null) {
@@ -3842,6 +3956,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateStation_TT_NAME_FORMAT(Station station, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
+	
 		if (!StringFormatValidator.isStationUTF8(station.getName())) {		
 			if (diagnostics != null) {
 				diagnostics.add
@@ -5124,6 +5239,7 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateFareStationSetDefinition_NAME_FORMAT(FareStationSetDefinition fareStationSetDefinition, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		
 		if (fareStationSetDefinition.getName() != null && !StringFormatValidator.isStationASCII(fareStationSetDefinition.getName())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -5138,6 +5254,7 @@ public class GtmValidator extends EObjectValidator {
 			}
 			return false;
 		}
+		
 		return true;
 	}
 

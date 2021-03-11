@@ -3194,6 +3194,29 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.LegacyBusFerryMapping} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LegacyBusFerryMappingItemProvider legacyBusFerryMappingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.LegacyBusFerryMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLegacyBusFerryMappingAdapter() {
+		if (legacyBusFerryMappingItemProvider == null) {
+			legacyBusFerryMappingItemProvider = new LegacyBusFerryMappingItemProvider(this);
+		}
+
+		return legacyBusFerryMappingItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.Legacy108} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3800,6 +3823,7 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (legacyBorderPointMappingItemProvider != null) legacyBorderPointMappingItemProvider.dispose();
 		if (legacyFareStationSetMappingsItemProvider != null) legacyFareStationSetMappingsItemProvider.dispose();
 		if (legacyFareStationSetMapItemProvider != null) legacyFareStationSetMapItemProvider.dispose();
+		if (legacyBusFerryMappingItemProvider != null) legacyBusFerryMappingItemProvider.dispose();
 		if (legacy108ItemProvider != null) legacy108ItemProvider.dispose();
 		if (legacy108FareDescriptionItemProvider != null) legacy108FareDescriptionItemProvider.dispose();
 		if (legacy108FaresDescriptionsItemProvider != null) legacy108FaresDescriptionsItemProvider.dispose();
