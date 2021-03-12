@@ -28,16 +28,38 @@
 <h3>Conversion Parameters</h3>
 <p><ul>
 <table border="1">
-<tr><td>Parameter</td><td>Description</td></tr>
-<tr><td>VAT Templates</td><td>Templates to create VAT tax information. Templates can be provided for different scope and countries. The template applies to regional constraints within the specified country. Templates with scope INTERNATIONAL are used additionally for regional constraints with connection points.</td><td>Add VAT details for different countries</td></tr>
-<tr><td>Station Mapping</td><td>Mapping of nonstandard stations into real Merits station codes.</td></tr>
-<tr><td>Fare station set mappings</td><td>Mapping of 108 station codes to fare station sets. This will be created automatically in case the fare station set codes are properly contained in the 108.1 data.</td></tr>
-<tr><td>station to service constrained mapping</td><td>Mapping of 108 station codes to service constraints.</td></tr>
-<tr><td>fare template</td><td>Template to create a fare in the 90918-10 data. The template must provide service class and price factor to create a fare. All required data for the 
+<tr><td>data item</td><td>description</td><td>values</td></tr>
+<tr><td>Convert fare descriptions</td>
+    <td>Fare description will be converted into TCVP fare entries. For each different fare description a different fare table will be created. </td>
+    <td>check-box</td></tr>
+<tr><td>Convert service constraint</td>
+    <td>Service constraints will be converted into TCVP fare entries. For each different fare description a different fare table will be created.</td>
+    <td>check-box</td></tr>
+<tr><td>Country</td>
+    <td>Country to be used for station code conversion from 108.1 to 90918-10.</td>
+    <td>Select country</td></tr>
+<tr><td>Station import filter</td>
+    <td>a list of counties that limits the station import to those countries</td>
+    <td>Selection of multiple countries</td></tr>
+<tr><td>VAT Templates</td>
+   <td>Templates to create VAT tax information. Templates can be provided for different scope and countries. The template applies to regional constraints within the specified country. Templates with scope INTERNATIONAL are used additionally for regional constraints with connection points.</td>
+   <td>Add VAT details for different countries</td></tr>
+<tr><td>fare template</td>
+    <td>Template to create a fare in the 90918-10 data. The template must provide service class and price factor to create a fare. All required data for the 
 final fare must be created except the regional validity and the price which come from 108.1 series and fares. <br/> 
 A fixed price can be set, the all fares converted from series will have the same price.<br/>
-The referenced data items must be defined in the General Tariff Model fare structure first. They can then be assigned to a fare template.
-</td></tr>
+The referenced data items must be defined in the General Tariff Model fare structure first. They can then be assigned to a fare template.</td>
+    <td></td></tr>
+<tr><td>Legacy station mappings</td><td>Mappings of station codes in 108.1 to merits codes. A manual mapping can be added for station codes not included in MERITS</td><td >Mapping station code 018.1 to MERITS station code.</td></tr>
+<tr><td>Legacy station to service constraint mappings </td><td>Mappings of 108.1 stations to service constraints. In 108.1 data virtual stations have been added to indicate a service constraint. </td><td >Mapping to a service constraint. The service constraint must be added in the fare data first.</td></tr>
+<tr><td>Legacy Bus and Ferry Mapping</td>
+    <td>A mapping of the series Bus and Ferry Code to ServiceConstraints can be defined here. This mapping will override a mapping of the fare template and will be overwritten y a mapping to a station to service constraint mapping.</td>
+    <td>Selection list on service constraints defined in the fare data</td></tr>
+<tr><td>Legacy fare station set mappings</td>
+    <td><b>deprecated</b> The fare references stations of 108 are converted automatically. Additional mappings can be added manually here. Fare station sets must be added in the fare data before the mapping. </td> 
+    <td>Selection list on fare station sets defined in the fare data</td></tr>
+<tr><td>Legacy border point mappings</td><td><b>deprecated</b> Please use the border point table to import border points.</td>
+    <td></td></tr>
 </table>
 </ul></p>
 

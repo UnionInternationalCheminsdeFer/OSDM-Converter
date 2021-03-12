@@ -7,6 +7,7 @@ import Gtm.Country;
 import Gtm.EndOfSale;
 import Gtm.GtmPackage;
 import Gtm.LegacyBoderPointMappings;
+import Gtm.LegacyBusFerryMapping;
 import Gtm.LegacyFareDetailMaps;
 import Gtm.LegacyFareStationSetMappings;
 import Gtm.LegacyFareTemplates;
@@ -44,6 +45,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.ConversionParamsImpl#isConvertFareDescriptions <em>Convert Fare Descriptions</em>}</li>
  *   <li>{@link Gtm.impl.ConversionParamsImpl#isConvertServiceConstraints <em>Convert Service Constraints</em>}</li>
  *   <li>{@link Gtm.impl.ConversionParamsImpl#getVatTemplates <em>Vat Templates</em>}</li>
+ *   <li>{@link Gtm.impl.ConversionParamsImpl#getBusFerryMapping <em>Bus Ferry Mapping</em>}</li>
  * </ul>
  *
  * @generated
@@ -248,6 +250,16 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected VatTemplates vatTemplates;
+
+	/**
+	 * The cached value of the '{@link #getBusFerryMapping() <em>Bus Ferry Mapping</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBusFerryMapping()
+	 * @generated
+	 * @ordered
+	 */
+	protected LegacyBusFerryMapping busFerryMapping;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -803,6 +815,49 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LegacyBusFerryMapping getBusFerryMapping() {
+		return busFerryMapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetBusFerryMapping(LegacyBusFerryMapping newBusFerryMapping, NotificationChain msgs) {
+		LegacyBusFerryMapping oldBusFerryMapping = busFerryMapping;
+		busFerryMapping = newBusFerryMapping;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING, oldBusFerryMapping, newBusFerryMapping);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBusFerryMapping(LegacyBusFerryMapping newBusFerryMapping) {
+		if (newBusFerryMapping != busFerryMapping) {
+			NotificationChain msgs = null;
+			if (busFerryMapping != null)
+				msgs = ((InternalEObject)busFerryMapping).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING, null, msgs);
+			if (newBusFerryMapping != null)
+				msgs = ((InternalEObject)newBusFerryMapping).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING, null, msgs);
+			msgs = basicSetBusFerryMapping(newBusFerryMapping, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING, newBusFerryMapping, newBusFerryMapping));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -824,6 +879,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return basicSetStartOfSale(null, msgs);
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
 				return basicSetVatTemplates(null, msgs);
+			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
+				return basicSetBusFerryMapping(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -867,6 +924,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return isConvertServiceConstraints();
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
 				return getVatTemplates();
+			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
+				return getBusFerryMapping();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -925,6 +984,9 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
 				setVatTemplates((VatTemplates)newValue);
 				return;
+			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
+				setBusFerryMapping((LegacyBusFerryMapping)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -982,6 +1044,9 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
 				setVatTemplates((VatTemplates)null);
 				return;
+			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
+				setBusFerryMapping((LegacyBusFerryMapping)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1024,6 +1089,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return convertServiceConstraints != CONVERT_SERVICE_CONSTRAINTS_EDEFAULT;
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
 				return vatTemplates != null;
+			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
+				return busFerryMapping != null;
 		}
 		return super.eIsSet(featureID);
 	}

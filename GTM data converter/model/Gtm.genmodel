@@ -1099,6 +1099,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/convertServiceConstraints"/>
       <genFeatures property="None" children="true" createChild="true" propertySortChoices="true"
           ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/vatTemplates"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/busFerryMapping"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//VatTemplates">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//VatTemplates/vatTemplates"/>
@@ -1229,6 +1230,11 @@
     <genClasses ecoreClass="Gtm.ecore#//LegacyFareStationSetMap">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyFareStationSetMap/legacyCode"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyFareStationSetMap/stationSet"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//LegacyBusFerryMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyBusFerryMapping/busServiceConstraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyBusFerryMapping/ferryConstraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyBusFerryMapping/busFerryConstraint"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Legacy108" labelFeature="#//Gtm/Legacy108/characterSet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108/characterSet"/>

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
@@ -266,18 +267,24 @@ public class GTMJsonImporter {
 	private StationNames convertStationNames(List<StationNamesDef> jl) {
 		
 		StationNames n = GtmFactory.eINSTANCE.createStationNames();
-		if (jl == null || jl.isEmpty()) return n;
+		HashSet<Station> set = new HashSet<Station>();
 		
+		if (jl == null || jl.isEmpty()) return n;
+				
 		//link the stations, names will be added later-on to the merits code table
 		for (StationNamesDef jn : jl) {
 			
 			Station s = getStation(jn.getCountry(), jn.getLocalCode());
 			if (s != null) {
+				set.add(s);
 				n.getStationName().add(s);
 			}
 		}
 		
-		n.getStationName().sort(new StationComparator());
+		ArrayList<Station> stations = 	new ArrayList<Station>();
+		stations.addAll(set);
+		stations.sort(new StationComparator());
+		n.getStationName().addAll(stations);
 		
 		return n;
 	}

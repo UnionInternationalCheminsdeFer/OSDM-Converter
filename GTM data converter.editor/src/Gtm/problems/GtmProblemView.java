@@ -177,7 +177,7 @@ public class GtmProblemView extends ViewPart {
 				} else if(column == 1){
 					if (diagnostic.getData()!= null && !diagnostic.getData().isEmpty()) {
 						if (diagnostic.getData().get(0) instanceof EObject) {
-							return GtmUtils.getTypedDescription((EObject)diagnostic.getData().get(0));
+							return GtmUtils.getLabelText((EObject)diagnostic.getData().get(0));
 						}
 					}
 				}
@@ -203,7 +203,6 @@ public class GtmProblemView extends ViewPart {
 	
 	public void setRootDiagnostic(Diagnostic diagnostic) {
 		
-
 		if(diagnostic == null){
 			return;
 		}

@@ -643,6 +643,68 @@ public class LegacyImporter {
 	
 	private LegacySeries decodeTCVSLine(String st, String timeZone) {
 		
+		//	1  code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for �BB 
+		//	2 Series number numeric 5 M TAP TSI Technical Document B.8 5-9 Coding for distance and routing between two stations or two fare points within a given country. 
+		//	3 Key flag for series numeric 1 M  10 0, 1 or 2 (see point 2.2) 
+		//	4 Type of series numeric 1 M  11 1 = transit 2 = border - destination station 3 = station - station 1st sorting criterion 
+		//	5 Flag 1 for series type numeric 1 M  12 0 or 3 (see point 2.2) 
+		//	6 code for departure station numeric 5 M TAP TSI Technical Document B.9 13-17  
+		//	7 Connecting code for departure station numeric 2 O  18-19 cf. Notes to Appendix B, point B.2. 			
+		//	8 17-character designation for departure station alpha numeric 17 M  20-36 17-character designation in station list (17-character route description in case of fare reference stations) 2nd sorting criterion 
+		//	9 Flag 2 for departure station designation numeric 1 M  37 0 or 3 (see point 2.2) 
+		//	10  code for destination station numeric 5 M TAP TSI Technical Document B.9 38-42  
+		//	11 Connecting code for destination station numeric 2 O  43-44 cf. Notes to Appendix B, point B.2. 
+		//	12 17-character designation for destination station alpha numeric 17 M  45-61 17-character designation in station list (17-character route description in case of fare reference stations) 3rd sorting criterion 			
+		//	13 Flag 3 for destination station designation numeric 1 M  62 0 or 3 (see point 2.2) 
+		//	14 Route number numeric 1 M  63 4th sorting criterion 
+		//	15 Product code numeric 2 O  64-65 cf. Notes to Appendix B, point B.2. 
+		//	16 Product offer code numeric 2 O  66-67 cf. Notes to Appendix B, point B.2. 
+		//	17 Symbol marking usual route alpha numeric 1 O  68 Usual route indicated by means of '+' if applicable 
+		//	18 Flag 4 for usual route numeric 1 M  69 0 or 3 (see point 2.2) 
+		//	19 Bus code alpha numeric 1 O  70 'B' entered here in the case of bus services 
+		//	20 Flag 5 for bus code numeric 1 M  71 0 or 3 (see point 2.2) 
+		//	21 Ferry code alpha numeric 1 O  72 'S' entered here in the case of ferry services 
+		//	22 Flag 6 for ferry code numeric 1 M  73 0 or 3 (see point 2.2) 
+		//	23 Carrier code separator 1 '<' 1 M  74 This field always contains the symbol '<'. 
+	    //	24 Carrier code numeric 4 M TAP TSI Technical Document B.8 75-78 4-character -code for the contractual carrier on this route 
+		//	25 Carrier code separator 2 '>' 1 M  79 This field always contains the symbol '>'� 
+		//	26 Itinerary alpha numeric 58 O TAP TSI Technical Document B.5 80-137  
+		//	27 Flag 7 for combination of carrier code and itinerary numeric 1 M  138 Indicates combination of fields 24 and 26; 0 or 3 (see point 2.2) 
+		//	28 Kilometres in 2nd Class numeric 5 M  139-1 43  
+		//	29 Flag 8 for kilometres in 2nd Class numeric 1 M  144 0 or 3 (see point 2.2) 
+		//	30 Kilometres in 1st Class numeric 5 M  145-1 49  
+		//	31 Flag 9 for kilometres in 1st Class numeric 1 M  150 0 or 3 (see point 2.2) 
+		//	32 Standard fare calculation numeric 1 M  151 1 = Kilometre-based 2 = route-based 
+		//	33 Flag 10 for standard fare calculation numeric 1 M  152 0 or 3 (see point 2.2) 
+		//	34 Standard fare table number numeric 4 M  153-1 56  
+		//	35 Flag 11 for standard fare table number numeric 1 M  157 0 or 3 (see point 2.2) 
+		//	36 Ferry link code numeric 2 O  158-159  
+		//  37 Flag 12 for ferry link code numeric 1 M  160 0 or 3 (see point 2.2) 
+		//	38 Info code numeric 4 O  161-164 Completed if the info file contains specific references to the series 
+		//	39 Flag 13 for info code numeric 1 M  165 0 or 3 (see point 2.2) 
+		//	40 1st replaced series numeric 5 O  166-1 70  
+		//	41 2nd replaced series numeric 5 O  171 -1 75  
+		//	42  code for 1st station in route description numeric 5 O TAP TSI Technical Document B.9 176-1 80
+		//	43 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
+		//	44 Abridging code for 1st station numeric 1 O  182  
+		//	45  code for 1st station in route description numeric 5 O TAP TSI Technical Document B.9 176-1 80
+		//	46 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
+		//	47 Abridging code for 1st station numeric 1 O  182  
+		//	48  code for 1st station in route description numeric 5 O TAP TSI Technical Document B.9 176-1 80
+		//	49 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
+		//	50 Abridging code for 1st station numeric 1 O  182    
+		//	51  code for 1st station in route description numeric 5 O TAP TSI Technical Document B.9 176-1 80
+		//	52 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
+		//	53 Abridging code for 1st station numeric 1 O  182  
+		//	54  code for 1st station in route description numeric 5 O TAP TSI Technical Document B.9 176-1 80
+		//	55 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
+		//	56 Abridging code for 1st station numeric 1 O  182  
+		//	57 Flag 14 for computerised route numeric 1 M  211 Relates to Fields 40-54 or 3 (see point 2.2) 
+		//	58 First day of validity of fare numeric 8 M  212-219 Expressed as: 'YYYYMMDD' 
+		//	59 Version number numeric 2 M  220-221 Sequential version number related to the fare date; '01' for the first issue, '02' for the second etc. 
+		//	60 Last day of validity of fare numeric 8 M  222-229 Expressed as: 'YYYYMMDD' 
+		
+		
 		try {
 		
 		String supplier   				= st.substring(0, 4);
@@ -689,8 +751,15 @@ public class LegacyImporter {
 		String abr5 					= st.substring(210,211);
 		
 		String validFromString 			= st.substring(211,219);		
-		String validUntilString 		= st.substring(221,229);				
 		
+		//	60 Last day of validity of fare numeric 8 M  222-229 Expressed as: 'YYYYMMDD' 
+		String validUntilString 		= st.substring(221,229);		
+		
+		//	19 Bus code alpha numeric 1 O  70 'B' entered here in the case of bus services 
+        String busFlag                  = st.substring(69,70);
+		//	21 Ferry code alpha numeric 1 O  72 'S' entered here in the case of ferry services 
+        String ferryFlag                = st.substring(71,72);
+        		
 		LegacySeries series = GtmFactory.eINSTANCE.createLegacySeries();
 		
 		series.setCarrierCode(carrier);
@@ -713,6 +782,17 @@ public class LegacyImporter {
 		
 		series.setDistance1(Integer.parseInt(distanceKl1));
 		series.setDistance2(Integer.parseInt(distanceKl2));
+		
+		if (ferryFlag.contentEquals("S")) {
+			series.setFerryCode("S");
+		} else {
+			series.setFerryCode(" ");
+		}
+		if (busFlag.contentEquals("B")) {
+			series.setBusCode("S");
+		} else {
+			series.setBusCode(" ");		
+		}
 
 		Date dt = null;
 		try {

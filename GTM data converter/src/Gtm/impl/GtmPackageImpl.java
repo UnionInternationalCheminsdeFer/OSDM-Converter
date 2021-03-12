@@ -976,6 +976,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass legacyBusFerryMappingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass legacy108EClass = null;
 
 	/**
@@ -6379,6 +6386,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getConversionParams_BusFerryMapping() {
+		return (EReference)conversionParamsEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getVatTemplates() {
 		return vatTemplatesEClass;
 	}
@@ -7227,6 +7243,42 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getLegacyFareStationSetMap_StationSet() {
 		return (EReference)legacyFareStationSetMapEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLegacyBusFerryMapping() {
+		return legacyBusFerryMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLegacyBusFerryMapping_BusServiceConstraint() {
+		return (EReference)legacyBusFerryMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLegacyBusFerryMapping_FerryConstraint() {
+		return (EReference)legacyBusFerryMappingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLegacyBusFerryMapping_BusFerryConstraint() {
+		return (EReference)legacyBusFerryMappingEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -9166,6 +9218,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__CONVERT_FARE_DESCRIPTIONS);
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__CONVERT_SERVICE_CONSTRAINTS);
 		createEReference(conversionParamsEClass, CONVERSION_PARAMS__VAT_TEMPLATES);
+		createEReference(conversionParamsEClass, CONVERSION_PARAMS__BUS_FERRY_MAPPING);
 
 		vatTemplatesEClass = createEClass(VAT_TEMPLATES);
 		createEReference(vatTemplatesEClass, VAT_TEMPLATES__VAT_TEMPLATES);
@@ -9284,6 +9337,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		legacyFareStationSetMapEClass = createEClass(LEGACY_FARE_STATION_SET_MAP);
 		createEAttribute(legacyFareStationSetMapEClass, LEGACY_FARE_STATION_SET_MAP__LEGACY_CODE);
 		createEReference(legacyFareStationSetMapEClass, LEGACY_FARE_STATION_SET_MAP__STATION_SET);
+
+		legacyBusFerryMappingEClass = createEClass(LEGACY_BUS_FERRY_MAPPING);
+		createEReference(legacyBusFerryMappingEClass, LEGACY_BUS_FERRY_MAPPING__BUS_SERVICE_CONSTRAINT);
+		createEReference(legacyBusFerryMappingEClass, LEGACY_BUS_FERRY_MAPPING__FERRY_CONSTRAINT);
+		createEReference(legacyBusFerryMappingEClass, LEGACY_BUS_FERRY_MAPPING__BUS_FERRY_CONSTRAINT);
 
 		legacy108EClass = createEClass(LEGACY108);
 		createEAttribute(legacy108EClass, LEGACY108__CHARACTER_SET);
@@ -10156,6 +10214,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getConversionParams_ConvertFareDescriptions(), ecorePackage.getEBoolean(), "convertFareDescriptions", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConversionParams_ConvertServiceConstraints(), ecorePackage.getEBoolean(), "convertServiceConstraints", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConversionParams_VatTemplates(), this.getVatTemplates(), null, "vatTemplates", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConversionParams_BusFerryMapping(), this.getLegacyBusFerryMapping(), null, "busFerryMapping", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(vatTemplatesEClass, VatTemplates.class, "VatTemplates", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVatTemplates_VatTemplates(), this.getVatTemplate(), null, "vatTemplates", null, 0, -1, VatTemplates.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10280,6 +10339,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEClass(legacyFareStationSetMapEClass, LegacyFareStationSetMap.class, "LegacyFareStationSetMap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLegacyFareStationSetMap_LegacyCode(), ecorePackage.getEInt(), "legacyCode", null, 0, 1, LegacyFareStationSetMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLegacyFareStationSetMap_StationSet(), this.getFareStationSetDefinition(), null, "stationSet", null, 0, 1, LegacyFareStationSetMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(legacyBusFerryMappingEClass, LegacyBusFerryMapping.class, "LegacyBusFerryMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLegacyBusFerryMapping_BusServiceConstraint(), this.getServiceConstraint(), null, "busServiceConstraint", null, 0, 1, LegacyBusFerryMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLegacyBusFerryMapping_FerryConstraint(), this.getServiceConstraint(), null, "ferryConstraint", null, 0, 1, LegacyBusFerryMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLegacyBusFerryMapping_BusFerryConstraint(), this.getServiceConstraint(), null, "busFerryConstraint", null, 0, 1, LegacyBusFerryMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacy108EClass, Legacy108.class, "Legacy108", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLegacy108_CharacterSet(), this.getCharacterSet(), "characterSet", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11243,6 +11307,12 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		   source,
 		   new String[] {
 			   "constraints", "CODE_NOT_NULL STATION_SET_MUST"
+		   });
+		addAnnotation
+		  (legacyBusFerryMappingEClass,
+		   source,
+		   new String[] {
+			   "constraints", "MATCHING_TRANSPORT_MODE"
 		   });
 		addAnnotation
 		  (legacy108EClass,

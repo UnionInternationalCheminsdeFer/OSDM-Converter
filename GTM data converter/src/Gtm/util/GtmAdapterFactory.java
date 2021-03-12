@@ -612,6 +612,10 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createLegacyFareStationSetMapAdapter();
 			}
 			@Override
+			public Adapter caseLegacyBusFerryMapping(LegacyBusFerryMapping object) {
+				return createLegacyBusFerryMappingAdapter();
+			}
+			@Override
 			public Adapter caseLegacy108(Legacy108 object) {
 				return createLegacy108Adapter();
 			}
@@ -2574,6 +2578,20 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLegacyFareStationSetMapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.LegacyBusFerryMapping <em>Legacy Bus Ferry Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.LegacyBusFerryMapping
+	 * @generated
+	 */
+	public Adapter createLegacyBusFerryMappingAdapter() {
 		return null;
 	}
 
