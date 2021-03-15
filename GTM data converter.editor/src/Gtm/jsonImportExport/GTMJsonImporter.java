@@ -342,7 +342,7 @@ public class GTMJsonImporter {
 		for (FareReferenceStationSetDef jz : list) {
 			FareStationSetDefinition fssd = convert(jz);
 			if (fssd != null) {
-				o.getFareStationSetDefinitions().add(convert(jz));
+				o.getFareStationSetDefinitions().add(fssd);
 				fareStationSets.put(fssd.getCode(), fssd);
 			}
 		}
