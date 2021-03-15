@@ -1178,7 +1178,7 @@ public class GtmValidator extends EObjectValidator {
 						 context));
 			}
 			return false;
-		} else if (fareTemplate.getPriceFactor() >= 1) {
+		} else if (fareTemplate.getPriceFactor() > 1) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -3016,6 +3016,9 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateConnectionPoint_NAME_UTF8_FORMAT(ConnectionPoint connectionPoint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
+		
+		if (connectionPoint.getNameUtf8() == null || connectionPoint.getNameUtf8().length() == 0) return true;
+		
 		if (!StringFormatValidator.isStationUTF8(connectionPoint.getNameUtf8())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -3826,7 +3829,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_141,
+						 NationalLanguageSupport.GtmValidator_141 + " " + getObjectLabel(station, context),
 						 new Object[] { "NAME_FORMAT", getObjectLabel(station, context) }, //$NON-NLS-1$
 						 new Object[] { station },
 						 context));
@@ -3854,7 +3857,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_143,
+						 NationalLanguageSupport.GtmValidator_143 + " " + getObjectLabel(station, context),
 						 new Object[] { "NAME_CASE_UTF8_FORMAT", getObjectLabel(station, context) }, //$NON-NLS-1$
 						 new Object[] { station },
 						 context));
@@ -3882,7 +3885,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_145,
+						 NationalLanguageSupport.GtmValidator_145 + " " + getObjectLabel(station, context),
 						 new Object[] { "NAME_CASE_ASCII_FORMAT", getObjectLabel(station, context) }, //$NON-NLS-1$
 						 new Object[] { station },
 						 context));
@@ -3910,7 +3913,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_147,
+						 NationalLanguageSupport.GtmValidator_147 + " " + getObjectLabel(station, context),
 						 new Object[] { "SHORT_NAME_CASE_ASCII_FORMAT", getObjectLabel(station, context) }, //$NON-NLS-1$
 						 new Object[] { station },
 						 context));
@@ -3938,7 +3941,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_149,
+						 NationalLanguageSupport.GtmValidator_149 + " " + getObjectLabel(station, context),
 						 new Object[] { "SHORT_NAME_CASE_UTF8_FORMAT", getObjectLabel(station, context) }, //$NON-NLS-1$
 						 new Object[] { station },
 						 context));
@@ -3964,7 +3967,7 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 NationalLanguageSupport.GtmValidator_151,
+						 NationalLanguageSupport.GtmValidator_151 + " " + getObjectLabel(station, context),
 						 new Object[] { "TT_NAME_FORMAT", getObjectLabel(station, context) }, //$NON-NLS-1$
 						 new Object[] { station },
 						 context));
@@ -5478,6 +5481,8 @@ public class GtmValidator extends EObjectValidator {
 		
 		if (salesRestriction.getStartOfSale().getUnit() == salesRestriction.getEndOfSale().getUnit() &&
 			salesRestriction.getStartOfSale().getReference() == salesRestriction.getEndOfSale().getReference() &&	
+			(salesRestriction.getStartOfSale().getReference() == TimeReferenceType.AFTER_DEPARTURE ||
+			salesRestriction.getStartOfSale().getReference() == TimeReferenceType.AFTER_END_VALIDITY )&&
 			salesRestriction.getStartOfSale().getValue() > salesRestriction.getEndOfSale().getValue()) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -5492,6 +5497,25 @@ public class GtmValidator extends EObjectValidator {
 			}
 			return false;
 		}
+		
+		if (salesRestriction.getStartOfSale().getUnit() == salesRestriction.getEndOfSale().getUnit() &&
+				salesRestriction.getStartOfSale().getReference() == salesRestriction.getEndOfSale().getReference() &&	
+				(salesRestriction.getStartOfSale().getReference() == TimeReferenceType.BEFORE_DEPARTURE ||
+				salesRestriction.getStartOfSale().getReference() == TimeReferenceType.BEFORE_START_VALIDITY )&&
+				salesRestriction.getStartOfSale().getValue() < salesRestriction.getEndOfSale().getValue()) {
+				if (diagnostics != null) {
+					diagnostics.add
+						(createSimpleDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							 0,
+							 NationalLanguageSupport.GtmValidator_229  + " in " +  getObjectLabel(salesRestriction, context), 
+							 new Object[] { "START_END_DATE_ORDER", getObjectLabel(salesRestriction, context) }, //$NON-NLS-1$
+							 new Object[] { salesRestriction },
+							 context));
+				}
+				return false;
+			}
 		
 		
 		return true;
@@ -6720,7 +6744,7 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		
-		if (relativeTime.getValue() < 1) {
+		if (relativeTime.getValue() < 0) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -6765,7 +6789,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateRelativeTime_WARNING_TOO_SHORT(RelativeTime relativeTime, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		
-		if (relativeTime.getValue() < 1) {
+		if (relativeTime.getValue() < 0) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic

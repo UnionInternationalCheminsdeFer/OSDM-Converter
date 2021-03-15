@@ -1252,11 +1252,12 @@ public class GtmUtils {
 		GtmEditor editor = GtmUtils.getActiveEditor();
 
 		Display display = getDisplay();
-		final Shell shell1 =  editor.getSite().getShell();
+		
+		//final Shell shell1 =  editor.getSite().getShell();
 			
 		if (display != null) {
 			display.asyncExec(() -> {
-				MessageBox dialog =  new MessageBox(shell1, SWT.ICON_ERROR | SWT.OK);
+				MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(text);
 				if (e != null && e.getMessage() != null) {
 					dialog.setMessage(e.getMessage());

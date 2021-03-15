@@ -199,9 +199,10 @@ public class ConverterFromLegacy {
 
 		CompoundCommand command = new CompoundCommand();
 		
+		//delete fares
 		ArrayList<FareElement> fares = new ArrayList<FareElement>();
 		for (FareElement fare : tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {
-			if (fare.getDataSource() == DataSource.CONVERTED) {
+			if (fare.getDataSource() == DataSource.CONVERTED || fare.getDataSource() == DataSource.IMPORTED) {
 				fares.add(fare);
 			}
 		}
@@ -216,10 +217,11 @@ public class ConverterFromLegacy {
 		}
 		fares.clear();	
 		
+		//delete regional validities
 		command = new CompoundCommand();
 		ArrayList<RegionalConstraint> regions = new ArrayList<RegionalConstraint>();
 		for (RegionalConstraint region : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
-			if (region.getDataSource() == DataSource.CONVERTED) {
+			if (region.getDataSource() == DataSource.CONVERTED || region.getDataSource() == DataSource.IMPORTED) {
 				regions.add(region);	
 			}
 		}
@@ -235,11 +237,11 @@ public class ConverterFromLegacy {
 		deleted = regions.size();
 		regions.clear();
 		
-		
+		//delete prices
 		command = new CompoundCommand();
 		ArrayList<Price> prices = new ArrayList<Price>();
 		for (Price price : tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices()) {
-			if (price.getDataSource() == DataSource.CONVERTED) {
+			if (price.getDataSource() == DataSource.CONVERTED || price.getDataSource() == DataSource.IMPORTED) {
 				prices.add(price);
 			}
 		}	
@@ -253,7 +255,7 @@ public class ConverterFromLegacy {
 		}
 		prices.clear();
 		
-		
+		//connection points
 		command = new CompoundCommand();		
 		for (ConnectionPoint point : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
 			if (point.getDataSource() == DataSource.CONVERTED || point.getDataSource() == DataSource.IMPORTED) {
@@ -262,60 +264,66 @@ public class ConverterFromLegacy {
 		}		
 		executeAndFlush(command,domain);
 		
+		//delete sales availabilities
 		command = new CompoundCommand();
 		for (SalesAvailabilityConstraint sa : tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}		
 		executeAndFlush(command,domain);
 		
+		//delete Carrier Constraints
 		command = new CompoundCommand();
 		for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
-			if (cc.getDataSource() == DataSource.CONVERTED) {
+			if (cc.getDataSource() == DataSource.CONVERTED || cc.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, cc) );
 			}
 		}		
 		executeAndFlush(command,domain);		
 		
-		
+		//delete calendars
 		command = new CompoundCommand();		
 		for (Calendar sa : tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}	
 		executeAndFlush(command,domain);
 		
+		//Delete fare station sets
 		command = new CompoundCommand();		
 		for (FareStationSetDefinition sa : tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}
 		executeAndFlush(command,domain);
 
+		//delete After sales rules
 		command = new CompoundCommand();		
 		for (AfterSalesRule sa : tool.getGeneralTariffModel().getFareStructure().getAfterSalesRules().getAfterSalesRules()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}
 		executeAndFlush(command,domain);
 		
+		//delete fare constraint bundles
 		command = new CompoundCommand();		
 		for (FareConstraintBundle sa : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}
 		executeAndFlush(command,domain);
 		
+		//delete station mappings  (obsolete)
 		if ( tool.getConversionFromLegacy().getParams() != null && 
 			 tool.getConversionFromLegacy().getParams().getLegacyStationMappings() != null) {
 			command = new CompoundCommand();		
 			for (LegacyStationMap m : tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
-				if (m.getDataSource() == DataSource.CONVERTED) {
+				if (m.getDataSource() == DataSource.CONVERTED || m.getDataSource() == DataSource.IMPORTED) {
 					command.append(DeleteCommand.create(domain,m) );
 				}
 			}
