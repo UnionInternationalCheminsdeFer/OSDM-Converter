@@ -6035,7 +6035,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateViaStation_IF_ALTERNATIVE_ROUTES_AT_LEAST_TWO(ViaStation viaStation, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (viaStation.getAlternativeRoutes() != null && viaStation.getAlternativeRoutes().size() < 2) {
+		if (viaStation.getAlternativeRoutes() != null && !viaStation.getAlternativeRoutes().isEmpty() && viaStation.getAlternativeRoutes().size() < 2) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic

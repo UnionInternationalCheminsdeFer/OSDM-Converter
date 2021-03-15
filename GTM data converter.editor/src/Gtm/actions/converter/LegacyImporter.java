@@ -643,7 +643,7 @@ public class LegacyImporter {
 	
 	private LegacySeries decodeTCVSLine(String st, String timeZone) {
 		
-		//	1  code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for �BB 
+		//	1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for �BB 
 		//	2 Series number numeric 5 M TAP TSI Technical Document B.8 5-9 Coding for distance and routing between two stations or two fare points within a given country. 
 		//	3 Key flag for series numeric 1 M  10 0, 1 or 2 (see point 2.2) 
 		//	4 Type of series numeric 1 M  11 1 = transit 2 = border - destination station 3 = station - station 1st sorting criterion 
@@ -759,6 +759,9 @@ public class LegacyImporter {
         String busFlag                  = st.substring(69,70);
 		//	21 Ferry code alpha numeric 1 O  72 'S' entered here in the case of ferry services 
         String ferryFlag                = st.substring(71,72);
+        
+		//	34 Standard fare table number numeric 4 M  153-156  
+        String fareTableString          =  st.substring(152,156);       
         		
 		LegacySeries series = GtmFactory.eINSTANCE.createLegacySeries();
 		
@@ -769,6 +772,14 @@ public class LegacyImporter {
 		series.setToStationName(destinationStationName);
 		
 		series.setNumber(Integer.parseInt(number));
+		
+		
+		try {
+			series.setFareTableNumber(Integer.parseInt(fareTableString));
+		} catch(Exception e) {
+			series.setFareTableNumber(0);	
+		}
+		
 		
 		if (type.equals("1")) series.setType(LegacySeriesType.TRANSIT); //$NON-NLS-1$
 		if (type.equals("2")) series.setType(LegacySeriesType.BORDER_DESTINATION); //$NON-NLS-1$
