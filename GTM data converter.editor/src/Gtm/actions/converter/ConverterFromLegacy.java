@@ -51,7 +51,6 @@ import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyDistanceFare;
 import Gtm.LegacyFareDetailMap;
-import Gtm.LegacyFareStationSetMappings;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
 import Gtm.LegacySeries;
@@ -2070,7 +2069,6 @@ public class ConverterFromLegacy {
 		HashMap<Integer,HashSet<Legacy108Station>> stationList = new HashMap<Integer,HashSet<Legacy108Station>>();
 
 		//create FareStationSets
-		LegacyFareStationSetMappings fareStationSetMappings = GtmFactory.eINSTANCE.createLegacyFareStationSetMappings();
 		FareStationSetDefinitions fareStationSetDefinitions = GtmFactory.eINSTANCE.createFareStationSetDefinitions();
 
 		//create list of fare station sets
@@ -2161,18 +2159,10 @@ public class ConverterFromLegacy {
 		Command cmd = SetCommand.create(domain,tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__FARE_STATION_SET_DEFINITIONS, fareStationSetDefinitions);
 		if (cmd.canExecute()) {
 			domain.getCommandStack().execute(cmd);
+			return added;
 		} else {
 			return 0;
 		}
-	
-		Command cmd2 = SetCommand.create(domain,tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS, fareStationSetMappings);
-		if (cmd.canExecute()) {
-		domain.getCommandStack().execute(cmd2);
-		    return added;
-		} else {
-			return 0;
-		}		
-		
 
 	}
 	

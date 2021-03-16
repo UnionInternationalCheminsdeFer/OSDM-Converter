@@ -5479,6 +5479,8 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		
+		/*
+		 * no ordering of relative dates to be checked
 		if (salesRestriction.getStartOfSale().getUnit() == salesRestriction.getEndOfSale().getUnit() &&
 			salesRestriction.getStartOfSale().getReference() == salesRestriction.getEndOfSale().getReference() &&	
 			(salesRestriction.getStartOfSale().getReference() == TimeReferenceType.AFTER_DEPARTURE ||
@@ -5516,7 +5518,7 @@ public class GtmValidator extends EObjectValidator {
 				}
 				return false;
 			}
-		
+		*/
 		
 		return true;
 	}
