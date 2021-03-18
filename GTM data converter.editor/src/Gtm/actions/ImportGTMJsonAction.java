@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
+import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Station;
 import Gtm.actions.converter.StationNameMerger;
@@ -133,6 +134,21 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 				return;
 			}			
 			
+			if (tool.getCodeLists() != null &&
+				tool.getConversionFromLegacy() != null &&
+				tool.getConversionFromLegacy().getParams() != null &&
+				tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() != null &&
+				!tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty()
+				) {
+				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_QUESTION | SWT.OK| SWT.CANCEL);
+				dialog.setText("Importing OSDM fares will delete fare templates.");
+				dialog.setMessage("Do you want to continue?");
+				int returnCode = dialog.open(); 
+				if (returnCode == SWT.CANCEL) {
+					return;
+				}
+			}	
+			
 			
 			
 			File file = getFile();
@@ -187,6 +203,12 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_9);					
 						updateMERITSStations(domain,importer.getStations(), fareDelivery.getFareStructureDelivery().getFareStructure().getStationNames());
+						//reset fare templates
+						SetCommand command = new SetCommand(domain, tool.getConversionFromLegacy().getParams().getLegacyFareTemplates(), GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_TEMPLATES, GtmFactory.eINSTANCE.createLegacyFareTemplates());
+						if (command.canExecute()) {
+							domain.getCommandStack().execute(command);
+						}	
+					
 						monitor.worked(1);
 						
 						StringBuilder sb = new StringBuilder();

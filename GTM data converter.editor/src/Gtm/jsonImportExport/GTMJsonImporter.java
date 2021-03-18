@@ -342,7 +342,7 @@ public class GTMJsonImporter {
 		for (FareReferenceStationSetDef jz : list) {
 			FareStationSetDefinition fssd = convert(jz);
 			if (fssd != null) {
-				o.getFareStationSetDefinitions().add(convert(jz));
+				o.getFareStationSetDefinitions().add(fssd);
 				fareStationSets.put(fssd.getCode(), fssd);
 			}
 		}
@@ -1762,6 +1762,7 @@ public class GTMJsonImporter {
 		if (cc == null) return null;
 		CarrierConstraint o = GtmFactory.eINSTANCE.createCarrierConstraint();
 		o.setId(cc.getId());
+		o.setDataSource(DataSource.IMPORTED);
 		if (cc.getExcludedCarrier() != null && !cc.getExcludedCarrier().isEmpty()) {
 			Collection<? extends Carrier> cl = convertCarrierList(cc.getExcludedCarrier());
 			if (cl != null && !cl.isEmpty()) {

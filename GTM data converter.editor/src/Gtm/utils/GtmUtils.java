@@ -239,15 +239,19 @@ public class GtmUtils {
 				if (tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() == null) {
 					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_TEMPLATES,GtmFactory.eINSTANCE.createLegacyFareTemplates()));									
 				}
+				/*
 				if (tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings() == null) {
 					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS,GtmFactory.eINSTANCE.createLegacyFareStationSetMappings()));									
 				}
+				*/
 				if (tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings() == null) {
 					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_TO_SERVICE_BRAND_MAPPINGS,GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings()));									
 				}
+				/*
 				if (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings() == null) {
 					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_BORDER_POINT_MAPPINGS,GtmFactory.eINSTANCE.createLegacyBoderPointMappings()));									
 				}
+				*/
 				if (tool.getConversionFromLegacy().getParams().getBusFerryMapping() == null) {
 					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING,GtmFactory.eINSTANCE.createLegacyBusFerryMapping()));									
 				}
@@ -564,8 +568,8 @@ public class GtmUtils {
 		ConversionParams params = GtmFactory.eINSTANCE.createConversionParams();
 		params.setLegacyStationMappings(GtmFactory.eINSTANCE.createLegacyStationMappings());
 		params.setLegacyFareTemplates(GtmFactory.eINSTANCE.createLegacyFareTemplates());
-		params.setLegacyFareStationMappings(GtmFactory.eINSTANCE.createLegacyFareStationSetMappings());
-		params.setLegacyBorderPointMappings(GtmFactory.eINSTANCE.createLegacyBoderPointMappings());
+		//params.setLegacyFareStationMappings(GtmFactory.eINSTANCE.createLegacyFareStationSetMappings());
+		//params.setLegacyBorderPointMappings(GtmFactory.eINSTANCE.createLegacyBoderPointMappings());
 		params.setLegacyStationToServiceBrandMappings(GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
 		params.setBusFerryMapping(GtmFactory.eINSTANCE.createLegacyBusFerryMapping());									
 		
@@ -1252,11 +1256,12 @@ public class GtmUtils {
 		GtmEditor editor = GtmUtils.getActiveEditor();
 
 		Display display = getDisplay();
-		final Shell shell1 =  editor.getSite().getShell();
+		
+		//final Shell shell1 =  editor.getSite().getShell();
 			
 		if (display != null) {
 			display.asyncExec(() -> {
-				MessageBox dialog =  new MessageBox(shell1, SWT.ICON_ERROR | SWT.OK);
+				MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(text);
 				if (e != null && e.getMessage() != null) {
 					dialog.setMessage(e.getMessage());

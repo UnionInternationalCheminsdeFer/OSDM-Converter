@@ -51,7 +51,6 @@ import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyDistanceFare;
 import Gtm.LegacyFareDetailMap;
-import Gtm.LegacyFareStationSetMappings;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
 import Gtm.LegacySeries;
@@ -199,9 +198,10 @@ public class ConverterFromLegacy {
 
 		CompoundCommand command = new CompoundCommand();
 		
+		//delete fares
 		ArrayList<FareElement> fares = new ArrayList<FareElement>();
 		for (FareElement fare : tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {
-			if (fare.getDataSource() == DataSource.CONVERTED) {
+			if (fare.getDataSource() == DataSource.CONVERTED || fare.getDataSource() == DataSource.IMPORTED) {
 				fares.add(fare);
 			}
 		}
@@ -216,10 +216,11 @@ public class ConverterFromLegacy {
 		}
 		fares.clear();	
 		
+		//delete regional validities
 		command = new CompoundCommand();
 		ArrayList<RegionalConstraint> regions = new ArrayList<RegionalConstraint>();
 		for (RegionalConstraint region : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
-			if (region.getDataSource() == DataSource.CONVERTED) {
+			if (region.getDataSource() == DataSource.CONVERTED || region.getDataSource() == DataSource.IMPORTED) {
 				regions.add(region);	
 			}
 		}
@@ -235,11 +236,11 @@ public class ConverterFromLegacy {
 		deleted = regions.size();
 		regions.clear();
 		
-		
+		//delete prices
 		command = new CompoundCommand();
 		ArrayList<Price> prices = new ArrayList<Price>();
 		for (Price price : tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices()) {
-			if (price.getDataSource() == DataSource.CONVERTED) {
+			if (price.getDataSource() == DataSource.CONVERTED || price.getDataSource() == DataSource.IMPORTED) {
 				prices.add(price);
 			}
 		}	
@@ -253,7 +254,7 @@ public class ConverterFromLegacy {
 		}
 		prices.clear();
 		
-		
+		//connection points
 		command = new CompoundCommand();		
 		for (ConnectionPoint point : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
 			if (point.getDataSource() == DataSource.CONVERTED || point.getDataSource() == DataSource.IMPORTED) {
@@ -262,60 +263,66 @@ public class ConverterFromLegacy {
 		}		
 		executeAndFlush(command,domain);
 		
+		//delete sales availabilities
 		command = new CompoundCommand();
 		for (SalesAvailabilityConstraint sa : tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}		
 		executeAndFlush(command,domain);
 		
+		//delete Carrier Constraints
 		command = new CompoundCommand();
 		for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
-			if (cc.getDataSource() == DataSource.CONVERTED) {
+			if (cc.getDataSource() == DataSource.CONVERTED || cc.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, cc) );
 			}
 		}		
 		executeAndFlush(command,domain);		
 		
-		
+		//delete calendars
 		command = new CompoundCommand();		
 		for (Calendar sa : tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}	
 		executeAndFlush(command,domain);
 		
+		//Delete fare station sets
 		command = new CompoundCommand();		
 		for (FareStationSetDefinition sa : tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}
 		executeAndFlush(command,domain);
 
+		//delete After sales rules
 		command = new CompoundCommand();		
 		for (AfterSalesRule sa : tool.getGeneralTariffModel().getFareStructure().getAfterSalesRules().getAfterSalesRules()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}
 		executeAndFlush(command,domain);
 		
+		//delete fare constraint bundles
 		command = new CompoundCommand();		
 		for (FareConstraintBundle sa : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
 				command.append(DeleteCommand.create(domain, sa) );
 			}
 		}
 		executeAndFlush(command,domain);
 		
+		//delete station mappings  (obsolete)
 		if ( tool.getConversionFromLegacy().getParams() != null && 
 			 tool.getConversionFromLegacy().getParams().getLegacyStationMappings() != null) {
 			command = new CompoundCommand();		
 			for (LegacyStationMap m : tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
-				if (m.getDataSource() == DataSource.CONVERTED) {
+				if (m.getDataSource() == DataSource.CONVERTED || m.getDataSource() == DataSource.IMPORTED) {
 					command.append(DeleteCommand.create(domain,m) );
 				}
 			}
@@ -2060,7 +2067,6 @@ public class ConverterFromLegacy {
 		HashMap<Integer,HashSet<Legacy108Station>> stationList = new HashMap<Integer,HashSet<Legacy108Station>>();
 
 		//create FareStationSets
-		LegacyFareStationSetMappings fareStationSetMappings = GtmFactory.eINSTANCE.createLegacyFareStationSetMappings();
 		FareStationSetDefinitions fareStationSetDefinitions = GtmFactory.eINSTANCE.createFareStationSetDefinitions();
 
 		//create list of fare station sets
@@ -2151,18 +2157,10 @@ public class ConverterFromLegacy {
 		Command cmd = SetCommand.create(domain,tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__FARE_STATION_SET_DEFINITIONS, fareStationSetDefinitions);
 		if (cmd.canExecute()) {
 			domain.getCommandStack().execute(cmd);
+			return added;
 		} else {
 			return 0;
 		}
-	
-		Command cmd2 = SetCommand.create(domain,tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS, fareStationSetMappings);
-		if (cmd.canExecute()) {
-		domain.getCommandStack().execute(cmd2);
-		    return added;
-		} else {
-			return 0;
-		}		
-		
 
 	}
 	

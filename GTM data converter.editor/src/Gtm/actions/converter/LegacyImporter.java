@@ -382,8 +382,8 @@ public class LegacyImporter {
 			if (st.length() != 174)	return null;
 			
 			//String carrier 		= st.substring(0, 4);
-			//String number  		= st.substring(4, 8);
-			String series    		= st.substring(8,13);
+			String number  		    = st.substring(4, 8);
+			String series    	   	= st.substring(8,13);
 
 			String fare1st 	 		= st.substring(132,139);	
 			String fare2nd 	 		= st.substring(124,131);	
@@ -398,6 +398,7 @@ public class LegacyImporter {
 			LegacyRouteFare fare = GtmFactory.eINSTANCE.createLegacyRouteFare();
 
 			fare.setSeriesNumber(Integer.parseInt(series));
+			fare.setFareTableNumber(Integer.parseInt(number));
 			
 			fare.setFare1st(Integer.parseInt(fare1st));
 			fare.setFare2nd(Integer.parseInt(fare2nd));
