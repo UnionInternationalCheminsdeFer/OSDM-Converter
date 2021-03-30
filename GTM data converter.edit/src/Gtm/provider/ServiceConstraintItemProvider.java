@@ -65,6 +65,7 @@ public class ServiceConstraintItemProvider
 			addIncludedServiceBrandsPropertyDescriptor(object);
 			addExcludedServiceBrandsPropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
+			addLegacy108CodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -158,6 +159,28 @@ public class ServiceConstraintItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Legacy108 Code feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLegacy108CodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ServiceConstraint_legacy108Code_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceConstraint_legacy108Code_feature", "_UI_ServiceConstraint_type"),
+				 GtmPackage.Literals.SERVICE_CONSTRAINT__LEGACY108_CODE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns ServiceConstraint.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -197,6 +220,7 @@ public class ServiceConstraintItemProvider
 		switch (notification.getFeatureID(ServiceConstraint.class)) {
 			case GtmPackage.SERVICE_CONSTRAINT__ID:
 			case GtmPackage.SERVICE_CONSTRAINT__DATA_DESCRIPTION:
+			case GtmPackage.SERVICE_CONSTRAINT__LEGACY108_CODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

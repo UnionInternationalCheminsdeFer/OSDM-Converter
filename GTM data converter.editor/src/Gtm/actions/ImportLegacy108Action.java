@@ -81,7 +81,7 @@ public class ImportLegacy108Action extends BasicGtmAction {
 
 			public void run(IProgressMonitor monitor) {
 
-				monitor.beginTask(NationalLanguageSupport.ImportLegacyAction_Monitor, 30); 
+				monitor.beginTask(NationalLanguageSupport.ImportLegacyAction_Monitor, 31); 
 		
 				importer.importAll(monitor);
 					

@@ -2,6 +2,7 @@
  */
 package Gtm.impl;
 
+import Gtm.DataSource;
 import Gtm.GtmPackage;
 import Gtm.Text;
 import Gtm.Translation;
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.TextImpl#getShortTextICAO <em>Short Text ICAO</em>}</li>
  *   <li>{@link Gtm.impl.TextImpl#getTranslations <em>Translations</em>}</li>
  *   <li>{@link Gtm.impl.TextImpl#isStandardText <em>Standard Text</em>}</li>
+ *   <li>{@link Gtm.impl.TextImpl#getDataSource <em>Data Source</em>}</li>
  * </ul>
  *
  * @generated
@@ -171,6 +173,26 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 	 * @ordered
 	 */
 	protected boolean standardText = STANDARD_TEXT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDataSource() <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DataSource DATA_SOURCE_EDEFAULT = DataSource.MANUAL;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataSource dataSource = DATA_SOURCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -334,6 +356,27 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataSource(DataSource newDataSource) {
+		DataSource oldDataSource = dataSource;
+		dataSource = newDataSource == null ? DATA_SOURCE_EDEFAULT : newDataSource;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.TEXT__DATA_SOURCE, oldDataSource, dataSource));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -365,6 +408,8 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 				return getTranslations();
 			case GtmPackage.TEXT__STANDARD_TEXT:
 				return isStandardText();
+			case GtmPackage.TEXT__DATA_SOURCE:
+				return getDataSource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -400,6 +445,9 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 			case GtmPackage.TEXT__STANDARD_TEXT:
 				setStandardText((Boolean)newValue);
 				return;
+			case GtmPackage.TEXT__DATA_SOURCE:
+				setDataSource((DataSource)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -433,6 +481,9 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 			case GtmPackage.TEXT__STANDARD_TEXT:
 				setStandardText(STANDARD_TEXT_EDEFAULT);
 				return;
+			case GtmPackage.TEXT__DATA_SOURCE:
+				setDataSource(DATA_SOURCE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -459,6 +510,8 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 				return translations != null && !translations.isEmpty();
 			case GtmPackage.TEXT__STANDARD_TEXT:
 				return standardText != STANDARD_TEXT_EDEFAULT;
+			case GtmPackage.TEXT__DATA_SOURCE:
+				return dataSource != DATA_SOURCE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -485,6 +538,8 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		result.append(shortTextICAO);
 		result.append(", standardText: ");
 		result.append(standardText);
+		result.append(", dataSource: ");
+		result.append(dataSource);
 		result.append(')');
 		return result.toString();
 	}

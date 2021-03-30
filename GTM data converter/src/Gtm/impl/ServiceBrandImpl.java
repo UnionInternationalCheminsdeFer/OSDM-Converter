@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.ServiceBrandImpl#getAbbreviation <em>Abbreviation</em>}</li>
  *   <li>{@link Gtm.impl.ServiceBrandImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link Gtm.impl.ServiceBrandImpl#getTransportMode <em>Transport Mode</em>}</li>
+ *   <li>{@link Gtm.impl.ServiceBrandImpl#getLocalLanguageName <em>Local Language Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -130,6 +131,26 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 	 * @ordered
 	 */
 	protected TransportMode transportMode = TRANSPORT_MODE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLocalLanguageName() <em>Local Language Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocalLanguageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOCAL_LANGUAGE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLocalLanguageName() <em>Local Language Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocalLanguageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String localLanguageName = LOCAL_LANGUAGE_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -260,6 +281,27 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getLocalLanguageName() {
+		return localLanguageName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLocalLanguageName(String newLocalLanguageName) {
+		String oldLocalLanguageName = localLanguageName;
+		localLanguageName = newLocalLanguageName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.SERVICE_BRAND__LOCAL_LANGUAGE_NAME, oldLocalLanguageName, localLanguageName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -273,6 +315,8 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 				return getDescription();
 			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
 				return getTransportMode();
+			case GtmPackage.SERVICE_BRAND__LOCAL_LANGUAGE_NAME:
+				return getLocalLanguageName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -299,6 +343,9 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 				return;
 			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
 				setTransportMode((TransportMode)newValue);
+				return;
+			case GtmPackage.SERVICE_BRAND__LOCAL_LANGUAGE_NAME:
+				setLocalLanguageName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -327,6 +374,9 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
 				setTransportMode(TRANSPORT_MODE_EDEFAULT);
 				return;
+			case GtmPackage.SERVICE_BRAND__LOCAL_LANGUAGE_NAME:
+				setLocalLanguageName(LOCAL_LANGUAGE_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -349,6 +399,8 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
 				return transportMode != TRANSPORT_MODE_EDEFAULT;
+			case GtmPackage.SERVICE_BRAND__LOCAL_LANGUAGE_NAME:
+				return LOCAL_LANGUAGE_NAME_EDEFAULT == null ? localLanguageName != null : !LOCAL_LANGUAGE_NAME_EDEFAULT.equals(localLanguageName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -373,6 +425,8 @@ public class ServiceBrandImpl extends MinimalEObjectImpl.Container implements Se
 		result.append(description);
 		result.append(", transportMode: ");
 		result.append(transportMode);
+		result.append(", localLanguageName: ");
+		result.append(localLanguageName);
 		result.append(')');
 		return result.toString();
 	}

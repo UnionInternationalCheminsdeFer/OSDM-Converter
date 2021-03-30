@@ -7,6 +7,7 @@ import Gtm.Carrier;
 import Gtm.FareStationSetDefinition;
 import Gtm.GtmPackage;
 import Gtm.Route;
+import Gtm.ServiceConstraint;
 import Gtm.Station;
 import Gtm.ViaStation;
 
@@ -41,6 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.ViaStationImpl#getAlternativeRoutes <em>Alternative Routes</em>}</li>
  *   <li>{@link Gtm.impl.ViaStationImpl#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.impl.ViaStationImpl#getFareStationSet <em>Fare Station Set</em>}</li>
+ *   <li>{@link Gtm.impl.ViaStationImpl#getServiceConstraint <em>Service Constraint</em>}</li>
  * </ul>
  *
  * @generated
@@ -115,6 +117,16 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 	 * @ordered
 	 */
 	protected FareStationSetDefinition fareStationSet;
+
+	/**
+	 * The cached value of the '{@link #getServiceConstraint() <em>Service Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getServiceConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected ServiceConstraint serviceConstraint;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -292,6 +304,44 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ServiceConstraint getServiceConstraint() {
+		if (serviceConstraint != null && serviceConstraint.eIsProxy()) {
+			InternalEObject oldServiceConstraint = (InternalEObject)serviceConstraint;
+			serviceConstraint = (ServiceConstraint)eResolveProxy(oldServiceConstraint);
+			if (serviceConstraint != oldServiceConstraint) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.VIA_STATION__SERVICE_CONSTRAINT, oldServiceConstraint, serviceConstraint));
+			}
+		}
+		return serviceConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ServiceConstraint basicGetServiceConstraint() {
+		return serviceConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setServiceConstraint(ServiceConstraint newServiceConstraint) {
+		ServiceConstraint oldServiceConstraint = serviceConstraint;
+		serviceConstraint = newServiceConstraint;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.VIA_STATION__SERVICE_CONSTRAINT, oldServiceConstraint, serviceConstraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Carrier getCarrier() {
 		if (carrier != null && carrier.eIsProxy()) {
 			InternalEObject oldCarrier = (InternalEObject)carrier;
@@ -413,6 +463,9 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 			case GtmPackage.VIA_STATION__FARE_STATION_SET:
 				if (resolve) return getFareStationSet();
 				return basicGetFareStationSet();
+			case GtmPackage.VIA_STATION__SERVICE_CONSTRAINT:
+				if (resolve) return getServiceConstraint();
+				return basicGetServiceConstraint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -445,6 +498,9 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 			case GtmPackage.VIA_STATION__FARE_STATION_SET:
 				setFareStationSet((FareStationSetDefinition)newValue);
 				return;
+			case GtmPackage.VIA_STATION__SERVICE_CONSTRAINT:
+				setServiceConstraint((ServiceConstraint)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -475,6 +531,9 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 			case GtmPackage.VIA_STATION__FARE_STATION_SET:
 				setFareStationSet((FareStationSetDefinition)null);
 				return;
+			case GtmPackage.VIA_STATION__SERVICE_CONSTRAINT:
+				setServiceConstraint((ServiceConstraint)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -499,6 +558,8 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
 			case GtmPackage.VIA_STATION__FARE_STATION_SET:
 				return fareStationSet != null;
+			case GtmPackage.VIA_STATION__SERVICE_CONSTRAINT:
+				return serviceConstraint != null;
 		}
 		return super.eIsSet(featureID);
 	}

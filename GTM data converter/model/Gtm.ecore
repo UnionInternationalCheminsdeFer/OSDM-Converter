@@ -73,6 +73,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transportMode" eType="#//TransportMode"
         defaultValueLiteral="train"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="localLanguageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TransportMode">
     <eLiterals name="train" value="37"/>
@@ -697,7 +698,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="INCLUDE_OR_EXCLUDE"/>
+      <details key="constraints" value="INCLUDE_OR_EXCLUDE LEGACY_CODE_RANGE"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="includedServiceBrands"
@@ -705,6 +706,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludedServiceBrands"
         upperBound="-1" eType="#//ServiceBrand"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacy108Code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RegionalConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="regionalConstraints" upperBound="-1"
@@ -736,6 +738,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="line" eType="#//Line" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="polygone" eType="#//Polygone"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraint" eType="#//ServiceConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceLevelDefinitions">
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceLevelDefinition"
@@ -758,6 +761,7 @@
         eType="#//Translation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Translation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -935,6 +939,7 @@
         eType="#//AlternativeRoute" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fareStationSet" eType="#//FareStationSetDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraint" eType="#//ServiceConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AlternativeRoute">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -1321,6 +1326,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="endDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="legacyBorderPoints" eType="#//LegacyBorderPoints"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="legacyMemos" eType="#//Legacy108Memos"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Legacy108Memos">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="legacyMemos" upperBound="-1"
+        eType="#//Legacy108Memo" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Legacy108Memo">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="local" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="english" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="french" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="german" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Legacy108FareDescription">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -1401,6 +1419,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="busCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ferryCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="memoNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LegacySeparateContractSeriesList">
     <eStructuralFeatures xsi:type="ecore:EReference" name="separateContractSeries"

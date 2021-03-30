@@ -52,6 +52,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.LegacySeriesImpl#getValidUntil <em>Valid Until</em>}</li>
  *   <li>{@link Gtm.impl.LegacySeriesImpl#getBusCode <em>Bus Code</em>}</li>
  *   <li>{@link Gtm.impl.LegacySeriesImpl#getFerryCode <em>Ferry Code</em>}</li>
+ *   <li>{@link Gtm.impl.LegacySeriesImpl#getMemoNumber <em>Memo Number</em>}</li>
  * </ul>
  *
  * @generated
@@ -446,6 +447,26 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 	protected String ferryCode = FERRY_CODE_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getMemoNumber() <em>Memo Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMemoNumber()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int MEMO_NUMBER_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getMemoNumber() <em>Memo Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMemoNumber()
+	 * @generated
+	 * @ordered
+	 */
+	protected int memoNumber = MEMO_NUMBER_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -671,6 +692,27 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 		ferryCode = newFerryCode;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY_SERIES__FERRY_CODE, oldFerryCode, ferryCode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getMemoNumber() {
+		return memoNumber;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMemoNumber(int newMemoNumber) {
+		int oldMemoNumber = memoNumber;
+		memoNumber = newMemoNumber;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY_SERIES__MEMO_NUMBER, oldMemoNumber, memoNumber));
 	}
 
 	/**
@@ -964,6 +1006,8 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 				return getBusCode();
 			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
 				return getFerryCode();
+			case GtmPackage.LEGACY_SERIES__MEMO_NUMBER:
+				return getMemoNumber();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1035,6 +1079,9 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
 				setFerryCode((String)newValue);
 				return;
+			case GtmPackage.LEGACY_SERIES__MEMO_NUMBER:
+				setMemoNumber((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1104,6 +1151,9 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
 				setFerryCode(FERRY_CODE_EDEFAULT);
 				return;
+			case GtmPackage.LEGACY_SERIES__MEMO_NUMBER:
+				setMemoNumber(MEMO_NUMBER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1154,6 +1204,8 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 				return BUS_CODE_EDEFAULT == null ? busCode != null : !BUS_CODE_EDEFAULT.equals(busCode);
 			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
 				return FERRY_CODE_EDEFAULT == null ? ferryCode != null : !FERRY_CODE_EDEFAULT.equals(ferryCode);
+			case GtmPackage.LEGACY_SERIES__MEMO_NUMBER:
+				return memoNumber != MEMO_NUMBER_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1204,6 +1256,8 @@ public class LegacySeriesImpl extends MinimalEObjectImpl.Container implements Le
 		result.append(busCode);
 		result.append(", ferryCode: ");
 		result.append(ferryCode);
+		result.append(", memoNumber: ");
+		result.append(memoNumber);
 		result.append(')');
 		return result.toString();
 	}

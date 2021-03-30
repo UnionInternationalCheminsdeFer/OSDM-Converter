@@ -43,6 +43,8 @@ import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
+import Gtm.Language;
+import Gtm.Legacy108Memo;
 import Gtm.Legacy108Station;
 import Gtm.LegacyAccountingIdentifier;
 import Gtm.LegacyBorderPoint;
@@ -72,6 +74,8 @@ import Gtm.StationFareDetailType;
 import Gtm.StationNames;
 import Gtm.StationSet;
 import Gtm.TaxScope;
+import Gtm.Text;
+import Gtm.Translation;
 import Gtm.VATDetail;
 import Gtm.VatTemplate;
 import Gtm.ViaStation;
@@ -115,6 +119,9 @@ public class ConverterFromLegacy {
 	
 	/**  The connectionPoints with border code. */
 	private HashMap<Integer,LegacyBorderPoint> borderPoints = new HashMap<Integer,LegacyBorderPoint>();
+	
+	/** The local stations in the legacy data country. */
+	private HashMap<Integer,Text> memoTexts = new HashMap<Integer,Text>();
 	
 	/** The country */
 	private Country myCountry = null;
@@ -328,6 +335,15 @@ public class ConverterFromLegacy {
 			}
 			executeAndFlush(command,domain);
 		}
+		
+		//delete texts
+		command = new CompoundCommand();		
+		for (Text sa : tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts()) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
+				command.append(DeleteCommand.create(domain, sa) );
+			}
+		}
+		executeAndFlush(command,domain);
 
 		return deleted;
 	}
@@ -386,6 +402,14 @@ public class ConverterFromLegacy {
 		executeAndFlush(command, domain);
 		monitor.worked(1);
 		
+
+		if (!memoTexts.isEmpty()) {
+			command = new CompoundCommand();
+			Command com0 = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts(), GtmPackage.Literals.TEXTS__TEXTS, memoTexts.values());
+			command.append(com0);
+			executeAndFlush(command, domain);
+		}
+		monitor.worked(1);
 		
 		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			
@@ -1018,14 +1042,19 @@ public class ConverterFromLegacy {
 		//priority is for Fare Station Set. In case it is not a fare station set use a station
 		Station station = null;
 		FareStationSetDefinition fareStationSet = null;
+		ServiceConstraint serviceConstraint = null;
 		fareStationSet = findFareStation(code);
 		if (fareStationSet == null) {
 			station = getStation(tool, country, code);
 			if (station  == null) {
 				station = findBorderPointMappingStation(code);
 			} 		
+			if (station == null) {
+				serviceConstraint = findServiceConstraint(code);
+			}
 		} 
-		if (station == null && fareStationSet == null) {
+		
+		if (station == null && fareStationSet == null && serviceConstraint == null) {
 			if (isMappedStation(code)) {
 				return null;
 			}
@@ -1037,10 +1066,25 @@ public class ConverterFromLegacy {
 		ViaStation viaStation = GtmFactory.eINSTANCE.createViaStation();
 		viaStation.setStation(station);
 		viaStation.setFareStationSet(fareStationSet);
+		viaStation.setServiceConstraint(serviceConstraint);
 		return viaStation;
 	}
 
 
+
+	private ServiceConstraint findServiceConstraint(int code) {
+		
+		if (tool.getGeneralTariffModel().getFareStructure().getServiceConstraints() == null) {
+			return null;
+		}
+		
+		for (ServiceConstraint sc : tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints()) {
+			if (sc.getLegacy108Code() == code) {
+				return sc;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Creates the regional constraint.
@@ -1731,6 +1775,11 @@ public class ConverterFromLegacy {
 			}
 		}
 		
+		if (series.getMemoNumber() > 0) {
+			setDetailDescription(fare,series.getMemoNumber());
+		}
+		
+		
 		LegacyAccountingIdentifier accountingIdentifier = GtmFactory.eINSTANCE.createLegacyAccountingIdentifier();
 		accountingIdentifier.setAddSeriesId(0);
 		if (fareTemplate.getLegacyAccountingIdentifier() != null) {
@@ -1783,6 +1832,96 @@ public class ConverterFromLegacy {
 	}
 
 	
+	private void setDetailDescription(FareElement fare, int memoNumber) {
+		
+		// search memo
+		Legacy108Memo  memo = getLegacyMemo(memoNumber);
+		if (memo == null) {
+			return;
+		}
+		// search or create text
+		Text text = searchText(memo);
+		if (text == null){
+			return;
+		}
+		// link text to fare
+		fare.setFareDetailDescription(text);
+		
+	}
+
+	private Text searchText(Legacy108Memo memo) {
+		
+		Text text = memoTexts.get(Integer.valueOf(memo.getNumber()));
+		if (text != null) {
+			return text;
+		}
+		
+		text = GtmFactory.eINSTANCE.createText();
+		text.setDataSource(DataSource.GENERATED);
+		text.setTextUTF8(memo.getLocal());
+		if (memo.getEnglish() != null && memo.getEnglish().length() > 0) {
+			Translation e = GtmFactory.eINSTANCE.createTranslation();
+			e.setLanguage(getEnglish());
+			e.setTextUTF8(memo.getEnglish());
+			text.getTranslations().add(e);
+		}	
+		if (memo.getFrench() != null && memo.getFrench().length() > 0) {
+			Translation e = GtmFactory.eINSTANCE.createTranslation();
+			e.setLanguage(getFrench());
+			e.setTextUTF8(memo.getFrench());
+			text.getTranslations().add(e);
+		}
+		if (memo.getGerman() != null && memo.getGerman().length() > 0) {
+			Translation e = GtmFactory.eINSTANCE.createTranslation();
+			e.setLanguage(getGerman());
+			e.setTextUTF8(memo.getGerman());
+			text.getTranslations().add(e);
+		}	
+
+		memoTexts.put(Integer.valueOf(memo.getNumber()),text);
+		return text;
+	}
+
+	private Language getGerman() {
+		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
+			if (l.getCode().equals("de")) {
+				return l;
+			}
+		}
+		return null;
+	}
+
+	private Language getFrench() {
+		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
+			if (l.getCode().equals("fr")) {
+				return l;
+			}
+		}
+		return null;
+	}
+
+	private Language getEnglish() {
+		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
+			if (l.getCode().equals("en")) {
+				return l;
+			}
+		}
+		return null;
+	}
+
+	private Legacy108Memo getLegacyMemo(int memoNumber) {
+		if (tool.getConversionFromLegacy().getLegacy108().getLegacyMemos() == null) {
+			return null;
+		}
+		
+		for (Legacy108Memo m : tool.getConversionFromLegacy().getLegacy108().getLegacyMemos().getLegacyMemos()) {
+		   if (m.getNumber() == memoNumber) {
+			   return m;
+		   }
+		}
+		return null;
+	}
+
 	/**
 	 * Template 2 fare.
 	 *

@@ -64,34 +64,45 @@ public class RouteDescriptionBuilder {
 	/**
 	 * Gets the via description.
 	 *
-	 * @param regionalValidity the regional validity
+	 * @param regionalValidities the regional validity
 	 * @return the via description
 	 */
-	public static String getViaDescription(EList<RegionalValidity> regionalValidity) {
+	public static String getViaDescription(EList<RegionalValidity> regionalValidities) {
 		
-		if (regionalValidity.isEmpty()) {
+		if (regionalValidities == null || regionalValidities.isEmpty()) {
 			return "missing route";
 		}
 		
-		ViaStation via = regionalValidity.get(0).getViaStation();
+		StringBuilder label = new StringBuilder();
+		label.append("");
+
+		RegionalValidity regionalValidity = regionalValidities.get(0);
+		ViaStation via = regionalValidity.getViaStation();
+		
+		if (regionalValidity.getServiceConstraint() != null && via.getServiceConstraint() == null) {
+			label.append(getText(regionalValidity.getServiceConstraint()));
+		} else if (via.getServiceConstraint() != null) {
+			label.append(getText(via.getServiceConstraint()));
+		}
+		
+
 		if (via == null ||
 			via.getRoute() == null || 
 			via.getRoute().getStations() == null ||
 			via.getRoute().getStations().isEmpty() ) {
-				return " "; //$NON-NLS-1$
+				return label.toString(); //$NON-NLS-1$
 		}
 		
 		Route route = via.getRoute();
 		
 		if (via.getRoute().getStations().size() < 3) {
-			return "";
+			return label.toString();
 		}
 		
 		int first = 1;
 		int last = route.getStations().size() - 1;
 		
 		try {
-			StringBuilder label = new StringBuilder();
 			for (int i = first; i < last; i++) {
 				if (i > first) {
 					label.append("*");
@@ -114,14 +125,24 @@ public class RouteDescriptionBuilder {
 	 */
 	public static String getRouteDescription(ViaStation via) {
 		
-		if (via.getStation()!= null) {
-			return getShortNameCaseASCII(via.getStation());
-		} 
-		if (via.getFareStationSet() != null) {
-			return via.getFareStationSet().getName();
+		StringBuilder label = new StringBuilder();
+		
+		if (via.getServiceConstraint() != null) {
+			label.append(getText(via.getServiceConstraint()));
 		}
 		
-		StringBuilder label = new StringBuilder();
+		if (via.getStation()!= null) {
+			if (label.length() > 0) {
+				label.append("*");
+			}
+			label.append(getShortNameCaseASCII(via.getStation()));
+		} 
+		if (via.getFareStationSet() != null) {
+			if (label.length() > 0) {
+				label.append("*");
+			}
+			label.append(via.getFareStationSet().getName());
+		}
 		
 		if (via.getRoute()!= null && via.getRoute().getStations() != null && !via.getRoute().getStations().isEmpty() ) {
 			label.append(getRouteDescription(via.getRoute()));
@@ -292,6 +313,31 @@ public class RouteDescriptionBuilder {
 
 		return null;
 
+	}
+	
+	
+	public static String getText(ServiceConstraint sc) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if (sc.getIncludedServiceBrands() != null && !sc.getIncludedServiceBrands().isEmpty()) {
+			
+			for (ServiceBrand s : sc.getIncludedServiceBrands()) {
+				if (sb.length() > 0) {
+					sb.append("/");
+				}
+				if (s.getLocalLanguageName() != null && s.getLocalLanguageName().length() > 0) {
+					sb.append(s.getLocalLanguageName());
+				} else if (s.getAbbreviation() != null && s.getAbbreviation().length() > 0) {
+					sb.append(s.getAbbreviation());
+				} else if (s.getDescription() != null && s.getDescription().length() > 0) {
+					sb.append(s.getDescription());
+				} 
+			}
+		}
+		
+		return sb.toString();
+		
 	}
 
 }

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ServiceBrand#getAbbreviation <em>Abbreviation</em>}</li>
  *   <li>{@link Gtm.ServiceBrand#getDescription <em>Description</em>}</li>
  *   <li>{@link Gtm.ServiceBrand#getTransportMode <em>Transport Mode</em>}</li>
+ *   <li>{@link Gtm.ServiceBrand#getLocalLanguageName <em>Local Language Name</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getServiceBrand()
@@ -138,5 +139,27 @@ public interface ServiceBrand extends EObject {
 	 * @generated
 	 */
 	void setTransportMode(TransportMode value);
+
+	/**
+	 * Returns the value of the '<em><b>Local Language Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Local Language Name</em>' attribute.
+	 * @see #setLocalLanguageName(String)
+	 * @see Gtm.GtmPackage#getServiceBrand_LocalLanguageName()
+	 * @model
+	 * @generated
+	 */
+	String getLocalLanguageName();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ServiceBrand#getLocalLanguageName <em>Local Language Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Local Language Name</em>' attribute.
+	 * @see #getLocalLanguageName()
+	 * @generated
+	 */
+	void setLocalLanguageName(String value);
 
 } // ServiceBrand

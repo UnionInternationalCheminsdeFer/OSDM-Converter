@@ -34,6 +34,8 @@ import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Legacy108FareDescription;
 import Gtm.Legacy108FaresDescriptions;
+import Gtm.Legacy108Memo;
+import Gtm.Legacy108Memos;
 import Gtm.Legacy108Station;
 import Gtm.Legacy108Stations;
 import Gtm.LegacyBorderPoint;
@@ -69,7 +71,6 @@ import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils; 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ConverterToLegacy.
  */
@@ -105,6 +106,10 @@ public class 	ConverterToLegacy {
 	
 	/** The legacy fare descriptions. */
 	private HashMap<Integer,Legacy108FareDescription> legacyFareDescriptions = new HashMap<Integer,Legacy108FareDescription>();	
+
+	/** The legacy fare descriptions. */
+	private HashMap<Text,Legacy108Memo> memos = new HashMap<Text,Legacy108Memo>();	
+
 	
 	/**
 	 * Instantiates a new converter to legacy.
@@ -147,8 +152,12 @@ public class 	ConverterToLegacy {
 		monitor.worked(1);
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_1);	
-		convertfareStations();	
+		convertfareStations();
+		convertServiceConstraintStations();	
+
 		monitor.worked(1);
+		
+		
 
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_2);	
 		List<FareElement> convertableFares = selectFares();
@@ -220,6 +229,7 @@ public class 	ConverterToLegacy {
 		comm.append(SetCommand.create(domain,tool.getConversionFromLegacy().getLegacy108(),GtmPackage.Literals.LEGACY108__LEGACY_SERIES_LIST,GtmFactory.eINSTANCE.createLegacySeriesList()));
 		comm.append(SetCommand.create(domain,tool.getConversionFromLegacy().getLegacy108(),GtmPackage.Literals.LEGACY108__LEGACY_FARE_DESCRIPTIONS,GtmFactory.eINSTANCE.createLegacy108FaresDescriptions()));
 		comm.append(SetCommand.create(domain,tool.getConversionFromLegacy().getLegacy108(),GtmPackage.Literals.LEGACY108__LEGACY_SEPARATE_CONTRACT_SERIES,GtmFactory.eINSTANCE.createLegacySeparateContractSeriesList()));
+		comm.append(SetCommand.create(domain,tool.getConversionFromLegacy().getLegacy108(),GtmPackage.Literals.LEGACY108__LEGACY_MEMOS,GtmFactory.eINSTANCE.createLegacy108Memos()));
 		
 		if (!comm.isEmpty() && comm.canExecute()) {
 			domain.getCommandStack().execute(comm);
@@ -310,6 +320,19 @@ public class 	ConverterToLegacy {
 		}
 		monitor.worked(1);
 		
+		monitor.subTask("add memos");	
+		Legacy108Memos lms = GtmFactory.eINSTANCE.createLegacy108Memos();
+		lms.getLegacyMemos().addAll(memos.values());
+		com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_MEMOS, lms);
+		if (com != null && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
+		if (lms.getLegacyMemos() != null) {
+			String message = String.format("108-TCVM memos added: %d", lms.getLegacyMemos().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
+		monitor.worked(1);
+		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_15);	
 		CompoundCommand command = new CompoundCommand();
 		command.append(SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__START_DATE, getStartDate(tool)));
@@ -318,6 +341,9 @@ public class 	ConverterToLegacy {
 			domain.getCommandStack().execute(command);
 		}
 		monitor.worked(1);		
+		
+		
+		
 		
 		return series.size();
 	}
@@ -605,9 +631,16 @@ public class 	ConverterToLegacy {
 	}
 
 	/**
-	 * Convertfare stations.
+	 * Convert fare stations.
 	 */
 	private void convertfareStations() {
+		
+		if (tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions()== null 
+			|| tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions().isEmpty()) {
+			return;
+		}
+			
+		
 		for (FareStationSetDefinition fs : tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions()) {
 			int code = 0;
 			try {
@@ -616,7 +649,7 @@ public class 	ConverterToLegacy {
 				code = fs.getLegacyCode();
 			}
 			
-			if (code == 00 || code > 99999) {
+			if (code <= 0 || code > 99999) {
 				GtmUtils.writeConsoleWarning("fare station set code not convertable: " + GtmUtils.getLabelText(fs) + " code: " + fs.getCode(), editor);
 				return;
 			}
@@ -648,7 +681,7 @@ public class 	ConverterToLegacy {
 			if (fs.getLegacyCode() != 0) {
 				ls.setFareReferenceStationCode(fs.getLegacyCode());
 			} else {
-				if (code < 99999) {
+				if (code < 100000) {
 					ls.setFareReferenceStationCode(code);
 				}
 			}
@@ -658,9 +691,44 @@ public class 	ConverterToLegacy {
 			} else {
 				legacyStations.put(ls.getStationCode(), ls);
 			}
+		}
+		return;
+		
+	}
+	
+	/**
+	 * Convert fare stations.
+	 */
+	private void convertServiceConstraintStations() {
+		
+		if ( tool.getGeneralTariffModel().getFareStructure().getServiceConstraints() == null
+			||tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints().isEmpty()){
+			return;
+		}
+		
+		for (ServiceConstraint fs : tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints()) {
 			
+			if (fs.getLegacy108Code() < 0 || fs.getLegacy108Code() > 99999) {
+				GtmUtils.writeConsoleWarning("legacy code in service constraint invalid: " + GtmUtils.getLabelText(fs) + " code: " + fs.getLegacy108Code(), editor);
+			} else if (fs.getLegacy108Code() > 0) {
 
-			
+				Legacy108Station ls = legacyStations.get(fs.getLegacy108Code());
+				
+				if (ls == null) {
+					ls = GtmFactory.eINSTANCE.createLegacy108Station();
+					ls.setStationCode(fs.getLegacy108Code());
+					ls.setName(RouteDescriptionBuilder.getText(fs));
+					ls.setNameUTF8(ls.getName());
+					ls.setShortName(ls.getName());
+					ls.setNameUTF8(ls.getName());
+				} 
+				if (ls.getName() == null || ls.getName().length() == 0) {
+					String message = "Service constraint name missing: legacy code " + Integer.toString(ls.getStationCode());
+					GtmUtils.writeConsoleError(message, editor);
+				} else {
+					legacyStations.put(ls.getStationCode(), ls);
+				}
+			}
 		}
 		return;
 		
@@ -832,6 +900,10 @@ public class 	ConverterToLegacy {
 			GtmUtils.writeConsoleError(message, editor);	
 			return null;
 		}
+		
+		if (fare.getFareDetailDescription() != null) {
+			convertToMemo(fare,series);
+		}
 
 		LegacyRouteFare routeFare = convertToFare(fare,series);
 		if (routeFare == null) return null;
@@ -853,6 +925,38 @@ public class 	ConverterToLegacy {
 		series.setFareTableNumber(routeFare.getFareTableNumber());
 
 		return routeFare;
+	}
+
+	private void convertToMemo(FareElement fare, LegacySeries series) {
+		
+		Legacy108Memo memo = memos.get(fare.getFareDetailDescription());
+		
+		if (memo != null) {
+			series.setMemoNumber(memo.getNumber());
+			return;
+		}
+		Text text = fare.getFareDetailDescription();
+		memo = GtmFactory.eINSTANCE.createLegacy108Memo();
+		memo.setNumber(memos.size() + 1);
+		memos.put(text, memo);
+		memo.setLocal(text.getTextUTF8());
+		memo.setEnglish(getTranslation(text, "en"));
+		memo.setFrench(getTranslation(text, "fr"));	
+		memo.setGerman(getTranslation(text, "de"));
+
+	}
+
+	private String getTranslation(Text text, String language) {
+		
+		if (text.getTranslations() == null) {
+			return null;
+		}
+		for (Translation t : text.getTranslations()) {
+			if (t.getLanguage() != null &&  t.getLanguage().getCode().equals(language)) {
+				return t.getTextUTF8();
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -971,10 +1075,20 @@ public class 	ConverterToLegacy {
 			return null;
 		}
 
-		ViaStation mainVia = regionalConstraint.getRegionalValidity().get(0).getViaStation();
+		RegionalValidity regionalValidity =  regionalConstraint.getRegionalValidity().get(0);
+		ServiceConstraint routeServiceConstraint = null;
+		if (regionalValidity.getServiceConstraint() != null && regionalValidity.getServiceConstraint().getLegacy108Code() > 0) {
+			routeServiceConstraint = regionalValidity.getServiceConstraint();
+		}
+				
+		ViaStation mainVia = regionalValidity.getViaStation();
 		if (mainVia.getCarrier() != null) {
 			series.setCarrierCode( mainVia.getCarrier().getCode());
 		}
+		if (mainVia.getServiceConstraint() != null && mainVia.getServiceConstraint().getLegacy108Code() > 0) {
+			routeServiceConstraint = mainVia.getServiceConstraint();
+		}		
+		
 		
 		if (series.getFromStation() == 0) {
 			Legacy108Station ls = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
@@ -999,7 +1113,7 @@ public class 	ConverterToLegacy {
 		
 		Route mainRoute = mainVia.getRoute();
 		int altRoute = 1;
-		addViaStations (series.getViastations(), mainRoute.getStations(), altRoute);
+		addViaStations (series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint);
 		if (series.getViastations().size() > 5) {
 			String message = NationalLanguageSupport.ConverterToLegacy_29 + routeDescription;
 			GtmUtils.writeConsoleError(message, editor);
@@ -1145,16 +1259,27 @@ public class 	ConverterToLegacy {
 	 * @param viastations the viastations
 	 * @param vias the vias
 	 * @param altRoute the alt route
+	 * @param routeServiceConstraint 
 	 * @return true, if successful
 	 */
-	private boolean addViaStations(EList<LegacyViastation> viastations, EList<ViaStation> vias, int altRoute) {
+	private boolean addViaStations(EList<LegacyViastation> viastations, EList<ViaStation> vias, int altRoute, ServiceConstraint routeServiceConstraint) {
 		
 		int lastIndex = vias.size() - 1;
 		
 		for (int index = 1;index < lastIndex; index++) {
 			
 			ViaStation station = vias.get(index);
-			if (station.getStation() != null) {
+			if (station.getServiceConstraint() != null && station.getServiceConstraint().getLegacy108Code() > 0) {
+				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
+				lvia.setPosition(altRoute);
+				lvia.setCode(station.getServiceConstraint().getLegacy108Code());
+				viastations.add(lvia);
+			} else if (index == 1 && routeServiceConstraint != null && station.getServiceConstraint() == null) {
+				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
+				lvia.setPosition(altRoute);
+				lvia.setCode(routeServiceConstraint.getLegacy108Code());
+				viastations.add(lvia);
+			} else	if (station.getStation() != null) {
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
 				lvia.setPosition(altRoute);
 				lvia.setCode(Integer.parseInt(station.getStation().getCode()));
@@ -1170,7 +1295,7 @@ public class 	ConverterToLegacy {
 			} else if (station.getAlternativeRoutes() != null) {
 				for (AlternativeRoute altr : station.getAlternativeRoutes()) {
 					altRoute++;
-					if (!addViaStations(viastations, altr.getStations(), altRoute)) {
+					if (!addViaStations(viastations, altr.getStations(), altRoute,null)) {
 						return false;
 					};
 				}
@@ -1381,14 +1506,87 @@ public class 	ConverterToLegacy {
 		if (isReversedSeries(via)) {
 			return false;
 		}
+		
+		//regional service constraints can convert
+		if (!serviceConstraintConvertable(fare.getRegionalConstraint())) {
+			return false;
+		}
 
 		//series can convert
 		LegacySeries s = convertToSeries(fare.getRegionalConstraint());
 		if (s == null) {
 			return false; 
 		}
+
+		return true;
+	}
+
+	private boolean serviceConstraintConvertable(RegionalConstraint regionalConstraint) {
 		
+		if (regionalConstraint.getRegionalValidity() == null || regionalConstraint.getRegionalValidity().size() != 1) {
+			return false;
+		}
+		RegionalValidity regionalValidity = regionalConstraint.getRegionalValidity().get(0);
+		if (regionalValidity.getServiceConstraint() != null) {
+			if (!isConvertable(regionalValidity.getServiceConstraint())) {
+				return false;
+			}
+		}
+		if (regionalValidity.getViaStation() == null) {
+			if (!isConvertable(regionalValidity.getViaStation())) {
+				return false;
+			}
+		}
 		
+
+		return true;
+	}
+
+	private boolean isConvertable(ViaStation viaStation) {
+		
+		if (viaStation.getServiceConstraint() != null) {
+			if (!isConvertable(viaStation.getServiceConstraint())) {
+				return false;
+			}
+		}
+		if (viaStation.getRoute() != null && !viaStation.getRoute().getStations().isEmpty()) {
+			for (ViaStation v : viaStation.getRoute().getStations()) {
+				if (! isConvertable(v)) {
+					return false;
+				}
+			}
+		}
+		if (viaStation.getAlternativeRoutes() != null && !viaStation.getAlternativeRoutes().isEmpty()) {
+			
+			for ( AlternativeRoute ar:  viaStation.getAlternativeRoutes()) {
+				if (ar.getStations() != null && !ar.getStations().isEmpty()) {
+					for (ViaStation v : ar.getStations()) {
+						if (! isConvertable(v)) {
+							return false;
+						}
+					}
+				}
+			}
+			
+		}
+		return true;
+	}
+
+	private boolean isConvertable(ServiceConstraint serviceConstraint) {
+		
+		if (serviceConstraint.getLegacy108Code() < 0 || serviceConstraint.getLegacy108Code() > 99999) {
+			return false;
+		}
+		if (serviceConstraint.getExcludedServiceBrands() != null && !serviceConstraint.getExcludedServiceBrands().isEmpty()) {
+			String message = "ServiceConstraint with excluded Service Brands is not convertable! Legacy Code: " +  Integer.toString(serviceConstraint.getLegacy108Code());
+			GtmUtils.writeConsoleError(message, editor);
+			return false;
+		}
+		if (serviceConstraint.getIncludedServiceBrands() != null || serviceConstraint.getIncludedServiceBrands().isEmpty()) {
+			String message = "ServiceConstraint without included Service Brands is not convertable! ";
+			GtmUtils.writeConsoleError(message, editor);
+			return false;
+		}		
 		return true;
 	}
 
@@ -1419,7 +1617,7 @@ public class 	ConverterToLegacy {
 		List<FareStationSetDefinition> fareStations = new ArrayList<FareStationSetDefinition>();
 		addStations(via,stations, fareStations);
 		
-		//too man stations
+		//too many stations
 		if (stations.size() + fareStations.size() > 7) {
 			return false;
 		}

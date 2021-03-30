@@ -3240,6 +3240,52 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.Legacy108Memos} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected Legacy108MemosItemProvider legacy108MemosItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.Legacy108Memos}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLegacy108MemosAdapter() {
+		if (legacy108MemosItemProvider == null) {
+			legacy108MemosItemProvider = new Legacy108MemosItemProvider(this);
+		}
+
+		return legacy108MemosItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.Legacy108Memo} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected Legacy108MemoItemProvider legacy108MemoItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.Legacy108Memo}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLegacy108MemoAdapter() {
+		if (legacy108MemoItemProvider == null) {
+			legacy108MemoItemProvider = new Legacy108MemoItemProvider(this);
+		}
+
+		return legacy108MemoItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.Legacy108FareDescription} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3825,6 +3871,8 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (legacyFareStationSetMapItemProvider != null) legacyFareStationSetMapItemProvider.dispose();
 		if (legacyBusFerryMappingItemProvider != null) legacyBusFerryMappingItemProvider.dispose();
 		if (legacy108ItemProvider != null) legacy108ItemProvider.dispose();
+		if (legacy108MemosItemProvider != null) legacy108MemosItemProvider.dispose();
+		if (legacy108MemoItemProvider != null) legacy108MemoItemProvider.dispose();
 		if (legacy108FareDescriptionItemProvider != null) legacy108FareDescriptionItemProvider.dispose();
 		if (legacy108FaresDescriptionsItemProvider != null) legacy108FaresDescriptionsItemProvider.dispose();
 		if (legacy108StationsItemProvider != null) legacy108StationsItemProvider.dispose();

@@ -990,6 +990,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass legacy108MemosEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass legacy108MemoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass legacy108FareDescriptionEClass = null;
 
 	/**
@@ -1717,6 +1731,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getServiceBrand_TransportMode() {
 		return (EAttribute)serviceBrandEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getServiceBrand_LocalLanguageName() {
+		return (EAttribute)serviceBrandEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -4577,6 +4600,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getServiceConstraint_Legacy108Code() {
+		return (EAttribute)serviceConstraintEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRegionalConstraints() {
 		return regionalConstraintsEClass;
 	}
@@ -4730,6 +4762,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getRegionalValidity_ServiceConstraint() {
+		return (EReference)regionalValidityEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getServiceLevelDefinitions() {
 		return serviceLevelDefinitionsEClass;
 	}
@@ -4831,6 +4872,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getText_StandardText() {
 		return (EAttribute)textEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_DataSource() {
+		return (EAttribute)textEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -5659,6 +5709,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getViaStation_FareStationSet() {
 		return (EReference)viaStationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getViaStation_ServiceConstraint() {
+		return (EReference)viaStationEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -7403,6 +7462,87 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getLegacy108_LegacyMemos() {
+		return (EReference)legacy108EClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLegacy108Memos() {
+		return legacy108MemosEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLegacy108Memos_LegacyMemos() {
+		return (EReference)legacy108MemosEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLegacy108Memo() {
+		return legacy108MemoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacy108Memo_Number() {
+		return (EAttribute)legacy108MemoEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacy108Memo_Local() {
+		return (EAttribute)legacy108MemoEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacy108Memo_English() {
+		return (EAttribute)legacy108MemoEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacy108Memo_French() {
+		return (EAttribute)legacy108MemoEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacy108Memo_German() {
+		return (EAttribute)legacy108MemoEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLegacy108FareDescription() {
 		return legacy108FareDescriptionEClass;
 	}
@@ -7891,6 +8031,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getLegacySeries_FerryCode() {
 		return (EAttribute)legacySeriesEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacySeries_MemoNumber() {
+		return (EAttribute)legacySeriesEClass.getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -8591,6 +8740,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(serviceBrandEClass, SERVICE_BRAND__ABBREVIATION);
 		createEAttribute(serviceBrandEClass, SERVICE_BRAND__DESCRIPTION);
 		createEAttribute(serviceBrandEClass, SERVICE_BRAND__TRANSPORT_MODE);
+		createEAttribute(serviceBrandEClass, SERVICE_BRAND__LOCAL_LANGUAGE_NAME);
 
 		countriesEClass = createEClass(COUNTRIES);
 		createEReference(countriesEClass, COUNTRIES__COUNTRIES);
@@ -8963,6 +9113,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(serviceConstraintEClass, SERVICE_CONSTRAINT__INCLUDED_SERVICE_BRANDS);
 		createEReference(serviceConstraintEClass, SERVICE_CONSTRAINT__EXCLUDED_SERVICE_BRANDS);
 		createEAttribute(serviceConstraintEClass, SERVICE_CONSTRAINT__DATA_DESCRIPTION);
+		createEAttribute(serviceConstraintEClass, SERVICE_CONSTRAINT__LEGACY108_CODE);
 
 		regionalConstraintsEClass = createEClass(REGIONAL_CONSTRAINTS);
 		createEReference(regionalConstraintsEClass, REGIONAL_CONSTRAINTS__REGIONAL_CONSTRAINTS);
@@ -8983,6 +9134,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__ZONE);
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__LINE);
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__POLYGONE);
+		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__SERVICE_CONSTRAINT);
 
 		serviceLevelDefinitionsEClass = createEClass(SERVICE_LEVEL_DEFINITIONS);
 		createEReference(serviceLevelDefinitionsEClass, SERVICE_LEVEL_DEFINITIONS__SERVICE_LEVEL_DEFINITION);
@@ -8998,6 +9150,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(textEClass, TEXT__SHORT_TEXT_ICAO);
 		createEReference(textEClass, TEXT__TRANSLATIONS);
 		createEAttribute(textEClass, TEXT__STANDARD_TEXT);
+		createEAttribute(textEClass, TEXT__DATA_SOURCE);
 
 		translationEClass = createEClass(TRANSLATION);
 		createEReference(translationEClass, TRANSLATION__LANGUAGE);
@@ -9111,6 +9264,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(viaStationEClass, VIA_STATION__ALTERNATIVE_ROUTES);
 		createEAttribute(viaStationEClass, VIA_STATION__DATA_DESCRIPTION);
 		createEReference(viaStationEClass, VIA_STATION__FARE_STATION_SET);
+		createEReference(viaStationEClass, VIA_STATION__SERVICE_CONSTRAINT);
 		createEOperation(viaStationEClass, VIA_STATION___GET_DESCRIPTION);
 
 		alternativeRouteEClass = createEClass(ALTERNATIVE_ROUTE);
@@ -9356,6 +9510,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacy108EClass, LEGACY108__START_DATE);
 		createEAttribute(legacy108EClass, LEGACY108__END_DATE);
 		createEReference(legacy108EClass, LEGACY108__LEGACY_BORDER_POINTS);
+		createEReference(legacy108EClass, LEGACY108__LEGACY_MEMOS);
+
+		legacy108MemosEClass = createEClass(LEGACY108_MEMOS);
+		createEReference(legacy108MemosEClass, LEGACY108_MEMOS__LEGACY_MEMOS);
+
+		legacy108MemoEClass = createEClass(LEGACY108_MEMO);
+		createEAttribute(legacy108MemoEClass, LEGACY108_MEMO__NUMBER);
+		createEAttribute(legacy108MemoEClass, LEGACY108_MEMO__LOCAL);
+		createEAttribute(legacy108MemoEClass, LEGACY108_MEMO__ENGLISH);
+		createEAttribute(legacy108MemoEClass, LEGACY108_MEMO__FRENCH);
+		createEAttribute(legacy108MemoEClass, LEGACY108_MEMO__GERMAN);
 
 		legacy108FareDescriptionEClass = createEClass(LEGACY108_FARE_DESCRIPTION);
 		createEAttribute(legacy108FareDescriptionEClass, LEGACY108_FARE_DESCRIPTION__TABLE_ID);
@@ -9419,6 +9584,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacySeriesEClass, LEGACY_SERIES__VALID_UNTIL);
 		createEAttribute(legacySeriesEClass, LEGACY_SERIES__BUS_CODE);
 		createEAttribute(legacySeriesEClass, LEGACY_SERIES__FERRY_CODE);
+		createEAttribute(legacySeriesEClass, LEGACY_SERIES__MEMO_NUMBER);
 
 		legacySeparateContractSeriesListEClass = createEClass(LEGACY_SEPARATE_CONTRACT_SERIES_LIST);
 		createEReference(legacySeparateContractSeriesListEClass, LEGACY_SEPARATE_CONTRACT_SERIES_LIST__SEPARATE_CONTRACT_SERIES);
@@ -9569,6 +9735,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getServiceBrand_Abbreviation(), ecorePackage.getEString(), "abbreviation", null, 0, 1, ServiceBrand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceBrand_Description(), ecorePackage.getEString(), "description", null, 0, 1, ServiceBrand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceBrand_TransportMode(), this.getTransportMode(), "transportMode", "train", 0, 1, ServiceBrand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceBrand_LocalLanguageName(), ecorePackage.getEString(), "localLanguageName", null, 0, 1, ServiceBrand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(countriesEClass, Countries.class, "Countries", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCountries_Countries(), this.getCountry(), null, "countries", null, 0, -1, Countries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9958,6 +10125,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getServiceConstraint_IncludedServiceBrands(), this.getServiceBrand(), null, "includedServiceBrands", null, 0, -1, ServiceConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getServiceConstraint_ExcludedServiceBrands(), this.getServiceBrand(), null, "excludedServiceBrands", null, 0, -1, ServiceConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, ServiceConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceConstraint_Legacy108Code(), ecorePackage.getEInt(), "legacy108Code", null, 0, 1, ServiceConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(regionalConstraintsEClass, RegionalConstraints.class, "RegionalConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRegionalConstraints_RegionalConstraints(), this.getRegionalConstraint(), null, "regionalConstraints", null, 0, -1, RegionalConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9978,6 +10146,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getRegionalValidity_Zone(), this.getZone(), null, "zone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_Line(), this.getLine(), null, "line", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_Polygone(), this.getPolygone(), null, "polygone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRegionalValidity_ServiceConstraint(), this.getServiceConstraint(), null, "serviceConstraint", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceLevelDefinitionsEClass, ServiceLevelDefinitions.class, "ServiceLevelDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getServiceLevelDefinitions_ServiceLevelDefinition(), this.getServiceLevel(), null, "serviceLevelDefinition", null, 0, -1, ServiceLevelDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9993,6 +10162,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getText_ShortTextICAO(), ecorePackage.getEString(), "shortTextICAO", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getText_Translations(), this.getTranslation(), null, "translations", null, 0, -1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getText_StandardText(), ecorePackage.getEBoolean(), "standardText", "false", 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getText_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(translationEClass, Translation.class, "Translation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTranslation_Language(), this.getLanguage(), null, "language", null, 0, 1, Translation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10106,6 +10276,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getViaStation_AlternativeRoutes(), this.getAlternativeRoute(), null, "alternativeRoutes", null, 0, -1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getViaStation_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getViaStation_FareStationSet(), this.getFareStationSetDefinition(), null, "fareStationSet", null, 0, 1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getViaStation_ServiceConstraint(), this.getServiceConstraint(), null, "serviceConstraint", null, 0, 1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getViaStation__GetDescription(), theXMLTypePackage.getString(), "getDescription", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -10358,6 +10529,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacy108_StartDate(), ecorePackage.getEDate(), "startDate", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacy108_EndDate(), ecorePackage.getEDate(), "endDate", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLegacy108_LegacyBorderPoints(), this.getLegacyBorderPoints(), null, "legacyBorderPoints", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLegacy108_LegacyMemos(), this.getLegacy108Memos(), null, "legacyMemos", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(legacy108MemosEClass, Legacy108Memos.class, "Legacy108Memos", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLegacy108Memos_LegacyMemos(), this.getLegacy108Memo(), null, "legacyMemos", null, 0, -1, Legacy108Memos.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(legacy108MemoEClass, Legacy108Memo.class, "Legacy108Memo", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLegacy108Memo_Number(), ecorePackage.getEInt(), "number", null, 0, 1, Legacy108Memo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacy108Memo_Local(), ecorePackage.getEString(), "local", null, 0, 1, Legacy108Memo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacy108Memo_English(), ecorePackage.getEString(), "english", null, 0, 1, Legacy108Memo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacy108Memo_French(), ecorePackage.getEString(), "french", null, 0, 1, Legacy108Memo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacy108Memo_German(), ecorePackage.getEString(), "german", null, 0, 1, Legacy108Memo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacy108FareDescriptionEClass, Legacy108FareDescription.class, "Legacy108FareDescription", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLegacy108FareDescription_TableId(), ecorePackage.getEInt(), "tableId", null, 0, 1, Legacy108FareDescription.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10425,6 +10607,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacySeries_ValidUntil(), ecorePackage.getEDate(), "validUntil", null, 1, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacySeries_BusCode(), ecorePackage.getEString(), "busCode", null, 0, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacySeries_FerryCode(), ecorePackage.getEString(), "ferryCode", null, 0, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacySeries_MemoNumber(), ecorePackage.getEInt(), "memoNumber", null, 0, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacySeparateContractSeriesListEClass, LegacySeparateContractSeriesList.class, "LegacySeparateContractSeriesList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLegacySeparateContractSeriesList_SeparateContractSeries(), this.getLegacySeparateContractSeries(), null, "separateContractSeries", null, 0, -1, LegacySeparateContractSeriesList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11090,7 +11273,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (serviceConstraintEClass,
 		   source,
 		   new String[] {
-			   "constraints", "INCLUDE_OR_EXCLUDE"
+			   "constraints", "INCLUDE_OR_EXCLUDE LEGACY_CODE_RANGE"
 		   });
 		addAnnotation
 		  (regionalConstraintEClass,

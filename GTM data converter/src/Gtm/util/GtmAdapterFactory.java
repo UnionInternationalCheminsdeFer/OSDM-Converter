@@ -620,6 +620,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createLegacy108Adapter();
 			}
 			@Override
+			public Adapter caseLegacy108Memos(Legacy108Memos object) {
+				return createLegacy108MemosAdapter();
+			}
+			@Override
+			public Adapter caseLegacy108Memo(Legacy108Memo object) {
+				return createLegacy108MemoAdapter();
+			}
+			@Override
 			public Adapter caseLegacy108FareDescription(Legacy108FareDescription object) {
 				return createLegacy108FareDescriptionAdapter();
 			}
@@ -2606,6 +2614,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLegacy108Adapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.Legacy108Memos <em>Legacy108 Memos</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.Legacy108Memos
+	 * @generated
+	 */
+	public Adapter createLegacy108MemosAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.Legacy108Memo <em>Legacy108 Memo</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.Legacy108Memo
+	 * @generated
+	 */
+	public Adapter createLegacy108MemoAdapter() {
 		return null;
 	}
 

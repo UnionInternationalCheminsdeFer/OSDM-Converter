@@ -1513,7 +1513,7 @@ public class GTMJsonImporter {
 
 
 	private Text findText(String id) {
-		if (id == null || id.length() < 1 || fareStructure.getTexts() == null) return null;
+		if (id == null || id.length() < 1 || fareStructure.getTexts() == null || fareStructure.getTexts().getTexts().isEmpty()) return null;
 		
 		for (Text  o : fareStructure.getTexts().getTexts()) {
 			if (id.equals(o.getId())) return o;

@@ -1255,6 +1255,24 @@ public interface GtmFactory extends EFactory {
 	Legacy108 createLegacy108();
 
 	/**
+	 * Returns a new object of class '<em>Legacy108 Memos</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Legacy108 Memos</em>'.
+	 * @generated
+	 */
+	Legacy108Memos createLegacy108Memos();
+
+	/**
+	 * Returns a new object of class '<em>Legacy108 Memo</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Legacy108 Memo</em>'.
+	 * @generated
+	 */
+	Legacy108Memo createLegacy108Memo();
+
+	/**
 	 * Returns a new object of class '<em>Legacy108 Fare Description</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

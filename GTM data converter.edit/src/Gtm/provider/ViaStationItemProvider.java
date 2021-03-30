@@ -69,6 +69,7 @@ public class ViaStationItemProvider
 			addCarrierPropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
 			addFareStationSetPropertyDescriptor(object);
+			addServiceConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -153,6 +154,28 @@ public class ViaStationItemProvider
 				 getString("_UI_ViaStation_fareStationSet_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ViaStation_fareStationSet_feature", "_UI_ViaStation_type"),
 				 GtmPackage.Literals.VIA_STATION__FARE_STATION_SET,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Service Constraint feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addServiceConstraintPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ViaStation_serviceConstraint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ViaStation_serviceConstraint_feature", "_UI_ViaStation_type"),
+				 GtmPackage.Literals.VIA_STATION__SERVICE_CONSTRAINT,
 				 true,
 				 false,
 				 true,

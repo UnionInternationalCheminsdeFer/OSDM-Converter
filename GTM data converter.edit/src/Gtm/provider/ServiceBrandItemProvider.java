@@ -66,6 +66,7 @@ public class ServiceBrandItemProvider
 			addAbbreviationPropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
 			addTransportModePropertyDescriptor(object);
+			addLocalLanguageNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -181,6 +182,28 @@ public class ServiceBrandItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Local Language Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLocalLanguageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ServiceBrand_localLanguageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceBrand_localLanguageName_feature", "_UI_ServiceBrand_type"),
+				 GtmPackage.Literals.SERVICE_BRAND__LOCAL_LANGUAGE_NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns ServiceBrand.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -235,6 +258,7 @@ public class ServiceBrandItemProvider
 			case GtmPackage.SERVICE_BRAND__ABBREVIATION:
 			case GtmPackage.SERVICE_BRAND__DESCRIPTION:
 			case GtmPackage.SERVICE_BRAND__TRANSPORT_MODE:
+			case GtmPackage.SERVICE_BRAND__LOCAL_LANGUAGE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

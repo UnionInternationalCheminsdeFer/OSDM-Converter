@@ -6,6 +6,7 @@ import Gtm.GtmPackage;
 import Gtm.Line;
 import Gtm.Polygone;
 import Gtm.RegionalValidity;
+import Gtm.ServiceConstraint;
 import Gtm.ViaStation;
 import Gtm.Zone;
 import org.eclipse.emf.common.notify.Notification;
@@ -29,6 +30,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.RegionalValidityImpl#getZone <em>Zone</em>}</li>
  *   <li>{@link Gtm.impl.RegionalValidityImpl#getLine <em>Line</em>}</li>
  *   <li>{@link Gtm.impl.RegionalValidityImpl#getPolygone <em>Polygone</em>}</li>
+ *   <li>{@link Gtm.impl.RegionalValidityImpl#getServiceConstraint <em>Service Constraint</em>}</li>
  * </ul>
  *
  * @generated
@@ -93,6 +95,16 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected Polygone polygone;
+
+	/**
+	 * The cached value of the '{@link #getServiceConstraint() <em>Service Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getServiceConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected ServiceConstraint serviceConstraint;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -306,6 +318,44 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ServiceConstraint getServiceConstraint() {
+		if (serviceConstraint != null && serviceConstraint.eIsProxy()) {
+			InternalEObject oldServiceConstraint = (InternalEObject)serviceConstraint;
+			serviceConstraint = (ServiceConstraint)eResolveProxy(oldServiceConstraint);
+			if (serviceConstraint != oldServiceConstraint) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT, oldServiceConstraint, serviceConstraint));
+			}
+		}
+		return serviceConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ServiceConstraint basicGetServiceConstraint() {
+		return serviceConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setServiceConstraint(ServiceConstraint newServiceConstraint) {
+		ServiceConstraint oldServiceConstraint = serviceConstraint;
+		serviceConstraint = newServiceConstraint;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT, oldServiceConstraint, serviceConstraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -338,6 +388,9 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 				return getLine();
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
 				return getPolygone();
+			case GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT:
+				if (resolve) return getServiceConstraint();
+				return basicGetServiceConstraint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -366,6 +419,9 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
 				setPolygone((Polygone)newValue);
 				return;
+			case GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT:
+				setServiceConstraint((ServiceConstraint)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -393,6 +449,9 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
 				setPolygone((Polygone)null);
 				return;
+			case GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT:
+				setServiceConstraint((ServiceConstraint)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -415,6 +474,8 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 				return line != null;
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
 				return polygone != null;
+			case GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT:
+				return serviceConstraint != null;
 		}
 		return super.eIsSet(featureID);
 	}
