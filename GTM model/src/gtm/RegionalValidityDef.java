@@ -18,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "viaStations",
     "trainLink",
     "line",
-    "polygon"
+    "polygon",
+    "serviceConstraintRef"
 })
 public class RegionalValidityDef {
 
@@ -49,6 +50,8 @@ public class RegionalValidityDef {
     private LineDef line;
     @JsonProperty("polygon")
     private PolygonDef polygon;
+    @JsonProperty("serviceConstraintRef")
+    private String serviceConstraintRef;
 
     /**
      * order number of the list item
@@ -134,6 +137,16 @@ public class RegionalValidityDef {
         this.polygon = polygon;
     }
 
+    @JsonProperty("serviceConstraintRef")
+    public String getServiceConstraintRef() {
+        return serviceConstraintRef;
+    }
+
+    @JsonProperty("serviceConstraintRef")
+    public void setServiceConstraintRef(String serviceConstraintRef) {
+        this.serviceConstraintRef = serviceConstraintRef;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -162,6 +175,10 @@ public class RegionalValidityDef {
         sb.append('=');
         sb.append(((this.polygon == null)?"<null>":this.polygon));
         sb.append(',');
+        sb.append("serviceConstraintRef");
+        sb.append('=');
+        sb.append(((this.serviceConstraintRef == null)?"<null>":this.serviceConstraintRef));
+        sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
         } else {
@@ -177,6 +194,7 @@ public class RegionalValidityDef {
         result = ((result* 31)+((this.polygon == null)? 0 :this.polygon.hashCode()));
         result = ((result* 31)+((this.zone == null)? 0 :this.zone.hashCode()));
         result = ((result* 31)+((this.line == null)? 0 :this.line.hashCode()));
+        result = ((result* 31)+((this.serviceConstraintRef == null)? 0 :this.serviceConstraintRef.hashCode()));
         result = ((result* 31)+((this.seqNb == null)? 0 :this.seqNb.hashCode()));
         result = ((result* 31)+((this.viaStations == null)? 0 :this.viaStations.hashCode()));
         return result;
@@ -191,7 +209,7 @@ public class RegionalValidityDef {
             return false;
         }
         RegionalValidityDef rhs = ((RegionalValidityDef) other);
-        return (((((((this.trainLink == rhs.trainLink)||((this.trainLink!= null)&&this.trainLink.equals(rhs.trainLink)))&&((this.polygon == rhs.polygon)||((this.polygon!= null)&&this.polygon.equals(rhs.polygon))))&&((this.zone == rhs.zone)||((this.zone!= null)&&this.zone.equals(rhs.zone))))&&((this.line == rhs.line)||((this.line!= null)&&this.line.equals(rhs.line))))&&((this.seqNb == rhs.seqNb)||((this.seqNb!= null)&&this.seqNb.equals(rhs.seqNb))))&&((this.viaStations == rhs.viaStations)||((this.viaStations!= null)&&this.viaStations.equals(rhs.viaStations))));
+        return ((((((((this.trainLink == rhs.trainLink)||((this.trainLink!= null)&&this.trainLink.equals(rhs.trainLink)))&&((this.polygon == rhs.polygon)||((this.polygon!= null)&&this.polygon.equals(rhs.polygon))))&&((this.zone == rhs.zone)||((this.zone!= null)&&this.zone.equals(rhs.zone))))&&((this.line == rhs.line)||((this.line!= null)&&this.line.equals(rhs.line))))&&((this.serviceConstraintRef == rhs.serviceConstraintRef)||((this.serviceConstraintRef!= null)&&this.serviceConstraintRef.equals(rhs.serviceConstraintRef))))&&((this.seqNb == rhs.seqNb)||((this.seqNb!= null)&&this.seqNb.equals(rhs.seqNb))))&&((this.viaStations == rhs.viaStations)||((this.viaStations!= null)&&this.viaStations.equals(rhs.viaStations))));
     }
 
 }

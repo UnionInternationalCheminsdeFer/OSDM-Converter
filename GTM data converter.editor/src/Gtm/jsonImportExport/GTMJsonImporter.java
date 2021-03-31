@@ -539,6 +539,7 @@ public class GTMJsonImporter {
 	private ServiceConstraint convert(ServiceConstraintDef sc) {
 		ServiceConstraint o = GtmFactory.eINSTANCE.createServiceConstraint();
 		o.setId(sc.getId());
+		o.setLegacy108Code(sc.getLegacyCode());
 		if (sc.getExcludedServiceBrands()!= null && !sc.getExcludedServiceBrands().isEmpty()) {
 			Collection<? extends ServiceBrand> sl = convertServiceBrandList(sc.getExcludedServiceBrands());
 			if (sl != null && !sl.isEmpty()) {
@@ -797,6 +798,7 @@ public class GTMJsonImporter {
 			r.setSeqNb(jr.getSeqNb());
 			r.setZone(convert(jr.getZone()));
 			r.setLine(convert(jr.getLine()));
+			r.setServiceConstraint(findServiceConstraint(jr.getServiceConstraintRef()));
 			
 			l.add(r);
 		}
@@ -864,6 +866,9 @@ public class GTMJsonImporter {
 				v.getAlternativeRoutes().add(ar);
 			}
 		}
+		
+		v.setServiceConstraint(findServiceConstraint(jv.getServiceConstraintRef()));
+		
 		return v;
 	}
 

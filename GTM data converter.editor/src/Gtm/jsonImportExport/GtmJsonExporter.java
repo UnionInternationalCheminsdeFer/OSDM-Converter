@@ -800,6 +800,8 @@ public class GtmJsonExporter {
 
 		scJ.setIncludedServiceBrands(convertServiceBrandsToJson(sc.getIncludedServiceBrands()));		
 		
+		scJ.setLegacyCode(sc.getLegacy108Code());
+		
 		return scJ;
 
 	}
@@ -1092,7 +1094,9 @@ public class GtmJsonExporter {
 		rvJ.setLine(convertToJson(rv.getLine()));
 		rvJ.setZone(convertToJson(rv.getZone()));
 		rvJ.setPolygon(convertToJson(rv.getPolygone()));
-		
+		if (rv.getServiceConstraint() != null) {
+			rvJ.setServiceConstraintRef(rv.getServiceConstraint().getId());
+		}
 		return rvJ;
 	}
 
@@ -1261,6 +1265,12 @@ public class GtmJsonExporter {
 				isEmpty = false;
 			}
 		}
+		
+		if (v.getServiceConstraint() != null) {
+			isEmpty = false;
+			vJ.setServiceConstraintRef(v.getServiceConstraint().getId());
+		}
+		
 		if (isEmpty) {
 			return null;
 		} else {

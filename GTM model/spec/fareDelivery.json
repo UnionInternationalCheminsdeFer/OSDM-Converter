@@ -4,7 +4,7 @@
 	"type": "object",
 	"properties": {
 		"FareStructureDelivery": {
-			"$ref": "offlineOsdm1.1.json#/components/schemas/FareDeliveryDef"
+			"$ref": "offlineOsdm1.2.json#/components/schemas/FareDeliveryDef"
 		}
 	},
 	"additionalProperties": false

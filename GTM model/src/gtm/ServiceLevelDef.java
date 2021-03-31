@@ -50,11 +50,11 @@ public class ServiceLevelDef {
     @JsonPropertyDescription("directly included text in case of online services")
     private TextDef text;
     /**
-     * indicates that the class name is included
+     * indicates that the class name is not included
      * 
      */
     @JsonProperty("doesNotIncludeClassName")
-    @JsonPropertyDescription("indicates that the class name is included")
+    @JsonPropertyDescription("indicates that the class name is not included")
     private Boolean doesNotIncludeClassName = false;
     @JsonProperty("reservationParameterId")
     private String reservationParameterId;
@@ -136,7 +136,7 @@ public class ServiceLevelDef {
     }
 
     /**
-     * indicates that the class name is included
+     * indicates that the class name is not included
      * 
      */
     @JsonProperty("doesNotIncludeClassName")
@@ -145,7 +145,7 @@ public class ServiceLevelDef {
     }
 
     /**
-     * indicates that the class name is included
+     * indicates that the class name is not included
      * 
      */
     @JsonProperty("doesNotIncludeClassName")
