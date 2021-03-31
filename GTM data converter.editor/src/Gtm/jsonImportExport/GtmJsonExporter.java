@@ -724,7 +724,7 @@ public class GtmJsonExporter {
 				TranslationDef transJ = new TranslationDef();
 				
 				if (trans.getLanguage()!=null) {
-					transJ.setLanguage(trans.getLanguage().getName());
+					transJ.setLanguage(trans.getLanguage().getCode());
 				}
 				transJ.setShortText(trans.getShortTextICAO());
 				transJ.setShortTextUtf8(trans.getShortTextUTF8());

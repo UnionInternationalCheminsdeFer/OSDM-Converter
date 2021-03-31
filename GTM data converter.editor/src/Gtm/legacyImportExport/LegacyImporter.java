@@ -1,10 +1,12 @@
-package Gtm.actions.converter;
+package Gtm.legacyImportExport;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -55,6 +57,7 @@ public class LegacyImporter {
 	private GTMTool tool = null;
 	private DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
 	private String charset = null;
+	private String readerCharset = "ISO-8859-1";
 	private Path TCVfilePath = null;
 	private Legacy108 legacy108 = null;
 	private String timeZone = null;
@@ -341,26 +344,27 @@ public class LegacyImporter {
 		
 		//String carrier 	     	= st.substring(0, 4);
 		String number  		    = st.substring(4, 8);
+
 		
-		String local1   	   	= st.substring(9,69).trim();
-		String local2   	   	= st.substring(69,129).trim();
-		String local3   	   	= st.substring(129,189).trim();
-		String local4   	   	= st.substring(189,249).trim();
+		String local1   	   	= getUtf8String(9,69, st, charset);
+		String local2   	   	= getUtf8String(69,129,st,charset);
+		String local3   	   	= getUtf8String(129,189,st,charset);
+		String local4   	   	= getUtf8String(189,249,st,charset);
 
-		String french1   	   	= st.substring(249,309).trim();
-		String french2   	   	= st.substring(309,369).trim();
-		String french3   	   	= st.substring(369,429).trim();
-		String french4   	   	= st.substring(429,489).trim();
+		String french1   	   	= getUtf8String(249,309,st,"ISO-8859-1");
+		String french2   	   	= getUtf8String(309,369,st,"ISO-8859-1");
+		String french3   	   	= getUtf8String(369,429,st,"ISO-8859-1");
+		String french4   	   	= getUtf8String(429,489,st,"ISO-8859-1");
 
-		String german1   	   	= st.substring(489,549).trim();
-		String german2   	   	= st.substring(549,609).trim();
-		String german3   	   	= st.substring(609,669).trim();
-		String german4   	   	= st.substring(669,729).trim();
+		String german1   	   	= getUtf8String(489,549,st,"ISO-8859-1");
+		String german2   	   	= getUtf8String(549,609,st,"ISO-8859-1");
+		String german3   	   	= getUtf8String(609,669,st,"ISO-8859-1");
+		String german4   	   	= getUtf8String(669,729,st,"ISO-8859-1");
 
-		String english1   	   	= st.substring(729,789).trim();
-		String english2   	   	= st.substring(789,849).trim();
-		String english3   	   	= st.substring(849,909).trim();
-		String english4   	   	= st.substring(909,969).trim();
+		String english1   	   	= getUtf8String(729,789,st,"ISO-8859-1");
+		String english2   	   	= getUtf8String(789,849,st,"ISO-8859-1");
+		String english3   	   	= getUtf8String(849,909,st,"ISO-8859-1");
+		String english4   	   	= getUtf8String(909,969,st,"ISO-8859-1");
 		
 		//String validFromString   = st.substring(1210,1218); //YYYYMMDD
 		//String validUntilString  = st.substring(1220,1228); //YYYYMMDD
@@ -427,6 +431,33 @@ public class LegacyImporter {
 			return null;
 		}
 		return memo;
+	}
+
+	private String getUtf8String(int from, int to, String line, String charset) {
+
+		try {
+			if (charset.equals(readerCharset)) {
+				return new String(line.substring(from,to).getBytes("UTF-8")).trim();
+			} else {
+				return convert2CharSet(line,charset).substring(from,to).trim();
+			}
+		} catch (UnsupportedEncodingException e) {
+			return line.substring(from,to).trim();
+		}
+
+	}
+	
+	private String convert2CharSet(String s, String targetCharset) {
+		
+		try {
+
+			byte[] original = s.getBytes("ISO-8859-1");
+			
+			return  new String(original, targetCharset);		
+
+		} catch (UnsupportedEncodingException e) {
+			return s;
+		}
 	}
 
 	private void importTCVG(File file) {
@@ -681,8 +712,10 @@ public class LegacyImporter {
     
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader(file));
-		} catch (FileNotFoundException e) {
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(file), readerCharset));
+			
+					//new FileReader(file,));
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			String message = NationalLanguageSupport.LegacyImporter_19+ " - " + e.getMessage();
 			GtmUtils.writeConsoleError(message, editor);
 			e.printStackTrace();
@@ -751,7 +784,7 @@ public class LegacyImporter {
 		if (flag.equals("2")) return null; //$NON-NLS-1$
 
 
-		String nameUTF8 = new String(st.substring(15,50).getBytes(charset)).trim();
+		String nameUTF8 = getUtf8String(15, 50, st, charset);
 	
 		String nameASCII 	= st.substring(51,68).trim();	
 

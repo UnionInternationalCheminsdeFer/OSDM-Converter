@@ -1481,6 +1481,7 @@ public class GTMJsonImporter {
 		f.setServiceConstraint(findServiceConstraint(jf.getServiceConstraintRef()));
 		f.setServiceLevel(findServiceLevel(jf.getServiceLevelRef()));
 		f.setText(findText(jf.getNameRef()));
+		f.setFareDetailDescription(findText(jf.getFareDetailDescriptionRef()));
 		f.setLegacyConversion(LegacyConversionType.getByName(jf.getLegacyConversion()));
 		f.setIndividualContracts(jf.getIndividualContracts());
 		

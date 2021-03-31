@@ -2,6 +2,7 @@ package Gtm.actions.converter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -322,7 +323,15 @@ public class 	ConverterToLegacy {
 		
 		monitor.subTask("add memos");	
 		Legacy108Memos lms = GtmFactory.eINSTANCE.createLegacy108Memos();
-		lms.getLegacyMemos().addAll(memos.values());
+		List<Legacy108Memo> memosCol = new ArrayList<Legacy108Memo>();
+		memosCol.addAll(memos.values());
+		Collections.sort(memosCol, new Comparator<Legacy108Memo>(){
+			@Override
+			public int compare(Legacy108Memo o1, Legacy108Memo o2) {
+				return Integer.compare(o1.getNumber(),o2.getNumber());
+			}
+		});
+		lms.getLegacyMemos().addAll(memosCol);
 		com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_MEMOS, lms);
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);

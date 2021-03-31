@@ -402,14 +402,6 @@ public class ConverterFromLegacy {
 		executeAndFlush(command, domain);
 		monitor.worked(1);
 		
-
-		if (!memoTexts.isEmpty()) {
-			command = new CompoundCommand();
-			Command com0 = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts(), GtmPackage.Literals.TEXTS__TEXTS, memoTexts.values());
-			command.append(com0);
-			executeAndFlush(command, domain);
-		}
-		monitor.worked(1);
 		
 		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			
@@ -493,6 +485,13 @@ public class ConverterFromLegacy {
 		}
 		monitor.worked(1);
 
+		if (!memoTexts.isEmpty()) {
+			command = new CompoundCommand();
+			Command com0 = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getTexts(), GtmPackage.Literals.TEXTS__TEXTS, memoTexts.values());
+			command.append(com0);
+			executeAndFlush(command, domain);
+		}
+		monitor.worked(1);
 		
 		command = new CompoundCommand();
 		if (fares!= null && !fares.isEmpty()) {

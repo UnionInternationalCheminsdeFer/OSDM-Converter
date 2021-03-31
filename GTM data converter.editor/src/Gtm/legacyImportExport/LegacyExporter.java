@@ -1,9 +1,12 @@
-package Gtm.actions.converter;
+package Gtm.legacyImportExport;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,6 +37,8 @@ public class LegacyExporter {
 	private String provider = null;
 	private Date fromDate = null;
 	private Date untilDate = null;	
+	private String charset = null;
+	private String writerCharset = "ISO-8859-1";
 	
 	private boolean writeL = false;
 	private boolean writeP = false;
@@ -49,6 +54,22 @@ public class LegacyExporter {
 		this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
 		this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
 		this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
+		
+		try  {
+			String charsetlit = tool.getConversionFromLegacy().getLegacy108().getCharacterSet().getLiteral();
+			int i = charsetlit.indexOf("_");	 //$NON-NLS-1$
+			charset = charsetlit.substring(i+1);
+			if (!Charset.isSupported(charset)) {
+				String message = "local character set not supported using ISO-8859-1 instead - local station names might be corrupted in the export";
+				GtmUtils.writeConsoleInfo(message, editor);
+				charset = writerCharset; 
+			};
+
+		} catch (Exception e) {
+			String message = "no local character set provided using ISO-8859-1 instead - local station names might be corrupted in the export";
+			GtmUtils.writeConsoleError(message, editor);
+			e.printStackTrace();
+		}
 		
 		writeL = false;
 		writeP = false;
@@ -570,9 +591,6 @@ public class LegacyExporter {
 
 	}
 
-
-
-
 	private String getStationLine(Legacy108Station station) {
 		
 		
@@ -587,7 +605,8 @@ public class LegacyExporter {
 		//	4 Old railway code numeric 5 O TAP TSI Technical Document B.9 11-15 This field is only used when stations are first introduced. 
 		sb.append("00000"); //$NON-NLS-1$
 		//	5 35-character station designation alpha numeric 35 M  16-50 Station designation in the national language including accents and in upper and lower case. 
-		sb.append(String.format("%-35s",GtmUtils.limitStringLengthWithConsoleEntry(station.getNameUTF8(),35,editor,NationalLanguageSupport.LegacyExporter_103)));		 //$NON-NLS-1$
+		String localName = convert2CharSet(station.getNameUTF8(),charset);	
+		sb.append(String.format("%-35s",GtmUtils.limitStringLengthWithConsoleEntry(localName,35,editor,NationalLanguageSupport.LegacyExporter_103)));		 //$NON-NLS-1$
 		//	6 Flag 1 for the 35- character station designation numeric 1 M  51 0 or 3 (see point 2.2) 
 		sb.append("0"); //$NON-NLS-1$
 		//	7 17-character station designation alpha numeric 17 M  52-68 Computer notation with no accents but in upper and lower case. The file is to be transferred in the ascending alphanumeric order of this field. 
@@ -828,27 +847,27 @@ public class LegacyExporter {
 		//2 Info code numeric 4 M 5-8 Info data are consecutively number-coded.
 		sb.append(String.format("%04d", memo.getNumber()));   //$NON-NLS-1$
 		//3 Key flag for info code numeric 1 M 9 0, 1 or 2 (see point 2.2)
-		addStrings(sb, memo.getLocal());
+		addStrings(sb, memo.getLocal(), charset);
 		//4 Line 1 in country's official language	alpha numeric 60 M 10-69
 		//5 Line 2 in country's official language	alpha numeric 60 O 70-129
 		//6 Line 3 in country's official language	in country’s official language	alpha numeric 60 O 130-189
 		//7 Line 4 in country's official language	in country’s official language	alpha numeric 60 O 190-249
-		addStrings(sb, memo.getFrench());
+		addStrings(sb, memo.getFrench(), writerCharset);
 		//8 Line 1 in French alpha numeric 60 O 250-309
 		//9 Line 2 in French alpha numeric 60 O 310-369
 		//10 Line 3 in French alpha numeric 60 O 370-429
 		//11 Line 4 in French alpha numeric 60 O 430-489
-		addStrings(sb, memo.getGerman());
+		addStrings(sb, memo.getGerman(), writerCharset);
 		//12 Line 1 in German alpha numeric 60 O 490-549
 		//13 Line 2 in German alpha numeric 60 O 550-609
 		//14 Line 3 in German alpha numeric 60 O 610-669
 		//15 Line 4 in German alpha numeric 60 O 670-729
-		addStrings(sb, memo.getEnglish());
+		addStrings(sb, memo.getEnglish(), writerCharset);
 		//16 Line 1 in English alpha numeric 60 O 730 - 789
 		//17 Line 2 in English alpha numeric 60 O 790 - 849
 		//18 Line 3 in English alpha numeric 60 O 850 - 909
 		//19 Line 4 in English alpha numeric 60 O 910 - 969
-		addStrings(sb, null);
+		sb.append(String.format("%240s", " "));
 		//20 Reserved alpha numeric 60 O 970 - 1029
 		//21 Reserved alpha numeric 60 O 1030 – 1089
 		//22 Reserved alpha numeric 60 O 1090 - 1149
@@ -867,7 +886,7 @@ public class LegacyExporter {
 	}
 
 
-	private void addStrings(StringBuilder sb, String text) {
+	private void addStrings(StringBuilder sb, String text,String targetCharset) {
 		if (text == null) {
 			sb.append(String.format("%240s", " "));
 			return;
@@ -876,6 +895,13 @@ public class LegacyExporter {
 		if (text != null) {
 			lines = text.split("[\\r\\n]+");
 		}
+		int i = 0;
+		for ( String l : lines) {
+			lines[i] = convert2CharSet(l,targetCharset);
+			lines[i] = GtmUtils.limitStringLengthWithConsoleEntry(lines[i],60,editor,"TCVM exort line");		 //$NON-NLS-1$
+			i++;
+		}
+
 		//4 Line 1 in country's official language	alpha numeric 60 M 10-69
 		if (lines.length > 0 && lines[0] != null) {
 			sb.append(String.format("%60s", lines[0]));
@@ -902,6 +928,20 @@ public class LegacyExporter {
 		}
 	}
 
+	private String convert2CharSet(String s, String targetCharset) {
+		
+		if (targetCharset.equals(writerCharset)) return s;
+		
+		try {
+
+			byte[] original = s.getBytes("ISO-8859-1");
+			
+			return  new String(original, targetCharset);		
+
+		} catch (UnsupportedEncodingException e) {
+			return s;
+		}
+	}
 
 	private BufferedWriter getWriter(Path path, String fileName)  {
 		
@@ -909,7 +949,8 @@ public class LegacyExporter {
 		
         BufferedWriter br;
 		try {
-			br = new BufferedWriter(new FileWriter(file));
+			br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), writerCharset));
+			
 		} catch (IOException e) {
 			MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
 			dialog.setText(NationalLanguageSupport.LegacyExporter_9 + file.toString());
