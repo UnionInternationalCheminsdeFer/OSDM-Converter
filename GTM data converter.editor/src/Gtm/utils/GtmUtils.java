@@ -1,6 +1,9 @@
 package Gtm.utils;
 
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.HashMap;
@@ -1449,6 +1452,21 @@ public class GtmUtils {
 		value.setScale(2);
 		BigDecimal amount = value.divide(oneHundred);
 		return amount.floatValue();
+	}
+	
+	 public static String getStackTrace(Throwable aThrowable) {
+		    final Writer result = new StringWriter();
+		    final PrintWriter printWriter = new PrintWriter(result);
+		    aThrowable.printStackTrace(printWriter);
+		    return result.toString();
+	 }
+	
+	public static void writeConsoleStackTrace(Exception e, GtmEditor editor){
+		if (e == null) return;
+		
+		String stackTrace = getStackTrace(e);
+		GtmUtils.writeConsoleError(stackTrace, editor);
+		
 	}
 	
 }

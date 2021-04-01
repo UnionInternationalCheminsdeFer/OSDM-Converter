@@ -184,6 +184,7 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 					dialog.setMessage(e.getMessage());
 				} else {
 					dialog.setMessage(NationalLanguageSupport.ExportGTMJsonAction_10);
+					GtmUtils.writeConsoleStackTrace(e, editor);
 				}
 				dialog.open(); 
 			} finally {

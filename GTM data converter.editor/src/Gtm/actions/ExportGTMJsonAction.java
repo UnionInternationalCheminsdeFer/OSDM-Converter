@@ -161,6 +161,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 					dialog.setMessage(e.getMessage());
 				} else {
 					dialog.setMessage(NationalLanguageSupport.ExportGTMJsonAction_10);
+					GtmUtils.writeConsoleStackTrace(e, editor);
 				}
 				dialog.open(); 
 				GtmEditorPlugin.INSTANCE.log(e);

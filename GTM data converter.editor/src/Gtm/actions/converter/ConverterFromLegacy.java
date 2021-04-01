@@ -1044,10 +1044,7 @@ public class ConverterFromLegacy {
 		ServiceConstraint serviceConstraint = null;
 		fareStationSet = findFareStation(code);
 		if (fareStationSet == null) {
-			station = getStation(tool, country, code);
-			if (station  == null) {
-				station = findBorderPointMappingStation(code);
-			} 		
+			station = getStation(tool, country, code);	
 			if (station == null) {
 				serviceConstraint = findServiceConstraint(code);
 			}
@@ -1137,23 +1134,6 @@ public class ConverterFromLegacy {
 	}
 
 	/**
-	 * Find border point mapping station.
-	 *
-	 * @param code the code
-	 * @return the station
-	 */
-	private Station findBorderPointMappingStation(int code) {
-		LegacyBorderPointMapping map = (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings().getMappingByBorderPointCode(code));
-		if (map != null) {
-			return map.getStation();
-		}
-		return null;
-	}
-
-
-
-
-	/**
 	 * Find fare station.
 	 *
 	 * @param code the code
@@ -1163,10 +1143,6 @@ public class ConverterFromLegacy {
 		if (fareStationSets == null || fareStationSets.isEmpty()) return null;
 		return fareStationSets.get(code);
 	}
-
-
-
-
 
 	/**
 	 * Convert series to regional constraint.
@@ -1325,10 +1301,7 @@ public class ConverterFromLegacy {
 				station = getStation(tool, country, code);
 			} catch (ConverterException e) {
 				//
-			}
-			if (station  == null) {
-				station = findBorderPointMappingStation(code);
-			} 		
+			}	
 		} 
 		if (station == null && fareStationSet == null) {
 			return;

@@ -130,6 +130,7 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 			} catch (Exception exception) {
 				// Something went wrong that shouldn't.
 				GtmUtils.displayAsyncErrorMessage(exception, "unknown error");	
+				GtmUtils.writeConsoleStackTrace(exception, editor);
 			} finally {
 				editor.reconnectViews();
 			}			
