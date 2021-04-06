@@ -1,4 +1,4 @@
-package Gtm.actions.converter;
+package Gtm.converter;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;

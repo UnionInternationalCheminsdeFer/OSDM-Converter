@@ -16,7 +16,7 @@ import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.LegacyFareTemplates;
 import Gtm.TravelerType;
-import Gtm.actions.converter.ConverterFromLegacy;
+import Gtm.converter.ConverterFromLegacy;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;

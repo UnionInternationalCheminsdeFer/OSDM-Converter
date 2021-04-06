@@ -75,25 +75,6 @@
         defaultValueLiteral="train"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="localLanguageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="TransportMode">
-    <eLiterals name="train" value="37"/>
-    <eLiterals name="ship" value="33"/>
-    <eLiterals name="bus" value="32"/>
-    <eLiterals name="highSpeedTrain" value="8"/>
-    <eLiterals name="intercity" value="9"/>
-    <eLiterals name="interRegional" value="10"/>
-    <eLiterals name="regional" value="11"/>
-    <eLiterals name="subUrban" value="12"/>
-    <eLiterals name="nightTrain" value="13"/>
-    <eLiterals name="motorRail" value="14"/>
-    <eLiterals name="mountainTrain" value="15"/>
-    <eLiterals name="historicTrain" value="16"/>
-    <eLiterals name="plane" value="3"/>
-    <eLiterals name="coachGroup" value="31"/>
-    <eLiterals name="sharedTaxi" value="34"/>
-    <eLiterals name="tram" value="35"/>
-    <eLiterals name="underGround" value="36"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Countries">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="AT_LEAST_ONE"/>
@@ -172,10 +153,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="StationRelation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationType" eType="#//StationRelationType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="station" eType="#//Station"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="StationRelationType">
-    <eLiterals name="SAME_STATION" value="1"/>
-    <eLiterals name="PATH_CONNECTED_STATION" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Carrier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
@@ -1458,6 +1435,29 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TransportMode">
+    <eLiterals name="train" value="37"/>
+    <eLiterals name="ship" value="33"/>
+    <eLiterals name="bus" value="32"/>
+    <eLiterals name="highSpeedTrain" value="8"/>
+    <eLiterals name="intercity" value="9"/>
+    <eLiterals name="interRegional" value="10"/>
+    <eLiterals name="regional" value="11"/>
+    <eLiterals name="subUrban" value="12"/>
+    <eLiterals name="nightTrain" value="13"/>
+    <eLiterals name="motorRail" value="14"/>
+    <eLiterals name="mountainTrain" value="15"/>
+    <eLiterals name="historicTrain" value="16"/>
+    <eLiterals name="plane" value="3"/>
+    <eLiterals name="coachGroup" value="31"/>
+    <eLiterals name="sharedTaxi" value="34"/>
+    <eLiterals name="tram" value="35"/>
+    <eLiterals name="underGround" value="36"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StationRelationType">
+    <eLiterals name="SAME_STATION" value="1"/>
+    <eLiterals name="PATH_CONNECTED_STATION" value="2"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="StationFareDetailType">
     <eLiterals name="NO_DESCRIPTION"/>
     <eLiterals name="ON_ARRIVAL" value="1"/>
@@ -1748,6 +1748,10 @@
     <eLiterals name="HALFEVEN" value="2"/>
     <eLiterals name="UP" value="3"/>
     <eLiterals name="HALFDOWN" value="4"/>
+    <eLiterals name="UP5CENT" value="5" literal="UP5CENT"/>
+    <eLiterals name="DOWN5CENT" value="6" literal="DOWN5CENT"/>
+    <eLiterals name="UP2CENT" value="7" literal="UP2CENT"/>
+    <eLiterals name="DOWN2CENT" value="8" literal="DOWN2CENT"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
     <eLiterals name="V_1_0" value="1" literal="1.0"/>

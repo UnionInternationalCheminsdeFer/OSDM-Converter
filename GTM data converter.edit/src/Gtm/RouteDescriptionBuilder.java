@@ -150,12 +150,14 @@ public class RouteDescriptionBuilder {
 		}
 			
 		if (via.getAlternativeRoutes()!= null && !via.getAlternativeRoutes().isEmpty()) {
+			label.append("(");
 			for (AlternativeRoute route : via.getAlternativeRoutes() ) {
 				if (label.length() > 1) {
 					label.append("/"); //$NON-NLS-1$
 				}
 				label.append(getRouteDescription(route));
 			}		
+			label.append(")");
 		}
 			
 		return label.toString();
@@ -173,11 +175,7 @@ public class RouteDescriptionBuilder {
 			if (route.getStations()==null || route.getStations().isEmpty()) return "";
 			
 			StringBuilder  routeLable = new StringBuilder(); //$NON-NLS-1$
-			
-			if (route.getStations().size() > 1) {
-				routeLable.append("("); //$NON-NLS-1$
-			}
-		
+					
 			for (ViaStation via2 :  route.getStations()) {
 				if (routeLable.length() < 2 || routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
 					routeLable.append(getRouteDescription(via2));
@@ -186,9 +184,6 @@ public class RouteDescriptionBuilder {
 				}
 			}
 			
-			if (route.getStations().size() > 1) {
-				routeLable.append(")"); //$NON-NLS-1$
-			}
 			return routeLable.toString();	
 	}
 	

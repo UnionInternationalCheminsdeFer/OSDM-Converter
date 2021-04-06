@@ -1,4 +1,4 @@
-package Gtm.actions.converter;
+package Gtm.converter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -623,24 +623,7 @@ public class ConverterFromLegacy {
 		float amount = price.getCurrencies().get(0).getAmount();
 		amount = amount * feeTemplate.getFeeFactor();
 
-		BigDecimal bd = null;
-		if (feeTemplate.getRoundingMode() == RoundingType.DOWN) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.DOWN);
-			 amount = bd.floatValue();
-		} else if (feeTemplate.getRoundingMode() == RoundingType.UP) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.UP);
-			 amount = bd.floatValue();
-		} else if (feeTemplate.getRoundingMode() == RoundingType.HALFDOWN) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
-			 amount = bd.floatValue();
-		} else if (feeTemplate.getRoundingMode() == RoundingType.HALFEVEN) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_EVEN);
-			 amount = bd.floatValue();
-		} else if (feeTemplate.getRoundingMode() == RoundingType.HALFUP) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_UP);
-			 amount = bd.floatValue();
-		} 
-		
+		amount = round(amount,feeTemplate.getRoundingMode(), 2 );
 		
 		Price fee = GtmFactory.eINSTANCE.createPrice();
 		fee.setDataSource(DataSource.CONVERTED);
@@ -658,8 +641,38 @@ public class ConverterFromLegacy {
 
 	}
 
-
-
+	private float round(float amount, RoundingType roundingMode, int scale) {
+		BigDecimal bd = null;
+		if (roundingMode == RoundingType.DOWN) {
+			 bd = new BigDecimal(amount).setScale(2, RoundingMode.DOWN);
+			 amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.UP) {
+			 bd = new BigDecimal(amount).setScale(2, RoundingMode.UP);
+			 amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.HALFDOWN) {
+			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
+			 amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.HALFEVEN) {
+			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_EVEN);
+			 amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.HALFUP) {
+			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_UP);
+			 amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.TO5CENT) {
+			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_DOWN, 2);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.DOWN2CENT) {
+			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_DOWN, 5);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.UP2CENT) {
+			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_UP, 5);
+			amount = bd.floatValue();
+		}
+		
+		
+		
+		return amount;
+	}
 
 	/**
 	 * Find the existing after sales rule or add the given one to the list.
@@ -1521,29 +1534,7 @@ public class ConverterFromLegacy {
 
 			amount = amount * fareTemplate.getPriceFactor();
 			
-			// 2 digits for EUR
-			//double scale = Math.pow(10, 2);
-			//double centAmout = amount * scale;
-			
-			BigDecimal bd = null;
-			if (fareTemplate.getRoundingMode() == RoundingType.DOWN) {
-				 bd = new BigDecimal(amount).setScale(2, RoundingMode.DOWN);
-				 amount = bd.floatValue();
-			} else if (fareTemplate.getRoundingMode() == RoundingType.UP) {
-				 bd = new BigDecimal(amount).setScale(2, RoundingMode.UP);
-				 amount = bd.floatValue();
-			} else if (fareTemplate.getRoundingMode() == RoundingType.HALFDOWN) {
-				 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
-				 amount = bd.floatValue();
-			} else if (fareTemplate.getRoundingMode() == RoundingType.HALFEVEN) {
-				 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_EVEN);
-				 amount = bd.floatValue();
-			} else if (fareTemplate.getRoundingMode() == RoundingType.HALFUP) {
-				 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_UP);
-				 amount = bd.floatValue();
-			} 
-
-		    //amount = (float) (Math.round(amount * scale) / scale);
+			amount = round(amount,fareTemplate.getRoundingMode(), 2 );
 			
 		    price = createPrice(amount,regionalConstraint);
 		    

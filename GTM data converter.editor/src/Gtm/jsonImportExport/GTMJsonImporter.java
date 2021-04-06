@@ -14,7 +14,7 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
 import Gtm.*;
-import Gtm.actions.converter.StationComparator;
+import Gtm.converter.StationComparator;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.utils.GtmUtils;

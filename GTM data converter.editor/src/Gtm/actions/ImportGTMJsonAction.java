@@ -27,7 +27,7 @@ import Gtm.GeneralTariffModel;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Station;
-import Gtm.actions.converter.StationNameMerger;
+import Gtm.converter.StationNameMerger;
 import Gtm.jsonImportExport.GTMJsonImporter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;

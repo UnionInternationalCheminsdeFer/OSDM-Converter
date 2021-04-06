@@ -323,6 +323,10 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/HALFEVEN"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/UP"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/HALFDOWN"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/UP5CENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/DOWN5CENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/UP2CENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/DOWN2CENT"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//SchemaVersion">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_0"/>
