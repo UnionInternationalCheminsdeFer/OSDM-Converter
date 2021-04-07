@@ -25,8 +25,9 @@
 <h2>Parameters required for the conversion of 108.1 data</h2>
 
 
-<h3>Conversion Parameters</h3>
-<p><ul>
+<h3>Conversion Parameter</h3>
+<p>
+<ul>
 <table border="1">
 <tr><td>data item</td><td>description</td><td>values</td></tr>
 <tr><td>Convert fare descriptions</td>
@@ -51,7 +52,7 @@ A fixed price can be set, the all fares converted from series will have the same
 The referenced data items must be defined in the General Tariff Model fare structure first. They can then be assigned to a fare template.</td>
     <td></td></tr>
 <tr><td>Legacy station mappings</td><td>Mappings of station codes in 108.1 to merits codes. A manual mapping can be added for station codes not included in MERITS</td><td >Mapping station code 018.1 to MERITS station code.</td></tr>
-<tr><td>Legacy station to service constraint mappings </td><td>Mappings of 108.1 stations to service constraints. In 108.1 data virtual stations have been added to indicate a service constraint. </td><td >Mapping to a service constraint. The service constraint must be added in the fare data first.</td></tr>
+<tr><td>Legacy station to service constraint mappings </td><td>Mappings of 108.1 stations to service constraints. In 108.1 data virtual stations have been added to indicate a service constraint. These will be mapped to the service constraint. To allow a conversion back into 108 data structures the 5 digit station code must be added in the service constraint as legacy code. In case the station is part of the route the service constraint will be added in the corresponding part of the route.</td><td >Mapping to a service constraint. The service constraint must be added in the fare data first.</td></tr>
 <tr><td>Legacy Bus and Ferry Mapping</td>
     <td>A mapping of the series Bus and Ferry Code to ServiceConstraints can be defined here. This mapping will override a mapping of the fare template and will be overwritten y a mapping to a station to service constraint mapping.</td>
     <td>Selection list on service constraints defined in the fare data</td></tr>
@@ -61,7 +62,9 @@ The referenced data items must be defined in the General Tariff Model fare struc
 <tr><td>Legacy border point mappings</td><td><b>deprecated</b> Please use the border point table to import border points.</td>
     <td></td></tr>
 </table>
-</ul></p>
+</ul>
+
+</p>
 
 
 <h3>Fare template</h3>
@@ -93,7 +96,7 @@ Data structures used in the fare template reference data in the final fare struc
 </ul>
 </td></tr>
 <tr><td>data description</td><td>Text to name the fare template. This text as no effect on the final data.</td></tr>
-<tr><td>Fare detail description</td><td>A detailed description can be added to the fare. The fare detail description is a text that must to be edited in the fare structure first. Then it can be selected in the fare template.</td></tr>
+<tr><td>Fare detail description</td><td>A detailed description can be added to the fare. The fare detail description is a text that must to be edited in the fare structure first. Then it can be selected in the fare template. The detail description of the fare template will be overwritten by a legacy text assigned to the series via a memo entry (108 table TCVM)!</td></tr>
 <tr><td>Id</td><td>- not in use - </td></tr>
 <tr><td>Fare constraint bundle</td><td>Fare constraint bundle holding the main constraints of this type of fare.</td></tr>
 <tr><td>Separate contract fare constraint bundle</td><td>Fare constraint bundle to be used in case the series is listed in the 108.1 TCVL file.</td></tr>

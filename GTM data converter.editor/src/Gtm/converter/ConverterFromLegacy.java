@@ -658,9 +658,12 @@ public class ConverterFromLegacy {
 		} else if (roundingMode == RoundingType.HALFUP) {
 			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_UP);
 			 amount = bd.floatValue();
-		} else if (roundingMode == RoundingType.TO5CENT) {
+		} else if (roundingMode == RoundingType.DOWN5CENT) {
 			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_DOWN, 2);
 			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.UP5CENT) {
+			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_DOWN, 2);
+			amount = bd.floatValue();			
 		} else if (roundingMode == RoundingType.DOWN2CENT) {
 			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_DOWN, 5);
 			amount = bd.floatValue();
