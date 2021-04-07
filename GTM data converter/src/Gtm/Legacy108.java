@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Legacy108#getStartDate <em>Start Date</em>}</li>
  *   <li>{@link Gtm.Legacy108#getEndDate <em>End Date</em>}</li>
  *   <li>{@link Gtm.Legacy108#getLegacyBorderPoints <em>Legacy Border Points</em>}</li>
+ *   <li>{@link Gtm.Legacy108#getLegacyMemos <em>Legacy Memos</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getLegacy108()
@@ -302,5 +303,27 @@ public interface Legacy108 extends EObject {
 	 * @generated
 	 */
 	void setLegacyBorderPoints(LegacyBorderPoints value);
+
+	/**
+	 * Returns the value of the '<em><b>Legacy Memos</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Legacy Memos</em>' containment reference.
+	 * @see #setLegacyMemos(Legacy108Memos)
+	 * @see Gtm.GtmPackage#getLegacy108_LegacyMemos()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Legacy108Memos getLegacyMemos();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Legacy108#getLegacyMemos <em>Legacy Memos</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Legacy Memos</em>' containment reference.
+	 * @see #getLegacyMemos()
+	 * @generated
+	 */
+	void setLegacyMemos(Legacy108Memos value);
 
 } // Legacy108

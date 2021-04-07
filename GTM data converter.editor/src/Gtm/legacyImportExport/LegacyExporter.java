@@ -1,9 +1,12 @@
-package Gtm.actions.converter;
+package Gtm.legacyImportExport;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,6 +19,7 @@ import org.eclipse.swt.widgets.MessageBox;
 
 import Gtm.GTMTool;
 import Gtm.Legacy108FareDescription;
+import Gtm.Legacy108Memo;
 import Gtm.Legacy108Station;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
@@ -33,10 +37,12 @@ public class LegacyExporter {
 	private String provider = null;
 	private Date fromDate = null;
 	private Date untilDate = null;	
+	private String charset = null;
+	private String writerCharset = "ISO-8859-1";
 	
 	private boolean writeL = false;
 	private boolean writeP = false;
-	
+	private boolean writeM = false;	
 		
 	public LegacyExporter(GTMTool tool, Path path, GtmEditor editor) {
 		this.tool = tool;
@@ -48,6 +54,22 @@ public class LegacyExporter {
 		this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
 		this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
 		this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
+		
+		try  {
+			String charsetlit = tool.getConversionFromLegacy().getLegacy108().getCharacterSet().getLiteral();
+			int i = charsetlit.indexOf("_");	 //$NON-NLS-1$
+			charset = charsetlit.substring(i+1);
+			if (!Charset.isSupported(charset)) {
+				String message = "local character set not supported using ISO-8859-1 instead - local station names might be corrupted in the export";
+				GtmUtils.writeConsoleInfo(message, editor);
+				charset = writerCharset; 
+			};
+
+		} catch (Exception e) {
+			String message = "no local character set provided using ISO-8859-1 instead - local station names might be corrupted in the export";
+			GtmUtils.writeConsoleError(message, editor);
+			e.printStackTrace();
+		}
 		
 		writeL = false;
 		writeP = false;
@@ -62,7 +84,7 @@ public class LegacyExporter {
 			fareTables = tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().size();
 		}
 		
-		return 5 + fareTables;
+		return 7 + fareTables;
 		
 	}
 	
@@ -72,18 +94,7 @@ public class LegacyExporter {
 			
 			writeL = false;
 			writeP = false;
-			
-			if (tool.getConversionFromLegacy().getLegacy108().getLegacySeparateContractSeries() != null && 
-				!tool.getConversionFromLegacy().getLegacy108().getLegacySeparateContractSeries().getSeparateContractSeries().isEmpty()) {
-				writeL = true;
-			}
-				
-			if (tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions() != null &&
-				!tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().isEmpty()) {
-				writeP = true;	
-			}
-						
-
+			writeM = false;
 			
 			monitor.subTask(NationalLanguageSupport.LegacyExporter_1);
 			exportTCVfile();
@@ -97,16 +108,16 @@ public class LegacyExporter {
 			exportTCVSfile();
 			monitor.worked(1);
 			
+			monitor.subTask(NationalLanguageSupport.LegacyExporter_3);
+			exportTCVMfile();
+			monitor.worked(1);
+			
 			monitor.subTask(NationalLanguageSupport.LegacyExporter_4);
-			if (writeP) {
-				exportTCVPfile();
-			}
+			exportTCVPfile();
 			monitor.worked(1);
 			
 			monitor.subTask(NationalLanguageSupport.LegacyExporter_5);
-			if (writeL) {
-				exportTCVLfile();
-			}
+			exportTCVLfile();
 			monitor.worked(1);
 			
 			
@@ -136,6 +147,13 @@ public class LegacyExporter {
 	
 
 	private void exportTCVLfile() throws IOException {
+		
+		if (tool.getConversionFromLegacy().getLegacy108().getLegacySeparateContractSeries() == null || 
+			tool.getConversionFromLegacy().getLegacy108().getLegacySeparateContractSeries().getSeparateContractSeries().isEmpty()) {
+			return;	
+		}
+		
+		writeL = true;
 		
 		String provider = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0).getSupplyingCarrierCode();
 		
@@ -179,7 +197,12 @@ public class LegacyExporter {
 
 	private void exportTCVPfile() throws IOException {
 		
-
+		if (tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions() == null ||
+			tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().isEmpty()) {
+			return;
+		}
+			
+		writeP = true;
 		
 		String provider = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0).getSupplyingCarrierCode();
 		
@@ -306,6 +329,38 @@ public class LegacyExporter {
 
 		
 	}
+	
+	private void exportTCVMfile() throws IOException {
+		
+		if (tool.getConversionFromLegacy().getLegacy108().getLegacyMemos() == null || 
+			tool.getConversionFromLegacy().getLegacy108().getLegacyMemos().getLegacyMemos().isEmpty()) {
+			return;
+		}
+		
+		
+		
+		String provider = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0).getSupplyingCarrierCode();
+				
+		BufferedWriter writer = getWriter(exportPath, "TCVM" + provider + ".txt"); //$NON-NLS-1$
+
+		
+		boolean firstLine = true;
+		
+		for (Legacy108Memo memo : tool.getConversionFromLegacy().getLegacy108().getLegacyMemos().getLegacyMemos()) {
+			if (!firstLine) {
+				writer.newLine();
+			}
+			firstLine = false;
+			writer.write(getMemoLine(memo));
+		}
+		writer.close();
+		
+		writeM = true;
+		
+		GtmUtils.writeConsoleInfo("TCVM-File written in " + exportPath, editor);
+
+		
+	}
 
 	private void exportTCVGfile() throws IOException {
 				
@@ -379,7 +434,7 @@ public class LegacyExporter {
 			
 			if (writeP) {
 				String line3 = getHeaderLine("TCVP" + provider, provider, providerName, //$NON-NLS-1$
-				tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().size(),
+				tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().size(),
 				tool.getConversionFromLegacy().getLegacy108().getStartDate(),
 				tool.getConversionFromLegacy().getLegacy108().getEndDate());
 				writer.newLine();					
@@ -388,12 +443,21 @@ public class LegacyExporter {
 			
 			if (writeL) {
 				String line3 = getHeaderLine("TCVL" + provider, provider, providerName, //$NON-NLS-1$
-				tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().size(),
+				tool.getConversionFromLegacy().getLegacy108().getLegacySeparateContractSeries().getSeparateContractSeries().size(),
 				tool.getConversionFromLegacy().getLegacy108().getStartDate(),
 				tool.getConversionFromLegacy().getLegacy108().getEndDate());
 				writer.newLine();					
 				writer.write(line3);
 			}			
+
+			if (writeM) {
+				String line3 = getHeaderLine("TCVM" + provider, provider, providerName, //$NON-NLS-1$
+				tool.getConversionFromLegacy().getLegacy108().getLegacyMemos().getLegacyMemos().size(),
+				tool.getConversionFromLegacy().getLegacy108().getStartDate(),
+				tool.getConversionFromLegacy().getLegacy108().getEndDate());
+				writer.newLine();					
+				writer.write(line3);
+			}	
 			
 			writer.close();
 			GtmUtils.writeConsoleInfo("TCV-File written in " + exportPath, editor);
@@ -527,9 +591,6 @@ public class LegacyExporter {
 
 	}
 
-
-
-
 	private String getStationLine(Legacy108Station station) {
 		
 		
@@ -544,7 +605,8 @@ public class LegacyExporter {
 		//	4 Old railway code numeric 5 O TAP TSI Technical Document B.9 11-15 This field is only used when stations are first introduced. 
 		sb.append("00000"); //$NON-NLS-1$
 		//	5 35-character station designation alpha numeric 35 M  16-50 Station designation in the national language including accents and in upper and lower case. 
-		sb.append(String.format("%-35s",GtmUtils.limitStringLengthWithConsoleEntry(station.getNameUTF8(),35,editor,NationalLanguageSupport.LegacyExporter_103)));		 //$NON-NLS-1$
+		String localName = convert2CharSet(station.getNameUTF8(),charset);	
+		sb.append(String.format("%-35s",GtmUtils.limitStringLengthWithConsoleEntry(localName,35,editor,NationalLanguageSupport.LegacyExporter_103)));		 //$NON-NLS-1$
 		//	6 Flag 1 for the 35- character station designation numeric 1 M  51 0 or 3 (see point 2.2) 
 		sb.append("0"); //$NON-NLS-1$
 		//	7 17-character station designation alpha numeric 17 M  52-68 Computer notation with no accents but in upper and lower case. The file is to be transferred in the ascending alphanumeric order of this field. 
@@ -703,7 +765,7 @@ public class LegacyExporter {
 		//  37 Flag 12 for ferry link code numeric 1 M  160 0 or 3 (see point 2.2) 
 		sb.append("0");			 //$NON-NLS-1$
 		//	38 Info code numeric 4 O  161-164 Completed if the info file contains specific references to the series 
-		sb.append("0000");	 //$NON-NLS-1$
+		sb.append(String.format("%04d",series.getMemoNumber()));
 		//	39 Flag 13 for info code numeric 1 M  165 0 or 3 (see point 2.2) 
 		sb.append("0");	 //$NON-NLS-1$
 		//	40 1st replaced series numeric 5 O  166-1 70  
@@ -774,7 +836,112 @@ public class LegacyExporter {
 		
 		return sb.toString();
 	}
+	
+	private String getMemoLine(Legacy108Memo memo) {
+		
+		
+		StringBuilder sb = new StringBuilder();
+		
+		//1 code of the supplying RU numeric 4 M	1-4 e.g. 0081 for ÖBB
+		sb.append(String.format("%4s", provider));   //$NON-NLS-1$
+		//2 Info code numeric 4 M 5-8 Info data are consecutively number-coded.
+		sb.append(String.format("%04d", memo.getNumber()));   //$NON-NLS-1$
+		//3 Key flag for info code numeric 1 M 9 0, 1 or 2 (see point 2.2)
+		addStrings(sb, memo.getLocal(), charset);
+		//4 Line 1 in country's official language	alpha numeric 60 M 10-69
+		//5 Line 2 in country's official language	alpha numeric 60 O 70-129
+		//6 Line 3 in country's official language	in country’s official language	alpha numeric 60 O 130-189
+		//7 Line 4 in country's official language	in country’s official language	alpha numeric 60 O 190-249
+		addStrings(sb, memo.getFrench(), writerCharset);
+		//8 Line 1 in French alpha numeric 60 O 250-309
+		//9 Line 2 in French alpha numeric 60 O 310-369
+		//10 Line 3 in French alpha numeric 60 O 370-429
+		//11 Line 4 in French alpha numeric 60 O 430-489
+		addStrings(sb, memo.getGerman(), writerCharset);
+		//12 Line 1 in German alpha numeric 60 O 490-549
+		//13 Line 2 in German alpha numeric 60 O 550-609
+		//14 Line 3 in German alpha numeric 60 O 610-669
+		//15 Line 4 in German alpha numeric 60 O 670-729
+		addStrings(sb, memo.getEnglish(), writerCharset);
+		//16 Line 1 in English alpha numeric 60 O 730 - 789
+		//17 Line 2 in English alpha numeric 60 O 790 - 849
+		//18 Line 3 in English alpha numeric 60 O 850 - 909
+		//19 Line 4 in English alpha numeric 60 O 910 - 969
+		sb.append(String.format("%240s", " "));
+		//20 Reserved alpha numeric 60 O 970 - 1029
+		//21 Reserved alpha numeric 60 O 1030 – 1089
+		//22 Reserved alpha numeric 60 O 1090 - 1149
+		//23 Reserved alpha numeric 60 O 1150 – 1209
+		
+		//24 Flag 1 for info text numeric 1 M 1210 0 or 3 (see point 2.2)
+		sb.append("1"); //$NON-NLS-1$
+		//25 First day of validity of numeric 8 M 1211 – 1218 Expressed as: 'YYYYMMDD'
+		sb.append(dateFormat.format(fromDate));
+		//26 Version number numeric 2 M 1219 – 1220 Sequential version number related to the fare date; 
+		sb.append("01");			 //$NON-NLS-1$
+		//27 Last date of validity of fare numeric 8 M 1221 - 1228 Expressed as: 'YYYYMMDD'
+		sb.append(dateFormat.format(untilDate));
+		
+		return sb.toString();
+	}
 
+
+	private void addStrings(StringBuilder sb, String text,String targetCharset) {
+		if (text == null) {
+			sb.append(String.format("%240s", " "));
+			return;
+		}
+		String[] lines = new String[4];
+		if (text != null) {
+			lines = text.split("[\\r\\n]+");
+		}
+		int i = 0;
+		for ( String l : lines) {
+			lines[i] = convert2CharSet(l,targetCharset);
+			lines[i] = GtmUtils.limitStringLengthWithConsoleEntry(lines[i],60,editor,"TCVM exort line");		 //$NON-NLS-1$
+			i++;
+		}
+
+		//4 Line 1 in country's official language	alpha numeric 60 M 10-69
+		if (lines.length > 0 && lines[0] != null) {
+			sb.append(String.format("%60s", lines[0]));
+		} else {
+			sb.append(String.format("%60s", " "));
+		}
+		//5 Line 2 in country's official language	alpha numeric 60 O 70-129
+		if (lines.length > 1 && lines[1] != null) {
+			sb.append(String.format("%60s", lines[1]));
+		} else {
+			sb.append(String.format("%60s", " "));
+		}
+		//6 Line 3 in country's official language	in country’s official language	alpha numeric 60 O 130-189
+		if (lines.length > 2 && lines[2] != null) {
+			sb.append(String.format("%60s", lines[2]));
+		} else {
+			sb.append(String.format("%60s", " "));
+		}
+		//7 Line 4 in country's official language	in country’s official language	alpha numeric 60 O 190-249
+		if (lines.length > 3 && lines[3] != null) {
+			sb.append(String.format("%60s", lines[3]));
+		} else {
+			sb.append(String.format("%60s", " "));
+		}
+	}
+
+	private String convert2CharSet(String s, String targetCharset) {
+		
+		if (targetCharset.equals(writerCharset)) return s;
+		
+		try {
+
+			byte[] original = s.getBytes("ISO-8859-1");
+			
+			return  new String(original, targetCharset);		
+
+		} catch (UnsupportedEncodingException e) {
+			return s;
+		}
+	}
 
 	private BufferedWriter getWriter(Path path, String fileName)  {
 		
@@ -782,7 +949,8 @@ public class LegacyExporter {
 		
         BufferedWriter br;
 		try {
-			br = new BufferedWriter(new FileWriter(file));
+			br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), writerCharset));
+			
 		} catch (IOException e) {
 			MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
 			dialog.setText(NationalLanguageSupport.LegacyExporter_9 + file.toString());

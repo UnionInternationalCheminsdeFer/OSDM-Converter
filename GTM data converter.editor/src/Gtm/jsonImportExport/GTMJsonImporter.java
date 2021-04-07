@@ -14,7 +14,7 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
 import Gtm.*;
-import Gtm.actions.converter.StationComparator;
+import Gtm.converter.StationComparator;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.utils.GtmUtils;
@@ -539,6 +539,7 @@ public class GTMJsonImporter {
 	private ServiceConstraint convert(ServiceConstraintDef sc) {
 		ServiceConstraint o = GtmFactory.eINSTANCE.createServiceConstraint();
 		o.setId(sc.getId());
+		o.setLegacy108Code(sc.getLegacyCode());
 		if (sc.getExcludedServiceBrands()!= null && !sc.getExcludedServiceBrands().isEmpty()) {
 			Collection<? extends ServiceBrand> sl = convertServiceBrandList(sc.getExcludedServiceBrands());
 			if (sl != null && !sl.isEmpty()) {
@@ -797,6 +798,7 @@ public class GTMJsonImporter {
 			r.setSeqNb(jr.getSeqNb());
 			r.setZone(convert(jr.getZone()));
 			r.setLine(convert(jr.getLine()));
+			r.setServiceConstraint(findServiceConstraint(jr.getServiceConstraintRef()));
 			
 			l.add(r);
 		}
@@ -864,6 +866,9 @@ public class GTMJsonImporter {
 				v.getAlternativeRoutes().add(ar);
 			}
 		}
+		
+		v.setServiceConstraint(findServiceConstraint(jv.getServiceConstraintRef()));
+		
 		return v;
 	}
 
@@ -1476,6 +1481,7 @@ public class GTMJsonImporter {
 		f.setServiceConstraint(findServiceConstraint(jf.getServiceConstraintRef()));
 		f.setServiceLevel(findServiceLevel(jf.getServiceLevelRef()));
 		f.setText(findText(jf.getNameRef()));
+		f.setFareDetailDescription(findText(jf.getFareDetailDescriptionRef()));
 		f.setLegacyConversion(LegacyConversionType.getByName(jf.getLegacyConversion()));
 		f.setIndividualContracts(jf.getIndividualContracts());
 		
@@ -1513,7 +1519,8 @@ public class GTMJsonImporter {
 
 
 	private Text findText(String id) {
-		if (id == null || id.length() < 1) return null;
+		if (id == null || id.length() < 1 || fareStructure.getTexts() == null || fareStructure.getTexts().getTexts().isEmpty()) return null;
+		
 		for (Text  o : fareStructure.getTexts().getTexts()) {
 			if (id.equals(o.getId())) return o;
 		}

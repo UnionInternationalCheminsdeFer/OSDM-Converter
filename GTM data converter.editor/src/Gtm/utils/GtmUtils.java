@@ -1,7 +1,11 @@
 package Gtm.utils;
 
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.HashMap;
 import org.eclipse.core.runtime.Platform;
@@ -1449,6 +1453,34 @@ public class GtmUtils {
 		value.setScale(2);
 		BigDecimal amount = value.divide(oneHundred);
 		return amount.floatValue();
+	}
+	
+	 public static String getStackTrace(Throwable aThrowable) {
+		    final Writer result = new StringWriter();
+		    final PrintWriter printWriter = new PrintWriter(result);
+		    aThrowable.printStackTrace(printWriter);
+		    return result.toString();
+	 }
+	
+	public static void writeConsoleStackTrace(Exception e, GtmEditor editor){
+		if (e == null) return;
+		
+		String stackTrace = getStackTrace(e);
+		GtmUtils.writeConsoleError(stackTrace, editor);
+		
+	}
+	
+	public static BigDecimal round(float amount, int scale, RoundingMode mode, int radix) {
+		
+		if (radix == 10) {
+			return new BigDecimal(amount).setScale(scale, mode);
+		} else {
+			float value = amount * radix;
+			BigDecimal bd = new BigDecimal(value).setScale(scale - 1, mode);
+			float v = bd.floatValue() / radix;
+			BigDecimal bf = new BigDecimal(v).setScale(scale, mode);
+			return bf;
+		}
 	}
 	
 }

@@ -24,6 +24,50 @@
 		</ul>
 </p>
 
+<h2>Legacy data</h2>
+<p>
+<ul>
+Legacy data show either the imported data from  108 files or the converted 108 data from a OSDM to Legacy conversion:
+
+</ul>
+	<br/><br/>
+	<ul>On import:<br/><br/>
+</ul>
+<ul>
+			<li>Legacy Series - imported from TCVS</li>
+			<li>Legacy Separate Contract Series - imported from TCVL</li>
+			<li>Legacy Distance Fares - imported from price tables with distance based price calculation</li>
+			<li>Legacy Route Fares - imported from price tables with route based price calculation</li>
+			<li>Legacy Stations - imported from TCVG</li>
+			<li>Legacy Fare descriptions - imported from TCVP</li> 
+			<li>Legacy Memos - imported from TCVM</li>
+			<li>Legacy border point list - imported from a csv table to link legacy station codes and border point codes to real stations</li>
+		<br/><br/>
+</ul>
+
+</ul>
+	<br/><br/>
+	<ul>On export:<br/><br/>
+</ul>
+<ul>
+			<li>Legacy Series - converted from OSDM regional validity</li>
+			<li>Legacy Separate Contract Series - converted from OSDM fulfillment constraint</li>
+			<li>Legacy Distance Fares - not used</li>
+			<li>Legacy Route Fares - converted from OSDM regional validity</li>
+			<li>Legacy Stations - - converted from OSDM station details an service constraint legacy codes</li>
+			<li>Legacy Fare descriptions - converted from fare text</li> 
+			<li>Legacy Memos - converted from fare detail description</li>
+			<li>Legacy border point list - imported from a csv table to link legacy station codes and border point codes to real stations</li>
+		<br/><br/>
+</ul>
+		
+
+		<ul>
+		Data not used within the conversion might not be shown:
+		</ul>
+</p>
+
+
 <h2>Conversion data</h2> 
 
 <ul>
@@ -60,7 +104,7 @@ but the station sets of the connection points might be incomplete and must be co
 <tr><td>Time Zone</td><td>time zone to convert date and time values</td></tr>
 </table>
 
-<p>Conversion parameter in <b>Conversion Params</b>:
+<p>Conversion parameter in <b>Conversion Parameter</b>:
 
 <table border="1">
 <tr><td>data item</td><td>description</td><td>values</td></tr>
@@ -86,7 +130,7 @@ A fixed price can be set, the all fares converted from series will have the same
 The referenced data items must be defined in the General Tariff Model fare structure first. They can then be assigned to a fare template.</td>
     <td></td></tr>
 <tr><td>Legacy station mappings</td><td>Mappings of station codes in 108.1 to merits codes. A manual mapping can be added for station codes not included in MERITS</td><td >Mapping station code 018.1 to MERITS station code.</td></tr>
-<tr><td>Legacy station to service constraint mappings </td><td>Mappings of 108.1 stations to service constraints. In 108.1 data virtual stations have been added to indicate a service constraint. </td><td >Mapping to a service constraint. The service constraint must be added in the fare data first.</td></tr>
+<tr><td>Legacy station to service constraint mappings </td><td>Mappings of 108.1 stations to service constraints. In 108.1 data virtual stations have been added to indicate a service constraint. These will be mapped to the service constraint. To allow a conversion back into 108 data structures the 5 digit station code must be added in the service constraint as legacy code. In case the station is part of the route the service constraint will be added in the corresponding part of the route.</td><td >Mapping to a service constraint. The service constraint must be added in the fare data first.</td></tr>
 <tr><td>Legacy Bus and Ferry Mapping</td>
     <td>A mapping of the series Bus and Ferry Code to ServiceConstraints can be defined here. This mapping will override a mapping of the fare template and will be overwritten y a mapping to a station to service constraint mapping.</td>
     <td>Selection list on service constraints defined in the fare data</td></tr>
@@ -121,6 +165,10 @@ Data structures used in the <b>fare template</b> reference data in the final far
 <li> Half-Up: rounding up to one cent for 0.5 to 0.9 cents and down for 0.1 to 0.4 cents</li>
 <li> Half-Down: rounding up to one cent for 0.6 to 0.9 cents and down for 0.1 to 0.5 cents</li>
 <li> Half-Even: rounding half up if the left digit is odd, half down otherwise (preserves the mean value)</li>
+<li> Up to 5 Cent: rounding to multiples of 5 cent: up to 5 cent for 0.01 to 5.0 cents and up to 10 for 5.01 to 9.99 cents</li>
+<li> Down to 5 Cent: rounding to multiples of 5 cent: down to 0 cents for 0.01 to 4.99 cents, down to 5 cents for 5.01 to 9.9 cents </li>
+<li> Up to 2 Cent: rounding up to multiples of 2 cent</li>
+<li> Down to 2 Cent: rounding down to multiples of 2 cent</li>
 </ul>
 </td></tr>
 <tr><td>data description</td><td>Text to name the fare template. This text as no effect on the final data.</td></tr>

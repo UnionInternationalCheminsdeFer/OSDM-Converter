@@ -69,6 +69,7 @@ public class TextItemProvider
 			addTextICAOPropertyDescriptor(object);
 			addShortTextUTF8PropertyDescriptor(object);
 			addShortTextICAOPropertyDescriptor(object);
+			addDataSourcePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -184,6 +185,28 @@ public class TextItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Data Source feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataSourcePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Text_dataSource_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Text_dataSource_feature", "_UI_Text_type"),
+				 GtmPackage.Literals.TEXT__DATA_SOURCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -257,6 +280,7 @@ public class TextItemProvider
 			case GtmPackage.TEXT__SHORT_TEXT_UTF8:
 			case GtmPackage.TEXT__SHORT_TEXT_ICAO:
 			case GtmPackage.TEXT__STANDARD_TEXT:
+			case GtmPackage.TEXT__DATA_SOURCE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.TEXT__TRANSLATIONS:

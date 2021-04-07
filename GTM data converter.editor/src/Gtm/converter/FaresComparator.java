@@ -1,4 +1,4 @@
-package Gtm.actions.converter;
+package Gtm.converter;
 
 import java.util.Comparator;
 

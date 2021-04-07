@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Gtm.GTMTool;
-import Gtm.actions.converter.LegacyExporter;
+import Gtm.legacyImportExport.LegacyExporter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;

@@ -898,6 +898,18 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.LEGACY108_MEMOS: {
+				Legacy108Memos legacy108Memos = (Legacy108Memos)theEObject;
+				T result = caseLegacy108Memos(legacy108Memos);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.LEGACY108_MEMO: {
+				Legacy108Memo legacy108Memo = (Legacy108Memo)theEObject;
+				T result = caseLegacy108Memo(legacy108Memo);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.LEGACY108_FARE_DESCRIPTION: {
 				Legacy108FareDescription legacy108FareDescription = (Legacy108FareDescription)theEObject;
 				T result = caseLegacy108FareDescription(legacy108FareDescription);
@@ -3032,6 +3044,36 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLegacy108(Legacy108 object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Legacy108 Memos</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Legacy108 Memos</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLegacy108Memos(Legacy108Memos object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Legacy108 Memo</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Legacy108 Memo</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLegacy108Memo(Legacy108Memo object) {
 		return null;
 	}
 

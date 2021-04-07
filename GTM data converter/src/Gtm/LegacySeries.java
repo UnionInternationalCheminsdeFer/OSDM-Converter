@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.LegacySeries#getValidUntil <em>Valid Until</em>}</li>
  *   <li>{@link Gtm.LegacySeries#getBusCode <em>Bus Code</em>}</li>
  *   <li>{@link Gtm.LegacySeries#getFerryCode <em>Ferry Code</em>}</li>
+ *   <li>{@link Gtm.LegacySeries#getMemoNumber <em>Memo Number</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getLegacySeries()
@@ -265,6 +266,28 @@ public interface LegacySeries extends EObject {
 	 * @generated
 	 */
 	void setFerryCode(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Memo Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Memo Number</em>' attribute.
+	 * @see #setMemoNumber(int)
+	 * @see Gtm.GtmPackage#getLegacySeries_MemoNumber()
+	 * @model
+	 * @generated
+	 */
+	int getMemoNumber();
+
+	/**
+	 * Sets the value of the '{@link Gtm.LegacySeries#getMemoNumber <em>Memo Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Memo Number</em>' attribute.
+	 * @see #getMemoNumber()
+	 * @generated
+	 */
+	void setMemoNumber(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.

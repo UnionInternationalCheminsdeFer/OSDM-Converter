@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.MessageBox;
 
 import Gtm.Country;
 import Gtm.GTMTool;
-import Gtm.actions.converter.ConverterToLegacy;
+import Gtm.converter.ConverterToLegacy;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
@@ -130,6 +130,7 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 			} catch (Exception exception) {
 				// Something went wrong that shouldn't.
 				GtmUtils.displayAsyncErrorMessage(exception, "unknown error");	
+				GtmUtils.writeConsoleStackTrace(exception, editor);
 			} finally {
 				editor.reconnectViews();
 			}			

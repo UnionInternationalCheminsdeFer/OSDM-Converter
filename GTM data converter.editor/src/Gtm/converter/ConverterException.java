@@ -1,4 +1,4 @@
-package Gtm.actions.converter;
+package Gtm.converter;
 
 public class ConverterException extends Exception {
 

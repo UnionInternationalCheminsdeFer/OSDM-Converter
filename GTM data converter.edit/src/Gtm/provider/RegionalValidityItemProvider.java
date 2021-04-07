@@ -65,6 +65,7 @@ public class RegionalValidityItemProvider
 			super.getPropertyDescriptors(object);
 
 			addSeqNbPropertyDescriptor(object);
+			addServiceConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +88,28 @@ public class RegionalValidityItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Service Constraint feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addServiceConstraintPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RegionalValidity_serviceConstraint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RegionalValidity_serviceConstraint_feature", "_UI_RegionalValidity_type"),
+				 GtmPackage.Literals.REGIONAL_VALIDITY__SERVICE_CONSTRAINT,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

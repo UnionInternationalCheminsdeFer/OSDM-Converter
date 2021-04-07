@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -16,7 +17,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "id",
     "includedServiceBrands",
-    "excludedServiceBrands"
+    "excludedServiceBrands",
+    "legacyCode"
 })
 public class ServiceConstraintDef {
 
@@ -31,6 +33,13 @@ public class ServiceConstraintDef {
     private List<Integer> includedServiceBrands = new ArrayList<Integer>();
     @JsonProperty("excludedServiceBrands")
     private List<Integer> excludedServiceBrands = new ArrayList<Integer>();
+    /**
+     * id used in 108 as fake local station code 
+     * 
+     */
+    @JsonProperty("legacyCode")
+    @JsonPropertyDescription("id used in 108 as fake local station code ")
+    private Integer legacyCode;
 
     /**
      * 
@@ -72,6 +81,24 @@ public class ServiceConstraintDef {
         this.excludedServiceBrands = excludedServiceBrands;
     }
 
+    /**
+     * id used in 108 as fake local station code 
+     * 
+     */
+    @JsonProperty("legacyCode")
+    public Integer getLegacyCode() {
+        return legacyCode;
+    }
+
+    /**
+     * id used in 108 as fake local station code 
+     * 
+     */
+    @JsonProperty("legacyCode")
+    public void setLegacyCode(Integer legacyCode) {
+        this.legacyCode = legacyCode;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -88,6 +115,10 @@ public class ServiceConstraintDef {
         sb.append('=');
         sb.append(((this.excludedServiceBrands == null)?"<null>":this.excludedServiceBrands));
         sb.append(',');
+        sb.append("legacyCode");
+        sb.append('=');
+        sb.append(((this.legacyCode == null)?"<null>":this.legacyCode));
+        sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
         } else {
@@ -102,6 +133,7 @@ public class ServiceConstraintDef {
         result = ((result* 31)+((this.excludedServiceBrands == null)? 0 :this.excludedServiceBrands.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
         result = ((result* 31)+((this.includedServiceBrands == null)? 0 :this.includedServiceBrands.hashCode()));
+        result = ((result* 31)+((this.legacyCode == null)? 0 :this.legacyCode.hashCode()));
         return result;
     }
 
@@ -114,7 +146,7 @@ public class ServiceConstraintDef {
             return false;
         }
         ServiceConstraintDef rhs = ((ServiceConstraintDef) other);
-        return ((((this.excludedServiceBrands == rhs.excludedServiceBrands)||((this.excludedServiceBrands!= null)&&this.excludedServiceBrands.equals(rhs.excludedServiceBrands)))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.includedServiceBrands == rhs.includedServiceBrands)||((this.includedServiceBrands!= null)&&this.includedServiceBrands.equals(rhs.includedServiceBrands))));
+        return (((((this.excludedServiceBrands == rhs.excludedServiceBrands)||((this.excludedServiceBrands!= null)&&this.excludedServiceBrands.equals(rhs.excludedServiceBrands)))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.includedServiceBrands == rhs.includedServiceBrands)||((this.includedServiceBrands!= null)&&this.includedServiceBrands.equals(rhs.includedServiceBrands))))&&((this.legacyCode == rhs.legacyCode)||((this.legacyCode!= null)&&this.legacyCode.equals(rhs.legacyCode))));
     }
 
 }

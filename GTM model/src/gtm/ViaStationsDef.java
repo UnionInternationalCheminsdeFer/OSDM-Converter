@@ -18,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "route",
     "serviceBrand",
     "station",
-    "fareReferenceStationSet"
+    "fareReferenceStationSet",
+    "serviceConstraintRef"
 })
 public class ViaStationsDef {
 
@@ -48,7 +49,6 @@ public class ViaStationsDef {
     private String serviceBrand;
     /**
      * Used to represent a station location. This is a location that can be used as origin and destination for a train journey
-     * (Required)
      * 
      */
     @JsonProperty("station")
@@ -61,6 +61,8 @@ public class ViaStationsDef {
     @JsonProperty("fareReferenceStationSet")
     @JsonPropertyDescription("reference to a list of stations included in the fare")
     private FareReferenceStationSet fareReferenceStationSet;
+    @JsonProperty("serviceConstraintRef")
+    private String serviceConstraintRef;
 
     @JsonProperty("isBorder")
     public Boolean getIsBorder() {
@@ -150,7 +152,6 @@ public class ViaStationsDef {
 
     /**
      * Used to represent a station location. This is a location that can be used as origin and destination for a train journey
-     * (Required)
      * 
      */
     @JsonProperty("station")
@@ -160,7 +161,6 @@ public class ViaStationsDef {
 
     /**
      * Used to represent a station location. This is a location that can be used as origin and destination for a train journey
-     * (Required)
      * 
      */
     @JsonProperty("station")
@@ -184,6 +184,16 @@ public class ViaStationsDef {
     @JsonProperty("fareReferenceStationSet")
     public void setFareReferenceStationSet(FareReferenceStationSet fareReferenceStationSet) {
         this.fareReferenceStationSet = fareReferenceStationSet;
+    }
+
+    @JsonProperty("serviceConstraintRef")
+    public String getServiceConstraintRef() {
+        return serviceConstraintRef;
+    }
+
+    @JsonProperty("serviceConstraintRef")
+    public void setServiceConstraintRef(String serviceConstraintRef) {
+        this.serviceConstraintRef = serviceConstraintRef;
     }
 
     @Override
@@ -226,6 +236,10 @@ public class ViaStationsDef {
         sb.append('=');
         sb.append(((this.fareReferenceStationSet == null)?"<null>":this.fareReferenceStationSet));
         sb.append(',');
+        sb.append("serviceConstraintRef");
+        sb.append('=');
+        sb.append(((this.serviceConstraintRef == null)?"<null>":this.serviceConstraintRef));
+        sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
         } else {
@@ -241,6 +255,7 @@ public class ViaStationsDef {
         result = ((result* 31)+((this.routeId == null)? 0 :this.routeId.hashCode()));
         result = ((result* 31)+((this.route == null)? 0 :this.route.hashCode()));
         result = ((result* 31)+((this.alternativeRoute == null)? 0 :this.alternativeRoute.hashCode()));
+        result = ((result* 31)+((this.serviceConstraintRef == null)? 0 :this.serviceConstraintRef.hashCode()));
         result = ((result* 31)+((this.station == null)? 0 :this.station.hashCode()));
         result = ((result* 31)+((this.seriesId == null)? 0 :this.seriesId.hashCode()));
         result = ((result* 31)+((this.serviceBrand == null)? 0 :this.serviceBrand.hashCode()));
@@ -258,7 +273,7 @@ public class ViaStationsDef {
             return false;
         }
         ViaStationsDef rhs = ((ViaStationsDef) other);
-        return ((((((((((this.carrier == rhs.carrier)||((this.carrier!= null)&&this.carrier.equals(rhs.carrier)))&&((this.routeId == rhs.routeId)||((this.routeId!= null)&&this.routeId.equals(rhs.routeId))))&&((this.route == rhs.route)||((this.route!= null)&&this.route.equals(rhs.route))))&&((this.alternativeRoute == rhs.alternativeRoute)||((this.alternativeRoute!= null)&&this.alternativeRoute.equals(rhs.alternativeRoute))))&&((this.station == rhs.station)||((this.station!= null)&&this.station.equals(rhs.station))))&&((this.seriesId == rhs.seriesId)||((this.seriesId!= null)&&this.seriesId.equals(rhs.seriesId))))&&((this.serviceBrand == rhs.serviceBrand)||((this.serviceBrand!= null)&&this.serviceBrand.equals(rhs.serviceBrand))))&&((this.fareReferenceStationSet == rhs.fareReferenceStationSet)||((this.fareReferenceStationSet!= null)&&this.fareReferenceStationSet.equals(rhs.fareReferenceStationSet))))&&((this.isBorder == rhs.isBorder)||((this.isBorder!= null)&&this.isBorder.equals(rhs.isBorder))));
+        return (((((((((((this.carrier == rhs.carrier)||((this.carrier!= null)&&this.carrier.equals(rhs.carrier)))&&((this.routeId == rhs.routeId)||((this.routeId!= null)&&this.routeId.equals(rhs.routeId))))&&((this.route == rhs.route)||((this.route!= null)&&this.route.equals(rhs.route))))&&((this.alternativeRoute == rhs.alternativeRoute)||((this.alternativeRoute!= null)&&this.alternativeRoute.equals(rhs.alternativeRoute))))&&((this.serviceConstraintRef == rhs.serviceConstraintRef)||((this.serviceConstraintRef!= null)&&this.serviceConstraintRef.equals(rhs.serviceConstraintRef))))&&((this.station == rhs.station)||((this.station!= null)&&this.station.equals(rhs.station))))&&((this.seriesId == rhs.seriesId)||((this.seriesId!= null)&&this.seriesId.equals(rhs.seriesId))))&&((this.serviceBrand == rhs.serviceBrand)||((this.serviceBrand!= null)&&this.serviceBrand.equals(rhs.serviceBrand))))&&((this.fareReferenceStationSet == rhs.fareReferenceStationSet)||((this.fareReferenceStationSet!= null)&&this.fareReferenceStationSet.equals(rhs.fareReferenceStationSet))))&&((this.isBorder == rhs.isBorder)||((this.isBorder!= null)&&this.isBorder.equals(rhs.isBorder))));
     }
 
 }

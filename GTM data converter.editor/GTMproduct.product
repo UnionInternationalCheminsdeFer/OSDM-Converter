@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSDM data converter" uid="GTMproduct" id="GTM_data_converter.editor.GTMproduct" application="GTM_data_converter.editor.GtmEditorAdvisorApplication" version="2.0.7" useFeatures="false" includeLaunchers="true">
+<product name="OSDM data converter" uid="GTMproduct" id="GTM_data_converter.editor.GTMproduct" application="GTM_data_converter.editor.GtmEditorAdvisorApplication" version="2.1.0" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/GTM data converter.editor/icons/UIC GIF square_96.gif"/>
@@ -20,6 +20,7 @@ The tool provides conversion between fare data according to UIC standards 108.1 
       </programArgs>
       <vmArgs>-Xms512m
 -Xmx6500m
+-Dfile.encoding=UTF-8
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>

@@ -19,10 +19,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ServiceConstraint#getIncludedServiceBrands <em>Included Service Brands</em>}</li>
  *   <li>{@link Gtm.ServiceConstraint#getExcludedServiceBrands <em>Excluded Service Brands</em>}</li>
  *   <li>{@link Gtm.ServiceConstraint#getDataDescription <em>Data Description</em>}</li>
+ *   <li>{@link Gtm.ServiceConstraint#getLegacy108Code <em>Legacy108 Code</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getServiceConstraint()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='INCLUDE_OR_EXCLUDE'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='INCLUDE_OR_EXCLUDE LEGACY_CODE_RANGE'"
  * @generated
  */
 public interface ServiceConstraint extends EObject {
@@ -93,5 +94,27 @@ public interface ServiceConstraint extends EObject {
 	 * @generated
 	 */
 	void setDataDescription(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Legacy108 Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Legacy108 Code</em>' attribute.
+	 * @see #setLegacy108Code(int)
+	 * @see Gtm.GtmPackage#getServiceConstraint_Legacy108Code()
+	 * @model
+	 * @generated
+	 */
+	int getLegacy108Code();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ServiceConstraint#getLegacy108Code <em>Legacy108 Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Legacy108 Code</em>' attribute.
+	 * @see #getLegacy108Code()
+	 * @generated
+	 */
+	void setLegacy108Code(int value);
 
 } // ServiceConstraint

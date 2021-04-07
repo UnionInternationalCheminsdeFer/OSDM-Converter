@@ -366,6 +366,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyBusFerryMapping((LegacyBusFerryMapping)value, diagnostics, context);
 			case GtmPackage.LEGACY108:
 				return validateLegacy108((Legacy108)value, diagnostics, context);
+			case GtmPackage.LEGACY108_MEMOS:
+				return validateLegacy108Memos((Legacy108Memos)value, diagnostics, context);
+			case GtmPackage.LEGACY108_MEMO:
+				return validateLegacy108Memo((Legacy108Memo)value, diagnostics, context);
 			case GtmPackage.LEGACY108_FARE_DESCRIPTION:
 				return validateLegacy108FareDescription((Legacy108FareDescription)value, diagnostics, context);
 			case GtmPackage.LEGACY108_FARES_DESCRIPTIONS:
@@ -2522,6 +2526,24 @@ public class GtmValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateLegacy108Memos(Legacy108Memos legacy108Memos, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(legacy108Memos, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLegacy108Memo(Legacy108Memo legacy108Memo, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(legacy108Memo, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateLegacy108FareDescription(Legacy108FareDescription legacy108FareDescription, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(legacy108FareDescription, diagnostics, context);
 	}
@@ -3757,6 +3779,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(serviceConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(serviceConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateServiceConstraint_INCLUDE_OR_EXCLUDE(serviceConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateServiceConstraint_LEGACY_CODE_RANGE(serviceConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -3774,8 +3797,32 @@ public class GtmValidator extends EObjectValidator {
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 "",  //$NON-NLS-1$
+						 "Included and excluded service brands used at the same time in:" + " " + getObjectLabel(serviceConstraint, context),
 						 new Object[] { getObjectLabel(serviceConstraint, context) },
+						 new Object[] { serviceConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the LEGACY_CODE_RANGE constraint of '<em>Service Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateServiceConstraint_LEGACY_CODE_RANGE(ServiceConstraint serviceConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (serviceConstraint.getLegacy108Code() > 99999 || serviceConstraint.getLegacy108Code() < 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createGtmDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Legacy Code invalid in:" + " " + getObjectLabel(serviceConstraint, context),
+						 new Object[] { "NAME_FORMAT", getObjectLabel(serviceConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { serviceConstraint },
 						 context));
 			}

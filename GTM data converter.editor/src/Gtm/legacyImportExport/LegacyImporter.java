@@ -1,10 +1,12 @@
-package Gtm.actions.converter;
+package Gtm.legacyImportExport;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +30,8 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Legacy108;
+import Gtm.Legacy108Memo;
+import Gtm.Legacy108Memos;
 import Gtm.Legacy108Station;
 import Gtm.Legacy108Stations;
 import Gtm.LegacyCalculationType;
@@ -53,6 +57,7 @@ public class LegacyImporter {
 	private GTMTool tool = null;
 	private DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
 	private String charset = null;
+	private String readerCharset = "ISO-8859-1";
 	private Path TCVfilePath = null;
 	private Legacy108 legacy108 = null;
 	private String timeZone = null;
@@ -173,6 +178,14 @@ public class LegacyImporter {
 			importTCVL(TCVLfile);
 		}
 		monitor.worked(1);
+		
+		monitor.subTask("Importing TCVM Memo Texts");
+		Path TCVMfilePath = Paths.get(directory.toString(), "TCVM" + provider + ".txt"); //$NON-NLS-1$ //$NON-NLS-2$
+		File TCVMfile =  TCVMfilePath.toFile();
+		if (TCVMfile.exists()) {
+			importTCVM(TCVMfile);
+		}
+		monitor.worked(1);
 	
 	}
 	
@@ -262,6 +275,189 @@ public class LegacyImporter {
 		} 
 		
 		return series;
+	}
+	
+	private void importTCVM(File file) {
+		BufferedReader br = getReader (file);
+		if (br == null) return;
+		
+	       String st; 
+	        
+	       Legacy108Memos list = GtmFactory.eINSTANCE.createLegacy108Memos();
+	        
+
+	        try {
+				while ((st = br.readLine()) != null) {
+					
+					Legacy108Memo memo = decodeTCVMLine(st, charset);
+					if (memo != null) {
+					  list.getLegacyMemos().add(memo);
+					}
+				}
+			} catch (IOException e) {
+				String message = "TCVM file import failed" + " - " + e.getMessage();
+				GtmUtils.writeConsoleError(message, editor);
+				e.printStackTrace();
+				return;
+			} 
+	        
+	           	
+			Command cmd =  SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_MEMOS, list );
+			if (cmd.canExecute()) {
+				domain.getCommandStack().execute(cmd);
+				String message = "TCVM series imported: " + Integer.toString(list.getLegacyMemos().size());
+				GtmUtils.writeConsoleInfo(message, editor);
+			}
+	}
+
+	private Legacy108Memo decodeTCVMLine(String st, String charset) {
+		
+		//1 code of the supplying RU numeric 4 M	1-4 e.g. 0081 for ÖBB
+		//2 Info code numeric 4 M 5-8 Info data are consecutively number-coded.
+		//3 Key flag for info code numeric 1 M 9 0, 1 or 2 (see point 2.2)
+		//4 Line 1 in country’s official language	alpha numeric 60 M 10-69
+		//5 Line 2 in country’s official language	alpha numeric 60 O 70-129
+		//6 Line 3 in country’s official language	alpha numeric 60 O 130-189
+		//7 Line 4 in country’s official language	alpha numeric 60 O 190-249
+		//8 Line 1 in French alpha numeric 60 O 250-309
+		//9 Line 2 in French alpha numeric 60 O 310-369
+		//10 Line 3 in French alpha numeric 60 O 370-429
+		//11 Line 4 in French alpha numeric 60 O 430-489
+		//12 Line 1 in German alpha numeric 60 O 490-549
+		//13 Line 2 in German alpha numeric 60 O 550-609
+		//14 Line 3 in German alpha numeric 60 O 610-669
+		//15 Line 4 in German alpha numeric 60 O 670-729
+		//16 Line 1 in English alpha numeric 60 O 730 - 789
+		//17 Line 2 in English alpha numeric 60 O 790 - 849
+		//18 Line 3 in English alpha numeric 60 O 850 - 909
+		//19 Line 4 in English alpha numeric 60 O 910 - 969
+		//20 Reserved alpha numeric 60 O 970 - 1029
+		//21 Reserved alpha numeric 60 O 1030 – 1089
+		//22 Reserved alpha numeric 60 O 1090 - 1149
+		//23 Reserved alpha numeric 60 O 1150 – 1209
+		//24 Flag 1 for info text numeric 1 M 1210 0 or 3 (see point 2.2)
+		//25 First day of validity of numeric 8 M 1211 – 1218 Expressed as: 'YYYYMMDD'
+		//26 Version number numeric 2 M 1219 – 1220 Sequential version number related to the fare date; 
+		//27 Last date of validity of fare numeric 8 M 1221 - 1228 Expressed as: 'YYYYMMDD'
+		
+		if (st.length() < 1228)	return null;
+		
+		//String carrier 	     	= st.substring(0, 4);
+		String number  		    = st.substring(4, 8);
+
+		
+		String local1   	   	= getUtf8String(9,69, st, charset);
+		String local2   	   	= getUtf8String(69,129,st,charset);
+		String local3   	   	= getUtf8String(129,189,st,charset);
+		String local4   	   	= getUtf8String(189,249,st,charset);
+
+		String french1   	   	= getUtf8String(249,309,st,"ISO-8859-1");
+		String french2   	   	= getUtf8String(309,369,st,"ISO-8859-1");
+		String french3   	   	= getUtf8String(369,429,st,"ISO-8859-1");
+		String french4   	   	= getUtf8String(429,489,st,"ISO-8859-1");
+
+		String german1   	   	= getUtf8String(489,549,st,"ISO-8859-1");
+		String german2   	   	= getUtf8String(549,609,st,"ISO-8859-1");
+		String german3   	   	= getUtf8String(609,669,st,"ISO-8859-1");
+		String german4   	   	= getUtf8String(669,729,st,"ISO-8859-1");
+
+		String english1   	   	= getUtf8String(729,789,st,"ISO-8859-1");
+		String english2   	   	= getUtf8String(789,849,st,"ISO-8859-1");
+		String english3   	   	= getUtf8String(849,909,st,"ISO-8859-1");
+		String english4   	   	= getUtf8String(909,969,st,"ISO-8859-1");
+		
+		//String validFromString   = st.substring(1210,1218); //YYYYMMDD
+		//String validUntilString  = st.substring(1220,1228); //YYYYMMDD
+		
+		Legacy108Memo memo = GtmFactory.eINSTANCE.createLegacy108Memo();
+		
+		try {
+			memo.setNumber(Integer.parseInt(number));
+
+			StringBuilder sb = new StringBuilder();
+			sb.append(local1);
+			if (local2.length() > 0) {
+				sb.append('\n').append(local2);
+			}
+			if (local3.length() > 0) {
+				sb.append('\n').append(local3);
+			}
+			if (local4.length() > 0) {
+				sb.append('\n').append(local4);
+			}
+			memo.setLocal(sb.toString());
+			
+			sb = new StringBuilder();
+			sb.append(french1);
+			if (french2.length() > 0) {
+				sb.append('\n').append(french2);
+			}
+			if (french3.length() > 0) {
+				sb.append('\n').append(french3);
+			}
+			if (french4.length() > 0) {
+				sb.append('\n').append(french4);
+			}
+			memo.setFrench(sb.toString());
+			
+			sb = new StringBuilder();
+			sb.append(english1);
+			if (english2.length() > 0) {
+				sb.append('\n').append(english2);
+			}
+			if (english3.length() > 0) {
+				sb.append('\n').append(english3);
+			}
+			if (english4.length() > 0) {
+				sb.append('\n').append(english4);
+			}
+			memo.setEnglish(sb.toString());
+			
+			sb = new StringBuilder();
+			sb.append(german1);
+			if (german2.length() > 0) {
+				sb.append('\n').append(german2);
+			}
+			if (german3.length() > 0) {
+				sb.append('\n').append(german3);
+			}
+			if (german4.length() > 0) {
+				sb.append('\n').append(german4);
+			}
+			memo.setGerman(sb.toString());
+			
+			
+		} catch (Exception e) {
+			return null;
+		}
+		return memo;
+	}
+
+	private String getUtf8String(int from, int to, String line, String charset) {
+
+		try {
+			if (charset.equals(readerCharset)) {
+				return new String(line.substring(from,to).getBytes("UTF-8")).trim();
+			} else {
+				return convert2CharSet(line,charset).substring(from,to).trim();
+			}
+		} catch (UnsupportedEncodingException e) {
+			return line.substring(from,to).trim();
+		}
+
+	}
+	
+	private String convert2CharSet(String s, String targetCharset) {
+		
+		try {
+
+			byte[] original = s.getBytes("ISO-8859-1");
+			
+			return  new String(original, targetCharset);		
+
+		} catch (UnsupportedEncodingException e) {
+			return s;
+		}
 	}
 
 	private void importTCVG(File file) {
@@ -516,8 +712,10 @@ public class LegacyImporter {
     
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader(file));
-		} catch (FileNotFoundException e) {
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(file), readerCharset));
+			
+					//new FileReader(file,));
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			String message = NationalLanguageSupport.LegacyImporter_19+ " - " + e.getMessage();
 			GtmUtils.writeConsoleError(message, editor);
 			e.printStackTrace();
@@ -586,7 +784,7 @@ public class LegacyImporter {
 		if (flag.equals("2")) return null; //$NON-NLS-1$
 
 
-		String nameUTF8 = new String(st.substring(15,50).getBytes(charset)).trim();
+		String nameUTF8 = getUtf8String(15, 50, st, charset);
 	
 		String nameASCII 	= st.substring(51,68).trim();	
 
@@ -730,6 +928,8 @@ public class LegacyImporter {
 		
 		String calculation				= st.substring(150,151);		
 		
+		//	38 Info code numeric 4 O  161-164 Completed if the info file contains specific references to the series 
+		String infoCode 				= st.substring(160,164);
 			
 		String via1						= st.substring(175,180);			
 		String pos1						= st.substring(180,181);			
@@ -781,6 +981,11 @@ public class LegacyImporter {
 			series.setFareTableNumber(0);	
 		}
 		
+		try {
+			series.setMemoNumber(Integer.parseInt(infoCode));
+		} catch(Exception e) {
+			series.setMemoNumber(0);	
+		}
 		
 		if (type.equals("1")) series.setType(LegacySeriesType.TRANSIT); //$NON-NLS-1$
 		if (type.equals("2")) series.setType(LegacySeriesType.BORDER_DESTINATION); //$NON-NLS-1$

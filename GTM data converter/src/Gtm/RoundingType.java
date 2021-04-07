@@ -66,7 +66,39 @@ public enum RoundingType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	HALFDOWN(4, "HALFDOWN", "HALFDOWN");
+	HALFDOWN(4, "HALFDOWN", "HALFDOWN"), /**
+	 * The '<em><b>UP5CENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UP5CENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UP5CENT(5, "UP5CENT", "UP5CENT"), /**
+	 * The '<em><b>DOWN5CENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DOWN5CENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DOWN5CENT(6, "DOWN5CENT", "DOWN5CENT"), /**
+	 * The '<em><b>UP2CENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UP2CENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UP2CENT(7, "UP2CENT", "UP2CENT"), /**
+	 * The '<em><b>DOWN2CENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DOWN2CENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DOWN2CENT(8, "DOWN2CENT", "DOWN2CENT");
 
 	/**
 	 * The '<em><b>HALFUP</b></em>' literal value.
@@ -124,6 +156,50 @@ public enum RoundingType implements Enumerator {
 	public static final int HALFDOWN_VALUE = 4;
 
 	/**
+	 * The '<em><b>UP5CENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UP5CENT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UP5CENT_VALUE = 5;
+
+	/**
+	 * The '<em><b>DOWN5CENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DOWN5CENT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DOWN5CENT_VALUE = 6;
+
+	/**
+	 * The '<em><b>UP2CENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UP2CENT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UP2CENT_VALUE = 7;
+
+	/**
+	 * The '<em><b>DOWN2CENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DOWN2CENT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DOWN2CENT_VALUE = 8;
+
+	/**
 	 * An array of all the '<em><b>Rounding Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -136,6 +212,10 @@ public enum RoundingType implements Enumerator {
 			HALFEVEN,
 			UP,
 			HALFDOWN,
+			UP5CENT,
+			DOWN5CENT,
+			UP2CENT,
+			DOWN2CENT,
 		};
 
 	/**
@@ -197,6 +277,10 @@ public enum RoundingType implements Enumerator {
 			case HALFEVEN_VALUE: return HALFEVEN;
 			case UP_VALUE: return UP;
 			case HALFDOWN_VALUE: return HALFDOWN;
+			case UP5CENT_VALUE: return UP5CENT;
+			case DOWN5CENT_VALUE: return DOWN5CENT;
+			case UP2CENT_VALUE: return UP2CENT;
+			case DOWN2CENT_VALUE: return DOWN2CENT;
 		}
 		return null;
 	}

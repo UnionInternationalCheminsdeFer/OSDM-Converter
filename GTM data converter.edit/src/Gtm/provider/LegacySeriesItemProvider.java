@@ -82,6 +82,7 @@ public class LegacySeriesItemProvider
 			addValidUntilPropertyDescriptor(object);
 			addBusCodePropertyDescriptor(object);
 			addFerryCodePropertyDescriptor(object);
+			addMemoNumberPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -236,6 +237,28 @@ public class LegacySeriesItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Memo Number feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMemoNumberPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LegacySeries_memoNumber_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LegacySeries_memoNumber_feature", "_UI_LegacySeries_type"),
+				 GtmPackage.Literals.LEGACY_SERIES__MEMO_NUMBER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -577,6 +600,7 @@ public class LegacySeriesItemProvider
 			case GtmPackage.LEGACY_SERIES__VALID_UNTIL:
 			case GtmPackage.LEGACY_SERIES__BUS_CODE:
 			case GtmPackage.LEGACY_SERIES__FERRY_CODE:
+			case GtmPackage.LEGACY_SERIES__MEMO_NUMBER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.LEGACY_SERIES__VIASTATIONS:

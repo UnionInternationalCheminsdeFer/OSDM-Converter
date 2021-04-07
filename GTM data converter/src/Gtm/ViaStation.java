@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ViaStation#getAlternativeRoutes <em>Alternative Routes</em>}</li>
  *   <li>{@link Gtm.ViaStation#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.ViaStation#getFareStationSet <em>Fare Station Set</em>}</li>
+ *   <li>{@link Gtm.ViaStation#getServiceConstraint <em>Service Constraint</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getViaStation()
@@ -149,6 +150,28 @@ public interface ViaStation extends EObject {
 	 * @generated
 	 */
 	void setFareStationSet(FareStationSetDefinition value);
+
+	/**
+	 * Returns the value of the '<em><b>Service Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Service Constraint</em>' reference.
+	 * @see #setServiceConstraint(ServiceConstraint)
+	 * @see Gtm.GtmPackage#getViaStation_ServiceConstraint()
+	 * @model
+	 * @generated
+	 */
+	ServiceConstraint getServiceConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ViaStation#getServiceConstraint <em>Service Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Service Constraint</em>' reference.
+	 * @see #getServiceConstraint()
+	 * @generated
+	 */
+	void setServiceConstraint(ServiceConstraint value);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -3,6 +3,7 @@ package Gtm.actions;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -11,16 +12,20 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Gtm.Country;
+import Gtm.FareTemplate;
 import Gtm.GTMTool;
-import Gtm.actions.converter.ConverterFromLegacy;
+import Gtm.LegacyFareTemplates;
+import Gtm.TravelerType;
+import Gtm.converter.ConverterFromLegacy;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ConvertLegacy2GtmAction.
+ * 
+ * conversion from legacy 108 data to OSDM 
  */
 public class ConvertLegacy2GtmAction extends BasicGtmAction {
 	
@@ -97,6 +102,26 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 				return;
 			}
 			
+			if (noKids(tool.getConversionFromLegacy().getParams().getLegacyFareTemplates())) {
+				String message = "The fare templates don't include child fares!";
+				String question = "Do you want to continue with incomplete data?";		
+				boolean result = MessageDialog.openQuestion(Display.getDefault().getActiveShell(), message, question);
+				if (!result) {
+					return;
+				}
+				GtmUtils.writeConsoleError(message, editor);
+			}
+			
+			if (noAdults(tool.getConversionFromLegacy().getParams().getLegacyFareTemplates())) {
+				String message = "The fare templates don't include adult fares!";
+				String question = "Do you want to continue with incomplete data?";		
+				boolean result = MessageDialog.openQuestion(Display.getDefault().getActiveShell(), message, question);
+				if (!result) {
+					return;
+				}
+				GtmUtils.writeConsoleError(message, editor);
+			}
+			
 			ConverterFromLegacy converter = new ConverterFromLegacy(tool,domain,editor);
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
@@ -159,6 +184,7 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 					dialog.setMessage(e.getMessage());
 				} else {
 					dialog.setMessage(NationalLanguageSupport.ExportGTMJsonAction_10);
+					GtmUtils.writeConsoleStackTrace(e, editor);
 				}
 				dialog.open(); 
 			} finally {
@@ -166,6 +192,31 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 			}
 
 				
+		}
+
+
+		private boolean noAdults(LegacyFareTemplates legacyFareTemplates) {
+			for (FareTemplate t: legacyFareTemplates.getFareTemplates()) {
+				
+				if (t.getPassengerConstraint() != null && 
+					t.getPassengerConstraint().getTravelerType().equals(TravelerType.ADULT)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+
+		private boolean noKids(LegacyFareTemplates legacyFareTemplates) {
+
+			for (FareTemplate t: legacyFareTemplates.getFareTemplates()) {
+				
+				if (t.getPassengerConstraint() != null && 
+					t.getPassengerConstraint().getTravelerType().equals(TravelerType.CHILD)) {
+					return false;
+				}
+			}
+			return true;
 		}
 
 

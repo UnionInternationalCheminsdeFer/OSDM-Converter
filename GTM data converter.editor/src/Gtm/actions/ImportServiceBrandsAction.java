@@ -24,7 +24,7 @@ import Gtm.GtmPackage;
 import Gtm.ServiceBrand;
 import Gtm.ServiceBrands;
 import Gtm.TransportMode;
-import Gtm.actions.converter.ServiceBrandComparator;
+import Gtm.converter.ServiceBrandComparator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;

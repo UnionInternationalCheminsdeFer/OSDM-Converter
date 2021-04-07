@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.MessageBox;
 
 import Gtm.Country;
 import Gtm.GTMTool;
-import Gtm.actions.converter.LegacyImporter;
+import Gtm.legacyImportExport.LegacyImporter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
@@ -81,7 +81,7 @@ public class ImportLegacy108Action extends BasicGtmAction {
 
 			public void run(IProgressMonitor monitor) {
 
-				monitor.beginTask(NationalLanguageSupport.ImportLegacyAction_Monitor, 30); 
+				monitor.beginTask(NationalLanguageSupport.ImportLegacyAction_Monitor, 31); 
 		
 				importer.importAll(monitor);
 					

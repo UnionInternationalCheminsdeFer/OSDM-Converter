@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.RegionalValidity#getZone <em>Zone</em>}</li>
  *   <li>{@link Gtm.RegionalValidity#getLine <em>Line</em>}</li>
  *   <li>{@link Gtm.RegionalValidity#getPolygone <em>Polygone</em>}</li>
+ *   <li>{@link Gtm.RegionalValidity#getServiceConstraint <em>Service Constraint</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getRegionalValidity()
@@ -134,5 +135,27 @@ public interface RegionalValidity extends EObject {
 	 * @generated
 	 */
 	void setPolygone(Polygone value);
+
+	/**
+	 * Returns the value of the '<em><b>Service Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Service Constraint</em>' reference.
+	 * @see #setServiceConstraint(ServiceConstraint)
+	 * @see Gtm.GtmPackage#getRegionalValidity_ServiceConstraint()
+	 * @model
+	 * @generated
+	 */
+	ServiceConstraint getServiceConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.RegionalValidity#getServiceConstraint <em>Service Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Service Constraint</em>' reference.
+	 * @see #getServiceConstraint()
+	 * @generated
+	 */
+	void setServiceConstraint(ServiceConstraint value);
 
 } // RegionalValidity
