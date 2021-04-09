@@ -676,7 +676,7 @@ public class GtmUtils {
 		countries.getCountries().add(createCountry(40,"Cuba","CU")); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(41,"Albania","AL")); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(42,"Japan","JP")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(43,"GYSEV temporary irregular code not to e used beyond mid 2022","HU")); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(43,"GYSEV temporary irregular code not to be used beyond mid 2022","HU")); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(44,"Bosnia and Herzegovina, Serb Republic of ","BA")); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(50,"Bosnia and Herzegovina, Muslim-Croat Federation of","BA")); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(51,"Poland","PL")); //$NON-NLS-1$ //$NON-NLS-2$
