@@ -8,11 +8,15 @@ import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
+import Gtm.Countries;
+import Gtm.Country;
 import Gtm.FareConstraintBundle;
 import Gtm.FareConstraintBundles;
 import Gtm.FareElement;
@@ -50,9 +54,11 @@ public class MigrationV2 {
 		if (object == null) return;
 	
 		runMigration(domain, editor);
+		
+
 	}
-	
-	
+
+
 	/**
 	 * Run migration.
 	 *
@@ -71,6 +77,9 @@ public class MigrationV2 {
 		if (!(object instanceof GTMTool)){
 			return;
 		}
+		
+		
+		updateCountries((GTMTool)object, editor);
 
 		if (!conversionNeeded((GTMTool)object)){
 			return;
@@ -133,6 +142,65 @@ public class MigrationV2 {
 	}
 	
 	
+	private static void updateCountries(GTMTool tool, GtmEditor editor) {
+		
+		Countries cs = GtmFactory.eINSTANCE.createCountries();
+		
+		GtmUtils.populateUICcountries(cs);
+		
+		CompoundCommand com = new CompoundCommand();
+		
+		for (Country c : cs.getCountries()) {
+			
+			boolean found = false;
+			
+			for (Country oldC : tool.getCodeLists().getCountries().getCountries()) {
+				
+				if (c.getCode() == oldC.getCode()) {
+					found = true;
+					if (!oldC.getISOcode().equals(c.getISOcode())) {
+						com.append(SetCommand.create(editor.getEditingDomain(),oldC,GtmPackage.Literals.COUNTRY__IS_OCODE,c.getISOcode() ));
+					}
+					if (!oldC.getName().equals(c.getName())) {
+						com.append(SetCommand.create(editor.getEditingDomain(),oldC,GtmPackage.Literals.COUNTRY__NAME,c.getName()));
+					}
+				}
+				
+			}
+			
+			if (!found) {
+				com.append(AddCommand.create(editor.getEditingDomain(),tool.getCodeLists().getCountries(), GtmPackage.Literals.COUNTRIES__COUNTRIES,c));
+			}
+
+		}
+		
+		for (Country oldC : tool.getCodeLists().getCountries().getCountries()) {
+
+			boolean found = false;
+			
+			for (Country c : cs.getCountries()) {
+				
+				if (c.getCode() == oldC.getCode()) {
+					found = true;
+				}
+				
+			}
+			
+			if (!found) {
+				com.append(DeleteCommand.create(editor.getEditingDomain(), oldC));
+			}
+			
+		}
+		
+
+		if (!com.isEmpty() && com.canExecute()) {
+			editor.getEditingDomain().getCommandStack().execute(com);
+			GtmUtils.writeConsoleInfo("Countries updated", editor);
+		}
+		
+	}
+
+
 	/**
 	 * Conversion needed.
 	 *
