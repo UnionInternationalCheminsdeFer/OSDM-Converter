@@ -1745,18 +1745,19 @@ public class ConverterFromLegacy {
 			setDetailDescription(fare,series.getMemoNumber());
 		}
 		
-		
+		//legacy accounting identifier
 		LegacyAccountingIdentifier accountingIdentifier = GtmFactory.eINSTANCE.createLegacyAccountingIdentifier();
 		accountingIdentifier.setAddSeriesId(0);
 		if (fareTemplate.getLegacyAccountingIdentifier() != null) {
 			accountingIdentifier.setTariffId(fareTemplate.getLegacyAccountingIdentifier().getTariffId());
 		} else {
-			accountingIdentifier.setTariffId(0);
-		}
-		
-		
+			accountingIdentifier.setTariffId(fareTemplate.eContainer().eContents().indexOf(fareTemplate) + 1);
+		}	
 		accountingIdentifier.setSeriesId(series.getNumber());
 		fare.setLegacyAccountingIdentifier(accountingIdentifier);
+		
+		
+		
 		fare.setDataSource(DataSource.CONVERTED);
 
 		
@@ -1772,14 +1773,8 @@ public class ConverterFromLegacy {
 			fare.setFareConstraintBundle(fareTemplate.getFareConstraintBundle());
 			//C2.0 fare.setCombinationConstraint(fareTemplate.getCombinationConstraint());
 		}
-		fare.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_44 + Integer.toString(series.getNumber()) +NationalLanguageSupport.ConverterFromLegacy_45 + fareTemplate.getDataDescription());;
-
-		LegacyAccountingIdentifier legacyAccountingIdentifier = GtmFactory.eINSTANCE.createLegacyAccountingIdentifier();
-		legacyAccountingIdentifier.setSeriesId(series.getNumber());
-		legacyAccountingIdentifier.setAddSeriesId(direction);
-		fare.setLegacyAccountingIdentifier(legacyAccountingIdentifier);
-
-		fare.getLegacyAccountingIdentifier().setTariffId(legacyFareCounter++);
+		fare.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_44 + Integer.toString(series.getNumber()) +NationalLanguageSupport.ConverterFromLegacy_45 + fareTemplate.getDataDescription());
+		
 		fare.setPrice(price);
 		fare.setRegionalConstraint(regionalConstraint);
 		regionalConstraint.getLinkedFares().add(fare);

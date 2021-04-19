@@ -72,8 +72,6 @@ public class PassengerConstraintItemProvider
 			addReservationAgeLimitPropertyDescriptor(object);
 			addIsAncilliaryPropertyDescriptor(object);
 			addPassengerWeightPropertyDescriptor(object);
-			addMaxTotalPassengerWeightPropertyDescriptor(object);
-			addMinTotalPassengerWeightPropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -270,50 +268,6 @@ public class PassengerConstraintItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PassengerConstraint_passengerWeight_feature", "_UI_PassengerConstraint_type"),
 				 GtmPackage.Literals.PASSENGER_CONSTRAINT__PASSENGER_WEIGHT,
 				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Max Total Passenger Weight feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMaxTotalPassengerWeightPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PassengerConstraint_maxTotalPassengerWeight_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PassengerConstraint_maxTotalPassengerWeight_feature", "_UI_PassengerConstraint_type"),
-				 GtmPackage.Literals.PASSENGER_CONSTRAINT__MAX_TOTAL_PASSENGER_WEIGHT,
-				 false,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Min Total Passenger Weight feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMinTotalPassengerWeightPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PassengerConstraint_minTotalPassengerWeight_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PassengerConstraint_minTotalPassengerWeight_feature", "_UI_PassengerConstraint_type"),
-				 GtmPackage.Literals.PASSENGER_CONSTRAINT__MIN_TOTAL_PASSENGER_WEIGHT,
-				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,

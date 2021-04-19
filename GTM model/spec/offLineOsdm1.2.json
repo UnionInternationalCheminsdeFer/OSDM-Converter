@@ -1999,21 +1999,21 @@
         "description": "locate the online services ",
         "type": "object",
         "properties": {
-          "CarrierLocations": {
+          "carrierLocations": {
             "description": "locating the online resource via the carrier provided in the time table",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CarrierResourceLocationDef"
             }
           },
-          "TrainLocations": {
+          "trainLocations": {
             "description": "locating the online resource via the train from the time table",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TrainResourceLocationDef"
             }
           },
-          "StationLocations": {
+          "stationLocations": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/StationResourceLocationDef"

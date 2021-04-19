@@ -770,8 +770,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/reservationAgeLimit"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/isAncilliary"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/passengerWeight"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/maxTotalPassengerWeight"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/minTotalPassengerWeight"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/maxTotalPassengerWeight"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerConstraint/minTotalPassengerWeight"/>
       <genFeatures property="None" children="true" createChild="true" propertyDescription="included free passengrs"
           ecoreFeature="ecore:EReference Gtm.ecore#//PassengerConstraint/includedFreePassengers"/>
       <genFeatures property="None" children="true" createChild="true" propertyDescription="excluded free passengers"
