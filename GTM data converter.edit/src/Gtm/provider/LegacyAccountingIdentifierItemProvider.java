@@ -149,12 +149,12 @@ public class LegacyAccountingIdentifierItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		LegacyAccountingIdentifier legacyAccountingIdentifier = (LegacyAccountingIdentifier)object;
-		return getString("_UI_LegacyAccountingIdentifier_type") + " " + legacyAccountingIdentifier.getSeriesId();
+		return getString("_UI_LegacyAccountingIdentifier_type") + " - series: " + legacyAccountingIdentifier.getSeriesId() + " tariff: " + legacyAccountingIdentifier.getTariffId();
 	}
 
 

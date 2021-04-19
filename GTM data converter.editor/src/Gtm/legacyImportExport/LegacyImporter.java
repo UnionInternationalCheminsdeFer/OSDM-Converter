@@ -903,161 +903,162 @@ public class LegacyImporter {
 		//	59 Version number numeric 2 M  220-221 Sequential version number related to the fare date; '01' for the first issue, '02' for the second etc. 
 		//	60 Last day of validity of fare numeric 8 M  222-229 Expressed as: 'YYYYMMDD' 
 		
-		
+		String number  	= null;
 		try {
 		
-		String supplier   				= st.substring(0, 4);
-		String number  					= st.substring(4, 9);
-		String flag  					= st.substring(9, 10);
-		
-		if (flag.equals("2")) return null; //$NON-NLS-1$
-		
-		String type 					= st.substring(10,11);
-		//String flag2 					= st.substring(11,12);		
-		String departure 				= st.substring(12,17);		
-		String departureStationName 	= st.substring(19,36);	
-		
-		String destination				= st.substring(37,42);		
-		String destinationStationName 	= st.substring(44,61);	
-
-		String carrier   	        	= st.substring(74,78);
-		String routeDescription 		= st.substring(79,137);	
-
-		String distanceKl2				= st.substring(138,143);
-		String distanceKl1				= st.substring(144,149);		
-		
-		String calculation				= st.substring(150,151);		
-		
-		//	38 Info code numeric 4 O  161-164 Completed if the info file contains specific references to the series 
-		String infoCode 				= st.substring(160,164);
+			String supplier   				= st.substring(0, 4);
+			number  					    = st.substring(4, 9);
+			String flag  					= st.substring(9, 10);
 			
-		String via1						= st.substring(175,180);			
-		String pos1						= st.substring(180,181);			
-		String abr1 					= st.substring(181,182);	
-
-		String via2						= st.substring(182,187);			
-		String pos2						= st.substring(187,188);	
-		String abr2 					= st.substring(188,189);
-		
-		String via3						= st.substring(189,194);			
-		String pos3						= st.substring(194,195);	
-		String abr3 					= st.substring(195,196);		
-		
-		String via4						= st.substring(196,201);			
-		String pos4						= st.substring(201,202);	
-		String abr4 					= st.substring(202,203);		
-		
-		String via5						= st.substring(203,208);			
-		String pos5						= st.substring(208,209);	
-		String abr5 					= st.substring(210,211);
-		
-		String validFromString 			= st.substring(211,219);		
-		
-		//	60 Last day of validity of fare numeric 8 M  222-229 Expressed as: 'YYYYMMDD' 
-		String validUntilString 		= st.substring(221,229);		
-		
-		//	19 Bus code alpha numeric 1 O  70 'B' entered here in the case of bus services 
-        String busFlag                  = st.substring(69,70);
-		//	21 Ferry code alpha numeric 1 O  72 'S' entered here in the case of ferry services 
-        String ferryFlag                = st.substring(71,72);
-        
-		//	34 Standard fare table number numeric 4 M  153-156  
-        String fareTableString          =  st.substring(152,156);       
-        		
-		LegacySeries series = GtmFactory.eINSTANCE.createLegacySeries();
-		
-		series.setCarrierCode(carrier);
-		series.setSupplyingCarrierCode(supplier);
-		series.setRouteDescription(routeDescription);
-		series.setFromStationName(departureStationName);
-		series.setToStationName(destinationStationName);
-		
-		series.setNumber(Integer.parseInt(number));
-		
-		
-		try {
-			series.setFareTableNumber(Integer.parseInt(fareTableString));
-		} catch(Exception e) {
-			series.setFareTableNumber(0);	
-		}
-		
-		try {
-			series.setMemoNumber(Integer.parseInt(infoCode));
-		} catch(Exception e) {
-			series.setMemoNumber(0);	
-		}
-		
-		if (type.equals("1")) series.setType(LegacySeriesType.TRANSIT); //$NON-NLS-1$
-		if (type.equals("2")) series.setType(LegacySeriesType.BORDER_DESTINATION); //$NON-NLS-1$
-		if (type.equals("3")) series.setType(LegacySeriesType.STATION_STATION); //$NON-NLS-1$
-
-		if (calculation.equals("1")) series.setPricetype(LegacyCalculationType.DISTANCE_BASED); //$NON-NLS-1$
-		if (calculation.equals("2")) series.setPricetype(LegacyCalculationType.ROUTE_BASED);		 //$NON-NLS-1$
-		
-		series.setFromStation(Integer.parseInt(departure));
-		series.setToStation(Integer.parseInt(destination));
-		
-		series.setDistance1(Integer.parseInt(distanceKl1));
-		series.setDistance2(Integer.parseInt(distanceKl2));
-		
-		if (ferryFlag.contentEquals("S")) {
-			series.setFerryCode("S");
-		} else {
-			series.setFerryCode(" ");
-		}
-		if (busFlag.contentEquals("B")) {
-			series.setBusCode("S");
-		} else {
-			series.setBusCode(" ");		
-		}
-
-		Date dt = null;
-		try {
-		    dt = dateFormat.parse(validFromString);
-		    series.setValidFrom(dt);
-		} catch (ParseException e) {
-		    e.printStackTrace();
-		} 
-		Date dt2 = null;
-		try {
-		    dt2 = dateFormat.parse(validUntilString);
-		    series.setValidUntil(dt2);
-		} catch (ParseException e) {
-		    e.printStackTrace();
-		} 
-		
-		
-		int viaStation1 = Integer.parseInt(via1); 
-		int viaStation2 = Integer.parseInt(via2); 
-		int viaStation3 = Integer.parseInt(via3); 
-		int viaStation4 = Integer.parseInt(via4); 
-		int viaStation5 = Integer.parseInt(via5); 
-		
-		boolean includeOptionalVias = !PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_REMOVE_OPTIONAL_VIAS);
-		
-		if (viaStation1 > 0 && (includeOptionalVias || !abr1.equals("1") ) ) {
-			addViaStation(series, viaStation1, pos1);
-		}
+			if (flag.equals("2")) return null; //$NON-NLS-1$
 			
-		if (viaStation2 > 0 && (includeOptionalVias || !abr2.equals("1") ) ) {
-			addViaStation(series, viaStation2, pos2);
-		}
-		
-		if (viaStation3 > 0 && (includeOptionalVias || !abr3.equals("1") ) ) {
-			addViaStation(series, viaStation3, pos3);
-		}
-		
-		if (viaStation4 > 0 && (includeOptionalVias || !abr4.equals("1") ) ) {
-			addViaStation(series, viaStation4, pos4);
-		}
-		
-		if (viaStation5 > 0 && (includeOptionalVias || !abr5.equals("1") ) ) {
-			addViaStation(series, viaStation5, pos5);
-		}
-		
-		return series;
+			String type 					= st.substring(10,11);
+			//String flag2 					= st.substring(11,12);		
+			String departure 				= st.substring(12,17);		
+			String departureStationName 	= st.substring(19,36);	
+			
+			String destination				= st.substring(37,42);		
+			String destinationStationName 	= st.substring(44,61);	
+	
+			String carrier   	        	= st.substring(74,78);
+			String routeDescription 		= st.substring(79,137);	
+	
+			String distanceKl2				= st.substring(138,143);
+			String distanceKl1				= st.substring(144,149);		
+			
+			String calculation				= st.substring(150,151);		
+			
+			//	38 Info code numeric 4 O  161-164 Completed if the info file contains specific references to the series 
+			String infoCode 				= st.substring(160,164);
+				
+			String via1						= st.substring(175,180);			
+			String pos1						= st.substring(180,181);			
+			String abr1 					= st.substring(181,182);	
+	
+			String via2						= st.substring(182,187);			
+			String pos2						= st.substring(187,188);	
+			String abr2 					= st.substring(188,189);
+			
+			String via3						= st.substring(189,194);			
+			String pos3						= st.substring(194,195);	
+			String abr3 					= st.substring(195,196);		
+			
+			String via4						= st.substring(196,201);			
+			String pos4						= st.substring(201,202);	
+			String abr4 					= st.substring(202,203);		
+			
+			String via5						= st.substring(203,208);			
+			String pos5						= st.substring(208,209);	
+			String abr5 					= st.substring(210,211);
+			
+			String validFromString 			= st.substring(211,219);		
+			
+			//	60 Last day of validity of fare numeric 8 M  222-229 Expressed as: 'YYYYMMDD' 
+			String validUntilString 		= st.substring(221,229);		
+			
+			//	19 Bus code alpha numeric 1 O  70 'B' entered here in the case of bus services 
+	        String busFlag                  = st.substring(69,70);
+			//	21 Ferry code alpha numeric 1 O  72 'S' entered here in the case of ferry services 
+	        String ferryFlag                = st.substring(71,72);
+	        
+			//	34 Standard fare table number numeric 4 M  153-156  
+	        String fareTableString          =  st.substring(152,156);       
+	        		
+			LegacySeries series = GtmFactory.eINSTANCE.createLegacySeries();
+			
+			series.setCarrierCode(carrier);
+			series.setSupplyingCarrierCode(supplier);
+			series.setRouteDescription(routeDescription);
+			series.setFromStationName(departureStationName);
+			series.setToStationName(destinationStationName);
+			
+			series.setNumber(Integer.parseInt(number));
+			
+			
+			try {
+				series.setFareTableNumber(Integer.parseInt(fareTableString));
+			} catch(Exception e) {
+				series.setFareTableNumber(0);	
+			}
+			
+			try {
+				series.setMemoNumber(Integer.parseInt(infoCode));
+			} catch(Exception e) {
+				series.setMemoNumber(0);	
+			}
+			
+			if (type.equals("1")) series.setType(LegacySeriesType.TRANSIT); //$NON-NLS-1$
+			if (type.equals("2")) series.setType(LegacySeriesType.BORDER_DESTINATION); //$NON-NLS-1$
+			if (type.equals("3")) series.setType(LegacySeriesType.STATION_STATION); //$NON-NLS-1$
+	
+			if (calculation.equals("1")) series.setPricetype(LegacyCalculationType.DISTANCE_BASED); //$NON-NLS-1$
+			if (calculation.equals("2")) series.setPricetype(LegacyCalculationType.ROUTE_BASED);		 //$NON-NLS-1$
+			
+			series.setFromStation(Integer.parseInt(departure));
+			series.setToStation(Integer.parseInt(destination));
+			
+			series.setDistance1(Integer.parseInt(distanceKl1));
+			series.setDistance2(Integer.parseInt(distanceKl2));
+			
+			if (ferryFlag.contentEquals("S")) {
+				series.setFerryCode("S");
+			} else {
+				series.setFerryCode(" ");
+			}
+			if (busFlag.contentEquals("B")) {
+				series.setBusCode("B");
+			} else {
+				series.setBusCode(" ");		
+			}
+	
+			Date dt = null;
+			try {
+			    dt = dateFormat.parse(validFromString);
+			    series.setValidFrom(dt);
+			} catch (ParseException e) {
+			    e.printStackTrace();
+			} 
+			Date dt2 = null;
+			try {
+			    dt2 = dateFormat.parse(validUntilString);
+			    series.setValidUntil(dt2);
+			} catch (ParseException e) {
+			    e.printStackTrace();
+			} 
+			
+			
+			int viaStation1 = Integer.parseInt(via1); 
+			int viaStation2 = Integer.parseInt(via2); 
+			int viaStation3 = Integer.parseInt(via3); 
+			int viaStation4 = Integer.parseInt(via4); 
+			int viaStation5 = Integer.parseInt(via5); 
+			
+			boolean includeOptionalVias = !PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_REMOVE_OPTIONAL_VIAS);
+			
+			if (viaStation1 > 0 && (includeOptionalVias || !abr1.equals("1") ) ) {
+				addViaStation(series, viaStation1, pos1);
+			}
+				
+			if (viaStation2 > 0 && (includeOptionalVias || !abr2.equals("1") ) ) {
+				addViaStation(series, viaStation2, pos2);
+			}
+			
+			if (viaStation3 > 0 && (includeOptionalVias || !abr3.equals("1") ) ) {
+				addViaStation(series, viaStation3, pos3);
+			}
+			
+			if (viaStation4 > 0 && (includeOptionalVias || !abr4.equals("1") ) ) {
+				addViaStation(series, viaStation4, pos4);
+			}
+			
+			if (viaStation5 > 0 && (includeOptionalVias || !abr5.equals("1") ) ) {
+				addViaStation(series, viaStation5, pos5);
+			}
+			
+			return series;
 		
 		} catch (Exception e) {
+			GtmUtils.writeConsoleError("Series import field for series: " + number, editor);
 			e.printStackTrace();
 			return null;
 		}

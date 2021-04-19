@@ -15,9 +15,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @JsonPropertyOrder({
-    "CarrierLocations",
-    "TrainLocations",
-    "StationLocations"
+    "carrierLocations",
+    "trainLocations",
+    "stationLocations"
 })
 public class FareResourceLocationDef {
 
@@ -25,14 +25,14 @@ public class FareResourceLocationDef {
      * locating the online resource via the carrier provided in the time table
      * 
      */
-    @JsonProperty("CarrierLocations")
+    @JsonProperty("carrierLocations")
     @JsonPropertyDescription("locating the online resource via the carrier provided in the time table")
     private List<CarrierResourceLocationDef> carrierLocations = new ArrayList<CarrierResourceLocationDef>();
     /**
      * locating the online resource via the train from the time table
      * 
      */
-    @JsonProperty("TrainLocations")
+    @JsonProperty("trainLocations")
     @JsonPropertyDescription("locating the online resource via the train from the time table")
     private List<TrainResourceLocationDef> trainLocations = new ArrayList<TrainResourceLocationDef>();
     @JsonProperty("StationLocations")
@@ -42,7 +42,7 @@ public class FareResourceLocationDef {
      * locating the online resource via the carrier provided in the time table
      * 
      */
-    @JsonProperty("CarrierLocations")
+    @JsonProperty("carrierLocations")
     public List<CarrierResourceLocationDef> getCarrierLocations() {
         return carrierLocations;
     }
@@ -51,7 +51,7 @@ public class FareResourceLocationDef {
      * locating the online resource via the carrier provided in the time table
      * 
      */
-    @JsonProperty("CarrierLocations")
+    @JsonProperty("carrierLocations")
     public void setCarrierLocations(List<CarrierResourceLocationDef> carrierLocations) {
         this.carrierLocations = carrierLocations;
     }
@@ -60,7 +60,7 @@ public class FareResourceLocationDef {
      * locating the online resource via the train from the time table
      * 
      */
-    @JsonProperty("TrainLocations")
+    @JsonProperty("trainLocations")
     public List<TrainResourceLocationDef> getTrainLocations() {
         return trainLocations;
     }
@@ -69,17 +69,17 @@ public class FareResourceLocationDef {
      * locating the online resource via the train from the time table
      * 
      */
-    @JsonProperty("TrainLocations")
+    @JsonProperty("trainLocations")
     public void setTrainLocations(List<TrainResourceLocationDef> trainLocations) {
         this.trainLocations = trainLocations;
     }
 
-    @JsonProperty("StationLocations")
+    @JsonProperty("stationLocations")
     public List<StationResourceLocationDef> getStationLocations() {
         return stationLocations;
     }
 
-    @JsonProperty("StationLocations")
+    @JsonProperty("stationLocations")
     public void setStationLocations(List<StationResourceLocationDef> stationLocations) {
         this.stationLocations = stationLocations;
     }
