@@ -2,6 +2,7 @@ package Gtm.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,6 +35,7 @@ import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
 import export.ImportFareDelivery;
+import gtm.FareDef;
 import gtm.FareDelivery;
 import gtm.StationNamesDef;
 
@@ -181,6 +183,29 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 							deliveredFares = fareDelivery.getFareStructureDelivery().getFareStructure().getFares().size();						
 						}
 						int importedFares = 0;
+						
+						//check fare constraint bundles
+						int errors = 0;
+						for (FareDef dFare: fareDelivery.getFareStructureDelivery().getFareStructure().getFares()) {
+							if( dFare.getBundleRef() == null || dFare.getBundleRef().length() < 1) {
+								errors++;
+								GtmUtils.writeConsoleError("Fare without fare constraint bundle: " + dFare.getId(), editor);
+							}
+							if (errors > 100) {
+								GtmUtils.writeConsoleError("Too many errors", editor);	
+								return;
+							}
+						}
+						
+						if (fareDelivery.getFareStructureDelivery().getFareStructure().getFareConstraintBundles() == null ||
+							fareDelivery.getFareStructureDelivery().getFareStructure().getFareConstraintBundles().size() == 0) {
+							GtmUtils.writeConsoleError("Fare constraint bundles missing", editor);	
+							return;
+						}
+							
+						
+						
+						
 						if (fareDelivery != null) {
 
 							monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_7);
