@@ -42,10 +42,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareTemplate#getLegacyConversion <em>Legacy Conversion</em>}</li>
  *   <li>{@link Gtm.FareTemplate#isIndividualContracts <em>Individual Contracts</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getRegulatoryConditions <em>Regulatory Conditions</em>}</li>
+ *   <li>{@link Gtm.FareTemplate#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareTemplate()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS TARIFF_ID_VALUES'"
  * @generated
  */
 public interface FareTemplate extends EObject {
@@ -683,6 +684,28 @@ public interface FareTemplate extends EObject {
 	 * @generated
 	 */
 	EList<RegulatoryCondition> getRegulatoryConditions();
+
+	/**
+	 * Returns the value of the '<em><b>Legacy Accounting Tariff Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Legacy Accounting Tariff Id</em>' attribute.
+	 * @see #setLegacyAccountingTariffId(int)
+	 * @see Gtm.GtmPackage#getFareTemplate_LegacyAccountingTariffId()
+	 * @model
+	 * @generated
+	 */
+	int getLegacyAccountingTariffId();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareTemplate#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Legacy Accounting Tariff Id</em>' attribute.
+	 * @see #getLegacyAccountingTariffId()
+	 * @generated
+	 */
+	void setLegacyAccountingTariffId(int value);
 
 
 } // FareTemplate

@@ -50,6 +50,7 @@ import Gtm.LegacySeparateContractSeriesList;
 import Gtm.LegacySeries;
 import Gtm.LegacySeriesList;
 import Gtm.LegacySeriesType;
+import Gtm.LegacyStationMap;
 import Gtm.LegacyViastation;
 import Gtm.OnBorderStations;
 import Gtm.Price;
@@ -715,18 +716,27 @@ public class 	ConverterToLegacy {
 			return;
 		}
 		
-		for (ServiceConstraint fs : tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints()) {
+		for (ServiceConstraint sc : tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints()) {
 			
-			if (fs.getLegacy108Code() < 0 || fs.getLegacy108Code() > 99999) {
-				GtmUtils.writeConsoleWarning("legacy code in service constraint invalid: " + GtmUtils.getLabelText(fs) + " code: " + fs.getLegacy108Code(), editor);
-			} else if (fs.getLegacy108Code() > 0) {
+			if (sc.getLegacy108Code() < 0 || sc.getLegacy108Code() > 99999) {
+				GtmUtils.writeConsoleWarning("legacy code in service constraint invalid: " + GtmUtils.getLabelText(sc) + " code: " + sc.getLegacy108Code(), editor);
+			} else if (sc.getLegacy108Code() > 0) {
 
-				Legacy108Station ls = legacyStations.get(fs.getLegacy108Code());
+				Legacy108Station ls = legacyStations.get(sc.getLegacy108Code());
 				
 				if (ls == null) {
 					ls = GtmFactory.eINSTANCE.createLegacy108Station();
-					ls.setStationCode(fs.getLegacy108Code());
-					ls.setName(RouteDescriptionBuilder.getText(fs));
+					ls.setStationCode(sc.getLegacy108Code());
+					if (sc.getDescription() != null) {
+						if (sc.getDescription().getShortTextICAO() != null && sc.getDescription().getShortTextICAO().length() != 0) {
+					   		ls.setName(sc.getDescription().getShortTextICAO());			
+						} else if (sc.getDescription().getTextICAO() != null && sc.getDescription().getTextICAO().length() != 0) {
+							ls.setName(sc.getDescription().getTextICAO());	
+						}
+					} 
+					if (ls.getName() == null || ls.getName().length() == 0) {
+						ls.setName(RouteDescriptionBuilder.getText(sc));
+					}
 					ls.setNameUTF8(ls.getName());
 					ls.setShortName(ls.getName());
 					ls.setNameUTF8(ls.getName());
@@ -764,6 +774,8 @@ public class 	ConverterToLegacy {
 				if (ls.getBorderPointCode() > 0) {
 					legacyBorderStations.put(ls.getBorderPointCode(), ls);
 				}
+			} else {			
+				addMappedLegacyStation(station);
 			}
 		}
 		
@@ -801,7 +813,6 @@ public class 	ConverterToLegacy {
 							}
 						}
 						
-						
 						ls = GtmFactory.eINSTANCE.createLegacy108Station();
 						ls.setStationCode(localCode);	
 						ls.setName(name);
@@ -823,6 +834,22 @@ public class 	ConverterToLegacy {
 		return;
 	}
 	
+	private void addMappedLegacyStation(Station station) { 
+		 if (station == null ||
+			 tool.getConversionFromLegacy().getParams() == null ||
+			 tool.getConversionFromLegacy().getParams().getLegacyStationMappings() == null ||
+		     tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings() == null) {
+		}
+		 //check for mapping
+		for (LegacyStationMap map :  tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
+			if (map.getStation().getCode().equals(station.getCode())) {
+				Legacy108Station ls = convertStation(station);
+				ls.setStationCode(map.getLegacyCode());
+				legacyStations.put(ls.getStationCode(),ls);
+			}
+		}		
+	}
+
 	/**
 	 * Gets the border side.
 	 *
@@ -1098,16 +1125,7 @@ public class 	ConverterToLegacy {
 			routeServiceConstraint = mainVia.getServiceConstraint();
 		}		
 		
-		
-		if (series.getFromStation() == 0) {
-			Legacy108Station ls = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
-			if (ls == null) return null;
-			series.setFromStation(ls.getStationCode());
-			series.setFromStationName(ls.getName());	
-		}
 	
-		if (series.getFromStation() == 0) return null;
-		
 		series.setDistance1((int) regionalConstraint.getDistance());
 		series.setDistance2((int) regionalConstraint.getDistance());
 		
@@ -1118,6 +1136,23 @@ public class 	ConverterToLegacy {
 		if (routeDescription.length() > 58) {
 			String message = NationalLanguageSupport.ConverterToLegacy_28 + routeDescription;
 			GtmUtils.writeConsoleWarning(message, editor);
+		}
+		
+		if (series.getFromStation() == 0) {
+			Legacy108Station ls = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
+			if (ls == null) {
+				String message = "Route not convertable: " + routeDescription;
+				GtmUtils.writeConsoleError(message, editor);
+				return null;
+			}
+			series.setFromStation(ls.getStationCode());
+			series.setFromStationName(ls.getName());	
+		}
+	
+		if (series.getFromStation() == 0) {
+			String message = "Route not convertable: " + routeDescription;
+			GtmUtils.writeConsoleError(message, editor);
+			return null;
 		}
 		
 		Route mainRoute = mainVia.getRoute();
@@ -1133,12 +1168,20 @@ public class 	ConverterToLegacy {
 		
 		if (series.getToStation() == 0) {
 			Legacy108Station ls = getLastLegacyStation(mainVia,regionalConstraint.getExitConnectionPoint());
-			if (ls == null) return null;
+			if (ls == null) {
+				String message = "Route not convertable: " + routeDescription;
+				GtmUtils.writeConsoleError(message, editor);	
+				return null;
+			}
 			series.setToStation(ls.getStationCode());
 			series.setToStationName(ls.getName());	
 		}
 		
-		if (series.getToStation() == 0) return null;
+		if (series.getToStation() == 0) {
+			String message = "Route not convertable: " + routeDescription;
+			GtmUtils.writeConsoleError(message, editor);
+			return null;
+		}
 
 		series.setType(getType(regionalConstraint));
 		
@@ -1397,29 +1440,25 @@ public class 	ConverterToLegacy {
 			if (via.getStation() != null) {
 
 				//station name not in list of stations in the country
-				Legacy108Station l = convertStation(via.getStation());
+				Legacy108Station l = null;
 				
-				if (l.getName() == null || l.getName().length() == 0) {
-					String message = "Station name missing: code " + Integer.toString(l.getStationCode());
-					GtmUtils.writeConsoleError(message, editor);
-				} else {			
-					legacyStations.put(l.getStationCode(),l);
-				}
-				
-				if (l.getBorderPointCode() > 0) {
+				if (via.getStation().getLegacyBorderPointCode() > 0) {
+					l = convertStation(via.getStation());
 					legacyBorderStations.put(l.getBorderPointCode(), l);
-				}
-			
-				ls = l;
-			
-				String message = null;
-				if (via.getStation().getCountry() != null && via.getStation().getCountry().getName() != null ) {
-					message = "Station outside of country missing in border point data: " +  GtmUtils.getLabelText(via.getStation()) + " in " +  via.getStation().getCountry().getName();
+					
+					String message = null;
+					if (via.getStation().getCountry() != null && via.getStation().getCountry().getName() != null ) {
+						message = "Border station outside of country missing in border point data: " +  GtmUtils.getLabelText(via.getStation()) + " in " +  via.getStation().getCountry().getName();
+					} else {
+						message = "Border station outside of country missing in border point data: " +  GtmUtils.getLabelText(via.getStation());					
+					}
+					GtmUtils.writeConsoleWarning(message, editor);
+					
+					ls = l;
 				} else {
-					message = "Station outside of country missing in border point data: " +  GtmUtils.getLabelText(via.getStation());					
+					return null;
 				}
-				GtmUtils.writeConsoleWarning(message, editor);
-			
+		
 			} else {
 				String message = "Fare Station Set names not found: " +  GtmUtils.getLabelText(via) ;
 				GtmUtils.writeConsoleError(message, editor);

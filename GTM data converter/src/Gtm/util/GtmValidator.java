@@ -1129,6 +1129,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateFareTemplate_PRICE_OR_FACTOR(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_BUNDLE_MUST(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_NON_CONVERTABLE_CLASS(fareTemplate, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareTemplate_TARIFF_ID_VALUES(fareTemplate, diagnostics, context);
 		return result;
 	}
 
@@ -1456,6 +1457,30 @@ public class GtmValidator extends EObjectValidator {
 				 new Object[] { "NON_CONVERTABLE_CLASS", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
 				 new Object[] { fareTemplate },
 				 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the TARIFF_ID_VALUES constraint of '<em>Fare Template</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareTemplate_TARIFF_ID_VALUES(FareTemplate fareTemplate, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareTemplate.getLegacyAccountingTariffId() < 1 || fareTemplate.getLegacyAccountingTariffId() > 99999 ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 NationalLanguageSupport.GtmValidator_223  + " in " +  getObjectLabel(fareTemplate, context), 
+						 new Object[] { "TARIFF_ID_VALUE", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
+						 new Object[] { fareTemplate },
+						 context));
 			}
 			return false;
 		}
@@ -5360,6 +5385,12 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateLegacyAccountingIdentifier_SERIES_ID_MUST(LegacyAccountingIdentifier legacyAccountingIdentifier, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
+		if (legacyAccountingIdentifier.eContainer() instanceof FareTemplate) {
+			//validate fares only
+			return true;
+		}
+		
+		
 		if (legacyAccountingIdentifier.getSeriesId() < 1 || legacyAccountingIdentifier.getSeriesId() > 99999 ) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -5386,7 +5417,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateLegacyAccountingIdentifier_TARIFF_ID_MUST(LegacyAccountingIdentifier legacyAccountingIdentifier, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (legacyAccountingIdentifier.getTariffId() < 1 || legacyAccountingIdentifier.getTariffId() > 9999 ) {
+		if (legacyAccountingIdentifier.getTariffId() < 1 || legacyAccountingIdentifier.getTariffId() > 99999 ) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -5394,7 +5425,7 @@ public class GtmValidator extends EObjectValidator {
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_223  + " in " +  getObjectLabel(legacyAccountingIdentifier, context), 
-						 new Object[] { "SERIES_ID_MUST", getObjectLabel(legacyAccountingIdentifier, context) }, //$NON-NLS-1$
+						 new Object[] { "TARIFF_ID_MUST", getObjectLabel(legacyAccountingIdentifier, context) }, //$NON-NLS-1$
 						 new Object[] { legacyAccountingIdentifier },
 						 context));
 			}

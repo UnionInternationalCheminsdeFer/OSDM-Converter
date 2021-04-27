@@ -4563,13 +4563,22 @@ public interface GtmPackage extends EPackage {
 	int SERVICE_CONSTRAINT__LEGACY108_CODE = 4;
 
 	/**
+	 * The feature id for the '<em><b>Description</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_CONSTRAINT__DESCRIPTION = 5;
+
+	/**
 	 * The number of structural features of the '<em>Service Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_CONSTRAINT_FEATURE_COUNT = 5;
+	int SERVICE_CONSTRAINT_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Service Constraint</em>' class.
@@ -8014,13 +8023,22 @@ public interface GtmPackage extends EPackage {
 	int FARE_TEMPLATE__REGULATORY_CONDITIONS = 27;
 
 	/**
+	 * The feature id for the '<em><b>Legacy Accounting Tariff Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID = 28;
+
+	/**
 	 * The number of structural features of the '<em>Fare Template</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_TEMPLATE_FEATURE_COUNT = 28;
+	int FARE_TEMPLATE_FEATURE_COUNT = 29;
 
 	/**
 	 * The number of operations of the '<em>Fare Template</em>' class.
@@ -14021,6 +14039,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getServiceConstraint_Legacy108Code();
 
 	/**
+	 * Returns the meta object for the reference '{@link Gtm.ServiceConstraint#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Description</em>'.
+	 * @see Gtm.ServiceConstraint#getDescription()
+	 * @see #getServiceConstraint()
+	 * @generated
+	 */
+	EReference getServiceConstraint_Description();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.RegionalConstraints <em>Regional Constraints</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16624,6 +16653,17 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFareTemplate_RegulatoryConditions();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Gtm.FareTemplate#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Legacy Accounting Tariff Id</em>'.
+	 * @see Gtm.FareTemplate#getLegacyAccountingTariffId()
+	 * @see #getFareTemplate()
+	 * @generated
+	 */
+	EAttribute getFareTemplate_LegacyAccountingTariffId();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.AfterSalesTemplate <em>After Sales Template</em>}'.
@@ -21804,6 +21844,14 @@ public interface GtmPackage extends EPackage {
 		EAttribute SERVICE_CONSTRAINT__LEGACY108_CODE = eINSTANCE.getServiceConstraint_Legacy108Code();
 
 		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_CONSTRAINT__DESCRIPTION = eINSTANCE.getServiceConstraint_Description();
+
+		/**
 		 * The meta object literal for the '{@link Gtm.impl.RegionalConstraintsImpl <em>Regional Constraints</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -23820,6 +23868,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FARE_TEMPLATE__REGULATORY_CONDITIONS = eINSTANCE.getFareTemplate_RegulatoryConditions();
+
+		/**
+		 * The meta object literal for the '<em><b>Legacy Accounting Tariff Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID = eINSTANCE.getFareTemplate_LegacyAccountingTariffId();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.AfterSalesTemplateImpl <em>After Sales Template</em>}' class.

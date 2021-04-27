@@ -552,6 +552,10 @@ public class GTMJsonImporter {
 				o.getIncludedServiceBrands().addAll(sl);
 			}
 		}
+		if (sc.getTextRef() != null && sc.getTextRef().length() > 0) {
+			o.setDescription(findText(sc.getTextRef()));
+		}
+		
 		return o;
 	}
 

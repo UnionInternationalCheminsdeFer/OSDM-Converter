@@ -800,7 +800,13 @@ public class GtmJsonExporter {
 
 		scJ.setIncludedServiceBrands(convertServiceBrandsToJson(sc.getIncludedServiceBrands()));		
 		
-		scJ.setLegacyCode(sc.getLegacy108Code());
+		if (sc.getLegacy108Code() > 0) {
+			scJ.setLegacyCode(sc.getLegacy108Code());
+		}
+		
+		if (sc.getDescription() != null) {
+			scJ.setTextRef(sc.getDescription().getId());
+		}
 		
 		return scJ;
 

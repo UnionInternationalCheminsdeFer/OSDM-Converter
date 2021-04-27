@@ -4609,6 +4609,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getServiceConstraint_Description() {
+		return (EReference)serviceConstraintEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRegionalConstraints() {
 		return regionalConstraintsEClass;
 	}
@@ -6771,6 +6780,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getFareTemplate_RegulatoryConditions() {
 		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(27);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFareTemplate_LegacyAccountingTariffId() {
+		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(28);
 	}
 
 	/**
@@ -9114,6 +9132,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(serviceConstraintEClass, SERVICE_CONSTRAINT__EXCLUDED_SERVICE_BRANDS);
 		createEAttribute(serviceConstraintEClass, SERVICE_CONSTRAINT__DATA_DESCRIPTION);
 		createEAttribute(serviceConstraintEClass, SERVICE_CONSTRAINT__LEGACY108_CODE);
+		createEReference(serviceConstraintEClass, SERVICE_CONSTRAINT__DESCRIPTION);
 
 		regionalConstraintsEClass = createEClass(REGIONAL_CONSTRAINTS);
 		createEReference(regionalConstraintsEClass, REGIONAL_CONSTRAINTS__REGIONAL_CONSTRAINTS);
@@ -9415,6 +9434,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__LEGACY_CONVERSION);
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__INDIVIDUAL_CONTRACTS);
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__REGULATORY_CONDITIONS);
+		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID);
 
 		afterSalesTemplateEClass = createEClass(AFTER_SALES_TEMPLATE);
 		createEAttribute(afterSalesTemplateEClass, AFTER_SALES_TEMPLATE__TRANSACTION_TYPE);
@@ -10126,6 +10146,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getServiceConstraint_ExcludedServiceBrands(), this.getServiceBrand(), null, "excludedServiceBrands", null, 0, -1, ServiceConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, ServiceConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceConstraint_Legacy108Code(), ecorePackage.getEInt(), "legacy108Code", null, 0, 1, ServiceConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceConstraint_Description(), this.getText(), null, "description", null, 0, 1, ServiceConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(regionalConstraintsEClass, RegionalConstraints.class, "RegionalConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRegionalConstraints_RegionalConstraints(), this.getRegionalConstraint(), null, "regionalConstraints", null, 0, -1, RegionalConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10428,6 +10449,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareTemplate_LegacyConversion(), this.getLegacyConversionType(), "legacyConversion", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareTemplate_IndividualContracts(), ecorePackage.getEBoolean(), "individualContracts", "false", 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareTemplate_RegulatoryConditions(), this.getRegulatoryCondition(), "regulatoryConditions", null, 0, -1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFareTemplate_LegacyAccountingTariffId(), ecorePackage.getEInt(), "legacyAccountingTariffId", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(afterSalesTemplateEClass, AfterSalesTemplate.class, "AfterSalesTemplate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAfterSalesTemplate_TransactionType(), this.getAfterSalesTransactionType(), "transactionType", null, 0, 1, AfterSalesTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11469,7 +11491,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (fareTemplateEClass,
 		   source,
 		   new String[] {
-			   "constraints", "PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS"
+			   "constraints", "PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS TARIFF_ID_VALUES"
 		   });
 		addAnnotation
 		  (legacyStationToServiceConstraintMappingEClass,

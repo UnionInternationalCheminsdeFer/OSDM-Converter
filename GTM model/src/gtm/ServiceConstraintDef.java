@@ -18,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "includedServiceBrands",
     "excludedServiceBrands",
-    "legacyCode"
+    "legacyCode",
+    "textRef"
 })
 public class ServiceConstraintDef {
 
@@ -33,13 +34,12 @@ public class ServiceConstraintDef {
     private List<Integer> includedServiceBrands = new ArrayList<Integer>();
     @JsonProperty("excludedServiceBrands")
     private List<Integer> excludedServiceBrands = new ArrayList<Integer>();
-    /**
-     * id used in 108 as fake local station code 
-     * 
-     */
     @JsonProperty("legacyCode")
     @JsonPropertyDescription("id used in 108 as fake local station code ")
     private Integer legacyCode;
+    @JsonProperty("textRef")
+    @JsonPropertyDescription("id of a description text ")
+    private String textRef;
 
     /**
      * 
@@ -81,6 +81,7 @@ public class ServiceConstraintDef {
         this.excludedServiceBrands = excludedServiceBrands;
     }
 
+   
     /**
      * id used in 108 as fake local station code 
      * 
@@ -98,6 +99,29 @@ public class ServiceConstraintDef {
     public void setLegacyCode(Integer legacyCode) {
         this.legacyCode = legacyCode;
     }
+    
+    /**
+     * set the id for a text describing the service constraint
+     * 
+     */
+    @JsonProperty("textRef")
+    public void setTextRef(String textRef) {
+        this.textRef = textRef;
+    }   
+    
+    /**
+     * get the id for a text describing the service constraint
+     * 
+     */
+    @JsonProperty("textRef")
+    public String getTextRef() {
+        return textRef;
+    }
+
+
+    
+    
+    
 
     @Override
     public String toString() {
@@ -116,8 +140,10 @@ public class ServiceConstraintDef {
         sb.append(((this.excludedServiceBrands == null)?"<null>":this.excludedServiceBrands));
         sb.append(',');
         sb.append("legacyCode");
+        sb.append(',');
+        sb.append("textRef");
         sb.append('=');
-        sb.append(((this.legacyCode == null)?"<null>":this.legacyCode));
+        sb.append(((this.textRef == null)?"<null>":this.textRef));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -134,6 +160,7 @@ public class ServiceConstraintDef {
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
         result = ((result* 31)+((this.includedServiceBrands == null)? 0 :this.includedServiceBrands.hashCode()));
         result = ((result* 31)+((this.legacyCode == null)? 0 :this.legacyCode.hashCode()));
+        result = ((result* 31)+((this.textRef == null)? 0 :this.textRef.hashCode()));
         return result;
     }
 

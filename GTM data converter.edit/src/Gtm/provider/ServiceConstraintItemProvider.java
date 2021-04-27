@@ -66,6 +66,7 @@ public class ServiceConstraintItemProvider
 			addExcludedServiceBrandsPropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
 			addLegacy108CodePropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -176,6 +177,28 @@ public class ServiceConstraintItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ServiceConstraint_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceConstraint_description_feature", "_UI_ServiceConstraint_type"),
+				 GtmPackage.Literals.SERVICE_CONSTRAINT__DESCRIPTION,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

@@ -2,7 +2,6 @@ package Gtm.actions;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -139,17 +138,33 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 			if (tool.getCodeLists() != null &&
 				tool.getConversionFromLegacy() != null &&
 				tool.getConversionFromLegacy().getParams() != null &&
-				tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() != null &&
-				!tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty()
+				(
+				 tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() != null &&
+  				 !tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty()
+				) || (
+				 tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings() != null &&
+				 !tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings().isEmpty()	
+				)		
 				) {
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_QUESTION | SWT.OK| SWT.CANCEL);
-				dialog.setText("Importing OSDM fares will delete fare templates.");
+				dialog.setText("Importing OSDM fares will delete fare templates and station to service constraint mappings.");
 				dialog.setMessage("Do you want to continue?");
 				int returnCode = dialog.open(); 
 				if (returnCode == SWT.CANCEL) {
 					return;
+				} else {
+					
+					SetCommand command = new SetCommand(domain, tool, GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_TEMPLATES, GtmFactory.eINSTANCE.createLegacyFareTemplates());
+					if (command.canExecute()) {
+						domain.getCommandStack().execute(command);
+					}	
+					Command command2 = new SetCommand(domain, tool, GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_TO_SERVICE_BRAND_MAPPINGS, GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
+					if (command2.canExecute()) {
+						domain.getCommandStack().execute(command2);
+					}
 				}
 			}	
+			
 			
 			
 			
