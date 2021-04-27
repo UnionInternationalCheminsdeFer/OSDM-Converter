@@ -162,7 +162,7 @@ public class MigrationV2 {
 		for (FareTemplate t : tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
 			
 			if (t.getLegacyAccountingIdentifier() != null) {	
-				int id = t.getLegacyAccountingTariffId();
+				int id = t.getLegacyAccountingIdentifier().getTariffId();
 				com.append(SetCommand.create(domain, t,GtmPackage.Literals.FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID, id));
 				com.append(DeleteCommand.create(domain, t.getLegacyAccountingIdentifier()));
 			}
