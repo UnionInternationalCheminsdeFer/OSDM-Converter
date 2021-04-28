@@ -1130,6 +1130,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateFareTemplate_BUNDLE_MUST(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_NON_CONVERTABLE_CLASS(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_TARIFF_ID_VALUES(fareTemplate, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareTemplate_SERIES_FILTER_CONVERTABLE(fareTemplate, diagnostics, context);
 		return result;
 	}
 
@@ -1484,6 +1485,36 @@ public class GtmValidator extends EObjectValidator {
 			}
 			return false;
 		}
+		return true;
+	}
+
+	/**
+	 * Validates the SERIES_FILTER_CONVERTABLE constraint of '<em>Fare Template</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareTemplate_SERIES_FILTER_CONVERTABLE(FareTemplate fareTemplate, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		/*
+		if (fareTemplate.getSeriesFilter() != null &&
+			fareTemplate.getSeriesFilter().size() > 0 &&
+			( fareTemplate.getLegacyConversion().equals(LegacyConversionType.ONLY) || 
+			  fareTemplate.getLegacyConversion().equals(LegacyConversionType.YES)) ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Fare Templates restricted to Series Types should not be convertable: "  + " in " +  getObjectLabel(fareTemplate, context), 
+						 new Object[] {  "SERIES_FILTER_CONVERTABLE", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
+						 new Object[] { fareTemplate },
+						 context));
+			}
+			return false;
+		}
+		*/
 		return true;
 	}
 

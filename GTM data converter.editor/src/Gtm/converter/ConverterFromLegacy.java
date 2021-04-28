@@ -435,6 +435,13 @@ public class ConverterFromLegacy {
 				int legacyFareCounter = 0;
 				for (FareTemplate fareTemplate: tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
 					
+					//check series type
+					if (fareTemplate.getSeriesFilter() != null && fareTemplate.getSeriesFilter().size() > 0) {
+						if (series.getType()!= null && !fareTemplate.getSeriesFilter().contains(series.getType())) {
+							break;
+						}
+					}
+					
 					//check basic features
 					if (fareTemplate.getServiceClass() == null) {					
 						GtmUtils.writeConsoleError("Service class missing in template: " + fareTemplate.getDataDescription(), editor);

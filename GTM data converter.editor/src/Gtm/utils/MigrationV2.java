@@ -30,7 +30,6 @@ import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MigrationV2.
  */
@@ -196,8 +195,10 @@ public class MigrationV2 {
 					if (!oldC.getName().equals(c.getName())) {
 						com.append(SetCommand.create(editor.getEditingDomain(),oldC,GtmPackage.Literals.COUNTRY__NAME,c.getName()));
 					}
+					if (oldC.getDefaultCharacterSet() == null || !c.getDefaultCharacterSet().equals(oldC.getDefaultCharacterSet())) {
+						com.append(SetCommand.create(editor.getEditingDomain(),oldC,GtmPackage.Literals.COUNTRY__DEFAULT_CHARACTER_SET,c.getDefaultCharacterSet()));
+					}
 				}
-				
 			}
 			
 			if (!found) {

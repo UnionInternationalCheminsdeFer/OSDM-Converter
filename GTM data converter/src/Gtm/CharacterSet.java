@@ -19,6 +19,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum CharacterSet implements Enumerator {
 	/**
+	 * The '<em><b>COUNTRY DEFAULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #COUNTRY_DEFAULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	COUNTRY_DEFAULT(0, "COUNTRY_DEFAULT", "COUNTRY_DEFAULT"), /**
 	 * The '<em><b>LATIN1 ISO88591</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39,16 +47,14 @@ public enum CharacterSet implements Enumerator {
 	LATIN2_ISO88592(2, "LATIN2_ISO88592", "LATIN-2_ISO-8859-2"),
 
 	/**
-	 * The '<em><b>LATINGREEK ISO88595</b></em>' literal object.
+	 * The '<em><b>LATINGREEK ISO88597</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #LATINGREEK_ISO88595_VALUE
+	 * @see #LATINGREEK_ISO88597_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	LATINGREEK_ISO88595(3, "LATINGREEK_ISO88595", "LATIN-GREEK_ISO-8859-5"),
-
-	/**
+	LATINGREEK_ISO88597(3, "LATINGREEK_ISO88597", "LATIN-GREEK_ISO-8859-7"), /**
 	 * The '<em><b>RUSSIAN KOI8R</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -126,7 +132,50 @@ public enum CharacterSet implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LATIN9_ISO885915(11, "LATIN9_ISO885915", "LATIN9_ISO885915");
+	LATIN9_ISO885915(11, "LATIN9_ISO885915", "LATIN9_ISO885915"), /**
+	 * The '<em><b>LATIN3 ISO88593</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LATIN3_ISO88593_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LATIN3_ISO88593(12, "LATIN3_ISO88593", "LATIN3_ISO88593"), /**
+	 * The '<em><b>LATINARABIC ISO88596</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LATINARABIC_ISO88596_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LATINARABIC_ISO88596(13, "LATINARABIC_ISO88596", "LATINARABIC_ISO88596"), /**
+	 * The '<em><b>LATINHEBREW ISO88598</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LATINHEBREW_ISO88598_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LATINHEBREW_ISO88598(14, "LATINHEBREW_ISO88598", "LATINHEBREW_ISO88598"), /**
+	 * The '<em><b>LATIN10 ISO885916</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LATIN10_ISO885916_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LATIN10_ISO885916(16, "LATIN10_ISO885916", "LATIN10_ISO885916");
+
+	/**
+	 * The '<em><b>COUNTRY DEFAULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #COUNTRY_DEFAULT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int COUNTRY_DEFAULT_VALUE = 0;
 
 	/**
 	 * The '<em><b>LATIN1 ISO88591</b></em>' literal value.
@@ -151,15 +200,15 @@ public enum CharacterSet implements Enumerator {
 	public static final int LATIN2_ISO88592_VALUE = 2;
 
 	/**
-	 * The '<em><b>LATINGREEK ISO88595</b></em>' literal value.
+	 * The '<em><b>LATINGREEK ISO88597</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #LATINGREEK_ISO88595
-	 * @model literal="LATIN-GREEK_ISO-8859-5"
+	 * @see #LATINGREEK_ISO88597
+	 * @model literal="LATIN-GREEK_ISO-8859-7"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LATINGREEK_ISO88595_VALUE = 3;
+	public static final int LATINGREEK_ISO88597_VALUE = 3;
 
 	/**
 	 * The '<em><b>RUSSIAN KOI8R</b></em>' literal value.
@@ -250,6 +299,50 @@ public enum CharacterSet implements Enumerator {
 	public static final int LATIN9_ISO885915_VALUE = 11;
 
 	/**
+	 * The '<em><b>LATIN3 ISO88593</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LATIN3_ISO88593
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LATIN3_ISO88593_VALUE = 12;
+
+	/**
+	 * The '<em><b>LATINARABIC ISO88596</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LATINARABIC_ISO88596
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LATINARABIC_ISO88596_VALUE = 13;
+
+	/**
+	 * The '<em><b>LATINHEBREW ISO88598</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LATINHEBREW_ISO88598
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LATINHEBREW_ISO88598_VALUE = 14;
+
+	/**
+	 * The '<em><b>LATIN10 ISO885916</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LATIN10_ISO885916
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LATIN10_ISO885916_VALUE = 16;
+
+	/**
 	 * An array of all the '<em><b>Character Set</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -257,9 +350,10 @@ public enum CharacterSet implements Enumerator {
 	 */
 	private static final CharacterSet[] VALUES_ARRAY =
 		new CharacterSet[] {
+			COUNTRY_DEFAULT,
 			LATIN1_ISO88591,
 			LATIN2_ISO88592,
-			LATINGREEK_ISO88595,
+			LATINGREEK_ISO88597,
 			RUSSIAN_KOI8R,
 			USASCII,
 			UKRAINIAN_KOI8U,
@@ -268,6 +362,10 @@ public enum CharacterSet implements Enumerator {
 			LATIN5_ISO88599,
 			LATIN7_ISO885913,
 			LATIN9_ISO885915,
+			LATIN3_ISO88593,
+			LATINARABIC_ISO88596,
+			LATINHEBREW_ISO88598,
+			LATIN10_ISO885916,
 		};
 
 	/**
@@ -324,9 +422,10 @@ public enum CharacterSet implements Enumerator {
 	 */
 	public static CharacterSet get(int value) {
 		switch (value) {
+			case COUNTRY_DEFAULT_VALUE: return COUNTRY_DEFAULT;
 			case LATIN1_ISO88591_VALUE: return LATIN1_ISO88591;
 			case LATIN2_ISO88592_VALUE: return LATIN2_ISO88592;
-			case LATINGREEK_ISO88595_VALUE: return LATINGREEK_ISO88595;
+			case LATINGREEK_ISO88597_VALUE: return LATINGREEK_ISO88597;
 			case RUSSIAN_KOI8R_VALUE: return RUSSIAN_KOI8R;
 			case USASCII_VALUE: return USASCII;
 			case UKRAINIAN_KOI8U_VALUE: return UKRAINIAN_KOI8U;
@@ -335,6 +434,10 @@ public enum CharacterSet implements Enumerator {
 			case LATIN5_ISO88599_VALUE: return LATIN5_ISO88599;
 			case LATIN7_ISO885913_VALUE: return LATIN7_ISO885913;
 			case LATIN9_ISO885915_VALUE: return LATIN9_ISO885915;
+			case LATIN3_ISO88593_VALUE: return LATIN3_ISO88593;
+			case LATINARABIC_ISO88596_VALUE: return LATINARABIC_ISO88596;
+			case LATINHEBREW_ISO88598_VALUE: return LATINHEBREW_ISO88598;
+			case LATIN10_ISO885916_VALUE: return LATIN10_ISO885916;
 		}
 		return null;
 	}

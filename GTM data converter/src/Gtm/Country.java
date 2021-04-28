@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Country#getCode <em>Code</em>}</li>
  *   <li>{@link Gtm.Country#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.Country#getISOcode <em>IS Ocode</em>}</li>
+ *   <li>{@link Gtm.Country#getDefaultCharacterSet <em>Default Character Set</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getCountry()
@@ -88,5 +89,30 @@ public interface Country extends EObject {
 	 * @generated
 	 */
 	void setISOcode(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Default Character Set</b></em>' attribute.
+	 * The literals are from the enumeration {@link Gtm.CharacterSet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default Character Set</em>' attribute.
+	 * @see Gtm.CharacterSet
+	 * @see #setDefaultCharacterSet(CharacterSet)
+	 * @see Gtm.GtmPackage#getCountry_DefaultCharacterSet()
+	 * @model
+	 * @generated
+	 */
+	CharacterSet getDefaultCharacterSet();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Country#getDefaultCharacterSet <em>Default Character Set</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default Character Set</em>' attribute.
+	 * @see Gtm.CharacterSet
+	 * @see #getDefaultCharacterSet()
+	 * @generated
+	 */
+	void setDefaultCharacterSet(CharacterSet value);
 
 } // Country

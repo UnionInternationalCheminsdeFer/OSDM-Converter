@@ -2,6 +2,7 @@
  */
 package Gtm.impl;
 
+import Gtm.CharacterSet;
 import Gtm.Country;
 import Gtm.GtmPackage;
 
@@ -23,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.CountryImpl#getCode <em>Code</em>}</li>
  *   <li>{@link Gtm.impl.CountryImpl#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.impl.CountryImpl#getISOcode <em>IS Ocode</em>}</li>
+ *   <li>{@link Gtm.impl.CountryImpl#getDefaultCharacterSet <em>Default Character Set</em>}</li>
  * </ul>
  *
  * @generated
@@ -87,6 +89,26 @@ public class CountryImpl extends MinimalEObjectImpl.Container implements Country
 	 * @ordered
 	 */
 	protected String isOcode = IS_OCODE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDefaultCharacterSet() <em>Default Character Set</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultCharacterSet()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final CharacterSet DEFAULT_CHARACTER_SET_EDEFAULT = CharacterSet.COUNTRY_DEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getDefaultCharacterSet() <em>Default Character Set</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultCharacterSet()
+	 * @generated
+	 * @ordered
+	 */
+	protected CharacterSet defaultCharacterSet = DEFAULT_CHARACTER_SET_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -175,6 +197,27 @@ public class CountryImpl extends MinimalEObjectImpl.Container implements Country
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CharacterSet getDefaultCharacterSet() {
+		return defaultCharacterSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultCharacterSet(CharacterSet newDefaultCharacterSet) {
+		CharacterSet oldDefaultCharacterSet = defaultCharacterSet;
+		defaultCharacterSet = newDefaultCharacterSet == null ? DEFAULT_CHARACTER_SET_EDEFAULT : newDefaultCharacterSet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.COUNTRY__DEFAULT_CHARACTER_SET, oldDefaultCharacterSet, defaultCharacterSet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -184,6 +227,8 @@ public class CountryImpl extends MinimalEObjectImpl.Container implements Country
 				return getName();
 			case GtmPackage.COUNTRY__IS_OCODE:
 				return getISOcode();
+			case GtmPackage.COUNTRY__DEFAULT_CHARACTER_SET:
+				return getDefaultCharacterSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -204,6 +249,9 @@ public class CountryImpl extends MinimalEObjectImpl.Container implements Country
 				return;
 			case GtmPackage.COUNTRY__IS_OCODE:
 				setISOcode((String)newValue);
+				return;
+			case GtmPackage.COUNTRY__DEFAULT_CHARACTER_SET:
+				setDefaultCharacterSet((CharacterSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -226,6 +274,9 @@ public class CountryImpl extends MinimalEObjectImpl.Container implements Country
 			case GtmPackage.COUNTRY__IS_OCODE:
 				setISOcode(IS_OCODE_EDEFAULT);
 				return;
+			case GtmPackage.COUNTRY__DEFAULT_CHARACTER_SET:
+				setDefaultCharacterSet(DEFAULT_CHARACTER_SET_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -244,6 +295,8 @@ public class CountryImpl extends MinimalEObjectImpl.Container implements Country
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GtmPackage.COUNTRY__IS_OCODE:
 				return IS_OCODE_EDEFAULT == null ? isOcode != null : !IS_OCODE_EDEFAULT.equals(isOcode);
+			case GtmPackage.COUNTRY__DEFAULT_CHARACTER_SET:
+				return defaultCharacterSet != DEFAULT_CHARACTER_SET_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -264,6 +317,8 @@ public class CountryImpl extends MinimalEObjectImpl.Container implements Country
 		result.append(name);
 		result.append(", ISOcode: ");
 		result.append(isOcode);
+		result.append(", defaultCharacterSet: ");
+		result.append(defaultCharacterSet);
 		result.append(')');
 		return result.toString();
 	}

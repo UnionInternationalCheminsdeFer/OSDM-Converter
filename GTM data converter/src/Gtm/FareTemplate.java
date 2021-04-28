@@ -43,10 +43,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareTemplate#isIndividualContracts <em>Individual Contracts</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getRegulatoryConditions <em>Regulatory Conditions</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}</li>
+ *   <li>{@link Gtm.FareTemplate#getSeriesFilter <em>Series Filter</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareTemplate()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS TARIFF_ID_VALUES'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS TARIFF_ID_VALUES SERIES_FILTER_CONVERTABLE'"
  * @generated
  */
 public interface FareTemplate extends EObject {
@@ -706,6 +707,20 @@ public interface FareTemplate extends EObject {
 	 * @generated
 	 */
 	void setLegacyAccountingTariffId(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Series Filter</b></em>' attribute list.
+	 * The list contents are of type {@link Gtm.LegacySeriesType}.
+	 * The literals are from the enumeration {@link Gtm.LegacySeriesType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Series Filter</em>' attribute list.
+	 * @see Gtm.LegacySeriesType
+	 * @see Gtm.GtmPackage#getFareTemplate_SeriesFilter()
+	 * @model
+	 * @generated
+	 */
+	EList<LegacySeriesType> getSeriesFilter();
 
 
 } // FareTemplate

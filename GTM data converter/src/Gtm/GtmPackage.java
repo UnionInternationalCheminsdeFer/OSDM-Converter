@@ -501,13 +501,22 @@ public interface GtmPackage extends EPackage {
 	int COUNTRY__IS_OCODE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Default Character Set</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COUNTRY__DEFAULT_CHARACTER_SET = 3;
+
+	/**
 	 * The number of structural features of the '<em>Country</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COUNTRY_FEATURE_COUNT = 3;
+	int COUNTRY_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Country</em>' class.
@@ -8032,13 +8041,22 @@ public interface GtmPackage extends EPackage {
 	int FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID = 28;
 
 	/**
+	 * The feature id for the '<em><b>Series Filter</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FARE_TEMPLATE__SERIES_FILTER = 29;
+
+	/**
 	 * The number of structural features of the '<em>Fare Template</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_TEMPLATE_FEATURE_COUNT = 29;
+	int FARE_TEMPLATE_FEATURE_COUNT = 30;
 
 	/**
 	 * The number of operations of the '<em>Fare Template</em>' class.
@@ -10687,6 +10705,17 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCountry_ISOcode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Gtm.Country#getDefaultCharacterSet <em>Default Character Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default Character Set</em>'.
+	 * @see Gtm.Country#getDefaultCharacterSet()
+	 * @see #getCountry()
+	 * @generated
+	 */
+	EAttribute getCountry_DefaultCharacterSet();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.Languages <em>Languages</em>}'.
@@ -16666,6 +16695,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getFareTemplate_LegacyAccountingTariffId();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link Gtm.FareTemplate#getSeriesFilter <em>Series Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Series Filter</em>'.
+	 * @see Gtm.FareTemplate#getSeriesFilter()
+	 * @see #getFareTemplate()
+	 * @generated
+	 */
+	EAttribute getFareTemplate_SeriesFilter();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.AfterSalesTemplate <em>After Sales Template</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -19224,6 +19264,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COUNTRY__IS_OCODE = eINSTANCE.getCountry_ISOcode();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Character Set</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COUNTRY__DEFAULT_CHARACTER_SET = eINSTANCE.getCountry_DefaultCharacterSet();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.LanguagesImpl <em>Languages</em>}' class.
@@ -23876,6 +23924,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID = eINSTANCE.getFareTemplate_LegacyAccountingTariffId();
+
+		/**
+		 * The meta object literal for the '<em><b>Series Filter</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FARE_TEMPLATE__SERIES_FILTER = eINSTANCE.getFareTemplate_SeriesFilter();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.AfterSalesTemplateImpl <em>After Sales Template</em>}' class.

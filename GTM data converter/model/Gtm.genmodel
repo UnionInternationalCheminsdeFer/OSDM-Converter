@@ -66,9 +66,10 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassId/D"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//CharacterSet">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/COUNTRY_DEFAULT"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATIN1_ISO88591"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATIN2_ISO88592"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATINGREEK_ISO88595"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATINGREEK_ISO88597"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/RUSSIAN_KOI8R"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/USASCII"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/UKRAINIAN_KOI8U"/>
@@ -77,6 +78,10 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATIN5_ISO88599"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATIN7_ISO885913"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATIN9_ISO885915"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATIN3_ISO88593"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATINARABIC_ISO88596"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATINHEBREW_ISO88598"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATIN10_ISO885916"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//Clusters">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//Clusters/BUSINESS"/>
@@ -455,6 +460,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Country/code"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Country/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Country/ISOcode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Country/defaultCharacterSet"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Languages">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Languages/languages"/>
@@ -1159,6 +1165,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/individualContracts"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/regulatoryConditions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/legacyAccountingTariffId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/seriesFilter"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AfterSalesTemplate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//AfterSalesTemplate/transactionType"/>
