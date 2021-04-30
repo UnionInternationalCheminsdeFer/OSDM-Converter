@@ -16,7 +16,7 @@
 <table border="1">
 <tr><td>Parameter</td><td>Description</td></tr>
 <tr><td>Country</td><td>Country used to assign the station codes provided without country in 108.1</td></tr>
-<tr><td>Character Set</td><td>Character set to read the local characters in 108.1 station names</td></tr>
+<tr><td>Character Set</td><td>Character set to read the local characters in 108.1 station names and memos. The selection "Use the Country Default" will use the default character set defined for the country.</td></tr>
 <tr><td>Time zone</td><td>Time zone used to transfer the date fields in 108.1 into complete date information</td></tr>
 </table>
 </ul></p>
@@ -99,12 +99,14 @@ Data structures used in the fare template reference data in the final fare struc
 <tr><td>Fare detail description</td><td>A detailed description can be added to the fare. The fare detail description is a text that must to be edited in the fare structure first. Then it can be selected in the fare template. The detail description of the fare template will be overwritten by a legacy text assigned to the series via a memo entry (108 table TCVM)!</td></tr>
 <tr><td>Id</td><td>- not in use - </td></tr>
 <tr><td>Fare constraint bundle</td><td>Fare constraint bundle holding the main constraints of this type of fare.</td></tr>
+<tr><td>Legacy Accounting Tariff Id</td><td>Tariff Id to be used in the 301 accounting data structures. Valued defined in IRS 30301. </td></tr>
 <tr><td>Separate contract fare constraint bundle</td><td>Fare constraint bundle to be used in case the series is listed in the 108.1 TCVL file.</td></tr>
 <tr><td>Individual contracts</td><td>Indicates whether the fare allows individual contracts (handling tickets and after sales per person)  </td></tr>
 <tr><td>Legacy Conversion</td><td>Indicates whether the fare template creates fares that allow a reconversion into 108.1 data. A fare might allow reconversion or even be only included for reconversion. </td></tr>
 <tr><td>Passenger Constraint</td><td>The passenger constraint to be applied with the fare. The passenger constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 <tr><td>Reduction Constraint</td><td>The reduction constraint to be applied with the fare. The reduction constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 <tr><td>Reservation parameter</td><td>The reservation parameter to be applied with the fare. The reservation parameter must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
+<tr><td>Restricted to Series Type</td><td>In case the Fare Template should not apply to all types of series the allowed series types (transit, border, domestic station-station) can be selected. In case no type is selected the template applies to all series. </td></tr>
 <tr><td>Service class</td><td>The service class to be applied with the fare. The service class must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 <tr><td>Service constraint</td><td>The service constraint to be applied with the fare. The service constraint must be edited in the fare structure first and can then be selected in the fare template. </td></tr>
 <tr><td>Service Level</td><td>The service level to be applied with the fare. The service level must be edited in the fare structure first and can then be selected in the fare template. </td></tr>

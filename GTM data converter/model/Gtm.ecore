@@ -89,6 +89,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ISOcode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultCharacterSet" eType="#//CharacterSet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Languages">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -684,6 +685,7 @@
         upperBound="-1" eType="#//ServiceBrand"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacy108Code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="#//Text"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RegionalConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="regionalConstraints" upperBound="-1"
@@ -1118,7 +1120,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareTemplate">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS"/>
+      <details key="constraints" value="PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS TARIFF_ID_VALUES SERIES_FILTER_CONVERTABLE"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="priceFactor" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Float"
         unsettable="true"/>
@@ -1159,6 +1161,10 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="regulatoryConditions" upperBound="-1"
         eType="#//RegulatoryCondition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacyAccountingTariffId"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="seriesFilter" upperBound="-1"
+        eType="#//LegacySeriesType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesTemplate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transactionType" eType="#//AfterSalesTransactionType"/>
@@ -1491,9 +1497,10 @@
     <eLiterals name="D" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CharacterSet">
+    <eLiterals name="COUNTRY_DEFAULT"/>
     <eLiterals name="LATIN1_ISO88591" value="1" literal="LATIN-1_ISO-8859-1"/>
     <eLiterals name="LATIN2_ISO88592" value="2" literal="LATIN-2_ISO-8859-2"/>
-    <eLiterals name="LATINGREEK_ISO88595" value="3" literal="LATIN-GREEK_ISO-8859-5"/>
+    <eLiterals name="LATINGREEK_ISO88597" value="3" literal="LATIN-GREEK_ISO-8859-7"/>
     <eLiterals name="RUSSIAN_KOI8R" value="4" literal="RUSSIAN_KOI8-R"/>
     <eLiterals name="USASCII" value="5"/>
     <eLiterals name="UKRAINIAN_KOI8U" value="6"/>
@@ -1502,6 +1509,10 @@
     <eLiterals name="LATIN5_ISO88599" value="9"/>
     <eLiterals name="LATIN7_ISO885913" value="10"/>
     <eLiterals name="LATIN9_ISO885915" value="11"/>
+    <eLiterals name="LATIN3_ISO88593" value="12" literal="LATIN3_ISO88593"/>
+    <eLiterals name="LATINARABIC_ISO88596" value="13"/>
+    <eLiterals name="LATINHEBREW_ISO88598" value="14"/>
+    <eLiterals name="LATIN10_ISO885916" value="16" literal="LATIN10_ISO885916"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Clusters">
     <eLiterals name="BUSINESS"/>

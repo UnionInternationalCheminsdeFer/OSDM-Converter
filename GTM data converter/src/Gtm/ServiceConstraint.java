@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ServiceConstraint#getExcludedServiceBrands <em>Excluded Service Brands</em>}</li>
  *   <li>{@link Gtm.ServiceConstraint#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.ServiceConstraint#getLegacy108Code <em>Legacy108 Code</em>}</li>
+ *   <li>{@link Gtm.ServiceConstraint#getDescription <em>Description</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getServiceConstraint()
@@ -116,5 +117,27 @@ public interface ServiceConstraint extends EObject {
 	 * @generated
 	 */
 	void setLegacy108Code(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Description</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Description</em>' reference.
+	 * @see #setDescription(Text)
+	 * @see Gtm.GtmPackage#getServiceConstraint_Description()
+	 * @model
+	 * @generated
+	 */
+	Text getDescription();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ServiceConstraint#getDescription <em>Description</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Description</em>' reference.
+	 * @see #getDescription()
+	 * @generated
+	 */
+	void setDescription(Text value);
 
 } // ServiceConstraint

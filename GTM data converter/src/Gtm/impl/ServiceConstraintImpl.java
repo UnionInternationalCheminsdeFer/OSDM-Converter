@@ -6,6 +6,7 @@ import Gtm.GtmPackage;
 import Gtm.ServiceBrand;
 import Gtm.ServiceConstraint;
 
+import Gtm.Text;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -14,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -32,6 +34,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link Gtm.impl.ServiceConstraintImpl#getExcludedServiceBrands <em>Excluded Service Brands</em>}</li>
  *   <li>{@link Gtm.impl.ServiceConstraintImpl#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.impl.ServiceConstraintImpl#getLegacy108Code <em>Legacy108 Code</em>}</li>
+ *   <li>{@link Gtm.impl.ServiceConstraintImpl#getDescription <em>Description</em>}</li>
  * </ul>
  *
  * @generated
@@ -116,6 +119,16 @@ public class ServiceConstraintImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected int legacy108Code = LEGACY108_CODE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected Text description;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -228,6 +241,44 @@ public class ServiceConstraintImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Text getDescription() {
+		if (description != null && description.eIsProxy()) {
+			InternalEObject oldDescription = (InternalEObject)description;
+			description = (Text)eResolveProxy(oldDescription);
+			if (description != oldDescription) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.SERVICE_CONSTRAINT__DESCRIPTION, oldDescription, description));
+			}
+		}
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Text basicGetDescription() {
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDescription(Text newDescription) {
+		Text oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.SERVICE_CONSTRAINT__DESCRIPTION, oldDescription, description));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -241,6 +292,9 @@ public class ServiceConstraintImpl extends MinimalEObjectImpl.Container implemen
 				return getDataDescription();
 			case GtmPackage.SERVICE_CONSTRAINT__LEGACY108_CODE:
 				return getLegacy108Code();
+			case GtmPackage.SERVICE_CONSTRAINT__DESCRIPTION:
+				if (resolve) return getDescription();
+				return basicGetDescription();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -271,6 +325,9 @@ public class ServiceConstraintImpl extends MinimalEObjectImpl.Container implemen
 			case GtmPackage.SERVICE_CONSTRAINT__LEGACY108_CODE:
 				setLegacy108Code((Integer)newValue);
 				return;
+			case GtmPackage.SERVICE_CONSTRAINT__DESCRIPTION:
+				setDescription((Text)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -298,6 +355,9 @@ public class ServiceConstraintImpl extends MinimalEObjectImpl.Container implemen
 			case GtmPackage.SERVICE_CONSTRAINT__LEGACY108_CODE:
 				setLegacy108Code(LEGACY108_CODE_EDEFAULT);
 				return;
+			case GtmPackage.SERVICE_CONSTRAINT__DESCRIPTION:
+				setDescription((Text)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -320,6 +380,8 @@ public class ServiceConstraintImpl extends MinimalEObjectImpl.Container implemen
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
 			case GtmPackage.SERVICE_CONSTRAINT__LEGACY108_CODE:
 				return legacy108Code != LEGACY108_CODE_EDEFAULT;
+			case GtmPackage.SERVICE_CONSTRAINT__DESCRIPTION:
+				return description != null;
 		}
 		return super.eIsSet(featureID);
 	}

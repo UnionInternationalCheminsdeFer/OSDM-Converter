@@ -64,6 +64,7 @@ public class CountryItemProvider
 			addCodePropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addISOcodePropertyDescriptor(object);
+			addDefaultCharacterSetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -135,6 +136,28 @@ public class CountryItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Default Character Set feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefaultCharacterSetPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Country_defaultCharacterSet_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Country_defaultCharacterSet_feature", "_UI_Country_type"),
+				 GtmPackage.Literals.COUNTRY__DEFAULT_CHARACTER_SET,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Country.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -175,6 +198,7 @@ public class CountryItemProvider
 			case GtmPackage.COUNTRY__CODE:
 			case GtmPackage.COUNTRY__NAME:
 			case GtmPackage.COUNTRY__IS_OCODE:
+			case GtmPackage.COUNTRY__DEFAULT_CHARACTER_SET:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -30,7 +30,6 @@ import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MigrationV2.
  */
@@ -80,6 +79,8 @@ public class MigrationV2 {
 		
 		
 		updateCountries((GTMTool)object, editor);
+		
+		migrateTariffIds((GTMTool)object,domain);
 
 		if (!conversionNeeded((GTMTool)object)){
 			return;
@@ -115,10 +116,11 @@ public class MigrationV2 {
 					domain.getCommandStack().execute(command);
 				}
 				monitor.worked(1);
-				
 
 				monitor.done();
 			}
+
+
 		};	
 		
 		try {
@@ -141,6 +143,35 @@ public class MigrationV2 {
 
 	}
 	
+	private static void migrateTariffIds(GTMTool tool, EditingDomain domain) {
+		
+		if (tool == null ||
+			tool.getConversionFromLegacy() == null ||
+			tool.getConversionFromLegacy().getParams() == null ||
+			tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() == null ||
+			tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates() == null ||
+			tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty() ) {
+
+			return;
+		}
+		
+		CompoundCommand com = new CompoundCommand();	
+			
+		
+		for (FareTemplate t : tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
+			
+			if (t.getLegacyAccountingIdentifier() != null) {	
+				int id = t.getLegacyAccountingIdentifier().getTariffId();
+				com.append(SetCommand.create(domain, t,GtmPackage.Literals.FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID, id));
+				com.append(DeleteCommand.create(domain, t.getLegacyAccountingIdentifier()));
+			}
+		}
+		
+
+		if (com != null && !com.isEmpty() && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
+	}
 	
 	private static void updateCountries(GTMTool tool, GtmEditor editor) {
 		
@@ -164,8 +195,10 @@ public class MigrationV2 {
 					if (!oldC.getName().equals(c.getName())) {
 						com.append(SetCommand.create(editor.getEditingDomain(),oldC,GtmPackage.Literals.COUNTRY__NAME,c.getName()));
 					}
+					if (oldC.getDefaultCharacterSet() == null || !c.getDefaultCharacterSet().equals(oldC.getDefaultCharacterSet())) {
+						com.append(SetCommand.create(editor.getEditingDomain(),oldC,GtmPackage.Literals.COUNTRY__DEFAULT_CHARACTER_SET,c.getDefaultCharacterSet()));
+					}
 				}
-				
 			}
 			
 			if (!found) {

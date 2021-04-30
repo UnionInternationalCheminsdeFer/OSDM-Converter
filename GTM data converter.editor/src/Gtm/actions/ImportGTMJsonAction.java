@@ -34,6 +34,7 @@ import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
 import export.ImportFareDelivery;
+import gtm.FareDef;
 import gtm.FareDelivery;
 import gtm.StationNamesDef;
 
@@ -137,17 +138,33 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 			if (tool.getCodeLists() != null &&
 				tool.getConversionFromLegacy() != null &&
 				tool.getConversionFromLegacy().getParams() != null &&
-				tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() != null &&
-				!tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty()
+				(
+				 tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() != null &&
+  				 !tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().isEmpty()
+				) || (
+				 tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings() != null &&
+				 !tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings().isEmpty()	
+				)		
 				) {
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_QUESTION | SWT.OK| SWT.CANCEL);
-				dialog.setText("Importing OSDM fares will delete fare templates.");
+				dialog.setText("Importing OSDM fares will delete fare templates and station to service constraint mappings.");
 				dialog.setMessage("Do you want to continue?");
 				int returnCode = dialog.open(); 
 				if (returnCode == SWT.CANCEL) {
 					return;
+				} else {
+					
+					SetCommand command = new SetCommand(domain, tool, GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_TEMPLATES, GtmFactory.eINSTANCE.createLegacyFareTemplates());
+					if (command.canExecute()) {
+						domain.getCommandStack().execute(command);
+					}	
+					Command command2 = new SetCommand(domain, tool, GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_TO_SERVICE_BRAND_MAPPINGS, GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
+					if (command2.canExecute()) {
+						domain.getCommandStack().execute(command2);
+					}
 				}
 			}	
+			
 			
 			
 			
@@ -181,6 +198,29 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 							deliveredFares = fareDelivery.getFareStructureDelivery().getFareStructure().getFares().size();						
 						}
 						int importedFares = 0;
+						
+						//check fare constraint bundles
+						int errors = 0;
+						for (FareDef dFare: fareDelivery.getFareStructureDelivery().getFareStructure().getFares()) {
+							if( dFare.getBundleRef() == null || dFare.getBundleRef().length() < 1) {
+								errors++;
+								GtmUtils.writeConsoleError("Fare without fare constraint bundle: " + dFare.getId(), editor);
+							}
+							if (errors > 100) {
+								GtmUtils.writeConsoleError("Too many errors", editor);	
+								return;
+							}
+						}
+						
+						if (fareDelivery.getFareStructureDelivery().getFareStructure().getFareConstraintBundles() == null ||
+							fareDelivery.getFareStructureDelivery().getFareStructure().getFareConstraintBundles().size() == 0) {
+							GtmUtils.writeConsoleError("Fare constraint bundles missing", editor);	
+							return;
+						}
+							
+						
+						
+						
 						if (fareDelivery != null) {
 
 							monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_7);

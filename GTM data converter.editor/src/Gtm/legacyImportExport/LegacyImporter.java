@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,6 +24,7 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
 import Gtm.Carrier;
+import Gtm.CharacterSet;
 import Gtm.ConversionFromLegacy;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
@@ -56,8 +56,7 @@ public class LegacyImporter {
 	
 	private GTMTool tool = null;
 	private DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
-	private String charset = null;
-	private String readerCharset = "ISO-8859-1";
+	private Charset charset = null;
 	private Path TCVfilePath = null;
 	private Legacy108 legacy108 = null;
 	private String timeZone = null;
@@ -77,14 +76,12 @@ public class LegacyImporter {
 		this.TCVfilePath  = filePathTCV;
 		
 		try  {
-			String charsetlit = tool.getConversionFromLegacy().getLegacy108().getCharacterSet().getLiteral();
-			int i = charsetlit.indexOf("_");	 //$NON-NLS-1$
-			charset = charsetlit.substring(i+1);
-			if (!Charset.isSupported(charset)) {
-				String message = NationalLanguageSupport.LegacyImporter_2;
-				GtmUtils.writeConsoleInfo(message, editor);
-				charset = "ISO-8859-1"; 
-			};
+			
+			if (tool.getConversionFromLegacy().getLegacy108().getCharacterSet().equals(CharacterSet.COUNTRY_DEFAULT)) {
+				charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getParams().getCountry().getDefaultCharacterSet(), editor);
+			} else {
+				charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getLegacy108().getCharacterSet(), editor);
+			}			
 
 		} catch (Exception e) {
 			String message = NationalLanguageSupport.LegacyImporter_3;
@@ -102,7 +99,6 @@ public class LegacyImporter {
 	public void importAll(IProgressMonitor monitor) {
 		
 		// monitor has 30 subtasks
-		
 		
 		monitor.subTask(NationalLanguageSupport.ImportLegayTask_TCVfile);
 		File TCVfile = TCVfilePath.toFile();
@@ -224,7 +220,7 @@ public class LegacyImporter {
 			} 
 	        
 	           	
-			Command cmd =  SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_STATIONS, list );
+			Command cmd =  SetCommand.create(domain, legacy108, GtmPackage.Literals.LEGACY108__LEGACY_SEPARATE_CONTRACT_SERIES, list );
 			if (cmd.canExecute()) {
 				domain.getCommandStack().execute(cmd);
 				String message = "TCVL series imported: " + Integer.toString(list.getSeparateContractSeries().size());
@@ -232,7 +228,7 @@ public class LegacyImporter {
 			}
 	}
 
-	private LegacySeparateContractSeries decodeTCVLLine(String st, String charset) {
+	private LegacySeparateContractSeries decodeTCVLLine(String st, Charset charset2) {
 		
 		// 1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for �BB 
 		// 2 Series numeric 5 M  5-9 Serves to assign fares to a specific series 
@@ -289,7 +285,7 @@ public class LegacyImporter {
 	        try {
 				while ((st = br.readLine()) != null) {
 					
-					Legacy108Memo memo = decodeTCVMLine(st, charset);
+					Legacy108Memo memo = decodeTCVMLine(st);
 					if (memo != null) {
 					  list.getLegacyMemos().add(memo);
 					}
@@ -310,7 +306,7 @@ public class LegacyImporter {
 			}
 	}
 
-	private Legacy108Memo decodeTCVMLine(String st, String charset) {
+	private Legacy108Memo decodeTCVMLine(String st) {
 		
 		//1 code of the supplying RU numeric 4 M	1-4 e.g. 0081 for ÖBB
 		//2 Info code numeric 4 M 5-8 Info data are consecutively number-coded.
@@ -346,25 +342,25 @@ public class LegacyImporter {
 		String number  		    = st.substring(4, 8);
 
 		
-		String local1   	   	= getUtf8String(9,69, st, charset);
-		String local2   	   	= getUtf8String(69,129,st,charset);
-		String local3   	   	= getUtf8String(129,189,st,charset);
-		String local4   	   	= getUtf8String(189,249,st,charset);
+		String local1   	   	= st.substring(9,69);
+		String local2   	   	= st.substring(69,129);
+		String local3   	   	= st.substring(129,189);
+		String local4   	   	= st.substring(189,249);
 
-		String french1   	   	= getUtf8String(249,309,st,"ISO-8859-1");
-		String french2   	   	= getUtf8String(309,369,st,"ISO-8859-1");
-		String french3   	   	= getUtf8String(369,429,st,"ISO-8859-1");
-		String french4   	   	= getUtf8String(429,489,st,"ISO-8859-1");
+		String french1   	   	= st.substring(249,309);
+		String french2   	   	= st.substring(309,369);
+		String french3   	   	= st.substring(369,429);
+		String french4   	   	= st.substring(429,489);
 
-		String german1   	   	= getUtf8String(489,549,st,"ISO-8859-1");
-		String german2   	   	= getUtf8String(549,609,st,"ISO-8859-1");
-		String german3   	   	= getUtf8String(609,669,st,"ISO-8859-1");
-		String german4   	   	= getUtf8String(669,729,st,"ISO-8859-1");
+		String german1   	   	= st.substring(489,549);
+		String german2   	   	= st.substring(549,609);
+		String german3   	   	= st.substring(609,669);
+		String german4   	   	= st.substring(669,729);
 
-		String english1   	   	= getUtf8String(729,789,st,"ISO-8859-1");
-		String english2   	   	= getUtf8String(789,849,st,"ISO-8859-1");
-		String english3   	   	= getUtf8String(849,909,st,"ISO-8859-1");
-		String english4   	   	= getUtf8String(909,969,st,"ISO-8859-1");
+		String english1   	   	= st.substring(729,789);
+		String english2   	   	= st.substring(789,849);
+		String english3   	   	= st.substring(849,909);
+		String english4   	   	= st.substring(909,969);
 		
 		//String validFromString   = st.substring(1210,1218); //YYYYMMDD
 		//String validUntilString  = st.substring(1220,1228); //YYYYMMDD
@@ -433,33 +429,6 @@ public class LegacyImporter {
 		return memo;
 	}
 
-	private String getUtf8String(int from, int to, String line, String charset) {
-
-		try {
-			if (charset.equals(readerCharset)) {
-				return new String(line.substring(from,to).getBytes("UTF-8")).trim();
-			} else {
-				return convert2CharSet(line,charset).substring(from,to).trim();
-			}
-		} catch (UnsupportedEncodingException e) {
-			return line.substring(from,to).trim();
-		}
-
-	}
-	
-	private String convert2CharSet(String s, String targetCharset) {
-		
-		try {
-
-			byte[] original = s.getBytes("ISO-8859-1");
-			
-			return  new String(original, targetCharset);		
-
-		} catch (UnsupportedEncodingException e) {
-			return s;
-		}
-	}
-
 	private void importTCVG(File file) {
 		
 		BufferedReader br = getReader (file);
@@ -473,7 +442,7 @@ public class LegacyImporter {
 	        try {
 				while ((st = br.readLine()) != null) {
 					
-				  Legacy108Station station = decodeTCVGLine(st, charset);
+				  Legacy108Station station = decodeTCVGLine(st);
 				  if (station != null) {
 					  stations.getLegacyStations().add(station);
 				  }
@@ -693,7 +662,7 @@ public class LegacyImporter {
         try {
 			while ((st = br.readLine()) != null) {
 				
-			  String name = decodeTCVLine(st, charset);
+			  String name = decodeTCVLine(st);
 			  if (name != null) {
 				 filenames.add(name+".txt"); //$NON-NLS-1$
 			  }
@@ -712,10 +681,10 @@ public class LegacyImporter {
     
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new InputStreamReader(new FileInputStream(file), readerCharset));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
 			
 					//new FileReader(file,));
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+		} catch (FileNotFoundException e) {
 			String message = NationalLanguageSupport.LegacyImporter_19+ " - " + e.getMessage();
 			GtmUtils.writeConsoleError(message, editor);
 			e.printStackTrace();
@@ -726,7 +695,7 @@ public class LegacyImporter {
 
 	}
 	
-	private String decodeTCVLine(String st , String charset) {
+	private String decodeTCVLine(String st) {
 		//get fare file names
 		String name	= st.substring(34,42);
 		if (name.startsWith("TCV")) { //$NON-NLS-1$
@@ -737,7 +706,7 @@ public class LegacyImporter {
 		
 	}
 	
-	private Legacy108Station decodeTCVGLine(String st , String charset) {
+	private Legacy108Station decodeTCVGLine(String st) {
 		
 		//	1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for �BB 
 		//	2 station code numeric 5 M TAP TSI Technical Document B.9 5-9  
@@ -784,7 +753,7 @@ public class LegacyImporter {
 		if (flag.equals("2")) return null; //$NON-NLS-1$
 
 
-		String nameUTF8 = getUtf8String(15, 50, st, charset);
+		String nameUTF8     = st.substring(15, 50);
 	
 		String nameASCII 	= st.substring(51,68).trim();	
 

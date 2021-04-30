@@ -12,6 +12,7 @@ import Gtm.FulfillmentConstraint;
 import Gtm.GtmPackage;
 import Gtm.LegacyAccountingIdentifier;
 import Gtm.LegacyConversionType;
+import Gtm.LegacySeriesType;
 import Gtm.PassengerConstraint;
 import Gtm.PersonalDataConstraint;
 import Gtm.Price;
@@ -76,6 +77,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.FareTemplateImpl#getLegacyConversion <em>Legacy Conversion</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#isIndividualContracts <em>Individual Contracts</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getRegulatoryConditions <em>Regulatory Conditions</em>}</li>
+ *   <li>{@link Gtm.impl.FareTemplateImpl#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}</li>
+ *   <li>{@link Gtm.impl.FareTemplateImpl#getSeriesFilter <em>Series Filter</em>}</li>
  * </ul>
  *
  * @generated
@@ -439,6 +442,36 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * @ordered
 	 */
 	protected EList<RegulatoryCondition> regulatoryConditions;
+
+	/**
+	 * The default value of the '{@link #getLegacyAccountingTariffId() <em>Legacy Accounting Tariff Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLegacyAccountingTariffId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int LEGACY_ACCOUNTING_TARIFF_ID_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getLegacyAccountingTariffId() <em>Legacy Accounting Tariff Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLegacyAccountingTariffId()
+	 * @generated
+	 * @ordered
+	 */
+	protected int legacyAccountingTariffId = LEGACY_ACCOUNTING_TARIFF_ID_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getSeriesFilter() <em>Series Filter</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSeriesFilter()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<LegacySeriesType> seriesFilter;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1387,6 +1420,39 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getLegacyAccountingTariffId() {
+		return legacyAccountingTariffId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLegacyAccountingTariffId(int newLegacyAccountingTariffId) {
+		int oldLegacyAccountingTariffId = legacyAccountingTariffId;
+		legacyAccountingTariffId = newLegacyAccountingTariffId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID, oldLegacyAccountingTariffId, legacyAccountingTariffId));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<LegacySeriesType> getSeriesFilter() {
+		if (seriesFilter == null) {
+			seriesFilter = new EDataTypeUniqueEList<LegacySeriesType>(LegacySeriesType.class, this, GtmPackage.FARE_TEMPLATE__SERIES_FILTER);
+		}
+		return seriesFilter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1480,6 +1546,10 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return isIndividualContracts();
 			case GtmPackage.FARE_TEMPLATE__REGULATORY_CONDITIONS:
 				return getRegulatoryConditions();
+			case GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID:
+				return getLegacyAccountingTariffId();
+			case GtmPackage.FARE_TEMPLATE__SERIES_FILTER:
+				return getSeriesFilter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1579,6 +1649,13 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				getRegulatoryConditions().clear();
 				getRegulatoryConditions().addAll((Collection<? extends RegulatoryCondition>)newValue);
 				return;
+			case GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID:
+				setLegacyAccountingTariffId((Integer)newValue);
+				return;
+			case GtmPackage.FARE_TEMPLATE__SERIES_FILTER:
+				getSeriesFilter().clear();
+				getSeriesFilter().addAll((Collection<? extends LegacySeriesType>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1675,6 +1752,12 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__REGULATORY_CONDITIONS:
 				getRegulatoryConditions().clear();
 				return;
+			case GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID:
+				setLegacyAccountingTariffId(LEGACY_ACCOUNTING_TARIFF_ID_EDEFAULT);
+				return;
+			case GtmPackage.FARE_TEMPLATE__SERIES_FILTER:
+				getSeriesFilter().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1743,6 +1826,10 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return individualContracts != INDIVIDUAL_CONTRACTS_EDEFAULT;
 			case GtmPackage.FARE_TEMPLATE__REGULATORY_CONDITIONS:
 				return regulatoryConditions != null && !regulatoryConditions.isEmpty();
+			case GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID:
+				return legacyAccountingTariffId != LEGACY_ACCOUNTING_TARIFF_ID_EDEFAULT;
+			case GtmPackage.FARE_TEMPLATE__SERIES_FILTER:
+				return seriesFilter != null && !seriesFilter.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1773,6 +1860,10 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 		result.append(individualContracts);
 		result.append(", regulatoryConditions: ");
 		result.append(regulatoryConditions);
+		result.append(", legacyAccountingTariffId: ");
+		result.append(legacyAccountingTariffId);
+		result.append(", seriesFilter: ");
+		result.append(seriesFilter);
 		result.append(')');
 		return result.toString();
 	}

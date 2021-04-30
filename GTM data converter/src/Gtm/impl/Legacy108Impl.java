@@ -58,7 +58,7 @@ public class Legacy108Impl extends MinimalEObjectImpl.Container implements Legac
 	 * @generated
 	 * @ordered
 	 */
-	protected static final CharacterSet CHARACTER_SET_EDEFAULT = CharacterSet.LATIN1_ISO88591;
+	protected static final CharacterSet CHARACTER_SET_EDEFAULT = CharacterSet.COUNTRY_DEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getCharacterSet() <em>Character Set</em>}' attribute.

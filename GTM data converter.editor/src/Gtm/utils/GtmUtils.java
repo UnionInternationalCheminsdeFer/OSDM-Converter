@@ -3,10 +3,13 @@ package Gtm.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.command.Command;
@@ -36,6 +39,7 @@ import Gtm.AfterSalesRule;
 import Gtm.Calendar;
 import Gtm.Carrier;
 import Gtm.CarrierConstraint;
+import Gtm.CharacterSet;
 import Gtm.CodeLists;
 import Gtm.CombinationConstraint;
 import Gtm.ConnectionPoint;
@@ -658,70 +662,70 @@ public class GtmUtils {
 	 */
 	public static void populateUICcountries(Countries countries){ 
 		
-		countries.getCountries().add(createCountry(10,"Finland","FI")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(20,"Russian Federation","RU")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(21,"Belarus","BY")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(22,"Ukraine","UA")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(23,"Moldova, Republic of","MD")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(24,"Lithuania","LT")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(25,"Latvia","LV")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(26,"Estonia","EE")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(27,"Kazakhstan"," KZ")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(28,"Georgia","GE")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(29,"Uzbekistan","UZ")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(30,"Korea, Democratic People's Republic of","KP")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(31,"Mongolia","MN")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(32,"Viet nam","VN")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(33,"China","CN")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(40,"Cuba","CU")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(41,"Albania","AL")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(42,"Japan","JP")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(43,"GYSEV temporary irregular code not to be used beyond mid 2022","HU")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(44,"Bosnia and Herzegovina, Serb Republic of ","BA")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(50,"Bosnia and Herzegovina, Muslim-Croat Federation of","BA")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(51,"Poland","PL")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(52,"Bulgaria"," BG")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(53,"Romania","RO")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(54,"Czech Republic","CZ")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(55,"Hungary","HU")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(56,"Slovakia","SK")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(57,"Azerbaijan","AZ")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(58,"Armenia","AM")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(59,"Kyrgyzstan","KG")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(60,"Ireland","IE")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(61,"Korea, Republic of","KR")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(62,"Montenegro","ME")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(65,"Macedonia, The former Yugoslav Republic of","MD")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(66,"Tajikistan","TJ")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(67,"Turkmenistan","TM")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(70,"United Kingdom of Great Britain and Northern Ireland","GB")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(71,"Spain","ES")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(72,"Serbia","RS"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(73,"Greece","GR")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(74,"Sweden","SE")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(75,"Turkey","TR"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(76,"Norway","NO")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(78,"Croatia","HR"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(79,"Slovenia","SI")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(80,"Germany","DE")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(81,"Austria","AT"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(82,"Luxemburg","LU")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(83,"Italy","IT")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(84,"Netherlands","NL"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(85,"Switzerland","CH")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(86,"Denmark","DK"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(87,"France","FR")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(88,"Belgium","BE")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(90,"Egypt","EG")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(91,"Tunesia","TN")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(92,"Algeria","DZ")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(93,"Morocco","MA")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(94,"Portugal","PT")); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(95,"Israel","IL"));			 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(96,"Iran, Islamic Republic of","IR"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(97,"Syrian Arab Republic","SY"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(98,"Lebanon","LB"));	 //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(99,"Iraq","IQ"));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(10,"Finland","FI",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(20,"Russian Federation","RU",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(21,"Belarus","BY",CharacterSet.LATIN5_ISO88599)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(22,"Ukraine","UA",CharacterSet.LATIN5_ISO88599)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(23,"Moldova, Republic of","MD",CharacterSet.LATIN5_ISO88599)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(24,"Lithuania","LT",CharacterSet.LATIN4_ISO88594)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(25,"Latvia","LV",CharacterSet.LATIN4_ISO88594)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(26,"Estonia","EE",CharacterSet.LATIN4_ISO88594)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(27,"Kazakhstan"," KZ",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(28,"Georgia","GE",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(29,"Uzbekistan","UZ",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(30,"Korea, Democratic People's Republic of","KP",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(31,"Mongolia","MN",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(32,"Vietnam","VN",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(33,"China","CN",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(40,"Cuba","CU",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(41,"Albania","AL",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(42,"Japan","JP",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(43,"GYSEV temporary irregular code not to be used beyond mid 2022","HU",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(44,"Bosnia and Herzegovina, Serb Republic of ","BA",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(50,"Bosnia and Herzegovina, Muslim-Croat Federation of","BA",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(51,"Poland","PL",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(52,"Bulgaria"," BG",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(53,"Romania","RO",CharacterSet.LATIN10_ISO885916)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(54,"Czech Republic","CZ",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(55,"Hungary","HU",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(56,"Slovakia","SK",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(57,"Azerbaijan","AZ",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(58,"Armenia","AM",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(59,"Kyrgyzstan","KG",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(60,"Ireland","IE",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(61,"Korea, Republic of","KR",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(62,"Montenegro","ME",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(65,"Macedonia, The former Yugoslav Republic of","MD",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(66,"Tajikistan","TJ",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(67,"Turkmenistan","TM",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(70,"United Kingdom of Great Britain and Northern Ireland","GB",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(71,"Spain","ES",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(72,"Serbia","RS",CharacterSet.LATIN2_ISO88592));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(73,"Greece","GR",CharacterSet.LATIN7_ISO885913)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(74,"Sweden","SE",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(75,"Turkey","TR",CharacterSet.LATIN5_ISO88599));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(76,"Norway","NO",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(78,"Croatia","HR",CharacterSet.LATIN2_ISO88592));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(79,"Slovenia","SI",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(80,"Germany","DE",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(81,"Austria","AT",CharacterSet.LATIN1_ISO88591));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(82,"Luxemburg","LU",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(83,"Italy","IT",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(84,"Netherlands","NL",CharacterSet.LATIN1_ISO88591));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(85,"Switzerland","CH",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(86,"Denmark","DK",CharacterSet.LATIN1_ISO88591));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(87,"France","FR",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(88,"Belgium","BE",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(90,"Egypt","EG",CharacterSet.LATINARABIC_ISO88596)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(91,"Tunesia","TN",CharacterSet.LATINARABIC_ISO88596)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(92,"Algeria","DZ",CharacterSet.LATINARABIC_ISO88596)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(93,"Morocco","MA",CharacterSet.LATINARABIC_ISO88596)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(94,"Portugal","PT",CharacterSet.LATIN1_ISO88591)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(95,"Israel","IL",CharacterSet.LATINHEBREW_ISO88598));			 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(96,"Iran, Islamic Republic of","IR",CharacterSet.LATINARABIC_ISO88596));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(97,"Syrian Arab Republic","SY",CharacterSet.LATINARABIC_ISO88596));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(98,"Lebanon","LB",CharacterSet.LATINARABIC_ISO88596));	 //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(99,"Iraq","IQ",CharacterSet.LATINARABIC_ISO88596));	 //$NON-NLS-1$ //$NON-NLS-2$
 		
 	}
 	
@@ -761,13 +765,15 @@ public class GtmUtils {
 	 * @param code the code
 	 * @param name the name
 	 * @param ISOcodeA2 the IS ocode A 2
+	 * @param latin1Iso88591 
 	 * @return the country
 	 */
-	public static Country createCountry(int code, String name, String ISOcodeA2) {		
+	public static Country createCountry(int code, String name, String ISOcodeA2, CharacterSet charSet) {		
 		Country country = GtmFactory.eINSTANCE.createCountry();
 		country.setCode(code);
 		country.setName(name);
 		country.setISOcode(ISOcodeA2);
+		country.setDefaultCharacterSet(charSet);
 		return country;
 	}
 	
@@ -1484,4 +1490,64 @@ public class GtmUtils {
 		}
 	}
 	
+	public static Charset getSupportedCharset(CharacterSet set, GtmEditor editor) {
+		
+		if (set == null) {
+			return StandardCharsets.ISO_8859_1;
+		} else if (set.equals(CharacterSet.LATIN10_ISO885916)) {
+			return getCharSet("ISO_8859_16", editor);
+		} else if (set.equals(CharacterSet.LATIN1_ISO88591)) {
+			return StandardCharsets.ISO_8859_1;
+		} else if (set.equals(CharacterSet.LATIN2_ISO88592)) {
+			return getCharSet("ISO_8859_2", editor);			
+		} else if (set.equals(CharacterSet.LATIN3_ISO88593)) {
+			return getCharSet("ISO_8859_3", editor);
+		} else if (set.equals(CharacterSet.LATIN4_ISO88594)) {
+			return getCharSet("ISO_8859_4", editor);
+		} else if (set.equals(CharacterSet.LATIN5_ISO88599)) {
+			return getCharSet("ISO_8859_9", editor);
+		} else if (set.equals(CharacterSet.LATIN7_ISO885913)) {
+			return getCharSet("ISO_8859_13", editor);
+		} else if (set.equals(CharacterSet.LATIN9_ISO885915)) {
+			return getCharSet("ISO_8859_15", editor);
+		} else if (set.equals(CharacterSet.LATINARABIC_ISO88596)) {
+			return getCharSet("ISO_8859_6", editor);
+		} else if (set.equals(CharacterSet.LATINGREEK_ISO88597)) {
+			return getCharSet("ISO_8859_7", editor);
+		} else if (set.equals(CharacterSet.LATINHEBREW_ISO88598)) {
+			return getCharSet("ISO_8859_8", editor);
+		} else if (set.equals(CharacterSet.LATINKYRILLIC_ISO88595)) {
+			return getCharSet("ISO_8859_5", editor);
+		} else if (set.equals(CharacterSet.RUSSIAN_KOI8R)) {
+			return getCharSet("KOI8_R", editor);
+		} else if (set.equals(CharacterSet.UKRAINIAN_KOI8U)) {
+			return getCharSet("KOI8_U", editor);
+		} else if (set.equals(CharacterSet.USASCII)) {
+			return StandardCharsets.US_ASCII;
+		} 
+		
+		return StandardCharsets.ISO_8859_1;
+	}
+
+	private static Charset getCharSet(String charset,GtmEditor editor) {
+		if (!Charset.isSupported(charset)) {
+			String message = "local character set " + charset + " not supported using ISO-8859-1 instead - local station names might be corrupted in the export";
+			GtmUtils.writeConsoleInfo(message, editor);
+			return StandardCharsets.ISO_8859_1;
+		} else {
+			return Charset.availableCharsets().get(charset);
+		}
+	}
+	
+	public static String convertUtf8ToCharSet(String s, Charset set) {
+		try {
+			byte[] original = s.getBytes("UTF-8");
+			return  new String(original, set);		
+		} catch (UnsupportedEncodingException e) {
+			return s;
+		}
+	}
 }
+
+
+

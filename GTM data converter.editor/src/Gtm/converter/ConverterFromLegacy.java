@@ -435,6 +435,13 @@ public class ConverterFromLegacy {
 				int legacyFareCounter = 0;
 				for (FareTemplate fareTemplate: tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
 					
+					//check series type
+					if (fareTemplate.getSeriesFilter() != null && fareTemplate.getSeriesFilter().size() > 0) {
+						if (series.getType()!= null && !fareTemplate.getSeriesFilter().contains(series.getType())) {
+							break;
+						}
+					}
+					
 					//check basic features
 					if (fareTemplate.getServiceClass() == null) {					
 						GtmUtils.writeConsoleError("Service class missing in template: " + fareTemplate.getDataDescription(), editor);
@@ -1748,7 +1755,7 @@ public class ConverterFromLegacy {
 		//legacy accounting identifier
 		LegacyAccountingIdentifier accountingIdentifier = GtmFactory.eINSTANCE.createLegacyAccountingIdentifier();
 		accountingIdentifier.setAddSeriesId(0);
-		if (fareTemplate.getLegacyAccountingIdentifier() != null) {
+		if (fareTemplate.getLegacyAccountingTariffId() != 0) {
 			accountingIdentifier.setTariffId(fareTemplate.getLegacyAccountingIdentifier().getTariffId());
 		} else {
 			accountingIdentifier.setTariffId(fareTemplate.eContainer().eContents().indexOf(fareTemplate) + 1);
@@ -1768,10 +1775,8 @@ public class ConverterFromLegacy {
 		
 		if (isSeparateContract(series)) {
 			fare.setFareConstraintBundle(fareTemplate.getSeparateContractFareConstraintBundle());
-			//C2.0 fare.setCombinationConstraint(fareTemplate.getSeparateContractCombinationConstraint());
 		} else {
 			fare.setFareConstraintBundle(fareTemplate.getFareConstraintBundle());
-			//C2.0 fare.setCombinationConstraint(fareTemplate.getCombinationConstraint());
 		}
 		fare.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_44 + Integer.toString(series.getNumber()) +NationalLanguageSupport.ConverterFromLegacy_45 + fareTemplate.getDataDescription());
 		
