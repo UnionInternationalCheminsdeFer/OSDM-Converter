@@ -1961,14 +1961,20 @@ public class GTMJsonImporter {
 	private Delivery convert(FareDeliveryDetailsDef jo) {
 		if (jo == null) return null;
 		Delivery o = GtmFactory.eINSTANCE.createDelivery();
-		o.setAcceptedSchemaVersion(SchemaVersion.get(jo.getAcceptedVersion()));
+		o.setAcceptedSchemaVersion(getSchemaVersion(jo.getAcceptedVersion()));
 		o.setId(jo.getDeliveryId());
 		o.setOptional(jo.getOptionalDelivery());
 		o.setPreviousDeliveryId(jo.getPreviousDeliveryId());
 		o.setProvider(getCarrier(jo.getFareProvider()));
 		o.setReplacedDeliveryId(jo.getReplacementDeliveryId());
-		o.setSchemaVersion(SchemaVersion.get(jo.getVersion()));
+		o.setSchemaVersion(getSchemaVersion(jo.getVersion()));
 		return o;
+	}
+	
+	private SchemaVersion getSchemaVersion(String version) {
+		if (version == null || version.length() == 0) return null;
+		return SchemaVersion.getByName(version);
+		
 	}
 	
 
