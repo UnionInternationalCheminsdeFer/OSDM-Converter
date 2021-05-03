@@ -175,8 +175,12 @@ public class GTMJsonImporter {
 		
 		fareStructure.setTexts(convertTextList(fareDataDef.getTexts()));
 		
-		fareStructure.setStationNames(convertStationNames(fareDataDef.getStationNames()));
-		
+		if (fareDataDef.getStationNames() != null && fareDataDef.getStationNames().size() > 0) {
+			fareStructure.setStationNames(convertStationNames(fareDataDef.getStationNames()));
+		}
+		if (fareDataDef.getStations() != null && fareDataDef.getStations().size() > 0) {
+			fareStructure.setStationNames(convertStations(fareDataDef.getStations()));
+		}
 		fareStructure.setFareStationSetDefinitions(convertFareStationSetDefinitions(fareDataDef.getFareReferenceStationSetDefinitions()));
 
 		fareStructure.setServiceClassDefinitions(convertServiceClassDefinitions(fareDataDef.getServiceClassDefinitions()));
@@ -188,7 +192,6 @@ public class GTMJsonImporter {
 		if (fareDataDef.getCarrierConstraints() != null && !fareDataDef.getCarrierConstraints().isEmpty()) {
 			fareStructure.setCarrierConstraints(convertCarrierConstraintList(fareDataDef.getCarrierConstraints()));
 		}
-		
 	
 		fareStructure.setCombinationConstraints(convertCombinationConstraintList(fareDataDef.getCombinationConstraints()));
 		
@@ -265,6 +268,31 @@ public class GTMJsonImporter {
 
 
 	private StationNames convertStationNames(List<StationNamesDef> jl) {
+		
+		StationNames n = GtmFactory.eINSTANCE.createStationNames();
+		HashSet<Station> set = new HashSet<Station>();
+		
+		if (jl == null || jl.isEmpty()) return n;
+				
+		//link the stations, names will be added later-on to the merits code table
+		for (StationNamesDef jn : jl) {
+			
+			Station s = getStation(jn.getCountry(), jn.getLocalCode());
+			if (s != null) {
+				set.add(s);
+				n.getStationName().add(s);
+			}
+		}
+		
+		ArrayList<Station> stations = 	new ArrayList<Station>();
+		stations.addAll(set);
+		stations.sort(new StationComparator());
+		n.getStationName().addAll(stations);
+		
+		return n;
+	}
+	
+	private StationNames convertStations(List<StationNamesDef> jl) {
 		
 		StationNames n = GtmFactory.eINSTANCE.createStationNames();
 		HashSet<Station> set = new HashSet<Station>();

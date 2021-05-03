@@ -34,9 +34,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "personalDataConstraints",
     "reservationParameters",
     "connectionPoints",
-    "StationNames",
+    "stationNames",
     "fareReferenceStationSetDefinitions",
-    "stations",
+    "stationNames",
     "zoneDefinitions"
 })
 public class FareDataDef {
@@ -135,7 +135,7 @@ public class FareDataDef {
     private List<ReservationParameterDef> reservationParameters = new ArrayList<ReservationParameterDef>();
     @JsonProperty("connectionPoints")
     private List<ConnectionPointDef> connectionPoints = new ArrayList<ConnectionPointDef>();
-    @JsonProperty("StationNames")
+    @JsonProperty("stationNames")
     private List<StationNamesDef> stationNames = new ArrayList<StationNamesDef>();
     @JsonProperty("fareReferenceStationSetDefinitions")
     private List<FareReferenceStationSetDef> fareReferenceStationSetDefinitions = new ArrayList<FareReferenceStationSetDef>();
@@ -143,9 +143,10 @@ public class FareDataDef {
      * temporary option to include station details as long as MERITS can not provide them. Station codes must be those of merits
      * 
      */
-    @JsonProperty("stations")
+    @JsonProperty("stationNames")
     @JsonPropertyDescription("temporary option to include station details as long as MERITS can not provide them. Station codes must be those of merits")
-    private List<StationDetailsDef> stations = new ArrayList<StationDetailsDef>();
+    private List<StationNamesDef> stations = new ArrayList<StationNamesDef>();
+
     @JsonProperty("zoneDefinitions")
     private List<ZoneDefinitionDef> zoneDefinitions = new ArrayList<ZoneDefinitionDef>();
 
@@ -501,8 +502,8 @@ public class FareDataDef {
      * temporary option to include station details as long as MERITS can not provide them. Station codes must be those of merits
      * 
      */
-    @JsonProperty("stations")
-    public List<StationDetailsDef> getStations() {
+    @JsonProperty("stationNames")
+    public List<StationNamesDef> getStations() {
         return stations;
     }
 
@@ -511,7 +512,7 @@ public class FareDataDef {
      * 
      */
     @JsonProperty("stations")
-    public void setStations(List<StationDetailsDef> stations) {
+    public void setStations(List<StationNamesDef> stations) {
         this.stations = stations;
     }
 
