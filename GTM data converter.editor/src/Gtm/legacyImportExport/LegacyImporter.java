@@ -753,7 +753,7 @@ public class LegacyImporter {
 		if (flag.equals("2")) return null; //$NON-NLS-1$
 
 
-		String nameUTF8     = st.substring(15, 50);
+		String nameUTF8     = st.substring(15, 50).trim();
 	
 		String nameASCII 	= st.substring(51,68).trim();	
 
