@@ -11205,6 +11205,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.DOWN2CENT);
 
 		initEEnum(schemaVersionEEnum, SchemaVersion.class, "SchemaVersion");
+		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V12);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V10);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V00);
 

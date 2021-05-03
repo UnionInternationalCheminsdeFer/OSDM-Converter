@@ -19,6 +19,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum SchemaVersion implements Enumerator {
 	/**
+	 * The '<em><b>V12</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #V12_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	V12(0, "V_1_2", "V_1_2"), /**
 	 * The '<em><b>V10</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -37,6 +45,17 @@ public enum SchemaVersion implements Enumerator {
 	 * @ordered
 	 */
 	V00(2, "V_0_0", "0.0");
+
+	/**
+	 * The '<em><b>V12</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #V12
+	 * @model name="V_1_2"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int V12_VALUE = 0;
 
 	/**
 	 * The '<em><b>V10</b></em>' literal value.
@@ -68,6 +87,7 @@ public enum SchemaVersion implements Enumerator {
 	 */
 	private static final SchemaVersion[] VALUES_ARRAY =
 		new SchemaVersion[] {
+			V12,
 			V10,
 			V00,
 		};
@@ -126,6 +146,7 @@ public enum SchemaVersion implements Enumerator {
 	 */
 	public static SchemaVersion get(int value) {
 		switch (value) {
+			case V12_VALUE: return V12;
 			case V10_VALUE: return V10;
 			case V00_VALUE: return V00;
 		}
