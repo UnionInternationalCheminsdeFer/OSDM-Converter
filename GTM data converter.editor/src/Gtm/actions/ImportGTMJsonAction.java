@@ -282,6 +282,18 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
 
 			} catch (Exception e) {
+				MessageBox dialog =  new MessageBox(editor.getSite().getShell(), SWT.ICON_ERROR | SWT.OK);
+				dialog.setText("Export to JSON failed");
+				if (e.getMessage()!= null) {
+					dialog.setMessage(e.getMessage());
+					GtmUtils.writeConsoleStackTrace(e, editor);
+				} else {
+					dialog.setMessage("no details available");
+					GtmUtils.writeConsoleStackTrace(e, editor);
+				}
+				dialog.open(); 				
+				
+				
 				e.printStackTrace();
 				// Something went wrong that shouldn't.
 				GtmEditorPlugin.INSTANCE.log(e);

@@ -1765,6 +1765,7 @@
     <eLiterals name="DOWN2CENT" value="8" literal="DOWN2CENT"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
+    <eLiterals name="V_1_2"/>
     <eLiterals name="V_1_0" value="1" literal="1.0"/>
     <eLiterals name="V_0_0" value="2" literal="0.0"/>
   </eClassifiers>

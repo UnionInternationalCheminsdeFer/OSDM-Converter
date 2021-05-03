@@ -151,7 +151,7 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 	 * @generated
 	 * @ordered
 	 */
-	protected static final SchemaVersion SCHEMA_VERSION_EDEFAULT = SchemaVersion.V10;
+	protected static final SchemaVersion SCHEMA_VERSION_EDEFAULT = SchemaVersion.V12;
 
 	/**
 	 * The cached value of the '{@link #getSchemaVersion() <em>Schema Version</em>}' attribute.
@@ -171,7 +171,7 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 	 * @generated
 	 * @ordered
 	 */
-	protected static final SchemaVersion ACCEPTED_SCHEMA_VERSION_EDEFAULT = SchemaVersion.V10;
+	protected static final SchemaVersion ACCEPTED_SCHEMA_VERSION_EDEFAULT = SchemaVersion.V12;
 
 	/**
 	 * The cached value of the '{@link #getAcceptedSchemaVersion() <em>Accepted Schema Version</em>}' attribute.
