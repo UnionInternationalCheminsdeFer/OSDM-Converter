@@ -315,6 +315,15 @@ public class RouteDescriptionBuilder {
 		
 		StringBuilder sb = new StringBuilder();
 		
+		if (sc.getDescription() != null && sc.getDescription().getShortTextICAO()!= null && sc.getDescription().getShortTextICAO().length() > 0 ) {
+			
+			sb.append(sc.getDescription().getShortTextICAO());
+			return sb.toString();
+			
+		}
+		
+		
+		
 		if (sc.getIncludedServiceBrands() != null && !sc.getIncludedServiceBrands().isEmpty()) {
 			
 			for (ServiceBrand s : sc.getIncludedServiceBrands()) {

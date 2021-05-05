@@ -1420,8 +1420,25 @@ public class ConverterFromLegacy {
 	 * @return true, if is mapped station
 	 */
 	private boolean isMappedStation(int code) {	
-		for (LegacyStationToServiceConstraintMapping map : tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings()) {
-			if (map.getCode() == code) return true;
+		
+		if (tool.getConversionFromLegacy() != null && 
+			tool.getConversionFromLegacy().getParams() != null &&
+			tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings() != null &&
+			tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings() != null) {
+			for (LegacyStationToServiceConstraintMapping map : tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings()) {
+				if (map.getCode() == code) return true;
+			}
+		}
+		
+		if (tool.getGeneralTariffModel().getFareStructure()!= null &&
+			tool.getGeneralTariffModel().getFareStructure().getServiceConstraints() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints() != null) {
+			
+			for (ServiceConstraint sc : tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints()) {
+				if (sc.getLegacy108Code() == code) {
+					return true;
+				}
+			}
 		}
 		return false;
 	}

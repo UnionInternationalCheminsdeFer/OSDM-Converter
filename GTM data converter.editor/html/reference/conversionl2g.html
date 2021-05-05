@@ -52,7 +52,12 @@ A fixed price can be set, the all fares converted from series will have the same
 The referenced data items must be defined in the General Tariff Model fare structure first. They can then be assigned to a fare template.</td>
     <td></td></tr>
 <tr><td>Legacy station mappings</td><td>Mappings of station codes in 108.1 to merits codes. A manual mapping can be added for station codes not included in MERITS</td><td >Mapping station code 018.1 to MERITS station code.</td></tr>
-<tr><td>Legacy station to service constraint mappings </td><td>Mappings of 108.1 stations to service constraints. In 108.1 data virtual stations have been added to indicate a service constraint. These will be mapped to the service constraint. To allow a conversion back into 108 data structures the 5 digit station code must be added in the service constraint as legacy code. In case the station is part of the route the service constraint will be added in the corresponding part of the route.</td><td >Mapping to a service constraint. The service constraint must be added in the fare data first.</td></tr>
+<tr><td>Legacy station to service constraint mappings </td>
+	<td>Mappings of 108.1 stations to service constraints of the fare. 
+	In 108.1 data virtual stations have been added to indicate a service constraint. 
+	These will be mapped to the service constraint for the entire fare.<br/>
+	 In case the service constraint should be added to the route the legacy code of the 108 station must be added in the service constraint only, a mapping entry in this list is not needed.
+    To allow a conversion back into 108 data structures the 5 digit station code must be added in the service constraint as legacy code. 
 <tr><td>Legacy Bus and Ferry Mapping</td>
     <td>A mapping of the series Bus and Ferry Code to ServiceConstraints can be defined here. This mapping will override a mapping of the fare template and will be overwritten y a mapping to a station to service constraint mapping.</td>
     <td>Selection list on service constraints defined in the fare data</td></tr>
@@ -64,6 +69,25 @@ The referenced data items must be defined in the General Tariff Model fare struc
 </table>
 </ul>
 
+
+</p>
+
+<p>
+<ul>
+Service Constraints can be added via the following options:<br/><br/>
+
+<ul>
+<li>Define a mapping for the bus and ferry flag to service constraints in the fare template. 
+The service constraint will be applied to the entire fare. </li>
+<li>Define a station to service constraint mapping in the station to service constraint mapping in the conversion parameter. The service constraint will be added to the entire fare. 
+</li>
+<li>Define a service constraint and set the legacy station code in the service constraint. 
+The service constraint will be added in the routes of the regional validity at the position of the legacy station. It is recommended to define a text with a short name in the service constraint.
+</li>
+
+</ul>
+
+</ul>
 </p>
 
 
