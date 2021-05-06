@@ -899,6 +899,7 @@ public class GtmUtils {
 		listName = baseName + "G_"; //$NON-NLS-1$
 		i = 0;
 		for (PassengerConstraint object : fareStructure.getPassengerConstraints().getPassengerConstraints()) {
+			i++;
 			if (object.getId() == null || object.getId().isEmpty()) {
 				setId(domain, object,GtmPackage.Literals.PASSENGER_CONSTRAINT__ID, command, listName,i);
 			}
@@ -950,6 +951,7 @@ public class GtmUtils {
 		listName = baseName + "L_"; //$NON-NLS-1$
 		i = 0;
 		for (ReservationParameter object : fareStructure.getReservationParameters().getReservationParameters()) {
+			i++;
 			if (object.getId() == null || object.getId().isEmpty()) {
 				setId(domain, object,GtmPackage.Literals.RESERVATION_PARAMETER__ID, command, listName,i);
 			}

@@ -1067,9 +1067,9 @@ public class ConverterFromLegacy {
 		ServiceConstraint serviceConstraint = null;
 		fareStationSet = findFareStation(code);
 		if (fareStationSet == null) {
-			station = getStation(tool, country, code);	
-			if (station == null) {
-				serviceConstraint = findServiceConstraint(code);
+			serviceConstraint = findServiceConstraintByLegacyCode(code);
+			if (serviceConstraint == null) {
+				station = getStation(tool, country, code);
 			}
 		} 
 		
@@ -1077,9 +1077,17 @@ public class ConverterFromLegacy {
 			if (isMappedStation(code)) {
 				return null;
 			}
-			String message = NationalLanguageSupport.ConverterFromLegacy_7 + Integer.toString(seriesNumber) + NationalLanguageSupport.ConverterFromLegacy_8 + Integer.toString(code);
-			GtmUtils.writeConsoleError(message, editor);
-			throw new ConverterException(message);
+			Legacy108Station ls = legacyStations.get(code);
+			StringBuilder sb = new StringBuilder();
+			sb.append(NationalLanguageSupport.ConverterFromLegacy_7);
+			sb.append(seriesNumber);
+			sb.append(NationalLanguageSupport.ConverterFromLegacy_8);
+			sb.append(code);
+			if (ls != null) {
+				sb.append("-").append(ls.getName());
+			}
+			GtmUtils.writeConsoleError(sb.toString(), editor);
+			throw new ConverterException(sb.toString());
 		}
 		
 		ViaStation viaStation = GtmFactory.eINSTANCE.createViaStation();
@@ -1091,7 +1099,7 @@ public class ConverterFromLegacy {
 
 
 
-	private ServiceConstraint findServiceConstraint(int code) {
+	private ServiceConstraint findServiceConstraintByLegacyCode(int code) {
 		
 		if (tool.getGeneralTariffModel().getFareStructure().getServiceConstraints() == null) {
 			return null;
@@ -1455,43 +1463,60 @@ public class ConverterFromLegacy {
 	public Station getStation(GTMTool tool, Country country, int localCode) throws ConverterException {
 		
 		//mapped station?
-		
 		Station station = tool.getConversionFromLegacy().getParams().getLegacyStationMappings().findMappedStation(localCode);
 		if (station != null) {
 			return station;
 		}
 		
-		ServiceConstraint constraint = tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().findServiceConstraint(localCode);
+		//is it a virtual serviceConstraint?
+		ServiceConstraint constraint = this.findServiceConstraintByLegacyCode(localCode);
 		if (constraint != null){
 			return null;
 		}
 		
-		//real station
+		//get the real station 
 		station = localStations.get(localCode);
-		if (station != null) return station;
-		
-			
-		//borderpoint?	
+		if (station != null) {
+			return station;
+		}
+					
+		//is it a virtual borderpoint?	
 		Legacy108Station ls = legacyStations.get(localCode);
 		if (ls == null) return null;
-		
-		
 		//if it is a border point get the station from the right side of the border
 		if (ls.getBorderPointCode() > 0) {
 			Station s = getBorderStation(ls.getBorderPointCode());
-			if (s != null) return s;
+			if (s != null) {
+				return s;
+			}
 		}
 		
-
+		//deprecated manual border mapping
 		if (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings() != null) {
 			LegacyBorderPointMapping map = tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings().getMappingByBorderPointCode(localCode);
 			if (map != null && map.getStation() != null) {
 				return map.getStation();
 			}
 		}
+		
+		//is it a virtual fare station set?
+		if (ls.getFareReferenceStationCode() == ls.getStationCode() && ls.getStationCode() > 0) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Fare Station Set: ").append(ls.getName());
+			sb.append("-").append(ls.getStationCode());
+			sb.append(" not a station code. It is assumed to be a virtual fare station set.");
+			GtmUtils.writeConsoleInfo(sb.toString(), editor);
+		} else {
+			//it is missing!
+			StringBuilder sb = new StringBuilder();
+			sb.append(NationalLanguageSupport.ConverterFromLegacy_40);
+			sb.append(localCode);
+			if (ls != null) {
+				sb.append("-").append(ls.getName());
+			}
+			GtmUtils.writeConsoleError(sb.toString(), editor);			
+		}
 
-		String message = NationalLanguageSupport.ConverterFromLegacy_40 + Integer.toString(localCode) ;
-		GtmUtils.writeConsoleError(message, editor);
 		return null;
 	}
 	
@@ -1521,6 +1546,8 @@ public class ConverterFromLegacy {
 			return lbp.getOnBorderStations().getStations().getStations().get(0);
 		}
 		
+		//border point data incomplete!!
+				
 		return null;
 	}
 
@@ -2235,7 +2262,7 @@ public class ConverterFromLegacy {
 					def.setNameUtf8(legacyStation.getShortName());
 
 					try {
-						//the fare station set is also be a real station (strange case)
+						//the fare station set might also be a real station (strange case)
 						Station station = getStation(tool, myCountry, legacyStation.getStationCode());
 						if (station != null) {
 							def.getStations().add(station);
@@ -2263,17 +2290,22 @@ public class ConverterFromLegacy {
 						}
 					}
 				}
-				if (def.getStations().isEmpty()) {
-					String message = NationalLanguageSupport.ConverterFromLegacy_55;
-					if (def != null && def.getName() != null) {
-						message = message + Integer.toString(legacyStation.getStationCode()) + " " + def.getName();
-					} else {
-						message = message + Integer.toString(legacyStation.getStationCode());
-					}
-					GtmUtils.writeConsoleWarning(message, editor);
-				}
 			}
-			
+			if (def.getStations() == null || def.getStations().isEmpty()) {
+				//error in case no station is contained
+				String message = NationalLanguageSupport.ConverterFromLegacy_55;
+				if (def != null && def.getName() != null) {
+					message = message + Integer.toString(def.getLegacyCode()) + " " + def.getName();
+				} else {
+					message = message + Integer.toString(def.getLegacyCode());
+				}
+				GtmUtils.writeConsoleError(message, editor);
+			} else if (def.getStations() != null && def.getStations().size() == 1) {
+				//warning in case only one station is contained
+				StringBuilder sb = new StringBuilder();
+				sb.append("Fare station set with one station only: ").append(def.getName()).append("-").append(def.getCode());
+				GtmUtils.writeConsoleWarning(sb.toString(), editor);
+			}
 		}
 		
 		int added = fareStationSetDefinitions.getFareStationSetDefinitions().size();

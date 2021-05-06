@@ -23,7 +23,6 @@ public class NationalLanguageSupport extends NLS{
 	
 	public static String ConvertGtm2LegacyAction_CountryMissing;
 	public static String ConverterFromLegacy_1;
-	public static String ConverterFromLegacy_10;
 	public static String ConverterFromLegacy_11;
 	public static String ConverterFromLegacy_12;
 	public static String ConverterFromLegacy_13;
@@ -35,9 +34,7 @@ public class NationalLanguageSupport extends NLS{
 	public static String ConverterFromLegacy_21;
 	public static String ConverterFromLegacy_22;
 	public static String ConverterFromLegacy_23;
-	public static String ConverterFromLegacy_24;
 	public static String ConverterFromLegacy_25;
-	public static String ConverterFromLegacy_26;
 	public static String ConverterFromLegacy_27;
 	public static String ConverterFromLegacy_28;
 	public static String ConverterFromLegacy_29;
@@ -47,7 +44,6 @@ public class NationalLanguageSupport extends NLS{
 	public static String ConverterFromLegacy_36;
 	public static String ConverterFromLegacy_37;
 	public static String ConverterFromLegacy_38;
-	public static String ConverterFromLegacy_39;
 	public static String ConverterFromLegacy_4;
 	public static String ConverterFromLegacy_40;
 	public static String ConverterFromLegacy_42;
