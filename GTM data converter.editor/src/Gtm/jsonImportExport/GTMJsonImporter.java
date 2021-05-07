@@ -2014,7 +2014,18 @@ public class GTMJsonImporter {
 	
 	private SchemaVersion getSchemaVersion(String version) {
 		if (version == null || version.length() == 0) return null;
-		return SchemaVersion.getByName(version);
+		
+		if (version.equals(SchemaVersion.V00.getLiteral()) || version.equals(SchemaVersion.V00.getName())) {
+			return SchemaVersion.V00;
+		}
+		if (version.equals(SchemaVersion.V10.getLiteral()) || version.equals(SchemaVersion.V10.getName())) {
+			return SchemaVersion.V10;
+		}
+		if (version.equals(SchemaVersion.V12.getLiteral()) || version.equals(SchemaVersion.V12.getName())) {
+			return SchemaVersion.V12;
+		}
+		
+		return null;
 		
 	}
 	

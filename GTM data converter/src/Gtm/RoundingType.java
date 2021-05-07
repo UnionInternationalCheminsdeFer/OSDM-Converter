@@ -98,7 +98,47 @@ public enum RoundingType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DOWN2CENT(8, "DOWN2CENT", "DOWN2CENT");
+	DOWN2CENT(8, "DOWN2CENT", "DOWN2CENT"), /**
+	 * The '<em><b>UP10CENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UP10CENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UP10CENT(9, "UP10CENT", "UP10CENT"), /**
+	 * The '<em><b>DOWN10CENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DOWN10CENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DOWN10CENT(10, "DOWN10CENT", "DOWN10CENT"), /**
+	 * The '<em><b>HALFUP10</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HALFUP10_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	HALFUP10(11, "HALFUP10", "HALFUP10"), /**
+	 * The '<em><b>HALFDOWN10</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HALFDOWN10_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	HALFDOWN10(12, "HALFDOWN10", "HALFDOWN10"), /**
+	 * The '<em><b>HALFEVEN10</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HALFEVEN10_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	HALFEVEN10(13, "HALFEVEN10", "HALFEVEN10");
 
 	/**
 	 * The '<em><b>HALFUP</b></em>' literal value.
@@ -200,6 +240,61 @@ public enum RoundingType implements Enumerator {
 	public static final int DOWN2CENT_VALUE = 8;
 
 	/**
+	 * The '<em><b>UP10CENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UP10CENT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UP10CENT_VALUE = 9;
+
+	/**
+	 * The '<em><b>DOWN10CENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DOWN10CENT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DOWN10CENT_VALUE = 10;
+
+	/**
+	 * The '<em><b>HALFUP10</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HALFUP10
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int HALFUP10_VALUE = 11;
+
+	/**
+	 * The '<em><b>HALFDOWN10</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HALFDOWN10
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int HALFDOWN10_VALUE = 12;
+
+	/**
+	 * The '<em><b>HALFEVEN10</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HALFEVEN10
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int HALFEVEN10_VALUE = 13;
+
+	/**
 	 * An array of all the '<em><b>Rounding Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -216,6 +311,11 @@ public enum RoundingType implements Enumerator {
 			DOWN5CENT,
 			UP2CENT,
 			DOWN2CENT,
+			UP10CENT,
+			DOWN10CENT,
+			HALFUP10,
+			HALFDOWN10,
+			HALFEVEN10,
 		};
 
 	/**
@@ -281,6 +381,11 @@ public enum RoundingType implements Enumerator {
 			case DOWN5CENT_VALUE: return DOWN5CENT;
 			case UP2CENT_VALUE: return UP2CENT;
 			case DOWN2CENT_VALUE: return DOWN2CENT;
+			case UP10CENT_VALUE: return UP10CENT;
+			case DOWN10CENT_VALUE: return DOWN10CENT;
+			case HALFUP10_VALUE: return HALFUP10;
+			case HALFDOWN10_VALUE: return HALFDOWN10;
+			case HALFEVEN10_VALUE: return HALFEVEN10;
 		}
 		return null;
 	}

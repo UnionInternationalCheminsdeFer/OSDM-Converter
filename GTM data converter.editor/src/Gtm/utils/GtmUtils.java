@@ -899,6 +899,7 @@ public class GtmUtils {
 		listName = baseName + "G_"; //$NON-NLS-1$
 		i = 0;
 		for (PassengerConstraint object : fareStructure.getPassengerConstraints().getPassengerConstraints()) {
+			i++;
 			if (object.getId() == null || object.getId().isEmpty()) {
 				setId(domain, object,GtmPackage.Literals.PASSENGER_CONSTRAINT__ID, command, listName,i);
 			}
@@ -950,6 +951,7 @@ public class GtmUtils {
 		listName = baseName + "L_"; //$NON-NLS-1$
 		i = 0;
 		for (ReservationParameter object : fareStructure.getReservationParameters().getReservationParameters()) {
+			i++;
 			if (object.getId() == null || object.getId().isEmpty()) {
 				setId(domain, object,GtmPackage.Literals.RESERVATION_PARAMETER__ID, command, listName,i);
 			}
@@ -1479,13 +1481,16 @@ public class GtmUtils {
 	
 	public static BigDecimal round(float amount, int scale, RoundingMode mode, int radix) {
 		
+		String amountS = Float.toString(amount);
 		if (radix == 10) {
-			return new BigDecimal(amount).setScale(scale, mode);
+			return new BigDecimal(amountS).setScale(scale, mode);
 		} else {
 			float value = amount * radix;
-			BigDecimal bd = new BigDecimal(value).setScale(scale - 1, mode);
+			String valueS = Float.toString(value);
+			BigDecimal bd = new BigDecimal(valueS).setScale(scale - 1, mode);
 			float v = bd.floatValue() / radix;
-			BigDecimal bf = new BigDecimal(v).setScale(scale, mode);
+			String vS = Float.toString(v);
+			BigDecimal bf = new BigDecimal(vS).setScale(scale, mode);
 			return bf;
 		}
 	}
