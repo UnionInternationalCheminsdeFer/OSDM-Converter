@@ -195,6 +195,12 @@ Data structures used in the <b>fare template</b> reference data in the final far
 <li> Down to 5 Cent: rounding to multiples of 5 cent: down to 0 cents for 0.01 to 4.99 cents, down to 5 cents for 5.01 to 9.9 cents </li>
 <li> Up to 2 Cent: rounding up to multiples of 2 cent</li>
 <li> Down to 2 Cent: rounding down to multiples of 2 cent</li>
+<li> Up to 10 Cents: rounding up to one cent</li>
+<li> Down to 10 Cents: rounding down to 10 cents</li>
+<li> Half-Up to 10 Cents: rounding up to 10 cents for 0.5 to 0.9 cents and down for 0.1 to 0.4 cents</li>
+<li> Half-Down to 10 Cents: rounding up to 10 cent for 0.6 to 0.9 cents and down for 0.1 to 0.5 cents</li>
+<li> Half-Even to 10 Cents: rounding half up to 10 cents: if the left digit is odd, half down otherwise (preserves the mean value)</li>
+
 </ul>
 </td></tr>
 <tr><td>data description</td><td>Text to name the fare template. This text as no effect on the final data.</td></tr>

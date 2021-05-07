@@ -1481,13 +1481,16 @@ public class GtmUtils {
 	
 	public static BigDecimal round(float amount, int scale, RoundingMode mode, int radix) {
 		
+		String amountS = Float.toString(amount);
 		if (radix == 10) {
-			return new BigDecimal(amount).setScale(scale, mode);
+			return new BigDecimal(amountS).setScale(scale, mode);
 		} else {
 			float value = amount * radix;
-			BigDecimal bd = new BigDecimal(value).setScale(scale - 1, mode);
+			String valueS = Float.toString(value);
+			BigDecimal bd = new BigDecimal(valueS).setScale(scale - 1, mode);
 			float v = bd.floatValue() / radix;
-			BigDecimal bf = new BigDecimal(v).setScale(scale, mode);
+			String vS = Float.toString(v);
+			BigDecimal bf = new BigDecimal(vS).setScale(scale, mode);
 			return bf;
 		}
 	}

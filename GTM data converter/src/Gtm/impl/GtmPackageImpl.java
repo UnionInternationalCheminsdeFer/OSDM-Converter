@@ -11203,6 +11203,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.DOWN5CENT);
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.UP2CENT);
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.DOWN2CENT);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.UP10CENT);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.DOWN10CENT);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFUP10);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFDOWN10);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFEVEN10);
 
 		initEEnum(schemaVersionEEnum, SchemaVersion.class, "SchemaVersion");
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V12);

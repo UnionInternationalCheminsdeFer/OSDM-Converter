@@ -1763,9 +1763,14 @@
     <eLiterals name="DOWN5CENT" value="6" literal="DOWN5CENT"/>
     <eLiterals name="UP2CENT" value="7" literal="UP2CENT"/>
     <eLiterals name="DOWN2CENT" value="8" literal="DOWN2CENT"/>
+    <eLiterals name="UP10CENT" value="9" literal="UP10CENT"/>
+    <eLiterals name="DOWN10CENT" value="10" literal="DOWN10CENT"/>
+    <eLiterals name="HALFUP10" value="11"/>
+    <eLiterals name="HALFDOWN10" value="12"/>
+    <eLiterals name="HALFEVEN10" value="13"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
-    <eLiterals name="V_1_2"/>
+    <eLiterals name="V_1_2" literal="1.2"/>
     <eLiterals name="V_1_0" value="1" literal="1.0"/>
     <eLiterals name="V_0_0" value="2" literal="0.0"/>
   </eClassifiers>

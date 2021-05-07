@@ -630,7 +630,7 @@ public class ConverterFromLegacy {
 		float amount = price.getCurrencies().get(0).getAmount();
 		amount = amount * feeTemplate.getFeeFactor();
 
-		amount = round(amount,feeTemplate.getRoundingMode(), 2 );
+		amount = round(amount,feeTemplate.getRoundingMode());
 		
 		Price fee = GtmFactory.eINSTANCE.createPrice();
 		fee.setDataSource(DataSource.CONVERTED);
@@ -648,37 +648,53 @@ public class ConverterFromLegacy {
 
 	}
 
-	private float round(float amount, RoundingType roundingMode, int scale) {
+	private float round(float amountF, RoundingType roundingMode) {
+		String amountS = Float.toString(amountF);
+		float amount = 0;
 		BigDecimal bd = null;
 		if (roundingMode == RoundingType.DOWN) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.DOWN);
+			 bd = new BigDecimal(amountS).setScale(2, RoundingMode.DOWN);
 			 amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.UP) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.UP);
+			 bd = new BigDecimal(amountS).setScale(2, RoundingMode.UP);
 			 amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.HALFDOWN) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
+			 bd = new BigDecimal(amountS).setScale(2, RoundingMode.HALF_DOWN);
 			 amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.HALFEVEN) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_EVEN);
+			 bd = new BigDecimal(amountS).setScale(2, RoundingMode.HALF_EVEN);
 			 amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.HALFUP) {
 			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_UP);
 			 amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.DOWN5CENT) {
-			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_DOWN, 2);
+			bd = GtmUtils.round(amount, 2, RoundingMode.HALF_DOWN, 2);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.UP5CENT) {
-			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_DOWN, 2);
+			bd = GtmUtils.round(amount, 2, RoundingMode.HALF_DOWN, 2);
 			amount = bd.floatValue();			
 		} else if (roundingMode == RoundingType.DOWN2CENT) {
-			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_DOWN, 5);
+			bd = GtmUtils.round(amount, 2, RoundingMode.HALF_DOWN, 5);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.UP2CENT) {
-			bd = GtmUtils.round(amount, scale, RoundingMode.HALF_UP, 5);
+			bd = GtmUtils.round(amount, 2, RoundingMode.HALF_UP, 5);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.DOWN10CENT) {
+			bd = GtmUtils.round(amount, 1, RoundingMode.DOWN, 10);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.UP10CENT) {
+			bd = GtmUtils.round(amount, 1, RoundingMode.UP, 10);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.HALFDOWN10) {
+			bd = GtmUtils.round(amount, 1, RoundingMode.HALF_DOWN, 10);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.HALFUP10) {
+			bd = GtmUtils.round(amount, 1, RoundingMode.HALF_UP, 10);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.HALFEVEN10) {
+			bd = GtmUtils.round(amount, 1, RoundingMode.HALF_EVEN, 10);
 			amount = bd.floatValue();
 		}
-		
 		
 		
 		return amount;
@@ -1588,7 +1604,7 @@ public class ConverterFromLegacy {
 
 			amount = amount * fareTemplate.getPriceFactor();
 			
-			amount = round(amount,fareTemplate.getRoundingMode(), 2 );
+			amount = round(amount,fareTemplate.getRoundingMode());
 			
 		    price = createPrice(amount,regionalConstraint);
 		    

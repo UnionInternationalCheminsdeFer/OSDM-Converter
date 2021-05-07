@@ -2376,10 +2376,10 @@ public class GtmJsonExporter {
 		delivery.setReplacementDeliveryId(idelivery.getReplacedDeliveryId());
 		delivery.setPreviousDeliveryId(idelivery.getPreviousDeliveryId());
 		if (idelivery.getSchemaVersion()!=null)	{
-			delivery.setVersion(idelivery.getSchemaVersion().getName());
+			delivery.setVersion(idelivery.getSchemaVersion().getLiteral());
 		}
 		if (idelivery.getAcceptedSchemaVersion()!=null) {
-			delivery.setAcceptedVersion(idelivery.getAcceptedSchemaVersion().getName());
+			delivery.setAcceptedVersion(idelivery.getAcceptedSchemaVersion().getLiteral());
 		}
 		return delivery;
 	}

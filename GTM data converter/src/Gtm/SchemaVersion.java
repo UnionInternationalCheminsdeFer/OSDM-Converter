@@ -26,7 +26,7 @@ public enum SchemaVersion implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	V12(0, "V_1_2", "V_1_2"), /**
+	V12(0, "V_1_2", "1.2"), /**
 	 * The '<em><b>V10</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -51,7 +51,7 @@ public enum SchemaVersion implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #V12
-	 * @model name="V_1_2"
+	 * @model name="V_1_2" literal="1.2"
 	 * @generated
 	 * @ordered
 	 */
