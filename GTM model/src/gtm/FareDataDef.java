@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "calendars",
     "serviceClassDefinitions",
@@ -98,7 +98,6 @@ public class FareDataDef {
     private List<FareDef> fares = new ArrayList<FareDef>();
     /**
      * list of allowed after sales transactions and conditions
-     * (Required)
      * 
      */
     @JsonProperty("afterSalesConditions")
@@ -336,7 +335,6 @@ public class FareDataDef {
 
     /**
      * list of allowed after sales transactions and conditions
-     * (Required)
      * 
      */
     @JsonProperty("afterSalesConditions")
@@ -346,7 +344,6 @@ public class FareDataDef {
 
     /**
      * list of allowed after sales transactions and conditions
-     * (Required)
      * 
      */
     @JsonProperty("afterSalesConditions")

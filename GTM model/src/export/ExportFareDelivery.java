@@ -29,7 +29,9 @@ public class ExportFareDelivery {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		//mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		//mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+
 		
 		try {
 

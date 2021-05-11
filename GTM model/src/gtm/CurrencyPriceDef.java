@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "currency",
     "amount",
@@ -39,6 +39,7 @@ public class CurrencyPriceDef {
      */
     @JsonProperty("scale")
     @JsonPropertyDescription("scale of the amount - the number of positions after the comma")
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private Integer scale = 2;
     @JsonProperty("vatDetails")
     private List<VatDetailDef> vatDetails = new ArrayList<VatDetailDef>();
