@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
     "combinationConstraintRef",
     "salesAvailabilityConstraintRef",
     "travelValidityConstraintRef",
-    "fullfillmentConstraintRef",
+    "fulfillmentConstraintRef",
     "personalDataConstraintRef",
     "passengerCombinationRef",
     "defaultFareType",
@@ -55,8 +55,8 @@ public class FareConstraintBundle {
      */
     @JsonProperty("travelValidityConstraintRef")
     private String travelValidityConstraintRef;
-    @JsonProperty("fullfillmentConstraintRef")
-    private String fullfillmentConstraintRef;
+    @JsonProperty("fulfillmentConstraintRef")
+    private String fulfillmentConstraintRef;
     @JsonProperty("personalDataConstraintRef")
     private String personalDataConstraintRef;
     @JsonProperty("passengerCombinationRef")
@@ -164,14 +164,14 @@ public class FareConstraintBundle {
         this.travelValidityConstraintRef = travelValidityConstraintRef;
     }
 
-    @JsonProperty("fullfillmentConstraintRef")
-    public String getFullfillmentConstraintRef() {
-        return fullfillmentConstraintRef;
+    @JsonProperty("fulfillmentConstraintRef")
+    public String getFulfillmentConstraintRef() {
+        return fulfillmentConstraintRef;
     }
 
-    @JsonProperty("fullfillmentConstraintRef")
-    public void setFullfillmentConstraintRef(String fullfillmentConstraintRef) {
-        this.fullfillmentConstraintRef = fullfillmentConstraintRef;
+    @JsonProperty("fulfillmentConstraintRef")
+    public void setFulfillmentConstraintRef(String fulfillmentConstraintRef) {
+        this.fulfillmentConstraintRef = fulfillmentConstraintRef;
     }
 
     @JsonProperty("personalDataConstraintRef")
@@ -270,9 +270,9 @@ public class FareConstraintBundle {
         sb.append('=');
         sb.append(((this.travelValidityConstraintRef == null)?"<null>":this.travelValidityConstraintRef));
         sb.append(',');
-        sb.append("fullfillmentConstraintRef");
+        sb.append("fulfillmentConstraintRef");
         sb.append('=');
-        sb.append(((this.fullfillmentConstraintRef == null)?"<null>":this.fullfillmentConstraintRef));
+        sb.append(((this.fulfillmentConstraintRef == null)?"<null>":this.fulfillmentConstraintRef));
         sb.append(',');
         sb.append("personalDataConstraintRef");
         sb.append('=');
@@ -310,8 +310,8 @@ public class FareConstraintBundle {
         result = ((result* 31)+((this.defaultCarrierConstraintRef == null)? 0 :this.defaultCarrierConstraintRef.hashCode()));
         result = ((result* 31)+((this.defaultFareType == null)? 0 :this.defaultFareType.hashCode()));
         result = ((result* 31)+((this.combinationConstraintRef == null)? 0 :this.combinationConstraintRef.hashCode()));
-        result = ((result* 31)+((this.fullfillmentConstraintRef == null)? 0 :this.fullfillmentConstraintRef.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
+        result = ((result* 31)+((this.fulfillmentConstraintRef == null)? 0 :this.fulfillmentConstraintRef.hashCode()));
         result = ((result* 31)+((this.defaultRegulatoryConditions == null)? 0 :this.defaultRegulatoryConditions.hashCode()));
         result = ((result* 31)+((this.salesAvailabilityConstraintRef == null)? 0 :this.salesAvailabilityConstraintRef.hashCode()));
         result = ((result* 31)+((this.personalDataConstraintRef == null)? 0 :this.personalDataConstraintRef.hashCode()));
@@ -327,7 +327,7 @@ public class FareConstraintBundle {
             return false;
         }
         FareConstraintBundle rhs = ((FareConstraintBundle) other);
-        return (((((((((((this.travelValidityConstraintRef == rhs.travelValidityConstraintRef)||((this.travelValidityConstraintRef!= null)&&this.travelValidityConstraintRef.equals(rhs.travelValidityConstraintRef)))&&((this.passengerCombinationRef == rhs.passengerCombinationRef)||((this.passengerCombinationRef!= null)&&this.passengerCombinationRef.equals(rhs.passengerCombinationRef))))&&((this.defaultCarrierConstraintRef == rhs.defaultCarrierConstraintRef)||((this.defaultCarrierConstraintRef!= null)&&this.defaultCarrierConstraintRef.equals(rhs.defaultCarrierConstraintRef))))&&((this.defaultFareType == rhs.defaultFareType)||((this.defaultFareType!= null)&&this.defaultFareType.equals(rhs.defaultFareType))))&&((this.combinationConstraintRef == rhs.combinationConstraintRef)||((this.combinationConstraintRef!= null)&&this.combinationConstraintRef.equals(rhs.combinationConstraintRef))))&&((this.fullfillmentConstraintRef == rhs.fullfillmentConstraintRef)||((this.fullfillmentConstraintRef!= null)&&this.fullfillmentConstraintRef.equals(rhs.fullfillmentConstraintRef))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.defaultRegulatoryConditions == rhs.defaultRegulatoryConditions)||((this.defaultRegulatoryConditions!= null)&&this.defaultRegulatoryConditions.equals(rhs.defaultRegulatoryConditions))))&&((this.salesAvailabilityConstraintRef == rhs.salesAvailabilityConstraintRef)||((this.salesAvailabilityConstraintRef!= null)&&this.salesAvailabilityConstraintRef.equals(rhs.salesAvailabilityConstraintRef))))&&((this.personalDataConstraintRef == rhs.personalDataConstraintRef)||((this.personalDataConstraintRef!= null)&&this.personalDataConstraintRef.equals(rhs.personalDataConstraintRef))));
+        return (((((((((((this.travelValidityConstraintRef == rhs.travelValidityConstraintRef)||((this.travelValidityConstraintRef!= null)&&this.travelValidityConstraintRef.equals(rhs.travelValidityConstraintRef)))&&((this.passengerCombinationRef == rhs.passengerCombinationRef)||((this.passengerCombinationRef!= null)&&this.passengerCombinationRef.equals(rhs.passengerCombinationRef))))&&((this.defaultCarrierConstraintRef == rhs.defaultCarrierConstraintRef)||((this.defaultCarrierConstraintRef!= null)&&this.defaultCarrierConstraintRef.equals(rhs.defaultCarrierConstraintRef))))&&((this.defaultFareType == rhs.defaultFareType)||((this.defaultFareType!= null)&&this.defaultFareType.equals(rhs.defaultFareType))))&&((this.combinationConstraintRef == rhs.combinationConstraintRef)||((this.combinationConstraintRef!= null)&&this.combinationConstraintRef.equals(rhs.combinationConstraintRef))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.fulfillmentConstraintRef == rhs.fulfillmentConstraintRef)||((this.fulfillmentConstraintRef!= null)&&this.fulfillmentConstraintRef.equals(rhs.fulfillmentConstraintRef))))&&((this.defaultRegulatoryConditions == rhs.defaultRegulatoryConditions)||((this.defaultRegulatoryConditions!= null)&&this.defaultRegulatoryConditions.equals(rhs.defaultRegulatoryConditions))))&&((this.salesAvailabilityConstraintRef == rhs.salesAvailabilityConstraintRef)||((this.salesAvailabilityConstraintRef!= null)&&this.salesAvailabilityConstraintRef.equals(rhs.salesAvailabilityConstraintRef))))&&((this.personalDataConstraintRef == rhs.personalDataConstraintRef)||((this.personalDataConstraintRef!= null)&&this.personalDataConstraintRef.equals(rhs.personalDataConstraintRef))));
     }
 
     public enum FareTypeDef {

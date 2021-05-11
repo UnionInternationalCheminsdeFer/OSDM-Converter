@@ -7,30 +7,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @JsonPropertyOrder({
-    "FareStructureDelivery"
+    "fareStructureDelivery"
 })
 public class FareDelivery {
 
-    @JsonProperty("FareStructureDelivery")
-    private FareDeliveryDef fareStructureDelivery;
+    @JsonProperty("fareDelivery")
+    private FareDeliveryDef fareDelivery;
 
-    @JsonProperty("FareStructureDelivery")
+    @JsonProperty("fareDelivery")
     public FareDeliveryDef getFareStructureDelivery() {
-        return fareStructureDelivery;
+        return fareDelivery;
     }
 
-    @JsonProperty("FareStructureDelivery")
+    @JsonProperty("fareDelivery")
     public void setFareStructureDelivery(FareDeliveryDef fareStructureDelivery) {
-        this.fareStructureDelivery = fareStructureDelivery;
+        this.fareDelivery = fareStructureDelivery;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(FareDelivery.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("fareStructureDelivery");
+        sb.append("fareDelivery");
         sb.append('=');
-        sb.append(((this.fareStructureDelivery == null)?"<null>":this.fareStructureDelivery));
+        sb.append(((this.fareDelivery == null)?"<null>":this.fareDelivery));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -43,7 +43,7 @@ public class FareDelivery {
     @Override
     public int hashCode() {
         int result = 1;
-        result = ((result* 31)+((this.fareStructureDelivery == null)? 0 :this.fareStructureDelivery.hashCode()));
+        result = ((result* 31)+((this.fareDelivery == null)? 0 :this.fareDelivery.hashCode()));
         return result;
     }
 
@@ -56,7 +56,7 @@ public class FareDelivery {
             return false;
         }
         FareDelivery rhs = ((FareDelivery) other);
-        return ((this.fareStructureDelivery == rhs.fareStructureDelivery)||((this.fareStructureDelivery!= null)&&this.fareStructureDelivery.equals(rhs.fareStructureDelivery)));
+        return ((this.fareDelivery == rhs.fareDelivery)||((this.fareDelivery!= null)&&this.fareDelivery.equals(rhs.fareDelivery)));
     }
 
 }

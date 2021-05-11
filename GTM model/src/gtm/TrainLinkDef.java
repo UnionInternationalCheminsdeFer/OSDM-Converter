@@ -45,7 +45,7 @@ public class TrainLinkDef {
      * (Required)
      * 
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss ZZZ", timezone = "UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZZZ", timezone = "UTC")
     @JsonProperty("travelDate")
     @JsonPropertyDescription("date and time of the departure where the train link starts")
     private Date travelDate;

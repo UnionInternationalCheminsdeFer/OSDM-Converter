@@ -43,7 +43,7 @@ public class AfterSalesRuleDef {
      * absolute application time (UTC) in case of online services
      * 
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss ZZZ", timezone = "UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZZZ", timezone = "UTC")
     @JsonProperty("applicationTimeStamp")
     @JsonPropertyDescription("absolute application time (UTC) in case of online services")
     private Date applicationTimeStamp;

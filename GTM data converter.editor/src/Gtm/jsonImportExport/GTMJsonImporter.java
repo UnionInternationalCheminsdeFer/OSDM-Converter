@@ -197,7 +197,7 @@ public class GTMJsonImporter {
 		
 		fareStructure.setFareResourceLocations(convertFareResourceList(fareDataDef.getFareResourceLocation()));
 		
-		fareStructure.setFulfillmentConstraints(convertFulfillmentList(fareDataDef.getFullfillmentConstraints()));
+		fareStructure.setFulfillmentConstraints(convertFulfillmentList(fareDataDef.getFulfillmentConstraints()));
 		
 		fareStructure.setReductionCards(convertReductionCards(fareDataDef.getReductionCards()));
 		
@@ -313,7 +313,7 @@ public class GTMJsonImporter {
 		StationSet stationSet = GtmFactory.eINSTANCE.createStationSet();
 		stationSet.getStations().addAll(convertStationList(jz.getStationList()));
 		z.setStationSet(stationSet);
-		z.setPolygone(convert(jz.getPloygon()));
+		z.setPolygone(convert(jz.getPolygon()));
 		z.getNutsCodes().addAll(convertNutsCodes(jz.getNutsCodes()));
 		return z;
 	}
@@ -766,7 +766,7 @@ public class GTMJsonImporter {
 	private ReservationOptions convert(gtm.ReservationOptions jr) {
 		if (jr == null) return null;
 		ReservationOptions o = GtmFactory.eINSTANCE.createReservationOptions();
-		o.setGraphicalReservation(GraphicalReservationType.getByName(jr.getGraficalReservation()));
+		o.setGraphicalReservation(GraphicalReservationType.getByName(jr.getGraphicalReservation()));
 		o.getPreferences().addAll(convertPreferencesList(jr.getPreferences()));
 		o.getServiceBrands().addAll(convertServiceBrandList(jr.getServiceBrands()));
 		return o;
@@ -1476,7 +1476,7 @@ public class GTMJsonImporter {
 		
 		f.setId(jf.getId());
 		f.setCombinationConstraint(findCombinationConstraint(jf.getCombinationConstraintRef()));
-		f.setFulfillmentConstraint(findFulfillmentConstraint(jf.getFullfillmentConstraintRef()));
+		f.setFulfillmentConstraint(findFulfillmentConstraint(jf.getFulfillmentConstraintRef()));
 		f.setPersonalDataConstraint(finePersonalDataConstraint(jf.getPersonalDataConstraintRef()));
 		f.setSalesAvailability(findSalesAvailability(jf.getSalesAvailabilityConstraintRef()));
 		f.setTravelValidity(findTravelValidity(jf.getTravelValidityConstraintRef()));

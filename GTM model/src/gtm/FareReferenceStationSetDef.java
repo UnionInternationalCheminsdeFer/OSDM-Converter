@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
 /**
- * set of stations used in the fare equivalentely. E.g. Brussels-Region). The set is identified by the fare provicer and a code unique within the fare provider.
+ * set of stations used in the fare equivalently. E.g. Brussels-Region). The set is identified by the fare provider and a code unique within the fare provider.
  * 
  */
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)

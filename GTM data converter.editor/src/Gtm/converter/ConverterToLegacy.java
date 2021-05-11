@@ -149,6 +149,13 @@ public class 	ConverterToLegacy {
 			domain.getCommandStack().execute(com);
 		}
 		
+		if (carrier == null) {
+			String message = "No Carrier/Provider contained in the OSDM Delivery Data - Conversion aborted!";
+			GtmUtils.writeConsoleError(message, editor);
+			return 0;
+		}
+		
+		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_0);	
 		convertStations();
 		monitor.worked(1);

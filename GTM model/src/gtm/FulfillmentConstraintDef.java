@@ -27,6 +27,11 @@ public class FulfillmentConstraintDef {
      */
     @JsonProperty("id")
     private String id;
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("acceptedControlSecurityTypes")
     private List<ControlSecurityTypeDef> acceptedControlSecurityTypes = new ArrayList<ControlSecurityTypeDef>();
     /**
@@ -85,11 +90,21 @@ public class FulfillmentConstraintDef {
         this.id = id;
     }
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("acceptedControlSecurityTypes")
     public List<ControlSecurityTypeDef> getAcceptedControlSecurityTypes() {
         return acceptedControlSecurityTypes;
     }
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("acceptedControlSecurityTypes")
     public void setAcceptedControlSecurityTypes(List<ControlSecurityTypeDef> acceptedControlSecurityTypes) {
         this.acceptedControlSecurityTypes = acceptedControlSecurityTypes;
