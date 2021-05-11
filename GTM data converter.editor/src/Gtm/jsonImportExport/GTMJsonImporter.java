@@ -1575,7 +1575,7 @@ public class GTMJsonImporter {
 		if (fareType == FareTypeDef.ANCILLARY) {
 			return FareType.ANCILLARY;
 		}		
-		return null;
+		return FareType.NRT;
 	}
 
 

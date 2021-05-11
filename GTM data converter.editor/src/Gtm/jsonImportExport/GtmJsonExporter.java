@@ -468,6 +468,9 @@ public class GtmJsonExporter {
 				if (bundle.getTravelValidity() != null) {
 					jBundle.setTravelValidityConstraintRef(bundle.getTravelValidity().getId());
 				}
+				
+				jBundle.setDefaultFareType(convert(bundle.getDefaultFareType()));
+				
 				l.add(jBundle);
 			} else {
 				StringBuilder sb = new StringBuilder();
@@ -1892,9 +1895,7 @@ public class GtmJsonExporter {
 		
 		fareJ.setId(fare.getId());
 		
-		if (fare.getType() != null) {
-			fareJ.setFareType(convert(fare.getType()));
-		}
+		fareJ.setFareType(convert(fare.getType()));
 		
 		if (fare.getAfterSalesRule() != null) {
 			fareJ.setAfterSalesRulesRef(fare.getAfterSalesRule().getId());
@@ -2002,7 +2003,7 @@ public class GtmJsonExporter {
 		if (type == FareType.ANCILLARY) {
 			return FareTypeDef.ANCILLARY;
 		}		
-		return null;
+		return FareTypeDef.ADMISSION;
 
 	}
 
