@@ -1,2 +1,2 @@
-D:\Software\jsonschemajava\jsonschema2pojo-1.0.1\bin\jsonschema2pojo.bat -s "D:\git\UIC-New-Tariff-Model\GTM model\spec" -t "D:\git\UIC-New-Tariff-Model\GTM model\src2" -p gtm -R -f -il NON_DEFAULT -dp "yyyy-MM-dd'T'HH:mm:ssZZZ" -dtp "yyyy-MM-dd'T'HH:mm:ssZZZ" 
+D:\Software\jsonschemajava\jsonschema2pojo-1.0.1\bin\jsonschema2pojo.bat -s "D:\git\UIC-New-Tariff-Model\GTM model\spec" -t "D:\git\UIC-New-Tariff-Model\GTM model\src2" -p gtm -R -f -dp "yyyy-MM-dd'T'HH:mm:ssZZZ" -dtp "yyyy-MM-dd'T'HH:mm:ssZZZ" 
 
