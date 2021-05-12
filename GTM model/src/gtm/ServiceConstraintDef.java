@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * Either excluded or included service brands can be set.
  * 
  */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "includedServiceBrands",
@@ -34,11 +34,19 @@ public class ServiceConstraintDef {
     private List<Integer> includedServiceBrands = new ArrayList<Integer>();
     @JsonProperty("excludedServiceBrands")
     private List<Integer> excludedServiceBrands = new ArrayList<Integer>();
+    /**
+     * id used in 108 as fake local station code 
+     * 
+     */
     @JsonProperty("legacyCode")
     @JsonPropertyDescription("id used in 108 as fake local station code ")
     private Integer legacyCode;
+    /**
+     * id of the text describing the service constraint for the traveler
+     * 
+     */
     @JsonProperty("textRef")
-    @JsonPropertyDescription("id of a description text ")
+    @JsonPropertyDescription("id of the text describing the service constraint for the traveler")
     private String textRef;
 
     /**
@@ -81,7 +89,6 @@ public class ServiceConstraintDef {
         this.excludedServiceBrands = excludedServiceBrands;
     }
 
-   
     /**
      * id used in 108 as fake local station code 
      * 
@@ -99,18 +106,9 @@ public class ServiceConstraintDef {
     public void setLegacyCode(Integer legacyCode) {
         this.legacyCode = legacyCode;
     }
-    
+
     /**
-     * set the id for a text describing the service constraint
-     * 
-     */
-    @JsonProperty("textRef")
-    public void setTextRef(String textRef) {
-        this.textRef = textRef;
-    }   
-    
-    /**
-     * get the id for a text describing the service constraint
+     * id of the text describing the service constraint for the traveler
      * 
      */
     @JsonProperty("textRef")
@@ -118,10 +116,14 @@ public class ServiceConstraintDef {
         return textRef;
     }
 
-
-    
-    
-    
+    /**
+     * id of the text describing the service constraint for the traveler
+     * 
+     */
+    @JsonProperty("textRef")
+    public void setTextRef(String textRef) {
+        this.textRef = textRef;
+    }
 
     @Override
     public String toString() {
@@ -140,6 +142,8 @@ public class ServiceConstraintDef {
         sb.append(((this.excludedServiceBrands == null)?"<null>":this.excludedServiceBrands));
         sb.append(',');
         sb.append("legacyCode");
+        sb.append('=');
+        sb.append(((this.legacyCode == null)?"<null>":this.legacyCode));
         sb.append(',');
         sb.append("textRef");
         sb.append('=');
@@ -158,9 +162,9 @@ public class ServiceConstraintDef {
         int result = 1;
         result = ((result* 31)+((this.excludedServiceBrands == null)? 0 :this.excludedServiceBrands.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
+        result = ((result* 31)+((this.textRef == null)? 0 :this.textRef.hashCode()));
         result = ((result* 31)+((this.includedServiceBrands == null)? 0 :this.includedServiceBrands.hashCode()));
         result = ((result* 31)+((this.legacyCode == null)? 0 :this.legacyCode.hashCode()));
-        result = ((result* 31)+((this.textRef == null)? 0 :this.textRef.hashCode()));
         return result;
     }
 
@@ -173,7 +177,7 @@ public class ServiceConstraintDef {
             return false;
         }
         ServiceConstraintDef rhs = ((ServiceConstraintDef) other);
-        return (((((this.excludedServiceBrands == rhs.excludedServiceBrands)||((this.excludedServiceBrands!= null)&&this.excludedServiceBrands.equals(rhs.excludedServiceBrands)))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.includedServiceBrands == rhs.includedServiceBrands)||((this.includedServiceBrands!= null)&&this.includedServiceBrands.equals(rhs.includedServiceBrands))))&&((this.legacyCode == rhs.legacyCode)||((this.legacyCode!= null)&&this.legacyCode.equals(rhs.legacyCode))));
+        return ((((((this.excludedServiceBrands == rhs.excludedServiceBrands)||((this.excludedServiceBrands!= null)&&this.excludedServiceBrands.equals(rhs.excludedServiceBrands)))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.textRef == rhs.textRef)||((this.textRef!= null)&&this.textRef.equals(rhs.textRef))))&&((this.includedServiceBrands == rhs.includedServiceBrands)||((this.includedServiceBrands!= null)&&this.includedServiceBrands.equals(rhs.includedServiceBrands))))&&((this.legacyCode == rhs.legacyCode)||((this.legacyCode!= null)&&this.legacyCode.equals(rhs.legacyCode))));
     }
 
 }

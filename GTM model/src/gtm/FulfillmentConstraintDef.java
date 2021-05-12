@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "acceptedControlSecurityTypes",
@@ -27,6 +27,11 @@ public class FulfillmentConstraintDef {
      */
     @JsonProperty("id")
     private String id;
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("acceptedControlSecurityTypes")
     private List<ControlSecurityTypeDef> acceptedControlSecurityTypes = new ArrayList<ControlSecurityTypeDef>();
     /**
@@ -85,11 +90,21 @@ public class FulfillmentConstraintDef {
         this.id = id;
     }
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("acceptedControlSecurityTypes")
     public List<ControlSecurityTypeDef> getAcceptedControlSecurityTypes() {
         return acceptedControlSecurityTypes;
     }
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @JsonProperty("acceptedControlSecurityTypes")
     public void setAcceptedControlSecurityTypes(List<ControlSecurityTypeDef> acceptedControlSecurityTypes) {
         this.acceptedControlSecurityTypes = acceptedControlSecurityTypes;

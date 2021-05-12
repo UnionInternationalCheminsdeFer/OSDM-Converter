@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "offerType",
     "interfaceType",
@@ -16,11 +16,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class OnlineResourceDef {
 
     /**
-     * The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not splitted inbetween a train run . Values TRAIN, AREA
+     * The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not split between a train run. Values TRAIN, AREA
      * 
      */
     @JsonProperty("offerType")
-    @JsonPropertyDescription("The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not splitted inbetween a train run . Values TRAIN, AREA")
+    @JsonPropertyDescription("The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not split between a train run. Values TRAIN, AREA")
     private String offerType;
     /**
      * GTM,...
@@ -41,7 +41,7 @@ public class OnlineResourceDef {
     private String system;
 
     /**
-     * The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not splitted inbetween a train run . Values TRAIN, AREA
+     * The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not split between a train run. Values TRAIN, AREA
      * 
      */
     @JsonProperty("offerType")
@@ -50,7 +50,7 @@ public class OnlineResourceDef {
     }
 
     /**
-     * The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not splitted inbetween a train run . Values TRAIN, AREA
+     * The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not split between a train run. Values TRAIN, AREA
      * 
      */
     @JsonProperty("offerType")

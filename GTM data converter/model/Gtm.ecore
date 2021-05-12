@@ -464,7 +464,7 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultFareType" unique="false"
-        eType="#//FareType"/>
+        eType="#//FareType" defaultValueLiteral="NRT"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="salesAvailability" eType="#//SalesAvailabilityConstraint"/>

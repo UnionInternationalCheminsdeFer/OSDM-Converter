@@ -286,7 +286,7 @@ public class GtmJsonExporter {
 		
 		monitor.subTask(NationalLanguageSupport.GtmJsonExporter_8);
 		if (gtm.getFareStructure().getFulfillmentConstraints() != null) {
-			fares.setFullfillmentConstraints(convertFullfillmentConstraints(gtm.getFareStructure().getFulfillmentConstraints()));
+			fares.setFulfillmentConstraints(convertFullfillmentConstraints(gtm.getFareStructure().getFulfillmentConstraints()));
 		}
 		monitor.worked(1);
 		
@@ -451,7 +451,7 @@ public class GtmJsonExporter {
 					jBundle.setDefaultCarrierConstraintRef(bundle.getCarrierConstraint().getId());
 				}
 				if (bundle.getFulfillmentConstraint() != null) {
-					jBundle.setFullfillmentConstraintRef(bundle.getFulfillmentConstraint().getId());
+					jBundle.setFulfillmentConstraintRef(bundle.getFulfillmentConstraint().getId());
 				}
 				if (bundle.getPersonalDataConstraint() != null) {
 					jBundle.setPersonalDataConstraintRef(bundle.getPersonalDataConstraint().getId());
@@ -468,6 +468,9 @@ public class GtmJsonExporter {
 				if (bundle.getTravelValidity() != null) {
 					jBundle.setTravelValidityConstraintRef(bundle.getTravelValidity().getId());
 				}
+				
+				jBundle.setDefaultFareType(convert(bundle.getDefaultFareType()));
+				
 				l.add(jBundle);
 			} else {
 				StringBuilder sb = new StringBuilder();
@@ -527,7 +530,7 @@ public class GtmJsonExporter {
 		jz.setNameUTF8(z.getNameUtf8());
 		jz.setZoneId(z.getZoneId());
 		jz.setNutsCodes(convertNuts(z.getNutsCodes()));
-		jz.setPloygon(convertToJson(z.getPolygone()));
+		jz.setPolygon(convertToJson(z.getPolygone()));
 		jz.setStationList(convertStationsToJson(z.getStationSet().getStations()));
 		
 		return jz;
@@ -939,7 +942,7 @@ public class GtmJsonExporter {
 		if (o == null) return null;
 		ReservationOptions oJ = new ReservationOptions();
 		if (o.getGraphicalReservation()!=null) {
-			oJ.setGraficalReservation(o.getGraphicalReservation().getName());
+			oJ.setGraphicalReservation(o.getGraphicalReservation().getName());
 		}
 		if (o.getPreferences() != null && !o.getPreferences().isEmpty()) {
 			ArrayList<ReservationOptionGroupDef> rolJ = new ArrayList<ReservationOptionGroupDef>();
@@ -1892,9 +1895,7 @@ public class GtmJsonExporter {
 		
 		fareJ.setId(fare.getId());
 		
-		if (fare.getType() != null) {
-			fareJ.setFareType(convert(fare.getType()));
-		}
+		fareJ.setFareType(convert(fare.getType()));
 		
 		if (fare.getAfterSalesRule() != null) {
 			fareJ.setAfterSalesRulesRef(fare.getAfterSalesRule().getId());
@@ -2002,7 +2003,7 @@ public class GtmJsonExporter {
 		if (type == FareType.ANCILLARY) {
 			return FareTypeDef.ANCILLARY;
 		}		
-		return null;
+		return FareTypeDef.ADMISSION;
 
 	}
 

@@ -11,6 +11,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
@@ -1551,6 +1555,46 @@ public class GtmUtils {
 		} catch (UnsupportedEncodingException e) {
 			return s;
 		}
+	}
+
+	/*
+	 * find the country that occurs most often in the station list
+	 */
+	public static Country getRecommendedCountry(GTMTool tool) {
+		
+		if (tool.getGeneralTariffModel().getFareStructure() == null ||
+			tool.getGeneralTariffModel().getFareStructure().getStationNames() == null ||	
+			tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName() == null ||
+			tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName().isEmpty()) {
+			return null;
+		}
+		
+		HashMap<Country,Integer> countryCounter = new HashMap<Country,Integer>();
+		
+		for (Station s : tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName()) {
+			
+			if (s.getCountry() != null) {
+			
+				Integer i = countryCounter.get(s.getCountry());
+				if (i == null) {
+					countryCounter.put(s.getCountry() , new Integer(1));
+				} else {
+					i++;
+				}
+			}
+		}
+		Set<Entry<Country,Integer>> set = countryCounter.entrySet();
+		Iterator<Entry<Country, Integer>> it = set.iterator();
+		Entry<Country,Integer> mainEntry= it.next();
+		if (mainEntry == null) return null;
+		
+		while (it.hasNext()) {
+			Entry<Country,Integer> next = it.next();
+			if (next.getValue().intValue() > mainEntry.getValue().intValue()) {
+				mainEntry = next;
+			}
+		}
+		return mainEntry.getKey();
 	}
 }
 

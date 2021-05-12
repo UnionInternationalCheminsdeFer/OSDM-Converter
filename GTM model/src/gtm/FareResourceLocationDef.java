@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * locate the online services 
+ * Locate the online services
  * 
  */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "carrierLocations",
     "trainLocations",
@@ -22,24 +22,29 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class FareResourceLocationDef {
 
     /**
-     * locating the online resource via the carrier provided in the time table
+     * Locating the online resource via the carrier provided in the time table.
      * 
      */
     @JsonProperty("carrierLocations")
-    @JsonPropertyDescription("locating the online resource via the carrier provided in the time table")
+    @JsonPropertyDescription("Locating the online resource via the carrier provided in the time table.")
     private List<CarrierResourceLocationDef> carrierLocations = new ArrayList<CarrierResourceLocationDef>();
     /**
-     * locating the online resource via the train from the time table
+     * Locating the online resource via the train from the time table.
      * 
      */
     @JsonProperty("trainLocations")
-    @JsonPropertyDescription("locating the online resource via the train from the time table")
+    @JsonPropertyDescription("Locating the online resource via the train from the time table.")
     private List<TrainResourceLocationDef> trainLocations = new ArrayList<TrainResourceLocationDef>();
-    @JsonProperty("StationLocations")
+    /**
+     * Locating the online resource via stations or connection points. The link is valid if start and end station (or connection points) provide the link.
+     * 
+     */
+    @JsonProperty("stationLocations")
+    @JsonPropertyDescription("Locating the online resource via stations or connection points. The link is valid if start and end station (or connection points) provide the link.")
     private List<StationResourceLocationDef> stationLocations = new ArrayList<StationResourceLocationDef>();
 
     /**
-     * locating the online resource via the carrier provided in the time table
+     * Locating the online resource via the carrier provided in the time table.
      * 
      */
     @JsonProperty("carrierLocations")
@@ -48,7 +53,7 @@ public class FareResourceLocationDef {
     }
 
     /**
-     * locating the online resource via the carrier provided in the time table
+     * Locating the online resource via the carrier provided in the time table.
      * 
      */
     @JsonProperty("carrierLocations")
@@ -57,7 +62,7 @@ public class FareResourceLocationDef {
     }
 
     /**
-     * locating the online resource via the train from the time table
+     * Locating the online resource via the train from the time table.
      * 
      */
     @JsonProperty("trainLocations")
@@ -66,7 +71,7 @@ public class FareResourceLocationDef {
     }
 
     /**
-     * locating the online resource via the train from the time table
+     * Locating the online resource via the train from the time table.
      * 
      */
     @JsonProperty("trainLocations")
@@ -74,11 +79,19 @@ public class FareResourceLocationDef {
         this.trainLocations = trainLocations;
     }
 
+    /**
+     * Locating the online resource via stations or connection points. The link is valid if start and end station (or connection points) provide the link.
+     * 
+     */
     @JsonProperty("stationLocations")
     public List<StationResourceLocationDef> getStationLocations() {
         return stationLocations;
     }
 
+    /**
+     * Locating the online resource via stations or connection points. The link is valid if start and end station (or connection points) provide the link.
+     * 
+     */
     @JsonProperty("stationLocations")
     public void setStationLocations(List<StationResourceLocationDef> stationLocations) {
         this.stationLocations = stationLocations;

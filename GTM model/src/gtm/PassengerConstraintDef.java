@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "passengerType",
@@ -57,11 +57,11 @@ public class PassengerConstraintDef {
     @JsonProperty("isAncillaryItem")
     private Boolean isAncillaryItem = false;
     /**
-     * constraints on accompagning passengers
+     * constraints on accompanying passengers
      * 
      */
     @JsonProperty("combinationConstraint")
-    @JsonPropertyDescription("constraints on accompagning passengers")
+    @JsonPropertyDescription("constraints on accompanying passengers")
     private List<CombinationConstraint> combinationConstraint = new ArrayList<CombinationConstraint>();
     @JsonProperty("includedFreePassenger")
     private List<IncludedFreePassenger> includedFreePassenger = new ArrayList<IncludedFreePassenger>();
@@ -179,7 +179,7 @@ public class PassengerConstraintDef {
     }
 
     /**
-     * constraints on accompagning passengers
+     * constraints on accompanying passengers
      * 
      */
     @JsonProperty("combinationConstraint")
@@ -188,7 +188,7 @@ public class PassengerConstraintDef {
     }
 
     /**
-     * constraints on accompagning passengers
+     * constraints on accompanying passengers
      * 
      */
     @JsonProperty("combinationConstraint")

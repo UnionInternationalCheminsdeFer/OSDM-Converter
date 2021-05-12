@@ -13,10 +13,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * options for reservations, Note: full details might be provided in the online version only
  * 
  */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "preferences",
-    "graficalReservation",
+    "graphicalReservation",
     "serviceBrands"
 })
 public class ReservationOptions {
@@ -29,12 +29,12 @@ public class ReservationOptions {
     @JsonPropertyDescription("possible preferences to be requested in reservation without changing the fare")
     private List<ReservationOptionGroupDef> preferences = new ArrayList<ReservationOptionGroupDef>();
     /**
-     * grafical reservation is supported, interface type "NO","UIC_918",..
+     * graphical reservation is supported, interface type "NO","UIC_918",..
      * 
      */
-    @JsonProperty("graficalReservation")
-    @JsonPropertyDescription("grafical reservation is supported, interface type \"NO\",\"UIC_918\",..")
-    private String graficalReservation;
+    @JsonProperty("graphicalReservation")
+    @JsonPropertyDescription("graphical reservation is supported, interface type \"NO\",\"UIC_918\",..")
+    private String graphicalReservation;
     /**
      * service brands where the options apply
      * 
@@ -62,21 +62,21 @@ public class ReservationOptions {
     }
 
     /**
-     * grafical reservation is supported, interface type "NO","UIC_918",..
+     * graphical reservation is supported, interface type "NO","UIC_918",..
      * 
      */
-    @JsonProperty("graficalReservation")
-    public String getGraficalReservation() {
-        return graficalReservation;
+    @JsonProperty("graphicalReservation")
+    public String getGraphicalReservation() {
+        return graphicalReservation;
     }
 
     /**
-     * grafical reservation is supported, interface type "NO","UIC_918",..
+     * graphical reservation is supported, interface type "NO","UIC_918",..
      * 
      */
-    @JsonProperty("graficalReservation")
-    public void setGraficalReservation(String graficalReservation) {
-        this.graficalReservation = graficalReservation;
+    @JsonProperty("graphicalReservation")
+    public void setGraphicalReservation(String graphicalReservation) {
+        this.graphicalReservation = graphicalReservation;
     }
 
     /**
@@ -105,9 +105,9 @@ public class ReservationOptions {
         sb.append('=');
         sb.append(((this.preferences == null)?"<null>":this.preferences));
         sb.append(',');
-        sb.append("graficalReservation");
+        sb.append("graphicalReservation");
         sb.append('=');
-        sb.append(((this.graficalReservation == null)?"<null>":this.graficalReservation));
+        sb.append(((this.graphicalReservation == null)?"<null>":this.graphicalReservation));
         sb.append(',');
         sb.append("serviceBrands");
         sb.append('=');
@@ -124,9 +124,9 @@ public class ReservationOptions {
     @Override
     public int hashCode() {
         int result = 1;
+        result = ((result* 31)+((this.graphicalReservation == null)? 0 :this.graphicalReservation.hashCode()));
         result = ((result* 31)+((this.preferences == null)? 0 :this.preferences.hashCode()));
         result = ((result* 31)+((this.serviceBrands == null)? 0 :this.serviceBrands.hashCode()));
-        result = ((result* 31)+((this.graficalReservation == null)? 0 :this.graficalReservation.hashCode()));
         return result;
     }
 
@@ -139,7 +139,7 @@ public class ReservationOptions {
             return false;
         }
         ReservationOptions rhs = ((ReservationOptions) other);
-        return ((((this.preferences == rhs.preferences)||((this.preferences!= null)&&this.preferences.equals(rhs.preferences)))&&((this.serviceBrands == rhs.serviceBrands)||((this.serviceBrands!= null)&&this.serviceBrands.equals(rhs.serviceBrands))))&&((this.graficalReservation == rhs.graficalReservation)||((this.graficalReservation!= null)&&this.graficalReservation.equals(rhs.graficalReservation))));
+        return ((((this.graphicalReservation == rhs.graphicalReservation)||((this.graphicalReservation!= null)&&this.graphicalReservation.equals(rhs.graphicalReservation)))&&((this.preferences == rhs.preferences)||((this.preferences!= null)&&this.preferences.equals(rhs.preferences))))&&((this.serviceBrands == rhs.serviceBrands)||((this.serviceBrands!= null)&&this.serviceBrands.equals(rhs.serviceBrands))));
     }
 
 }

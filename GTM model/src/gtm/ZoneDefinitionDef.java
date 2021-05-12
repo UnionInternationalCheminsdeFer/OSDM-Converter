@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * definition of a zone used to define regional validity. The area of the zone can be defined via a geo-poligone, a complte list of all contained stations or area codes from the NUTS code list. The carrier is eigther the carrier or transport authority responsible for the definition.
+ * definition of a zone used to define regional validity. The area of the zone can be defined via a geo-polygon, a complete list of all contained stations or area codes from the NUTS code list. The carrier is either the carrier or transport authority responsible for the definition.
  * 
  */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "carrier",
     "zoneId",
     "name",
     "nameUTF8",
-    "ploygon",
+    "polygon",
     "stationList",
     "nutsCodes"
 })
@@ -44,8 +44,8 @@ public class ZoneDefinitionDef {
     private String name;
     @JsonProperty("nameUTF8")
     private String nameUTF8;
-    @JsonProperty("ploygon")
-    private PolygonDef ploygon;
+    @JsonProperty("polygon")
+    private PolygonDef polygon;
     @JsonProperty("stationList")
     private List<StationDef> stationList = new ArrayList<StationDef>();
     @JsonProperty("nutsCodes")
@@ -111,14 +111,14 @@ public class ZoneDefinitionDef {
         this.nameUTF8 = nameUTF8;
     }
 
-    @JsonProperty("ploygon")
-    public PolygonDef getPloygon() {
-        return ploygon;
+    @JsonProperty("polygon")
+    public PolygonDef getPolygon() {
+        return polygon;
     }
 
-    @JsonProperty("ploygon")
-    public void setPloygon(PolygonDef ploygon) {
-        this.ploygon = ploygon;
+    @JsonProperty("polygon")
+    public void setPolygon(PolygonDef polygon) {
+        this.polygon = polygon;
     }
 
     @JsonProperty("stationList")
@@ -161,9 +161,9 @@ public class ZoneDefinitionDef {
         sb.append('=');
         sb.append(((this.nameUTF8 == null)?"<null>":this.nameUTF8));
         sb.append(',');
-        sb.append("ploygon");
+        sb.append("polygon");
         sb.append('=');
-        sb.append(((this.ploygon == null)?"<null>":this.ploygon));
+        sb.append(((this.polygon == null)?"<null>":this.polygon));
         sb.append(',');
         sb.append("stationList");
         sb.append('=');
@@ -185,12 +185,12 @@ public class ZoneDefinitionDef {
     public int hashCode() {
         int result = 1;
         result = ((result* 31)+((this.carrier == null)? 0 :this.carrier.hashCode()));
+        result = ((result* 31)+((this.polygon == null)? 0 :this.polygon.hashCode()));
         result = ((result* 31)+((this.nutsCodes == null)? 0 :this.nutsCodes.hashCode()));
         result = ((result* 31)+((this.stationList == null)? 0 :this.stationList.hashCode()));
         result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
         result = ((result* 31)+((this.zoneId == null)? 0 :this.zoneId.hashCode()));
         result = ((result* 31)+((this.nameUTF8 == null)? 0 :this.nameUTF8 .hashCode()));
-        result = ((result* 31)+((this.ploygon == null)? 0 :this.ploygon.hashCode()));
         return result;
     }
 
@@ -203,7 +203,7 @@ public class ZoneDefinitionDef {
             return false;
         }
         ZoneDefinitionDef rhs = ((ZoneDefinitionDef) other);
-        return ((((((((this.carrier == rhs.carrier)||((this.carrier!= null)&&this.carrier.equals(rhs.carrier)))&&((this.nutsCodes == rhs.nutsCodes)||((this.nutsCodes!= null)&&this.nutsCodes.equals(rhs.nutsCodes))))&&((this.stationList == rhs.stationList)||((this.stationList!= null)&&this.stationList.equals(rhs.stationList))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.zoneId == rhs.zoneId)||((this.zoneId!= null)&&this.zoneId.equals(rhs.zoneId))))&&((this.nameUTF8 == rhs.nameUTF8)||((this.nameUTF8 != null)&&this.nameUTF8 .equals(rhs.nameUTF8))))&&((this.ploygon == rhs.ploygon)||((this.ploygon!= null)&&this.ploygon.equals(rhs.ploygon))));
+        return ((((((((this.carrier == rhs.carrier)||((this.carrier!= null)&&this.carrier.equals(rhs.carrier)))&&((this.polygon == rhs.polygon)||((this.polygon!= null)&&this.polygon.equals(rhs.polygon))))&&((this.nutsCodes == rhs.nutsCodes)||((this.nutsCodes!= null)&&this.nutsCodes.equals(rhs.nutsCodes))))&&((this.stationList == rhs.stationList)||((this.stationList!= null)&&this.stationList.equals(rhs.stationList))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.zoneId == rhs.zoneId)||((this.zoneId!= null)&&this.zoneId.equals(rhs.zoneId))))&&((this.nameUTF8 == rhs.nameUTF8)||((this.nameUTF8 != null)&&this.nameUTF8 .equals(rhs.nameUTF8))));
     }
 
 }

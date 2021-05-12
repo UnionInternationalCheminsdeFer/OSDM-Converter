@@ -3,6 +3,13 @@
 	"$id": "http://uic.org//schemas/passenger/eticket/v2/offlineOSDM.json",
 	"title": "OSDM Offline Fare Delivery",
 	"description": "OSDM extract of offline fare delivery",
+	"type": "object",
+	"properties": {
+		"fareDelivery": {
+			"$ref": "#/definitions/FareDeliveryDef"
+		}
+	},
+	"additionalProperties": false,
 	"definitions": {
 		"StationDef": {
 			"description": "Used to represent a station location. This is a location that can be used as origin and destination for a train journey",
@@ -195,9 +202,6 @@
 				"textRef": {
 					"description": "id of the text describing the class within the offline data text list",
 					"type": "string"
-				},
-				"text": {
-					"$ref": "#/definitions/TextDef"
 				},
 				"comfortClass": {
 					"$ref": "#/definitions/ComfortClassDef"
@@ -901,7 +905,7 @@
 			},
 			"required": [
 				"id",
-				"acceptedFulfillmentTypes"
+				"acceptedControlSecurityTypes"
 			],
 			"additionalProperties": false
 		},
@@ -1140,9 +1144,6 @@
 					"description": "id of the text describing the service level",
 					"type": "string"
 				},
-				"text": {
-					"$ref": "#/definitions/TextDef"
-				},
 				"doesNotIncludeClassName": {
 					"description": "indicates that the class name is not included",
 					"type": "boolean",
@@ -1154,7 +1155,7 @@
 			},
 			"required": [
 				"id",
-				"text"
+				"textRef"
 			],
 			"additionalProperties": false
 		},
@@ -1246,7 +1247,7 @@
 				"language": {
 					"type": "string"
 				},
-				"textUTF8": {
+				"textUtf8": {
 					"type": "string"
 				},
 				"text": {
@@ -1263,7 +1264,7 @@
 			},
 			"required": [
 				"language",
-				"textUTF8",
+				"textUtf8",
 				"text"
 			],
 			"additionalProperties": false
@@ -1275,7 +1276,7 @@
 				"id": {
 					"type": "string"
 				},
-				"textUTF8": {
+				"textUtf8": {
 					"type": "string"
 				},
 				"translations": {
@@ -1298,7 +1299,7 @@
 			},
 			"required": [
 				"id",
-				"textUTF8",
+				"textUtf8",
 				"text"
 			],
 			"additionalProperties": false
@@ -1522,7 +1523,6 @@
 				"regionalConstraints",
 				"fareConstraintBundles",
 				"fares",
-				"afterSalesConditions",
 				"salesAvailabilityConstraint",
 				"combinationConstraints"
 			],
@@ -1835,7 +1835,7 @@
 			"required": [
 				"issuer",
 				"name",
-				"Id"
+				"id"
 			],
 			"additionalProperties": false
 		},
@@ -1944,7 +1944,7 @@
 					"description": "name to be used in route descriptions",
 					"type": "string"
 				},
-				"nameUTF8": {
+				"nameUtf8": {
 					"type": "string"
 				}
 			},
@@ -2106,7 +2106,7 @@
 				"name": {
 					"type": "string"
 				},
-				"nameUTF8": {
+				"nameUtf8": {
 					"type": "string"
 				},
 				"polygon": {
@@ -2152,7 +2152,7 @@
 				"personalDataConstraintRef": {
 					"type": "string"
 				},
-				"passengerCombinationRef": {
+				"passengerCombinationConstraintRef": {
 					"type": "string"
 				},
 				"defaultFareType": {

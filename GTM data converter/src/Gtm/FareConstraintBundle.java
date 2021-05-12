@@ -57,6 +57,7 @@ public interface FareConstraintBundle extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Default Fare Type</b></em>' attribute.
+	 * The default value is <code>"NRT"</code>.
 	 * The literals are from the enumeration {@link Gtm.FareType}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -64,7 +65,7 @@ public interface FareConstraintBundle extends EObject {
 	 * @see Gtm.FareType
 	 * @see #setDefaultFareType(FareType)
 	 * @see Gtm.GtmPackage#getFareConstraintBundle_DefaultFareType()
-	 * @model unique="false"
+	 * @model default="NRT" unique="false"
 	 * @generated
 	 */
 	FareType getDefaultFareType();

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "startOfSale",
     "endOfSale",
@@ -19,11 +19,11 @@ public class SalesRestriction {
     @JsonProperty("endOfSale")
     private RelativeTimeDef endOfSale;
     /**
-     * reference to the calendar woith valid sales dates
+     * reference to the calendar with valid sales dates
      * 
      */
     @JsonProperty("salesDatesRef")
-    @JsonPropertyDescription("reference to the calendar woith valid sales dates")
+    @JsonPropertyDescription("reference to the calendar with valid sales dates")
     private String salesDatesRef;
 
     @JsonProperty("startOfSale")
@@ -47,7 +47,7 @@ public class SalesRestriction {
     }
 
     /**
-     * reference to the calendar woith valid sales dates
+     * reference to the calendar with valid sales dates
      * 
      */
     @JsonProperty("salesDatesRef")
@@ -56,7 +56,7 @@ public class SalesRestriction {
     }
 
     /**
-     * reference to the calendar woith valid sales dates
+     * reference to the calendar with valid sales dates
      * 
      */
     @JsonProperty("salesDatesRef")

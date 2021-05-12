@@ -665,34 +665,34 @@ public class ConverterFromLegacy {
 			 bd = new BigDecimal(amountS).setScale(2, RoundingMode.HALF_EVEN);
 			 amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.HALFUP) {
-			 bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_UP);
+			 bd = new BigDecimal(amountF).setScale(2, RoundingMode.HALF_UP);
 			 amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.DOWN5CENT) {
-			bd = GtmUtils.round(amount, 2, RoundingMode.HALF_DOWN, 2);
+			bd = GtmUtils.round(amountF, 2, RoundingMode.HALF_DOWN, 2);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.UP5CENT) {
-			bd = GtmUtils.round(amount, 2, RoundingMode.HALF_DOWN, 2);
+			bd = GtmUtils.round(amountF, 2, RoundingMode.HALF_DOWN, 2);
 			amount = bd.floatValue();			
 		} else if (roundingMode == RoundingType.DOWN2CENT) {
-			bd = GtmUtils.round(amount, 2, RoundingMode.HALF_DOWN, 5);
+			bd = GtmUtils.round(amountF, 2, RoundingMode.HALF_DOWN, 5);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.UP2CENT) {
-			bd = GtmUtils.round(amount, 2, RoundingMode.HALF_UP, 5);
+			bd = GtmUtils.round(amountF, 2, RoundingMode.HALF_UP, 5);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.DOWN10CENT) {
-			bd = GtmUtils.round(amount, 1, RoundingMode.DOWN, 10);
+			bd = GtmUtils.round(amountF, 1, RoundingMode.DOWN, 10);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.UP10CENT) {
-			bd = GtmUtils.round(amount, 1, RoundingMode.UP, 10);
+			bd = GtmUtils.round(amountF, 1, RoundingMode.UP, 10);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.HALFDOWN10) {
-			bd = GtmUtils.round(amount, 1, RoundingMode.HALF_DOWN, 10);
+			bd = GtmUtils.round(amountF, 1, RoundingMode.HALF_DOWN, 10);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.HALFUP10) {
-			bd = GtmUtils.round(amount, 1, RoundingMode.HALF_UP, 10);
+			bd = GtmUtils.round(amountF, 1, RoundingMode.HALF_UP, 10);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.HALFEVEN10) {
-			bd = GtmUtils.round(amount, 1, RoundingMode.HALF_EVEN, 10);
+			bd = GtmUtils.round(amountF, 1, RoundingMode.HALF_EVEN, 10);
 			amount = bd.floatValue();
 		}
 		

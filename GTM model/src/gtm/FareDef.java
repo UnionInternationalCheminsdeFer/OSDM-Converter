@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * single fare within a blk fare data delivery
  * 
  */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "bundleRef",
@@ -38,12 +38,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class FareDef {
 
     /**
-     * unique id of the fare item to be included in accountings
+     * unique id of the fare item to be included in accounting
      * (Required)
      * 
      */
     @JsonProperty("id")
-    @JsonPropertyDescription("unique id of the fare item to be included in accountings")
+    @JsonPropertyDescription("unique id of the fare item to be included in accounting")
     private String id;
     /**
      * 
@@ -134,7 +134,7 @@ public class FareDef {
     private Boolean individualContracts = false;
 
     /**
-     * unique id of the fare item to be included in accountings
+     * unique id of the fare item to be included in accounting
      * (Required)
      * 
      */
@@ -144,7 +144,7 @@ public class FareDef {
     }
 
     /**
-     * unique id of the fare item to be included in accountings
+     * unique id of the fare item to be included in accounting
      * (Required)
      * 
      */

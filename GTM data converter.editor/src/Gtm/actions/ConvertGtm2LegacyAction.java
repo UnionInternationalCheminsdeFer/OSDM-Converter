@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -15,9 +17,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 
 import Gtm.Country;
 import Gtm.GTMTool;
+import Gtm.GtmPackage;
 import Gtm.converter.ConverterToLegacy;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
@@ -86,7 +90,39 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 				return;
 			}
 			
+			
+			Country recommendedCountry = GtmUtils.getRecommendedCountry(tool);		
 			Country country = tool.getConversionFromLegacy().getParams().getCountry();
+			final EditingDomain domain = GtmUtils.getActiveDomain();
+
+			if (country == null) {
+				Command com = SetCommand.create(domain,tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__COUNTRY, recommendedCountry);
+				if (com.canExecute()) {
+					domain.getCommandStack().execute(com);
+					country = recommendedCountry;
+				}
+			}
+			
+			if (country != null && recommendedCountry != null && !(country.equals(recommendedCountry)) ) {
+				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_QUESTION | SWT.OK| SWT.CANCEL);
+				StringBuilder sb = new StringBuilder();
+				String recommended = GtmUtils.getLabelText(recommendedCountry);
+				sb.append("The main country in the data is ").append(recommended);
+				dialog.setText(sb.toString());
+				dialog.setMessage("Do you want to change your parameters to " + recommended + "?");
+				int returnCode = dialog.open(); 
+				if (returnCode == SWT.CANCEL) {
+					//do nothing
+				} else {
+					Command com = SetCommand.create(domain,tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__COUNTRY, recommendedCountry);
+					if (com.canExecute()) {
+						domain.getCommandStack().execute(com);
+						country = recommendedCountry;
+					}
+				}
+			}
+			
+			
 			if (country == null) {
 				String message = NationalLanguageSupport.ConvertGtm2LegacyAction_CountryMissing;
 				GtmUtils.writeConsoleWarning(message, null);
@@ -96,7 +132,6 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 				return;
 			}
 			
-			final EditingDomain domain = GtmUtils.getActiveDomain();
 			if (domain == null) return;
 			
 			
@@ -124,8 +159,10 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 			try {
 				// This runs the operation, and shows progress.
 				editor.disconnectViews();
+				
+				Shell shell = editor.getSite().getShell();
 		
-				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
+				new ProgressMonitorDialog(shell).run(true, false, operation);
 
 			} catch (Exception exception) {
 				// Something went wrong that shouldn't.
