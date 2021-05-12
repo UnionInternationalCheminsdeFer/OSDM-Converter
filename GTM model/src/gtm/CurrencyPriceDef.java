@@ -39,7 +39,6 @@ public class CurrencyPriceDef {
      */
     @JsonProperty("scale")
     @JsonPropertyDescription("scale of the amount - the number of positions after the comma")
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private Integer scale = 2;
     @JsonProperty("vatDetails")
     private List<VatDetailDef> vatDetails = new ArrayList<VatDetailDef>();

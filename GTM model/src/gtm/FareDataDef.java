@@ -98,6 +98,7 @@ public class FareDataDef {
     private List<FareDef> fares = new ArrayList<FareDef>();
     /**
      * list of allowed after sales transactions and conditions
+     * (Required)
      * 
      */
     @JsonProperty("afterSalesConditions")
@@ -335,6 +336,7 @@ public class FareDataDef {
 
     /**
      * list of allowed after sales transactions and conditions
+     * (Required)
      * 
      */
     @JsonProperty("afterSalesConditions")
@@ -344,6 +346,7 @@ public class FareDataDef {
 
     /**
      * list of allowed after sales transactions and conditions
+     * (Required)
      * 
      */
     @JsonProperty("afterSalesConditions")
