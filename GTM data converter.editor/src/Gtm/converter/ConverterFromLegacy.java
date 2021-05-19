@@ -1834,8 +1834,20 @@ public class ConverterFromLegacy {
 		}
 		
 		if (isSeparateContract(series)) {
+			if (fareTemplate.getSeparateContractFareConstraintBundle() ==  null) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("A fare constraint bundle for seperate contracts is missing in fare template: ").append(GtmUtils.getLabelText(fareTemplate));
+				GtmUtils.writeConsoleError(sb.toString(), editor);
+				return;
+			}
 			fare.setFareConstraintBundle(fareTemplate.getSeparateContractFareConstraintBundle());
 		} else {
+			if (fareTemplate.getFareConstraintBundle() == null) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("A fare constraint bundle is missing in fare template: ").append(GtmUtils.getLabelText(fareTemplate));
+				GtmUtils.writeConsoleError(sb.toString(), editor);		
+				return;
+			}
 			fare.setFareConstraintBundle(fareTemplate.getFareConstraintBundle());
 		}
 		fare.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_44 + Integer.toString(series.getNumber()) +NationalLanguageSupport.ConverterFromLegacy_45 + fareTemplate.getDataDescription());
