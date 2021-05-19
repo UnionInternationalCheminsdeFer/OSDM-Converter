@@ -554,7 +554,11 @@ public class GTMJsonImporter {
 	private ServiceConstraint convert(ServiceConstraintDef sc) {
 		ServiceConstraint o = GtmFactory.eINSTANCE.createServiceConstraint();
 		o.setId(sc.getId());
-		o.setLegacy108Code(sc.getLegacyCode());
+		if (sc.getLegacyCode() != null) {
+			o.setLegacy108Code(sc.getLegacyCode());
+		} else {
+			o.setLegacy108Code(0);
+		}
 		if (sc.getExcludedServiceBrands()!= null && !sc.getExcludedServiceBrands().isEmpty()) {
 			Collection<? extends ServiceBrand> sl = convertServiceBrandList(sc.getExcludedServiceBrands());
 			if (sl != null && !sl.isEmpty()) {

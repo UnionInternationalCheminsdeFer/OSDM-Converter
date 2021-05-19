@@ -51,6 +51,7 @@
 				<li>TCVS</li>
 				<li>TCVG</li>
 				<li>TCVL</li>
+				<li>TCVM</li>
 				<li>distance fares</li>		
 				<li>route based fares</li>	
 			</ul>
@@ -136,8 +137,12 @@ but the station sets of the connection points might be incomplete and must be co
 <ul>
 
 
-<p><img src="../images/convertFromLegacy.png" alt="convert 108.1 data"/>Converts the 108.1 data into the 90918-10 data.<br/></p>
-<p> Conversion errors will be listed in the console window.<br/></p>
+<p>
+	<img src="../images/convertFromLegacy.png" alt="convert 108.1 data"/>Converts the 108.1 data into the 90918-10 data.<br/>
+</p>
+<p> 
+	Conversion errors will be listed in the console window.<br/>
+</p>
 
 </ul>
 
@@ -185,9 +190,11 @@ The data will be shown in the code list section of the data set.</p>
 
 <ul>
 <p>90918-10 data will lose some content when converted to 108.1 data. therefore not all data can and will be converted. From regional constraints
- only one direction will be converted.<br/></p>
+ only one direction will be converted.<br/>
+</p>
 <p>The following fares will <b>not</b> be converted: </p>
 	<ul>
+	<li>only fares with service classes B (High) and D (Basic) are converted</li>
 	<li>fares which are not foreseen for conversion</li>
 	<li>fare which are not for adults</li>	
 	<li>fares with reduction constraints</li>
@@ -195,7 +202,6 @@ The data will be shown in the code list section of the data set.</p>
 	<li>fares with complex sales availability (special days)</li>
 	<li>fares with stations not in the defined country</li>
 	</ul>
-
 </ul>
 
 
@@ -204,12 +210,13 @@ The data will be shown in the code list section of the data set.</p>
 <p><img src="../images/exportLegacy.png" alt="export 108.1 data"/>Export the fare data in the 108.1 format.<br/></p>
 <p>Export files are:<br/><br/>
 <ul>
-<li>TCV file</li>
-<li>TCVS file</li>
-<li>one route based fare file</li>
-<li>TCVG file</li>
-
-
+	<li><b>TCV</b> file</li>
+	<li><b>TCVS</b> file</li>
+	<li><b>TCVG</b> file</li>
+	<li><b>TCVL</b> file</li>
+	<li><b>TCVL</b> file (in  case of separate contract fares)</li>
+	<li><b>TCVM</b> file (in case of fare detail descriptions)</li>
+	<li>One route based fare file</li>
 </ul>
 
 

@@ -24,7 +24,6 @@
 
 <h2>Parameters required for the conversion of 108.1 data</h2>
 
-
 <h3>Conversion Parameter</h3>
 <p>
 <ul>
@@ -51,7 +50,15 @@ final fare must be created except the regional validity and the price which come
 A fixed price can be set, the all fares converted from series will have the same price.<br/>
 The referenced data items must be defined in the General Tariff Model fare structure first. They can then be assigned to a fare template.</td>
     <td></td></tr>
-<tr><td>Legacy station mappings</td><td>Mappings of station codes in 108.1 to merits codes. A manual mapping can be added for station codes not included in MERITS</td><td >Mapping station code 018.1 to MERITS station code.</td></tr>
+<tr><td>separate contract fare template</td>
+    <td>Template to create a fare in the 90918-10 data in case the serie is listed in TCVL. The template must provide service class and price factor to create a fare. All required data for the 
+final fare must be created except the regional validity and the price which come from 108.1 series and fares. <br/> 
+A fixed price can be set, the all fares converted from series will have the same price.<br/>
+The referenced data items must be defined in the General Tariff Model fare structure first. They can then be assigned to a fare template.</td>
+    <td></td></tr>
+<tr><td>Legacy station mappings</td>
+    <td>Mappings of station codes in 108.1 to merits codes. A manual mapping can be added for station codes not included in MERITS</td>
+    <td >Mapping station code 018.1 to MERITS station code.</td></tr>
 <tr><td>Legacy station to service constraint mappings </td>
 	<td>Mappings of 108.1 stations to service constraints of the fare. 
 	In 108.1 data virtual stations have been added to indicate a service constraint. 
