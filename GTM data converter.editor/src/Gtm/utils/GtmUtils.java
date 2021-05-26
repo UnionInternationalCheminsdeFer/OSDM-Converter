@@ -519,27 +519,42 @@ public class GtmUtils {
 		populateUICLaguages(tool.getCodeLists().getLanguages());
 
 		//add generic reduction cards
-			
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_EURAIL_1.getName(),"Eurail Pass 1st Class", findCarrier(tool,"9902")); //$NON-NLS-1$ //$NON-NLS-2$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_INTERRAIL_1.getName(),"Interrail Pass 1st Class", findCarrier(tool,"9902"));		 //$NON-NLS-1$ //$NON-NLS-2$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_FIP_DUTY_1.getName(),"FIP duty 1st Class", null);			 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_FIP_LEISURE_FREE_1.getName(),"FIP leasure 1st Class", null);	 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_FIP_LEISURE_REDU_1.getName(),"FIP leasure reduction 1st Class", null); //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_RAILPLUS_1.getName(),"RailPlus 1st Class", null);	 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_RIT_11.getName(),"Rail Inclusive Tours 1 1st Class", null);	 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_RIT_21.getName(),"Rail Inclusive Tours 2 1st Class", null);	 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_RIT_31.getName(),"Rail Inclusive Tours 3 1st Class", null);	 //$NON-NLS-1$
-	
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_EURAIL_2.getName(),"Eurail Pass 2nd Class", findCarrier(tool,"9902")); //$NON-NLS-1$ //$NON-NLS-2$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_INTERRAIL_2.getName(),"Interrail Pass 2nd Class", findCarrier(tool,"9902"));		 //$NON-NLS-1$ //$NON-NLS-2$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_FIP_DUTY_2.getName(),"FIP duty 2nd Class", null);			 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_FIP_LEISURE_FREE_2.getName(),"FIP leasure 2nd Class", null);	 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_FIP_LEISURE_REDU_2.getName(),"FIP leasure reduction 2nd Class", null); //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_RAILPLUS_2.getName(),"RailPlus 2nd Class", null);	 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_RIT_12.getName(),"Rail Inclusive Tours 1 2nd Class", null);	 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_RIT_22.getName(),"Rail Inclusive Tours 2 2nd Class", null);	 //$NON-NLS-1$
-		createReductionCard(tool.getGeneralTariffModel().getFareStructure(),GenericReductionCards.UIC_RIT_32.getName(),"Rail Inclusive Tours 3 2nd Class", null);	 //$NON-NLS-1$
+		createGenericReductionCards(tool.getGeneralTariffModel().getFareStructure(), tool);
 		
+	}
+	
+	
+	public static void createGenericReductionCards(FareStructure fareStructure, GTMTool tool) {
+		createReductionCard(fareStructure,GenericReductionCards.UIC_EURAIL_1.getName(),"Eurail Pass 1st Class", findCarrier(tool,"9902")); //$NON-NLS-1$ //$NON-NLS-2$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_INTERRAIL_1.getName(),"Interrail Pass 1st Class", findCarrier(tool,"9902"));		 //$NON-NLS-1$ //$NON-NLS-2$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_DUTY_1.getName(),"FIP duty 1st Class", null);			 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_LEISURE_FREE_1.getName(),"FIP leasure 1st Class", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_LEISURE_REDU_1.getName(),"FIP leasure reduction 1st Class", null); //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RAILPLUS_1.getName(),"RailPlus 1st Class", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_11.getName(),"Rail Inclusive Tours 1 1st Class", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_21.getName(),"Rail Inclusive Tours 2 1st Class", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_31.getName(),"Rail Inclusive Tours 3 1st Class", null);	 //$NON-NLS-1$
+	
+		createReductionCard(fareStructure,GenericReductionCards.UIC_EURAIL_2.getName(),"Eurail Pass 2nd Class", findCarrier(tool,"9902")); //$NON-NLS-1$ //$NON-NLS-2$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_INTERRAIL_2.getName(),"Interrail Pass 2nd Class", findCarrier(tool,"9902"));		 //$NON-NLS-1$ //$NON-NLS-2$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_DUTY_2.getName(),"FIP duty 2nd Class", null);			 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_LEISURE_FREE_2.getName(),"FIP leasure 2nd Class", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_LEISURE_REDU_2.getName(),"FIP leasure reduction 2nd Class", null); //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RAILPLUS_2.getName(),"RailPlus 2nd Class", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_12.getName(),"Rail Inclusive Tours 1 2nd Class", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_22.getName(),"Rail Inclusive Tours 2 2nd Class", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_32.getName(),"Rail Inclusive Tours 3 2nd Class", null);	 //$NON-NLS-1$
+
+		createReductionCard(fareStructure,GenericReductionCards.UIC_EURAIL.getName(),"Eurail Pass - deprecated-use class specific cards", findCarrier(tool,"9902")); //$NON-NLS-1$ //$NON-NLS-2$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_INTERRAIL.getName(),"Interrail Pass - deprecated-use class specific cards", findCarrier(tool,"9902"));		 //$NON-NLS-1$ //$NON-NLS-2$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_DUTY.getName(),"FIP duty - deprecated-use class specific cards", null);			 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_LEISURE_FREE.getName(),"FIP leasure - deprecated-use class specific cards", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_LEISURE_REDU.getName(),"FIP leasure reduction - deprecated-use class specific cards", null); //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RAILPLUS.getName(),"RailPlus - deprecated-use class specific cards", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_1.getName(),"Rail Inclusive Tours 1 - deprecated-use class specific cards", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_2.getName(),"Rail Inclusive Tours 2 - deprecated-use class specific cards", null);	 //$NON-NLS-1$
+		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_3.getName(),"Rail Inclusive Tours 3 - deprecated-use class specific cards", null);	 //$NON-NLS-1$
+
 	}
 	
 	/**
@@ -1245,7 +1260,7 @@ public class GtmUtils {
 			return;
 		}
 		try {
-			if (editor == null || message == null || message.length() == 0) {
+			if (editor == null) {
 				Display display = getDisplay();
 				if (display == null) return;
 				display.asyncExec(() -> {

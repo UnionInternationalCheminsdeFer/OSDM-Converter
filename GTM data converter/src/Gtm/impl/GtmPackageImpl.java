@@ -11278,7 +11278,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (passengerConstraintEClass,
 		   source,
 		   new String[] {
-			   "constraints", "TRAVELLER_TYPE_MUST"
+			   "constraints", "TRAVELLER_TYPE_MUST NAME_MUST"
 		   });
 		addAnnotation
 		  (passengerCombinationConstraintEClass,

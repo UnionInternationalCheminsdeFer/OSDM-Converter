@@ -460,7 +460,7 @@ public class GtmJsonExporter {
 					jBundle.setSalesAvailabilityConstraintRef(bundle.getSalesAvailability().getId());
 				}
 				if (bundle.getTotalPassengerConstraint() != null) {
-					jBundle.setPassengerCombinationRef(bundle.getTotalPassengerConstraint().getId());
+					jBundle.setPassengerCombinationConstraintRef(bundle.getTotalPassengerConstraint().getId());
 				}
 				if (bundle.getSalesAvailability() != null) {
 					jBundle.setSalesAvailabilityConstraintRef(bundle.getSalesAvailability().getId());
@@ -527,7 +527,7 @@ public class GtmJsonExporter {
 			jz.setCarrier(z.getProvider().getCode());
 		}
 		jz.setName(z.getName());
-		jz.setNameUTF8(z.getNameUtf8());
+		jz.setNameUtf8(z.getNameUtf8());
 		jz.setZoneId(z.getZoneId());
 		jz.setNutsCodes(convertNuts(z.getNutsCodes()));
 		jz.setPolygon(convertToJson(z.getPolygone()));
@@ -574,7 +574,7 @@ public class GtmJsonExporter {
 			oJ.setFareProvider(o.getCarrier().getCode());
 		}
 		oJ.setName(o.getName());
-		oJ.setNameUTF8(o.getNameUtf8());
+		oJ.setNameUtf8(o.getNameUtf8());
 		
 		if (o.getStations()!= null && !o.getStations().isEmpty()) {
 			
@@ -716,7 +716,7 @@ public class GtmJsonExporter {
 		textJ.setShortText(text.getShortTextICAO());
 		textJ.setShortTextUtf8(text.getShortTextUTF8());
 		textJ.setText(text.getTextICAO());
-		textJ.setTextUTF8(text.getTextUTF8());
+		textJ.setTextUtf8(text.getTextUTF8());
 		
 		if (text.getTranslations() != null && !text.getTranslations().isEmpty()) {
 			
@@ -732,7 +732,7 @@ public class GtmJsonExporter {
 				transJ.setShortText(trans.getShortTextICAO());
 				transJ.setShortTextUtf8(trans.getShortTextUTF8());
 				transJ.setText(trans.getTextICAO());
-				transJ.setTextUTF8(trans.getTextUTF8());				
+				transJ.setTextUtf8(trans.getTextUTF8());				
 								
 				listJ.add(transJ);
 			}

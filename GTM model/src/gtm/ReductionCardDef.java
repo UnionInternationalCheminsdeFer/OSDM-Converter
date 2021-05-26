@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "issuer",
     "id",
-    "name",
     "nameRef",
     "includedCards",
     "serviceClasses",
@@ -37,14 +36,6 @@ public class ReductionCardDef {
     @JsonProperty("id")
     @JsonPropertyDescription("id of the card type within the issuer")
     private String id;
-    /**
-     * directly included text in case of online services
-     * (Required)
-     * 
-     */
-    @JsonProperty("name")
-    @JsonPropertyDescription("directly included text in case of online services")
-    private TextDef name;
     /**
      * referenced text in bulk data
      * 
@@ -119,26 +110,6 @@ public class ReductionCardDef {
     @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
-    }
-
-    /**
-     * directly included text in case of online services
-     * (Required)
-     * 
-     */
-    @JsonProperty("name")
-    public TextDef getName() {
-        return name;
-    }
-
-    /**
-     * directly included text in case of online services
-     * (Required)
-     * 
-     */
-    @JsonProperty("name")
-    public void setName(TextDef name) {
-        this.name = name;
     }
 
     /**
@@ -243,10 +214,6 @@ public class ReductionCardDef {
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));
         sb.append(',');
-        sb.append("name");
-        sb.append('=');
-        sb.append(((this.name == null)?"<null>":this.name));
-        sb.append(',');
         sb.append("nameRef");
         sb.append('=');
         sb.append(((this.nameRef == null)?"<null>":this.nameRef));
@@ -280,7 +247,6 @@ public class ReductionCardDef {
         int result = 1;
         result = ((result* 31)+((this.serviceClasses == null)? 0 :this.serviceClasses.hashCode()));
         result = ((result* 31)+((this.includedCards == null)? 0 :this.includedCards.hashCode()));
-        result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
         result = ((result* 31)+((this.nameRef == null)? 0 :this.nameRef.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
         result = ((result* 31)+((this.type == null)? 0 :this.type.hashCode()));
@@ -298,7 +264,7 @@ public class ReductionCardDef {
             return false;
         }
         ReductionCardDef rhs = ((ReductionCardDef) other);
-        return (((((((((this.serviceClasses == rhs.serviceClasses)||((this.serviceClasses!= null)&&this.serviceClasses.equals(rhs.serviceClasses)))&&((this.includedCards == rhs.includedCards)||((this.includedCards!= null)&&this.includedCards.equals(rhs.includedCards))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.nameRef == rhs.nameRef)||((this.nameRef!= null)&&this.nameRef.equals(rhs.nameRef))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.type == rhs.type)||((this.type!= null)&&this.type.equals(rhs.type))))&&((this.issuer == rhs.issuer)||((this.issuer!= null)&&this.issuer.equals(rhs.issuer))))&&((this.cardIdRequired == rhs.cardIdRequired)||((this.cardIdRequired!= null)&&this.cardIdRequired.equals(rhs.cardIdRequired))));
+        return ((((((((this.serviceClasses == rhs.serviceClasses)||((this.serviceClasses!= null)&&this.serviceClasses.equals(rhs.serviceClasses)))&&((this.includedCards == rhs.includedCards)||((this.includedCards!= null)&&this.includedCards.equals(rhs.includedCards))))&&((this.nameRef == rhs.nameRef)||((this.nameRef!= null)&&this.nameRef.equals(rhs.nameRef))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.type == rhs.type)||((this.type!= null)&&this.type.equals(rhs.type))))&&((this.issuer == rhs.issuer)||((this.issuer!= null)&&this.issuer.equals(rhs.issuer))))&&((this.cardIdRequired == rhs.cardIdRequired)||((this.cardIdRequired!= null)&&this.cardIdRequired.equals(rhs.cardIdRequired))));
     }
 
 }

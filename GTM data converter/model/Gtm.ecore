@@ -511,10 +511,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tariffId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="addSeriesId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReductionConstraints">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reductionConstraints" upperBound="-1"
-        eType="#//ReductionConstraint" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PersonalDataConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="personalDataConstraints"
         upperBound="-1" eType="#//PersonalDataConstraint" containment="true"/>
@@ -556,7 +552,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PassengerConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="TRAVELLER_TYPE_MUST"/>
+      <details key="constraints" value="TRAVELLER_TYPE_MUST NAME_MUST"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="travelerType" eType="#//TravelerType"/>
@@ -1027,6 +1023,18 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="allowedCommonContracts"
         upperBound="-1" eType="#//Carrier"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReductionConstraints">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reductionConstraints" upperBound="-1"
+        eType="#//ReductionConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReductionConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="AT_LEAST_ONE NOT_REFERENCED"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requiredReductionCards"
+        upperBound="-1" eType="#//RequiredReductionCard" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReductionCards">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reductionCards" upperBound="-1"
         eType="#//ReductionCard" containment="true"/>
@@ -1046,14 +1054,6 @@
         upperBound="-1" eType="#//ReductionCard"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uicCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReductionConstraint">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="AT_LEAST_ONE NOT_REFERENCED"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requiredReductionCards"
-        upperBound="-1" eType="#//RequiredReductionCard" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RequiredReductionCard">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">

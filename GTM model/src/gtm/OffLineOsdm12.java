@@ -14,30 +14,45 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "fareStructureDelivery"
+    "fareDelivery"
 })
 public class OffLineOsdm12 {
 
-    @JsonProperty("fareStructureDelivery")
-    private FareDeliveryDef fareStructureDelivery;
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @JsonProperty("fareDelivery")
+    private FareDeliveryDef fareDelivery;
 
-    @JsonProperty("fareStructureDelivery")
-    public FareDeliveryDef getFareStructureDelivery() {
-        return fareStructureDelivery;
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @JsonProperty("fareDelivery")
+    public FareDeliveryDef getFareDelivery() {
+        return fareDelivery;
     }
 
-    @JsonProperty("fareStructureDelivery")
-    public void setFareStructureDelivery(FareDeliveryDef fareStructureDelivery) {
-        this.fareStructureDelivery = fareStructureDelivery;
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @JsonProperty("fareDelivery")
+    public void setFareDelivery(FareDeliveryDef fareDelivery) {
+        this.fareDelivery = fareDelivery;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(OffLineOsdm12 .class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("fareStructureDelivery");
+        sb.append("fareDelivery");
         sb.append('=');
-        sb.append(((this.fareStructureDelivery == null)?"<null>":this.fareStructureDelivery));
+        sb.append(((this.fareDelivery == null)?"<null>":this.fareDelivery));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -50,7 +65,7 @@ public class OffLineOsdm12 {
     @Override
     public int hashCode() {
         int result = 1;
-        result = ((result* 31)+((this.fareStructureDelivery == null)? 0 :this.fareStructureDelivery.hashCode()));
+        result = ((result* 31)+((this.fareDelivery == null)? 0 :this.fareDelivery.hashCode()));
         return result;
     }
 
@@ -63,7 +78,7 @@ public class OffLineOsdm12 {
             return false;
         }
         OffLineOsdm12 rhs = ((OffLineOsdm12) other);
-        return ((this.fareStructureDelivery == rhs.fareStructureDelivery)||((this.fareStructureDelivery!= null)&&this.fareStructureDelivery.equals(rhs.fareStructureDelivery)));
+        return ((this.fareDelivery == rhs.fareDelivery)||((this.fareDelivery!= null)&&this.fareDelivery.equals(rhs.fareDelivery)));
     }
 
 }
