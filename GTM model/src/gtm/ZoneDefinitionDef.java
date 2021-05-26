@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "carrier",
     "zoneId",
     "name",
-    "nameUTF8",
+    "nameUtf8",
     "polygon",
     "stationList",
     "nutsCodes"
@@ -42,8 +42,8 @@ public class ZoneDefinitionDef {
     private String zoneId;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("nameUTF8")
-    private String nameUTF8;
+    @JsonProperty("nameUtf8")
+    private String nameUtf8;
     @JsonProperty("polygon")
     private PolygonDef polygon;
     @JsonProperty("stationList")
@@ -101,14 +101,14 @@ public class ZoneDefinitionDef {
         this.name = name;
     }
 
-    @JsonProperty("nameUTF8")
-    public String getNameUTF8() {
-        return nameUTF8;
+    @JsonProperty("nameUtf8")
+    public String getNameUtf8() {
+        return nameUtf8;
     }
 
-    @JsonProperty("nameUTF8")
-    public void setNameUTF8(String nameUTF8) {
-        this.nameUTF8 = nameUTF8;
+    @JsonProperty("nameUtf8")
+    public void setNameUtf8(String nameUtf8) {
+        this.nameUtf8 = nameUtf8;
     }
 
     @JsonProperty("polygon")
@@ -157,9 +157,9 @@ public class ZoneDefinitionDef {
         sb.append('=');
         sb.append(((this.name == null)?"<null>":this.name));
         sb.append(',');
-        sb.append("nameUTF8");
+        sb.append("nameUtf8");
         sb.append('=');
-        sb.append(((this.nameUTF8 == null)?"<null>":this.nameUTF8));
+        sb.append(((this.nameUtf8 == null)?"<null>":this.nameUtf8));
         sb.append(',');
         sb.append("polygon");
         sb.append('=');
@@ -190,7 +190,7 @@ public class ZoneDefinitionDef {
         result = ((result* 31)+((this.stationList == null)? 0 :this.stationList.hashCode()));
         result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
         result = ((result* 31)+((this.zoneId == null)? 0 :this.zoneId.hashCode()));
-        result = ((result* 31)+((this.nameUTF8 == null)? 0 :this.nameUTF8 .hashCode()));
+        result = ((result* 31)+((this.nameUtf8 == null)? 0 :this.nameUtf8 .hashCode()));
         return result;
     }
 
@@ -203,7 +203,7 @@ public class ZoneDefinitionDef {
             return false;
         }
         ZoneDefinitionDef rhs = ((ZoneDefinitionDef) other);
-        return ((((((((this.carrier == rhs.carrier)||((this.carrier!= null)&&this.carrier.equals(rhs.carrier)))&&((this.polygon == rhs.polygon)||((this.polygon!= null)&&this.polygon.equals(rhs.polygon))))&&((this.nutsCodes == rhs.nutsCodes)||((this.nutsCodes!= null)&&this.nutsCodes.equals(rhs.nutsCodes))))&&((this.stationList == rhs.stationList)||((this.stationList!= null)&&this.stationList.equals(rhs.stationList))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.zoneId == rhs.zoneId)||((this.zoneId!= null)&&this.zoneId.equals(rhs.zoneId))))&&((this.nameUTF8 == rhs.nameUTF8)||((this.nameUTF8 != null)&&this.nameUTF8 .equals(rhs.nameUTF8))));
+        return ((((((((this.carrier == rhs.carrier)||((this.carrier!= null)&&this.carrier.equals(rhs.carrier)))&&((this.polygon == rhs.polygon)||((this.polygon!= null)&&this.polygon.equals(rhs.polygon))))&&((this.nutsCodes == rhs.nutsCodes)||((this.nutsCodes!= null)&&this.nutsCodes.equals(rhs.nutsCodes))))&&((this.stationList == rhs.stationList)||((this.stationList!= null)&&this.stationList.equals(rhs.stationList))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.zoneId == rhs.zoneId)||((this.zoneId!= null)&&this.zoneId.equals(rhs.zoneId))))&&((this.nameUtf8 == rhs.nameUtf8)||((this.nameUtf8 != null)&&this.nameUtf8 .equals(rhs.nameUtf8))));
     }
 
 }

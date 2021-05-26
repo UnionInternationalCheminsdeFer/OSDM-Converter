@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 @JsonPropertyOrder({
     "id",
     "textRef",
-    "text",
     "comfortClass"
 })
 public class ServiceClassDefinitionDef {
@@ -34,13 +33,6 @@ public class ServiceClassDefinitionDef {
     @JsonProperty("textRef")
     @JsonPropertyDescription("id of the text describing the class within the offline data text list")
     private String textRef;
-    /**
-     * directly included text in case of online services
-     * 
-     */
-    @JsonProperty("text")
-    @JsonPropertyDescription("directly included text in case of online services")
-    private TextDef text;
     /**
      * Generic class classification, mostly used to harmonize choice and representation across multiple carriers
      * 
@@ -88,24 +80,6 @@ public class ServiceClassDefinitionDef {
     }
 
     /**
-     * directly included text in case of online services
-     * 
-     */
-    @JsonProperty("text")
-    public TextDef getText() {
-        return text;
-    }
-
-    /**
-     * directly included text in case of online services
-     * 
-     */
-    @JsonProperty("text")
-    public void setText(TextDef text) {
-        this.text = text;
-    }
-
-    /**
      * Generic class classification, mostly used to harmonize choice and representation across multiple carriers
      * 
      */
@@ -135,10 +109,6 @@ public class ServiceClassDefinitionDef {
         sb.append('=');
         sb.append(((this.textRef == null)?"<null>":this.textRef));
         sb.append(',');
-        sb.append("text");
-        sb.append('=');
-        sb.append(((this.text == null)?"<null>":this.text));
-        sb.append(',');
         sb.append("comfortClass");
         sb.append('=');
         sb.append(((this.comfortClass == null)?"<null>":this.comfortClass));
@@ -156,7 +126,6 @@ public class ServiceClassDefinitionDef {
         int result = 1;
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
         result = ((result* 31)+((this.textRef == null)? 0 :this.textRef.hashCode()));
-        result = ((result* 31)+((this.text == null)? 0 :this.text.hashCode()));
         result = ((result* 31)+((this.comfortClass == null)? 0 :this.comfortClass.hashCode()));
         return result;
     }
@@ -170,7 +139,7 @@ public class ServiceClassDefinitionDef {
             return false;
         }
         ServiceClassDefinitionDef rhs = ((ServiceClassDefinitionDef) other);
-        return (((((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id)))&&((this.textRef == rhs.textRef)||((this.textRef!= null)&&this.textRef.equals(rhs.textRef))))&&((this.text == rhs.text)||((this.text!= null)&&this.text.equals(rhs.text))))&&((this.comfortClass == rhs.comfortClass)||((this.comfortClass!= null)&&this.comfortClass.equals(rhs.comfortClass))));
+        return ((((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id)))&&((this.textRef == rhs.textRef)||((this.textRef!= null)&&this.textRef.equals(rhs.textRef))))&&((this.comfortClass == rhs.comfortClass)||((this.comfortClass!= null)&&this.comfortClass.equals(rhs.comfortClass))));
     }
 
     public enum ComfortClassDef {

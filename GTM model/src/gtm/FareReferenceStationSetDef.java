@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
     "stations",
     "legacyCode",
     "name",
-    "nameUTF8"
+    "nameUtf8"
 })
 public class FareReferenceStationSetDef {
 
@@ -64,8 +64,8 @@ public class FareReferenceStationSetDef {
     @JsonProperty("name")
     @JsonPropertyDescription("name to be used in route descriptions")
     private String name;
-    @JsonProperty("nameUTF8")
-    private String nameUTF8;
+    @JsonProperty("nameUtf8")
+    private String nameUtf8;
 
     /**
      * RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the  codes must have at least 5 positions and start with x
@@ -165,14 +165,14 @@ public class FareReferenceStationSetDef {
         this.name = name;
     }
 
-    @JsonProperty("nameUTF8")
-    public String getNameUTF8() {
-        return nameUTF8;
+    @JsonProperty("nameUtf8")
+    public String getNameUtf8() {
+        return nameUtf8;
     }
 
-    @JsonProperty("nameUTF8")
-    public void setNameUTF8(String nameUTF8) {
-        this.nameUTF8 = nameUTF8;
+    @JsonProperty("nameUtf8")
+    public void setNameUtf8(String nameUtf8) {
+        this.nameUtf8 = nameUtf8;
     }
 
     @Override
@@ -199,9 +199,9 @@ public class FareReferenceStationSetDef {
         sb.append('=');
         sb.append(((this.name == null)?"<null>":this.name));
         sb.append(',');
-        sb.append("nameUTF8");
+        sb.append("nameUtf8");
         sb.append('=');
-        sb.append(((this.nameUTF8 == null)?"<null>":this.nameUTF8));
+        sb.append(((this.nameUtf8 == null)?"<null>":this.nameUtf8));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -216,7 +216,7 @@ public class FareReferenceStationSetDef {
         int result = 1;
         result = ((result* 31)+((this.code == null)? 0 :this.code.hashCode()));
         result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
-        result = ((result* 31)+((this.nameUTF8 == null)? 0 :this.nameUTF8 .hashCode()));
+        result = ((result* 31)+((this.nameUtf8 == null)? 0 :this.nameUtf8 .hashCode()));
         result = ((result* 31)+((this.stations == null)? 0 :this.stations.hashCode()));
         result = ((result* 31)+((this.legacyCode == null)? 0 :this.legacyCode.hashCode()));
         result = ((result* 31)+((this.fareProvider == null)? 0 :this.fareProvider.hashCode()));
@@ -232,7 +232,7 @@ public class FareReferenceStationSetDef {
             return false;
         }
         FareReferenceStationSetDef rhs = ((FareReferenceStationSetDef) other);
-        return (((((((this.code == rhs.code)||((this.code!= null)&&this.code.equals(rhs.code)))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.nameUTF8 == rhs.nameUTF8)||((this.nameUTF8 != null)&&this.nameUTF8 .equals(rhs.nameUTF8))))&&((this.stations == rhs.stations)||((this.stations!= null)&&this.stations.equals(rhs.stations))))&&((this.legacyCode == rhs.legacyCode)||((this.legacyCode!= null)&&this.legacyCode.equals(rhs.legacyCode))))&&((this.fareProvider == rhs.fareProvider)||((this.fareProvider!= null)&&this.fareProvider.equals(rhs.fareProvider))));
+        return (((((((this.code == rhs.code)||((this.code!= null)&&this.code.equals(rhs.code)))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.nameUtf8 == rhs.nameUtf8)||((this.nameUtf8 != null)&&this.nameUtf8 .equals(rhs.nameUtf8))))&&((this.stations == rhs.stations)||((this.stations!= null)&&this.stations.equals(rhs.stations))))&&((this.legacyCode == rhs.legacyCode)||((this.legacyCode!= null)&&this.legacyCode.equals(rhs.legacyCode))))&&((this.fareProvider == rhs.fareProvider)||((this.fareProvider!= null)&&this.fareProvider.equals(rhs.fareProvider))));
     }
 
 }

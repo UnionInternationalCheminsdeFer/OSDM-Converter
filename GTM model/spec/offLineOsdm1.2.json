@@ -9,526 +9,11 @@
 			"$ref": "#/definitions/FareDeliveryDef"
 		}
 	},
+	"required": [
+		"fareDelivery"
+	],
 	"additionalProperties": false,
 	"definitions": {
-		"StationDef": {
-			"description": "Used to represent a station location. This is a location that can be used as origin and destination for a train journey",
-			"type": "object",
-			"properties": {
-				"codeList": {
-					"$ref": "#/definitions/StationCodeListDef"
-				},
-				"code": {
-					"description": "the code representing the station in the specified code-list",
-					"type": "string"
-				},
-				"country": {
-					"$ref": "#/definitions/CountryDef"
-				},
-				"name": {
-					"$ref": "#/definitions/TextDef"
-				},
-				"geoCoordinate": {
-					"$ref": "#/definitions/GeoCoordinate"
-				}
-			},
-			"required": [
-				"code",
-				"country"
-			],
-			"additionalProperties": false
-		},
-		"StationCodeListDef": {
-			"description": "Code list used for the station codes: UIC = UIC codes as used by merits (UIC country code + local code) = Default/ UIC-R = UIC codes for reservation (UIC country code + local code reservation) / ERA = future ERA station code",
-			"type": "string",
-			"default": "UIC"
-		},
-		"ServiceBrandCodeDef": {
-			"description": "Service brand codes allowed in response, code list can be found on  [https:/uic.org/passenger/passenger-services-group/article/service-brand-code-list] (https:/uic.org/passenger/passenger-services-group/article/service-brand-code-list)",
-			"type": "integer",
-			"format": "int32"
-		},
-		"GeoCoordinate": {
-			"description": "Used to provide any geo-encoded location, regardless of environment, using longitude and latitude coordinates.",
-			"type": "object",
-			"properties": {
-				"system": {
-					"description": "geo coordinate system indication: \n - WGS84 = WGS 84 standard system,\n - GRS80 = (outdated) GRS 80 coordinate system",
-					"type": "string",
-					"enum": [
-						"WGS84",
-						"GRS80"
-					],
-					"default": "WGS84"
-				},
-				"accuracy": {
-					"description": "to be provided in degree.",
-					"type": "number",
-					"format": "float"
-				},
-				"latitude": {
-					"description": "Geographic coordinate that specifies the north-south position of a point on the earths surface",
-					"type": "number",
-					"format": "float",
-					"example": 46.948825
-				},
-				"longitude": {
-					"description": "Geographic coordinate that specifies the east-west position of a point on the earths surface.            ",
-					"type": "number",
-					"format": "float",
-					"example": 7.439122
-				}
-			},
-			"required": [
-				"latitude",
-				"longitude"
-			],
-			"additionalProperties": false
-		},
-		"CurrencyDef": {
-			"description": "ISO4217 currency codes",
-			"type": "string"
-		},
-		"CurrencyPriceDef": {
-			"type": "object",
-			"minProperties": 1,
-			"properties": {
-				"currency": {
-					"$ref": "#/definitions/CurrencyDef"
-				},
-				"amount": {
-					"description": "by default of the scale the amount in cents",
-					"type": "integer",
-					"format": "int32"
-				},
-				"scale": {
-					"description": "scale of the amount - the number of positions after the comma",
-					"type": "integer",
-					"format": "int32",
-					"default": 2
-				},
-				"vatDetails": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/VatDetailDef"
-					}
-				}
-			},
-			"required": [
-				"currency",
-				"amount"
-			],
-			"additionalProperties": false
-		},
-		"VatDetailDef": {
-			"type": "object",
-			"properties": {
-				"country": {
-					"$ref": "#/definitions/CountryDef",
-					"description": "by default of the scale the amount in cents",
-					"type": "integer",
-					"format": "int32"
-				},
-				"amount": {
-					"description": "by default of the scale the amount in cents",
-					"type": "integer",
-					"format": "int32"
-				},
-				"scale": {
-					"description": "scale of the amount - the number of positions after the comma",
-					"type": "integer",
-					"format": "int32",
-					"default": 2
-				},
-				"percentage": {
-					"type": "number",
-					"format": "float"
-				},
-				"taxId": {
-					"type": "string"
-				},
-				"scope": {
-					"$ref": "#/definitions/VatScopeDef"
-				}
-			},
-			"required": [
-				"country",
-				"amount"
-			],
-			"additionalProperties": false
-		},
-		"VatScopeDef": {
-			"description": "scope where the VAT applies",
-			"type": "string",
-			"enum": [
-				"INTERNATIONAL",
-				"NATIONAL",
-				"SHORT_DISTANCE",
-				"LONG_DISTANCE"
-			]
-		},
-		"ReductionCardReferenceDef": {
-			"type": "object",
-			"properties": {
-				"cardValue": {
-					"description": "code of the card type according to code list",
-					"type": "string"
-				},
-				"cardValueType": {
-					"description": "code list for the cardValue provided",
-					"type": "string"
-				},
-				"cardName": {
-					"description": "card name for printing on fulfillments",
-					"type": "string"
-				},
-				"issuer": {
-					"description": "RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the codes must have at least 5 positions and start with x.",
-					"type": "string"
-				}
-			},
-			"required": [
-				"cardValue",
-				"cardValueType"
-			],
-			"additionalProperties": false
-		},
-		"ServiceClassDefinitionDef": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"$ref": "#/definitions/ServiceClassIdDef"
-				},
-				"textRef": {
-					"description": "id of the text describing the class within the offline data text list",
-					"type": "string"
-				},
-				"comfortClass": {
-					"$ref": "#/definitions/ComfortClassDef"
-				}
-			},
-			"required": [
-				"id"
-			],
-			"additionalProperties": false
-		},
-		"ComfortClassDef": {
-			"description": "Generic class classification, mostly used to harmonize choice and representation across multiple carriers",
-			"type": "string",
-			"enum": [
-				"FIRST",
-				"SECOND"
-			]
-		},
-		"FulfillmentMediaTypeDef": {
-			"description": "Fulfillment types. RCT2, RCCST and UIC-PDF are official UIC standards.",
-			"type": "string",
-			"enum": [
-				"RCT2",
-				"RCCST",
-				"UIC_PDF",
-				"PDF_A4",
-				"PKPASS",
-				"TICKETLESS",
-				"ALLOCATOR_APP",
-				"SOCIAL_MEDIA_ACCOUNTS"
-			]
-		},
-		"FulfillmentOption": {
-			"description": "CIT paper implies printing on value paper which is stock controlled.",
-			"type": "object",
-			"properties": {
-				"fulfillmentType": {
-					"type": "string",
-					"enum": [
-						"ETICKET",
-						"CIT_PAPER"
-					]
-				},
-				"media": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/FulfillmentMediaTypeDef"
-					}
-				}
-			}
-		},
-		"RegulatoryConditionsDef": {
-			"description": "regulatory condition",
-			"type": "array",
-			"items": {
-				"type": "string",
-				"enum": [
-					"CIV",
-					"MC",
-					"EU_PRR"
-				]
-			}
-		},
-		"LegacyAccountingIdentifierDef": {
-			"description": "identifier of the fare in the current 301 accounting file",
-			"type": "object",
-			"properties": {
-				"serialId": {
-					"description": "sequential number of regional validities",
-					"type": "integer",
-					"format": "int32",
-					"minimum": 0,
-					"maximum": 99999
-				},
-				"addId": {
-					"description": "sequential number of regional validities (leading positions in case the series is too short",
-					"type": "integer",
-					"format": "int32",
-					"minimum": 0,
-					"maximum": 99
-				},
-				"tariffId": {
-					"description": "sequential number of the fares for one regional validity",
-					"type": "integer",
-					"format": "int32",
-					"minimum": 0,
-					"maximum": 9999
-				}
-			},
-			"additionalProperties": false
-		},
-		"CalendarDef": {
-			"description": "calendar",
-			"type": "object",
-			"properties": {
-				"id": {
-					"description": "\\*** BULK-ONLY *** identification within the bulk data mandatory in bulk data exchange",
-					"type": "string"
-				},
-				"fromDate": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"untilDate": {
-					"type": "string",
-					"format": "date-time"
-				},
-				"dates": {
-					"description": "dates included in the calendar. In case no dates are provided the range is assumed to be valid",
-					"type": "array",
-					"items": {
-						"type": "string",
-						"format": "date-time"
-					}
-				},
-				"utcOffset": {
-					"description": "offset to UTC in minutes (number of minutes to be added to get UTC dates)",
-					"type": "integer",
-					"format": "int32"
-				}
-			}
-		},
-		"TimeUnitDef": {
-			"type": "string",
-			"enum": [
-				"DAYS",
-				"HOURS",
-				"MINUTES"
-			]
-		},
-		"TravelValidityConstraintDef": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"description": "mandatory in bulk data exchange",
-					"type": "string"
-				},
-				"validTravelDates": {
-					"$ref": "#/definitions/CalendarDef"
-				},
-				"validityRange": {
-					"type": "object",
-					"properties": {
-						"timeUnit": {
-							"$ref": "#/definitions/TimeUnitDef"
-						},
-						"value": {
-							"type": "number"
-						},
-						"hoursAfterMidnight": {
-							"description": "validity extended after midnight",
-							"type": "number"
-						}
-					},
-					"required": [
-						"timeUnit",
-						"value"
-					],
-					"additionalProperties": false
-				},
-				"excludedTimeRange": {
-					"description": "time ranges excluded from the validity (e.g. off peak fulfillments)",
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"from": {
-								"description": "minutes of the day in the time zone of travel",
-								"type": "integer",
-								"format": "int32"
-							},
-							"until": {
-								"description": "minutes of the day in the time zone of travel",
-								"type": "integer",
-								"format": "int32"
-							},
-							"scope": {
-								"description": "START_OF_TRAVEL,COMPLETE_RANGE",
-								"type": "string"
-							}
-						},
-						"required": [
-							"from",
-							"until",
-							"scope"
-						],
-						"additionalProperties": false
-					}
-				},
-				"numberOfTravelDays": {
-					"description": "number of allowed travel days (e.g. 3 travel days within 2 weeks)",
-					"type": "integer",
-					"format": "int32"
-				},
-				"returnConstraint": {
-					"description": "a return trip with the same carrier must be sold in combination",
-					"type": "object",
-					"properties": {
-						"latestReturn": {
-							"description": "number of days after departure or start of validity of the last return",
-							"type": "integer",
-							"format": "int32"
-						},
-						"earliestReturn": {
-							"description": "number of days after departure or start of validity of the earliest return",
-							"type": "integer",
-							"format": "int32"
-						},
-						"excludedWeekdays": {
-							"description": "weekdays (ISO day of the week, 1 = Monday) between travel and return where travel is not allowed",
-							"type": "array",
-							"items": {
-								"type": "integer",
-								"format": "int32"
-							}
-						}
-					},
-					"required": [
-						"latestReturn",
-						"earliestReturn"
-					],
-					"additionalProperties": false
-				}
-			},
-			"required": [
-				"validityRange"
-			],
-			"additionalProperties": false
-		},
-		"TravelerTypeDef": {
-			"description": "Subset of the values from the traveler type code list IRS 90918-10 ",
-			"type": "string"
-		},
-		"ReductionConstraintDef": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"description": "in bulk data only",
-					"type": "string"
-				},
-				"requiredCards": {
-					"description": "One of the listed cards is required to be valid at the time of travel.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ReductionCardReferenceDef"
-					}
-				}
-			},
-			"required": [
-				"requiredCards"
-			],
-			"additionalProperties": false
-		},
-		"CompanyDef": {
-			"description": "RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the  codes must have at least 5 positions and start with x",
-			"type": "string"
-		},
-		"FareCombinationModelDef": {
-			"type": "object",
-			"properties": {
-				"model": {
-					"description": "Possible models are SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.",
-					"type": "string"
-				},
-				"combinableCarrier": {
-					"description": "List of all carriers where the model can be applied, in case the list is empty all combinations are allowed.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/CompanyDef"
-					}
-				},
-				"onlyWhenCombined": {
-					"description": "This combination model applies only in case the fare is combined with another carrier",
-					"type": "boolean",
-					"default": false
-				},
-				"referenceCluster": {
-					"description": "In case of CLUSTERING model: the cluster to which the fare belongs",
-					"type": "string"
-				},
-				"allowedClusters": {
-					"description": "In case of CLUSTERING model: the other clusters that allow a combination",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"allowedAllocators": {
-					"description": "List of allowed allocators. If the list is empty all allocators with a sales contract are permitted.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/CompanyDef"
-					}
-				},
-				"allowedCommonContracts": {
-					"description": "List of carriers where a common contract with separate fulfillments are allowed.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/CompanyDef"
-					}
-				}
-			},
-			"required": [
-				"model"
-			],
-			"additionalProperties": false
-		},
-		"FareCombinationConstraintDef": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "string"
-				},
-				"combinationModels": {
-					"type": "array",
-					"minItems": 1,
-					"items": {
-						"$ref": "#/definitions/FareCombinationModelDef"
-					}
-				}
-			},
-			"required": [
-				"id",
-				"combinationModels"
-			],
-			"additionalProperties": false
-		},
 		"AfterSalesConditionDef": {
 			"type": "object",
 			"properties": {
@@ -546,60 +31,6 @@
 			"required": [
 				"id",
 				"afterSalesRules"
-			],
-			"additionalProperties": false
-		},
-		"PriceDef": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"description": "required for bulk data transfer",
-					"type": "string"
-				},
-				"price": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/CurrencyPriceDef"
-					}
-				}
-			},
-			"required": [
-				"price"
-			],
-			"additionalProperties": false
-		},
-		"RelativeTimeDef": {
-			"type": "object",
-			"properties": {
-				"timeUnit": {
-					"description": "Time unit in days, hours or minutes.",
-					"type": "string",
-					"enum": [
-						"DAYS",
-						"HOURS",
-						"MINUTES"
-					]
-				},
-				"timeValue": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"timeReference": {
-					"description": "Time reference.",
-					"type": "string",
-					"enum": [
-						"BEFORE_DEPARTURE",
-						"AFTER_DEPARTURE",
-						"AFTER_SALE",
-						"BEFORE_START_VALIDITY",
-						"AFTER_END_VALIDITY"
-					]
-				}
-			},
-			"required": [
-				"timeUnit",
-				"timeValue",
-				"timeReference"
 			],
 			"additionalProperties": false
 		},
@@ -641,274 +72,6 @@
 			],
 			"additionalProperties": false
 		},
-		"RegionalValidityDef": {
-			"type": "array",
-			"items": {
-				"description": "One of the elements Zone, ViaStation, TrainLink, Line, or Polygon defining the regional validity",
-				"type": "object",
-				"properties": {
-					"seqNb": {
-						"description": "order number of the list item",
-						"type": "integer",
-						"format": "int32"
-					},
-					"zone": {
-						"$ref": "#/definitions/ZoneDef"
-					},
-					"viaStations": {
-						"$ref": "#/definitions/ViaStationsDef"
-					},
-					"trainLink": {
-						"$ref": "#/definitions/TrainLinkDef"
-					},
-					"line": {
-						"$ref": "#/definitions/LineDef"
-					},
-					"polygon": {
-						"$ref": "#/definitions/PolygonDef"
-					},
-					"serviceConstraintRef": {
-						"type": "string"
-					}
-				},
-				"additionalProperties": false
-			}
-		},
-		"LineDef": {
-			"description": "terminalStation - in case the product requires a destination within the zone (e.g. local ticket  to go to the main rail station).  entryStation - Station to enter the zone in case the product requires to enter the zone via a  specific station (e.g. local zone ticket to start from the main rail station).",
-			"type": "object",
-			"properties": {
-				"binaryLineId": {
-					"description": "Id to support local traffic standards (e.g. VDV,...).",
-					"type": "string"
-				},
-				"carrier": {
-					"$ref": "#/definitions/CompanyDef"
-				},
-				"city": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"entryStation": {
-					"$ref": "#/definitions/StationDef"
-				},
-				"lineId": {
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"terminalStation": {
-					"$ref": "#/definitions/StationDef"
-				},
-				"nutsCode": {
-					"description": "Nomenclature des units territoriales statistiques  \n COMMISSION REGULATION (EU) No 31/2011",
-					"type": "string"
-				}
-			},
-			"required": [
-				"carrier"
-			],
-			"additionalProperties": false
-		},
-		"TrainLinkDef": {
-			"type": "object",
-			"properties": {
-				"fromStation": {
-					"$ref": "#/definitions/StationDef"
-				},
-				"toStation": {
-					"$ref": "#/definitions/StationDef"
-				},
-				"train": {
-					"type": "string"
-				},
-				"travelDate": {
-					"description": "date and time of the departure where the train link starts",
-					"type": "string",
-					"format": "date-time"
-				}
-			},
-			"required": [
-				"fromStation",
-				"toStation",
-				"train",
-				"travelDate"
-			],
-			"additionalProperties": false
-		},
-		"PolygonDef": {
-			"type": "object",
-			"properties": {
-				"edge": {
-					"type": "array",
-					"minItems": 1,
-					"items": {
-						"$ref": "#/definitions/GeoCoordinate"
-					}
-				}
-			},
-			"additionalProperties": false
-		},
-		"ViaStationsDef": {
-			"type": "object",
-			"properties": {
-				"isBorder": {
-					"type": "boolean",
-					"default": false
-				},
-				"routeId": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"seriesId": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"alternativeRoute": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ViaStationsDef"
-					}
-				},
-				"carrier": {
-					"$ref": "#/definitions/CompanyDef"
-				},
-				"route": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ViaStationsDef"
-					}
-				},
-				"serviceBrand": {
-					"description": "restriction to a specific service brand",
-					"type": "string"
-				},
-				"station": {
-					"$ref": "#/definitions/StationDef"
-				},
-				"fareReferenceStationSet": {
-					"description": "reference to a list of stations included in the fare",
-					"type": "object",
-					"properties": {
-						"carrier": {
-							"$ref": "#/definitions/CompanyDef"
-						},
-						"code": {
-							"type": "string"
-						},
-						"name": {
-							"type": "string"
-						}
-					},
-					"required": [
-						"carrier",
-						"code"
-					],
-					"additionalProperties": false
-				},
-				"serviceConstraintRef": {
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"ZoneDef": {
-			"description": "carrier - carrier responsible for the transport. entryStation - Station to enter the zone in case the product requires to enter the zone via a specific station (e.g. local zone ticket to start from the main rail station). terminalStation - Terminal station in case the product requires a destination within the zone (e.g. local ticket to go to the main rail station).",
-			"type": "object",
-			"properties": {
-				"binaryZoneId": {
-					"description": "Id to support local traffic standards (e.g. VDV,...)",
-					"type": "string",
-					"format": "base64"
-				},
-				"carrier": {
-					"$ref": "#/definitions/CompanyDef"
-				},
-				"city": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"entryStation": {
-					"$ref": "#/definitions/StationDef"
-				},
-				"terminalStation": {
-					"$ref": "#/definitions/StationDef"
-				},
-				"zoneIds": {
-					"description": "to be used in bar codes",
-					"type": "array",
-					"items": {
-						"type": "integer",
-						"format": "int32"
-					}
-				},
-				"nutsCode": {
-					"description": "Nomenclature des units territoriales statistiques COMMISSION REGULATION (EU) No 31/2011",
-					"type": "string"
-				}
-			},
-			"required": [
-				"carrier"
-			],
-			"additionalProperties": false
-		},
-		"FulfillmentConstraintDef": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "string"
-				},
-				"acceptedControlSecurityTypes": {
-					"type": "array",
-					"minItems": 1,
-					"items": {
-						"$ref": "#/definitions/ControlSecurityTypeDef"
-					}
-				},
-				"acceptedBarCodes": {
-					"description": "for SiD fulfillment one of the listed bar codes is required",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/BarCodeTypesDef"
-					}
-				},
-				"requiredBarCodes": {
-					"description": "One of the listed bar codes must be provided.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/BarCodeTypesDef"
-					}
-				},
-				"requiredSiS": {
-					"description": "To guarantee security in system (SiS) of the fulfillment one of the listed interfaces is required.",
-					"type": "array",
-					"items": {
-						"description": "Interface type to ticket control data. REGISTRY means submitting the data to the central UIC registry. PEER_TO_PEER means data exchange is handled between the two parties directly.",
-						"type": "string",
-						"enum": [
-							"REGISTRY",
-							"PEER_TO_PEER"
-						]
-					}
-				},
-				"individualTicketingPermitted": {
-					"description": "a separate fulfillment per traveler is permitted",
-					"type": "boolean",
-					"default": false
-				},
-				"separateFulfillmentRequired": {
-					"description": "a separate fulfillment for the regional constraint is required",
-					"type": "boolean",
-					"default": false
-				}
-			},
-			"required": [
-				"id",
-				"acceptedControlSecurityTypes"
-			],
-			"additionalProperties": false
-		},
 		"BarCodeTypesDef": {
 			"description": "Item according to IRS 90918-9: FCB, TLB, SSB",
 			"type": "string",
@@ -918,85 +81,23 @@
 				"SSB"
 			]
 		},
-		"PersonalDataConstraintDef": {
+		"CarrierConstraintDef": {
+			"description": "Either excluded or included carriers can be set.",
 			"type": "object",
 			"properties": {
 				"id": {
 					"type": "string"
 				},
-				"requiredData": {
+				"includedCarrier": {
 					"type": "array",
-					"minItems": 1,
 					"items": {
-						"type": "object",
-						"properties": {
-							"dataItem": {
-								"description": "see code list IRS 90918-10",
-								"type": "string"
-							},
-							"transfer": {
-								"description": "Transfer mode: BOOKING, SIS_CONTROL, SID_CONTROL.",
-								"type": "array",
-								"minItems": 1,
-								"items": {
-									"type": "string",
-									"enum": [
-										"BOOKING",
-										"SIS_CONTROL",
-										"SID_CONTROL"
-									]
-								}
-							},
-							"ticketHolderOnly": {
-								"type": "boolean",
-								"default": false
-							},
-							"crossBorder": {
-								"description": "the data are required only in case one of the cross border conditions apply",
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/CrossBorderConditionDef"
-								}
-							},
-							"fulfillmentType": {
-								"description": "type of fulfillment in case the personal data are required for that type only",
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/ControlSecurityTypeDef"
-								}
-							}
-						},
-						"required": [
-							"dataItem",
-							"transfer"
-						],
-						"additionalProperties": false
+						"type": "string"
 					}
 				},
-				"allowedChanges": {
+				"excludedCarrier": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"properties": {
-							"acceptedReason": {
-								"type": "string",
-								"enum": [
-									"IN_GENERAL",
-									"MARRIAGE",
-									"DOCUMENT_CHANGE",
-									"AGENT_ERROR"
-								]
-							},
-							"timeLimit": {
-								"description": "the change is limited to n hours after booking confirmation",
-								"type": "integer",
-								"format": "int32"
-							}
-						},
-						"required": [
-							"acceptedReason"
-						],
-						"additionalProperties": false
+						"type": "string"
 					}
 				}
 			},
@@ -1037,272 +138,84 @@
 				"SIS"
 			]
 		},
-		"LegacyReservationParameterDef": {
-			"description": "reservation parameter to support the UIC 90918-1 interface for booking",
-			"type": "object",
-			"properties": {
-				"travelClass": {
-					"description": "90918-1 class code in reservation",
-					"type": "string"
-				},
-				"serviceLevelCode": {
-					"description": "service level code defined in UIC 90918-1",
-					"type": "string"
-				},
-				"serviceCode": {
-					"description": "service code to be used in reservation",
-					"type": "string"
-				},
-				"berthType": {
-					"type": "string"
-				},
-				"coachTypeCode": {
-					"type": "string"
-				},
-				"compartmentTypeCode": {
-					"type": "string"
-				},
-				"tariff": {
-					"type": "string"
-				}
-			},
-			"required": [
-				"travelClass",
-				"serviceLevelCode",
-				"serviceCode"
-			],
-			"additionalProperties": false
-		},
-		"ReservationOptionGroupDef": {
-			"type": "object",
-			"properties": {
-				"preferenceGroup": {
-					"type": "string",
-					"example": "SEAT_DIRECTION"
-				},
-				"preferences": {
-					"type": "array",
-					"minItems": 1,
-					"items": {
-						"type": "string",
-						"example": "FORWARD_FACING"
-					}
-				}
-			},
-			"required": [
-				"preferenceGroup",
-				"preferences"
-			],
-			"additionalProperties": false
-		},
-		"CarrierConstraintDef": {
-			"description": "Either excluded or included carriers can be set.",
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "string"
-				},
-				"includedCarrier": {
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"excludedCarrier": {
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				}
-			},
-			"additionalProperties": false
-		},
-		"ServiceClassIdDef": {
-			"description": "Level of quality, finer grained than the comfort class.",
-			"type": "string",
-			"enum": [
-				"BEST",
-				"HIGH",
-				"STANDARD",
-				"BASIC"
-			]
-		},
-		"ServiceLevelDef": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"$ref": "#/definitions/ServiceLevelIdDef"
-				},
-				"combiningServiceClassIds": {
-					"description": "list of service class ids that can be combined with these service levels",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ServiceClassIdDef"
-					}
-				},
-				"textRef": {
-					"description": "id of the text describing the service level",
-					"type": "string"
-				},
-				"doesNotIncludeClassName": {
-					"description": "indicates that the class name is not included",
-					"type": "boolean",
-					"default": false
-				},
-				"reservationParameterId": {
-					"type": "string"
-				}
-			},
-			"required": [
-				"id",
-				"textRef"
-			],
-			"additionalProperties": false
-		},
-		"ServiceLevelIdDef": {
-			"description": "Code of the service level, code-list in IRS 90918-1.",
+		"CurrencyDef": {
+			"description": "ISO4217 currency codes",
 			"type": "string"
 		},
-		"ServiceConstraintDef": {
-			"description": "Either excluded or included service brands can be set.",
+		"CurrencyPriceDef": {
 			"type": "object",
+			"minProperties": 1,
 			"properties": {
-				"id": {
-					"type": "string"
+				"currency": {
+					"$ref": "#/definitions/CurrencyDef"
 				},
-				"includedServiceBrands": {
+				"amount": {
+					"description": "by default of the scale the amount in cents",
+					"type": "integer",
+					"format": "int32"
+				},
+				"scale": {
+					"description": "scale of the amount - the number of positions after the comma",
+					"type": "integer",
+					"format": "int32",
+					"default": 2
+				},
+				"vatDetails": {
 					"type": "array",
 					"items": {
-						"$ref": "#/definitions/ServiceBrandCodeDef"
+						"$ref": "#/definitions/VatDetailDef"
 					}
-				},
-				"excludedServiceBrands": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ServiceBrandCodeDef"
-					}
-				},
-				"legacyCode": {
-					"description": "id used in 108 as fake local station code ",
-					"type": "integer"
-				},
-				"textRef": {
-					"description": "id of the text describing the service constraint for the traveler",
-					"type": "string"
 				}
 			},
 			"required": [
-				"id"
+				"currency",
+				"amount"
 			],
 			"additionalProperties": false
 		},
-		"FareTypeDef": {
-			"description": "UIC fare types",
-			"type": "string",
-			"enum": [
-				"ADMISSION",
-				"RESERVATION",
-				"INTEGRATED_RESERVATION",
-				"ANCILLARY"
-			]
-		},
-		"RegionalConstraintDef": {
-			"description": "regional constraint of the fare-offline bulk data use the id of connection points whereas in an online environment the connection point is included",
+		"CalendarDef": {
+			"description": "calendar",
 			"type": "object",
 			"properties": {
 				"id": {
+					"description": "\\*** BULK-ONLY *** identification within the bulk data mandatory in bulk data exchange",
 					"type": "string"
 				},
-				"entryConnectionPointId": {
-					"description": "connection point connecting two fare regimes",
-					"type": "string"
+				"fromDate": {
+					"type": "string",
+					"format": "date-time"
 				},
-				"entryConnectionPoint": {
-					"$ref": "#/definitions/ConnectionPointDef"
+				"untilDate": {
+					"type": "string",
+					"format": "date-time"
 				},
-				"exitConnectionPointId": {
-					"description": "connection point connecting two fare regimes",
-					"type": "string"
+				"dates": {
+					"description": "dates included in the calendar. In case no dates are provided the range is assumed to be valid",
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "date-time"
+					}
 				},
-				"exitConnectionPoint": {
-					"$ref": "#/definitions/ConnectionPointDef"
-				},
-				"regionalValidity": {
-					"$ref": "#/definitions/RegionalValidityDef"
-				},
-				"distance": {
-					"description": "distance in km for statistics ",
+				"utcOffset": {
+					"description": "offset to UTC in minutes (number of minutes to be added to get UTC dates)",
 					"type": "integer",
 					"format": "int32"
 				}
 			},
-			"required": [
-				"regionalValidity"
-			],
 			"additionalProperties": false
 		},
-		"TranslationDef": {
-			"type": "object",
-			"properties": {
-				"language": {
-					"type": "string"
-				},
-				"textUtf8": {
-					"type": "string"
-				},
-				"text": {
-					"description": "text without special characters according to ICAO specification",
-					"type": "string"
-				},
-				"shortTextUtf8": {
-					"type": "string"
-				},
-				"shortText": {
-					"description": "text without special characters according to ICAO specification",
-					"type": "string"
-				}
-			},
-			"required": [
-				"language",
-				"textUtf8",
-				"text"
-			],
-			"additionalProperties": false
+		"CompanyDef": {
+			"description": "RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the  codes must have at least 5 positions and start with x",
+			"type": "string"
 		},
-		"TextDef": {
-			"description": "directly included text in case of online services",
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "string"
-				},
-				"textUtf8": {
-					"type": "string"
-				},
-				"translations": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/TranslationDef"
-					}
-				},
-				"text": {
-					"description": "text without special characters according to ICAO specification",
-					"type": "string"
-				},
-				"shortTextUtf8": {
-					"type": "string"
-				},
-				"shortText": {
-					"description": "text without special characters according to ICAO specification",
-					"type": "string"
-				}
-			},
-			"required": [
-				"id",
-				"textUtf8",
-				"text"
-			],
-			"additionalProperties": false
+		"ComfortClassDef": {
+			"description": "Generic class classification, mostly used to harmonize choice and representation across multiple carriers",
+			"type": "string",
+			"enum": [
+				"FIRST",
+				"SECOND"
+			]
 		},
 		"ConnectionPointDef": {
 			"description": "connection point connecting two fare regimes. The connection is possible between stations of the two provided station sets.",
@@ -1332,6 +245,227 @@
 				"stationSets"
 			],
 			"additionalProperties": false
+		},
+		"CarrierResourceLocationDef": {
+			"type": "object",
+			"properties": {
+				"carrier": {
+					"$ref": "#/definitions/CompanyDef"
+				},
+				"serviceBrandCode": {
+					"$ref": "#/definitions/ServiceBrandCodeDef"
+				},
+				"onlineResource": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/OnlineResourceDef"
+					}
+				}
+			},
+			"required": [
+				"carrier",
+				"onlineResource"
+			],
+			"additionalProperties": false
+		},
+		"FareDef": {
+			"description": "single fare within a blk fare data delivery",
+			"type": "object",
+			"properties": {
+				"id": {
+					"description": "unique id of the fare item to be included in accounting",
+					"type": "string"
+				},
+				"bundleRef": {
+					"type": "string"
+				},
+				"fareType": {
+					"$ref": "#/definitions/FareTypeDef"
+				},
+				"nameRef": {
+					"description": "reference to the fare name",
+					"type": "string"
+				},
+				"priceRef": {
+					"description": "reference to the price ",
+					"type": "string"
+				},
+				"regionalConstraintRef": {
+					"description": "reference to the regional validity",
+					"type": "string"
+				},
+				"serviceConstraintRef": {
+					"type": "string"
+				},
+				"carrierConstraintRef": {
+					"type": "string"
+				},
+				"regulatoryConditions": {
+					"$ref": "#/definitions/RegulatoryConditionsDef"
+				},
+				"serviceClassRef": {
+					"type": "string"
+				},
+				"serviceLevelRef": {
+					"type": "string"
+				},
+				"passengerConstraintRef": {
+					"type": "string"
+				},
+				"afterSalesRulesRef": {
+					"type": "string"
+				},
+				"reductionConstraintRef": {
+					"type": "string"
+				},
+				"reservationParameterRef": {
+					"type": "string"
+				},
+				"legacyAccountingIdentifier": {
+					"$ref": "#/definitions/LegacyAccountingIdentifierDef"
+				},
+				"fareDetailDescriptionRef": {
+					"description": "reference to a text with the details of the fare",
+					"type": "string"
+				},
+				"legacyConversion": {
+					"description": "options for legacy conversion to 108.1: NO ( no conversion) YES (conversion allowed), ONLY (fare is provided only for conversion and should not be used otherwise ",
+					"type": "string",
+					"default": "NO"
+				},
+				"individualContracts": {
+					"description": "indicates that the fare can be treated independently per person although booked for more than one person.",
+					"type": "boolean",
+					"default": false
+				}
+			},
+			"required": [
+				"id",
+				"bundleRef",
+				"fareType"
+			],
+			"additionalProperties": false
+		},
+		"FareConstraintBundle": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"combinationConstraintRef": {
+					"type": "string"
+				},
+				"salesAvailabilityConstraintRef": {
+					"type": "string"
+				},
+				"travelValidityConstraintRef": {
+					"type": "string"
+				},
+				"fulfillmentConstraintRef": {
+					"type": "string"
+				},
+				"personalDataConstraintRef": {
+					"type": "string"
+				},
+				"passengerCombinationConstraintRef": {
+					"type": "string"
+				},
+				"defaultFareType": {
+					"$ref": "#/definitions/FareTypeDef"
+				},
+				"defaultCarrierConstraintRef": {
+					"description": "CarrierConstraint",
+					"type": "string"
+				},
+				"defaultRegulatoryConditions": {
+					"$ref": "#/definitions/RegulatoryConditionsDef"
+				}
+			},
+			"required": [
+				"id",
+				"combinationConstraintRef",
+				"salesAvailabilityConstraintRef",
+				"travelValidityConstraintRef",
+				"defaultFareType"
+			],
+			"additionalProperties": false
+		},
+		"FareReferenceStationSetDef": {
+			"description": "set of stations used in the fare equivalently. E.g. Brussels-Region). The set is identified by the fare provider and a code unique within the fare provider.",
+			"type": "object",
+			"properties": {
+				"fareProvider": {
+					"$ref": "#/definitions/CompanyDef"
+				},
+				"code": {
+					"description": "code of the fare reference station set used in regional validity. Unique within the fare provider.",
+					"type": "string"
+				},
+				"stations": {
+					"type": "array",
+					"minItems": 2,
+					"uniqueItems": true,
+					"items": {
+						"$ref": "#/definitions/StationDef"
+					}
+				},
+				"legacyCode": {
+					"description": "id used in 108 as local station code ",
+					"type": "integer"
+				},
+				"name": {
+					"description": "name to be used in route descriptions",
+					"type": "string"
+				},
+				"nameUtf8": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"fareProvider",
+				"code",
+				"stations",
+				"legacyCode"
+			],
+			"additionalProperties": false
+		},
+		"FareResourceLocationDef": {
+			"description": "Locate the online services",
+			"type": "object",
+			"properties": {
+				"carrierLocations": {
+					"description": "Locating the online resource via the carrier provided in the time table.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/CarrierResourceLocationDef"
+					}
+				},
+				"trainLocations": {
+					"description": "Locating the online resource via the train from the time table.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/TrainResourceLocationDef"
+					}
+				},
+				"stationLocations": {
+					"description": "Locating the online resource via stations or connection points. The link is valid if start and end station (or connection points) provide the link.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/StationResourceLocationDef"
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"FareTypeDef": {
+			"description": "UIC fare types",
+			"type": "string",
+			"enum": [
+				"ADMISSION",
+				"RESERVATION",
+				"INTEGRATED_RESERVATION",
+				"ANCILLARY"
+			]
 		},
 		"FareDeliveryDef": {
 			"type": "object",
@@ -1567,6 +701,443 @@
 			],
 			"additionalProperties": false
 		},
+		"FareCombinationModelDef": {
+			"type": "object",
+			"properties": {
+				"model": {
+					"description": "Possible models are SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.",
+					"type": "string"
+				},
+				"combinableCarrier": {
+					"description": "List of all carriers where the model can be applied, in case the list is empty all combinations are allowed.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/CompanyDef"
+					}
+				},
+				"onlyWhenCombined": {
+					"description": "This combination model applies only in case the fare is combined with another carrier",
+					"type": "boolean",
+					"default": false
+				},
+				"referenceCluster": {
+					"description": "In case of CLUSTERING model: the cluster to which the fare belongs",
+					"type": "string"
+				},
+				"allowedClusters": {
+					"description": "In case of CLUSTERING model: the other clusters that allow a combination",
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"allowedAllocators": {
+					"description": "List of allowed allocators. If the list is empty all allocators with a sales contract are permitted.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/CompanyDef"
+					}
+				},
+				"allowedCommonContracts": {
+					"description": "List of carriers where a common contract with separate fulfillments are allowed.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/CompanyDef"
+					}
+				}
+			},
+			"required": [
+				"model"
+			],
+			"additionalProperties": false
+		},
+		"FareCombinationConstraintDef": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"combinationModels": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/FareCombinationModelDef"
+					}
+				}
+			},
+			"required": [
+				"id",
+				"combinationModels"
+			],
+			"additionalProperties": false
+		},
+		"FulfillmentMediaTypeDef": {
+			"description": "Fulfillment types. RCT2, RCCST and UIC-PDF are official UIC standards.",
+			"type": "string",
+			"enum": [
+				"RCT2",
+				"RCCST",
+				"UIC_PDF",
+				"PDF_A4",
+				"PKPASS",
+				"TICKETLESS",
+				"ALLOCATOR_APP",
+				"SOCIAL_MEDIA_ACCOUNTS"
+			]
+		},
+		"FulfillmentOption": {
+			"description": "CIT paper implies printing on value paper which is stock controlled.",
+			"type": "object",
+			"properties": {
+				"fulfillmentType": {
+					"type": "string",
+					"enum": [
+						"ETICKET",
+						"CIT_PAPER"
+					]
+				},
+				"media": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/FulfillmentMediaTypeDef"
+					}
+				}
+			}
+		},
+		"FulfillmentConstraintDef": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"acceptedControlSecurityTypes": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/ControlSecurityTypeDef"
+					}
+				},
+				"acceptedBarCodes": {
+					"description": "for SiD fulfillment one of the listed bar codes is required",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/BarCodeTypesDef"
+					}
+				},
+				"requiredBarCodes": {
+					"description": "One of the listed bar codes must be provided.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/BarCodeTypesDef"
+					}
+				},
+				"requiredSiS": {
+					"description": "To guarantee security in system (SiS) of the fulfillment one of the listed interfaces is required.",
+					"type": "array",
+					"items": {
+						"description": "Interface type to ticket control data. REGISTRY means submitting the data to the central UIC registry. PEER_TO_PEER means data exchange is handled between the two parties directly.",
+						"type": "string",
+						"enum": [
+							"REGISTRY",
+							"PEER_TO_PEER"
+						]
+					}
+				},
+				"individualTicketingPermitted": {
+					"description": "a separate fulfillment per traveler is permitted",
+					"type": "boolean",
+					"default": false
+				},
+				"separateFulfillmentRequired": {
+					"description": "a separate fulfillment for the regional constraint is required",
+					"type": "boolean",
+					"default": false
+				}
+			},
+			"required": [
+				"id",
+				"acceptedControlSecurityTypes"
+			],
+			"additionalProperties": false
+		},
+		"GeoCoordinate": {
+			"description": "Used to provide any geo-encoded location, regardless of environment, using longitude and latitude coordinates.",
+			"type": "object",
+			"properties": {
+				"system": {
+					"description": "geo coordinate system indication: \n - WGS84 = WGS 84 standard system,\n - GRS80 = (outdated) GRS 80 coordinate system",
+					"type": "string",
+					"enum": [
+						"WGS84",
+						"GRS80"
+					],
+					"default": "WGS84"
+				},
+				"accuracy": {
+					"description": "to be provided in degree.",
+					"type": "number",
+					"format": "float"
+				},
+				"latitude": {
+					"description": "Geographic coordinate that specifies the north-south position of a point on the earths surface",
+					"type": "number",
+					"format": "float",
+					"example": 46.948825
+				},
+				"longitude": {
+					"description": "Geographic coordinate that specifies the east-west position of a point on the earths surface.            ",
+					"type": "number",
+					"format": "float",
+					"example": 7.439122
+				}
+			},
+			"required": [
+				"latitude",
+				"longitude"
+			],
+			"additionalProperties": false
+		},
+		"LegacyAccountingIdentifierDef": {
+			"description": "identifier of the fare in the current 301 accounting file",
+			"type": "object",
+			"properties": {
+				"serialId": {
+					"description": "sequential number of regional validities",
+					"type": "integer",
+					"format": "int32",
+					"minimum": 0,
+					"maximum": 99999
+				},
+				"addId": {
+					"description": "sequential number of regional validities (leading positions in case the series is too short",
+					"type": "integer",
+					"format": "int32",
+					"minimum": 0,
+					"maximum": 99
+				},
+				"tariffId": {
+					"description": "sequential number of the fares for one regional validity",
+					"type": "integer",
+					"format": "int32",
+					"minimum": 0,
+					"maximum": 9999
+				}
+			},
+			"additionalProperties": false
+		},
+		"LegacyReservationParameterDef": {
+			"description": "reservation parameter to support the UIC 90918-1 interface for booking",
+			"type": "object",
+			"properties": {
+				"travelClass": {
+					"description": "90918-1 class code in reservation",
+					"type": "string"
+				},
+				"serviceLevelCode": {
+					"description": "service level code defined in UIC 90918-1",
+					"type": "string"
+				},
+				"serviceCode": {
+					"description": "service code to be used in reservation",
+					"type": "string"
+				},
+				"berthType": {
+					"type": "string"
+				},
+				"coachTypeCode": {
+					"type": "string"
+				},
+				"compartmentTypeCode": {
+					"type": "string"
+				},
+				"tariff": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"travelClass",
+				"serviceLevelCode",
+				"serviceCode"
+			],
+			"additionalProperties": false
+		},
+		"LineDef": {
+			"description": "terminalStation - in case the product requires a destination within the zone (e.g. local ticket  to go to the main rail station).  entryStation - Station to enter the zone in case the product requires to enter the zone via a  specific station (e.g. local zone ticket to start from the main rail station).",
+			"type": "object",
+			"properties": {
+				"binaryLineId": {
+					"description": "Id to support local traffic standards (e.g. VDV,...).",
+					"type": "string"
+				},
+				"carrier": {
+					"$ref": "#/definitions/CompanyDef"
+				},
+				"city": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"entryStation": {
+					"$ref": "#/definitions/StationDef"
+				},
+				"lineId": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"terminalStation": {
+					"$ref": "#/definitions/StationDef"
+				},
+				"nutsCode": {
+					"description": "Nomenclature des units territoriales statistiques  \n COMMISSION REGULATION (EU) No 31/2011",
+					"type": "string"
+				}
+			},
+			"required": [
+				"carrier"
+			],
+			"additionalProperties": false
+		},
+		"OnlineResourceDef": {
+			"type": "object",
+			"properties": {
+				"offerType": {
+					"description": "The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not split between a train run. Values TRAIN, AREA",
+					"type": "string"
+				},
+				"interfaceType": {
+					"description": "GTM,...",
+					"type": "string"
+				},
+				"version": {
+					"type": "string"
+				},
+				"system": {
+					"description": "system where the offer can be found (e.r. for TAP-TSI-B5 the reservation system code)",
+					"type": "string"
+				}
+			},
+			"required": [
+				"interfaceType"
+			],
+			"additionalProperties": false
+		},
+		"PriceDef": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"description": "required for bulk data transfer",
+					"type": "string"
+				},
+				"price": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/CurrencyPriceDef"
+					}
+				}
+			},
+			"required": [
+				"price"
+			],
+			"additionalProperties": false
+		},
+		"PolygonDef": {
+			"type": "object",
+			"properties": {
+				"edge": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/GeoCoordinate"
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"PersonalDataConstraintDef": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"requiredData": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "object",
+						"properties": {
+							"dataItem": {
+								"description": "see code list IRS 90918-10",
+								"type": "string"
+							},
+							"transfer": {
+								"description": "Transfer mode: BOOKING, SIS_CONTROL, SID_CONTROL.",
+								"type": "array",
+								"minItems": 1,
+								"items": {
+									"type": "string",
+									"enum": [
+										"BOOKING",
+										"SIS_CONTROL",
+										"SID_CONTROL"
+									]
+								}
+							},
+							"ticketHolderOnly": {
+								"type": "boolean",
+								"default": false
+							},
+							"crossBorder": {
+								"description": "the data are required only in case one of the cross border conditions apply",
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/CrossBorderConditionDef"
+								}
+							},
+							"fulfillmentType": {
+								"description": "type of fulfillment in case the personal data are required for that type only",
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/ControlSecurityTypeDef"
+								}
+							}
+						},
+						"required": [
+							"dataItem",
+							"transfer"
+						],
+						"additionalProperties": false
+					}
+				},
+				"allowedChanges": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"acceptedReason": {
+								"type": "string",
+								"enum": [
+									"IN_GENERAL",
+									"MARRIAGE",
+									"DOCUMENT_CHANGE",
+									"AGENT_ERROR"
+								]
+							},
+							"timeLimit": {
+								"description": "the change is limited to n hours after booking confirmation",
+								"type": "integer",
+								"format": "int32"
+							}
+						},
+						"required": [
+							"acceptedReason"
+						],
+						"additionalProperties": false
+					}
+				}
+			},
+			"additionalProperties": false
+		},
 		"PassengerCombinationConstraintDef": {
 			"type": "object",
 			"properties": {
@@ -1678,36 +1249,161 @@
 			],
 			"additionalProperties": false
 		},
-		"SalesAvailabilityConstraintDef": {
+		"ReductionCardReferenceDef": {
+			"type": "object",
+			"properties": {
+				"cardValue": {
+					"description": "code of the card type according to code list",
+					"type": "string"
+				},
+				"cardValueType": {
+					"description": "code list for the cardValue provided",
+					"type": "string"
+				},
+				"cardName": {
+					"description": "card name for printing on fulfillments",
+					"type": "string"
+				},
+				"issuer": {
+					"description": "RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the codes must have at least 5 positions and start with x.",
+					"type": "string"
+				}
+			},
+			"required": [
+				"cardValue",
+				"cardValueType"
+			],
+			"additionalProperties": false
+		},
+		"ReductionConstraintDef": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"description": "in bulk data only",
+					"type": "string"
+				},
+				"requiredCards": {
+					"description": "One of the listed cards is required to be valid at the time of travel.",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ReductionCardReferenceDef"
+					}
+				}
+			},
+			"required": [
+				"requiredCards"
+			],
+			"additionalProperties": false
+		},
+		"RegulatoryConditionsDef": {
+			"description": "regulatory condition",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"CIV",
+					"MC",
+					"EU_PRR"
+				]
+			}
+		},
+		"RelativeTimeDef": {
+			"type": "object",
+			"properties": {
+				"timeUnit": {
+					"description": "Time unit in days, hours or minutes.",
+					"type": "string",
+					"enum": [
+						"DAYS",
+						"HOURS",
+						"MINUTES"
+					]
+				},
+				"timeValue": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"timeReference": {
+					"description": "Time reference.",
+					"type": "string",
+					"enum": [
+						"BEFORE_DEPARTURE",
+						"AFTER_DEPARTURE",
+						"AFTER_SALE",
+						"BEFORE_START_VALIDITY",
+						"AFTER_END_VALIDITY"
+					]
+				}
+			},
+			"required": [
+				"timeUnit",
+				"timeValue",
+				"timeReference"
+			],
+			"additionalProperties": false
+		},
+		"RegionalValidityDef": {
+			"type": "array",
+			"items": {
+				"description": "One of the elements Zone, ViaStation, TrainLink, Line, or Polygon defining the regional validity",
+				"type": "object",
+				"properties": {
+					"seqNb": {
+						"description": "order number of the list item",
+						"type": "integer",
+						"format": "int32"
+					},
+					"zone": {
+						"$ref": "#/definitions/ZoneDef"
+					},
+					"viaStations": {
+						"$ref": "#/definitions/ViaStationsDef"
+					},
+					"trainLink": {
+						"$ref": "#/definitions/TrainLinkDef"
+					},
+					"line": {
+						"$ref": "#/definitions/LineDef"
+					},
+					"polygon": {
+						"$ref": "#/definitions/PolygonDef"
+					},
+					"serviceConstraintRef": {
+						"type": "string"
+					}
+				},
+				"additionalProperties": false
+			}
+		},
+		"RegionalConstraintDef": {
+			"description": "regional constraint of the fare-offline bulk data use the id of connection points whereas in an online environment the connection point is included",
 			"type": "object",
 			"properties": {
 				"id": {
 					"type": "string"
 				},
-				"salesRestrictions": {
-					"type": "array",
-					"minItems": 1,
-					"items": {
-						"type": "object",
-						"properties": {
-							"startOfSale": {
-								"$ref": "#/definitions/RelativeTimeDef"
-							},
-							"endOfSale": {
-								"$ref": "#/definitions/RelativeTimeDef"
-							},
-							"salesDatesRef": {
-								"description": "reference to the calendar with valid sales dates",
-								"type": "string"
-							}
-						},
-						"additionalProperties": false
-					}
+				"entryConnectionPointId": {
+					"description": "connection point connecting two fare regimes",
+					"type": "string"
+				},
+				"exitConnectionPointId": {
+					"description": "connection point connecting two fare regimes",
+					"type": "string"
+				},
+				"exitConnectionPoint": {
+					"$ref": "#/definitions/ConnectionPointDef"
+				},
+				"regionalValidity": {
+					"$ref": "#/definitions/RegionalValidityDef"
+				},
+				"distance": {
+					"description": "distance in km for statistics ",
+					"type": "integer",
+					"format": "int32"
 				}
 			},
 			"required": [
-				"id",
-				"salesRestrictions"
+				"regionalValidity"
 			],
 			"additionalProperties": false
 		},
@@ -1769,28 +1465,6 @@
 			],
 			"additionalProperties": false
 		},
-		"CarrierResourceLocationDef": {
-			"type": "object",
-			"properties": {
-				"carrier": {
-					"$ref": "#/definitions/CompanyDef"
-				},
-				"serviceBrandCode": {
-					"$ref": "#/definitions/ServiceBrandCodeDef"
-				},
-				"onlineResource": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/OnlineResourceDef"
-					}
-				}
-			},
-			"required": [
-				"carrier",
-				"onlineResource"
-			],
-			"additionalProperties": false
-		},
 		"ReductionCardDef": {
 			"type": "object",
 			"properties": {
@@ -1800,9 +1474,6 @@
 				"id": {
 					"description": "id of the card type within the issuer",
 					"type": "string"
-				},
-				"name": {
-					"$ref": "#/definitions/TextDef"
 				},
 				"nameRef": {
 					"description": "referenced text in bulk data",
@@ -1834,179 +1505,115 @@
 			},
 			"required": [
 				"issuer",
-				"name",
 				"id"
 			],
 			"additionalProperties": false
 		},
-		"FareDef": {
-			"description": "single fare within a blk fare data delivery",
+		"ReservationOptionGroupDef": {
+			"type": "object",
+			"properties": {
+				"preferenceGroup": {
+					"type": "string",
+					"example": "SEAT_DIRECTION"
+				},
+				"preferences": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "string",
+						"example": "FORWARD_FACING"
+					}
+				}
+			},
+			"required": [
+				"preferenceGroup",
+				"preferences"
+			],
+			"additionalProperties": false
+		},
+		"ServiceClassDefinitionDef": {
 			"type": "object",
 			"properties": {
 				"id": {
-					"description": "unique id of the fare item to be included in accounting",
+					"$ref": "#/definitions/ServiceClassIdDef"
+				},
+				"textRef": {
+					"description": "id of the text describing the class within the offline data text list",
 					"type": "string"
 				},
-				"bundleRef": {
+				"comfortClass": {
+					"$ref": "#/definitions/ComfortClassDef"
+				}
+			},
+			"required": [
+				"id"
+			],
+			"additionalProperties": false
+		},
+		"SalesAvailabilityConstraintDef": {
+			"type": "object",
+			"properties": {
+				"id": {
 					"type": "string"
 				},
-				"fareType": {
-					"$ref": "#/definitions/FareTypeDef"
-				},
-				"nameRef": {
-					"description": "reference to the fare name",
-					"type": "string"
-				},
-				"priceRef": {
-					"description": "reference to the price ",
-					"type": "string"
-				},
-				"regionalConstraintRef": {
-					"description": "reference to the regional validity",
-					"type": "string"
-				},
-				"serviceConstraintRef": {
-					"type": "string"
-				},
-				"carrierConstraintRef": {
-					"type": "string"
-				},
-				"regulatoryConditions": {
-					"$ref": "#/definitions/RegulatoryConditionsDef"
-				},
-				"serviceClassRef": {
-					"type": "string"
-				},
-				"serviceLevelRef": {
-					"type": "string"
-				},
-				"passengerConstraintRef": {
-					"type": "string"
-				},
-				"afterSalesRulesRef": {
-					"type": "string"
-				},
-				"reductionConstraintRef": {
-					"type": "string"
-				},
-				"reservationParameterRef": {
-					"type": "string"
-				},
-				"legacyAccountingIdentifier": {
-					"$ref": "#/definitions/LegacyAccountingIdentifierDef"
-				},
-				"fareDetailDescriptionRef": {
-					"description": "reference to a text with the details of the fare",
-					"type": "string"
-				},
-				"legacyConversion": {
-					"description": "options for legacy conversion to 108.1: NO ( no conversion) YES (conversion allowed), ONLY (fare is provided only for conversion and should not be used otherwise ",
-					"type": "string",
-					"default": "NO"
-				},
-				"individualContracts": {
-					"description": "indicates that the fare can be treated independently per person although booked for more than one person.",
-					"type": "boolean",
-					"default": false
+				"salesRestrictions": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "object",
+						"properties": {
+							"startOfSale": {
+								"$ref": "#/definitions/RelativeTimeDef"
+							},
+							"endOfSale": {
+								"$ref": "#/definitions/RelativeTimeDef"
+							},
+							"salesDatesRef": {
+								"description": "reference to the calendar with valid sales dates",
+								"type": "string"
+							}
+						},
+						"additionalProperties": false
+					}
 				}
 			},
 			"required": [
 				"id",
-				"bundleRef",
-				"fareType"
+				"salesRestrictions"
 			],
 			"additionalProperties": false
 		},
-		"FareReferenceStationSetDef": {
-			"description": "set of stations used in the fare equivalently. E.g. Brussels-Region). The set is identified by the fare provider and a code unique within the fare provider.",
+		"StationDef": {
+			"description": "Used to represent a station location. This is a location that can be used as origin and destination for a train journey",
 			"type": "object",
 			"properties": {
-				"fareProvider": {
-					"$ref": "#/definitions/CompanyDef"
+				"codeList": {
+					"$ref": "#/definitions/StationCodeListDef"
 				},
 				"code": {
-					"description": "code of the fare reference station set used in regional validity. Unique within the fare provider.",
+					"description": "the code representing the station in the specified code-list",
 					"type": "string"
 				},
-				"stations": {
-					"type": "array",
-					"minItems": 2,
-					"uniqueItems": true,
-					"items": {
-						"$ref": "#/definitions/StationDef"
-					}
-				},
-				"legacyCode": {
-					"description": "id used in 108 as local station code ",
-					"type": "integer"
+				"country": {
+					"$ref": "#/definitions/CountryDef"
 				},
 				"name": {
-					"description": "name to be used in route descriptions",
-					"type": "string"
+					"$ref": "#/definitions/TextDef"
 				},
-				"nameUtf8": {
-					"type": "string"
+				"geoCoordinate": {
+					"$ref": "#/definitions/GeoCoordinate"
 				}
 			},
 			"required": [
-				"fareProvider",
 				"code",
-				"stations",
-				"legacyCode"
+				"country"
 			],
 			"additionalProperties": false
 		},
-		"FareResourceLocationDef": {
-			"description": "Locate the online services",
-			"type": "object",
-			"properties": {
-				"carrierLocations": {
-					"description": "Locating the online resource via the carrier provided in the time table.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/CarrierResourceLocationDef"
-					}
-				},
-				"trainLocations": {
-					"description": "Locating the online resource via the train from the time table.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/TrainResourceLocationDef"
-					}
-				},
-				"stationLocations": {
-					"description": "Locating the online resource via stations or connection points. The link is valid if start and end station (or connection points) provide the link.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/StationResourceLocationDef"
-					}
-				}
-			},
-			"additionalProperties": false
-		},
-		"OnlineResourceDef": {
-			"type": "object",
-			"properties": {
-				"offerType": {
-					"description": "The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not split between a train run. Values TRAIN, AREA",
-					"type": "string"
-				},
-				"interfaceType": {
-					"description": "GTM,...",
-					"type": "string"
-				},
-				"version": {
-					"type": "string"
-				},
-				"system": {
-					"description": "system where the offer can be found (e.r. for TAP-TSI-B5 the reservation system code)",
-					"type": "string"
-				}
-			},
-			"required": [
-				"interfaceType"
-			],
-			"additionalProperties": false
+		"StationCodeListDef": {
+			"description": "Code list used for the station codes: UIC = UIC codes as used by merits (UIC country code + local code) = Default/ UIC-R = UIC codes for reservation (UIC country code + local code reservation) / ERA = future ERA station code",
+			"type": "string",
+			"default": "UIC"
 		},
 		"StationNamesDef": {
 			"description": "station names included temporarily until MERITS can provide the names",
@@ -2069,6 +1676,290 @@
 			],
 			"additionalProperties": false
 		},
+		"ServiceBrandCodeDef": {
+			"description": "Service brand codes allowed in response, code list can be found on  [https:/uic.org/passenger/passenger-services-group/article/service-brand-code-list] (https:/uic.org/passenger/passenger-services-group/article/service-brand-code-list)",
+			"type": "integer",
+			"format": "int32"
+		},
+		"ServiceClassIdDef": {
+			"description": "Level of quality, finer grained than the comfort class.",
+			"type": "string",
+			"enum": [
+				"BEST",
+				"HIGH",
+				"STANDARD",
+				"BASIC"
+			]
+		},
+		"ServiceLevelDef": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"$ref": "#/definitions/ServiceLevelIdDef"
+				},
+				"combiningServiceClassIds": {
+					"description": "list of service class ids that can be combined with these service levels",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ServiceClassIdDef"
+					}
+				},
+				"textRef": {
+					"description": "id of the text describing the service level",
+					"type": "string"
+				},
+				"doesNotIncludeClassName": {
+					"description": "indicates that the class name is not included",
+					"type": "boolean",
+					"default": false
+				},
+				"reservationParameterId": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"id",
+				"textRef"
+			],
+			"additionalProperties": false
+		},
+		"ServiceLevelIdDef": {
+			"description": "Code of the service level, code-list in IRS 90918-1.",
+			"type": "string"
+		},
+		"ServiceConstraintDef": {
+			"description": "Either excluded or included service brands can be set.",
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"includedServiceBrands": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ServiceBrandCodeDef"
+					}
+				},
+				"excludedServiceBrands": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ServiceBrandCodeDef"
+					}
+				},
+				"legacyCode": {
+					"description": "id used in 108 as fake local station code ",
+					"type": "integer"
+				},
+				"textRef": {
+					"description": "id of the text describing the service constraint for the traveler",
+					"type": "string"
+				}
+			},
+			"required": [
+				"id"
+			],
+			"additionalProperties": false
+		},
+		"TranslationDef": {
+			"type": "object",
+			"properties": {
+				"language": {
+					"type": "string"
+				},
+				"textUtf8": {
+					"type": "string"
+				},
+				"text": {
+					"description": "text without special characters according to ICAO specification",
+					"type": "string"
+				},
+				"shortTextUtf8": {
+					"type": "string"
+				},
+				"shortText": {
+					"description": "text without special characters according to ICAO specification",
+					"type": "string"
+				}
+			},
+			"required": [
+				"language",
+				"textUtf8",
+				"text"
+			],
+			"additionalProperties": false
+		},
+		"TextDef": {
+			"description": "directly included text in case of online services",
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"textUtf8": {
+					"type": "string"
+				},
+				"translations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/TranslationDef"
+					}
+				},
+				"text": {
+					"description": "text without special characters according to ICAO specification",
+					"type": "string"
+				},
+				"shortTextUtf8": {
+					"type": "string"
+				},
+				"shortText": {
+					"description": "text without special characters according to ICAO specification",
+					"type": "string"
+				}
+			},
+			"required": [
+				"id",
+				"textUtf8",
+				"text"
+			],
+			"additionalProperties": false
+		},
+		"TimeUnitDef": {
+			"type": "string",
+			"enum": [
+				"DAYS",
+				"HOURS",
+				"MINUTES"
+			]
+		},
+		"TravelValidityConstraintDef": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"description": "mandatory in bulk data exchange",
+					"type": "string"
+				},
+				"validTravelDates": {
+					"$ref": "#/definitions/CalendarDef"
+				},
+				"validityRange": {
+					"type": "object",
+					"properties": {
+						"timeUnit": {
+							"$ref": "#/definitions/TimeUnitDef"
+						},
+						"value": {
+							"type": "number"
+						},
+						"hoursAfterMidnight": {
+							"description": "validity extended after midnight",
+							"type": "number"
+						}
+					},
+					"required": [
+						"timeUnit",
+						"value"
+					],
+					"additionalProperties": false
+				},
+				"excludedTimeRange": {
+					"description": "time ranges excluded from the validity (e.g. off peak fulfillments)",
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"from": {
+								"description": "minutes of the day in the time zone of travel",
+								"type": "integer",
+								"format": "int32"
+							},
+							"until": {
+								"description": "minutes of the day in the time zone of travel",
+								"type": "integer",
+								"format": "int32"
+							},
+							"scope": {
+								"description": "START_OF_TRAVEL,COMPLETE_RANGE",
+								"type": "string"
+							}
+						},
+						"required": [
+							"from",
+							"until",
+							"scope"
+						],
+						"additionalProperties": false
+					}
+				},
+				"numberOfTravelDays": {
+					"description": "number of allowed travel days (e.g. 3 travel days within 2 weeks)",
+					"type": "integer",
+					"format": "int32"
+				},
+				"returnConstraint": {
+					"description": "a return trip with the same carrier must be sold in combination",
+					"type": "object",
+					"properties": {
+						"latestReturn": {
+							"description": "number of days after departure or start of validity of the last return",
+							"type": "integer",
+							"format": "int32"
+						},
+						"earliestReturn": {
+							"description": "number of days after departure or start of validity of the earliest return",
+							"type": "integer",
+							"format": "int32"
+						},
+						"excludedWeekdays": {
+							"description": "weekdays (ISO day of the week, 1 = Monday) between travel and return where travel is not allowed",
+							"type": "array",
+							"items": {
+								"type": "integer",
+								"format": "int32"
+							}
+						}
+					},
+					"required": [
+						"latestReturn",
+						"earliestReturn"
+					],
+					"additionalProperties": false
+				}
+			},
+			"required": [
+				"validityRange"
+			],
+			"additionalProperties": false
+		},
+		"TravelerTypeDef": {
+			"description": "Subset of the values from the traveler type code list IRS 90918-10 ",
+			"type": "string"
+		},
+		"TrainLinkDef": {
+			"type": "object",
+			"properties": {
+				"fromStation": {
+					"$ref": "#/definitions/StationDef"
+				},
+				"toStation": {
+					"$ref": "#/definitions/StationDef"
+				},
+				"train": {
+					"type": "string"
+				},
+				"travelDate": {
+					"description": "date and time of the departure where the train link starts",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"fromStation",
+				"toStation",
+				"train",
+				"travelDate"
+			],
+			"additionalProperties": false
+		},
 		"TrainResourceLocationDef": {
 			"type": "object",
 			"properties": {
@@ -2090,6 +1981,156 @@
 				"carrier",
 				"trainId",
 				"onlineResource"
+			],
+			"additionalProperties": false
+		},
+		"ViaStationsDef": {
+			"type": "object",
+			"properties": {
+				"isBorder": {
+					"type": "boolean",
+					"default": false
+				},
+				"routeId": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"seriesId": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"alternativeRoute": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ViaStationsDef"
+					}
+				},
+				"carrier": {
+					"$ref": "#/definitions/CompanyDef"
+				},
+				"route": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ViaStationsDef"
+					}
+				},
+				"serviceBrand": {
+					"description": "restriction to a specific service brand",
+					"type": "string"
+				},
+				"station": {
+					"$ref": "#/definitions/StationDef"
+				},
+				"fareReferenceStationSet": {
+					"description": "reference to a list of stations included in the fare",
+					"type": "object",
+					"properties": {
+						"carrier": {
+							"$ref": "#/definitions/CompanyDef"
+						},
+						"code": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"carrier",
+						"code"
+					],
+					"additionalProperties": false
+				},
+				"serviceConstraintRef": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"VatDetailDef": {
+			"type": "object",
+			"properties": {
+				"country": {
+					"$ref": "#/definitions/CountryDef",
+					"description": "by default of the scale the amount in cents",
+					"type": "integer",
+					"format": "int32"
+				},
+				"amount": {
+					"description": "by default of the scale the amount in cents",
+					"type": "integer",
+					"format": "int32"
+				},
+				"scale": {
+					"description": "scale of the amount - the number of positions after the comma",
+					"type": "integer",
+					"format": "int32",
+					"default": 2
+				},
+				"percentage": {
+					"type": "number",
+					"format": "float"
+				},
+				"taxId": {
+					"type": "string"
+				},
+				"scope": {
+					"$ref": "#/definitions/VatScopeDef"
+				}
+			},
+			"required": [
+				"country",
+				"amount"
+			],
+			"additionalProperties": false
+		},
+		"VatScopeDef": {
+			"description": "scope where the VAT applies",
+			"type": "string",
+			"enum": [
+				"INTERNATIONAL",
+				"NATIONAL",
+				"SHORT_DISTANCE",
+				"LONG_DISTANCE"
+			]
+		},
+		"ZoneDef": {
+			"description": "carrier - carrier responsible for the transport. entryStation - Station to enter the zone in case the product requires to enter the zone via a specific station (e.g. local zone ticket to start from the main rail station). terminalStation - Terminal station in case the product requires a destination within the zone (e.g. local ticket to go to the main rail station).",
+			"type": "object",
+			"properties": {
+				"binaryZoneId": {
+					"description": "Id to support local traffic standards (e.g. VDV,...)",
+					"type": "string",
+					"contentEncoding": "base64"
+				},
+				"carrier": {
+					"$ref": "#/definitions/CompanyDef"
+				},
+				"city": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"entryStation": {
+					"$ref": "#/definitions/StationDef"
+				},
+				"terminalStation": {
+					"$ref": "#/definitions/StationDef"
+				},
+				"zoneIds": {
+					"description": "to be used in bar codes",
+					"type": "array",
+					"items": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"nutsCode": {
+					"description": "Nomenclature des units territoriales statistiques COMMISSION REGULATION (EU) No 31/2011",
+					"type": "string"
+				}
+			},
+			"required": [
+				"carrier"
 			],
 			"additionalProperties": false
 		},
@@ -2128,50 +2169,6 @@
 			"required": [
 				"carrier",
 				"zoneId"
-			],
-			"additionalProperties": false
-		},
-		"FareConstraintBundle": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "string"
-				},
-				"combinationConstraintRef": {
-					"type": "string"
-				},
-				"salesAvailabilityConstraintRef": {
-					"type": "string"
-				},
-				"travelValidityConstraintRef": {
-					"type": "string"
-				},
-				"fulfillmentConstraintRef": {
-					"type": "string"
-				},
-				"personalDataConstraintRef": {
-					"type": "string"
-				},
-				"passengerCombinationConstraintRef": {
-					"type": "string"
-				},
-				"defaultFareType": {
-					"$ref": "#/definitions/FareTypeDef"
-				},
-				"defaultCarrierConstraintRef": {
-					"description": "CarrierConstraint",
-					"type": "string"
-				},
-				"defaultRegulatoryConditions": {
-					"$ref": "#/definitions/RegulatoryConditionsDef"
-				}
-			},
-			"required": [
-				"id",
-				"combinationConstraintRef",
-				"salesAvailabilityConstraintRef",
-				"travelValidityConstraintRef",
-				"defaultFareType"
 			],
 			"additionalProperties": false
 		}

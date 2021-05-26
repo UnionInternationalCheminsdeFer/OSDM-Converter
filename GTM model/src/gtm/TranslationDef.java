@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "language",
-    "textUTF8",
+    "textUtf8",
     "text",
     "shortTextUtf8",
     "shortText"
@@ -28,8 +28,8 @@ public class TranslationDef {
      * (Required)
      * 
      */
-    @JsonProperty("textUTF8")
-    private String textUTF8;
+    @JsonProperty("textUtf8")
+    private String textUtf8;
     /**
      * text without special characters according to ICAO specification
      * (Required)
@@ -73,9 +73,9 @@ public class TranslationDef {
      * (Required)
      * 
      */
-    @JsonProperty("textUTF8")
-    public String getTextUTF8() {
-        return textUTF8;
+    @JsonProperty("textUtf8")
+    public String getTextUtf8() {
+        return textUtf8;
     }
 
     /**
@@ -83,9 +83,9 @@ public class TranslationDef {
      * (Required)
      * 
      */
-    @JsonProperty("textUTF8")
-    public void setTextUTF8(String textUTF8) {
-        this.textUTF8 = textUTF8;
+    @JsonProperty("textUtf8")
+    public void setTextUtf8(String textUtf8) {
+        this.textUtf8 = textUtf8;
     }
 
     /**
@@ -144,9 +144,9 @@ public class TranslationDef {
         sb.append('=');
         sb.append(((this.language == null)?"<null>":this.language));
         sb.append(',');
-        sb.append("textUTF8");
+        sb.append("textUtf8");
         sb.append('=');
-        sb.append(((this.textUTF8 == null)?"<null>":this.textUTF8));
+        sb.append(((this.textUtf8 == null)?"<null>":this.textUtf8));
         sb.append(',');
         sb.append("text");
         sb.append('=');
@@ -171,8 +171,8 @@ public class TranslationDef {
     @Override
     public int hashCode() {
         int result = 1;
+        result = ((result* 31)+((this.textUtf8 == null)? 0 :this.textUtf8 .hashCode()));
         result = ((result* 31)+((this.language == null)? 0 :this.language.hashCode()));
-        result = ((result* 31)+((this.textUTF8 == null)? 0 :this.textUTF8 .hashCode()));
         result = ((result* 31)+((this.text == null)? 0 :this.text.hashCode()));
         result = ((result* 31)+((this.shortTextUtf8 == null)? 0 :this.shortTextUtf8 .hashCode()));
         result = ((result* 31)+((this.shortText == null)? 0 :this.shortText.hashCode()));
@@ -188,7 +188,7 @@ public class TranslationDef {
             return false;
         }
         TranslationDef rhs = ((TranslationDef) other);
-        return ((((((this.language == rhs.language)||((this.language!= null)&&this.language.equals(rhs.language)))&&((this.textUTF8 == rhs.textUTF8)||((this.textUTF8 != null)&&this.textUTF8 .equals(rhs.textUTF8))))&&((this.text == rhs.text)||((this.text!= null)&&this.text.equals(rhs.text))))&&((this.shortTextUtf8 == rhs.shortTextUtf8)||((this.shortTextUtf8 != null)&&this.shortTextUtf8 .equals(rhs.shortTextUtf8))))&&((this.shortText == rhs.shortText)||((this.shortText!= null)&&this.shortText.equals(rhs.shortText))));
+        return ((((((this.textUtf8 == rhs.textUtf8)||((this.textUtf8 != null)&&this.textUtf8 .equals(rhs.textUtf8)))&&((this.language == rhs.language)||((this.language!= null)&&this.language.equals(rhs.language))))&&((this.text == rhs.text)||((this.text!= null)&&this.text.equals(rhs.text))))&&((this.shortTextUtf8 == rhs.shortTextUtf8)||((this.shortTextUtf8 != null)&&this.shortTextUtf8 .equals(rhs.shortTextUtf8))))&&((this.shortText == rhs.shortText)||((this.shortText!= null)&&this.shortText.equals(rhs.shortText))));
     }
 
 }

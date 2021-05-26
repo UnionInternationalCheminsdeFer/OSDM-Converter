@@ -309,7 +309,7 @@ public class GTMJsonImporter {
 		z.setZoneId(jz.getZoneId());
 		z.setProvider(getCarrier(jz.getCarrier()));
 		z.setName(jz.getName());
-		z.setNameUtf8(jz.getNameUTF8());
+		z.setNameUtf8(jz.getNameUtf8());
 		StationSet stationSet = GtmFactory.eINSTANCE.createStationSet();
 		stationSet.getStations().addAll(convertStationList(jz.getStationList()));
 		z.setStationSet(stationSet);
@@ -356,7 +356,7 @@ public class GTMJsonImporter {
 		z.setDataSource(DataSource.IMPORTED);
 		z.setCode(jz.getCode());
 		z.setName(jz.getName());
-		z.setNameUtf8(jz.getNameUTF8()); 
+		z.setNameUtf8(jz.getNameUtf8()); 
 		z.setLegacyCode(jz.getLegacyCode());
 		z.setCarrier(getCarrier(jz.getFareProvider()));
 		if (jz.getStations() != null && !jz.getStations().isEmpty()) {
@@ -1486,7 +1486,7 @@ public class GTMJsonImporter {
 		f.setTravelValidity(findTravelValidity(jf.getTravelValidityConstraintRef()));
 		
 		f.setCarrierConstraint(findCarrierConstraint(jf.getDefaultCarrierConstraintRef()));
-		f.setTotalPassengerConstraint(findTotalPassengerConstraint(jf.getPassengerCombinationRef()));
+		f.setTotalPassengerConstraint(findTotalPassengerConstraint(jf.getPassengerCombinationConstraintRef()));
 		f.setDefaultFareType(convert(jf.getDefaultFareType()));
 		if (jf.getDefaultRegulatoryConditions() != null && !jf.getDefaultRegulatoryConditions().isEmpty()) {
 			f.getDefaultRegulatoryConditions().addAll(convert(jf.getDefaultRegulatoryConditions()));
@@ -1922,7 +1922,7 @@ public class GTMJsonImporter {
 		o.setShortTextICAO(jo.getShortText());
 		o.setShortTextUTF8(jo.getShortTextUtf8());
 		o.setTextICAO(jo.getText());
-		o.setTextUTF8(jo.getTextUTF8());
+		o.setTextUTF8(jo.getTextUtf8());
 		
 		for (TranslationDef jt :  jo.getTranslations()) {
 			Translation t = GtmFactory.eINSTANCE.createTranslation();
@@ -1930,7 +1930,7 @@ public class GTMJsonImporter {
 			t.setShortTextICAO(jt.getShortText());
 			t.setShortTextUTF8(jt.getShortTextUtf8());
 			t.setTextICAO(jt.getText());
-			t.setTextUTF8(jt.getTextUTF8());
+			t.setTextUTF8(jt.getTextUtf8());
 			o.getTranslations().add(t);
 		}
 

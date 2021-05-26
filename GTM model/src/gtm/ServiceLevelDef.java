@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "combiningServiceClassIds",
     "textRef",
-    "text",
     "doesNotIncludeClassName",
     "reservationParameterId"
 })
@@ -36,19 +35,12 @@ public class ServiceLevelDef {
     private List<gtm.ServiceClassDefinitionDef.ServiceClassIdDef> combiningServiceClassIds = new ArrayList<gtm.ServiceClassDefinitionDef.ServiceClassIdDef>();
     /**
      * id of the text describing the service level
+     * (Required)
      * 
      */
     @JsonProperty("textRef")
     @JsonPropertyDescription("id of the text describing the service level")
     private String textRef;
-    /**
-     * directly included text in case of online services
-     * (Required)
-     * 
-     */
-    @JsonProperty("text")
-    @JsonPropertyDescription("directly included text in case of online services")
-    private TextDef text;
     /**
      * indicates that the class name is not included
      * 
@@ -99,6 +91,7 @@ public class ServiceLevelDef {
 
     /**
      * id of the text describing the service level
+     * (Required)
      * 
      */
     @JsonProperty("textRef")
@@ -108,31 +101,12 @@ public class ServiceLevelDef {
 
     /**
      * id of the text describing the service level
+     * (Required)
      * 
      */
     @JsonProperty("textRef")
     public void setTextRef(String textRef) {
         this.textRef = textRef;
-    }
-
-    /**
-     * directly included text in case of online services
-     * (Required)
-     * 
-     */
-    @JsonProperty("text")
-    public TextDef getText() {
-        return text;
-    }
-
-    /**
-     * directly included text in case of online services
-     * (Required)
-     * 
-     */
-    @JsonProperty("text")
-    public void setText(TextDef text) {
-        this.text = text;
     }
 
     /**
@@ -179,10 +153,6 @@ public class ServiceLevelDef {
         sb.append('=');
         sb.append(((this.textRef == null)?"<null>":this.textRef));
         sb.append(',');
-        sb.append("text");
-        sb.append('=');
-        sb.append(((this.text == null)?"<null>":this.text));
-        sb.append(',');
         sb.append("doesNotIncludeClassName");
         sb.append('=');
         sb.append(((this.doesNotIncludeClassName == null)?"<null>":this.doesNotIncludeClassName));
@@ -202,12 +172,11 @@ public class ServiceLevelDef {
     @Override
     public int hashCode() {
         int result = 1;
-        result = ((result* 31)+((this.reservationParameterId == null)? 0 :this.reservationParameterId.hashCode()));
-        result = ((result* 31)+((this.doesNotIncludeClassName == null)? 0 :this.doesNotIncludeClassName.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
         result = ((result* 31)+((this.textRef == null)? 0 :this.textRef.hashCode()));
-        result = ((result* 31)+((this.text == null)? 0 :this.text.hashCode()));
+        result = ((result* 31)+((this.reservationParameterId == null)? 0 :this.reservationParameterId.hashCode()));
         result = ((result* 31)+((this.combiningServiceClassIds == null)? 0 :this.combiningServiceClassIds.hashCode()));
+        result = ((result* 31)+((this.doesNotIncludeClassName == null)? 0 :this.doesNotIncludeClassName.hashCode()));
         return result;
     }
 
@@ -220,7 +189,7 @@ public class ServiceLevelDef {
             return false;
         }
         ServiceLevelDef rhs = ((ServiceLevelDef) other);
-        return (((((((this.reservationParameterId == rhs.reservationParameterId)||((this.reservationParameterId!= null)&&this.reservationParameterId.equals(rhs.reservationParameterId)))&&((this.doesNotIncludeClassName == rhs.doesNotIncludeClassName)||((this.doesNotIncludeClassName!= null)&&this.doesNotIncludeClassName.equals(rhs.doesNotIncludeClassName))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.textRef == rhs.textRef)||((this.textRef!= null)&&this.textRef.equals(rhs.textRef))))&&((this.text == rhs.text)||((this.text!= null)&&this.text.equals(rhs.text))))&&((this.combiningServiceClassIds == rhs.combiningServiceClassIds)||((this.combiningServiceClassIds!= null)&&this.combiningServiceClassIds.equals(rhs.combiningServiceClassIds))));
+        return ((((((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id)))&&((this.textRef == rhs.textRef)||((this.textRef!= null)&&this.textRef.equals(rhs.textRef))))&&((this.reservationParameterId == rhs.reservationParameterId)||((this.reservationParameterId!= null)&&this.reservationParameterId.equals(rhs.reservationParameterId))))&&((this.combiningServiceClassIds == rhs.combiningServiceClassIds)||((this.combiningServiceClassIds!= null)&&this.combiningServiceClassIds.equals(rhs.combiningServiceClassIds))))&&((this.doesNotIncludeClassName == rhs.doesNotIncludeClassName)||((this.doesNotIncludeClassName!= null)&&this.doesNotIncludeClassName.equals(rhs.doesNotIncludeClassName))));
     }
 
 }
