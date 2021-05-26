@@ -218,11 +218,18 @@ public class ReductionCardItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ReductionCard)object).getId();
+		
+		ReductionCard c = (ReductionCard)object;
+		StringBuilder sb = new StringBuilder();
+		sb.append(c.getId());
+		if (c.getName()!= null && c.getName().getTextUTF8() != null) {
+			sb.append(" - ").append(((ReductionCard)object).getName().getTextUTF8());
+		}
+		String label = sb.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ReductionCard_type") :
 			getString("_UI_ReductionCard_type") + " " + label;

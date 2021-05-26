@@ -201,6 +201,8 @@ public class GTMJsonImporter {
 		
 		fareStructure.setReductionCards(convertReductionCards(fareDataDef.getReductionCards()));
 		
+		GtmUtils.createGenericReductionCards(fareStructure,tool);
+		
 		fareStructure.setPassengerConstraints(convertPassengerConstraints(fareDataDef.getPassengerConstraints()));
 		
 		fareStructure.setPersonalDataConstraints(convertPersonalDataConstraints(fareDataDef.getPersonalDataConstraints()));
@@ -993,7 +995,12 @@ public class GTMJsonImporter {
 		
 		for ( ReductionCardReferenceDef jr : jl) {
 			RequiredReductionCard r = GtmFactory.eINSTANCE.createRequiredReductionCard();
-			r.setCard(findReductionCard(jr.getCardValue()));
+			
+			ReductionCard rc = findReductionCard(jr.getCardValue());
+			if (rc == null) {
+				GtmUtils.writeConsoleError("Reductiion card missing: " + jr.getCardName(),null);
+			}
+			r.setCard(rc);
 			r.setName(jr.getCardName());		
 			o.add(r);
 		}

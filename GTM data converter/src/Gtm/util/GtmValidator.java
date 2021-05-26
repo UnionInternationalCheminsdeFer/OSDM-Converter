@@ -6616,6 +6616,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryKeyUnique(passengerConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(passengerConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePassengerConstraint_TRAVELLER_TYPE_MUST(passengerConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validatePassengerConstraint_NAME_MUST(passengerConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -6636,6 +6637,30 @@ public class GtmValidator extends EObjectValidator {
 						 0,
 						 NationalLanguageSupport.GtmValidator_279 + " in " +  getObjectLabel(passengerConstraint, context),
 						 new Object[] { "TRAVELLER_TYPE_MUST", getObjectLabel(passengerConstraint, context) }, //$NON-NLS-1$
+						 new Object[] { passengerConstraint },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the NAME_MUST constraint of '<em>Passenger Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validatePassengerConstraint_NAME_MUST(PassengerConstraint passengerConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (passengerConstraint.getText() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Name missing in passenger constraint: " +  getObjectLabel(passengerConstraint, context),
+						 new Object[] { "NAME_MUST", getObjectLabel(passengerConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { passengerConstraint },
 						 context));
 			}
