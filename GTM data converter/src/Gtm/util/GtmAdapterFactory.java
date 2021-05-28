@@ -264,10 +264,6 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createLegacyAccountingIdentifierAdapter();
 			}
 			@Override
-			public Adapter caseReductionConstraints(ReductionConstraints object) {
-				return createReductionConstraintsAdapter();
-			}
-			@Override
 			public Adapter casePersonalDataConstraints(PersonalDataConstraints object) {
 				return createPersonalDataConstraintsAdapter();
 			}
@@ -504,16 +500,20 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createFareCombinationModelAdapter();
 			}
 			@Override
+			public Adapter caseReductionConstraints(ReductionConstraints object) {
+				return createReductionConstraintsAdapter();
+			}
+			@Override
+			public Adapter caseReductionConstraint(ReductionConstraint object) {
+				return createReductionConstraintAdapter();
+			}
+			@Override
 			public Adapter caseReductionCards(ReductionCards object) {
 				return createReductionCardsAdapter();
 			}
 			@Override
 			public Adapter caseReductionCard(ReductionCard object) {
 				return createReductionCardAdapter();
-			}
-			@Override
-			public Adapter caseReductionConstraint(ReductionConstraint object) {
-				return createReductionConstraintAdapter();
 			}
 			@Override
 			public Adapter caseRequiredReductionCard(RequiredReductionCard object) {

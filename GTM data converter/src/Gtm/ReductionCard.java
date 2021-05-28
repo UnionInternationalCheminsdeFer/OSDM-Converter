@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see Gtm.GtmPackage#getReductionCard()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED CARD_ID_FORMAT'"
  * @generated
  */
 public interface ReductionCard extends EObject {

@@ -160,6 +160,8 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_FIP_DUTY"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_FIP_LEISURE_FREE"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_FIP_LEISURE_REDU"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_EU_DISABILITY_CARD"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_INT_DISABILITY_CARD"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//HemisphereEW">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//HemisphereEW/EAST"/>
@@ -747,9 +749,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyAccountingIdentifier/tariffId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyAccountingIdentifier/addSeriesId"/>
     </genClasses>
-    <genClasses ecoreClass="Gtm.ecore#//ReductionConstraints">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionConstraints/reductionConstraints"/>
-    </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//PersonalDataConstraints">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//PersonalDataConstraints/personalDataConstraints"/>
     </genClasses>
@@ -1078,6 +1077,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareCombinationModel/allowedClusters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareCombinationModel/allowedCommonContracts"/>
     </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//ReductionConstraints">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionConstraints/reductionConstraints"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//ReductionConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReductionConstraint/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionConstraint/requiredReductionCards"/>
+    </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ReductionCards">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionCards/reductionCards"/>
     </genClasses>
@@ -1089,10 +1095,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReductionCard/idRequiredForBooking"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionCard/includedReductionCards"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReductionCard/uicCode"/>
-    </genClasses>
-    <genClasses ecoreClass="Gtm.ecore#//ReductionConstraint">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReductionConstraint/id"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionConstraint/requiredReductionCards"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//RequiredReductionCard">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//RequiredReductionCard/cardClass"/>

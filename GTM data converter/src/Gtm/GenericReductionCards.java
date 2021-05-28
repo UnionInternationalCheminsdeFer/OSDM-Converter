@@ -234,7 +234,23 @@ public enum GenericReductionCards implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	UIC_FIP_LEISURE_REDU(30, "UIC_FIP_LEISURE_REDU", "UIC_FIP_LEISURE_REDU");
+	UIC_FIP_LEISURE_REDU(30, "UIC_FIP_LEISURE_REDU", "UIC_FIP_LEISURE_REDU"), /**
+	 * The '<em><b>UIC EU DISABILITY CARD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EU_DISABILITY_CARD_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_EU_DISABILITY_CARD(40, "UIC_EU_DISABILITY_CARD", "UIC_EU_DISABILITY_CARD"), /**
+	 * The '<em><b>UIC INT DISABILITY CARD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_INT_DISABILITY_CARD_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_INT_DISABILITY_CARD(41, "UIC_INT_DISABILITY_CARD", "UIC_INT_DISABILITY_CARD");
 
 	/**
 	 * The '<em><b>UIC EURAIL 1</b></em>' literal value.
@@ -534,6 +550,28 @@ public enum GenericReductionCards implements Enumerator {
 	public static final int UIC_FIP_LEISURE_REDU_VALUE = 30;
 
 	/**
+	 * The '<em><b>UIC EU DISABILITY CARD</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EU_DISABILITY_CARD
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_EU_DISABILITY_CARD_VALUE = 40;
+
+	/**
+	 * The '<em><b>UIC INT DISABILITY CARD</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_INT_DISABILITY_CARD
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_INT_DISABILITY_CARD_VALUE = 41;
+
+	/**
 	 * An array of all the '<em><b>Generic Reduction Cards</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -568,6 +606,8 @@ public enum GenericReductionCards implements Enumerator {
 			UIC_FIP_DUTY,
 			UIC_FIP_LEISURE_FREE,
 			UIC_FIP_LEISURE_REDU,
+			UIC_EU_DISABILITY_CARD,
+			UIC_INT_DISABILITY_CARD,
 		};
 
 	/**
@@ -649,6 +689,8 @@ public enum GenericReductionCards implements Enumerator {
 			case UIC_FIP_DUTY_VALUE: return UIC_FIP_DUTY;
 			case UIC_FIP_LEISURE_FREE_VALUE: return UIC_FIP_LEISURE_FREE;
 			case UIC_FIP_LEISURE_REDU_VALUE: return UIC_FIP_LEISURE_REDU;
+			case UIC_EU_DISABILITY_CARD_VALUE: return UIC_EU_DISABILITY_CARD;
+			case UIC_INT_DISABILITY_CARD_VALUE: return UIC_INT_DISABILITY_CARD;
 		}
 		return null;
 	}

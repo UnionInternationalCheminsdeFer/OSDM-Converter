@@ -20,10 +20,13 @@ import Gtm.Country;
 import Gtm.FareConstraintBundle;
 import Gtm.FareConstraintBundles;
 import Gtm.FareElement;
+import Gtm.FareStructure;
 import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
+import Gtm.ReductionCard;
+import Gtm.Text;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TotalPassengerCombinationConstraints;
 import Gtm.nls.NationalLanguageSupport;
@@ -77,8 +80,14 @@ public class MigrationV2 {
 			return;
 		}
 		
+		CompoundCommand com = GtmUtils.getPreparationCommand((GTMTool)object, domain);
+		if (com != null && !com.isEmpty() && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
 		
 		updateCountries((GTMTool)object, editor);
+		
+		updateReductionCards((GTMTool)object, editor);
 		
 		migrateTariffIds((GTMTool)object,domain);
 
@@ -143,6 +152,67 @@ public class MigrationV2 {
 
 	}
 	
+	private static void updateReductionCards(GTMTool tool, GtmEditor editor) {
+				
+		FareStructure fs = GtmFactory.eINSTANCE.createFareStructure();
+		fs.setTexts(GtmFactory.eINSTANCE.createTexts());
+		fs.setReductionCards(GtmFactory.eINSTANCE.createReductionCards());
+		GtmUtils.createGenericReductionCards(fs, tool);
+		
+		if (tool.getGeneralTariffModel()!= null &&
+			tool.getGeneralTariffModel().getFareStructure()!= null &&
+			tool.getGeneralTariffModel().getFareStructure().getReductionCards() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getReductionCards().getReductionCards() != null &&
+			!tool.getGeneralTariffModel().getFareStructure().getReductionCards().getReductionCards().isEmpty()) {
+		
+			for (ReductionCard oldC : tool.getGeneralTariffModel().getFareStructure().getReductionCards().getReductionCards()) {
+			
+				//remove deleted card
+				if (oldC.getId() != null && oldC.getId().startsWith("UIC_")) { 
+					
+					boolean found = false;
+					for (ReductionCard c : fs.getReductionCards().getReductionCards()) {
+						if (c.getId().equals(oldC.getId())) {
+							found = true;
+						}
+					}
+					if (!found) {
+						Command del = DeleteCommand.create(editor.getEditingDomain(), oldC);
+						if (del != null && del.canExecute()) {
+							editor.getEditingDomain().getCommandStack().execute(del);
+						}
+					}			
+				}	
+			}
+			
+		
+			//add new cards
+			ReductionCard[] rcs = (ReductionCard[]) fs.getReductionCards().getReductionCards().toArray();
+			for (ReductionCard c : rcs) {
+				
+				boolean found = false;
+				for (ReductionCard oldC : tool.getGeneralTariffModel().getFareStructure().getReductionCards().getReductionCards()) {
+
+					if (oldC.getId() != null && c.getId().equals(oldC.getId())) {
+						found = true;
+					}
+				}
+				if (!found) {
+					CompoundCommand add = new CompoundCommand();
+					add.append(new AddCommand(editor.getEditingDomain(), tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts(), c.getName()));
+					add.append(new AddCommand(editor.getEditingDomain(), tool.getGeneralTariffModel().getFareStructure().getReductionCards().getReductionCards(), c));
+					if (add != null && !add.isEmpty() && add.canExecute()) {
+						editor.getEditingDomain().getCommandStack().execute(add);
+					}
+				
+				}
+				
+			}
+		}
+		
+	}
+
+
 	private static void migrateTariffIds(GTMTool tool, EditingDomain domain) {
 		
 		if (tool == null ||

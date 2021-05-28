@@ -1396,7 +1396,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getRelativeTime()
 	 * @generated
 	 */
-	int RELATIVE_TIME = 95;
+	int RELATIVE_TIME = 94;
 
 	/**
 	 * The feature id for the '<em><b>Unit</b></em>' attribute.
@@ -3331,34 +3331,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReductionConstraints()
 	 * @generated
 	 */
-	int REDUCTION_CONSTRAINTS = 49;
-
-	/**
-	 * The feature id for the '<em><b>Reduction Constraints</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCTION_CONSTRAINTS__REDUCTION_CONSTRAINTS = 0;
-
-	/**
-	 * The number of structural features of the '<em>Reduction Constraints</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCTION_CONSTRAINTS_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Reduction Constraints</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCTION_CONSTRAINTS_OPERATION_COUNT = 0;
+	int REDUCTION_CONSTRAINTS = 108;
 
 	/**
 	 * The meta object id for the '{@link Gtm.impl.PersonalDataConstraintsImpl <em>Personal Data Constraints</em>}' class.
@@ -3368,7 +3341,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPersonalDataConstraints()
 	 * @generated
 	 */
-	int PERSONAL_DATA_CONSTRAINTS = 50;
+	int PERSONAL_DATA_CONSTRAINTS = 49;
 
 	/**
 	 * The feature id for the '<em><b>Personal Data Constraints</b></em>' containment reference list.
@@ -3405,7 +3378,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPersonalDataConstraint()
 	 * @generated
 	 */
-	int PERSONAL_DATA_CONSTRAINT = 51;
+	int PERSONAL_DATA_CONSTRAINT = 50;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3460,7 +3433,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getRequiredPersonalData()
 	 * @generated
 	 */
-	int REQUIRED_PERSONAL_DATA = 52;
+	int REQUIRED_PERSONAL_DATA = 51;
 
 	/**
 	 * The feature id for the '<em><b>Ticket Holder Only</b></em>' attribute.
@@ -3533,7 +3506,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getAllowedPersonalDataChanges()
 	 * @generated
 	 */
-	int ALLOWED_PERSONAL_DATA_CHANGES = 53;
+	int ALLOWED_PERSONAL_DATA_CHANGES = 52;
 
 	/**
 	 * The feature id for the '<em><b>Time Limit</b></em>' attribute.
@@ -3579,7 +3552,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPassengerConstraints()
 	 * @generated
 	 */
-	int PASSENGER_CONSTRAINTS = 54;
+	int PASSENGER_CONSTRAINTS = 53;
 
 	/**
 	 * The feature id for the '<em><b>Passenger Constraints</b></em>' containment reference list.
@@ -3616,7 +3589,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPassengerConstraint()
 	 * @generated
 	 */
-	int PASSENGER_CONSTRAINT = 55;
+	int PASSENGER_CONSTRAINT = 54;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3770,7 +3743,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPassengerCombinationConstraint()
 	 * @generated
 	 */
-	int PASSENGER_COMBINATION_CONSTRAINT = 56;
+	int PASSENGER_COMBINATION_CONSTRAINT = 55;
 
 	/**
 	 * The feature id for the '<em><b>Max Number</b></em>' attribute.
@@ -3825,7 +3798,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getIncludedFreePassengerLimit()
 	 * @generated
 	 */
-	int INCLUDED_FREE_PASSENGER_LIMIT = 57;
+	int INCLUDED_FREE_PASSENGER_LIMIT = 56;
 
 	/**
 	 * The feature id for the '<em><b>Number</b></em>' attribute.
@@ -3871,7 +3844,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCombinationConstraints()
 	 * @generated
 	 */
-	int COMBINATION_CONSTRAINTS = 58;
+	int COMBINATION_CONSTRAINTS = 57;
 
 	/**
 	 * The feature id for the '<em><b>Combination Constraints</b></em>' containment reference list.
@@ -3908,7 +3881,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCombinationConstraint()
 	 * @generated
 	 */
-	int COMBINATION_CONSTRAINT = 59;
+	int COMBINATION_CONSTRAINT = 58;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3963,7 +3936,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTravelValidityConstraints()
 	 * @generated
 	 */
-	int TRAVEL_VALIDITY_CONSTRAINTS = 60;
+	int TRAVEL_VALIDITY_CONSTRAINTS = 59;
 
 	/**
 	 * The feature id for the '<em><b>Travel Validity Constraints</b></em>' containment reference list.
@@ -4000,7 +3973,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTravelValidityConstraint()
 	 * @generated
 	 */
-	int TRAVEL_VALIDITY_CONSTRAINT = 61;
+	int TRAVEL_VALIDITY_CONSTRAINT = 60;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4091,7 +4064,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getSalesAvailabilityConstraints()
 	 * @generated
 	 */
-	int SALES_AVAILABILITY_CONSTRAINTS = 62;
+	int SALES_AVAILABILITY_CONSTRAINTS = 61;
 
 	/**
 	 * The feature id for the '<em><b>Sales Availability Constraints</b></em>' containment reference list.
@@ -4128,7 +4101,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getSalesAvailabilityConstraint()
 	 * @generated
 	 */
-	int SALES_AVAILABILITY_CONSTRAINT = 63;
+	int SALES_AVAILABILITY_CONSTRAINT = 62;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4192,7 +4165,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getSalesRestriction()
 	 * @generated
 	 */
-	int SALES_RESTRICTION = 64;
+	int SALES_RESTRICTION = 63;
 
 	/**
 	 * The feature id for the '<em><b>Sales Dates</b></em>' reference.
@@ -4247,7 +4220,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getEndOfSale()
 	 * @generated
 	 */
-	int END_OF_SALE = 65;
+	int END_OF_SALE = 64;
 
 	/**
 	 * The feature id for the '<em><b>Unit</b></em>' attribute.
@@ -4302,7 +4275,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getStartOfSale()
 	 * @generated
 	 */
-	int START_OF_SALE = 66;
+	int START_OF_SALE = 65;
 
 	/**
 	 * The feature id for the '<em><b>Unit</b></em>' attribute.
@@ -4357,7 +4330,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReductionCards()
 	 * @generated
 	 */
-	int REDUCTION_CARDS = 109;
+	int REDUCTION_CARDS = 110;
 
 	/**
 	 * The meta object id for the '{@link Gtm.impl.ReductionCardImpl <em>Reduction Card</em>}' class.
@@ -4367,7 +4340,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReductionCard()
 	 * @generated
 	 */
-	int REDUCTION_CARD = 110;
+	int REDUCTION_CARD = 111;
 
 	/**
 	 * The meta object id for the '{@link Gtm.impl.CarrierConstraintsImpl <em>Carrier Constraints</em>}' class.
@@ -4377,7 +4350,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCarrierConstraints()
 	 * @generated
 	 */
-	int CARRIER_CONSTRAINTS = 67;
+	int CARRIER_CONSTRAINTS = 66;
 
 	/**
 	 * The feature id for the '<em><b>Carrier Constraints</b></em>' containment reference list.
@@ -4414,7 +4387,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCarrierConstraint()
 	 * @generated
 	 */
-	int CARRIER_CONSTRAINT = 68;
+	int CARRIER_CONSTRAINT = 67;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4487,7 +4460,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getServiceConstraints()
 	 * @generated
 	 */
-	int SERVICE_CONSTRAINTS = 69;
+	int SERVICE_CONSTRAINTS = 68;
 
 	/**
 	 * The feature id for the '<em><b>Service Constraints</b></em>' containment reference list.
@@ -4524,7 +4497,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getServiceConstraint()
 	 * @generated
 	 */
-	int SERVICE_CONSTRAINT = 70;
+	int SERVICE_CONSTRAINT = 69;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4606,7 +4579,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getRegionalConstraints()
 	 * @generated
 	 */
-	int REGIONAL_CONSTRAINTS = 71;
+	int REGIONAL_CONSTRAINTS = 70;
 
 	/**
 	 * The feature id for the '<em><b>Regional Constraints</b></em>' containment reference list.
@@ -4643,7 +4616,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getRegionalConstraint()
 	 * @generated
 	 */
-	int REGIONAL_CONSTRAINT = 72;
+	int REGIONAL_CONSTRAINT = 71;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4743,7 +4716,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getRegionalValidity()
 	 * @generated
 	 */
-	int REGIONAL_VALIDITY = 73;
+	int REGIONAL_VALIDITY = 72;
 
 	/**
 	 * The feature id for the '<em><b>Seq Nb</b></em>' attribute.
@@ -4825,7 +4798,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getServiceLevelDefinitions()
 	 * @generated
 	 */
-	int SERVICE_LEVEL_DEFINITIONS = 74;
+	int SERVICE_LEVEL_DEFINITIONS = 73;
 
 	/**
 	 * The feature id for the '<em><b>Service Level Definition</b></em>' containment reference list.
@@ -4862,7 +4835,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTexts()
 	 * @generated
 	 */
-	int TEXTS = 75;
+	int TEXTS = 74;
 
 	/**
 	 * The feature id for the '<em><b>Texts</b></em>' containment reference list.
@@ -4899,7 +4872,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getText()
 	 * @generated
 	 */
-	int TEXT = 76;
+	int TEXT = 75;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4999,7 +4972,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTranslation()
 	 * @generated
 	 */
-	int TRANSLATION = 77;
+	int TRANSLATION = 76;
 
 	/**
 	 * The feature id for the '<em><b>Language</b></em>' reference.
@@ -5072,7 +5045,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPrices()
 	 * @generated
 	 */
-	int PRICES = 78;
+	int PRICES = 77;
 
 	/**
 	 * The feature id for the '<em><b>Prices</b></em>' containment reference list.
@@ -5109,7 +5082,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPrice()
 	 * @generated
 	 */
-	int PRICE = 79;
+	int PRICE = 78;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5164,7 +5137,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getVATDetail()
 	 * @generated
 	 */
-	int VAT_DETAIL = 80;
+	int VAT_DETAIL = 79;
 
 	/**
 	 * The feature id for the '<em><b>Amount</b></em>' attribute.
@@ -5237,7 +5210,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCurrencyPrice()
 	 * @generated
 	 */
-	int CURRENCY_PRICE = 81;
+	int CURRENCY_PRICE = 80;
 
 	/**
 	 * The feature id for the '<em><b>Currency</b></em>' reference.
@@ -5292,7 +5265,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getServiceClassDefinitions()
 	 * @generated
 	 */
-	int SERVICE_CLASS_DEFINITIONS = 82;
+	int SERVICE_CLASS_DEFINITIONS = 81;
 
 	/**
 	 * The feature id for the '<em><b>Service Class Definitions</b></em>' containment reference list.
@@ -5329,7 +5302,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCalendars()
 	 * @generated
 	 */
-	int CALENDARS = 83;
+	int CALENDARS = 82;
 
 	/**
 	 * The feature id for the '<em><b>Calendars</b></em>' containment reference list.
@@ -5366,7 +5339,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCalendar()
 	 * @generated
 	 */
-	int CALENDAR = 84;
+	int CALENDAR = 83;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5457,7 +5430,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationParameters()
 	 * @generated
 	 */
-	int RESERVATION_PARAMETERS = 85;
+	int RESERVATION_PARAMETERS = 84;
 
 	/**
 	 * The feature id for the '<em><b>Reservation Parameters</b></em>' containment reference list.
@@ -5494,7 +5467,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationParameter()
 	 * @generated
 	 */
-	int RESERVATION_PARAMETER = 86;
+	int RESERVATION_PARAMETER = 85;
 
 	/**
 	 * The feature id for the '<em><b>Mandatory Reservation</b></em>' attribute.
@@ -5576,7 +5549,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationParams9181()
 	 * @generated
 	 */
-	int RESERVATION_PARAMS9181 = 87;
+	int RESERVATION_PARAMS9181 = 86;
 
 	/**
 	 * The feature id for the '<em><b>Travel Class</b></em>' attribute.
@@ -5667,7 +5640,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationOptions()
 	 * @generated
 	 */
-	int RESERVATION_OPTIONS = 88;
+	int RESERVATION_OPTIONS = 87;
 
 	/**
 	 * The feature id for the '<em><b>Preferences</b></em>' containment reference list.
@@ -5722,7 +5695,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReservationPreferenceGroup()
 	 * @generated
 	 */
-	int RESERVATION_PREFERENCE_GROUP = 89;
+	int RESERVATION_PREFERENCE_GROUP = 88;
 
 	/**
 	 * The feature id for the '<em><b>Preference</b></em>' attribute list.
@@ -5768,7 +5741,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getServiceClass()
 	 * @generated
 	 */
-	int SERVICE_CLASS = 90;
+	int SERVICE_CLASS = 89;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5823,7 +5796,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getServiceLevel()
 	 * @generated
 	 */
-	int SERVICE_LEVEL = 91;
+	int SERVICE_LEVEL = 90;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5896,7 +5869,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getTimeRange()
 	 * @generated
 	 */
-	int TIME_RANGE = 92;
+	int TIME_RANGE = 91;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' attribute.
@@ -5951,7 +5924,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getExcludedTimeRange()
 	 * @generated
 	 */
-	int EXCLUDED_TIME_RANGE = 93;
+	int EXCLUDED_TIME_RANGE = 92;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' attribute.
@@ -6006,7 +5979,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getValidityRange()
 	 * @generated
 	 */
-	int VALIDITY_RANGE = 94;
+	int VALIDITY_RANGE = 93;
 
 	/**
 	 * The feature id for the '<em><b>Unit</b></em>' attribute.
@@ -6061,7 +6034,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getReturnValidityConstraint()
 	 * @generated
 	 */
-	int RETURN_VALIDITY_CONSTRAINT = 96;
+	int RETURN_VALIDITY_CONSTRAINT = 95;
 
 	/**
 	 * The feature id for the '<em><b>Excluded Weekdays</b></em>' attribute list.
@@ -6116,7 +6089,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getViaStation()
 	 * @generated
 	 */
-	int VIA_STATION = 97;
+	int VIA_STATION = 96;
 
 	/**
 	 * The feature id for the '<em><b>Station</b></em>' reference.
@@ -6216,7 +6189,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getAlternativeRoute()
 	 * @generated
 	 */
-	int ALTERNATIVE_ROUTE = 98;
+	int ALTERNATIVE_ROUTE = 97;
 
 	/**
 	 * The feature id for the '<em><b>Stations</b></em>' containment reference list.
@@ -6253,7 +6226,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getRoute()
 	 * @generated
 	 */
-	int ROUTE = 99;
+	int ROUTE = 98;
 
 	/**
 	 * The feature id for the '<em><b>Stations</b></em>' containment reference list.
@@ -6290,7 +6263,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getZone()
 	 * @generated
 	 */
-	int ZONE = 100;
+	int ZONE = 99;
 
 	/**
 	 * The feature id for the '<em><b>Binary Zone Id</b></em>' attribute.
@@ -6381,7 +6354,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getLine()
 	 * @generated
 	 */
-	int LINE = 101;
+	int LINE = 100;
 
 	/**
 	 * The feature id for the '<em><b>Binary Zone Id</b></em>' attribute.
@@ -6472,7 +6445,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getPolygone()
 	 * @generated
 	 */
-	int POLYGONE = 102;
+	int POLYGONE = 101;
 
 	/**
 	 * The feature id for the '<em><b>Edge</b></em>' containment reference list.
@@ -6509,7 +6482,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getEdge()
 	 * @generated
 	 */
-	int EDGE = 103;
+	int EDGE = 102;
 
 	/**
 	 * The feature id for the '<em><b>System</b></em>' attribute.
@@ -6573,7 +6546,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getZoneDefinitions()
 	 * @generated
 	 */
-	int ZONE_DEFINITIONS = 104;
+	int ZONE_DEFINITIONS = 103;
 
 	/**
 	 * The feature id for the '<em><b>Zone Definition</b></em>' containment reference list.
@@ -6610,7 +6583,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getZoneDefinition()
 	 * @generated
 	 */
-	int ZONE_DEFINITION = 105;
+	int ZONE_DEFINITION = 104;
 
 	/**
 	 * The feature id for the '<em><b>Provider</b></em>' reference.
@@ -6701,7 +6674,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCarrierResourceLocation()
 	 * @generated
 	 */
-	int CARRIER_RESOURCE_LOCATION = 106;
+	int CARRIER_RESOURCE_LOCATION = 105;
 
 	/**
 	 * The feature id for the '<em><b>Carrier</b></em>' reference.
@@ -6756,7 +6729,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getCrossBorderCondition()
 	 * @generated
 	 */
-	int CROSS_BORDER_CONDITION = 107;
+	int CROSS_BORDER_CONDITION = 106;
 
 	/**
 	 * The feature id for the '<em><b>From Country</b></em>' reference.
@@ -6811,7 +6784,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getFareCombinationModel()
 	 * @generated
 	 */
-	int FARE_COMBINATION_MODEL = 108;
+	int FARE_COMBINATION_MODEL = 107;
 
 	/**
 	 * The feature id for the '<em><b>Model</b></em>' attribute.
@@ -6893,6 +6866,79 @@ public interface GtmPackage extends EPackage {
 	 * @ordered
 	 */
 	int FARE_COMBINATION_MODEL_OPERATION_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Reduction Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_CONSTRAINTS__REDUCTION_CONSTRAINTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Reduction Constraints</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_CONSTRAINTS_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Reduction Constraints</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_CONSTRAINTS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link Gtm.impl.ReductionConstraintImpl <em>Reduction Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Gtm.impl.ReductionConstraintImpl
+	 * @see Gtm.impl.GtmPackageImpl#getReductionConstraint()
+	 * @generated
+	 */
+	int REDUCTION_CONSTRAINT = 109;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_CONSTRAINT__ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Required Reduction Cards</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_CONSTRAINT__REQUIRED_REDUCTION_CARDS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Reduction Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_CONSTRAINT_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Reduction Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_CONSTRAINT_OPERATION_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Reduction Cards</b></em>' containment reference list.
@@ -7001,52 +7047,6 @@ public interface GtmPackage extends EPackage {
 	 * @ordered
 	 */
 	int REDUCTION_CARD_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link Gtm.impl.ReductionConstraintImpl <em>Reduction Constraint</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Gtm.impl.ReductionConstraintImpl
-	 * @see Gtm.impl.GtmPackageImpl#getReductionConstraint()
-	 * @generated
-	 */
-	int REDUCTION_CONSTRAINT = 111;
-
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCTION_CONSTRAINT__ID = 0;
-
-	/**
-	 * The feature id for the '<em><b>Required Reduction Cards</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCTION_CONSTRAINT__REQUIRED_REDUCTION_CARDS = 1;
-
-	/**
-	 * The number of structural features of the '<em>Reduction Constraint</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCTION_CONSTRAINT_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Reduction Constraint</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCTION_CONSTRAINT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link Gtm.impl.RequiredReductionCardImpl <em>Required Reduction Card</em>}' class.

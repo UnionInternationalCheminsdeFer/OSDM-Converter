@@ -2,6 +2,206 @@
  */
 package Gtm.impl;
 
+import Gtm.AcceptedBarcodes;
+import Gtm.AfterSalesCondition;
+import Gtm.AfterSalesRule;
+import Gtm.AfterSalesRules;
+import Gtm.AfterSalesTemplate;
+import Gtm.AfterSalesTransactionType;
+import Gtm.AllowedPersonalDataChanges;
+import Gtm.AlternativeRoute;
+import Gtm.ApplicationTime;
+import Gtm.BarcodeTypes;
+import Gtm.Calendar;
+import Gtm.Calendars;
+import Gtm.Carrier;
+import Gtm.CarrierConstraint;
+import Gtm.CarrierConstraints;
+import Gtm.CarrierResourceLocation;
+import Gtm.CarrierResourceLocations;
+import Gtm.Carriers;
+import Gtm.CharacterSet;
+import Gtm.ClassId;
+import Gtm.ClassicClassType;
+import Gtm.Clusters;
+import Gtm.CodeLists;
+import Gtm.CombinationConstraint;
+import Gtm.CombinationConstraints;
+import Gtm.CombinationModel;
+import Gtm.ConnectionPoint;
+import Gtm.ConnectionPoints;
+import Gtm.ControlDataExchangeTypes;
+import Gtm.ConversionFromLegacy;
+import Gtm.ConversionParams;
+import Gtm.Countries;
+import Gtm.Country;
+import Gtm.CrossBorderCondition;
+import Gtm.Currencies;
+import Gtm.Currency;
+import Gtm.CurrencyPrice;
+import Gtm.DataSource;
+import Gtm.Delivery;
+import Gtm.Edge;
+import Gtm.EndOfSale;
+import Gtm.ExcludedTimeRange;
+import Gtm.FareCombinationModel;
+import Gtm.FareConstraintBundle;
+import Gtm.FareConstraintBundles;
+import Gtm.FareElement;
+import Gtm.FareElements;
+import Gtm.FareResourceLocations;
+import Gtm.FareStationSetDefinition;
+import Gtm.FareStationSetDefinitions;
+import Gtm.FareStructure;
+import Gtm.FareTemplate;
+import Gtm.FareType;
+import Gtm.FulfillmentConstraint;
+import Gtm.FulfillmentConstraints;
+import Gtm.FulfillmentType;
+import Gtm.GTMTool;
+import Gtm.GeneralTariffModel;
+import Gtm.GenericReductionCards;
+import Gtm.GeoSystem;
+import Gtm.GeoUnit;
+import Gtm.GraphicalReservationType;
+import Gtm.GtmFactory;
+import Gtm.GtmPackage;
+import Gtm.HemisphereEW;
+import Gtm.HemisphereNS;
+import Gtm.IncludedFreePassengerLimit;
+import Gtm.InterfaceType;
+import Gtm.Language;
+import Gtm.Languages;
+import Gtm.Legacy108;
+import Gtm.Legacy108FareDescription;
+import Gtm.Legacy108FaresDescriptions;
+import Gtm.Legacy108Memo;
+import Gtm.Legacy108Memos;
+import Gtm.Legacy108Station;
+import Gtm.Legacy108Stations;
+import Gtm.LegacyAccountingIdentifier;
+import Gtm.LegacyBoderPointMappings;
+import Gtm.LegacyBorderPoint;
+import Gtm.LegacyBorderPointMapping;
+import Gtm.LegacyBorderPoints;
+import Gtm.LegacyBorderSide;
+import Gtm.LegacyBusFerryMapping;
+import Gtm.LegacyCalculationType;
+import Gtm.LegacyConversionType;
+import Gtm.LegacyDistanceFare;
+import Gtm.LegacyDistanceFares;
+import Gtm.LegacyFakeBorderStations;
+import Gtm.LegacyFareDetailMap;
+import Gtm.LegacyFareDetailMaps;
+import Gtm.LegacyFareStationSetMap;
+import Gtm.LegacyFareStationSetMappings;
+import Gtm.LegacyFareTemplates;
+import Gtm.LegacyPassengerType;
+import Gtm.LegacyRouteFare;
+import Gtm.LegacyRouteFares;
+import Gtm.LegacySeparateContractSeries;
+import Gtm.LegacySeparateContractSeriesList;
+import Gtm.LegacySeries;
+import Gtm.LegacySeriesList;
+import Gtm.LegacySeriesType;
+import Gtm.LegacyStation;
+import Gtm.LegacyStationMap;
+import Gtm.LegacyStationMappings;
+import Gtm.LegacyStationToServiceConstraintMapping;
+import Gtm.LegacyStationToServiceConstraintMappings;
+import Gtm.LegacyViastation;
+import Gtm.Line;
+import Gtm.NUTSCodes;
+import Gtm.NutsCode;
+import Gtm.OfferRequestType;
+import Gtm.OnBorderStations;
+import Gtm.OnlineResource;
+import Gtm.OnlineServiceType;
+import Gtm.PassengerCombinationConstraint;
+import Gtm.PassengerConstraint;
+import Gtm.PassengerConstraints;
+import Gtm.PersonalDataChangeReason;
+import Gtm.PersonalDataConstraint;
+import Gtm.PersonalDataConstraints;
+import Gtm.PersonalDataItemsType;
+import Gtm.PersonalDataTransferType;
+import Gtm.Polygone;
+import Gtm.Price;
+import Gtm.Prices;
+import Gtm.ReductionCard;
+import Gtm.ReductionCards;
+import Gtm.ReductionConstraint;
+import Gtm.ReductionConstraints;
+import Gtm.RegionalConstraint;
+import Gtm.RegionalConstraints;
+import Gtm.RegionalValidity;
+import Gtm.RegulatoryCondition;
+import Gtm.RelativeTime;
+import Gtm.RequiredBarcodes;
+import Gtm.RequiredPersonalData;
+import Gtm.RequiredReductionCard;
+import Gtm.ReservationBerthType;
+import Gtm.ReservationOptions;
+import Gtm.ReservationParameter;
+import Gtm.ReservationParameters;
+import Gtm.ReservationParams9181;
+import Gtm.ReservationPreferenceGroup;
+import Gtm.ReservationService;
+import Gtm.ReservationServiceLevel;
+import Gtm.ReservationTravelClass;
+import Gtm.ReturnValidityConstraint;
+import Gtm.RoundingType;
+import Gtm.Route;
+import Gtm.SalesAvailabilityConstraint;
+import Gtm.SalesAvailabilityConstraints;
+import Gtm.SalesRestriction;
+import Gtm.SchemaVersion;
+import Gtm.ServiceBrand;
+import Gtm.ServiceBrands;
+import Gtm.ServiceClass;
+import Gtm.ServiceClassDefinitions;
+import Gtm.ServiceConstraint;
+import Gtm.ServiceConstraints;
+import Gtm.ServiceLevel;
+import Gtm.ServiceLevelDefinitions;
+import Gtm.ServiceMode;
+import Gtm.StartOfSale;
+import Gtm.Station;
+import Gtm.StationFareDetailType;
+import Gtm.StationNames;
+import Gtm.StationRelation;
+import Gtm.StationRelationType;
+import Gtm.StationResourceLocation;
+import Gtm.StationResourceLocations;
+import Gtm.StationSet;
+import Gtm.Stations;
+import Gtm.SupportedOnlineServices;
+import Gtm.TaxScope;
+import Gtm.Text;
+import Gtm.Texts;
+import Gtm.TimeRange;
+import Gtm.TimeRangeScope;
+import Gtm.TimeReferenceType;
+import Gtm.TimeUnit;
+import Gtm.TimeZone;
+import Gtm.TotalPassengerCombinationConstraint;
+import Gtm.TotalPassengerCombinationConstraints;
+import Gtm.TrainResourceLocation;
+import Gtm.TrainResourceLocations;
+import Gtm.Translation;
+import Gtm.TransportMode;
+import Gtm.TravelValidityConstraint;
+import Gtm.TravelValidityConstraints;
+import Gtm.TravelerType;
+import Gtm.VATDetail;
+import Gtm.ValidityRange;
+import Gtm.VatTemplate;
+import Gtm.VatTemplates;
+import Gtm.ViaStation;
+import Gtm.WeekDay;
+import Gtm.Zone;
+import Gtm.ZoneDefinition;
+import Gtm.ZoneDefinitions;
 import Gtm.*;
 import Gtm.util.GtmValidator;
 
@@ -9044,9 +9244,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacyAccountingIdentifierEClass, LEGACY_ACCOUNTING_IDENTIFIER__TARIFF_ID);
 		createEAttribute(legacyAccountingIdentifierEClass, LEGACY_ACCOUNTING_IDENTIFIER__ADD_SERIES_ID);
 
-		reductionConstraintsEClass = createEClass(REDUCTION_CONSTRAINTS);
-		createEReference(reductionConstraintsEClass, REDUCTION_CONSTRAINTS__REDUCTION_CONSTRAINTS);
-
 		personalDataConstraintsEClass = createEClass(PERSONAL_DATA_CONSTRAINTS);
 		createEReference(personalDataConstraintsEClass, PERSONAL_DATA_CONSTRAINTS__PERSONAL_DATA_CONSTRAINTS);
 
@@ -9369,6 +9566,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareCombinationModelEClass, FARE_COMBINATION_MODEL__ALLOWED_CLUSTERS);
 		createEReference(fareCombinationModelEClass, FARE_COMBINATION_MODEL__ALLOWED_COMMON_CONTRACTS);
 
+		reductionConstraintsEClass = createEClass(REDUCTION_CONSTRAINTS);
+		createEReference(reductionConstraintsEClass, REDUCTION_CONSTRAINTS__REDUCTION_CONSTRAINTS);
+
+		reductionConstraintEClass = createEClass(REDUCTION_CONSTRAINT);
+		createEAttribute(reductionConstraintEClass, REDUCTION_CONSTRAINT__ID);
+		createEReference(reductionConstraintEClass, REDUCTION_CONSTRAINT__REQUIRED_REDUCTION_CARDS);
+
 		reductionCardsEClass = createEClass(REDUCTION_CARDS);
 		createEReference(reductionCardsEClass, REDUCTION_CARDS__REDUCTION_CARDS);
 
@@ -9380,10 +9584,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(reductionCardEClass, REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING);
 		createEReference(reductionCardEClass, REDUCTION_CARD__INCLUDED_REDUCTION_CARDS);
 		createEAttribute(reductionCardEClass, REDUCTION_CARD__UIC_CODE);
-
-		reductionConstraintEClass = createEClass(REDUCTION_CONSTRAINT);
-		createEAttribute(reductionConstraintEClass, REDUCTION_CONSTRAINT__ID);
-		createEReference(reductionConstraintEClass, REDUCTION_CONSTRAINT__REQUIRED_REDUCTION_CARDS);
 
 		requiredReductionCardEClass = createEClass(REQUIRED_REDUCTION_CARD);
 		createEReference(requiredReductionCardEClass, REQUIRED_REDUCTION_CARD__CARD_CLASS);
@@ -10060,9 +10260,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacyAccountingIdentifier_TariffId(), ecorePackage.getEInt(), "tariffId", null, 0, 1, LegacyAccountingIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacyAccountingIdentifier_AddSeriesId(), ecorePackage.getEInt(), "addSeriesId", null, 0, 1, LegacyAccountingIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(reductionConstraintsEClass, ReductionConstraints.class, "ReductionConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getReductionConstraints_ReductionConstraints(), this.getReductionConstraint(), null, "reductionConstraints", null, 0, -1, ReductionConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(personalDataConstraintsEClass, PersonalDataConstraints.class, "PersonalDataConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPersonalDataConstraints_PersonalDataConstraints(), this.getPersonalDataConstraint(), null, "personalDataConstraints", null, 0, -1, PersonalDataConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -10386,6 +10583,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareCombinationModel_AllowedClusters(), this.getClusters(), "allowedClusters", null, 0, -1, FareCombinationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareCombinationModel_AllowedCommonContracts(), this.getCarrier(), null, "allowedCommonContracts", null, 0, -1, FareCombinationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(reductionConstraintsEClass, ReductionConstraints.class, "ReductionConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getReductionConstraints_ReductionConstraints(), this.getReductionConstraint(), null, "reductionConstraints", null, 0, -1, ReductionConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(reductionConstraintEClass, ReductionConstraint.class, "ReductionConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReductionConstraint_Id(), ecorePackage.getEString(), "id", null, 0, 1, ReductionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getReductionConstraint_RequiredReductionCards(), this.getRequiredReductionCard(), null, "requiredReductionCards", null, 0, -1, ReductionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(reductionCardsEClass, ReductionCards.class, "ReductionCards", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReductionCards_ReductionCards(), this.getReductionCard(), null, "reductionCards", null, 0, -1, ReductionCards.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -10397,10 +10601,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getReductionCard_IdRequiredForBooking(), ecorePackage.getEBoolean(), "idRequiredForBooking", "false", 0, 1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getReductionCard_IncludedReductionCards(), this.getReductionCard(), null, "includedReductionCards", null, 0, -1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReductionCard_UicCode(), ecorePackage.getEBoolean(), "uicCode", "false", 0, 1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(reductionConstraintEClass, ReductionConstraint.class, "ReductionConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getReductionConstraint_Id(), ecorePackage.getEString(), "id", null, 0, 1, ReductionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getReductionConstraint_RequiredReductionCards(), this.getRequiredReductionCard(), null, "requiredReductionCards", null, 0, -1, ReductionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(requiredReductionCardEClass, RequiredReductionCard.class, "RequiredReductionCard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRequiredReductionCard_CardClass(), this.getServiceClass(), null, "cardClass", null, 0, 1, RequiredReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10831,6 +11031,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_FIP_DUTY);
 		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_FIP_LEISURE_FREE);
 		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_FIP_LEISURE_REDU);
+		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_EU_DISABILITY_CARD);
+		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_INT_DISABILITY_CARD);
 
 		initEEnum(hemisphereEWEEnum, HemisphereEW.class, "HemisphereEW");
 		addEEnumLiteral(hemisphereEWEEnum, HemisphereEW.EAST);
@@ -11497,16 +11699,16 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 			   "constraints", "MODEL_MUST REFERENCE_CLUSTER_MUST"
 		   });
 		addAnnotation
-		  (reductionCardEClass,
-		   source,
-		   new String[] {
-			   "constraints", "ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED"
-		   });
-		addAnnotation
 		  (reductionConstraintEClass,
 		   source,
 		   new String[] {
 			   "constraints", "AT_LEAST_ONE NOT_REFERENCED"
+		   });
+		addAnnotation
+		  (reductionCardEClass,
+		   source,
+		   new String[] {
+			   "constraints", "ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED CARD_ID_FORMAT"
 		   });
 		addAnnotation
 		  (requiredReductionCardEClass,

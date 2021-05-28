@@ -545,6 +545,10 @@ public class GtmUtils {
 		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_22.getName(),"Rail Inclusive Tours 2 2nd Class", null);	 //$NON-NLS-1$
 		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_32.getName(),"Rail Inclusive Tours 3 2nd Class", null);	 //$NON-NLS-1$
 
+		ReductionCard eu = createReductionCard(fareStructure,GenericReductionCards.UIC_EU_DISABILITY_CARD.getName(),"EU Disability Card", null);	 //$NON-NLS-1$
+		ReductionCard c = createReductionCard(fareStructure,GenericReductionCards.UIC_INT_DISABILITY_CARD.getName(),"International Disability Card", null);	 //$NON-NLS-1$
+		c.getIncludedReductionCards().add(eu);
+		
 		createReductionCard(fareStructure,GenericReductionCards.UIC_EURAIL.getName(),"Eurail Pass - deprecated-use class specific cards", findCarrier(tool,"9902")); //$NON-NLS-1$ //$NON-NLS-2$
 		createReductionCard(fareStructure,GenericReductionCards.UIC_INTERRAIL.getName(),"Interrail Pass - deprecated-use class specific cards", findCarrier(tool,"9902"));		 //$NON-NLS-1$ //$NON-NLS-2$
 		createReductionCard(fareStructure,GenericReductionCards.UIC_FIP_DUTY.getName(),"FIP duty - deprecated-use class specific cards", null);			 //$NON-NLS-1$
@@ -554,6 +558,7 @@ public class GtmUtils {
 		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_1.getName(),"Rail Inclusive Tours 1 - deprecated-use class specific cards", null);	 //$NON-NLS-1$
 		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_2.getName(),"Rail Inclusive Tours 2 - deprecated-use class specific cards", null);	 //$NON-NLS-1$
 		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_3.getName(),"Rail Inclusive Tours 3 - deprecated-use class specific cards", null);	 //$NON-NLS-1$
+
 
 	}
 	
@@ -634,7 +639,7 @@ public class GtmUtils {
 	 * @param name the name
 	 * @param carrier the carrier
 	 */
-	private static void createReductionCard(FareStructure fareStructure, String id, String name, Carrier carrier) {
+	private static ReductionCard createReductionCard(FareStructure fareStructure, String id, String name, Carrier carrier) {
 		
 		Text text =  GtmFactory.eINSTANCE.createText();
 		ReductionCard card =  GtmFactory.eINSTANCE.createReductionCard();
@@ -651,6 +656,8 @@ public class GtmUtils {
 		card.setUicCode(true);
 		fareStructure.getTexts().getTexts().add(text);
 		fareStructure.getReductionCards().getReductionCards().add(card);
+		
+		return card;
 	}
 
 
@@ -942,12 +949,41 @@ public class GtmUtils {
 			}
 		}		
 		
-		listName = baseName + "J_"; //$NON-NLS-1$
+		String issuer = tool.getGeneralTariffModel().getDelivery().getProvider().getCode();
 		i = 0;
-		for (ReductionCard object : fareStructure.getReductionCards().getReductionCards()) {
+		for (ReductionCard card : fareStructure.getReductionCards().getReductionCards()) {
 			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.REDUCTION_CARD__ID, command, listName,i);
+			String issuerR = issuer;
+			if (card.getCardIssuer() != null) {
+				issuerR = card.getCardIssuer().getCode();
+			}
+			String oldId = card.getId();
+			if (card.getId() == null || !card.getId().startsWith("UIC_")) {
+				//non UIC standard card definition
+				if (card.getId() == null || card.getId().isEmpty()) {
+					setId(domain, card,GtmPackage.Literals.PERSONAL_DATA_CONSTRAINT__ID, command, issuerR + "_",i);
+					GtmUtils.writeConsoleWarning("Reduction Card Id was missing. Set to: " + card.getId(), null);
+				} else {
+					if (card.getId() != null && !card.getId().startsWith(listName)) {
+						StringBuilder sb = new StringBuilder();
+						sb.append(issuerR).append("_");
+						sb.append(card.getId().replace(' ','_'));
+						SetCommand cmd = new SetCommand(domain, card,GtmPackage.Literals.REDUCTION_CARD__ID, sb.toString()); 
+						if (cmd.canExecute()) {
+							command.append(cmd);
+						}
+					} else {
+						StringBuilder sb = new StringBuilder();
+						sb.append(card.getId().replace(' ','_'));
+						SetCommand cmd = new SetCommand(domain, card,GtmPackage.Literals.REDUCTION_CARD__ID, sb.toString()); 
+						if (cmd.canExecute()) {
+							command.append(cmd);
+						}
+					}
+					if (!card.getId().equals(oldId)) {
+						GtmUtils.writeConsoleWarning("Reduction Card Id was corrected. Set to: " + card.getId(), null);
+					}
+				}
 			}
 		}		
 		

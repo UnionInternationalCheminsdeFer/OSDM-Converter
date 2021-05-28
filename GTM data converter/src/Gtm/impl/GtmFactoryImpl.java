@@ -107,7 +107,6 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.FARE_STATION_SET_DEFINITIONS: return createFareStationSetDefinitions();
 			case GtmPackage.FARE_STATION_SET_DEFINITION: return createFareStationSetDefinition();
 			case GtmPackage.LEGACY_ACCOUNTING_IDENTIFIER: return createLegacyAccountingIdentifier();
-			case GtmPackage.REDUCTION_CONSTRAINTS: return createReductionConstraints();
 			case GtmPackage.PERSONAL_DATA_CONSTRAINTS: return createPersonalDataConstraints();
 			case GtmPackage.PERSONAL_DATA_CONSTRAINT: return createPersonalDataConstraint();
 			case GtmPackage.REQUIRED_PERSONAL_DATA: return createRequiredPersonalData();
@@ -167,9 +166,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.CARRIER_RESOURCE_LOCATION: return createCarrierResourceLocation();
 			case GtmPackage.CROSS_BORDER_CONDITION: return createCrossBorderCondition();
 			case GtmPackage.FARE_COMBINATION_MODEL: return createFareCombinationModel();
+			case GtmPackage.REDUCTION_CONSTRAINTS: return createReductionConstraints();
+			case GtmPackage.REDUCTION_CONSTRAINT: return createReductionConstraint();
 			case GtmPackage.REDUCTION_CARDS: return createReductionCards();
 			case GtmPackage.REDUCTION_CARD: return createReductionCard();
-			case GtmPackage.REDUCTION_CONSTRAINT: return createReductionConstraint();
 			case GtmPackage.REQUIRED_REDUCTION_CARD: return createRequiredReductionCard();
 			case GtmPackage.CONVERSION_FROM_LEGACY: return createConversionFromLegacy();
 			case GtmPackage.CONVERSION_PARAMS: return createConversionParams();

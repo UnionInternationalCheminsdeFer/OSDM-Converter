@@ -1041,7 +1041,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReductionCard">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED"/>
+      <details key="constraints" value="ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED CARD_ID_FORMAT"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cardIssuer" eType="#//Carrier"/>
@@ -1591,6 +1591,8 @@
     <eLiterals name="UIC_FIP_DUTY" value="28"/>
     <eLiterals name="UIC_FIP_LEISURE_FREE" value="29"/>
     <eLiterals name="UIC_FIP_LEISURE_REDU" value="30"/>
+    <eLiterals name="UIC_EU_DISABILITY_CARD" value="40" literal="UIC_EU_DISABILITY_CARD"/>
+    <eLiterals name="UIC_INT_DISABILITY_CARD" value="41" literal="UIC_INT_DISABILITY_CARD"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HemisphereEW">
     <eLiterals name="EAST"/>
