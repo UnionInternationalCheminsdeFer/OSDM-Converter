@@ -10,6 +10,7 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.StringCharacterIterator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -1647,6 +1648,58 @@ public class GtmUtils {
 		}
 		return mainEntry.getKey();
 	}
+	
+	
+	public synchronized static String utf2ascii(String s){
+		
+		if (s == null || s.length() == 0) return null;
+		
+		final StringBuffer sb = new StringBuffer( s.length() * 2 );
+
+		final StringCharacterIterator iterator = new StringCharacterIterator( s );
+
+		char ch = iterator.current();
+
+		while( ch != StringCharacterIterator.DONE ){
+		   if(Character.getNumericValue(ch)>0){
+		    sb.append( ch );
+		   } else {
+		    if(Character.toString(ch).equals("Ê")){sb.append("E");}
+		    else if(Character.toString(ch).equals("È")){sb.append("E");}
+		    else if(Character.toString(ch).equals("ë")){sb.append("e");}
+		    else if(Character.toString(ch).equals("é")){sb.append("e");}
+		    else if(Character.toString(ch).equals("è")){sb.append("e");}
+		    else if(Character.toString(ch).equals("è")){sb.append("e");}
+		    else if(Character.toString(ch).equals("Â")){sb.append("A");}
+		    else if(Character.toString(ch).equals("ä")){sb.append("a");}
+		    else if(Character.toString(ch).equals("ß")){sb.append("ss");}
+		    else if(Character.toString(ch).equals("Ç")){sb.append("C");}
+		    else if(Character.toString(ch).equals("Ö")){sb.append("O");}
+		    else if(Character.toString(ch).equals("º")){sb.append("");}
+		    else if(Character.toString(ch).equals("Ó")){sb.append("O");}
+		    else if(Character.toString(ch).equals("ª")){sb.append("");}
+		    else if(Character.toString(ch).equals("º")){sb.append("");}
+		    else if(Character.toString(ch).equals("Ñ")){sb.append("N");}
+		    else if(Character.toString(ch).equals("É")){sb.append("E");}
+		    else if(Character.toString(ch).equals("Ä")){sb.append("A");}
+		    else if(Character.toString(ch).equals("Å")){sb.append("A");}
+		    else if(Character.toString(ch).equals("ä")){sb.append("a");}
+		    else if(Character.toString(ch).equals("Ü")){sb.append("U");}
+		    else if(Character.toString(ch).equals("ö")){sb.append("o");}
+		    else if(Character.toString(ch).equals("ü")){sb.append("u");}
+		    else if(Character.toString(ch).equals("á")){sb.append("a");}
+		    else if(Character.toString(ch).equals("Ó")){sb.append("O");}
+		    else if(Character.toString(ch).equals("É")){sb.append("E");}
+		    else {
+		     sb.append(ch);
+		    }
+		   }
+		   ch = iterator.next();
+		  }
+		  
+		  byte[] ascii = sb.toString().getBytes(StandardCharsets.US_ASCII); 
+		  return new String(ascii);
+		 }
 }
 
 
