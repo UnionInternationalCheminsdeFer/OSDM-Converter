@@ -1897,22 +1897,26 @@ public class ConverterFromLegacy {
 		text = GtmFactory.eINSTANCE.createText();
 		text.setDataSource(DataSource.GENERATED);
 		text.setTextUTF8(memo.getLocal());
+		text.setTextICAO(GtmUtils.utf2ascii(text.getTextUTF8()));
 		if (memo.getEnglish() != null && memo.getEnglish().length() > 0) {
 			Translation e = GtmFactory.eINSTANCE.createTranslation();
 			e.setLanguage(getEnglish());
 			e.setTextUTF8(memo.getEnglish());
+			e.setTextICAO(GtmUtils.utf2ascii(e.getTextUTF8()));
 			text.getTranslations().add(e);
 		}	
 		if (memo.getFrench() != null && memo.getFrench().length() > 0) {
 			Translation e = GtmFactory.eINSTANCE.createTranslation();
 			e.setLanguage(getFrench());
 			e.setTextUTF8(memo.getFrench());
+			e.setTextICAO(GtmUtils.utf2ascii(e.getTextUTF8()));
 			text.getTranslations().add(e);
 		}
 		if (memo.getGerman() != null && memo.getGerman().length() > 0) {
 			Translation e = GtmFactory.eINSTANCE.createTranslation();
 			e.setLanguage(getGerman());
 			e.setTextUTF8(memo.getGerman());
+			e.setTextICAO(GtmUtils.utf2ascii(e.getTextUTF8()));
 			text.getTranslations().add(e);
 		}	
 

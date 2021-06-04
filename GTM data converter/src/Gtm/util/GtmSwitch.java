@@ -361,12 +361,6 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GtmPackage.REDUCTION_CONSTRAINTS: {
-				ReductionConstraints reductionConstraints = (ReductionConstraints)theEObject;
-				T result = caseReductionConstraints(reductionConstraints);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GtmPackage.PERSONAL_DATA_CONSTRAINTS: {
 				PersonalDataConstraints personalDataConstraints = (PersonalDataConstraints)theEObject;
 				T result = casePersonalDataConstraints(personalDataConstraints);
@@ -724,6 +718,18 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.REDUCTION_CONSTRAINTS: {
+				ReductionConstraints reductionConstraints = (ReductionConstraints)theEObject;
+				T result = caseReductionConstraints(reductionConstraints);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.REDUCTION_CONSTRAINT: {
+				ReductionConstraint reductionConstraint = (ReductionConstraint)theEObject;
+				T result = caseReductionConstraint(reductionConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.REDUCTION_CARDS: {
 				ReductionCards reductionCards = (ReductionCards)theEObject;
 				T result = caseReductionCards(reductionCards);
@@ -733,12 +739,6 @@ public class GtmSwitch<T> extends Switch<T> {
 			case GtmPackage.REDUCTION_CARD: {
 				ReductionCard reductionCard = (ReductionCard)theEObject;
 				T result = caseReductionCard(reductionCard);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GtmPackage.REDUCTION_CONSTRAINT: {
-				ReductionConstraint reductionConstraint = (ReductionConstraint)theEObject;
-				T result = caseReductionConstraint(reductionConstraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

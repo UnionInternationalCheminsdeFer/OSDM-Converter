@@ -188,8 +188,6 @@ public class GtmValidator extends EObjectValidator {
 				return validateFareStationSetDefinition((FareStationSetDefinition)value, diagnostics, context);
 			case GtmPackage.LEGACY_ACCOUNTING_IDENTIFIER:
 				return validateLegacyAccountingIdentifier((LegacyAccountingIdentifier)value, diagnostics, context);
-			case GtmPackage.REDUCTION_CONSTRAINTS:
-				return validateReductionConstraints((ReductionConstraints)value, diagnostics, context);
 			case GtmPackage.PERSONAL_DATA_CONSTRAINTS:
 				return validatePersonalDataConstraints((PersonalDataConstraints)value, diagnostics, context);
 			case GtmPackage.PERSONAL_DATA_CONSTRAINT:
@@ -308,12 +306,14 @@ public class GtmValidator extends EObjectValidator {
 				return validateCrossBorderCondition((CrossBorderCondition)value, diagnostics, context);
 			case GtmPackage.FARE_COMBINATION_MODEL:
 				return validateFareCombinationModel((FareCombinationModel)value, diagnostics, context);
+			case GtmPackage.REDUCTION_CONSTRAINTS:
+				return validateReductionConstraints((ReductionConstraints)value, diagnostics, context);
+			case GtmPackage.REDUCTION_CONSTRAINT:
+				return validateReductionConstraint((ReductionConstraint)value, diagnostics, context);
 			case GtmPackage.REDUCTION_CARDS:
 				return validateReductionCards((ReductionCards)value, diagnostics, context);
 			case GtmPackage.REDUCTION_CARD:
 				return validateReductionCard((ReductionCard)value, diagnostics, context);
-			case GtmPackage.REDUCTION_CONSTRAINT:
-				return validateReductionConstraint((ReductionConstraint)value, diagnostics, context);
 			case GtmPackage.REQUIRED_REDUCTION_CARD:
 				return validateRequiredReductionCard((RequiredReductionCard)value, diagnostics, context);
 			case GtmPackage.CONVERSION_FROM_LEGACY:
@@ -3382,6 +3382,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(reductionCard, diagnostics, context);
 		if (result || diagnostics != null) result &= validateReductionCard_ISUER_MUST_FOR_NON_GENERIC(reductionCard, diagnostics, context);
 		if (result || diagnostics != null) result &= validateReductionCard_NOT_REFERENCED(reductionCard, diagnostics, context);
+		if (result || diagnostics != null) result &= validateReductionCard_CARD_ID_FORMAT(reductionCard, diagnostics, context);
 		return result;
 	}
 
@@ -3436,6 +3437,68 @@ public class GtmValidator extends EObjectValidator {
 		}
 		return true;
 
+	}
+
+	/**
+	 * Validates the CARD_ID_FORMAT constraint of '<em>Reduction Card</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateReductionCard_CARD_ID_FORMAT(ReductionCard reductionCard, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (reductionCard.getId() == null) {
+			if (diagnostics != null) {
+				diagnostics.add
+				(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Reduction Card Id is missing in: " + getObjectLabel(reductionCard, context),
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionCard, context) }, //$NON-NLS-1$
+						 new Object[] { reductionCard },
+						 context));
+			}
+			return false;
+		}
+		if (GenericReductionCards.getByName(reductionCard.getId()) != null) {
+			return true;
+		}
+		
+		if (reductionCard.getCardIssuer() == null) {
+				if (diagnostics != null) {
+					diagnostics.add
+					(createSimpleDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							 0,
+							 "Issuer is missing in: " + getObjectLabel(reductionCard, context),
+							 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionCard, context) }, //$NON-NLS-1$
+							 new Object[] { reductionCard },
+							 context));
+				}
+				return false;
+			}
+		
+		
+		if (reductionCard.getCardIssuer() != null && 
+			!reductionCard.getId().startsWith(reductionCard.getCardIssuer().getCode())) {
+			if (diagnostics != null) {
+				diagnostics.add
+				(createSimpleDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Reduction Card Id does not start with issuer (will be corrected in export): " + getObjectLabel(reductionCard, context),
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(reductionCard, context) }, //$NON-NLS-1$
+						 new Object[] { reductionCard },
+						 context));
+			}
+			return false;
+		}
+
+		
+		return true;
 	}
 
 	/**

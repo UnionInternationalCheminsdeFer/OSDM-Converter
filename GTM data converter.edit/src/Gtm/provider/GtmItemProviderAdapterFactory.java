@@ -3782,7 +3782,6 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (fareStationSetDefinitionsItemProvider != null) fareStationSetDefinitionsItemProvider.dispose();
 		if (fareStationSetDefinitionItemProvider != null) fareStationSetDefinitionItemProvider.dispose();
 		if (legacyAccountingIdentifierItemProvider != null) legacyAccountingIdentifierItemProvider.dispose();
-		if (reductionConstraintsItemProvider != null) reductionConstraintsItemProvider.dispose();
 		if (personalDataConstraintsItemProvider != null) personalDataConstraintsItemProvider.dispose();
 		if (personalDataConstraintItemProvider != null) personalDataConstraintItemProvider.dispose();
 		if (requiredPersonalDataItemProvider != null) requiredPersonalDataItemProvider.dispose();
@@ -3842,9 +3841,10 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (carrierResourceLocationItemProvider != null) carrierResourceLocationItemProvider.dispose();
 		if (crossBorderConditionItemProvider != null) crossBorderConditionItemProvider.dispose();
 		if (fareCombinationModelItemProvider != null) fareCombinationModelItemProvider.dispose();
+		if (reductionConstraintsItemProvider != null) reductionConstraintsItemProvider.dispose();
+		if (reductionConstraintItemProvider != null) reductionConstraintItemProvider.dispose();
 		if (reductionCardsItemProvider != null) reductionCardsItemProvider.dispose();
 		if (reductionCardItemProvider != null) reductionCardItemProvider.dispose();
-		if (reductionConstraintItemProvider != null) reductionConstraintItemProvider.dispose();
 		if (requiredReductionCardItemProvider != null) requiredReductionCardItemProvider.dispose();
 		if (conversionFromLegacyItemProvider != null) conversionFromLegacyItemProvider.dispose();
 		if (conversionParamsItemProvider != null) conversionParamsItemProvider.dispose();
