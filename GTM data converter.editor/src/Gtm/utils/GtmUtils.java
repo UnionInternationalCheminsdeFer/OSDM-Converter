@@ -964,7 +964,7 @@ public class GtmUtils {
 					setId(domain, card,GtmPackage.Literals.PERSONAL_DATA_CONSTRAINT__ID, command, issuerR + "_",i);
 					GtmUtils.writeConsoleWarning("Reduction Card Id was missing. Set to: " + card.getId(), null);
 				} else {
-					if (card.getId() != null && !card.getId().startsWith(listName)) {
+					if (card.getId() != null && !card.getId().startsWith(issuerR)) {
 						StringBuilder sb = new StringBuilder();
 						sb.append(issuerR).append("_");
 						sb.append(card.getId().replace(' ','_'));

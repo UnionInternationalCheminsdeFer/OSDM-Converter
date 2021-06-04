@@ -1,6 +1,8 @@
 package Gtm.jsonImportExport;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -718,6 +720,12 @@ public class GtmJsonExporter {
 		textJ.setText(text.getTextICAO());
 		textJ.setTextUtf8(text.getTextUTF8());
 		
+		if ( (textJ.getText() == null || textJ.getText().length() == 0) &&
+			 (textJ.getTextUtf8() == null || textJ.getTextUtf8().length() > 0))	{		
+			byte[] ascii = textJ.getTextUtf8().getBytes(StandardCharsets.US_ASCII); 
+			textJ.setText(Arrays.toString(ascii));
+		}
+		
 		if (text.getTranslations() != null && !text.getTranslations().isEmpty()) {
 			
 			ArrayList<TranslationDef> listJ = new ArrayList<TranslationDef>();
@@ -732,8 +740,14 @@ public class GtmJsonExporter {
 				transJ.setShortText(trans.getShortTextICAO());
 				transJ.setShortTextUtf8(trans.getShortTextUTF8());
 				transJ.setText(trans.getTextICAO());
-				transJ.setTextUtf8(trans.getTextUTF8());				
-								
+				transJ.setTextUtf8(trans.getTextUTF8());	
+				
+				if ( (transJ.getText() == null || transJ.getText().length() == 0) &&
+					 (transJ.getTextUtf8() == null || transJ.getTextUtf8().length() > 0))	{
+					byte[] ascii = transJ.getTextUtf8().getBytes(StandardCharsets.US_ASCII); 
+					transJ.setText(Arrays.toString(ascii));
+				}
+						
 				listJ.add(transJ);
 			}
 			
