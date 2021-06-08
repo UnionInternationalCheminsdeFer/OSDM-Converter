@@ -1,6 +1,5 @@
 package Gtm.jsonImportExport;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -742,7 +741,6 @@ public class GtmJsonExporter {
 				
 				if ( (transJ.getText() == null || transJ.getText().length() == 0) &&
 					 (transJ.getTextUtf8() == null || transJ.getTextUtf8().length() > 0))	{
-					byte[] ascii = transJ.getTextUtf8().getBytes(StandardCharsets.US_ASCII); 
 					transJ.setText(GtmUtils.utf2ascii(transJ.getTextUtf8()));
 				}
 						

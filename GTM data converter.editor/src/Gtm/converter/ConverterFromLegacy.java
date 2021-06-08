@@ -1816,7 +1816,7 @@ public class ConverterFromLegacy {
 		LegacyAccountingIdentifier accountingIdentifier = GtmFactory.eINSTANCE.createLegacyAccountingIdentifier();
 		accountingIdentifier.setAddSeriesId(0);
 		if (fareTemplate.getLegacyAccountingTariffId() != 0) {
-			accountingIdentifier.setTariffId(fareTemplate.getLegacyAccountingIdentifier().getTariffId());
+			accountingIdentifier.setTariffId(fareTemplate.getLegacyAccountingTariffId());
 		} else {
 			accountingIdentifier.setTariffId(fareTemplate.eContainer().eContents().indexOf(fareTemplate) + 1);
 		}	
