@@ -722,15 +722,29 @@ public class GtmJsonExporter {
 		TextDef textJ = new TextDef();
 		
 		textJ.setId(text.getId());
-		textJ.setShortText(text.getShortTextICAO());
-		textJ.setShortTextUtf8(text.getShortTextUTF8());
 		textJ.setText(text.getTextICAO());
 		textJ.setTextUtf8(text.getTextUTF8());
-		
 		if ( (textJ.getText() == null || textJ.getText().length() == 0) &&
-			 (textJ.getTextUtf8() == null || textJ.getTextUtf8().length() > 0))	{		
+			 (textJ.getTextUtf8() != null || textJ.getTextUtf8().length() > 0))	{		
 			textJ.setText(GtmUtils.utf2ascii(textJ.getTextUtf8()));
 		}
+		if ( (textJ.getTextUtf8() == null || textJ.getTextUtf8().length() == 0) &&
+			 (textJ.getText() != null || textJ.getText().length() > 0))	{		
+			textJ.setTextUtf8(textJ.getText());
+		}
+		
+		if (text.getShortTextICAO() == null || text.getShortTextICAO().length() == 0) {
+			textJ.setShortText(textJ.getText());
+		} else {
+			textJ.setShortText(text.getShortTextICAO());
+		}
+		
+		if (text.getShortTextUTF8() == null || text.getShortTextUTF8().length() == 0) {
+			textJ.setShortTextUtf8(textJ.getTextUtf8());
+		} else {
+			textJ.setShortTextUtf8(text.getShortTextUTF8());
+		}
+		
 		
 		if (text.getTranslations() != null && !text.getTranslations().isEmpty()) {
 			
@@ -743,14 +757,29 @@ public class GtmJsonExporter {
 				if (trans.getLanguage()!=null) {
 					transJ.setLanguage(trans.getLanguage().getCode());
 				}
-				transJ.setShortText(trans.getShortTextICAO());
-				transJ.setShortTextUtf8(trans.getShortTextUTF8());
+				
 				transJ.setText(trans.getTextICAO());
 				transJ.setTextUtf8(trans.getTextUTF8());	
 				
 				if ( (transJ.getText() == null || transJ.getText().length() == 0) &&
-					 (transJ.getTextUtf8() == null || transJ.getTextUtf8().length() > 0))	{
+					 (transJ.getTextUtf8() != null || transJ.getTextUtf8().length() > 0))	{
 					transJ.setText(GtmUtils.utf2ascii(transJ.getTextUtf8()));
+				}
+				if ( (transJ.getTextUtf8() == null || transJ.getTextUtf8().length() == 0) &&
+					 (transJ.getText() != null || transJ.getText().length() > 0))	{
+					transJ.setTextUtf8(transJ.getText());
+				}
+				
+				if (trans.getShortTextICAO() == null) {
+					transJ.setShortText(trans.getTextICAO());
+				} else {
+					transJ.setShortText(trans.getShortTextICAO());
+				}
+				
+				if (trans.getShortTextUTF8() == null || trans.getShortTextUTF8().length() == 0) {
+					transJ.setShortTextUtf8(trans.getTextUTF8());
+				} else {
+					transJ.setShortTextUtf8(trans.getShortTextUTF8());
 				}
 						
 				listJ.add(transJ);
