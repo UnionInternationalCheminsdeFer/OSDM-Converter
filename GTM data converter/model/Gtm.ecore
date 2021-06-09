@@ -1165,6 +1165,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="seriesFilter" upperBound="-1"
         eType="#//LegacySeriesType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="basePriceClass" eType="#//BasePriceClassType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesTemplate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transactionType" eType="#//AfterSalesTransactionType"/>
@@ -1851,5 +1852,10 @@
     <eLiterals name="FRIDAY" value="5"/>
     <eLiterals name="SATURDAY" value="6"/>
     <eLiterals name="SUNDAY" value="7"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BasePriceClassType">
+    <eLiterals name="SERVICE_CLASS"/>
+    <eLiterals name="FIRST" value="1"/>
+    <eLiterals name="SECOND" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

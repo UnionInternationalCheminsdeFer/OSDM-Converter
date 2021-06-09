@@ -314,6 +314,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createTravelerTypeFromString(eDataType, initialValue);
 			case GtmPackage.WEEK_DAY:
 				return createWeekDayFromString(eDataType, initialValue);
+			case GtmPackage.BASE_PRICE_CLASS_TYPE:
+				return createBasePriceClassTypeFromString(eDataType, initialValue);
 			case GtmPackage.DATE_AS_DATE:
 				return createDateAsDateFromString(eDataType, initialValue);
 			case GtmPackage.DATE_AS_DATE_TIME:
@@ -421,6 +423,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertTravelerTypeToString(eDataType, instanceValue);
 			case GtmPackage.WEEK_DAY:
 				return convertWeekDayToString(eDataType, instanceValue);
+			case GtmPackage.BASE_PRICE_CLASS_TYPE:
+				return convertBasePriceClassTypeToString(eDataType, instanceValue);
 			case GtmPackage.DATE_AS_DATE:
 				return convertDateAsDateToString(eDataType, instanceValue);
 			case GtmPackage.DATE_AS_DATE_TIME:
@@ -2757,6 +2761,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * @generated
 	 */
 	public String convertWeekDayToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BasePriceClassType createBasePriceClassTypeFromString(EDataType eDataType, String initialValue) {
+		BasePriceClassType result = BasePriceClassType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertBasePriceClassTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

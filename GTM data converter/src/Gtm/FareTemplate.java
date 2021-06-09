@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareTemplate#getRegulatoryConditions <em>Regulatory Conditions</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getSeriesFilter <em>Series Filter</em>}</li>
+ *   <li>{@link Gtm.FareTemplate#getBasePriceClass <em>Base Price Class</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareTemplate()
@@ -721,6 +722,31 @@ public interface FareTemplate extends EObject {
 	 * @generated
 	 */
 	EList<LegacySeriesType> getSeriesFilter();
+
+	/**
+	 * Returns the value of the '<em><b>Base Price Class</b></em>' attribute.
+	 * The literals are from the enumeration {@link Gtm.BasePriceClassType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Base Price Class</em>' attribute.
+	 * @see Gtm.BasePriceClassType
+	 * @see #setBasePriceClass(BasePriceClassType)
+	 * @see Gtm.GtmPackage#getFareTemplate_BasePriceClass()
+	 * @model
+	 * @generated
+	 */
+	BasePriceClassType getBasePriceClass();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareTemplate#getBasePriceClass <em>Base Price Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Base Price Class</em>' attribute.
+	 * @see Gtm.BasePriceClassType
+	 * @see #getBasePriceClass()
+	 * @generated
+	 */
+	void setBasePriceClass(BasePriceClassType value);
 
 
 } // FareTemplate

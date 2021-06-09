@@ -495,8 +495,17 @@ public class GtmJsonExporter {
 				
 				js.setName(s.getNameCaseASCII());
 				js.setNameUtf8(s.getNameCaseUTF8());
-				js.setShortName(s.getShortNameCaseASCII());
-				js.setShortNameUtf8(s.getShortNameCaseUTF8());
+				if (s.getShortNameCaseASCII() == null || s.getShortNameCaseASCII().length() == 0) {
+					js.setShortName(js.getName());
+				} else {
+					js.setShortName(s.getShortNameCaseASCII());
+				}
+				
+				if (s.getShortNameCaseUTF8() == null || s.getShortNameCaseUTF8().length() == 0) {
+					js.setShortNameUtf8(js.getNameUtf8());
+				} else {
+					js.setShortNameUtf8(s.getShortNameCaseUTF8());
+				}
 				js.setLegacyBorderPointCode(s.getLegacyBorderPointCode());
 				jl.add(js);
 			}
