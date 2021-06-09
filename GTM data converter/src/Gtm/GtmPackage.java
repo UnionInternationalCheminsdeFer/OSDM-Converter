@@ -8050,13 +8050,22 @@ public interface GtmPackage extends EPackage {
 	int FARE_TEMPLATE__SERIES_FILTER = 29;
 
 	/**
+	 * The feature id for the '<em><b>Base Price Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FARE_TEMPLATE__BASE_PRICE_CLASS = 30;
+
+	/**
 	 * The number of structural features of the '<em>Fare Template</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_TEMPLATE_FEATURE_COUNT = 30;
+	int FARE_TEMPLATE_FEATURE_COUNT = 31;
 
 	/**
 	 * The number of operations of the '<em>Fare Template</em>' class.
@@ -10271,6 +10280,16 @@ public interface GtmPackage extends EPackage {
 	int WEEK_DAY = 197;
 
 	/**
+	 * The meta object id for the '{@link Gtm.BasePriceClassType <em>Base Price Class Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Gtm.BasePriceClassType
+	 * @see Gtm.impl.GtmPackageImpl#getBasePriceClassType()
+	 * @generated
+	 */
+	int BASE_PRICE_CLASS_TYPE = 198;
+
+	/**
 	 * The meta object id for the '<em>Date As Date</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10278,7 +10297,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getDateAsDate()
 	 * @generated
 	 */
-	int DATE_AS_DATE = 198;
+	int DATE_AS_DATE = 199;
 
 	/**
 	 * The meta object id for the '<em>Date As Date Time</em>' data type.
@@ -10288,7 +10307,7 @@ public interface GtmPackage extends EPackage {
 	 * @see Gtm.impl.GtmPackageImpl#getDateAsDateTime()
 	 * @generated
 	 */
-	int DATE_AS_DATE_TIME = 199;
+	int DATE_AS_DATE_TIME = 200;
 
 	/**
 	 * The meta object id for the '{@link Gtm.DataSource <em>Data Source</em>}' enum.
@@ -16706,6 +16725,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getFareTemplate_SeriesFilter();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.FareTemplate#getBasePriceClass <em>Base Price Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Base Price Class</em>'.
+	 * @see Gtm.FareTemplate#getBasePriceClass()
+	 * @see #getFareTemplate()
+	 * @generated
+	 */
+	EAttribute getFareTemplate_BasePriceClass();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.AfterSalesTemplate <em>After Sales Template</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18879,6 +18909,16 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getWeekDay();
+
+	/**
+	 * Returns the meta object for enum '{@link Gtm.BasePriceClassType <em>Base Price Class Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Base Price Class Type</em>'.
+	 * @see Gtm.BasePriceClassType
+	 * @generated
+	 */
+	EEnum getBasePriceClassType();
 
 	/**
 	 * Returns the meta object for data type '{@link java.util.Date <em>Date As Date</em>}'.
@@ -23934,6 +23974,14 @@ public interface GtmPackage extends EPackage {
 		EAttribute FARE_TEMPLATE__SERIES_FILTER = eINSTANCE.getFareTemplate_SeriesFilter();
 
 		/**
+		 * The meta object literal for the '<em><b>Base Price Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FARE_TEMPLATE__BASE_PRICE_CLASS = eINSTANCE.getFareTemplate_BasePriceClass();
+
+		/**
 		 * The meta object literal for the '{@link Gtm.impl.AfterSalesTemplateImpl <em>After Sales Template</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -25722,6 +25770,16 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum WEEK_DAY = eINSTANCE.getWeekDay();
+
+		/**
+		 * The meta object literal for the '{@link Gtm.BasePriceClassType <em>Base Price Class Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Gtm.BasePriceClassType
+		 * @see Gtm.impl.GtmPackageImpl#getBasePriceClassType()
+		 * @generated
+		 */
+		EEnum BASE_PRICE_CLASS_TYPE = eINSTANCE.getBasePriceClassType();
 
 		/**
 		 * The meta object literal for the '<em>Date As Date</em>' data type.

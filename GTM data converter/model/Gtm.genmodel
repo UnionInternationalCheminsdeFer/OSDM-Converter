@@ -421,6 +421,11 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//WeekDay/SATURDAY"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//WeekDay/SUNDAY"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//BasePriceClassType">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/SERVICE_CLASS"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/FIRST"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/SECOND"/>
+    </genEnums>
     <genDataTypes ecoreDataType="Gtm.ecore#//DateAsDate"/>
     <genDataTypes ecoreDataType="Gtm.ecore#//DateAsDateTime"/>
     <genClasses ecoreClass="Gtm.ecore#//GTMTool">
@@ -1174,6 +1179,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/regulatoryConditions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/legacyAccountingTariffId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/seriesFilter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/basePriceClass"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AfterSalesTemplate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//AfterSalesTemplate/transactionType"/>

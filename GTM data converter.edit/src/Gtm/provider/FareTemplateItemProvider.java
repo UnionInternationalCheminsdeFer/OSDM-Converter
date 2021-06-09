@@ -86,6 +86,7 @@ public class FareTemplateItemProvider
 			addRegulatoryConditionsPropertyDescriptor(object);
 			addLegacyAccountingTariffIdPropertyDescriptor(object);
 			addSeriesFilterPropertyDescriptor(object);
+			addBasePriceClassPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -576,6 +577,28 @@ public class FareTemplateItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Base Price Class feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBasePriceClassPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareTemplate_basePriceClass_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_basePriceClass_feature", "_UI_FareTemplate_type"),
+				 GtmPackage.Literals.FARE_TEMPLATE__BASE_PRICE_CLASS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -654,6 +677,7 @@ public class FareTemplateItemProvider
 			case GtmPackage.FARE_TEMPLATE__REGULATORY_CONDITIONS:
 			case GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_TARIFF_ID:
 			case GtmPackage.FARE_TEMPLATE__SERIES_FILTER:
+			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.FARE_TEMPLATE__AFTER_SALES_TEMPLATE:

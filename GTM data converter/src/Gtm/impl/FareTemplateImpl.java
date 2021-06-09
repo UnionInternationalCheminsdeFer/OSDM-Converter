@@ -3,6 +3,7 @@
 package Gtm.impl;
 
 import Gtm.AfterSalesTemplate;
+import Gtm.BasePriceClassType;
 import Gtm.CarrierConstraint;
 import Gtm.CombinationConstraint;
 import Gtm.FareConstraintBundle;
@@ -79,6 +80,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.FareTemplateImpl#getRegulatoryConditions <em>Regulatory Conditions</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getSeriesFilter <em>Series Filter</em>}</li>
+ *   <li>{@link Gtm.impl.FareTemplateImpl#getBasePriceClass <em>Base Price Class</em>}</li>
  * </ul>
  *
  * @generated
@@ -472,6 +474,26 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * @ordered
 	 */
 	protected EList<LegacySeriesType> seriesFilter;
+
+	/**
+	 * The default value of the '{@link #getBasePriceClass() <em>Base Price Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBasePriceClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final BasePriceClassType BASE_PRICE_CLASS_EDEFAULT = BasePriceClassType.SERVICE_CLASS;
+
+	/**
+	 * The cached value of the '{@link #getBasePriceClass() <em>Base Price Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBasePriceClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected BasePriceClassType basePriceClass = BASE_PRICE_CLASS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1453,6 +1475,27 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public BasePriceClassType getBasePriceClass() {
+		return basePriceClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBasePriceClass(BasePriceClassType newBasePriceClass) {
+		BasePriceClassType oldBasePriceClass = basePriceClass;
+		basePriceClass = newBasePriceClass == null ? BASE_PRICE_CLASS_EDEFAULT : newBasePriceClass;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS, oldBasePriceClass, basePriceClass));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1550,6 +1593,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return getLegacyAccountingTariffId();
 			case GtmPackage.FARE_TEMPLATE__SERIES_FILTER:
 				return getSeriesFilter();
+			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
+				return getBasePriceClass();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1656,6 +1701,9 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				getSeriesFilter().clear();
 				getSeriesFilter().addAll((Collection<? extends LegacySeriesType>)newValue);
 				return;
+			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
+				setBasePriceClass((BasePriceClassType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1758,6 +1806,9 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__SERIES_FILTER:
 				getSeriesFilter().clear();
 				return;
+			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
+				setBasePriceClass(BASE_PRICE_CLASS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1830,6 +1881,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return legacyAccountingTariffId != LEGACY_ACCOUNTING_TARIFF_ID_EDEFAULT;
 			case GtmPackage.FARE_TEMPLATE__SERIES_FILTER:
 				return seriesFilter != null && !seriesFilter.isEmpty();
+			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
+				return basePriceClass != BASE_PRICE_CLASS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1864,6 +1917,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 		result.append(legacyAccountingTariffId);
 		result.append(", seriesFilter: ");
 		result.append(seriesFilter);
+		result.append(", basePriceClass: ");
+		result.append(basePriceClass);
 		result.append(')');
 		return result.toString();
 	}

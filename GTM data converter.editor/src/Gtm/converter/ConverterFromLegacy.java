@@ -24,6 +24,7 @@ import Gtm.AfterSalesCondition;
 import Gtm.AfterSalesRule;
 import Gtm.AfterSalesTemplate;
 import Gtm.AlternativeRoute;
+import Gtm.BasePriceClassType;
 import Gtm.Calendar;
 import Gtm.Carrier;
 import Gtm.CarrierConstraint;
@@ -1595,11 +1596,20 @@ public class ConverterFromLegacy {
 		try {
 			Float amount = null;		
 			
-			if (fareTemplate.getServiceClass().getClassicClass() == ClassicClassType.FIRST) {
-				amount = getAdultAmount(tool, series,1,dateRange);
+			
+			if (fareTemplate.getBasePriceClass() == null || fareTemplate.getBasePriceClass().equals(BasePriceClassType.SERVICE_CLASS)) {
+				if (fareTemplate.getServiceClass().getClassicClass() == ClassicClassType.FIRST) {
+					amount = getAdultAmount(tool, series,1,dateRange);
+				} else {
+					amount = getAdultAmount(tool, series,2,dateRange);	
+				}	
 			} else {
-				amount = getAdultAmount(tool, series,2,dateRange);	
-			}	
+				if (fareTemplate.getBasePriceClass().equals(BasePriceClassType.FIRST)) {
+					amount = getAdultAmount(tool, series,1,dateRange);
+				} else if (fareTemplate.getBasePriceClass().equals(BasePriceClassType.SECOND)) {
+					amount = getAdultAmount(tool, series,2,dateRange);	
+				}
+			}
 			if (amount == null) return null;
 
 			amount = amount * fareTemplate.getPriceFactor();
@@ -2472,8 +2482,16 @@ public class ConverterFromLegacy {
 			if (station != null) {
 				station.setNameCaseASCII(lStation.getName());
 				station.setNameCaseUTF8(lStation.getNameUTF8());
-				station.setShortNameCaseASCII(lStation.getShortName());
-				station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
+				if (lStation.getShortName() == null || lStation.getShortName().length() == 0) {
+					station.setShortNameCaseASCII(lStation.getName());
+				} else {				
+					station.setShortNameCaseASCII(lStation.getShortName());
+				}	
+				if (lStation.getShortNameUtf8() == null || lStation.getShortNameUtf8().length() == 0) {
+					station.setShortNameCaseUTF8(lStation.getNameUTF8());
+				} else {
+					station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
+				}
 				station.setLegacyBorderPointCode(lStation.getBorderPointCode());
 			}
 		} catch (ConverterException e) {
