@@ -1166,6 +1166,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="seriesFilter" upperBound="-1"
         eType="#//LegacySeriesType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="basePriceClass" eType="#//BasePriceClassType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierFilter" upperBound="-1"
+        eType="#//Carrier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesTemplate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transactionType" eType="#//AfterSalesTransactionType"/>

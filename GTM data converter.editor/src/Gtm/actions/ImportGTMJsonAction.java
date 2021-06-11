@@ -252,13 +252,13 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						monitor.worked(1);
 						
 						StringBuilder sb = new StringBuilder();
+						sb.append("OSDM Import Completed: ");
 						sb.append("Fares delivered: ");
 						sb.append(deliveredFares);
 						sb.append(" / Fares imported: ");
 						sb.append(importedFares);
 						
-						GtmUtils.displayAsyncInfoMessage("OSDM import completed", sb.toString());
-						//GtmUtils.writeConsoleInfo("OSDM import completed", editor);
+						GtmUtils.writeConsoleInfo(sb.toString(), editor);
 
 					} catch (JsonParseException e) {
 						GtmUtils.displayAsyncErrorMessage(e,"json parsing error");

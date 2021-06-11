@@ -4,6 +4,7 @@ package Gtm.impl;
 
 import Gtm.AfterSalesTemplate;
 import Gtm.BasePriceClassType;
+import Gtm.Carrier;
 import Gtm.CarrierConstraint;
 import Gtm.CombinationConstraint;
 import Gtm.FareConstraintBundle;
@@ -40,6 +41,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -81,6 +83,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.FareTemplateImpl#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getSeriesFilter <em>Series Filter</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getBasePriceClass <em>Base Price Class</em>}</li>
+ *   <li>{@link Gtm.impl.FareTemplateImpl#getCarrierFilter <em>Carrier Filter</em>}</li>
  * </ul>
  *
  * @generated
@@ -494,6 +497,16 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * @ordered
 	 */
 	protected BasePriceClassType basePriceClass = BASE_PRICE_CLASS_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getCarrierFilter() <em>Carrier Filter</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCarrierFilter()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Carrier> carrierFilter;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1496,6 +1509,18 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Carrier> getCarrierFilter() {
+		if (carrierFilter == null) {
+			carrierFilter = new EObjectResolvingEList<Carrier>(Carrier.class, this, GtmPackage.FARE_TEMPLATE__CARRIER_FILTER);
+		}
+		return carrierFilter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1595,6 +1620,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return getSeriesFilter();
 			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
 				return getBasePriceClass();
+			case GtmPackage.FARE_TEMPLATE__CARRIER_FILTER:
+				return getCarrierFilter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1704,6 +1731,10 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
 				setBasePriceClass((BasePriceClassType)newValue);
 				return;
+			case GtmPackage.FARE_TEMPLATE__CARRIER_FILTER:
+				getCarrierFilter().clear();
+				getCarrierFilter().addAll((Collection<? extends Carrier>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1809,6 +1840,9 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
 				setBasePriceClass(BASE_PRICE_CLASS_EDEFAULT);
 				return;
+			case GtmPackage.FARE_TEMPLATE__CARRIER_FILTER:
+				getCarrierFilter().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1883,6 +1917,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return seriesFilter != null && !seriesFilter.isEmpty();
 			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
 				return basePriceClass != BASE_PRICE_CLASS_EDEFAULT;
+			case GtmPackage.FARE_TEMPLATE__CARRIER_FILTER:
+				return carrierFilter != null && !carrierFilter.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -436,26 +436,50 @@ public class ConverterFromLegacy {
 				int legacyFareCounter = 0;
 				for (FareTemplate fareTemplate: tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
 					
+					boolean convert = true;
 					//check series type
 					if (fareTemplate.getSeriesFilter() != null && fareTemplate.getSeriesFilter().size() > 0) {
+						
+						//check the filter on series type
 						if (series.getType()!= null && !fareTemplate.getSeriesFilter().contains(series.getType())) {
-							break;
+							convert = false;
+						}
+						
+					}
+					
+					//check the carrier filter
+					if (fareTemplate.getCarrierFilter() != null && !fareTemplate.getCarrierFilter().isEmpty()) {
+							
+						if (series.getCarrierCode() == null) {
+							convert = false;
+						} else {
+							boolean included = false;
+							for (Carrier c : fareTemplate.getCarrierFilter()) {
+								if (series.getCarrierCode().equals(c.getCode())) {
+									included = true;	
+								}
+							}
+							if (!included) {
+								convert = false;
+							}
 						}
 					}
 					
 					//check basic features
 					if (fareTemplate.getServiceClass() == null) {					
 						GtmUtils.writeConsoleError("Service class missing in template: " + fareTemplate.getDataDescription(), editor);
-						break;
+						convert = false;
 					}
-				
-					try {
-						for (DateRange dateRange : validityRanges) {
-							convertSeriesToFares(series, fareTemplate,dateRange, regionalConstraint,regionalConstraintR ,priceList, legacyFareCounter, fares, afterSalesRules);
+					
+					if (convert) {
+						try {
+							for (DateRange dateRange : validityRanges) {
+								convertSeriesToFares(series, fareTemplate,dateRange, regionalConstraint,regionalConstraintR ,priceList, legacyFareCounter, fares, afterSalesRules);
+							}
+							added++;
+						} catch (ConverterException e) {
+							// error already logged
 						}
-						added++;
-					} catch (ConverterException e) {
-						// error already logged
 					}
 				}	
 			}

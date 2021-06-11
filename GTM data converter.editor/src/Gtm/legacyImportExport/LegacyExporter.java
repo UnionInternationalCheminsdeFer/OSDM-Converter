@@ -700,7 +700,7 @@ public class LegacyExporter {
 		//	13 Flag 3 for destination station designation numeric 1 M  62 0 or 3 (see point 2.2) 
 		sb.append("0");				 //$NON-NLS-1$
 		//	14 Route number numeric 1 M  63 4th sorting criterion 
-		sb.append("0");		 //$NON-NLS-1$
+		sb.append(String.format("%01d", series.getRouteNumber()));  		 //$NON-NLS-1$
 		//	15 Product code numeric 2 O  64-65 cf. Notes to Appendix B, point B.2. 
 		sb.append("00");				 //$NON-NLS-1$
 		//	16 Product offer code numeric 2 O  66-67 cf. Notes to Appendix B, point B.2. 

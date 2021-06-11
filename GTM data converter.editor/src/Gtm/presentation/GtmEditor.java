@@ -1500,12 +1500,11 @@ public class GtmEditor
 	 */
 	public IPropertySheetPage getPropertySheetPage() {
 		PropertySheetPage propertySheetPage =
-			new ExtendedPropertySheetPage(editingDomain, ExtendedPropertySheetPage.Decoration.NONE, null, 0, false) {
+			new GtmPropertySheetPage(editingDomain, ExtendedPropertySheetPage.Decoration.NONE, null, 0, false) {
 				@Override
 				public void setSelectionToViewer(List<?> selection) {
 					GtmEditor.this.setSelectionToViewer(selection);
-					GtmEditor.this.setFocus();
-				}
+					GtmEditor.this.setFocus();				}
 
 				@Override
 				public void setActionBars(IActionBars actionBars) {
@@ -1514,6 +1513,7 @@ public class GtmEditor
 				}
 			};
 		propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory));
+		
 		propertySheetPages.add(propertySheetPage);
 
 		return propertySheetPage;

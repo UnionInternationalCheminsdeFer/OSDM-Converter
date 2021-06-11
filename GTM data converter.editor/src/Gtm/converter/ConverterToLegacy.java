@@ -251,6 +251,10 @@ public class 	ConverterToLegacy {
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_10);	
 		
 		
+		//add route numbers
+		addRouteNumbers(series, routeFares);
+		
+		
 		List<LegacySeries> seriesCol = new ArrayList<LegacySeries>();
 		seriesCol.addAll(series.values());
 		Collections.sort(seriesCol,new SeriesComparator());
@@ -365,6 +369,54 @@ public class 	ConverterToLegacy {
 		return series.size();
 	}
 	
+
+	private void addRouteNumbers(HashMap<Integer, LegacySeries> series, HashSet<LegacyRouteFare> routeFares) {
+		
+		ArrayList<LegacySeries> routeNumberTooHigh = new ArrayList<LegacySeries>();
+	
+		for (LegacySeries serie1 : series.values()) {
+			int routeIndex = 1;
+			if (serie1.getRouteNumber() == 0) {
+				serie1.setRouteNumber(1);
+			}
+			for (LegacySeries serie2 : series.values()) {
+				if (serie1.getFromStation() == serie2.getFromStation() && 
+					serie1.getToStation() == serie2.getToStation() &&
+					serie1 != serie2) {
+					routeIndex++;
+					serie1.setRouteNumber(routeIndex);
+				}
+			}
+			if (routeIndex > 9) {
+				routeNumberTooHigh.add(serie1);
+			}
+		}
+		
+		for (LegacySeries s : routeNumberTooHigh) {
+			series.remove(s.getNumber(),s);
+			String message = String.format("route number too high (too many routes for the same O/D) for: ",s.getRouteDescription() );
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
+			
+		if (routeNumberTooHigh.size() > 0) {
+			//remove corresponding route fares
+			ArrayList<LegacyRouteFare> excludeFare = new ArrayList<LegacyRouteFare>();
+			
+						
+			for (LegacyRouteFare fare : routeFares) {
+				if (routeNumberTooHigh.contains(fare.getSeries())) {
+					excludeFare.add(fare);
+				}
+			}
+			for (LegacyRouteFare fare : excludeFare) {
+				routeFares.remove(fare);
+			}
+			
+		}
+		
+		
+		
+	}
 
 	/**
 	 * Merge classes.
@@ -807,17 +859,49 @@ public class 	ConverterToLegacy {
 					} else {	
 						//use the central station on the border or select the station on the carriers side
 						if (lbs.getStations().getStations().size() == 1) {
-							name = lbs.getStations().getStations().get(0).getNameCaseUTF8();
-							nameASCII = lbs.getStations().getStations().get(0).getShortNameCaseASCII();
-							nameUTF8 = lbs.getStations().getStations().get(0).getNameCaseUTF8();
+							Station s = lbs.getStations().getStations().get(0);
+
+							name = s.getNameCaseUTF8();
+							nameASCII = s.getShortNameCaseASCII();
+							nameUTF8 = s.getNameCaseUTF8();
+							
+							if (name == null || name.length() == 0) {
+								StringBuilder sb = new StringBuilder();
+								sb.append( "Station names missing - code: ");
+								sb.append(lbs.getLegacyStationCode());
+								sb.append(" time table name: ").append(s.getTimetableName());
+								sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
+ 								GtmUtils.writeConsoleError(sb.toString(), editor);
+ 								return;
+							}
 						} else {
+							boolean found = false;
 							for (Station s : lbs.getStations().getStations()) {
+								
 								if (s.getCountry().equals(tool.getConversionFromLegacy().getParams().getCountry())) {
+									found = true;
 									name = s.getName();
 									nameASCII = s.getShortNameCaseASCII();
 									nameUTF8 = s.getNameCaseUTF8();
+									if (name == null || name.length() == 0) {
+										StringBuilder sb = new StringBuilder();
+										sb.append( "Station names missing - legacy code: ");
+										sb.append(lbs.getLegacyStationCode());
+										sb.append(" time table name: ").append(s.getTimetableName());
+										sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
+										GtmUtils.writeConsoleError(sb.toString(), editor);
+										return;
+									}
 								}
 							}
+							if (!found) {
+								StringBuilder sb = new StringBuilder();
+								sb.append( "Could not identify legacy station for legacy border point on: ");
+								sb.append(GtmUtils.getLabelText(lbp));
+								GtmUtils.writeConsoleError(sb.toString(), editor);								
+								return;
+							}
+							
 						}
 						
 						ls = GtmFactory.eINSTANCE.createLegacy108Station();
@@ -1148,7 +1232,8 @@ public class 	ConverterToLegacy {
 		if (series.getFromStation() == 0) {
 			Legacy108Station ls = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
 			if (ls == null) {
-				String message = "Route not convertable: " + routeDescription;
+				String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+				String message = "Route not covertable - departure not found: " + route;
 				GtmUtils.writeConsoleError(message, editor);
 				return null;
 			}
@@ -1157,7 +1242,8 @@ public class 	ConverterToLegacy {
 		}
 	
 		if (series.getFromStation() == 0) {
-			String message = "Route not convertable: " + routeDescription;
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not convertable - departure code 0: " + route;
 			GtmUtils.writeConsoleError(message, editor);
 			return null;
 		}
@@ -1176,7 +1262,8 @@ public class 	ConverterToLegacy {
 		if (series.getToStation() == 0) {
 			Legacy108Station ls = getLastLegacyStation(mainVia,regionalConstraint.getExitConnectionPoint());
 			if (ls == null) {
-				String message = "Route not convertable: " + routeDescription;
+				String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+				String message = "Route not convertable - arrival not found: " + route;
 				GtmUtils.writeConsoleError(message, editor);	
 				return null;
 			}
@@ -1185,7 +1272,8 @@ public class 	ConverterToLegacy {
 		}
 		
 		if (series.getToStation() == 0) {
-			String message = "Route not convertable: " + routeDescription;
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not convertable - arrival code 0: " + route;
 			GtmUtils.writeConsoleError(message, editor);
 			return null;
 		}
@@ -1463,6 +1551,20 @@ public class 	ConverterToLegacy {
 					
 					ls = l;
 				} else {
+					//not a border point and not in country
+					if (via.getStation() != null && !via.getStation().getCountry().equals(tool.getConversionFromLegacy().getParams().getCountry())) {
+						StringBuilder sb = new StringBuilder(); 
+						sb.append(via.getStation().getName());
+						sb.append(" not in ").append(tool.getConversionFromLegacy().getParams().getCountry().getName());
+						sb.append(" and not a border point: regional validity will not be converted");
+						GtmUtils.writeConsoleWarning(sb.toString(),editor);
+					} else {
+						StringBuilder sb = new StringBuilder(); 
+						sb.append("No local code for station: ");
+						sb.append(RouteDescriptionBuilder.getRouteDescription(via));					
+   					    sb.append(" found: regional validity will not be converted");
+						GtmUtils.writeConsoleWarning(sb.toString(),editor);
+					}
 					return null;
 				}
 		
