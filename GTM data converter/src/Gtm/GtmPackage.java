@@ -8059,13 +8059,22 @@ public interface GtmPackage extends EPackage {
 	int FARE_TEMPLATE__BASE_PRICE_CLASS = 30;
 
 	/**
+	 * The feature id for the '<em><b>Carrier Filter</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FARE_TEMPLATE__CARRIER_FILTER = 31;
+
+	/**
 	 * The number of structural features of the '<em>Fare Template</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_TEMPLATE_FEATURE_COUNT = 31;
+	int FARE_TEMPLATE_FEATURE_COUNT = 32;
 
 	/**
 	 * The number of operations of the '<em>Fare Template</em>' class.
@@ -16736,6 +16745,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getFareTemplate_BasePriceClass();
 
 	/**
+	 * Returns the meta object for the reference list '{@link Gtm.FareTemplate#getCarrierFilter <em>Carrier Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Carrier Filter</em>'.
+	 * @see Gtm.FareTemplate#getCarrierFilter()
+	 * @see #getFareTemplate()
+	 * @generated
+	 */
+	EReference getFareTemplate_CarrierFilter();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.AfterSalesTemplate <em>After Sales Template</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -23980,6 +24000,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FARE_TEMPLATE__BASE_PRICE_CLASS = eINSTANCE.getFareTemplate_BasePriceClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Carrier Filter</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FARE_TEMPLATE__CARRIER_FILTER = eINSTANCE.getFareTemplate_CarrierFilter();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.AfterSalesTemplateImpl <em>After Sales Template</em>}' class.

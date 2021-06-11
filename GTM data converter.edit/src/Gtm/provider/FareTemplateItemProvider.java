@@ -87,6 +87,7 @@ public class FareTemplateItemProvider
 			addLegacyAccountingTariffIdPropertyDescriptor(object);
 			addSeriesFilterPropertyDescriptor(object);
 			addBasePriceClassPropertyDescriptor(object);
+			addCarrierFilterPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -594,6 +595,28 @@ public class FareTemplateItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Carrier Filter feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCarrierFilterPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareTemplate_carrierFilter_feature"),
+				 getString("_UI_FareTemplate_carrierFilter_description"),
+				 GtmPackage.Literals.FARE_TEMPLATE__CARRIER_FILTER,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

@@ -1632,6 +1632,7 @@ public class GtmUtils {
 					countryCounter.put(s.getCountry() , new Integer(1));
 				} else {
 					i++;
+					countryCounter.put(s.getCountry() , new Integer(i));
 				}
 			}
 		}

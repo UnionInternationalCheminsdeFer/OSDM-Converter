@@ -1180,6 +1180,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/legacyAccountingTariffId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/seriesFilter"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/basePriceClass"/>
+      <genFeatures notify="false" createChild="false" propertyDescription="filter on carrier"
+          propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/carrierFilter"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AfterSalesTemplate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//AfterSalesTemplate/transactionType"/>

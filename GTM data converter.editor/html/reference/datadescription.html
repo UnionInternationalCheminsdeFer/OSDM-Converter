@@ -182,6 +182,7 @@ Data structures used in the <b>fare template</b> reference data in the final far
 <table border="1">
 <tr><td>Content</td><td>Description</td></tr>
 <tr><td>Base Price Calculation Class</td><td>the class in the 108 data from which the base price for the calculation is taken. If it is empty the service class is used for this decision. E.g. this allows to base a price for a first class dog fare on a second class base price.</td></tr>
+<tr><td>Conversion Restriction by Carrier</td><td>The template is only applied to series where the carriers listed in this filter. If the list is empty the template applies to all series.</td></tr>
 <tr><td>price factor</td><td>a factor to calculate the price depending on the price given in the 108.1 data. The factor is applied and the result is rounded to Euro-Cents</td></tr>
 <tr><td>price</td><td>A fixed price that can be defined manually in the fare structure. If this price is set the price factor will not be applied and the series price is replaced by this price.</td></tr>
 <tr><td>rounding mode</td><td>Rounding rule applied to the price. <br/><br/>

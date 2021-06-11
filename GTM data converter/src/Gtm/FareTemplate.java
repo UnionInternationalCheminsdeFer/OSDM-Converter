@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareTemplate#getLegacyAccountingTariffId <em>Legacy Accounting Tariff Id</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getSeriesFilter <em>Series Filter</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getBasePriceClass <em>Base Price Class</em>}</li>
+ *   <li>{@link Gtm.FareTemplate#getCarrierFilter <em>Carrier Filter</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareTemplate()
@@ -747,6 +748,18 @@ public interface FareTemplate extends EObject {
 	 * @generated
 	 */
 	void setBasePriceClass(BasePriceClassType value);
+
+	/**
+	 * Returns the value of the '<em><b>Carrier Filter</b></em>' reference list.
+	 * The list contents are of type {@link Gtm.Carrier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Carrier Filter</em>' reference list.
+	 * @see Gtm.GtmPackage#getFareTemplate_CarrierFilter()
+	 * @model
+	 * @generated
+	 */
+	EList<Carrier> getCarrierFilter();
 
 
 } // FareTemplate
