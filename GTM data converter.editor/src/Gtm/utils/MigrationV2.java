@@ -26,7 +26,6 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.ReductionCard;
-import Gtm.Text;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TotalPassengerCombinationConstraints;
 import Gtm.nls.NationalLanguageSupport;

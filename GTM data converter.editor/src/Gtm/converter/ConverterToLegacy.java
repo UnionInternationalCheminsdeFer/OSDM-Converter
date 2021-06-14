@@ -1659,8 +1659,7 @@ public class 	ConverterToLegacy {
 			return false;
 		}
 		//use one direction only
-		ViaStation via = fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation();
-		if (isReversedSeries(via)) {
+		if (isReversedSeries(fare.getRegionalConstraint())) {
 			return false;
 		}
 		
@@ -1788,19 +1787,33 @@ public class 	ConverterToLegacy {
 	 * @param via the via
 	 * @return true, if is reversed series
 	 */
-	private boolean isReversedSeries(ViaStation via) {
+	private boolean isReversedSeries(RegionalConstraint regionalConstraint) {
 
-		int start  = 0;
-		int end = 0;
+		ViaStation via = regionalConstraint.getRegionalValidity().get(0).getViaStation();	
+		
+		String startName  = null;
+		String endName = null;
+
+		int startBorder = 0;
+		int endBorder = 0;
 
 		ViaStation first = via.getRoute().getStations().get(0);
 		ViaStation last = via.getRoute().getStations().get(via.getRoute().getStations().size()-1);
 		
+		if (regionalConstraint.getEntryConnectionPoint() != null && 
+			regionalConstraint.getEntryConnectionPoint().getLegacyBorderPointCode() > 0) {
+			startBorder =  regionalConstraint.getEntryConnectionPoint().getLegacyBorderPointCode();
+		}
+		if (regionalConstraint.getExitConnectionPoint() != null && 
+			regionalConstraint.getExitConnectionPoint().getLegacyBorderPointCode() > 0) {
+			endBorder = regionalConstraint.getExitConnectionPoint().getLegacyBorderPointCode();
+		}		
+	
 		try {
 			if (first.getStation()!= null){
-				start = Integer.parseInt(first.getStation().getCode());
+				startName = first.getStation().getNameCaseASCII();
 			} else { 
-				start = Integer.parseInt(first.getFareStationSet().getCode());
+				startName = first.getFareStationSet().getName();
 			}
 		} catch (Exception e) {
 			return true;
@@ -1808,15 +1821,21 @@ public class 	ConverterToLegacy {
 		
 		try {
 			if (last.getStation()!= null){
-				end = Integer.parseInt(last.getStation().getCode());
+				endName = last.getStation().getNameCaseASCII();
 			} else { 
-				end = Integer.parseInt(last.getFareStationSet().getCode());
+				endName = last.getFareStationSet().getName();
 			}
 		} catch (Exception e) {
 			return true;
 		}
 		
-		if (start > end) return true;
+		if (startBorder > 0 && endBorder == 0) {
+			return false;
+		} else if (startBorder == 0 && endBorder > 0) {
+			return true;
+		}
+		
+		if (startName.compareToIgnoreCase(endName) > 0) return true;
 
 		return false;
 
