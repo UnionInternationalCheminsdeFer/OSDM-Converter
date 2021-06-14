@@ -9,7 +9,10 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
@@ -24,6 +27,7 @@ import Gtm.Legacy108Station;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
 import Gtm.LegacySeries;
+import Gtm.converter.SeriesComparator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
@@ -312,7 +316,11 @@ public class LegacyExporter {
 		
 		boolean firstLine = true;
 		
-		for (LegacySeries series : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
+		List<LegacySeries> seriesCol = new ArrayList<LegacySeries>();
+		seriesCol.addAll(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries());
+		Collections.sort(seriesCol,new SeriesComparator());
+		
+		for (LegacySeries series : seriesCol) {
 			if (!firstLine) {
 				writer.newLine();
 			}
