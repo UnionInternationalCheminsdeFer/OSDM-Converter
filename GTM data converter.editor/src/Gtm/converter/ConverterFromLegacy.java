@@ -85,6 +85,7 @@ import Gtm.nls.NationalLanguageSupport;
 //import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
+import Gtm.util.StringFormatValidator;
 import Gtm.utils.GtmUtils;
 
 
@@ -718,6 +719,12 @@ public class ConverterFromLegacy {
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.HALFEVEN10) {
 			bd = GtmUtils.round(amountF, 1, RoundingMode.HALF_EVEN, 10);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.DOWN20CENT) {
+			bd =  GtmUtils.round(0.0f,1,RoundingMode.DOWN, 5);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.UP20CENT) {
+			bd =  GtmUtils.round(0.0f,1,RoundingMode.UP, 5);
 			amount = bd.floatValue();
 		}
 		
@@ -2504,6 +2511,19 @@ public class ConverterFromLegacy {
 		try {
 			station = getStation(tool,myCountry,lStation.getStationCode());
 			if (station != null) {
+				
+				if (!StringFormatValidator.isStationASCII(lStation.getName())) {
+					String asc = GtmUtils.utf2ascii(lStation.getName());
+					GtmUtils.writeConsoleWarning("Station Name not in ASCII Format " + lStation.getName() + " changed to " + asc, editor);
+					lStation.setName(asc);
+				}
+				
+				if (!StringFormatValidator.isStationASCII(lStation.getShortName())) {
+					String asc = GtmUtils.utf2ascii(lStation.getShortName());
+					GtmUtils.writeConsoleWarning("Station Short Name not in ASCII Format " + lStation.getShortName() + " changed to " + asc, editor);
+					lStation.setShortName(asc);
+				}
+				
 				station.setNameCaseASCII(lStation.getName());
 				station.setNameCaseUTF8(lStation.getNameUTF8());
 				if (lStation.getShortName() == null || lStation.getShortName().length() == 0) {

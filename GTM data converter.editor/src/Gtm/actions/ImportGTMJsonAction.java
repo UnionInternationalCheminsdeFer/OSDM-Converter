@@ -171,7 +171,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 			File file = getFile();
 			if (file == null) return;
 			
-			GTMJsonImporter importer = new GTMJsonImporter(tool, domain);
+			GTMJsonImporter importer = new GTMJsonImporter(tool, domain, editor);
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
@@ -242,7 +242,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						} 
 						
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_9);					
-						updateMERITSStations(domain,importer.getStations(), fareDelivery.getFareStructureDelivery().getFareStructure().getStationNames());
+						updateMERITSStations(domain,importer.getStations(), fareDelivery.getFareStructureDelivery().getFareStructure().getStationNames(), editor);
 						//reset fare templates
 						SetCommand command = new SetCommand(domain, tool.getConversionFromLegacy().getParams().getLegacyFareTemplates(), GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_TEMPLATES, GtmFactory.eINSTANCE.createLegacyFareTemplates());
 						if (command.canExecute()) {
@@ -306,7 +306,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 		}
 
 
-		private void updateMERITSStations(EditingDomain domain, HashMap<Integer,Station> stations, List<StationNamesDef> list) {
+		private void updateMERITSStations(EditingDomain domain, HashMap<Integer,Station> stations, List<StationNamesDef> list, GtmEditor editor) {
 
 			//correcting merits data using OSDM data			
 			CompoundCommand command = new CompoundCommand();
@@ -333,7 +333,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 					
 					}
 					
-					CompoundCommand com = StationNameMerger.createMergeStationNamesCommand(domain,lStation,station);
+					CompoundCommand com = StationNameMerger.createMergeStationNamesCommand(domain,lStation,station, editor);
 					if (!com.isEmpty() && com.canExecute()) {
 						command.append(com);					
 					}

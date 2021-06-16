@@ -1133,6 +1133,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateFareTemplate_NON_CONVERTABLE_CLASS(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_TARIFF_ID_VALUES(fareTemplate, diagnostics, context);
 		if (result || diagnostics != null) result &= validateFareTemplate_SERIES_FILTER_CONVERTABLE(fareTemplate, diagnostics, context);
+		if (result || diagnostics != null) result &= validateFareTemplate_REGULATORY_REGIME(fareTemplate, diagnostics, context);
 		return result;
 	}
 
@@ -1517,6 +1518,31 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		*/
+		return true;
+	}
+
+	/**
+	 * Validates the REGULATORY_REGIME constraint of '<em>Fare Template</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateFareTemplate_REGULATORY_REGIME(FareTemplate fareTemplate, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (fareTemplate.getReductionConstraint() == null || fareTemplate.getRegulatoryConditions().isEmpty()) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Regulatory regimes are not defined in " +  getObjectLabel(fareTemplate, context), 
+						 new Object[] { "REGULATORY_REGIME", getObjectLabel(fareTemplate, context) }, //$NON-NLS-1$
+						 new Object[] { fareTemplate },
+						 context));
+			}
+			return false;
+
+		}
 		return true;
 	}
 

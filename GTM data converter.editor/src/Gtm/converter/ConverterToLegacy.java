@@ -815,7 +815,7 @@ public class 	ConverterToLegacy {
 	/**
 	 * Convert stations.
 	 */
-	private void convertStations() {
+	private void convertStations() {	
 			
 		for (Station station : tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName()) {
 			
@@ -1606,6 +1606,13 @@ public class 	ConverterToLegacy {
 		
 		
 		//service classes B and D are converted
+		
+		if (fare.getServiceClass() == null) {
+			String message = "Service class is missing! " + GtmUtils.getLabelText(fare) + " will not be converted";
+			GtmUtils.writeConsoleError(message, editor);						
+			return false;
+		}
+		
 		if (fare.getLegacyConversion() != LegacyConversionType.NO  && 
 			fare.getServiceClass().getId() == ClassId.A || fare.getServiceClass().getId() == ClassId.C) {
 			String message = "Service class A or C. " + GtmUtils.getLabelText(fare) + " will not be converted";

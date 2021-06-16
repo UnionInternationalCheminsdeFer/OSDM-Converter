@@ -7,11 +7,14 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 
 import Gtm.GtmPackage;
 import Gtm.Station;
+import Gtm.presentation.GtmEditor;
+import Gtm.util.StringFormatValidator;
+import Gtm.utils.GtmUtils;
 import gtm.StationNamesDef;
 
 public class StationNameMerger {
 	
-	public static CompoundCommand createMergeStationNamesCommand(EditingDomain domain, StationNamesDef lStation, Station station) {
+	public static CompoundCommand createMergeStationNamesCommand(EditingDomain domain, StationNamesDef lStation, Station station, GtmEditor editor) {
 		
 		CompoundCommand command = new CompoundCommand();
 		
@@ -21,6 +24,18 @@ public class StationNameMerger {
 		String longA = lStation.getName();
 		String shortU = lStation.getShortNameUtf8();
 		String shortA = lStation.getShortName();
+		
+		if (!StringFormatValidator.isStationASCII(lStation.getName())) {
+			String asc = GtmUtils.utf2ascii(lStation.getName());
+			GtmUtils.writeConsoleWarning("Station Name not in ASCII Format " + lStation.getName() + " changed to " + asc, editor);
+			lStation.setName(asc);
+		}
+		
+		if (!StringFormatValidator.isStationASCII(lStation.getShortName())) {
+			String asc = GtmUtils.utf2ascii(lStation.getShortName());
+			GtmUtils.writeConsoleWarning("Station Short Name not in ASCII Format " + lStation.getShortName() + " changed to " + asc, editor);
+			lStation.setShortName(asc);
+		}
 		
 		if (longU == null || longU.length() == 0 ) {
 			longU = longA;

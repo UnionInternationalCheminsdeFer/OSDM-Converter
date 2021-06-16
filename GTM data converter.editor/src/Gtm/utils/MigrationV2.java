@@ -26,6 +26,7 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.ReductionCard;
+import Gtm.Station;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TotalPassengerCombinationConstraints;
 import Gtm.nls.NationalLanguageSupport;
@@ -89,6 +90,9 @@ public class MigrationV2 {
 		updateReductionCards((GTMTool)object, editor);
 		
 		migrateTariffIds((GTMTool)object,domain);
+		
+		cleanStationData((GTMTool)object,domain);
+		
 
 		if (!conversionNeeded((GTMTool)object)){
 			return;
@@ -151,6 +155,25 @@ public class MigrationV2 {
 
 	}
 	
+	private static void cleanStationData(GTMTool tool, EditingDomain domain) {
+		if (tool.getCodeLists()!= null &&
+			tool.getCodeLists().getStations() != null &&
+			tool.getCodeLists().getStations().getStations() != null) {
+			
+			for (Station s : tool.getCodeLists().getStations().getStations()) {
+				
+				if (s.getRelations() != null && !s.getRelations().isEmpty()) {
+					
+					Command del = DeleteCommand.create(domain, s.getRelations());
+					if (del != null && del.canExecute()) {
+						domain.getCommandStack().execute(del);
+					}
+				}
+			}
+		}
+	}
+
+
 	private static void updateReductionCards(GTMTool tool, GtmEditor editor) {
 				
 		FareStructure fs = GtmFactory.eINSTANCE.createFareStructure();
