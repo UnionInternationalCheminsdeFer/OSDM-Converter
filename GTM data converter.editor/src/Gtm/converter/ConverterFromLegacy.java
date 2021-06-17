@@ -1187,20 +1187,18 @@ public class ConverterFromLegacy {
 
 		if (departureStation == null || arrivalStation == null) return;
 		
-		int borderpointcodeDeparture = 0;
-		if (departureStation.getStation()!= null) {
-			 borderpointcodeDeparture = departureStation.getStation().getLegacyBorderPointCode();
-		}
+		
+		
+		int borderpointcodeDeparture = getborderPointCode(departureStation);
+			
     	ConnectionPoint point1 = findConnectionPoint(tool,borderpointcodeDeparture,departureStation);  
     	
     	if (point1 == null) {
     		GtmUtils.writeConsoleError("Connection point missing for Series: " + Integer.valueOf(series).toString(), editor);
     	}
 		
-    	int borderpointcodeArrival = 0;
-		if (arrivalStation.getStation()!= null) {
-			 borderpointcodeArrival = arrivalStation.getStation().getLegacyBorderPointCode();
-		} 
+    	int borderpointcodeArrival = getborderPointCode(arrivalStation);
+
     	ConnectionPoint point2 = findConnectionPoint(tool,borderpointcodeArrival,arrivalStation);	
     	
     	if (point2 == null) {
@@ -1210,6 +1208,27 @@ public class ConverterFromLegacy {
     	constraint.setEntryConnectionPoint(point1);
     	constraint.setExitConnectionPoint(point2);			
 
+	}
+
+	private int getborderPointCode(ViaStation viaStation) {
+		int borderpointcode = 0;
+		if (viaStation.getStation()!= null) {
+			 borderpointcode = viaStation.getStation().getLegacyBorderPointCode();
+		} else if (viaStation.getFareStationSet() != null) {
+			borderpointcode = 0;
+			for (Station s : viaStation.getFareStationSet().getStations()) {
+				if (s.getLegacyBorderPointCode() > 0) {
+					if (borderpointcode == 0) {
+						borderpointcode = s.getLegacyBorderPointCode();
+					} else {
+						if (borderpointcode != s.getLegacyBorderPointCode()) {
+							GtmUtils.writeConsoleError("Fare reference station set includes multiple border point station codes: " + GtmUtils.getLabelText(viaStation.getFareStationSet()), editor);
+						}	
+					}
+				}
+			}
+		}
+		return borderpointcode;
 	}
 
 	/**
@@ -1391,7 +1410,21 @@ public class ConverterFromLegacy {
 		int borderpoint = 0;
 		if (station != null) {
 			borderpoint = station.getLegacyBorderPointCode();		
+		} else if (fareStationSet != null) {
+			for (Station s : fareStationSet.getStations()) {
+				if (s.getLegacyBorderPointCode() > 0) {
+					
+					if (borderpoint == 0) {
+						borderpoint = s.getLegacyBorderPointCode();
+					}  				
+					
+				}
+				
+			}
+			
 		}
+		
+		
 		ConnectionPoint p = null;
 		if (borderpoint > 0) {
 			p = borderConnectionPoints.get(borderpoint);

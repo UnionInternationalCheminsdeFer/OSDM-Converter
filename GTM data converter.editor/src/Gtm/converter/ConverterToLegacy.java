@@ -977,18 +977,18 @@ public class 	ConverterToLegacy {
 		ls.setShortNameUtf8(sn.getShortNameCaseUTF8());
 		ls.setStationCode(Integer.parseInt(sn.getCode()));
 		ls.setBorderPointCode(sn.getLegacyBorderPointCode());
-		ls.setFareReferenceStationCode(getFareReferenceCode(sn));
-
+		
+		setFareReferenceStationContent(ls,sn);
+		
 		return ls;
 	}
 
 	/**
-	 * Gets the fare reference code.
-	 *
+	 * Sets the fare reference station code and names in the legacy station
+	 * @param ls the legacy station to be changed
 	 * @param station the station
-	 * @return the fare reference code
 	 */
-	private int getFareReferenceCode(Station station) {
+	private void setFareReferenceStationContent(Legacy108Station ls, Station station) {
 		
 		int fareCode = 0;
 		Set<Integer> fareCodes = new HashSet<Integer>();
@@ -996,19 +996,18 @@ public class 	ConverterToLegacy {
 			if (f.getLegacyCode() > 0 && f.getStations().indexOf(station) >= 0 ) {
 				fareCodes.add(Integer.valueOf(f.getLegacyCode()));
 				fareCode = f.getLegacyCode();
+				ls.setFareReferenceStationCode(fareCode);
+				ls.setShortName(f.getName());
+				ls.setShortNameUtf8(f.getNameUtf8());
 			}
 		}
 		
-		/*
-		 * 
-		 * 108 data structures dont't allow a station to be part of multiple fare station sets
-		 * 
-		 */
-		if (fareCodes.size() > 0) {
-			//lets take the first one
-		}
-		return fareCode;
 	}
+
+
+	
+	
+	
 
 	/**
 	 * Convert fare.
