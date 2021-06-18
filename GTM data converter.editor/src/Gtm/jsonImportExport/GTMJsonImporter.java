@@ -617,6 +617,7 @@ public class GTMJsonImporter {
 	}
 
 	private ServiceClass convert(ServiceClassDefinitionDef js) {
+		
 		ServiceClass s = GtmFactory.eINSTANCE.createServiceClass();
 		
 		s.setId(convertServiceClassId(js.getId()));
@@ -1706,11 +1707,26 @@ public class GTMJsonImporter {
 	private ServiceClass findServiceClass(String id) {
 		if (id == null || id.length() < 1) return null;
 		
+		//check for service class id
 		if (fareStructure.getServiceClassDefinitions() != null && fareStructure.getServiceClassDefinitions().getServiceClassDefinitions() != null) {
 			for (ServiceClass  o : fareStructure.getServiceClassDefinitions().getServiceClassDefinitions()) {
-				if (id.equals(o.getId().getName())) return o;
+				if (id.equals(o.getId().getName())) {
+					return o;
+				}
 			}
 		}
+		
+		ServiceClassIdDef scd = ServiceClassIdDef.fromValue(id);
+		
+		// failed, check for converted id
+		ClassId scid = convertServiceClassId(scd);
+		if (scid != null) {
+			ServiceClass sc = findServiceClass(scid.getName());
+			if (sc != null) {
+				return sc;
+			}
+		}
+	
 	
 		GtmUtils.writeConsoleError("Referenced Service Class Definition not found: " + id, editor);
 		

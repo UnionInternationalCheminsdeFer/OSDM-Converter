@@ -248,6 +248,12 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						if (command.canExecute()) {
 							domain.getCommandStack().execute(command);
 						}	
+						
+						Command com = GtmUtils.getLinkReductionCardClassesCommand(tool.getGeneralTariffModel().getFareStructure(), editor.getEditingDomain());
+						if (com != null && com.canExecute()) {
+							editor.getEditingDomain().getCommandStack().execute(com);
+						}
+
 					
 						monitor.worked(1);
 						

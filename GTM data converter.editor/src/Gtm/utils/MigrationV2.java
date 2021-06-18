@@ -230,6 +230,13 @@ public class MigrationV2 {
 				}
 				
 			}
+			
+			
+			Command com = GtmUtils.getLinkReductionCardClassesCommand(tool.getGeneralTariffModel().getFareStructure(), editor.getEditingDomain());
+			if (com != null && com.canExecute()) {
+				editor.getEditingDomain().getCommandStack().execute(com);
+			}
+		
 		}
 		
 	}
