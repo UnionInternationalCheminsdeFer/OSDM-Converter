@@ -2482,7 +2482,7 @@ public class ConverterFromLegacy {
 						if (set.getStations().size() == 1) {
 							for (Station s : set.getStations()) {
 								if (!stationNames.getStationName().contains(s)) {
-									mergeStationNames(tool, lStation, s);
+									mergeStationNames(lStation, s);
 									stationNames.getStationName().add(s);
 								}
 							}
@@ -2497,7 +2497,7 @@ public class ConverterFromLegacy {
 				if (map.getLegacyCode() == lStation.getStationCode()) {
 					Station mappedStation = map.getStation();
 					if (mappedStation != null && !stationNames.getStationName().contains(mappedStation)) {
-						mergeStationNames(tool, lStation, mappedStation);
+						mergeStationNames(lStation, mappedStation);
 						stationNames.getStationName().add(mappedStation);
 						found = true;
 					}
@@ -2535,7 +2535,7 @@ public class ConverterFromLegacy {
 	 * Update station names.
 	 *
 	 * @param tool the tool
-	 * @param lStation the l station
+	 * @param lStation the legacy station
 	 * @return the station
 	 */
 	Station updateStationNames(GTMTool tool, Legacy108Station lStation) {
@@ -2545,30 +2545,8 @@ public class ConverterFromLegacy {
 			station = getStation(tool,myCountry,lStation.getStationCode());
 			if (station != null) {
 				
-				if (!StringFormatValidator.isStationASCII(lStation.getName())) {
-					String asc = GtmUtils.utf2ascii(lStation.getName());
-					GtmUtils.writeConsoleWarning("Station Name not in ASCII Format " + lStation.getName() + " changed to " + asc, editor);
-					lStation.setName(asc);
-				}
+				mergeStationNames(lStation,station);
 				
-				if (!StringFormatValidator.isStationASCII(lStation.getShortName())) {
-					String asc = GtmUtils.utf2ascii(lStation.getShortName());
-					GtmUtils.writeConsoleWarning("Station Short Name not in ASCII Format " + lStation.getShortName() + " changed to " + asc, editor);
-					lStation.setShortName(asc);
-				}
-				
-				station.setNameCaseASCII(lStation.getName());
-				station.setNameCaseUTF8(lStation.getNameUTF8());
-				if (lStation.getShortName() == null || lStation.getShortName().length() == 0) {
-					station.setShortNameCaseASCII(lStation.getName());
-				} else {				
-					station.setShortNameCaseASCII(lStation.getShortName());
-				}	
-				if (lStation.getShortNameUtf8() == null || lStation.getShortNameUtf8().length() == 0) {
-					station.setShortNameCaseUTF8(lStation.getNameUTF8());
-				} else {
-					station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
-				}
 				station.setLegacyBorderPointCode(lStation.getBorderPointCode());
 			}
 		} catch (ConverterException e) {
@@ -2578,33 +2556,63 @@ public class ConverterFromLegacy {
 	}
 	
 	/**
-	 * Merge station names.
+	 * Merges legacy 108 station into a real station.
+	 * character set errors in the legacy station names are corrected
 	 *
 	 * @param tool the tool
 	 * @param lStation the l station
 	 * @param station the station
 	 * @return the station
 	 */
-	Station mergeStationNames(GTMTool tool, Legacy108Station lStation, Station station) {
+	public void mergeStationNames(Legacy108Station lStation, Station station) {
 		
-		if (station != null) {
-			if (station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) {
-				station.setNameCaseASCII(lStation.getName());
-			}
-			if (station.getNameCaseUTF8() == null || station.getNameCaseUTF8().length() == 0) {
-				station.setNameCaseUTF8(lStation.getNameUTF8());
-			}
-			if (station.getShortNameCaseASCII() == null || station.getShortNameCaseASCII().length() == 0) {
+		if (station == null || lStation == null) return;
+			
+		if (!StringFormatValidator.isStationASCII(lStation.getName())) {
+			String asc = GtmUtils.utf2ascii(lStation.getName());
+			GtmUtils.writeConsoleWarning("Station Name not in ASCII Format " + lStation.getName() + " changed to " + asc, editor);
+			lStation.setName(asc);
+		}
+		
+		if (!StringFormatValidator.isStationASCII(lStation.getShortName())) {
+			String asc = GtmUtils.utf2ascii(lStation.getShortName());
+			GtmUtils.writeConsoleWarning("Station Short Name not in ASCII Format " + lStation.getShortName() + " changed to " + asc, editor);
+			lStation.setShortName(asc);
+		}
+				
+		if (station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) {
+			station.setNameCaseASCII(lStation.getName());
+		}
+		if (station.getNameCaseUTF8() == null || station.getNameCaseUTF8().length() == 0) {
+			station.setNameCaseUTF8(lStation.getNameUTF8());
+		}
+			
+		if (lStation.getFareReferenceStationCode() != lStation.getStationCode()) {
+			
+		    //this is a real station
+			if (lStation.getShortName() == null || lStation.getShortName().length() == 0) {
+				station.setShortNameCaseASCII(lStation.getName());
+			} else {				
 				station.setShortNameCaseASCII(lStation.getShortName());
-			}
-			if (station.getShortNameCaseUTF8() == null || station.getShortNameCaseUTF8().length() == 0) {
+			}	
+			if (lStation.getShortNameUtf8() == null || lStation.getShortNameUtf8().length() == 0) {
+				station.setShortNameCaseUTF8(lStation.getNameUTF8());
+			} else {
 				station.setShortNameCaseUTF8(lStation.getShortNameUtf8());					
 			}
-			if (station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) {
-				station.setLegacyBorderPointCode(lStation.getBorderPointCode());
-			}
+			
+		} else {
+				
+		    //this is a real station and a fare reference station set at teh same time, so the short name is for the fare reference station set
+			String asc = GtmUtils.utf2ascii(lStation.getNameUTF8());
+			station.setNameCaseASCII(asc);
+			station.setShortNameCaseASCII(asc);	
+			station.setShortNameCaseUTF8(lStation.getNameUTF8());
+			
 		}
-		return station;	
+		
+		station.setLegacyBorderPointCode(lStation.getBorderPointCode());	
+		
 	}
 	
 	

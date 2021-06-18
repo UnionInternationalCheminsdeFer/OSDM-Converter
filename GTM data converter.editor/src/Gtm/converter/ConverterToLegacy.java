@@ -997,11 +997,15 @@ public class 	ConverterToLegacy {
 				fareCodes.add(Integer.valueOf(f.getLegacyCode()));
 				fareCode = f.getLegacyCode();
 				ls.setFareReferenceStationCode(fareCode);
-				ls.setShortName(f.getName());
-				ls.setShortNameUtf8(f.getNameUtf8());
+				
+				if (fareCode == ls.getStationCode()) {
+					//use ascii name of fare reference station
+					ls.setName(f.getName());
+					ls.setShortName(f.getName());
+					ls.setShortNameUtf8(f.getNameUtf8());
+				}
 			}
 		}
-		
 	}
 
 
