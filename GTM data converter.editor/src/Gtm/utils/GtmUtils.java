@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -45,6 +46,7 @@ import Gtm.Calendar;
 import Gtm.Carrier;
 import Gtm.CarrierConstraint;
 import Gtm.CharacterSet;
+import Gtm.ClassId;
 import Gtm.CodeLists;
 import Gtm.CombinationConstraint;
 import Gtm.ConnectionPoint;
@@ -76,6 +78,7 @@ import Gtm.RegionalConstraint;
 import Gtm.ReservationParameter;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.ServiceBrands;
+import Gtm.ServiceClass;
 import Gtm.ServiceConstraint;
 import Gtm.ServiceLevel;
 import Gtm.Station;
@@ -560,7 +563,132 @@ public class GtmUtils {
 		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_2.getName(),"Rail Inclusive Tours 2 - deprecated-use class specific cards", null);	 //$NON-NLS-1$
 		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_3.getName(),"Rail Inclusive Tours 3 - deprecated-use class specific cards", null);	 //$NON-NLS-1$
 
+	}
+	
+	public static Command getLinkReductionCardClassesCommand(FareStructure fareStructure, EditingDomain domain) {
+		
+		CompoundCommand command = new CompoundCommand();
+		
+		if (fareStructure == null ||
+			fareStructure.getServiceClassDefinitions() == null ||
+			fareStructure.getServiceClassDefinitions().getServiceClassDefinitions() == null ||
+			fareStructure.getReductionCards() == null ||
+			fareStructure.getReductionCards().getReductionCards() == null) {
+			return null;
+		}
+		
+		ServiceClass classB = null;
+		ServiceClass classD = null;
+				
+		for (ServiceClass s : fareStructure.getServiceClassDefinitions().getServiceClassDefinitions()) {
+			if (s.getId().equals(ClassId.B)) classB = s;
+			if (s.getId().equals(ClassId.D)) classD = s;
+		}
 
+		
+		for (ReductionCard r : fareStructure.getReductionCards().getReductionCards()) {
+		
+			
+			if (r.isUicCode() && r.getServiceClasses() == null || r.getServiceClasses().isEmpty()) {
+				
+				if (classB != null) {
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_EURAIL_1.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_INTERRAIL_1.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}		
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_FIP_DUTY_1.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_FIP_LEISURE_FREE_1.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_FIP_LEISURE_REDU_1.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RAILPLUS_1.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_11.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_21.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_31.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_EU_DISABILITY_CARD.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_INT_DISABILITY_CARD.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_1.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_2.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_3.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
+					}
+				}	
+				if (classD != null) {
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_EURAIL_2.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_INTERRAIL_2.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}		
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_FIP_DUTY_2.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_FIP_LEISURE_FREE_2.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_FIP_LEISURE_REDU_2.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RAILPLUS_2.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_12.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_22.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_32.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_EU_DISABILITY_CARD.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_INT_DISABILITY_CARD.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_1.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_2.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_3.getName())) {
+						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
+					}
+					
+				}						
+					
+			}
+			
+			
+		}
+		
+		if (!command.isEmpty()) return command;
+		return null;
+		
 	}
 	
 	/**

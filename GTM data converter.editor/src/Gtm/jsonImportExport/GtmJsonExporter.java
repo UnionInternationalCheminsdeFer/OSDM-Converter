@@ -902,14 +902,14 @@ public class GtmJsonExporter {
 		if (sc == null) return null;
 		
 		if (sc.getId()!= null) {
-			return convertServiceClass(sc.getId());
+			return convertClassId(sc.getId());
 		}
 
 		return null;
 	}
 
 	
-	private static ServiceClassIdDef convertServiceClass(ClassId id) {
+	private static ServiceClassIdDef convertClassId(ClassId id) {
 		if (id != null) {
 			if (id.equals(ClassId.A)) {
 				return ServiceClassIdDef.BEST;
@@ -923,6 +923,22 @@ public class GtmJsonExporter {
 		}
 		return null;
 	}
+	
+	private static ClassId convertServiceClassId(ServiceClassIdDef id) {
+		if (id != null) {
+			if (id.equals(ServiceClassIdDef.BEST)) {
+				return ClassId.A;
+			} else if (id.equals(ServiceClassIdDef.HIGH)) {
+				 return ClassId.B;
+			} if (id.equals(ServiceClassIdDef.STANDARD)) {
+				return ClassId.C;
+			} if (id.equals(ServiceClassIdDef.BASIC)) {
+				return ClassId.D;
+			}
+		}
+		return null;
+	}
+
 
 	private static ServiceClassDefinitionDef convertToJson(ServiceClass sc) {
 		if (sc == null) return null;
@@ -930,7 +946,7 @@ public class GtmJsonExporter {
 		ServiceClassDefinitionDef scJ = new ServiceClassDefinitionDef();
 		
 		if (sc.getId()!= null) {
-			scJ.setId(convertServiceClass(sc.getId()));
+			scJ.setId(convertClassId(sc.getId()));
 		}
 		if (sc.getText()!=null) {
 			scJ.setTextRef(sc.getText().getId());
@@ -2000,7 +2016,7 @@ public class GtmJsonExporter {
 		}
 			
 		if (fare.getServiceClass()!= null) {
-			fareJ.setServiceClassRef(fare.getServiceClass().getId().getName());
+			fareJ.setServiceClassRef(convertClassId(fare.getServiceClass().getId()).value());
 		}
 		
 		if (fare.getServiceConstraint()!=null) {

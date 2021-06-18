@@ -17,6 +17,7 @@ import Gtm.*;
 import Gtm.converter.StationComparator;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
+import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
 import gtm.AfterSalesConditionDef;
 import gtm.AfterSalesRuleDef;
@@ -93,6 +94,7 @@ public class GTMJsonImporter {
 	private HashMap<String,RegionalConstraint> regionalConstraints = null;
 	private HashMap<String,FareStationSetDefinition> fareStationSets = null;
 	private HashMap<String,Price>prices = null;
+	private GtmEditor editor = null;
 	
 	
 	private EditingDomain domain = null;
@@ -117,8 +119,9 @@ public class GTMJsonImporter {
 	FareStructure fareStructure = null;
 
 	
-	public GTMJsonImporter(GTMTool tool, EditingDomain domain) {
+	public GTMJsonImporter(GTMTool tool, EditingDomain domain, GtmEditor editor) {
 		this.tool = tool;
+		this.editor = editor;
 		stations = new HashMap<Integer,Station>();
 		carriers = new HashMap<String,Carrier>();
 		languages = new HashMap<String,Language>();
@@ -282,6 +285,7 @@ public class GTMJsonImporter {
 				set.add(s);
 				n.getStationName().add(s);
 			}
+						
 		}
 		
 		ArrayList<Station> stations = 	new ArrayList<Station>();
@@ -613,6 +617,7 @@ public class GTMJsonImporter {
 	}
 
 	private ServiceClass convert(ServiceClassDefinitionDef js) {
+		
 		ServiceClass s = GtmFactory.eINSTANCE.createServiceClass();
 		
 		s.setId(convertServiceClassId(js.getId()));
@@ -671,9 +676,15 @@ public class GTMJsonImporter {
 	
 	private Calendar findCalendar(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (Calendar cal : fareStructure.getCalendars().getCalendars()) {
-			if (cal.getId().equals(id)) return cal;
+		
+		if (fareStructure.getCalendars() != null && fareStructure.getCalendars().getCalendars() != null) {
+			for (Calendar cal : fareStructure.getCalendars().getCalendars()) {
+				if (cal.getId().equals(id)) return cal;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Calendar Constraint Bundle not found: " + id, editor);
+		
 		return null;
 	}
 
@@ -1010,9 +1021,15 @@ public class GTMJsonImporter {
 
 	private ReductionCard findReductionCard(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (ReductionCard card : fareStructure.getReductionCards().getReductionCards()) {
-			if (card.getId().equals(id)) return card;
+		
+		if (fareStructure.getReductionCards() != null && fareStructure.getReductionCards().getReductionCards() != null) {
+			for (ReductionCard card : fareStructure.getReductionCards().getReductionCards()) {
+				if (card.getId().equals(id)) return card;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Reduction Card found: " + id, editor);
+		
 		return null;
 	}
 
@@ -1399,9 +1416,15 @@ public class GTMJsonImporter {
 
 	private ConnectionPoint findConnectionPoint(String id) {	
 		if (id == null || id.length() < 1) return null;
-		for (ConnectionPoint c :  fareStructure.getConnectionPoints().getConnectionPoints() ) {
-			if (c.getId().equals(id)) return c;
+		
+		if (fareStructure.getConnectionPoints() != null && fareStructure.getConnectionPoints().getConnectionPoints() != null) {
+			for (ConnectionPoint c :  fareStructure.getConnectionPoints().getConnectionPoints() ) {
+				if (c.getId().equals(id)) return c;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Connection Point not found: " + id, editor);
+
 		return null;
 	}
 
@@ -1488,7 +1511,7 @@ public class GTMJsonImporter {
 		f.setId(jf.getId());
 		f.setCombinationConstraint(findCombinationConstraint(jf.getCombinationConstraintRef()));
 		f.setFulfillmentConstraint(findFulfillmentConstraint(jf.getFulfillmentConstraintRef()));
-		f.setPersonalDataConstraint(finePersonalDataConstraint(jf.getPersonalDataConstraintRef()));
+		f.setPersonalDataConstraint(findPersonalDataConstraint(jf.getPersonalDataConstraintRef()));
 		f.setSalesAvailability(findSalesAvailability(jf.getSalesAvailabilityConstraintRef()));
 		f.setTravelValidity(findTravelValidity(jf.getTravelValidityConstraintRef()));
 		
@@ -1528,7 +1551,7 @@ public class GTMJsonImporter {
 		
 		f.setId(jf.getId());
 		
-		f.setFareConstraintBundle(findBundle(jf.getBundleRef()));
+		f.setFareConstraintBundle(findFareConstraintBundle(jf.getBundleRef()));
 		
 		f.setAfterSalesRule(findAfterSaleRule(jf.getAfterSalesRulesRef()));
 		f.setCarrierConstraint(findCarrierConstraint(jf.getCarrierConstraintRef()));
@@ -1591,116 +1614,208 @@ public class GTMJsonImporter {
 
 
 	private Text findText(String id) {
-		if (id == null || id.length() < 1 || fareStructure.getTexts() == null || fareStructure.getTexts().getTexts().isEmpty()) return null;
-		
-		for (Text  o : fareStructure.getTexts().getTexts()) {
-			if (id.equals(o.getId())) return o;
+		if (id == null || id.length() < 1) {
+			return null;
 		}
+		
+		if (fareStructure.getTexts() != null && fareStructure.getTexts().getTexts() != null) {
+			for (Text  o : fareStructure.getTexts().getTexts()) {
+				if (id.equals(o.getId())) return o;
+			}
+		}
+		
+		GtmUtils.writeConsoleError("Referenced Text not found: " + id, editor);		
+		
 		return null;
 	}
 
-
 	private TravelValidityConstraint findTravelValidity(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (TravelValidityConstraint  o : fareStructure.getTravelValidityConstraints().getTravelValidityConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getTravelValidityConstraints() != null && fareStructure.getTravelValidityConstraints().getTravelValidityConstraints() != null) {
+			for (TravelValidityConstraint  o : fareStructure.getTravelValidityConstraints().getTravelValidityConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Travel Validity not found: " + id, editor);
+		
 		return null;
 	}
 	
 
 	private TotalPassengerCombinationConstraint findTotalPassengerConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (TotalPassengerCombinationConstraint  o : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getTotalPassengerCombinationConstraints() != null && fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()!= null) {
+			for (TotalPassengerCombinationConstraint  o : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Passenger Combination Constraint not found: " + id, editor);
+		
 		return null;
 	}
 
 	
-	private FareConstraintBundle findBundle(String id) {
+	private FareConstraintBundle findFareConstraintBundle(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (FareConstraintBundle  o : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
-			if (id.equals(o.getId())) return o;
-		}		
+		
+		if (fareStructure.getFareConstraintBundles() != null && fareStructure.getFareConstraintBundles().getFareConstraintBundles() != null) {
+			for (FareConstraintBundle  o : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
+				if (id.equals(o.getId())) return o;
+			}		
+		}
+		
+		GtmUtils.writeConsoleError("Referenced Fare Constraint Bundle not found: " + id, editor);
+		
 		return null;
 	}
 
 
 	private ServiceLevel findServiceLevel(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (ServiceLevel o : fareStructure.getServiceLevelDefinitions().getServiceLevelDefinition()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getServiceLevelDefinitions() != null && fareStructure.getServiceLevelDefinitions().getServiceLevelDefinition() != null) {
+			for (ServiceLevel o : fareStructure.getServiceLevelDefinitions().getServiceLevelDefinition()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+
+		GtmUtils.writeConsoleError("Referenced Service Level not found: " + id, editor);
+		
 		return null;
 	}
 
 
 	private ServiceConstraint findServiceConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (ServiceConstraint o : fareStructure.getServiceConstraints().getServiceConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getServiceConstraints() != null && fareStructure.getServiceConstraints().getServiceConstraints() != null) {
+			for (ServiceConstraint o : fareStructure.getServiceConstraints().getServiceConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Service Constraint not found: " + id, editor);
+		
 		return null;
 	}
 
 
 	private ServiceClass findServiceClass(String id) {
 		if (id == null || id.length() < 1) return null;
-		if (fareStructure.getServiceClassDefinitions() == null || fareStructure.getServiceClassDefinitions().getServiceClassDefinitions().isEmpty()) return null;
-		for (ServiceClass  o : fareStructure.getServiceClassDefinitions().getServiceClassDefinitions()) {
-			if (id.equals(o.getId().getName())) return o;
+		
+		//check for service class id
+		if (fareStructure.getServiceClassDefinitions() != null && fareStructure.getServiceClassDefinitions().getServiceClassDefinitions() != null) {
+			for (ServiceClass  o : fareStructure.getServiceClassDefinitions().getServiceClassDefinitions()) {
+				if (id.equals(o.getId().getName())) {
+					return o;
+				}
+			}
 		}
+		
+		ServiceClassIdDef scd = ServiceClassIdDef.fromValue(id);
+		
+		// failed, check for converted id
+		ClassId scid = convertServiceClassId(scd);
+		if (scid != null) {
+			ServiceClass sc = findServiceClass(scid.getName());
+			if (sc != null) {
+				return sc;
+			}
+		}
+	
+	
+		GtmUtils.writeConsoleError("Referenced Service Class Definition not found: " + id, editor);
+		
 		return null;
 	}
 
 
 	private SalesAvailabilityConstraint findSalesAvailability(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (SalesAvailabilityConstraint  o : fareStructure.getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getSalesAvailabilityConstraints() != null && fareStructure.getSalesAvailabilityConstraints().getSalesAvailabilityConstraints() != null) {
+			for (SalesAvailabilityConstraint  o : fareStructure.getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Sales Availability not found: " + id, editor);
+		
 		return null;
 	}
 
 
 	private ReservationParameter findReservationParams(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (ReservationParameter  o : fareStructure.getReservationParameters().getReservationParameters()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getReservationParameters() != null && fareStructure.getReservationParameters().getReservationParameters() != null) {
+			for (ReservationParameter  o : fareStructure.getReservationParameters().getReservationParameters()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Reservation Parameter not found: " + id, editor);
+
 		return null;
 	}
 
 
 	private RegionalConstraint findRegionalConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		return regionalConstraints.get(id);
+		RegionalConstraint r = regionalConstraints.get(id);
+		
+		if (r == null) {
+			GtmUtils.writeConsoleError("Referenced ReservaRegional Validity not found: " + id, editor);
+		}
+		
+		return r;
 	}
 
 
 	private ReductionConstraint findReductionConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (ReductionConstraint  o : fareStructure.getReductionConstraints().getReductionConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getReductionConstraints() != null && fareStructure.getReductionConstraints().getReductionConstraints() != null) {
+			for (ReductionConstraint  o : fareStructure.getReductionConstraints().getReductionConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Reduction Constraint not found: " + id, editor);
+		
 		return null;
 	}
 
-	private PersonalDataConstraint finePersonalDataConstraint(String id) {
+	private PersonalDataConstraint findPersonalDataConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (PersonalDataConstraint  o : fareStructure.getPersonalDataConstraints().getPersonalDataConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getPersonalDataConstraints() != null && fareStructure.getPersonalDataConstraints().getPersonalDataConstraints() != null) {
+			for (PersonalDataConstraint  o : fareStructure.getPersonalDataConstraints().getPersonalDataConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Personal Data Constraint not found: " + id, editor);
+		
 		return null;
 	}
 
 
 	private PassengerConstraint findPassengerConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (PassengerConstraint  o : fareStructure.getPassengerConstraints().getPassengerConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getPassengerConstraints() != null && fareStructure.getPassengerConstraints().getPassengerConstraints() != null) {
+			for (PassengerConstraint  o : fareStructure.getPassengerConstraints().getPassengerConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Passenger Constraint not found: " + id, editor);
+		
 		return null;
 	}
 
@@ -1717,36 +1832,60 @@ public class GTMJsonImporter {
 
 	private FulfillmentConstraint findFulfillmentConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (FulfillmentConstraint  o : fareStructure.getFulfillmentConstraints().getFulfillmentConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getFulfillmentConstraints() != null && fareStructure.getFulfillmentConstraints().getFulfillmentConstraints() != null) {
+			for (FulfillmentConstraint  o : fareStructure.getFulfillmentConstraints().getFulfillmentConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Fulfillment Constraint not found: " + id, editor);
+		
 		return null;
 	}
 
 
 	private CombinationConstraint findCombinationConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (CombinationConstraint  o : fareStructure.getCombinationConstraints().getCombinationConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getCombinationConstraints() != null && fareStructure.getCombinationConstraints().getCombinationConstraints() != null) {
+			for (CombinationConstraint  o : fareStructure.getCombinationConstraints().getCombinationConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Combination Constraint not found: " + id, editor);
+
 		return null;
 	}
 
 
 	private CarrierConstraint findCarrierConstraint(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (CarrierConstraint  o : fareStructure.getCarrierConstraints().getCarrierConstraints()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getCarrierConstraints() != null && fareStructure.getCarrierConstraints().getCarrierConstraints() != null) {
+			for (CarrierConstraint  o : fareStructure.getCarrierConstraints().getCarrierConstraints()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced Carrier Constraint not found: " + id, editor);
+		
 		return null;
 	}
 
 
 	private AfterSalesRule findAfterSaleRule(String id) {
 		if (id == null || id.length() < 1) return null;
-		for (AfterSalesRule  o : fareStructure.getAfterSalesRules().getAfterSalesRules()) {
-			if (id.equals(o.getId())) return o;
+		
+		if (fareStructure.getAfterSalesRules() != null && fareStructure.getAfterSalesRules().getAfterSalesRules() != null) {
+			for (AfterSalesRule  o : fareStructure.getAfterSalesRules().getAfterSalesRules()) {
+				if (id.equals(o.getId())) return o;
+			}
 		}
+		
+		GtmUtils.writeConsoleError("Referenced After Sales Rule not found: " + id, editor);
+
 		return null;
 	}
 
@@ -2035,6 +2174,8 @@ public class GTMJsonImporter {
 		if (version.equals(SchemaVersion.V12.getLiteral()) || version.equals(SchemaVersion.V12.getName())) {
 			return SchemaVersion.V12;
 		}
+	
+		GtmUtils.writeConsoleError("Schema Version not supported: " + version, editor);
 		
 		return null;
 		
@@ -2044,7 +2185,13 @@ public class GTMJsonImporter {
 	private Station getStation (String code) {
 		try {
 			Integer icode = Integer.parseInt(code);
-			return stations.get(icode);
+			Station s = stations.get(icode);
+			
+			if (s == null) {
+				GtmUtils.writeConsoleError("Station not found: " + code, editor);
+			}		
+			
+			return s;
 		} catch (Exception e) {
 			//non-standard station code
 			return null;
@@ -2053,31 +2200,92 @@ public class GTMJsonImporter {
 	}	
 	
 	private Station getStation (int country, int localCode) {
-		return stations.get(Integer.valueOf(country * 100000 + localCode));
+		
+		Integer i = Integer.valueOf(country * 100000 + localCode);		
+		Station s = stations.get(i);
+		
+		if (s == null) {
+			GtmUtils.writeConsoleError("Station not found: " + i.toString(), editor);
+		}		
+		
+		return s;
 	}
 
 
 	private ServiceBrand getServiceBrand (int code) {
-		return serviceBrands.get(code);
+		
+		if (code == 0) return null;
+
+		ServiceBrand s = serviceBrands.get(code);
+
+		if (s == null) {
+			GtmUtils.writeConsoleError("Service Brand not found: " + Integer.valueOf(code).toString(), editor);
+		}		
+
+		return s;
 	}
 
 	private Carrier getCarrier (String code) {
-		return carriers.get(code);
+		
+		if (code == null || code.length() == 0) return null;
+
+		Carrier c = carriers.get(code);
+		if (c == null) {
+			GtmUtils.writeConsoleError("Carrier not found: " + code, editor);
+		}			
+		
+		return c;
 	}
 	
 	private Language getLanguage (String code) {
-		return languages.get(code);
+		
+		if (code == null || code.length() == 0) return null;
+				
+		Language l = languages.get(code);
+		
+		if (l == null) {
+			GtmUtils.writeConsoleError("Language not found: " + code, editor);
+		}				
+		
+		return l;
 	}
 
 	private Country getCountry (String code) {
-		return countriesISO.get(code);
+		
+		if (code == null || code.length() == 0) return null;
+		
+		Country c =  countriesISO.get(code);
+		
+		if (c == null) {
+			GtmUtils.writeConsoleError("Country not found: " + code, editor);
+		}				
+
+		return c;
 	}
 	
 	private Currency getCurrency (String code) {
-		return currencies.get(code);
+		
+		if (code == null || code.length() == 0) return null;
+		
+		Currency c =  currencies.get(code);
+
+		if (c == null) {
+			GtmUtils.writeConsoleError("Currency not found: " + code, editor);
+		}				
+		
+		return c;
 	}
 	private NutsCode getNutsCode (String code) {
-		return nutsCodes.get(code);
+		
+		if (code == null || code.length() == 0) return null;
+		
+		NutsCode n = nutsCodes.get(code);
+	
+		if (n == null) {
+			GtmUtils.writeConsoleError("NUTS Code not found: " + code, editor);
+		}				
+		
+		return n;
 	}
 
 	public HashMap<Integer,Station> getStations() {

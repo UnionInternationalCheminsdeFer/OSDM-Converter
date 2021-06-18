@@ -11049,6 +11049,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFUP10);
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFDOWN10);
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFEVEN10);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.UP20CENT);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.DOWN20CENT);
 
 		initEEnum(schemaVersionEEnum, SchemaVersion.class, "SchemaVersion");
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V12);
@@ -11570,7 +11572,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (fareTemplateEClass,
 		   source,
 		   new String[] {
-			   "constraints", "PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS TARIFF_ID_VALUES SERIES_FILTER_CONVERTABLE"
+			   "constraints", "PRICE_FACTOR_MUST TYPE_MUST PASSENGER_CONSTRAINT_MUST LEGACY_CONVERSION_MUST SERVICE_CLASS_MUST PRICE_OR_FACTOR BUNDLE_MUST NON_CONVERTABLE_CLASS TARIFF_ID_VALUES SERIES_FILTER_CONVERTABLE REGULATORY_REGIME"
 		   });
 		addAnnotation
 		  (legacyStationToServiceConstraintMappingEClass,
