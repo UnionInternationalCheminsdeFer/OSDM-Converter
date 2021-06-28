@@ -2574,6 +2574,11 @@ public class ConverterFromLegacy {
 			lStation.setName(asc);
 		}
 		
+		if (lStation.getShortName() == null || lStation.getShortName().length() == 0) {
+			GtmUtils.writeConsoleWarning("Station Short Name missing " + lStation.getName(), editor);
+			lStation.setShortName(lStation.getName());
+		}	
+		
 		if (!StringFormatValidator.isStationASCII(lStation.getShortName())) {
 			String asc = GtmUtils.utf2ascii(lStation.getShortName());
 			GtmUtils.writeConsoleWarning("Station Short Name not in ASCII Format " + lStation.getShortName() + " changed to " + asc, editor);

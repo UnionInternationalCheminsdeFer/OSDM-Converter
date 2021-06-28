@@ -203,6 +203,7 @@ public class Legacy108ItemProvider
 			childrenFeatures.add(GtmPackage.Literals.LEGACY108__LEGACY_FARE_DESCRIPTIONS);
 			childrenFeatures.add(GtmPackage.Literals.LEGACY108__LEGACY_BORDER_POINTS);
 			childrenFeatures.add(GtmPackage.Literals.LEGACY108__LEGACY_MEMOS);
+			childrenFeatures.add(GtmPackage.Literals.LEGACY108__LEGACY_CARRIERS);
 		}
 		return childrenFeatures;
 	}
@@ -277,6 +278,7 @@ public class Legacy108ItemProvider
 			case GtmPackage.LEGACY108__LEGACY_FARE_DESCRIPTIONS:
 			case GtmPackage.LEGACY108__LEGACY_BORDER_POINTS:
 			case GtmPackage.LEGACY108__LEGACY_MEMOS:
+			case GtmPackage.LEGACY108__LEGACY_CARRIERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -333,6 +335,11 @@ public class Legacy108ItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.LEGACY108__LEGACY_MEMOS,
 				 GtmFactory.eINSTANCE.createLegacy108Memos()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.LEGACY108__LEGACY_CARRIERS,
+				 GtmFactory.eINSTANCE.createLegacyCarriers()));
 	}
 
 	/**

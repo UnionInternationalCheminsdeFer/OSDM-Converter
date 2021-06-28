@@ -386,6 +386,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacySeriesList((LegacySeriesList)value, diagnostics, context);
 			case GtmPackage.LEGACY_SERIES:
 				return validateLegacySeries((LegacySeries)value, diagnostics, context);
+			case GtmPackage.LEGACY_CARRIERS:
+				return validateLegacyCarriers((LegacyCarriers)value, diagnostics, context);
+			case GtmPackage.LEGACY_CARRIER:
+				return validateLegacyCarrier((LegacyCarrier)value, diagnostics, context);
 			case GtmPackage.LEGACY_SEPARATE_CONTRACT_SERIES_LIST:
 				return validateLegacySeparateContractSeriesList((LegacySeparateContractSeriesList)value, diagnostics, context);
 			case GtmPackage.LEGACY_SEPARATE_CONTRACT_SERIES:
@@ -2685,6 +2689,24 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateLegacySeries(LegacySeries legacySeries, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(legacySeries, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLegacyCarriers(LegacyCarriers legacyCarriers, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(legacyCarriers, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLegacyCarrier(LegacyCarrier legacyCarrier, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(legacyCarrier, diagnostics, context);
 	}
 
 	/**
@@ -5668,7 +5690,7 @@ public class GtmValidator extends EObjectValidator {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
-						(Diagnostic.ERROR,
+						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_227  + " in " +  getObjectLabel(salesRestriction, context), 

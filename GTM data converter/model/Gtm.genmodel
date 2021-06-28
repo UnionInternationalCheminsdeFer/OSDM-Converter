@@ -1286,6 +1286,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108/endDate"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyBorderPoints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyMemos"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyCarriers"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Legacy108Memos">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108Memos/legacyMemos"/>
@@ -1364,6 +1365,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/busCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/ferryCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/memoNumber"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//LegacyCarriers">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyCarriers/legacyCarrier"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//LegacyCarrier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyCarrier/carrierCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyCarrier/carrierShortName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyCarrier/carrierName"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//LegacySeparateContractSeriesList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacySeparateContractSeriesList/separateContractSeries"/>

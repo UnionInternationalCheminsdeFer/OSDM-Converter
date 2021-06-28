@@ -24,9 +24,11 @@ import Gtm.GTMTool;
 import Gtm.Legacy108FareDescription;
 import Gtm.Legacy108Memo;
 import Gtm.Legacy108Station;
+import Gtm.LegacyCarrier;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
 import Gtm.LegacySeries;
+import Gtm.converter.CarrierComparator;
 import Gtm.converter.SeriesComparator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
@@ -83,7 +85,7 @@ public class LegacyExporter {
 			fareTables = tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().size();
 		}
 		
-		return 7 + fareTables;
+		return 8 + fareTables;
 		
 	}
 	
@@ -117,6 +119,10 @@ public class LegacyExporter {
 			
 			monitor.subTask(NationalLanguageSupport.LegacyExporter_5);
 			exportTCVLfile();
+			monitor.worked(1);
+			
+			monitor.subTask("Export TCVC file");
+			exportTCVCfile();
 			monitor.worked(1);
 			
 			
@@ -233,7 +239,7 @@ public class LegacyExporter {
 		//	3 Key flag for fare table number numeric 1 M  9 0,1 or 2 (see point 2.2) 
 		sb.append("0"); //$NON-NLS-1$
 		//	4 Type of table numeric 1 M  10 1 = distance-based 2 = route-based 3 = set fare 
-		sb.append("3"); //$NON-NLS-1$
+		sb.append("2"); //$NON-NLS-1$
 		//	5 Description in country's official language(s) alpha numeric 30 M  11-40  
 		sb.append(String.format("%-30s",GtmUtils.limitStringLengthWithConsoleEntry(fare.getDescriptionLocal(),30,editor,NationalLanguageSupport.LegacyExporter_19))); //$NON-NLS-1$
 		//	6 Description in French alpha numeric 30 O  41-70  	
@@ -329,9 +335,40 @@ public class LegacyExporter {
 		}
 		writer.close();
 		GtmUtils.writeConsoleInfo("TCVS-File written in " + exportPath, editor);
-
 		
 	}
+	
+	private void exportTCVCfile() throws IOException {
+		
+		if (tool.getConversionFromLegacy().getLegacy108().getLegacyCarriers() == null || 
+			tool.getConversionFromLegacy().getLegacy108().getLegacyCarriers().getLegacyCarrier() == null ||
+			tool.getConversionFromLegacy().getLegacy108().getLegacyCarriers().getLegacyCarrier().isEmpty()){
+			return;
+		}
+	
+		
+		String provider = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0).getSupplyingCarrierCode();
+				
+		BufferedWriter writer = getWriter(exportPath, "TCVC" + provider + ".txt"); //$NON-NLS-1$
+
+		boolean firstLine = true;
+		
+		List<LegacyCarrier> carrierCol = new ArrayList<LegacyCarrier>();
+		carrierCol.addAll(tool.getConversionFromLegacy().getLegacy108().getLegacyCarriers().getLegacyCarrier());
+		Collections.sort(carrierCol,new CarrierComparator());
+		
+		for (LegacyCarrier carrier : carrierCol) {
+			if (!firstLine) {
+				writer.newLine();
+			}
+			firstLine = false;
+			writer.write(getCarrierLine(carrier));
+		}
+		writer.close();
+		GtmUtils.writeConsoleInfo("TCVC-File written in " + exportPath, editor);
+		
+	}
+
 	
 	private void exportTCVMfile() throws IOException {
 		
@@ -429,11 +466,19 @@ public class LegacyExporter {
 				tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().size(),
 				tool.getConversionFromLegacy().getLegacy108().getStartDate(),
 				tool.getConversionFromLegacy().getLegacy108().getEndDate());
-		
+
+			String line4 = getHeaderLine("TCVC" + provider, provider, providerName, //$NON-NLS-1$
+					tool.getConversionFromLegacy().getLegacy108().getLegacyCarriers().getLegacyCarrier().size(),
+					tool.getConversionFromLegacy().getLegacy108().getStartDate(),
+					tool.getConversionFromLegacy().getLegacy108().getEndDate());
+
 			writer.write(line1);
 			
 			writer.newLine();
 			writer.write(line2);
+
+			writer.newLine();
+			writer.write(line4);
 			
 			if (writeP) {
 				String line3 = getHeaderLine("TCVP" + provider, provider, providerName, //$NON-NLS-1$
@@ -836,6 +881,58 @@ public class LegacyExporter {
 		sb.append("01"); //$NON-NLS-1$
 		//	60 Last day of validity of fare numeric 8 M  222-229 Expressed as: 'YYYYMMDD' 
 		sb.append(dateFormat.format(series.getValidUntil()));
+		
+		return sb.toString();
+	}
+	
+	
+	String getCarrierLine(LegacyCarrier carrier) {
+		
+		StringBuilder sb = new StringBuilder();
+				
+		//1 code of the	supplying RU numeric 4 M 1-4 e.g. 0081 for ÖBB
+		sb.append(String.format("%-4s",GtmUtils.limitStringLengthWithConsoleEntry(provider,4,editor,"TCVC export - carrier")));		 //$NON-NLS-1$
+		//2 Carrier code separator 1 '<' 1 M 5 This field always contains the value '<'
+		sb.append("<");
+		//3 Carrier code alpha numeric 4 M 6-9 4-digit code for the RU (e.g. 0081 for ÖBB)	The file is to be made available in ascending order of this field.
+		sb.append(String.format("%-4s",GtmUtils.limitStringLengthWithConsoleEntry(carrier.getCarrierCode(),4,editor,"TCVC export - carrier")));		 //$NON-NLS-1$
+		//4 Carrier code separator 2 '>' 1 M 10 This field always contains the value '>'
+		sb.append(">");
+		//5 Key flag for carrier code numeric 1 M 11 0, 1 or 2 (see point 2.2)
+		sb.append("1");
+		//6 Carrier's shortened name alpha numeric 17 M 12-28
+		sb.append(String.format("%-17s",GtmUtils.limitStringLengthWithConsoleEntry(carrier.getCarrierShortName(),17,editor,"TCVC export - carrier")));		 //$NON-NLS-1$
+		//7 Flag 1 for carrier's shortened name	numeric 1 M 29 0 or 3 (see point 2.2)
+		sb.append("0");
+		//8 Carrier’s full name alpha numeric 60 M 30-89
+		sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(carrier.getCarrierName(),60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$	
+		//9 Flag 2 for carrier's full name numeric 1 M 90 0 or 3 (see point 2.2)
+		sb.append("0");
+		//10 Address - street alpha numeric 60 M 91-1 50
+		sb.append("                                                            ");
+		//11 Address - postcode alpha numeric 10 M 151-160
+		sb.append("          ");
+		//12 Address - place alpha numeric	60 M 161-220
+		sb.append("                                                            ");
+		//13 Address - country alpha numeric 60 M 221-280
+		sb.append("                                                            ");
+		//14 Flag 3 for address numeric 1 M 281 0 or 3 (see point 2.2).
+		sb.append("0");
+		//15 Carrier code separator 1 '<' 1 M 282 This field always contains the value '<'
+		sb.append("<");
+		//16 Carrier code of the RU managing the system numeric 4 O 283-286 If an RU is appointed by a number of 
+		//   others to manage the system, its carrier code should be entered into this field, failing which the field will be given the value '0000'.
+		sb.append("0000");
+		//17 Carrier code separator 2 '>' 1 M 287 This field always contains the symbol '>'
+		sb.append(">");
+		//18 Flag 4 for the carrier code of the RU managing the system numeric 2 M 288 0 or 3 (see point 2.2)
+		sb.append("0");
+		//19 First day of validity of fare numeric 8 M 289-296 Expressed as: 'YYYYMMDD'	
+		sb.append(dateFormat.format(fromDate));		
+		//20 Version number numeric 2 M 297-298 Sequential version number related to the fare date; "01" for the first issue, "02" for the second etc.
+		sb.append("01"); //$NON-NLS-1$
+		//21 Last day of validity of fare numeric 8 M 299-306 Expressed as: "YYYYMMDD"
+		sb.append(dateFormat.format(untilDate));
 		
 		return sb.toString();
 	}

@@ -42,6 +42,8 @@ import Gtm.Legacy108Stations;
 import Gtm.LegacyBorderPoint;
 import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
+import Gtm.LegacyCarrier;
+import Gtm.LegacyCarriers;
 import Gtm.LegacyConversionType;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacyRouteFares;
@@ -112,6 +114,9 @@ public class 	ConverterToLegacy {
 	/** The legacy fare descriptions. */
 	private HashMap<Text,Legacy108Memo> memos = new HashMap<Text,Legacy108Memo>();	
 
+	/** The used carriers. */
+	private HashMap<String,LegacyCarrier> carriers = new HashMap<String,LegacyCarrier>();	
+
 	
 	/**
 	 * Instantiates a new converter to legacy.
@@ -132,7 +137,7 @@ public class 	ConverterToLegacy {
 	 * @return the monitor tasks
 	 */
 	public int getMonitorTasks() {
-		return 13;
+		return 14;
 	}
 	
 	/**
@@ -144,17 +149,18 @@ public class 	ConverterToLegacy {
 	public int convert(IProgressMonitor monitor) {
 		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
-		Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__CARRIER, carrier);
-		if (com != null && com.canExecute()) {
-			domain.getCommandStack().execute(com);
-		}
-		
 		if (carrier == null) {
 			String message = "No Carrier/Provider contained in the OSDM Delivery Data - Conversion aborted!";
 			GtmUtils.writeConsoleError(message, editor);
 			return 0;
 		}
+
+		addCarrier(carrier); 
 		
+		Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__CARRIER, carrier);
+		if (com != null && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_0);	
 		convertStations();
@@ -354,6 +360,24 @@ public class 	ConverterToLegacy {
 		}
 		monitor.worked(1);
 		
+		monitor.subTask("add carriers");	
+		
+		LegacyCarriers lcs = GtmFactory.eINSTANCE.createLegacyCarriers();
+		List<LegacyCarrier> carriersCol = new ArrayList<LegacyCarrier>();
+		carriersCol.addAll(carriers.values());
+		Collections.sort(carriersCol, new CarrierComparator() );
+		lcs.getLegacyCarrier().addAll(carriersCol);
+		com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_CARRIERS, lcs);
+		if (com != null && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
+		if (lcs.getLegacyCarrier() != null) {
+			String message = String.format("108-TCVC carriers added: %d", lcs.getLegacyCarrier().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
+		monitor.worked(1);
+
+		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_15);	
 		CompoundCommand command = new CompoundCommand();
 		command.append(SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__START_DATE, getStartDate(tool)));
@@ -362,7 +386,6 @@ public class 	ConverterToLegacy {
 			domain.getCommandStack().execute(command);
 		}
 		monitor.worked(1);		
-		
 		
 		
 		
@@ -1139,6 +1162,7 @@ public class 	ConverterToLegacy {
 
 	}
 
+	
 	/**
 	 * Convert to series.
 	 *
@@ -1146,57 +1170,19 @@ public class 	ConverterToLegacy {
 	 * @return the legacy series
 	 */
 	private LegacySeries convertToSeries(FareElement fare) {
-
+		
 		
 		if (fare.getRegionalConstraint() == null ||
-			fare.getFareConstraintBundle() == null ||
-			fare.getRegionalConstraint().getRegionalValidity() == null ||
-			fare.getRegionalConstraint().getRegionalValidity().isEmpty() ||
-			fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null ) {
-			return null;
+				fare.getFareConstraintBundle() == null ||
+				fare.getRegionalConstraint().getRegionalValidity() == null ||
+				fare.getRegionalConstraint().getRegionalValidity().isEmpty() ||
+				fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null ) {
+				return null;
 		}
+			
+			
+		RegionalConstraint regionalConstraint = fare.getRegionalConstraint();
 		
-		LegacySeries series = convertToSeries(fare.getRegionalConstraint());
-		
-		if (series == null) return null;
-
-		if (fare.getCarrierConstraint() != null && 
-			fare.getCarrierConstraint().getIncludedCarriers() != null && 
-		    series.getCarrierCode() == null &&
-			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
-			series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
-		} 	
-		
-		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
-		
-		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
-
-		
-		if (fare.getServiceConstraint() != null && fare.getServiceConstraint().getIncludedServiceBrands() != null) {
-			for (ServiceBrand brand : fare.getServiceConstraint().getIncludedServiceBrands()) {
-				if (brand.getTransportMode() != null) {
-					if (brand.getTransportMode().equals(TransportMode.BUS)) {
-						series.setBusCode("B");
-					} 
-				}
-				if (brand.getTransportMode() != null) {
-					if (brand.getTransportMode().equals(TransportMode.SHIP)) {
-						series.setFerryCode("S");
-					} 
-				}			
-			}
-		}
-		return series;
-	}
-	
-	/**
-	 * Convert to series.
-	 *
-	 * @param regionalConstraint the regional constraint
-	 * @return the legacy series
-	 */
-	private LegacySeries convertToSeries(RegionalConstraint regionalConstraint) {
 		LegacySeries series = GtmFactory.eINSTANCE.createLegacySeries();
 		
 		if (regionalConstraint == null ||
@@ -1214,6 +1200,7 @@ public class 	ConverterToLegacy {
 		ViaStation mainVia = regionalValidity.getViaStation();
 		if (mainVia.getCarrier() != null) {
 			series.setCarrierCode( mainVia.getCarrier().getCode());
+			addCarrier(mainVia.getCarrier());
 		}
 		if (mainVia.getServiceConstraint() != null && mainVia.getServiceConstraint().getLegacy108Code() > 0) {
 			routeServiceConstraint = mainVia.getServiceConstraint();
@@ -1282,6 +1269,35 @@ public class 	ConverterToLegacy {
 		}
 
 		series.setType(getType(regionalConstraint));
+			
+		if (fare.getCarrierConstraint() != null && 
+			fare.getCarrierConstraint().getIncludedCarriers() != null && 
+		    series.getCarrierCode() == null &&
+			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+			series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
+            addCarrier(fare.getCarrierConstraint().getIncludedCarriers().get(0));
+		} 	
+		
+		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
+		
+		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
+		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
+
+		
+		if (fare.getServiceConstraint() != null && fare.getServiceConstraint().getIncludedServiceBrands() != null) {
+			for (ServiceBrand brand : fare.getServiceConstraint().getIncludedServiceBrands()) {
+				if (brand.getTransportMode() != null) {
+					if (brand.getTransportMode().equals(TransportMode.BUS)) {
+						series.setBusCode("B");
+					} 
+				}
+				if (brand.getTransportMode() != null) {
+					if (brand.getTransportMode().equals(TransportMode.SHIP)) {
+						series.setFerryCode("S");
+					} 
+				}			
+			}
+		}
 		
 		return series;
 	}
@@ -1679,7 +1695,7 @@ public class 	ConverterToLegacy {
 		}
 
 		//series can convert
-		LegacySeries s = convertToSeries(fare.getRegionalConstraint());
+		LegacySeries s = convertToSeries(fare);
 		if (s == null) {
 			return false; 
 		}
@@ -1902,6 +1918,25 @@ public class 	ConverterToLegacy {
 			}
 		}
 		return false;
+	}
+	
+	private void addCarrier(Carrier carrier) {
+		
+		if (carrier == null) return;
+		
+		LegacyCarrier lc = carriers.get(carrier.getCode());
+		
+		if (lc == null) {
+			
+			lc = GtmFactory.eINSTANCE.createLegacyCarrier();
+			lc.setCarrierCode(carrier.getCode());
+			lc.setCarrierShortName(GtmUtils.utf2ascii(carrier.getShortName()));
+			lc.setCarrierName(carrier.getName());
+						
+			carriers.put(carrier.getCode(), lc);
+						
+		} 
+		
 	}
 	
 }

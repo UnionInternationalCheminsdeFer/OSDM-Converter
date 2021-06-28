@@ -958,6 +958,18 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.LEGACY_CARRIERS: {
+				LegacyCarriers legacyCarriers = (LegacyCarriers)theEObject;
+				T result = caseLegacyCarriers(legacyCarriers);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.LEGACY_CARRIER: {
+				LegacyCarrier legacyCarrier = (LegacyCarrier)theEObject;
+				T result = caseLegacyCarrier(legacyCarrier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.LEGACY_SEPARATE_CONTRACT_SERIES_LIST: {
 				LegacySeparateContractSeriesList legacySeparateContractSeriesList = (LegacySeparateContractSeriesList)theEObject;
 				T result = caseLegacySeparateContractSeriesList(legacySeparateContractSeriesList);
@@ -3194,6 +3206,36 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLegacySeries(LegacySeries object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Legacy Carriers</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Legacy Carriers</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLegacyCarriers(LegacyCarriers object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Legacy Carrier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Legacy Carrier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLegacyCarrier(LegacyCarrier object) {
 		return null;
 	}
 

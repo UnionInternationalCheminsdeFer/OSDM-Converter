@@ -1060,6 +1060,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass legacyCarriersEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass legacyCarrierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass legacySeparateContractSeriesListEClass = null;
 
 	/**
@@ -7532,6 +7546,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getLegacy108_LegacyCarriers() {
+		return (EReference)legacy108EClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLegacy108Memos() {
 		return legacy108MemosEClass;
 	}
@@ -8101,6 +8124,60 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getLegacySeries_MemoNumber() {
 		return (EAttribute)legacySeriesEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLegacyCarriers() {
+		return legacyCarriersEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLegacyCarriers_LegacyCarrier() {
+		return (EReference)legacyCarriersEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLegacyCarrier() {
+		return legacyCarrierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacyCarrier_CarrierCode() {
+		return (EAttribute)legacyCarrierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacyCarrier_CarrierShortName() {
+		return (EAttribute)legacyCarrierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacyCarrier_CarrierName() {
+		return (EAttribute)legacyCarrierEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -9587,6 +9664,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacy108EClass, LEGACY108__END_DATE);
 		createEReference(legacy108EClass, LEGACY108__LEGACY_BORDER_POINTS);
 		createEReference(legacy108EClass, LEGACY108__LEGACY_MEMOS);
+		createEReference(legacy108EClass, LEGACY108__LEGACY_CARRIERS);
 
 		legacy108MemosEClass = createEClass(LEGACY108_MEMOS);
 		createEReference(legacy108MemosEClass, LEGACY108_MEMOS__LEGACY_MEMOS);
@@ -9661,6 +9739,14 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacySeriesEClass, LEGACY_SERIES__BUS_CODE);
 		createEAttribute(legacySeriesEClass, LEGACY_SERIES__FERRY_CODE);
 		createEAttribute(legacySeriesEClass, LEGACY_SERIES__MEMO_NUMBER);
+
+		legacyCarriersEClass = createEClass(LEGACY_CARRIERS);
+		createEReference(legacyCarriersEClass, LEGACY_CARRIERS__LEGACY_CARRIER);
+
+		legacyCarrierEClass = createEClass(LEGACY_CARRIER);
+		createEAttribute(legacyCarrierEClass, LEGACY_CARRIER__CARRIER_CODE);
+		createEAttribute(legacyCarrierEClass, LEGACY_CARRIER__CARRIER_SHORT_NAME);
+		createEAttribute(legacyCarrierEClass, LEGACY_CARRIER__CARRIER_NAME);
 
 		legacySeparateContractSeriesListEClass = createEClass(LEGACY_SEPARATE_CONTRACT_SERIES_LIST);
 		createEReference(legacySeparateContractSeriesListEClass, LEGACY_SEPARATE_CONTRACT_SERIES_LIST__SEPARATE_CONTRACT_SERIES);
@@ -10613,6 +10699,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacy108_EndDate(), ecorePackage.getEDate(), "endDate", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLegacy108_LegacyBorderPoints(), this.getLegacyBorderPoints(), null, "legacyBorderPoints", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLegacy108_LegacyMemos(), this.getLegacy108Memos(), null, "legacyMemos", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLegacy108_LegacyCarriers(), this.getLegacyCarriers(), null, "legacyCarriers", null, 0, 1, Legacy108.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacy108MemosEClass, Legacy108Memos.class, "Legacy108Memos", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLegacy108Memos_LegacyMemos(), this.getLegacy108Memo(), null, "legacyMemos", null, 0, -1, Legacy108Memos.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10691,6 +10778,14 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacySeries_BusCode(), ecorePackage.getEString(), "busCode", null, 0, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacySeries_FerryCode(), ecorePackage.getEString(), "ferryCode", null, 0, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacySeries_MemoNumber(), ecorePackage.getEInt(), "memoNumber", null, 0, 1, LegacySeries.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(legacyCarriersEClass, LegacyCarriers.class, "LegacyCarriers", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLegacyCarriers_LegacyCarrier(), this.getLegacyCarrier(), null, "legacyCarrier", null, 0, -1, LegacyCarriers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(legacyCarrierEClass, LegacyCarrier.class, "LegacyCarrier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLegacyCarrier_CarrierCode(), ecorePackage.getEString(), "carrierCode", null, 0, 1, LegacyCarrier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacyCarrier_CarrierShortName(), ecorePackage.getEString(), "carrierShortName", null, 0, 1, LegacyCarrier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacyCarrier_CarrierName(), ecorePackage.getEString(), "carrierName", null, 0, 1, LegacyCarrier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacySeparateContractSeriesListEClass, LegacySeparateContractSeriesList.class, "LegacySeparateContractSeriesList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLegacySeparateContractSeriesList_SeparateContractSeries(), this.getLegacySeparateContractSeries(), null, "separateContractSeries", null, 0, -1, LegacySeparateContractSeriesList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
