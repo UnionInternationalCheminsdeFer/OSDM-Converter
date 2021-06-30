@@ -1424,6 +1424,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum dataTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum classIdEEnum = null;
 
 	/**
@@ -2301,6 +2308,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getDelivery_AcceptedSchemaVersion() {
 		return (EAttribute)deliveryEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDelivery_Usage() {
+		return (EAttribute)deliveryEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -8797,6 +8813,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getDataType() {
+		return dataTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getClassId() {
 		return classIdEEnum;
 	}
@@ -8962,6 +8987,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(deliveryEClass, DELIVERY__PROVIDER);
 		createEAttribute(deliveryEClass, DELIVERY__SCHEMA_VERSION);
 		createEAttribute(deliveryEClass, DELIVERY__ACCEPTED_SCHEMA_VERSION);
+		createEAttribute(deliveryEClass, DELIVERY__USAGE);
 
 		afterSalesRulesEClass = createEClass(AFTER_SALES_RULES);
 		createEReference(afterSalesRulesEClass, AFTER_SALES_RULES__AFTER_SALES_RULES);
@@ -9782,6 +9808,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		regulatoryConditionEEnum = createEEnum(REGULATORY_CONDITION);
 		afterSalesTransactionTypeEEnum = createEEnum(AFTER_SALES_TRANSACTION_TYPE);
 		barcodeTypesEEnum = createEEnum(BARCODE_TYPES);
+		basePriceClassTypeEEnum = createEEnum(BASE_PRICE_CLASS_TYPE);
 		classicClassTypeEEnum = createEEnum(CLASSIC_CLASS_TYPE);
 		classIdEEnum = createEEnum(CLASS_ID);
 		characterSetEEnum = createEEnum(CHARACTER_SET);
@@ -9789,6 +9816,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		combinationModelEEnum = createEEnum(COMBINATION_MODEL);
 		controlDataExchangeTypesEEnum = createEEnum(CONTROL_DATA_EXCHANGE_TYPES);
 		dataSourceEEnum = createEEnum(DATA_SOURCE);
+		dataTypeEEnum = createEEnum(DATA_TYPE);
 		fareTypeEEnum = createEEnum(FARE_TYPE);
 		fulfillmentTypeEEnum = createEEnum(FULFILLMENT_TYPE);
 		geoSystemEEnum = createEEnum(GEO_SYSTEM);
@@ -9821,7 +9849,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		timeUnitEEnum = createEEnum(TIME_UNIT);
 		travelerTypeEEnum = createEEnum(TRAVELER_TYPE);
 		weekDayEEnum = createEEnum(WEEK_DAY);
-		basePriceClassTypeEEnum = createEEnum(BASE_PRICE_CLASS_TYPE);
 
 		// Create data types
 		dateAsDateEDataType = createEDataType(DATE_AS_DATE);
@@ -9985,6 +10012,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getDelivery_Provider(), this.getCarrier(), null, "provider", null, 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDelivery_SchemaVersion(), this.getSchemaVersion(), "schemaVersion", null, 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDelivery_AcceptedSchemaVersion(), this.getSchemaVersion(), "acceptedSchemaVersion", null, 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDelivery_Usage(), this.getDataType(), "usage", null, 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(afterSalesRulesEClass, AfterSalesRules.class, "AfterSalesRules", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAfterSalesRules_AfterSalesRules(), this.getAfterSalesRule(), null, "afterSalesRules", null, 0, -1, AfterSalesRules.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10860,6 +10888,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(barcodeTypesEEnum, BarcodeTypes.TLB);
 		addEEnumLiteral(barcodeTypesEEnum, BarcodeTypes.SSB);
 
+		initEEnum(basePriceClassTypeEEnum, BasePriceClassType.class, "BasePriceClassType");
+		addEEnumLiteral(basePriceClassTypeEEnum, BasePriceClassType.SERVICE_CLASS);
+		addEEnumLiteral(basePriceClassTypeEEnum, BasePriceClassType.FIRST);
+		addEEnumLiteral(basePriceClassTypeEEnum, BasePriceClassType.SECOND);
+
 		initEEnum(classicClassTypeEEnum, ClassicClassType.class, "ClassicClassType");
 		addEEnumLiteral(classicClassTypeEEnum, ClassicClassType.FIRST);
 		addEEnumLiteral(classicClassTypeEEnum, ClassicClassType.SECOND);
@@ -10909,6 +10942,10 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(dataSourceEEnum, DataSource.CONVERTED);
 		addEEnumLiteral(dataSourceEEnum, DataSource.IMPORTED);
 		addEEnumLiteral(dataSourceEEnum, DataSource.GENERATED);
+
+		initEEnum(dataTypeEEnum, DataType.class, "DataType");
+		addEEnumLiteral(dataTypeEEnum, DataType.TEST_DATA);
+		addEEnumLiteral(dataTypeEEnum, DataType.PRODUCTION_DATA);
 
 		initEEnum(fareTypeEEnum, FareType.class, "FareType");
 		addEEnumLiteral(fareTypeEEnum, FareType.NRT);
@@ -11227,11 +11264,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(weekDayEEnum, WeekDay.FRIDAY);
 		addEEnumLiteral(weekDayEEnum, WeekDay.SATURDAY);
 		addEEnumLiteral(weekDayEEnum, WeekDay.SUNDAY);
-
-		initEEnum(basePriceClassTypeEEnum, BasePriceClassType.class, "BasePriceClassType");
-		addEEnumLiteral(basePriceClassTypeEEnum, BasePriceClassType.SERVICE_CLASS);
-		addEEnumLiteral(basePriceClassTypeEEnum, BasePriceClassType.FIRST);
-		addEEnumLiteral(basePriceClassTypeEEnum, BasePriceClassType.SECOND);
 
 		// Initialize data types
 		initEDataType(dateAsDateEDataType, Date.class, "DateAsDate", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

@@ -621,11 +621,11 @@ public class LegacyExporter {
 		//	18 Flag 5 for 1st Class single fare numeric 1 M  140 0 or 3 (see point 2.2) 
 		sb.append("0"); //$NON-NLS-1$
 		//	19 2nd Class return fare numeric 7 O  141-147 5 digits before the decimal point, 2 digits after the decimal point 
-		sb.append(NationalLanguageSupport.LegacyExporter_93);
+		sb.append(String.format("%07d", fare.getReturnFare2nd())); //$NON-NLS-1$
 		//	20 Flag 6 for 2nd Class return fare numeric 1 M  148 0 or 3 (see point 2.2) 
 		sb.append("0"); //$NON-NLS-1$
 		//	21 1st Class return fare numeric 7 O  149-155 5 digits before the decimal point, 2 digits after the decimal point 
-		sb.append("0000000"); //$NON-NLS-1$
+		sb.append(String.format("%07d", fare.getReturnFare1st())); //$NON-NLS-1$
 		//	22 Flag 7 for 1st Class return fare numeric 1 M  156 0 or 3 (see point 2.2) 
 		sb.append("0"); //$NON-NLS-1$
 		//	23 First day of validity of fare numeric 8 M  157-164 Expressed as: 'YYYYMMDD' 

@@ -412,6 +412,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateAfterSalesTransactionType((AfterSalesTransactionType)value, diagnostics, context);
 			case GtmPackage.BARCODE_TYPES:
 				return validateBarcodeTypes((BarcodeTypes)value, diagnostics, context);
+			case GtmPackage.BASE_PRICE_CLASS_TYPE:
+				return validateBasePriceClassType((BasePriceClassType)value, diagnostics, context);
 			case GtmPackage.CLASSIC_CLASS_TYPE:
 				return validateClassicClassType((ClassicClassType)value, diagnostics, context);
 			case GtmPackage.CLASS_ID:
@@ -426,6 +428,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateControlDataExchangeTypes((ControlDataExchangeTypes)value, diagnostics, context);
 			case GtmPackage.DATA_SOURCE:
 				return validateDataSource((DataSource)value, diagnostics, context);
+			case GtmPackage.DATA_TYPE:
+				return validateDataType((DataType)value, diagnostics, context);
 			case GtmPackage.FARE_TYPE:
 				return validateFareType((FareType)value, diagnostics, context);
 			case GtmPackage.FULFILLMENT_TYPE:
@@ -490,8 +494,6 @@ public class GtmValidator extends EObjectValidator {
 				return validateTravelerType((TravelerType)value, diagnostics, context);
 			case GtmPackage.WEEK_DAY:
 				return validateWeekDay((WeekDay)value, diagnostics, context);
-			case GtmPackage.BASE_PRICE_CLASS_TYPE:
-				return validateBasePriceClassType((BasePriceClassType)value, diagnostics, context);
 			case GtmPackage.DATE_AS_DATE:
 				return validateDateAsDate((Date)value, diagnostics, context);
 			case GtmPackage.DATE_AS_DATE_TIME:
@@ -8258,6 +8260,15 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDataSource(DataSource dataSource, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDataType(DataType dataType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

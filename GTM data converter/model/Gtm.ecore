@@ -200,6 +200,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="schemaVersion" eType="#//SchemaVersion"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="acceptedSchemaVersion"
         eType="#//SchemaVersion"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usage" eType="#//DataType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesRules">
     <eStructuralFeatures xsi:type="ecore:EReference" name="afterSalesRules" upperBound="-1"
@@ -1500,6 +1501,11 @@
     <eLiterals name="TLB" value="2"/>
     <eLiterals name="SSB" value="3"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BasePriceClassType">
+    <eLiterals name="SERVICE_CLASS"/>
+    <eLiterals name="FIRST" value="1"/>
+    <eLiterals name="SECOND" value="2"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ClassicClassType">
     <eLiterals name="FIRST" value="1"/>
     <eLiterals name="SECOND" value="2"/>
@@ -1549,6 +1555,10 @@
     <eLiterals name="CONVERTED" value="2"/>
     <eLiterals name="IMPORTED" value="3"/>
     <eLiterals name="GENERATED" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DataType">
+    <eLiterals name="TEST_DATA" value="2"/>
+    <eLiterals name="PRODUCTION_DATA" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="FareType">
     <eLiterals name="NRT"/>
@@ -1867,10 +1877,5 @@
     <eLiterals name="FRIDAY" value="5"/>
     <eLiterals name="SATURDAY" value="6"/>
     <eLiterals name="SUNDAY" value="7"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="BasePriceClassType">
-    <eLiterals name="SERVICE_CLASS"/>
-    <eLiterals name="FIRST" value="1"/>
-    <eLiterals name="SECOND" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -68,6 +68,7 @@ public class DeliveryItemProvider
 			addProviderPropertyDescriptor(object);
 			addSchemaVersionPropertyDescriptor(object);
 			addAcceptedSchemaVersionPropertyDescriptor(object);
+			addUsagePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -227,6 +228,28 @@ public class DeliveryItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Usage feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUsagePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Delivery_usage_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Delivery_usage_feature", "_UI_Delivery_type"),
+				 GtmPackage.Literals.DELIVERY__USAGE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Delivery.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -270,6 +293,7 @@ public class DeliveryItemProvider
 			case GtmPackage.DELIVERY__OPTIONAL:
 			case GtmPackage.DELIVERY__SCHEMA_VERSION:
 			case GtmPackage.DELIVERY__ACCEPTED_SCHEMA_VERSION:
+			case GtmPackage.DELIVERY__USAGE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

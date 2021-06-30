@@ -462,8 +462,12 @@ public class 	ConverterToLegacy {
 			} else {
 				if (fare.isSetFare1st()) {
 					fare2.setFare1st(fare.getFare1st());
+					fare2.setReturnFare1st(fare.getFare1st() + fare.getFare1st());
 				}
-				if (fare.isSetFare2nd()) fare2.setFare2nd(fare.getFare2nd());
+				if (fare.isSetFare2nd()) {
+					fare2.setFare2nd(fare.getFare2nd());
+					fare2.setReturnFare2nd(fare.getFare2nd() + fare.getFare2nd());
+				}
 			}
 	
 		}
@@ -1135,9 +1139,12 @@ public class 	ConverterToLegacy {
 		} 
 		if (fare.getServiceClass().getId() == ClassId.B) {
 			legacyFare.setFare1st(getPrice(fare.getPrice()));
+			legacyFare.setReturnFare1st(legacyFare.getFare1st() + legacyFare.getFare1st());
+
 		}
 		if (fare.getServiceClass().getId() == ClassId.D) {
 			legacyFare.setFare2nd(getPrice(fare.getPrice()));
+			legacyFare.setReturnFare2nd(legacyFare.getFare2nd( ) + legacyFare.getFare2nd());
 		}
 
 
@@ -1860,6 +1867,16 @@ public class 	ConverterToLegacy {
 		} else if (startBorder == 0 && endBorder > 0) {
 			return true;
 		}
+		
+		if (startName == null || endName == null) {
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("Start of End Name missing. Route ").append(RouteDescriptionBuilder.getRouteDescription(via)).append(" not convertable");
+			 
+			GtmUtils.writeConsoleError(sb.toString(), editor);
+			
+			return false;
+		}		
 		
 		if (startName.compareToIgnoreCase(endName) > 0) return true;
 

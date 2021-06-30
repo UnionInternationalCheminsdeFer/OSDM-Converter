@@ -238,6 +238,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createAfterSalesTransactionTypeFromString(eDataType, initialValue);
 			case GtmPackage.BARCODE_TYPES:
 				return createBarcodeTypesFromString(eDataType, initialValue);
+			case GtmPackage.BASE_PRICE_CLASS_TYPE:
+				return createBasePriceClassTypeFromString(eDataType, initialValue);
 			case GtmPackage.CLASSIC_CLASS_TYPE:
 				return createClassicClassTypeFromString(eDataType, initialValue);
 			case GtmPackage.CLASS_ID:
@@ -252,6 +254,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createControlDataExchangeTypesFromString(eDataType, initialValue);
 			case GtmPackage.DATA_SOURCE:
 				return createDataSourceFromString(eDataType, initialValue);
+			case GtmPackage.DATA_TYPE:
+				return createDataTypeFromString(eDataType, initialValue);
 			case GtmPackage.FARE_TYPE:
 				return createFareTypeFromString(eDataType, initialValue);
 			case GtmPackage.FULFILLMENT_TYPE:
@@ -316,8 +320,6 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createTravelerTypeFromString(eDataType, initialValue);
 			case GtmPackage.WEEK_DAY:
 				return createWeekDayFromString(eDataType, initialValue);
-			case GtmPackage.BASE_PRICE_CLASS_TYPE:
-				return createBasePriceClassTypeFromString(eDataType, initialValue);
 			case GtmPackage.DATE_AS_DATE:
 				return createDateAsDateFromString(eDataType, initialValue);
 			case GtmPackage.DATE_AS_DATE_TIME:
@@ -347,6 +349,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertAfterSalesTransactionTypeToString(eDataType, instanceValue);
 			case GtmPackage.BARCODE_TYPES:
 				return convertBarcodeTypesToString(eDataType, instanceValue);
+			case GtmPackage.BASE_PRICE_CLASS_TYPE:
+				return convertBasePriceClassTypeToString(eDataType, instanceValue);
 			case GtmPackage.CLASSIC_CLASS_TYPE:
 				return convertClassicClassTypeToString(eDataType, instanceValue);
 			case GtmPackage.CLASS_ID:
@@ -361,6 +365,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertControlDataExchangeTypesToString(eDataType, instanceValue);
 			case GtmPackage.DATA_SOURCE:
 				return convertDataSourceToString(eDataType, instanceValue);
+			case GtmPackage.DATA_TYPE:
+				return convertDataTypeToString(eDataType, instanceValue);
 			case GtmPackage.FARE_TYPE:
 				return convertFareTypeToString(eDataType, instanceValue);
 			case GtmPackage.FULFILLMENT_TYPE:
@@ -425,8 +431,6 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertTravelerTypeToString(eDataType, instanceValue);
 			case GtmPackage.WEEK_DAY:
 				return convertWeekDayToString(eDataType, instanceValue);
-			case GtmPackage.BASE_PRICE_CLASS_TYPE:
-				return convertBasePriceClassTypeToString(eDataType, instanceValue);
 			case GtmPackage.DATE_AS_DATE:
 				return convertDateAsDateToString(eDataType, instanceValue);
 			case GtmPackage.DATE_AS_DATE_TIME:
@@ -2859,6 +2863,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * @generated
 	 */
 	public String convertDataSourceToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataType createDataTypeFromString(EDataType eDataType, String initialValue) {
+		DataType result = DataType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDataTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
