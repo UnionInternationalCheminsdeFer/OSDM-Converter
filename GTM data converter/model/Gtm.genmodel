@@ -111,8 +111,8 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataSource/GENERATED"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//DataType">
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataType/TEST_DATA"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataType/PRODUCTION_DATA"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataType/TEST_DATA"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//FareType">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//FareType/NRT"/>

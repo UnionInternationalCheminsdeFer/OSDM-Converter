@@ -200,7 +200,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="schemaVersion" eType="#//SchemaVersion"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="acceptedSchemaVersion"
         eType="#//SchemaVersion"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usage" eType="#//DataType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usage" eType="#//DataType"
+        defaultValueLiteral="PRODUCTION_DATA"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesRules">
     <eStructuralFeatures xsi:type="ecore:EReference" name="afterSalesRules" upperBound="-1"
@@ -1557,8 +1558,8 @@
     <eLiterals name="GENERATED" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DataType">
-    <eLiterals name="TEST_DATA" value="2"/>
     <eLiterals name="PRODUCTION_DATA" value="1"/>
+    <eLiterals name="TEST_DATA" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="FareType">
     <eLiterals name="NRT"/>

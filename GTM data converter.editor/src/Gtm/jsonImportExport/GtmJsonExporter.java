@@ -31,6 +31,7 @@ import gtm.FareCombinationConstraintDef;
 import gtm.FareCombinationModelDef;
 import gtm.FareConstraintBundle;
 import gtm.FareConstraintBundle.FareTypeDef;
+import gtm.FareDeliveryDetailsDef.Usage;
 import gtm.FareDataDef;
 import gtm.FareDef;
 import gtm.FareDelivery;
@@ -2332,6 +2333,14 @@ public class GtmJsonExporter {
 		}
 		if (idelivery.getAcceptedSchemaVersion()!=null) {
 			delivery.setAcceptedVersion(idelivery.getAcceptedSchemaVersion().getLiteral());
+		}
+		
+		if (idelivery.getUsage() != null) {
+			if (idelivery.getUsage().equals(DataType.PRODUCTION_DATA)) {
+				delivery.setUsage(Usage.PRODUCTION);
+			} else if (idelivery.getUsage().equals(DataType.TEST_DATA)) {
+				delivery.setUsage(Usage.TEST_ONLY);
+			}	
 		}
 			
 		return delivery;

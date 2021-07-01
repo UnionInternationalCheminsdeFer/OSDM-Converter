@@ -245,6 +245,7 @@ public interface Delivery extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Usage</b></em>' attribute.
+	 * The default value is <code>"PRODUCTION_DATA"</code>.
 	 * The literals are from the enumeration {@link Gtm.DataType}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -252,7 +253,7 @@ public interface Delivery extends EObject {
 	 * @see Gtm.DataType
 	 * @see #setUsage(DataType)
 	 * @see Gtm.GtmPackage#getDelivery_Usage()
-	 * @model
+	 * @model default="PRODUCTION_DATA"
 	 * @generated
 	 */
 	DataType getUsage();

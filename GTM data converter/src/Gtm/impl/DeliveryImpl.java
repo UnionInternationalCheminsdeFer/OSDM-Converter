@@ -193,7 +193,7 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 	 * @generated
 	 * @ordered
 	 */
-	protected static final DataType USAGE_EDEFAULT = DataType.TEST_DATA;
+	protected static final DataType USAGE_EDEFAULT = DataType.PRODUCTION_DATA;
 
 	/**
 	 * The cached value of the '{@link #getUsage() <em>Usage</em>}' attribute.

@@ -19,16 +19,6 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum DataType implements Enumerator {
 	/**
-	 * The '<em><b>TEST DATA</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TEST_DATA_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	TEST_DATA(2, "TEST_DATA", "TEST_DATA"),
-
-	/**
 	 * The '<em><b>PRODUCTION DATA</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -36,18 +26,15 @@ public enum DataType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PRODUCTION_DATA(1, "PRODUCTION_DATA", "PRODUCTION_DATA");
-
-	/**
-	 * The '<em><b>TEST DATA</b></em>' literal value.
+	PRODUCTION_DATA(1, "PRODUCTION_DATA", "PRODUCTION_DATA"), /**
+	 * The '<em><b>TEST DATA</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #TEST_DATA
-	 * @model
+	 * @see #TEST_DATA_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TEST_DATA_VALUE = 2;
+	TEST_DATA(2, "TEST_DATA", "TEST_DATA");
 
 	/**
 	 * The '<em><b>PRODUCTION DATA</b></em>' literal value.
@@ -61,6 +48,17 @@ public enum DataType implements Enumerator {
 	public static final int PRODUCTION_DATA_VALUE = 1;
 
 	/**
+	 * The '<em><b>TEST DATA</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TEST_DATA
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int TEST_DATA_VALUE = 2;
+
+	/**
 	 * An array of all the '<em><b>Data Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,8 +66,8 @@ public enum DataType implements Enumerator {
 	 */
 	private static final DataType[] VALUES_ARRAY =
 		new DataType[] {
-			TEST_DATA,
 			PRODUCTION_DATA,
+			TEST_DATA,
 		};
 
 	/**
@@ -126,8 +124,8 @@ public enum DataType implements Enumerator {
 	 */
 	public static DataType get(int value) {
 		switch (value) {
-			case TEST_DATA_VALUE: return TEST_DATA;
 			case PRODUCTION_DATA_VALUE: return PRODUCTION_DATA;
+			case TEST_DATA_VALUE: return TEST_DATA;
 		}
 		return null;
 	}

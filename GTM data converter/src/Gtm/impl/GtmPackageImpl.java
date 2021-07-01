@@ -10012,7 +10012,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getDelivery_Provider(), this.getCarrier(), null, "provider", null, 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDelivery_SchemaVersion(), this.getSchemaVersion(), "schemaVersion", null, 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDelivery_AcceptedSchemaVersion(), this.getSchemaVersion(), "acceptedSchemaVersion", null, 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDelivery_Usage(), this.getDataType(), "usage", null, 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDelivery_Usage(), this.getDataType(), "usage", "PRODUCTION_DATA", 0, 1, Delivery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(afterSalesRulesEClass, AfterSalesRules.class, "AfterSalesRules", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAfterSalesRules_AfterSalesRules(), this.getAfterSalesRule(), null, "afterSalesRules", null, 0, -1, AfterSalesRules.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10944,8 +10944,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(dataSourceEEnum, DataSource.GENERATED);
 
 		initEEnum(dataTypeEEnum, DataType.class, "DataType");
-		addEEnumLiteral(dataTypeEEnum, DataType.TEST_DATA);
 		addEEnumLiteral(dataTypeEEnum, DataType.PRODUCTION_DATA);
+		addEEnumLiteral(dataTypeEEnum, DataType.TEST_DATA);
 
 		initEEnum(fareTypeEEnum, FareType.class, "FareType");
 		addEEnumLiteral(fareTypeEEnum, FareType.NRT);
