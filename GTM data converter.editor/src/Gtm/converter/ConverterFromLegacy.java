@@ -371,20 +371,25 @@ public class ConverterFromLegacy {
 
 		monitor.subTask(NationalLanguageSupport.ConverterFromLegacy_1);
 		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
-			
-			if (carrierConstraints.get(series.getCarrierCode()) == null)  {
-				Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(series.getCarrierCode());
-				if (carrier != null) {
-					CarrierConstraint constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
-					constraint.setDataSource(DataSource.CONVERTED);
-					constraint.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_2 + carrier.getName());
-					constraint.getIncludedCarriers().add(carrier);
-					carrierConstraints.put(carrier.getCode(),constraint);
-				} else {
-					GtmUtils.writeConsoleWarning(String.format("Series witout known carrier code: %d carrier: %s", series.getNumber(),series.getCarrierCode() ) , editor);
+			try {
+				if (carrierConstraints.get(series.getCarrierCode()) == null)  {
+					Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(series.getCarrierCode());
+					if (carrier != null) {
+						CarrierConstraint constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
+						constraint.setDataSource(DataSource.CONVERTED);
+						constraint.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_2 + carrier.getName());
+						constraint.getIncludedCarriers().add(carrier);
+						carrierConstraints.put(carrier.getCode(),constraint);
+					} else {
+						GtmUtils.writeConsoleWarning(String.format("Series witout known carrier code: %d carrier: %s", series.getNumber(),series.getCarrierCode() ) , editor);
+					}
 				}
+			} catch (Exception e) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Unknown error! Series not converted: series number - ").append(series.getNumber()).append('\n');
+				sb.append(GtmUtils.getStackTrace(e));
+				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
-
 		}
 		
 		CompoundCommand command = new CompoundCommand();
@@ -2100,10 +2105,20 @@ public class ConverterFromLegacy {
 		//add converted border points related to the carrier
 		for (LegacyBorderPoint lp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
 			
-			ConnectionPoint connectionPoint = convertImportedBorderPoint(lp);
-			if (connectionPoint != null) {
-				borderConnectionPoints.put(lp.getBorderPointCode(), connectionPoint);
+			try {
+			
+				ConnectionPoint connectionPoint = convertImportedBorderPoint(lp);
+				if (connectionPoint != null) {
+					borderConnectionPoints.put(lp.getBorderPointCode(), connectionPoint);
+				}
+			
+			} catch (Exception e) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Unknown error! Border Point not converted: number - ").append(lp.getBorderPointCode()).append('\n');
+				sb.append(GtmUtils.getStackTrace(e));
+				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
+
 		}
 		
 	
@@ -2328,24 +2343,32 @@ public class ConverterFromLegacy {
 
 		//create list of fare station sets
 		for (Legacy108Station station : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations()) {
-			if (station.getFareReferenceStationCode() > 0) {
-				Integer code = Integer.valueOf(station.getFareReferenceStationCode());
-				
-				//do not convert a fareStationSet in case it is already manually defined 
-				FareStationSetDefinition set = findManualyDefinedStationSet(code);
-				
-				if (set != null) {			
-					fareStationSetDefinitions.getFareStationSetDefinitions().add(set);
-					fareStationSets.put(code, set);
-				} else {
-					if (stationList.get(code) != null) {
-						stationList.get(code).add(station);
+			try {
+				if (station.getFareReferenceStationCode() > 0) {
+					Integer code = Integer.valueOf(station.getFareReferenceStationCode());
+					
+					//do not convert a fareStationSet in case it is already manually defined 
+					FareStationSetDefinition set = findManualyDefinedStationSet(code);
+					
+					if (set != null) {			
+						fareStationSetDefinitions.getFareStationSetDefinitions().add(set);
+						fareStationSets.put(code, set);
 					} else {
-						stationList.put(code,new HashSet<Legacy108Station>());
-						stationList.get(code).add(station);
+						if (stationList.get(code) != null) {
+							stationList.get(code).add(station);
+						} else {
+							stationList.put(code,new HashSet<Legacy108Station>());
+							stationList.get(code).add(station);
+						}
 					}
 				}
+			} catch (Exception e) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Unknown error! Station not converted: station number - ").append(station.getStationCode()).append('\n');
+				sb.append(GtmUtils.getStackTrace(e));
+				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
+
 		}
 		
 		//create FareStationSets
@@ -2464,68 +2487,77 @@ public class ConverterFromLegacy {
 		StationNames stationNames = GtmFactory.eINSTANCE.createStationNames();
 				
 		for (Legacy108Station lStation : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations()) {
-			//add stations from the exporter country
-			boolean found = false;
-			
-			Station station = updateStationNames(tool,lStation);
-			if (station != null) {
-				stationNames.getStationName().add(station);
-				found = true;
-			}
 
-			//add station names for used border points
-			if (lStation.getBorderPointCode() > 0 ) {
-				ConnectionPoint p = borderConnectionPoints.get(lStation.getBorderPointCode());
+			try {
+				//add stations from the exporter country
+				boolean found = false;
 				
-				if (p != null && p.getConnectedStationSets() != null && p.getConnectedStationSets().size() == 1) {
-					for   (StationSet set : p.getConnectedStationSets()) {
-						if (set.getStations().size() == 1) {
-							for (Station s : set.getStations()) {
-								if (!stationNames.getStationName().contains(s)) {
-									mergeStationNames(lStation, s);
-									stationNames.getStationName().add(s);
+				Station station = updateStationNames(tool,lStation);
+				if (station != null) {
+					stationNames.getStationName().add(station);
+					found = true;
+				}
+	
+				//add station names for used border points
+				if (lStation.getBorderPointCode() > 0 ) {
+				
+					ConnectionPoint p = borderConnectionPoints.get(lStation.getBorderPointCode());
+					
+					if (p != null && p.getConnectedStationSets() != null && p.getConnectedStationSets().size() == 1) {
+						for   (StationSet set : p.getConnectedStationSets()) {
+							if (set.getStations().size() == 1) {
+								for (Station s : set.getStations()) {
+									if (!stationNames.getStationName().contains(s)) {
+										mergeStationNames(lStation, s);
+										stationNames.getStationName().add(s);
+									}
 								}
 							}
 						}
 					}
-				}
-			}
-			
-			//add  names for mapped stations
-			for (LegacyStationMap map : tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
-				
-				if (map.getLegacyCode() == lStation.getStationCode()) {
-					Station mappedStation = map.getStation();
-					if (mappedStation != null && !stationNames.getStationName().contains(mappedStation)) {
-						mergeStationNames(lStation, mappedStation);
-						stationNames.getStationName().add(mappedStation);
-						found = true;
-					}
-				}
-			}
-			
-			//will be mapped to service constraint
-			if (!found && 
-				tool.getConversionFromLegacy().getParams() != null &&
-				tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings() != null &&
-				tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings().getLegacyFareStationSetMap() != null ) {
 					
-				for (LegacyStationToServiceConstraintMapping map:  tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings()) {
-					if (map.getCode() == lStation.getStationCode()) {
-						found = true;
+				}
+				
+				//add  names for mapped stations
+				for (LegacyStationMap map : tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
+					
+					if (map.getLegacyCode() == lStation.getStationCode()) {
+						Station mappedStation = map.getStation();
+						if (mappedStation != null && !stationNames.getStationName().contains(mappedStation)) {
+							mergeStationNames(lStation, mappedStation);
+							stationNames.getStationName().add(mappedStation);
+							found = true;
+						}
 					}
 				}
-			}
-			
-			if (!found) {
-				String message = "MERITS station not found: " + lStation.getName();
-				GtmUtils.writeConsoleWarning(message, editor);
+				
+				//will be mapped to service constraint
+				if (!found && 
+					tool.getConversionFromLegacy().getParams() != null &&
+					tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings() != null &&
+					tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings().getLegacyFareStationSetMap() != null ) {
+						
+					for (LegacyStationToServiceConstraintMapping map:  tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings()) {
+						if (map.getCode() == lStation.getStationCode()) {
+							found = true;
+						}
+					}
+				}
+				
+				if (!found) {
+					String message = "MERITS station not found: " + lStation.getName();
+					GtmUtils.writeConsoleWarning(message, editor);
+				}
+			} catch (Exception e) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Unknown error! Station not converted: fareId - ").append(lStation.getStationCode()).append('\n');
+				sb.append(GtmUtils.getStackTrace(e));
+				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
 		}
 
 		CompoundCommand command = new CompoundCommand();
 		command.append(SetCommand.create(domain, tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__STATION_NAMES, stationNames));
-		
 		executeAndFlush(command,domain);
 		
 		return stationNames.getStationName().size();
@@ -2573,6 +2605,11 @@ public class ConverterFromLegacy {
 			GtmUtils.writeConsoleWarning("Station Name not in ASCII Format " + lStation.getName() + " changed to " + asc, editor);
 			lStation.setName(asc);
 		}
+		
+		if (lStation.getShortName() == null || lStation.getShortName().length() == 0) {
+			GtmUtils.writeConsoleWarning("Station Short Name missing " + lStation.getName(), editor);
+			lStation.setShortName(lStation.getName());
+		}	
 		
 		if (!StringFormatValidator.isStationASCII(lStation.getShortName())) {
 			String asc = GtmUtils.utf2ascii(lStation.getShortName());

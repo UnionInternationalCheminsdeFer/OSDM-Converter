@@ -37,6 +37,7 @@ import gtm.FareDataDef;
 import gtm.FareDef;
 import gtm.FareDelivery;
 import gtm.FareDeliveryDetailsDef;
+import gtm.FareDeliveryDetailsDef.Usage;
 import gtm.FareReferenceStationSetDef;
 import gtm.FareResourceLocationDef;
 import gtm.FulfillmentConstraintDef;
@@ -2159,6 +2160,15 @@ public class GTMJsonImporter {
 		o.setProvider(getCarrier(jo.getFareProvider()));
 		o.setReplacedDeliveryId(jo.getReplacementDeliveryId());
 		o.setSchemaVersion(getSchemaVersion(jo.getVersion()));
+		
+		if (jo.getUsage() != null) {
+			if (jo.getUsage().equals(Usage.PRODUCTION)) {
+				o.setUsage(DataType.PRODUCTION_DATA);
+			} else if  (jo.getUsage().equals(Usage.TEST_ONLY)) {
+				o.setUsage(DataType.TEST_DATA);
+			}
+		}
+		
 		return o;
 	}
 	

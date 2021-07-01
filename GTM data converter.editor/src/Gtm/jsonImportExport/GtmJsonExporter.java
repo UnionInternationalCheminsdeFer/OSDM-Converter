@@ -11,104 +11,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.xml.type.internal.DataValue.Base64;
 
-import Gtm.AfterSalesCondition;
-import Gtm.AfterSalesRule;
-import Gtm.AfterSalesRules;
-import Gtm.AllowedPersonalDataChanges;
-import Gtm.AlternativeRoute;
-import Gtm.BarcodeTypes;
-import Gtm.Calendar;
-import Gtm.Calendars;
-import Gtm.Carrier;
-import Gtm.CarrierConstraint;
-import Gtm.CarrierConstraints;
-import Gtm.CarrierResourceLocation;
-import Gtm.CarrierResourceLocations;
-import Gtm.ClassId;
-import Gtm.Clusters;
-import Gtm.CombinationConstraints;
-import Gtm.ConnectionPoint;
-import Gtm.ConnectionPoints;
-import Gtm.ControlDataExchangeTypes;
-import Gtm.CurrencyPrice;
-import Gtm.Edge;
-import Gtm.FareCombinationModel;
-import Gtm.FareConstraintBundles;
-import Gtm.FareElement;
-import Gtm.FareElements;
-import Gtm.FareResourceLocations;
-import Gtm.FareStationSetDefinition;
-import Gtm.FareStationSetDefinitions;
-import Gtm.FareType;
-import Gtm.FulfillmentConstraint;
-import Gtm.FulfillmentConstraints;
-import Gtm.FulfillmentType;
-import Gtm.GeneralTariffModel;
-import Gtm.GenericReductionCards;
-import Gtm.IncludedFreePassengerLimit;
-import Gtm.Line;
-import Gtm.NutsCode;
-import Gtm.OnlineResource;
-import Gtm.OnlineServiceType;
-import Gtm.PassengerCombinationConstraint;
-import Gtm.PassengerConstraint;
-import Gtm.PassengerConstraints;
-import Gtm.PersonalDataConstraint;
-import Gtm.PersonalDataConstraints;
-import Gtm.PersonalDataTransferType;
-import Gtm.Polygone;
-import Gtm.Price;
-import Gtm.Prices;
-import Gtm.ReductionCard;
-import Gtm.ReductionCards;
-import Gtm.ReductionConstraint;
-import Gtm.ReductionConstraints;
-import Gtm.RegionalConstraint;
-import Gtm.RegionalConstraints;
-import Gtm.RegionalValidity;
-import Gtm.RegulatoryCondition;
-import Gtm.RelativeTime;
-import Gtm.RequiredPersonalData;
-import Gtm.RequiredReductionCard;
-import Gtm.ReservationParameter;
-import Gtm.ReservationParameters;
-import Gtm.ReservationPreferenceGroup;
-import Gtm.ReturnValidityConstraint;
-import Gtm.Route;
-import Gtm.SalesAvailabilityConstraint;
-import Gtm.SalesAvailabilityConstraints;
-import Gtm.SalesRestriction;
-import Gtm.ServiceBrand;
-import Gtm.ServiceClass;
-import Gtm.ServiceClassDefinitions;
-import Gtm.ServiceConstraint;
-import Gtm.ServiceConstraints;
-import Gtm.ServiceLevel;
-import Gtm.ServiceLevelDefinitions;
-import Gtm.ServiceMode;
-import Gtm.Station;
-import Gtm.StationNames;
-import Gtm.StationResourceLocation;
-import Gtm.StationResourceLocations;
-import Gtm.StationSet;
-import Gtm.TaxScope;
-import Gtm.Text;
-import Gtm.Texts;
-import Gtm.TimeRange;
-import Gtm.TotalPassengerCombinationConstraint;
-import Gtm.TotalPassengerCombinationConstraints;
-import Gtm.TrainResourceLocation;
-import Gtm.TrainResourceLocations;
-import Gtm.Translation;
-import Gtm.TravelValidityConstraint;
-import Gtm.TravelValidityConstraints;
-import Gtm.VATDetail;
-import Gtm.ValidityRange;
-import Gtm.ViaStation;
-import Gtm.WeekDay;
-import Gtm.Zone;
-import Gtm.ZoneDefinition;
-import Gtm.ZoneDefinitions;
+import Gtm.*;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.utils.GtmUtils;
 import gtm.AfterSalesConditionDef;
@@ -128,6 +31,7 @@ import gtm.FareCombinationConstraintDef;
 import gtm.FareCombinationModelDef;
 import gtm.FareConstraintBundle;
 import gtm.FareConstraintBundle.FareTypeDef;
+import gtm.FareDeliveryDetailsDef.Usage;
 import gtm.FareDataDef;
 import gtm.FareDef;
 import gtm.FareDelivery;
@@ -924,22 +828,6 @@ public class GtmJsonExporter {
 		return null;
 	}
 	
-	private static ClassId convertServiceClassId(ServiceClassIdDef id) {
-		if (id != null) {
-			if (id.equals(ServiceClassIdDef.BEST)) {
-				return ClassId.A;
-			} else if (id.equals(ServiceClassIdDef.HIGH)) {
-				 return ClassId.B;
-			} if (id.equals(ServiceClassIdDef.STANDARD)) {
-				return ClassId.C;
-			} if (id.equals(ServiceClassIdDef.BASIC)) {
-				return ClassId.D;
-			}
-		}
-		return null;
-	}
-
-
 	private static ServiceClassDefinitionDef convertToJson(ServiceClass sc) {
 		if (sc == null) return null;
 		
@@ -2446,6 +2334,15 @@ public class GtmJsonExporter {
 		if (idelivery.getAcceptedSchemaVersion()!=null) {
 			delivery.setAcceptedVersion(idelivery.getAcceptedSchemaVersion().getLiteral());
 		}
+		
+		if (idelivery.getUsage() != null) {
+			if (idelivery.getUsage().equals(DataType.PRODUCTION_DATA)) {
+				delivery.setUsage(Usage.PRODUCTION);
+			} else if (idelivery.getUsage().equals(DataType.TEST_DATA)) {
+				delivery.setUsage(Usage.TEST_ONLY);
+			}	
+		}
+			
 		return delivery;
 	}
 

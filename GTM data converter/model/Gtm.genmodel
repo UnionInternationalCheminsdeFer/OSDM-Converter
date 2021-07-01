@@ -55,6 +55,11 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BarcodeTypes/TLB"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BarcodeTypes/SSB"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//BasePriceClassType">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/SERVICE_CLASS"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/FIRST"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/SECOND"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ClassicClassType">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassicClassType/FIRST"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassicClassType/SECOND"/>
@@ -104,6 +109,10 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataSource/CONVERTED"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataSource/IMPORTED"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataSource/GENERATED"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//DataType">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataType/PRODUCTION_DATA"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//DataType/TEST_DATA"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//FareType">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//FareType/NRT"/>
@@ -423,11 +432,6 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//WeekDay/SATURDAY"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//WeekDay/SUNDAY"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//BasePriceClassType">
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/SERVICE_CLASS"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/FIRST"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BasePriceClassType/SECOND"/>
-    </genEnums>
     <genDataTypes ecoreDataType="Gtm.ecore#//DateAsDate"/>
     <genDataTypes ecoreDataType="Gtm.ecore#//DateAsDateTime"/>
     <genClasses ecoreClass="Gtm.ecore#//GTMTool">
@@ -550,6 +554,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Delivery/provider"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Delivery/schemaVersion"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Delivery/acceptedSchemaVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Delivery/usage"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AfterSalesRules">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//AfterSalesRules/afterSalesRules"/>
@@ -1286,6 +1291,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108/endDate"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyBorderPoints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyMemos"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyCarriers"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Legacy108Memos">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108Memos/legacyMemos"/>
@@ -1364,6 +1370,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/busCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/ferryCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacySeries/memoNumber"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//LegacyCarriers">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyCarriers/legacyCarrier"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//LegacyCarrier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyCarrier/carrierCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyCarrier/carrierShortName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LegacyCarrier/carrierName"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//LegacySeparateContractSeriesList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacySeparateContractSeriesList/separateContractSeries"/>

@@ -1,10 +1,14 @@
 
 package gtm;
 
+import java.util.HashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -14,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "replacementDeliveryId",
     "optionalDelivery",
     "version",
-    "acceptedVersion"
+    "acceptedVersion",
+    "usage"
 })
 public class FareDeliveryDetailsDef {
 
@@ -66,6 +71,8 @@ public class FareDeliveryDetailsDef {
     @JsonProperty("acceptedVersion")
     @JsonPropertyDescription("minimal version required to use these data")
     private String acceptedVersion;
+    @JsonProperty("usage")
+    private FareDeliveryDetailsDef.Usage usage;
 
     /**
      * RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the  codes must have at least 5 positions and start with x
@@ -193,6 +200,16 @@ public class FareDeliveryDetailsDef {
         this.acceptedVersion = acceptedVersion;
     }
 
+    @JsonProperty("usage")
+    public FareDeliveryDetailsDef.Usage getUsage() {
+        return usage;
+    }
+
+    @JsonProperty("usage")
+    public void setUsage(FareDeliveryDetailsDef.Usage usage) {
+        this.usage = usage;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -225,6 +242,10 @@ public class FareDeliveryDetailsDef {
         sb.append('=');
         sb.append(((this.acceptedVersion == null)?"<null>":this.acceptedVersion));
         sb.append(',');
+        sb.append("usage");
+        sb.append('=');
+        sb.append(((this.usage == null)?"<null>":this.usage));
+        sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
         } else {
@@ -238,6 +259,7 @@ public class FareDeliveryDetailsDef {
         int result = 1;
         result = ((result* 31)+((this.deliveryId == null)? 0 :this.deliveryId.hashCode()));
         result = ((result* 31)+((this.acceptedVersion == null)? 0 :this.acceptedVersion.hashCode()));
+        result = ((result* 31)+((this.usage == null)? 0 :this.usage.hashCode()));
         result = ((result* 31)+((this.replacementDeliveryId == null)? 0 :this.replacementDeliveryId.hashCode()));
         result = ((result* 31)+((this.optionalDelivery == null)? 0 :this.optionalDelivery.hashCode()));
         result = ((result* 31)+((this.fareProvider == null)? 0 :this.fareProvider.hashCode()));
@@ -255,7 +277,46 @@ public class FareDeliveryDetailsDef {
             return false;
         }
         FareDeliveryDetailsDef rhs = ((FareDeliveryDetailsDef) other);
-        return ((((((((this.deliveryId == rhs.deliveryId)||((this.deliveryId!= null)&&this.deliveryId.equals(rhs.deliveryId)))&&((this.acceptedVersion == rhs.acceptedVersion)||((this.acceptedVersion!= null)&&this.acceptedVersion.equals(rhs.acceptedVersion))))&&((this.replacementDeliveryId == rhs.replacementDeliveryId)||((this.replacementDeliveryId!= null)&&this.replacementDeliveryId.equals(rhs.replacementDeliveryId))))&&((this.optionalDelivery == rhs.optionalDelivery)||((this.optionalDelivery!= null)&&this.optionalDelivery.equals(rhs.optionalDelivery))))&&((this.fareProvider == rhs.fareProvider)||((this.fareProvider!= null)&&this.fareProvider.equals(rhs.fareProvider))))&&((this.previousDeliveryId == rhs.previousDeliveryId)||((this.previousDeliveryId!= null)&&this.previousDeliveryId.equals(rhs.previousDeliveryId))))&&((this.version == rhs.version)||((this.version!= null)&&this.version.equals(rhs.version))));
+        return (((((((((this.deliveryId == rhs.deliveryId)||((this.deliveryId!= null)&&this.deliveryId.equals(rhs.deliveryId)))&&((this.acceptedVersion == rhs.acceptedVersion)||((this.acceptedVersion!= null)&&this.acceptedVersion.equals(rhs.acceptedVersion))))&&((this.usage == rhs.usage)||((this.usage!= null)&&this.usage.equals(rhs.usage))))&&((this.replacementDeliveryId == rhs.replacementDeliveryId)||((this.replacementDeliveryId!= null)&&this.replacementDeliveryId.equals(rhs.replacementDeliveryId))))&&((this.optionalDelivery == rhs.optionalDelivery)||((this.optionalDelivery!= null)&&this.optionalDelivery.equals(rhs.optionalDelivery))))&&((this.fareProvider == rhs.fareProvider)||((this.fareProvider!= null)&&this.fareProvider.equals(rhs.fareProvider))))&&((this.previousDeliveryId == rhs.previousDeliveryId)||((this.previousDeliveryId!= null)&&this.previousDeliveryId.equals(rhs.previousDeliveryId))))&&((this.version == rhs.version)||((this.version!= null)&&this.version.equals(rhs.version))));
+    }
+
+    public enum Usage {
+
+        PRODUCTION("PRODUCTION"),
+        TEST_ONLY("TEST_ONLY");
+        private final String value;
+        private final static Map<String, FareDeliveryDetailsDef.Usage> CONSTANTS = new HashMap<String, FareDeliveryDetailsDef.Usage>();
+
+        static {
+            for (FareDeliveryDetailsDef.Usage c: values()) {
+                CONSTANTS.put(c.value, c);
+            }
+        }
+
+        private Usage(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.value;
+        }
+
+        @JsonValue
+        public String value() {
+            return this.value;
+        }
+
+        @JsonCreator
+        public static FareDeliveryDetailsDef.Usage fromValue(String value) {
+            FareDeliveryDetailsDef.Usage constant = CONSTANTS.get(value);
+            if (constant == null) {
+                throw new IllegalArgumentException(value);
+            } else {
+                return constant;
+            }
+        }
+
     }
 
 }

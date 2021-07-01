@@ -42,6 +42,8 @@ import Gtm.Legacy108Stations;
 import Gtm.LegacyBorderPoint;
 import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
+import Gtm.LegacyCarrier;
+import Gtm.LegacyCarriers;
 import Gtm.LegacyConversionType;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacyRouteFares;
@@ -112,6 +114,9 @@ public class 	ConverterToLegacy {
 	/** The legacy fare descriptions. */
 	private HashMap<Text,Legacy108Memo> memos = new HashMap<Text,Legacy108Memo>();	
 
+	/** The used carriers. */
+	private HashMap<String,LegacyCarrier> carriers = new HashMap<String,LegacyCarrier>();	
+
 	
 	/**
 	 * Instantiates a new converter to legacy.
@@ -132,7 +137,7 @@ public class 	ConverterToLegacy {
 	 * @return the monitor tasks
 	 */
 	public int getMonitorTasks() {
-		return 13;
+		return 14;
 	}
 	
 	/**
@@ -144,17 +149,18 @@ public class 	ConverterToLegacy {
 	public int convert(IProgressMonitor monitor) {
 		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
-		Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__CARRIER, carrier);
-		if (com != null && com.canExecute()) {
-			domain.getCommandStack().execute(com);
-		}
-		
 		if (carrier == null) {
 			String message = "No Carrier/Provider contained in the OSDM Delivery Data - Conversion aborted!";
 			GtmUtils.writeConsoleError(message, editor);
 			return 0;
 		}
+
+		addCarrier(carrier); 
 		
+		Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__CARRIER, carrier);
+		if (com != null && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_0);	
 		convertStations();
@@ -191,13 +197,14 @@ public class 	ConverterToLegacy {
 						series.put(legacyFare.getSeries().getNumber(),legacyFare.getSeries());
 					}
 				}
-				
 			} catch (ConverterException e) {
 				String message = NationalLanguageSupport.ConverterToLegacy_4 + fare.getId() + " " + e.getMessage(); //$NON-NLS-2$
 				GtmUtils.writeConsoleError(message, editor);
+				GtmUtils.writeConsoleStackTrace(e, editor);
 			} catch (Exception e) {
 				String message = NationalLanguageSupport.ConverterToLegacy_4 + fare.getId() + " " + e.getMessage(); //$NON-NLS-2$
-				GtmUtils.writeConsoleError(message, editor);		
+				GtmUtils.writeConsoleError(message, editor);	
+				GtmUtils.writeConsoleStackTrace(e, editor);
 			}
 		}
 
@@ -226,11 +233,6 @@ public class 	ConverterToLegacy {
 		}
 		monitor.worked(1);
 		
-		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_8);	
-
-		monitor.worked(1);
-		
-		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_9);	
 		CompoundCommand comm = new CompoundCommand();
 		comm.append(SetCommand.create(domain,tool.getConversionFromLegacy().getLegacy108(),GtmPackage.Literals.LEGACY108__LEGACY_ROUTE_FARES,GtmFactory.eINSTANCE.createLegacyRouteFares()));
@@ -243,18 +245,13 @@ public class 	ConverterToLegacy {
 		if (!comm.isEmpty() && comm.canExecute()) {
 			domain.getCommandStack().execute(comm);
 		}		
-		
-		
+			
 		monitor.worked(1);
 		
-	
-		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_10);	
 		
-		
-		//add route numbers
-		addRouteNumbers(series, routeFares);
-		
-		
+		//add route numbers	
+		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_10);		
+		addRouteNumbers(series, routeFares);		
 		List<LegacySeries> seriesCol = new ArrayList<LegacySeries>();
 		seriesCol.addAll(series.values());
 		Collections.sort(seriesCol,new SeriesComparator());
@@ -354,6 +351,24 @@ public class 	ConverterToLegacy {
 		}
 		monitor.worked(1);
 		
+		monitor.subTask("add carriers");	
+		
+		LegacyCarriers lcs = GtmFactory.eINSTANCE.createLegacyCarriers();
+		List<LegacyCarrier> carriersCol = new ArrayList<LegacyCarrier>();
+		carriersCol.addAll(carriers.values());
+		Collections.sort(carriersCol, new CarrierComparator() );
+		lcs.getLegacyCarrier().addAll(carriersCol);
+		com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_CARRIERS, lcs);
+		if (com != null && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
+		if (lcs.getLegacyCarrier() != null) {
+			String message = String.format("108-TCVC carriers added: %d", lcs.getLegacyCarrier().size());
+			GtmUtils.writeConsoleInfo(message, editor);
+		}
+		monitor.worked(1);
+
+		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_15);	
 		CompoundCommand command = new CompoundCommand();
 		command.append(SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__START_DATE, getStartDate(tool)));
@@ -362,7 +377,6 @@ public class 	ConverterToLegacy {
 			domain.getCommandStack().execute(command);
 		}
 		monitor.worked(1);		
-		
 		
 		
 		
@@ -439,8 +453,12 @@ public class 	ConverterToLegacy {
 			} else {
 				if (fare.isSetFare1st()) {
 					fare2.setFare1st(fare.getFare1st());
+					fare2.setReturnFare1st(fare.getFare1st() + fare.getFare1st());
 				}
-				if (fare.isSetFare2nd()) fare2.setFare2nd(fare.getFare2nd());
+				if (fare.isSetFare2nd()) {
+					fare2.setFare2nd(fare.getFare2nd());
+					fare2.setReturnFare2nd(fare.getFare2nd() + fare.getFare2nd());
+				}
 			}
 	
 		}
@@ -711,54 +729,61 @@ public class 	ConverterToLegacy {
 			
 		
 		for (FareStationSetDefinition fs : tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions()) {
-			int code = 0;
 			try {
-				code = Integer.parseInt(fs.getCode());
-			} catch (Exception e) {
-				code = fs.getLegacyCode();
-			}
-			
-			if (code <= 0 || code > 99999) {
-				GtmUtils.writeConsoleWarning("fare station set code not convertable: " + GtmUtils.getLabelText(fs) + " code: " + fs.getCode(), editor);
-				return;
-			}
-			
-			//validate whether the real station is included
-			boolean missing = true;
-			for (Station s : fs.getStations()) {
-				if (Integer.parseInt(s.getCode()) == code) {
-					missing = false;
+				int code = 0;
+				try {
+					code = Integer.parseInt(fs.getCode());
+				} catch (Exception e) {
+					code = fs.getLegacyCode();
 				}
-			}
-			if (missing) {
-				GtmUtils.writeConsoleWarning("fare station set does not contain main station: " + GtmUtils.getLabelText(fs), editor);
-			}
-			
-			Legacy108Station ls = legacyStations.get(code);
-			
-			if (ls == null) {
-				ls = GtmFactory.eINSTANCE.createLegacy108Station();
-				ls.setStationCode(code);
-				ls.setName(fs.getName());
-				ls.setNameUTF8(fs.getNameUtf8());
-			} else {
-				if (ls.getName() == null || ls.getName().length() == 0) {
+				
+				if (code <= 0 || code > 99999) {
+					GtmUtils.writeConsoleWarning("fare station set code not convertable: " + GtmUtils.getLabelText(fs) + " code: " + fs.getCode(), editor);
+					return;
+				}
+				
+				//validate whether the real station is included
+				boolean missing = true;
+				for (Station s : fs.getStations()) {
+					if (Integer.parseInt(s.getCode()) == code) {
+						missing = false;
+					}
+				}
+				if (missing) {
+					GtmUtils.writeConsoleWarning("fare station set does not contain main station: " + GtmUtils.getLabelText(fs), editor);
+				}
+				
+				Legacy108Station ls = legacyStations.get(code);
+				
+				if (ls == null) {
+					ls = GtmFactory.eINSTANCE.createLegacy108Station();
+					ls.setStationCode(code);
 					ls.setName(fs.getName());
+					ls.setNameUTF8(fs.getNameUtf8());
+				} else {
+					if (ls.getName() == null || ls.getName().length() == 0) {
+						ls.setName(fs.getName());
+					}
+					ls.setShortName(fs.getName());
 				}
-				ls.setShortName(fs.getName());
-			}
-			if (fs.getLegacyCode() != 0) {
-				ls.setFareReferenceStationCode(fs.getLegacyCode());
-			} else {
-				if (code < 100000) {
-					ls.setFareReferenceStationCode(code);
+				if (fs.getLegacyCode() != 0) {
+					ls.setFareReferenceStationCode(fs.getLegacyCode());
+				} else {
+					if (code < 100000) {
+						ls.setFareReferenceStationCode(code);
+					}
 				}
-			}
-			if (ls.getName() == null || ls.getName().length() == 0) {
-				String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
-				GtmUtils.writeConsoleError(message, editor);
-			} else {
-				legacyStations.put(ls.getStationCode(), ls);
+				if (ls.getName() == null || ls.getName().length() == 0) {
+					String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
+					GtmUtils.writeConsoleError(message, editor);
+				} else {
+					legacyStations.put(ls.getStationCode(), ls);
+				}
+			} catch (Exception e) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Unknown error! Station Set not converted: fare reference station - ").append(fs.getCode()).append('\n');
+				sb.append(GtmUtils.getStackTrace(e));
+				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
 		}
 		return;
@@ -819,108 +844,122 @@ public class 	ConverterToLegacy {
 			
 		for (Station station : tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName()) {
 			
-			if (station.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
-				
-				Legacy108Station ls = convertStation(station);
-
-				if (ls.getName() == null || ls.getName().length() == 0) {
-					String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
-					GtmUtils.writeConsoleError(message, editor);
-				} else {
-					legacyStations.put(ls.getStationCode(),ls);
+			try {
+				if (station.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
+					
+					Legacy108Station ls = convertStation(station);
+	
+					if (ls.getName() == null || ls.getName().length() == 0) {
+						String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
+						GtmUtils.writeConsoleError(message, editor);
+					} else {
+						legacyStations.put(ls.getStationCode(),ls);
+					}
+					
+					if (ls.getBorderPointCode() > 0) {
+						legacyBorderStations.put(ls.getBorderPointCode(), ls);
+					}
+				} else {			
+					addMappedLegacyStation(station);
 				}
-				
-				if (ls.getBorderPointCode() > 0) {
-					legacyBorderStations.put(ls.getBorderPointCode(), ls);
-				}
-			} else {			
-				addMappedLegacyStation(station);
+			} catch (Exception e) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Unknown error! Station not converted: station - ").append(station.getCode()).append('\n');
+				sb.append(GtmUtils.getStackTrace(e));
+				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
+				
 		}
 		
 		
 		if ( tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints() != null) {
 		
 			for (LegacyBorderPoint lbp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
-				
-				String name = "";
-				String nameASCII = "";
-				String nameUTF8 = "";
-				int localCode = 0;
-				
-				LegacyBorderSide lbs = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(), lbp);
-				
-				if (lbs != null) {
-					localCode = lbs.getLegacyStationCode();
-					//real station?
-					Legacy108Station ls = legacyStations.get(localCode);
-					if (ls != null) {
-						ls.setBorderPointCode(lbp.getBorderPointCode());
-					} else {	
-						//use the central station on the border or select the station on the carriers side
-						if (lbs.getStations().getStations().size() == 1) {
-							Station s = lbs.getStations().getStations().get(0);
-
-							name = s.getNameCaseUTF8();
-							nameASCII = s.getShortNameCaseASCII();
-							nameUTF8 = s.getNameCaseUTF8();
-							
-							if (name == null || name.length() == 0) {
-								StringBuilder sb = new StringBuilder();
-								sb.append( "Station names missing - code: ");
-								sb.append(lbs.getLegacyStationCode());
-								sb.append(" time table name: ").append(s.getTimetableName());
-								sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
- 								GtmUtils.writeConsoleError(sb.toString(), editor);
- 								return;
-							}
-						} else {
-							boolean found = false;
-							for (Station s : lbs.getStations().getStations()) {
+				try {
+					String name = "";
+					String nameASCII = "";
+					String nameUTF8 = "";
+					int localCode = 0;
+					
+					LegacyBorderSide lbs = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(), lbp);
+					
+					if (lbs != null) {
+						localCode = lbs.getLegacyStationCode();
+						//real station?
+						Legacy108Station ls = legacyStations.get(localCode);
+						if (ls != null) {
+							ls.setBorderPointCode(lbp.getBorderPointCode());
+						} else {	
+							//use the central station on the border or select the station on the carriers side
+							if (lbs.getStations().getStations().size() == 1) {
+								Station s = lbs.getStations().getStations().get(0);
+	
+								name = s.getNameCaseUTF8();
+								nameASCII = s.getShortNameCaseASCII();
+								nameUTF8 = s.getNameCaseUTF8();
 								
-								if (s.getCountry().equals(tool.getConversionFromLegacy().getParams().getCountry())) {
-									found = true;
-									name = s.getName();
-									nameASCII = s.getShortNameCaseASCII();
-									nameUTF8 = s.getNameCaseUTF8();
-									if (name == null || name.length() == 0) {
-										StringBuilder sb = new StringBuilder();
-										sb.append( "Station names missing - legacy code: ");
-										sb.append(lbs.getLegacyStationCode());
-										sb.append(" time table name: ").append(s.getTimetableName());
-										sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
-										GtmUtils.writeConsoleError(sb.toString(), editor);
-										return;
+								if (name == null || name.length() == 0) {
+									StringBuilder sb = new StringBuilder();
+									sb.append( "Station names missing - code: ");
+									sb.append(lbs.getLegacyStationCode());
+									sb.append(" time table name: ").append(s.getTimetableName());
+									sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
+	 								GtmUtils.writeConsoleError(sb.toString(), editor);
+	 								return;
+								}
+							} else {
+								boolean found = false;
+								for (Station s : lbs.getStations().getStations()) {
+									
+									if (s.getCountry().equals(tool.getConversionFromLegacy().getParams().getCountry())) {
+										found = true;
+										name = s.getName();
+										nameASCII = s.getShortNameCaseASCII();
+										nameUTF8 = s.getNameCaseUTF8();
+										if (name == null || name.length() == 0) {
+											StringBuilder sb = new StringBuilder();
+											sb.append( "Station names missing - legacy code: ");
+											sb.append(lbs.getLegacyStationCode());
+											sb.append(" time table name: ").append(s.getTimetableName());
+											sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
+											GtmUtils.writeConsoleError(sb.toString(), editor);
+											return;
+										}
 									}
 								}
-							}
-							if (!found) {
-								StringBuilder sb = new StringBuilder();
-								sb.append( "Could not identify legacy station for legacy border point on: ");
-								sb.append(GtmUtils.getLabelText(lbp));
-								GtmUtils.writeConsoleError(sb.toString(), editor);								
-								return;
+								if (!found) {
+									StringBuilder sb = new StringBuilder();
+									sb.append( "Could not identify legacy station for legacy border point on: ");
+									sb.append(GtmUtils.getLabelText(lbp));
+									GtmUtils.writeConsoleError(sb.toString(), editor);								
+									return;
+								}
+								
 							}
 							
-						}
-						
-						ls = GtmFactory.eINSTANCE.createLegacy108Station();
-						ls.setStationCode(localCode);	
-						ls.setName(name);
-						ls.setNameUTF8(nameASCII);
-						ls.setShortName(nameUTF8);
-						ls.setBorderPointCode(lbp.getBorderPointCode());
-						if (ls.getName() == null || ls.getName().length() == 0) {
-							String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
-							GtmUtils.writeConsoleError(message, editor);
-						} else {
-							legacyStations.put(ls.getStationCode(),ls);
+							ls = GtmFactory.eINSTANCE.createLegacy108Station();
+							ls.setStationCode(localCode);	
+							ls.setName(name);
+							ls.setNameUTF8(nameASCII);
+							ls.setShortName(nameUTF8);
+							ls.setBorderPointCode(lbp.getBorderPointCode());
+							if (ls.getName() == null || ls.getName().length() == 0) {
+								String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
+								GtmUtils.writeConsoleError(message, editor);
+							} else {
+								legacyStations.put(ls.getStationCode(),ls);
+							}
 						}
 					}
+				
+				} catch (Exception e) {
+					StringBuilder sb = new StringBuilder();
+					sb.append("Unknown error! Border Station not converted: station - ").append(lbp.getBorderPointCode()).append('\n');
+					sb.append(GtmUtils.getStackTrace(e));
+					GtmUtils.writeConsoleError(sb.toString(), editor);
 				}
 			}
 		}
-		
 
 		return;
 	}
@@ -1112,9 +1151,12 @@ public class 	ConverterToLegacy {
 		} 
 		if (fare.getServiceClass().getId() == ClassId.B) {
 			legacyFare.setFare1st(getPrice(fare.getPrice()));
+			legacyFare.setReturnFare1st(legacyFare.getFare1st() + legacyFare.getFare1st());
+
 		}
 		if (fare.getServiceClass().getId() == ClassId.D) {
 			legacyFare.setFare2nd(getPrice(fare.getPrice()));
+			legacyFare.setReturnFare2nd(legacyFare.getFare2nd( ) + legacyFare.getFare2nd());
 		}
 
 
@@ -1139,6 +1181,7 @@ public class 	ConverterToLegacy {
 
 	}
 
+	
 	/**
 	 * Convert to series.
 	 *
@@ -1146,57 +1189,19 @@ public class 	ConverterToLegacy {
 	 * @return the legacy series
 	 */
 	private LegacySeries convertToSeries(FareElement fare) {
-
+		
 		
 		if (fare.getRegionalConstraint() == null ||
-			fare.getFareConstraintBundle() == null ||
-			fare.getRegionalConstraint().getRegionalValidity() == null ||
-			fare.getRegionalConstraint().getRegionalValidity().isEmpty() ||
-			fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null ) {
-			return null;
+				fare.getFareConstraintBundle() == null ||
+				fare.getRegionalConstraint().getRegionalValidity() == null ||
+				fare.getRegionalConstraint().getRegionalValidity().isEmpty() ||
+				fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null ) {
+				return null;
 		}
+			
+			
+		RegionalConstraint regionalConstraint = fare.getRegionalConstraint();
 		
-		LegacySeries series = convertToSeries(fare.getRegionalConstraint());
-		
-		if (series == null) return null;
-
-		if (fare.getCarrierConstraint() != null && 
-			fare.getCarrierConstraint().getIncludedCarriers() != null && 
-		    series.getCarrierCode() == null &&
-			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
-			series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
-		} 	
-		
-		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
-		
-		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
-
-		
-		if (fare.getServiceConstraint() != null && fare.getServiceConstraint().getIncludedServiceBrands() != null) {
-			for (ServiceBrand brand : fare.getServiceConstraint().getIncludedServiceBrands()) {
-				if (brand.getTransportMode() != null) {
-					if (brand.getTransportMode().equals(TransportMode.BUS)) {
-						series.setBusCode("B");
-					} 
-				}
-				if (brand.getTransportMode() != null) {
-					if (brand.getTransportMode().equals(TransportMode.SHIP)) {
-						series.setFerryCode("S");
-					} 
-				}			
-			}
-		}
-		return series;
-	}
-	
-	/**
-	 * Convert to series.
-	 *
-	 * @param regionalConstraint the regional constraint
-	 * @return the legacy series
-	 */
-	private LegacySeries convertToSeries(RegionalConstraint regionalConstraint) {
 		LegacySeries series = GtmFactory.eINSTANCE.createLegacySeries();
 		
 		if (regionalConstraint == null ||
@@ -1214,6 +1219,7 @@ public class 	ConverterToLegacy {
 		ViaStation mainVia = regionalValidity.getViaStation();
 		if (mainVia.getCarrier() != null) {
 			series.setCarrierCode( mainVia.getCarrier().getCode());
+			addCarrier(mainVia.getCarrier());
 		}
 		if (mainVia.getServiceConstraint() != null && mainVia.getServiceConstraint().getLegacy108Code() > 0) {
 			routeServiceConstraint = mainVia.getServiceConstraint();
@@ -1282,6 +1288,35 @@ public class 	ConverterToLegacy {
 		}
 
 		series.setType(getType(regionalConstraint));
+			
+		if (fare.getCarrierConstraint() != null && 
+			fare.getCarrierConstraint().getIncludedCarriers() != null && 
+		    series.getCarrierCode() == null &&
+			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+			series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
+            addCarrier(fare.getCarrierConstraint().getIncludedCarriers().get(0));
+		} 	
+		
+		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
+		
+		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
+		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
+
+		
+		if (fare.getServiceConstraint() != null && fare.getServiceConstraint().getIncludedServiceBrands() != null) {
+			for (ServiceBrand brand : fare.getServiceConstraint().getIncludedServiceBrands()) {
+				if (brand.getTransportMode() != null) {
+					if (brand.getTransportMode().equals(TransportMode.BUS)) {
+						series.setBusCode("B");
+					} 
+				}
+				if (brand.getTransportMode() != null) {
+					if (brand.getTransportMode().equals(TransportMode.SHIP)) {
+						series.setFerryCode("S");
+					} 
+				}			
+			}
+		}
 		
 		return series;
 	}
@@ -1591,8 +1626,16 @@ public class 	ConverterToLegacy {
 		ArrayList<FareElement> fares = new ArrayList<FareElement>();
 		
 		for (FareElement fare :  tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {		
-			if (isConvertable(fare)) {
-				fares.add(fare);
+
+			try {
+				if (isConvertable(fare)) {
+					fares.add(fare);
+				}
+			} catch (Exception e) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Unknown error! Fare not converted: fareId - ").append(fare.getId()).append('\n');
+				sb.append(GtmUtils.getStackTrace(e));
+				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
 		}
 		
@@ -1679,7 +1722,7 @@ public class 	ConverterToLegacy {
 		}
 
 		//series can convert
-		LegacySeries s = convertToSeries(fare.getRegionalConstraint());
+		LegacySeries s = convertToSeries(fare);
 		if (s == null) {
 			return false; 
 		}
@@ -1845,6 +1888,16 @@ public class 	ConverterToLegacy {
 			return true;
 		}
 		
+		if (startName == null || endName == null) {
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("Start of End Name missing. Route ").append(RouteDescriptionBuilder.getRouteDescription(via)).append(" not convertable");
+			 
+			GtmUtils.writeConsoleError(sb.toString(), editor);
+			
+			return false;
+		}		
+		
 		if (startName.compareToIgnoreCase(endName) > 0) return true;
 
 		return false;
@@ -1902,6 +1955,25 @@ public class 	ConverterToLegacy {
 			}
 		}
 		return false;
+	}
+	
+	private void addCarrier(Carrier carrier) {
+		
+		if (carrier == null) return;
+		
+		LegacyCarrier lc = carriers.get(carrier.getCode());
+		
+		if (lc == null) {
+			
+			lc = GtmFactory.eINSTANCE.createLegacyCarrier();
+			lc.setCarrierCode(carrier.getCode());
+			lc.setCarrierShortName(GtmUtils.utf2ascii(carrier.getShortName()));
+			lc.setCarrierName(carrier.getName());
+						
+			carriers.put(carrier.getCode(), lc);
+						
+		} 
+		
 	}
 	
 }

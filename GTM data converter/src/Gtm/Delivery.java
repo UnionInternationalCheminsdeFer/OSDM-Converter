@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Delivery#getProvider <em>Provider</em>}</li>
  *   <li>{@link Gtm.Delivery#getSchemaVersion <em>Schema Version</em>}</li>
  *   <li>{@link Gtm.Delivery#getAcceptedSchemaVersion <em>Accepted Schema Version</em>}</li>
+ *   <li>{@link Gtm.Delivery#getUsage <em>Usage</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getDelivery()
@@ -241,5 +242,31 @@ public interface Delivery extends EObject {
 	 * @generated
 	 */
 	void setAcceptedSchemaVersion(SchemaVersion value);
+
+	/**
+	 * Returns the value of the '<em><b>Usage</b></em>' attribute.
+	 * The default value is <code>"PRODUCTION_DATA"</code>.
+	 * The literals are from the enumeration {@link Gtm.DataType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Usage</em>' attribute.
+	 * @see Gtm.DataType
+	 * @see #setUsage(DataType)
+	 * @see Gtm.GtmPackage#getDelivery_Usage()
+	 * @model default="PRODUCTION_DATA"
+	 * @generated
+	 */
+	DataType getUsage();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Delivery#getUsage <em>Usage</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Usage</em>' attribute.
+	 * @see Gtm.DataType
+	 * @see #getUsage()
+	 * @generated
+	 */
+	void setUsage(DataType value);
 
 } // Delivery

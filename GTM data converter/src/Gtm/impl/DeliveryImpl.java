@@ -3,6 +3,7 @@
 package Gtm.impl;
 
 import Gtm.Carrier;
+import Gtm.DataType;
 import Gtm.Delivery;
 import Gtm.GtmPackage;
 
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.DeliveryImpl#getProvider <em>Provider</em>}</li>
  *   <li>{@link Gtm.impl.DeliveryImpl#getSchemaVersion <em>Schema Version</em>}</li>
  *   <li>{@link Gtm.impl.DeliveryImpl#getAcceptedSchemaVersion <em>Accepted Schema Version</em>}</li>
+ *   <li>{@link Gtm.impl.DeliveryImpl#getUsage <em>Usage</em>}</li>
  * </ul>
  *
  * @generated
@@ -182,6 +184,26 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 	 * @ordered
 	 */
 	protected SchemaVersion acceptedSchemaVersion = ACCEPTED_SCHEMA_VERSION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getUsage() <em>Usage</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUsage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DataType USAGE_EDEFAULT = DataType.PRODUCTION_DATA;
+
+	/**
+	 * The cached value of the '{@link #getUsage() <em>Usage</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUsage()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataType usage = USAGE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -421,6 +443,27 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataType getUsage() {
+		return usage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUsage(DataType newUsage) {
+		DataType oldUsage = usage;
+		usage = newUsage == null ? USAGE_EDEFAULT : newUsage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.DELIVERY__USAGE, oldUsage, usage));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -439,6 +482,8 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 				return getSchemaVersion();
 			case GtmPackage.DELIVERY__ACCEPTED_SCHEMA_VERSION:
 				return getAcceptedSchemaVersion();
+			case GtmPackage.DELIVERY__USAGE:
+				return getUsage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -471,6 +516,9 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 				return;
 			case GtmPackage.DELIVERY__ACCEPTED_SCHEMA_VERSION:
 				setAcceptedSchemaVersion((SchemaVersion)newValue);
+				return;
+			case GtmPackage.DELIVERY__USAGE:
+				setUsage((DataType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -505,6 +553,9 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 			case GtmPackage.DELIVERY__ACCEPTED_SCHEMA_VERSION:
 				setAcceptedSchemaVersion(ACCEPTED_SCHEMA_VERSION_EDEFAULT);
 				return;
+			case GtmPackage.DELIVERY__USAGE:
+				setUsage(USAGE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -531,6 +582,8 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 				return schemaVersion != SCHEMA_VERSION_EDEFAULT;
 			case GtmPackage.DELIVERY__ACCEPTED_SCHEMA_VERSION:
 				return acceptedSchemaVersion != ACCEPTED_SCHEMA_VERSION_EDEFAULT;
+			case GtmPackage.DELIVERY__USAGE:
+				return usage != USAGE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -557,6 +610,8 @@ public class DeliveryImpl extends MinimalEObjectImpl.Container implements Delive
 		result.append(schemaVersion);
 		result.append(", acceptedSchemaVersion: ");
 		result.append(acceptedSchemaVersion);
+		result.append(", usage: ");
+		result.append(usage);
 		result.append(')');
 		return result.toString();
 	}

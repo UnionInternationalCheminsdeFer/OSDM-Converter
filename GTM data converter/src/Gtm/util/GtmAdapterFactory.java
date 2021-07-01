@@ -660,6 +660,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createLegacySeriesAdapter();
 			}
 			@Override
+			public Adapter caseLegacyCarriers(LegacyCarriers object) {
+				return createLegacyCarriersAdapter();
+			}
+			@Override
+			public Adapter caseLegacyCarrier(LegacyCarrier object) {
+				return createLegacyCarrierAdapter();
+			}
+			@Override
 			public Adapter caseLegacySeparateContractSeriesList(LegacySeparateContractSeriesList object) {
 				return createLegacySeparateContractSeriesListAdapter();
 			}
@@ -2754,6 +2762,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLegacySeriesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.LegacyCarriers <em>Legacy Carriers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.LegacyCarriers
+	 * @generated
+	 */
+	public Adapter createLegacyCarriersAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.LegacyCarrier <em>Legacy Carrier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.LegacyCarrier
+	 * @generated
+	 */
+	public Adapter createLegacyCarrierAdapter() {
 		return null;
 	}
 
