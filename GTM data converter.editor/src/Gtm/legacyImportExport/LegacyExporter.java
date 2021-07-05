@@ -96,11 +96,7 @@ public class LegacyExporter {
 			writeL = false;
 			writeP = false;
 			writeM = false;
-			
-			monitor.subTask(NationalLanguageSupport.LegacyExporter_1);
-			exportTCVfile();
-			monitor.worked(1);
-			
+					
 			monitor.subTask(NationalLanguageSupport.LegacyExporter_2);
 			exportTCVGfile();
 			monitor.worked(1);
@@ -140,6 +136,10 @@ public class LegacyExporter {
 				monitor.worked(1);
 			}
 			
+			monitor.subTask(NationalLanguageSupport.LegacyExporter_1);
+			exportTCVfile();
+			monitor.worked(1);
+
 			
 		} catch (IOException e) {
 						
