@@ -450,6 +450,7 @@ public class 	ConverterToLegacy {
 			
 			if (fare2 == null) {
 				uniqueFares.put(getFareId(fare), fare);			
+				fare2 = fare;
 			} else {
 				if (fare.isSetFare1st()) {
 					fare2.setFare1st(fare.getFare1st());
@@ -460,22 +461,20 @@ public class 	ConverterToLegacy {
 					fare2.setReturnFare2nd(fare.getFare2nd() + fare.getFare2nd());
 				}
 			}
+			
+			//distance must be zero in case the price was not set
+			if (!fare2.isSetFare1st()) {
+				 fare2.getSeries().setDistance1(0);
+			}
+			if (!fare2.isSetFare2nd()) {
+				 fare2.getSeries().setDistance2(0);
+			}	
 	
 		}
 		
 		HashSet<LegacyRouteFare> fares = new HashSet<LegacyRouteFare>();
 		fares.addAll(uniqueFares.values());
 		
-		//distance must be zero in case the price was not set
-		for (LegacyRouteFare fare: fares) {
-			
-			if (!fare.isSetFare1st()) {
-				 fare.getSeries().setDistance1(0);
-			}
-			if (!fare.isSetFare2nd()) {
-				 fare.getSeries().setDistance2(0);
-			}			
-		}
 		
 		return fares;
 	}
@@ -600,47 +599,7 @@ public class 	ConverterToLegacy {
 				}
 			}
 		}
-		
-		//fare description local
-		Text text = fare.getFareDetailDescription();
-		if (text != null && tool.getConversionFromLegacy().getParams().isConvertFareDescriptions()) {
-			if (text.getShortTextICAO() != null && text.getShortTextICAO().length() > 0) {
-				if (sbl.length() > 0) {
-					sbl.append("--"); //$NON-NLS-1$
-				}
-				sbl.append(text.getShortTextICAO());
-				String fdl = "--" + text.getShortTextICAO(); //$NON-NLS-1$
-				
-				if (text.getTranslations() != null) {	
-					//translations
-					for (Translation trans : text.getTranslations()) {
-						if (trans.getLanguage().getCode().equals("fr")) { //$NON-NLS-1$
-							if (trans.getShortTextICAO() != null && trans.getShortTextICAO().length() > 0) {
-								sbfr.append(trans.getShortTextICAO());
-							} else {
-								sbfr.append(fdl);
-							}
-						}
-						if (trans.getLanguage().getCode().equals("de")) { //$NON-NLS-1$
-							if (trans.getShortTextICAO() != null && trans.getShortTextICAO().length() > 0) {
-								sbge.append(trans.getShortTextICAO());
-							} else {
-								sbge.append(fdl);
-							}
-						}			
-						if (trans.getLanguage().getCode().equals("en")) { //$NON-NLS-1$
-							if (trans.getShortTextICAO() != null && trans.getShortTextICAO().length() > 0) {
-								sben.append(trans.getShortTextICAO());
-							} else {
-								sben.append(fdl);
-							}
-						}		
-					}
-				}				
-			}
-		}
-
-		
+			
 		if (sbText != null && sbText.length() > 0) {
 			sbl.append(sbText);
 			sbfr.append(sbText);

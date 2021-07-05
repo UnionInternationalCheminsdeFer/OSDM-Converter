@@ -11513,7 +11513,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (regionalConstraintEClass,
 		   source,
 		   new String[] {
-			   "constraints", "AT_LEAST_ONE_REGIONAL_VALIDITY WARNING_DISTANCE_TOO_SHORT WARNING_DISTANCE_TOO_LONG NOT_REFERENCED"
+			   "constraints", "AT_LEAST_ONE_REGIONAL_VALIDITY WARNING_DISTANCE_TOO_SHORT WARNING_DISTANCE_TOO_LONG NOT_REFERENCED NO_CLASS_SEPARATED_CONVERTABLE_FARES"
 		   });
 		addAnnotation
 		  (regionalValidityEClass,

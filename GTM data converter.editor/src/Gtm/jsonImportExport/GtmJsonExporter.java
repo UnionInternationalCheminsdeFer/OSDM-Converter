@@ -609,7 +609,7 @@ public class GtmJsonExporter {
 		if (list.getTexts().isEmpty()) return null;
 		ArrayList<TextDef> listJson = new ArrayList<TextDef>();
 		for (Text element: list.getTexts()) {
-			if (!element.isStandardText()) {
+			if (!GtmUtils.isStandardTextId(element.getId())) {
 				if (GtmUtils.isReferenced(element,gtm.getFareStructure() )) {
 					listJson.add(convertToJson(element));
 				}

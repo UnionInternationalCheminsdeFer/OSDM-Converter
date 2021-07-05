@@ -3572,6 +3572,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateRegionalConstraint_WARNING_DISTANCE_TOO_SHORT(regionalConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateRegionalConstraint_WARNING_DISTANCE_TOO_LONG(regionalConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateRegionalConstraint_NOT_REFERENCED(regionalConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateRegionalConstraint_NO_CLASS_SEPARATED_CONVERTABLE_FARES(regionalConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -3670,6 +3671,60 @@ public class GtmValidator extends EObjectValidator {
 						 0,
 						 getObjectLabel(regionalConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
 						 new Object[] { "NOT_REFERENCED", getObjectLabel(regionalConstraint, context) }, //$NON-NLS-1$
+						 new Object[] { regionalConstraint },
+						 context));				
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the NO_CLASS_SEPARATED_CONVERTABLE_FARES constraint of '<em>Regional Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateRegionalConstraint_NO_CLASS_SEPARATED_CONVERTABLE_FARES(RegionalConstraint regionalConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		
+		FareElement wrongFare = null;
+		
+		for (FareElement fare : regionalConstraint.getLinkedFares()) {
+			
+			if (fare.getLegacyConversion().equals(LegacyConversionType.YES) || fare.getLegacyConversion().equals(LegacyConversionType.ONLY)  ) {
+				
+				//check for another fare with a different class and a different text
+				
+				for (FareElement fare2 : regionalConstraint.getLinkedFares()) {
+					
+					if ( (fare2.getLegacyConversion().equals(LegacyConversionType.YES) 
+						  || fare2.getLegacyConversion().equals(LegacyConversionType.ONLY)  )
+							
+						&& fare2 != fare 
+						&& fare2.getText() != fare.getText()
+						&& fare2.getServiceClass() != fare.getServiceClass()) {
+						
+						wrongFare = fare;
+						
+					}
+						
+				}
+				
+			}
+			
+		}
+		
+		if (wrongFare != null) {
+			
+			if (diagnostics != null) {
+				diagnostics.add
+				(createSimpleDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Fare split with different fare names by class not allowed for convertable fares: " + getObjectLabel(regionalConstraint, context),
+						 new Object[] { "NO_CLASS_SEPARATED_CONVERTABLE_FARE", getObjectLabel(regionalConstraint, context) }, //$NON-NLS-1$
 						 new Object[] { regionalConstraint },
 						 context));				
 			}

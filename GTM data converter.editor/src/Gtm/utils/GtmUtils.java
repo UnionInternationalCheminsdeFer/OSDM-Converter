@@ -703,6 +703,21 @@ public class GtmUtils {
 		model.setFareStructure(createInitialFareStructure());
 		return model;
 	}
+	
+	public static boolean isStandardTextId(String id) {
+		
+		if (id == null || id.length() == 0) return true;
+		
+		for (GenericReductionCards card : GenericReductionCards.values()) {
+			
+			if (card.getName().equals(id)) {
+				return true;
+			}
+			
+		}
+		
+		return false;
+	}
 
 
 	/**
