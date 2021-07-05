@@ -3703,6 +3703,7 @@ public class GtmValidator extends EObjectValidator {
 							
 						&& fare2 != fare 
 						&& fare2.getText() != fare.getText()
+						&& fare2.getCarrierConstraint() == fare.getCarrierConstraint()
 						&& fare2.getServiceClass() != fare.getServiceClass()) {
 						
 						wrongFare = fare;
@@ -3720,7 +3721,7 @@ public class GtmValidator extends EObjectValidator {
 			if (diagnostics != null) {
 				diagnostics.add
 				(createSimpleDiagnostic
-						(Diagnostic.WARNING,
+						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 "Fare split with different fare names by class not allowed for convertable fares: " + getObjectLabel(regionalConstraint, context),
