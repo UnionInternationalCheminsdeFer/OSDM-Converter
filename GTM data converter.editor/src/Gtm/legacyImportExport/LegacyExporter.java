@@ -947,6 +947,8 @@ public class LegacyExporter {
 		//2 Info code numeric 4 M 5-8 Info data are consecutively number-coded.
 		sb.append(String.format("%04d", memo.getNumber()));   //$NON-NLS-1$
 		//3 Key flag for info code numeric 1 M 9 0, 1 or 2 (see point 2.2)
+		sb.append("1");	 //$NON-NLS-1$
+
 		addStrings(sb, memo.getLocal(), charset);
 		//4 Line 1 in country's official language	alpha numeric 60 M 10-69
 		//5 Line 2 in country's official language	alpha numeric 60 O 70-129
