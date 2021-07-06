@@ -2771,7 +2771,71 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateLegacyFareTemplates(LegacyFareTemplates legacyFareTemplates, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(legacyFareTemplates, diagnostics, context);
+		if (!validate_NoCircularContainment(legacyFareTemplates, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(legacyFareTemplates, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(legacyFareTemplates, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(legacyFareTemplates, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(legacyFareTemplates, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(legacyFareTemplates, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(legacyFareTemplates, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(legacyFareTemplates, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(legacyFareTemplates, diagnostics, context);
+		if (result || diagnostics != null) result &= validateLegacyFareTemplates_NO_CLASS_SEPARATED_CONVERTABLE_FARE_TEMPLATES(legacyFareTemplates, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the NO_CLASS_SEPARATED_CONVERTABLE_FARE_TEMPLATES constraint of '<em>Legacy Fare Templates</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateLegacyFareTemplates_NO_CLASS_SEPARATED_CONVERTABLE_FARE_TEMPLATES(LegacyFareTemplates legacyFareTemplates, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		
+		FareTemplate wrongFare = null;
+		
+		for (FareTemplate fare : legacyFareTemplates.getFareTemplates()) {
+			
+			if (fare.getLegacyConversion().equals(LegacyConversionType.YES) || fare.getLegacyConversion().equals(LegacyConversionType.ONLY)  ) {
+				
+				//check for another fare with a different class and a different text
+				
+				for (FareTemplate fare2 : legacyFareTemplates.getFareTemplates()) {
+					
+					if ( (fare2.getLegacyConversion().equals(LegacyConversionType.YES) 
+						  || fare2.getLegacyConversion().equals(LegacyConversionType.ONLY)  )
+							
+						&& fare2 != fare 
+						&& fare2.getText() != fare.getText()
+						&& fare2.getCarrierConstraint() == fare.getCarrierConstraint()
+						&& fare2.getServiceClass() != fare.getServiceClass()) {
+						
+						wrongFare = fare;
+						
+					}
+						
+				}
+				
+			}
+			
+		}
+		
+		if (wrongFare != null) {
+			
+			if (diagnostics != null) {
+				diagnostics.add
+				(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Fare split with different fare names by class not allowed for convertable faretemplate: " + getObjectLabel(wrongFare, context),
+						 new Object[] { "NO_CLASS_SEPARATED_CONVERTABLE_FARE", getObjectLabel(legacyFareTemplates, context) }, //$NON-NLS-1$
+						 new Object[] { legacyFareTemplates },
+						 context));				
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**

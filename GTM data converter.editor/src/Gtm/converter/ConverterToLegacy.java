@@ -1,5 +1,6 @@
 package Gtm.converter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -415,7 +416,6 @@ public class 	ConverterToLegacy {
 		if (routeNumberTooHigh.size() > 0) {
 			//remove corresponding route fares
 			ArrayList<LegacyRouteFare> excludeFare = new ArrayList<LegacyRouteFare>();
-			
 						
 			for (LegacyRouteFare fare : routeFares) {
 				if (routeNumberTooHigh.contains(fare.getSeries())) {
@@ -427,8 +427,6 @@ public class 	ConverterToLegacy {
 			}
 			
 		}
-		
-		
 		
 	}
 
@@ -462,20 +460,37 @@ public class 	ConverterToLegacy {
 				}
 			}
 			
-			//distance must be zero in case the price was not set
-			if (!fare2.isSetFare1st()) {
-				 fare2.getSeries().setDistance1(0);
+		}
+		
+		ArrayList<LegacyRouteFare> faresWithoutPrice = new ArrayList<LegacyRouteFare>();
+		
+		for (LegacyRouteFare fare: uniqueFares.values()) {
+			
+			if (!fare.isSetFare1st() && !fare.isSetFare2nd() ) {
+				
+				faresWithoutPrice.add(fare);
+				
+				GtmUtils.writeConsoleError("Fare will be ignored as price indication by series distance failed: " + GtmUtils.getLabelText(fare), editor);
+				
 			}
-			if (!fare2.isSetFare2nd()) {
-				 fare2.getSeries().setDistance2(0);
+			
+			//distance must be zero in case the price was not set
+			if (!fare.isSetFare1st()) {
+				 fare.getSeries().setDistance1(0);
+			}
+			if (!fare.isSetFare2nd()) {
+				 fare.getSeries().setDistance2(0);
 			}	
 	
 		}
 		
+		for (LegacyRouteFare fare: faresWithoutPrice) {
+			uniqueFares.remove(getFareId(fare));
+		}
+		
 		HashSet<LegacyRouteFare> fares = new HashSet<LegacyRouteFare>();
 		fares.addAll(uniqueFares.values());
-		
-		
+				
 		return fares;
 	}
 
@@ -1149,7 +1164,6 @@ public class 	ConverterToLegacy {
 	 */
 	private LegacySeries convertToSeries(FareElement fare) {
 		
-		
 		if (fare.getRegionalConstraint() == null ||
 				fare.getFareConstraintBundle() == null ||
 				fare.getRegionalConstraint().getRegionalValidity() == null ||
@@ -1157,7 +1171,6 @@ public class 	ConverterToLegacy {
 				fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null ) {
 				return null;
 		}
-			
 			
 		RegionalConstraint regionalConstraint = fare.getRegionalConstraint();
 		
@@ -1185,8 +1198,9 @@ public class 	ConverterToLegacy {
 		}		
 		
 	
-		series.setDistance1((int) regionalConstraint.getDistance());
-		series.setDistance2((int) regionalConstraint.getDistance());
+		BigDecimal distance = new BigDecimal(Float.toString(regionalConstraint.getDistance()));
+		series.setDistance1(distance.intValue());
+		series.setDistance2(distance.intValue());
 		
 		series.setPricetype(LegacyCalculationType.ROUTE_BASED);
 		
@@ -1303,7 +1317,6 @@ public class 	ConverterToLegacy {
 				}
 			
 				//failed, try an on border station in the required country
-
 				s = getLocalStations(tool.getConversionFromLegacy().getParams().getCountry(),lbp.getOnBorderStations());
 				if (s != null && s.size() > 0) {
 					return legacyStations.get(Integer.parseInt(s.get(0).getCode()));

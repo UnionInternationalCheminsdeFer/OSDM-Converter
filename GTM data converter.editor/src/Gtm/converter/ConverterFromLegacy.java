@@ -52,8 +52,10 @@ import Gtm.LegacyBorderPoint;
 import Gtm.LegacyBorderPointMapping;
 import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
+import Gtm.LegacyConversionType;
 import Gtm.LegacyDistanceFare;
 import Gtm.LegacyFareDetailMap;
+import Gtm.LegacyFareTemplates;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
 import Gtm.LegacySeries;
@@ -368,6 +370,10 @@ public class ConverterFromLegacy {
 		int worked = 100000 / tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size();
 		if (worked < 1 ) worked = 1;
 		int added = 0;
+		
+		
+		checkFareTemplates();
+		
 
 		monitor.subTask(NationalLanguageSupport.ConverterFromLegacy_1);
 		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
@@ -552,6 +558,58 @@ public class ConverterFromLegacy {
 		System.gc();
 		
 		return added;
+	}
+
+
+	private void checkFareTemplates() {
+		
+		
+		if (tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() == null) {
+			return;
+		}
+			
+		LegacyFareTemplates legacyFareTemplates = tool.getConversionFromLegacy().getParams().getLegacyFareTemplates();
+			
+		//check for issues in the fare templates.
+		
+		
+		
+		//check for split between first and second class
+		FareTemplate wrongFare = null;
+		
+		for (FareTemplate fare : legacyFareTemplates.getFareTemplates()) {
+			
+			if (fare.getLegacyConversion().equals(LegacyConversionType.YES) || fare.getLegacyConversion().equals(LegacyConversionType.ONLY)  ) {
+				
+				//check for another fare with a different class and a different text
+				
+				for (FareTemplate fare2 : legacyFareTemplates.getFareTemplates()) {
+					
+					if ( (fare2.getLegacyConversion().equals(LegacyConversionType.YES) 
+						  || fare2.getLegacyConversion().equals(LegacyConversionType.ONLY)  )
+							
+						&& fare2 != fare 
+						&& fare2.getText() != fare.getText()
+						&& fare2.getCarrierConstraint() == fare.getCarrierConstraint()
+						&& fare2.getServiceClass() != fare.getServiceClass()) {
+						
+						wrongFare = fare;
+						
+					}
+						
+				}
+				
+			}
+			
+		}
+		
+		if (wrongFare != null) {
+			StringBuilder sb = new StringBuilder();
+			sb.append( "Fare template split with different fare names by class not allowed for convertable faretemplate: ");
+			sb.append(GtmUtils.getLabelText(wrongFare));
+			GtmUtils.writeConsoleError( sb.toString(),editor);
+		}
+		return;
 	}
 
 
@@ -1717,8 +1775,15 @@ public class ConverterFromLegacy {
 		curPrice.setAmount(amount);
 		curPrice.setCurrency(tool.getCodeLists().getCurrencies().findCurrency("EUR")); //$NON-NLS-1$
 	
-		addVat(curPrice,regionalConstraint);
-	
+		try {
+			addVat(curPrice,regionalConstraint);
+		} catch (Exception e) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Vat calculation failed for amount: ");
+			sb.append(amount).append(" - ");
+			sb.append(e.getMessage());
+			GtmUtils.writeConsoleError("Vat calculation failed for ", editor);
+		}
 		price.getCurrencies().add(curPrice);
 		return price;
 		

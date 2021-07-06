@@ -11696,6 +11696,12 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 			   "constraints", "COUNTRY_MUST AT_LEAST_ONE_LEGACY_FARE_TEMPLATE"
 		   });
 		addAnnotation
+		  (legacyFareTemplatesEClass,
+		   source,
+		   new String[] {
+			   "constraints", "NO_CLASS_SEPARATED_CONVERTABLE_FARE_TEMPLATES"
+		   });
+		addAnnotation
 		  (fareTemplateEClass,
 		   source,
 		   new String[] {
