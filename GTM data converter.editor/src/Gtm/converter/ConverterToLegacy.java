@@ -74,7 +74,8 @@ import Gtm.TravelerType;
 import Gtm.ViaStation;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
-import Gtm.utils.GtmUtils; 
+import Gtm.utils.GtmUtils;
+import Gtm.utils.GtmValidator; 
 
 /**
  * The Class ConverterToLegacy.
@@ -1066,7 +1067,15 @@ public class 	ConverterToLegacy {
 		
 		routeFare.setFareTableNumber(addFareDescription(fare));
 		series.setFareTableNumber(routeFare.getFareTableNumber());
-
+		
+		try {
+			String converterError = GtmValidator.checkConvertability(fare, tool.getConversionFromLegacy().getLegacy108().getCarrier());
+			if (converterError != null) {
+				GtmUtils.writeConsoleWarning("Fare not convertable: " + converterError + " " + GtmUtils.getLabelText(fare), editor);
+			}
+		} catch (Exception e) {
+			//do nothing
+		}
 		return routeFare;
 	}
 

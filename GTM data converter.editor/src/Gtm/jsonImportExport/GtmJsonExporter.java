@@ -960,12 +960,17 @@ public class GtmJsonExporter {
 
 
 
-	private static List<SalesAvailabilityConstraintDef> convertSalesAvailabilityConstraints(SalesAvailabilityConstraints list){
+	private List<SalesAvailabilityConstraintDef> convertSalesAvailabilityConstraints(SalesAvailabilityConstraints list){
 		if (list == null) return null;
 		if (list.getSalesAvailabilityConstraints().isEmpty()) return null;
 		ArrayList<SalesAvailabilityConstraintDef> listJson = new ArrayList<SalesAvailabilityConstraintDef>();
 		for (SalesAvailabilityConstraint element: list.getSalesAvailabilityConstraints()) {
-			listJson.add(convertToJson(element));
+			
+			if (GtmUtils.isReferenced(element,gtm.getFareStructure().getFareConstraintBundles() )) {
+			
+				listJson.add(convertToJson(element));
+				
+			}
 		}
 		return listJson;
 	}

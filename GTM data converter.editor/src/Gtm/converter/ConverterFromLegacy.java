@@ -791,7 +791,6 @@ public class ConverterFromLegacy {
 			amount = bd.floatValue();
 		}
 		
-		
 		return amount;
 	}
 
