@@ -120,6 +120,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						monitor.beginTask(NationalLanguageSupport.ExportGTMJsonAction_4, 31); 
 
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_5);
+						GtmUtils.deleteOrphanedObjects(domain, tool);
 						prepareStructure(tool,domain);
 						monitor.worked(1);
 					
@@ -238,6 +239,8 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 			// saves plugin preferences at the workspace level
 			 IEclipsePreferences prefs =  InstanceScope.INSTANCE.getNode(GtmEditorPlugin.PLUGIN_ID); // does all the above behind the scenes
 
+			 if (path == null || path.isEmpty()) return;
+			 
 			  prefs.put("LAST_PATH", path); //$NON-NLS-1$
 			  try {
 			    // prefs are automatically flushed during a plugin's "super.stop()".

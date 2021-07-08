@@ -150,6 +150,9 @@ public class 	ConverterToLegacy {
 	 */
 	public int convert(IProgressMonitor monitor) {
 		
+		//clean up the data
+		GtmUtils.deleteOrphanedObjects(domain,tool);
+		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
 		if (carrier == null) {
 			String message = "No Carrier/Provider contained in the OSDM Delivery Data - Conversion aborted!";
@@ -636,7 +639,7 @@ public class 	ConverterToLegacy {
 	 * @param tool the tool
 	 * @return the end date
 	 */
-	private Object getEndDate(GTMTool tool) {
+	private Date getEndDate(GTMTool tool) {
 		if (tool == null || tool.getGeneralTariffModel() == null || tool.getGeneralTariffModel().getFareStructure()==null|| tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints() == null) {
 			return null;
 		}
@@ -1281,9 +1284,13 @@ public class 	ConverterToLegacy {
 		
 		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
 		
-		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
-
+		HashSet<SalesAvailabilityConstraint> salesAvailabilities = new HashSet<SalesAvailabilityConstraint>();
+		for (FareElement f : regionalConstraint.getLinkedFares()){
+			salesAvailabilities.add(f.getFareConstraintBundle().getSalesAvailability());
+		}	
+		DateRange dateRange = getDateRange(salesAvailabilities);
+		series.setValidFrom(dateRange.getStartDate());
+		series.setValidUntil(dateRange.getEndDate());	
 		
 		if (fare.getServiceConstraint() != null && fare.getServiceConstraint().getIncludedServiceBrands() != null) {
 			for (ServiceBrand brand : fare.getServiceConstraint().getIncludedServiceBrands()) {
@@ -1302,6 +1309,40 @@ public class 	ConverterToLegacy {
 		
 		return series;
 	}
+	
+	private DateRange getDateRange(HashSet<SalesAvailabilityConstraint> salesAvailabilities) {
+		
+		Date startDate = null;
+		Date endDate = null;
+		
+		for (SalesAvailabilityConstraint s : salesAvailabilities) {
+		
+			for (SalesRestriction r : s.getRestrictions()) {
+			
+				if (r.getSalesDates() != null && r.getSalesDates().getFromDate() != null) {
+					if (startDate == null) {
+						startDate = r.getSalesDates().getFromDate();
+					} else {
+						if (startDate.after(r.getSalesDates().getFromDate())) {
+							startDate = r.getSalesDates().getFromDate();
+						}
+					}
+				}
+			
+				if (r.getSalesDates() != null && r.getSalesDates().getUntilDate() != null) {
+					if (endDate == null) {
+						endDate = r.getSalesDates().getUntilDate();
+					} else {
+						if (endDate.before(r.getSalesDates().getUntilDate())) {
+							endDate = r.getSalesDates().getUntilDate();
+						}
+					}
+				}
+			}
+		}
+		return new DateRange(startDate, endDate);
+	}
+
 
 
 	/**
@@ -1664,8 +1705,16 @@ public class 	ConverterToLegacy {
 		if (fare.getLegacyConversion() == LegacyConversionType.NO) return false;
 		
 		//only ADULT
-		if (fare.getPassengerConstraint().getTravelerType() != TravelerType.ADULT)  return false;
+		if (fare.getPassengerConstraint() == null) {
+			String message = "Passenger constraint missing in: " + GtmUtils.getLabelText(fare) + " will not be converted";
+			GtmUtils.writeConsoleError(message, editor);			
+			return false;
+		}
 		
+		if (fare.getPassengerConstraint().getTravelerType() != TravelerType.ADULT)  {
+			return false;
+		}
+	
 		//only FULL_FLEX combination
 		if (!isFullFlexCombi(fare))  return false;
 		

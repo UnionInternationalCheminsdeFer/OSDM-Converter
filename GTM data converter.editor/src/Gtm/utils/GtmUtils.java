@@ -11,8 +11,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.StringCharacterIterator;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -23,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.command.AddCommand;
@@ -1843,7 +1846,23 @@ public class GtmUtils {
 		  
 		  byte[] ascii = sb.toString().getBytes(StandardCharsets.US_ASCII); 
 		  return new String(ascii);
-		 }
+	}
+	
+	
+	public static void deleteOrphanedObjects(EditingDomain domain, GTMTool tool) {
+		
+		if (tool == null || domain == null) return;
+		
+		Map<EObject, Collection<Setting>> ll = EcoreUtil.ExternalCrossReferencer.find(tool);
+
+		for (Entry<EObject,Collection<Setting>> e:  ll.entrySet()) {
+			for (Setting s : e.getValue()) {
+				EcoreUtil.remove(s,e.getKey());
+			}
+		}
+		return;
+
+	}
 }
 
 

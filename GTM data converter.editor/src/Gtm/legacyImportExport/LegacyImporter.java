@@ -89,9 +89,11 @@ public class LegacyImporter {
 			e.printStackTrace();
 		}
 		
-		this.timeZone = legacy108.getTimeZone().getName();
+		if (legacy108.getTimeZone() != null) {
+			this.timeZone = legacy108.getTimeZone().getName();
+		}			
 		if (timeZone == null || timeZone.length() < 3) {
-			timeZone = "GMT"; //$NON-NLS-1$
+			timeZone = "UTC"; //$NON-NLS-1$
 		}
 		dateFormat.setTimeZone(TimeZone.getTimeZone(timeZone)); 
 	}
@@ -182,6 +184,8 @@ public class LegacyImporter {
 			importTCVM(TCVMfile);
 		}
 		monitor.worked(1);
+		
+		GtmUtils.deleteOrphanedObjects(domain, tool);
 	
 	}
 	
@@ -255,23 +259,32 @@ public class LegacyImporter {
 			}
 		}
 		
-		Date dt = null;
-		try {
-		    dt = dateFormat.parse(validFromString);
-		    series.setValidFrom(dt);
-		} catch (ParseException e) {
-		    e.printStackTrace();
-		} 
-		Date dt2 = null;
-		try {
-		    dt2 = dateFormat.parse(validUntilString);
-		    series.setValidUntil(dt2);
-		} catch (ParseException e) {
-		    e.printStackTrace();
-		} 
+		Date dt1 = parseDate(validFromString);
+		if (dt1 != null) {
+			series.setValidFrom(dt1);
+		}
+
+		Date dt2 = parseDate(validUntilString);
+		if (dt2 != null) {
+			series.setValidUntil(dt2);
+		}
 		
 		return series;
 	}
+	
+	private Date parseDate(String s) {
+		
+		Date dt = null;
+		try {
+		    dt = dateFormat.parse(s);
+		    return dt;
+		} catch (ParseException e) {
+			GtmUtils.writeConsoleError("Wrong date format in legacy files: "+ s, editor);
+		    return null;
+		}
+		
+	}
+	
 	
 	private void importTCVM(File file) {
 		BufferedReader br = getReader (file);
@@ -571,22 +584,16 @@ public class LegacyImporter {
 			fare.setReturnFare1st(Integer.parseInt(returnFare1st));
 			fare.setReturnFare2nd(Integer.parseInt(returnFare2nd));		
 			
-			Date dt = null;
-			try {
-			    dt = dateFormat.parse(validFromString);
-			    fare.setValidFrom(dt);
-			} catch (ParseException e) {
-			    e.printStackTrace();
-			} 
-			Date dt2 = null;
-			try {
-			    dt2 = dateFormat.parse(validUntilString);
-			    fare.setValidUntil(dt2);
-			} catch (ParseException e) {
-			    e.printStackTrace();
-			} 
-			
-			
+			Date dt1 = parseDate(validFromString);
+			if (dt1 != null) {
+				fare.setValidFrom(dt1);
+			}
+
+			Date dt2 = parseDate(validUntilString);
+			if (dt2 != null) {
+				fare.setValidUntil(dt2);
+			}
+		
 			return fare;
 	}
 
@@ -624,23 +631,18 @@ public class LegacyImporter {
 			fare.setFare2nd(Integer.parseInt(fare2nd));
 			
 			fare.setReturnFare1st(Integer.parseInt(returnFare1st));
-			fare.setReturnFare2nd(Integer.parseInt(returnFare2nd));		
+			fare.setReturnFare2nd(Integer.parseInt(returnFare2nd));	
 			
-			Date dt = null;
-			try {
-			    dt = dateFormat.parse(validFromString);
-			    fare.setValidFrom(dt);
-			} catch (ParseException e) {
-			    e.printStackTrace();
-			} 
-			Date dt2 = null;
-			try {
-			    dt2 = dateFormat.parse(validUntilString);
-			    fare.setValidUntil(dt2);
-			} catch (ParseException e) {
-			    e.printStackTrace();
-			} 
-			
+			Date dt1 = parseDate(validFromString);
+			if (dt1 != null) {
+				fare.setValidFrom(dt1);
+			}
+
+			Date dt2 = parseDate(validUntilString);
+			if (dt2 != null) {
+				fare.setValidUntil(dt2);
+			}
+		
 			return fare;
 			
 		} catch (Exception e) {
@@ -973,22 +975,16 @@ public class LegacyImporter {
 			} else {
 				series.setBusCode(" ");		
 			}
-	
-			Date dt = null;
-			try {
-			    dt = dateFormat.parse(validFromString);
-			    series.setValidFrom(dt);
-			} catch (ParseException e) {
-			    e.printStackTrace();
-			} 
-			Date dt2 = null;
-			try {
-			    dt2 = dateFormat.parse(validUntilString);
-			    series.setValidUntil(dt2);
-			} catch (ParseException e) {
-			    e.printStackTrace();
-			} 
 			
+			Date dt1 = parseDate(validFromString);
+			if (dt1 != null) {
+				series.setValidFrom(dt1);
+			}
+
+			Date dt2 = parseDate(validUntilString);
+			if (dt2 != null) {
+				series.setValidUntil(dt2);
+			}
 			
 			int viaStation1 = Integer.parseInt(via1); 
 			int viaStation2 = Integer.parseInt(via2); 

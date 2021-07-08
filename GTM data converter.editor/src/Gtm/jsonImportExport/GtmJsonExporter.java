@@ -117,7 +117,7 @@ public class GtmJsonExporter {
 	}
 	
 	public FareDelivery convertToJson(GeneralTariffModel gtm, IProgressMonitor monitor) {
-		
+
 		
 		if (gtm == null || gtm.getDelivery() == null || gtm.getFareStructure() == null) return null;
 		
@@ -513,7 +513,9 @@ public class GtmJsonExporter {
 		if (list.getTravelValidityConstraints().isEmpty()) return null;
 		ArrayList<TravelValidityConstraintDef> listJson = new ArrayList<TravelValidityConstraintDef>();
 		for (TravelValidityConstraint element: list.getTravelValidityConstraints()) {
-			listJson.add(convertToJson(element));
+			if (GtmUtils.isReferenced(element, gtm.getFareStructure().getFareConstraintBundles())) {
+				listJson.add(convertToJson(element));
+			}
 		}
 		return listJson;
 	}
@@ -688,8 +690,6 @@ public class GtmJsonExporter {
 						
 				listJ.add(transJ);
 			}
-			
-			
 			
 			textJ.setTranslations(listJ);
 		}

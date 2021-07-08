@@ -482,6 +482,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultRegulatoryConditions"
         upperBound="-1" eType="#//RegulatoryCondition"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="convertedBundles" upperBound="-1"
+        eType="#//FareConstraintBundle"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareStationSetDefinitions">
     <eOperations name="findFareSet" eType="#//FareStationSetDefinition">

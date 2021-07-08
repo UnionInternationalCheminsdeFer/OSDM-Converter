@@ -183,6 +183,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						monitor.beginTask(NationalLanguageSupport.ImportGTMJsonAction_4, 5); 
 						
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_5);
+						GtmUtils.deleteOrphanedObjects(domain, tool);
 						prepareStructure(tool,domain);
 						monitor.worked(1);
 					
@@ -217,8 +218,6 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 							GtmUtils.writeConsoleError("Fare constraint bundles missing", editor);	
 							return;
 						}
-							
-						
 						
 						
 						if (fareDelivery != null) {
@@ -254,6 +253,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 							editor.getEditingDomain().getCommandStack().execute(com);
 						}
 
+						GtmUtils.deleteOrphanedObjects(domain, tool);
 					
 						monitor.worked(1);
 						

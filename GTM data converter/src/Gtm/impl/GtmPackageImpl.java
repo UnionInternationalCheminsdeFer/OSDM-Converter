@@ -3647,6 +3647,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFareConstraintBundle_ConvertedBundles() {
+		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFareStationSetDefinitions() {
 		return fareStationSetDefinitionsEClass;
 	}
@@ -9161,6 +9170,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__TOTAL_PASSENGER_CONSTRAINT);
 		createEAttribute(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS);
 		createEAttribute(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__DATA_SOURCE);
+		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES);
 
 		fareStationSetDefinitionsEClass = createEClass(FARE_STATION_SET_DEFINITIONS);
 		createEReference(fareStationSetDefinitionsEClass, FARE_STATION_SET_DEFINITIONS__FARE_STATION_SET_DEFINITIONS);
@@ -10188,6 +10198,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareConstraintBundle_TotalPassengerConstraint(), this.getTotalPassengerCombinationConstraint(), null, "totalPassengerConstraint", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareConstraintBundle_DefaultRegulatoryConditions(), this.getRegulatoryCondition(), "defaultRegulatoryConditions", null, 0, -1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareConstraintBundle_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareConstraintBundle_ConvertedBundles(), this.getFareConstraintBundle(), null, "convertedBundles", null, 0, -1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fareStationSetDefinitionsEClass, FareStationSetDefinitions.class, "FareStationSetDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFareStationSetDefinitions_FareStationSetDefinitions(), this.getFareStationSetDefinition(), null, "fareStationSetDefinitions", null, 0, -1, FareStationSetDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
