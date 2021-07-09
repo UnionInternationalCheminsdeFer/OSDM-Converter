@@ -138,6 +138,7 @@ import Gtm.GTMTool;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.provider.GtmItemProviderAdapterFactory;
+import Gtm.utils.GtmUtils;
 import Gtm.utils.MigrationV2;
 
 import org.eclipse.emf.common.ui.URIEditorInput;
@@ -1604,6 +1605,10 @@ public class GtmEditor
 	 */
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
+		
+		
+		GtmUtils.deleteOrphanedObjects(editingDomain, getModel());
+		
 		// Save only resources that have actually changed.
 		//
 		final Map<Object, Object> saveOptions = GtmResourceUtils.getBinarySaveOptions();
@@ -2025,6 +2030,33 @@ public class GtmEditor
 		
 	}
 	
+	
+	/**
+	 * Disconnect the viewers from their content during bulk actions
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public GTMTool getModel() {
+		
+		doSelectionChange = true;
+		
+		EditingDomain domain = getEditingDomain();
+		Resource resource = domain.getResourceSet().getResources().get(0);
+	   	
+		TreeIterator<EObject> it = resource.getAllContents();
+		EObject object = it.next();
+		
+		if (object == null) return null;
+
+		if (object instanceof GTMTool){
+			return (GTMTool) object;
+		} else {
+			return null;
+		}
+
+	}
+	
 	/**
 	 * Disconnect the viewers from their content during bulk actions
 	 * <!-- begin-user-doc -->
@@ -2048,8 +2080,6 @@ public class GtmEditor
 		} else {
 			return;
 		}
-		
-		
 
 	}
 

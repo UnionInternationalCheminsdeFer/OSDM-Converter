@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
@@ -44,6 +45,7 @@ public class LegacyExporter {
 	private Date fromDate = null;
 	private Date untilDate = null;	
 	private Charset charset = null;
+	private String timeZone = null;
 	
 	private boolean writeL = false;
 	private boolean writeP = false;
@@ -74,6 +76,17 @@ public class LegacyExporter {
 		
 		writeL = false;
 		writeP = false;
+		writeM = false;
+		
+		
+		if (tool.getConversionFromLegacy().getLegacy108().getTimeZone() != null) {
+			this.timeZone = tool.getConversionFromLegacy().getLegacy108().getTimeZone().getName();
+		}
+		if (timeZone == null || timeZone.length() < 3) {
+			timeZone = "UTC"; //$NON-NLS-1$
+		}
+		dateFormat.setTimeZone(TimeZone.getTimeZone(timeZone)); 
+	
 
 	}
 	
@@ -96,11 +109,7 @@ public class LegacyExporter {
 			writeL = false;
 			writeP = false;
 			writeM = false;
-			
-			monitor.subTask(NationalLanguageSupport.LegacyExporter_1);
-			exportTCVfile();
-			monitor.worked(1);
-			
+					
 			monitor.subTask(NationalLanguageSupport.LegacyExporter_2);
 			exportTCVGfile();
 			monitor.worked(1);
@@ -140,6 +149,10 @@ public class LegacyExporter {
 				monitor.worked(1);
 			}
 			
+			monitor.subTask(NationalLanguageSupport.LegacyExporter_1);
+			exportTCVfile();
+			monitor.worked(1);
+
 			
 		} catch (IOException e) {
 						
@@ -947,6 +960,8 @@ public class LegacyExporter {
 		//2 Info code numeric 4 M 5-8 Info data are consecutively number-coded.
 		sb.append(String.format("%04d", memo.getNumber()));   //$NON-NLS-1$
 		//3 Key flag for info code numeric 1 M 9 0, 1 or 2 (see point 2.2)
+		sb.append("1");	 //$NON-NLS-1$
+
 		addStrings(sb, memo.getLocal(), charset);
 		//4 Line 1 in country's official language	alpha numeric 60 M 10-69
 		//5 Line 2 in country's official language	alpha numeric 60 O 70-129

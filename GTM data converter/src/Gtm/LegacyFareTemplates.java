@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see Gtm.GtmPackage#getLegacyFareTemplates()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='NO_CLASS_SEPARATED_CONVERTABLE_FARE_TEMPLATES'"
  * @generated
  */
 public interface LegacyFareTemplates extends EObject {

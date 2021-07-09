@@ -117,7 +117,7 @@ public class GtmJsonExporter {
 	}
 	
 	public FareDelivery convertToJson(GeneralTariffModel gtm, IProgressMonitor monitor) {
-		
+
 		
 		if (gtm == null || gtm.getDelivery() == null || gtm.getFareStructure() == null) return null;
 		
@@ -513,7 +513,9 @@ public class GtmJsonExporter {
 		if (list.getTravelValidityConstraints().isEmpty()) return null;
 		ArrayList<TravelValidityConstraintDef> listJson = new ArrayList<TravelValidityConstraintDef>();
 		for (TravelValidityConstraint element: list.getTravelValidityConstraints()) {
-			listJson.add(convertToJson(element));
+			if (GtmUtils.isReferenced(element, gtm.getFareStructure().getFareConstraintBundles())) {
+				listJson.add(convertToJson(element));
+			}
 		}
 		return listJson;
 	}
@@ -609,7 +611,7 @@ public class GtmJsonExporter {
 		if (list.getTexts().isEmpty()) return null;
 		ArrayList<TextDef> listJson = new ArrayList<TextDef>();
 		for (Text element: list.getTexts()) {
-			if (!element.isStandardText()) {
+			if (!GtmUtils.isStandardTextId(element.getId())) {
 				if (GtmUtils.isReferenced(element,gtm.getFareStructure() )) {
 					listJson.add(convertToJson(element));
 				}
@@ -688,8 +690,6 @@ public class GtmJsonExporter {
 						
 				listJ.add(transJ);
 			}
-			
-			
 			
 			textJ.setTranslations(listJ);
 		}
@@ -960,12 +960,17 @@ public class GtmJsonExporter {
 
 
 
-	private static List<SalesAvailabilityConstraintDef> convertSalesAvailabilityConstraints(SalesAvailabilityConstraints list){
+	private List<SalesAvailabilityConstraintDef> convertSalesAvailabilityConstraints(SalesAvailabilityConstraints list){
 		if (list == null) return null;
 		if (list.getSalesAvailabilityConstraints().isEmpty()) return null;
 		ArrayList<SalesAvailabilityConstraintDef> listJson = new ArrayList<SalesAvailabilityConstraintDef>();
 		for (SalesAvailabilityConstraint element: list.getSalesAvailabilityConstraints()) {
-			listJson.add(convertToJson(element));
+			
+			if (GtmUtils.isReferenced(element,gtm.getFareStructure().getFareConstraintBundles() )) {
+			
+				listJson.add(convertToJson(element));
+				
+			}
 		}
 		return listJson;
 	}

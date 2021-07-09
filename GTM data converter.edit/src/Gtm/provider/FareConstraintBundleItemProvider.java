@@ -365,7 +365,15 @@ public class FareConstraintBundleItemProvider
 		FareConstraintBundle bundle = (FareConstraintBundle)object;
 		
 		if (bundle.getDataDescription() != null) {
-			return getString("_UI_FareConstraintBundle_type") + " " + bundle.getDataDescription();
+
+			sb.append(getString("_UI_FareConstraintBundle_type"));
+			sb.append(" ").append(bundle.getDataDescription());
+			if (bundle.getSalesAvailability() != null) {
+				if (sb.length() > 0 && !(sb.lastIndexOf(" - ") == (sb.length() - 1))) sb.append("-");
+				SalesAvailabilityConstraintItemProvider labelProvider = (SalesAvailabilityConstraintItemProvider) adapterFactory.adapt(bundle.getSalesAvailability(), SalesAvailabilityConstraintItemProvider.class);
+				sb.append(labelProvider.getText(bundle.getSalesAvailability()));				
+			}						
+			return sb.toString();
 		} else {
 			
 			if (bundle.getCombinationConstraint() != null) {
@@ -373,22 +381,22 @@ public class FareConstraintBundleItemProvider
 				sb.append(labelProvider.getText(bundle.getCombinationConstraint()));
 			}
 			if (bundle.getFulfillmentConstraint() != null) {
-				if (sb.length() > 0 && !(sb.lastIndexOf("-") == (sb.length() - 1))) sb.append("-");
+				if (sb.length() > 0 && !(sb.lastIndexOf(" - ") == (sb.length() - 1))) sb.append("-");
 				FulfillmentConstraintItemProvider labelProvider = (FulfillmentConstraintItemProvider) adapterFactory.adapt(bundle.getFulfillmentConstraint(), FulfillmentConstraintItemProvider.class);
 				sb.append(labelProvider.getText(bundle.getFulfillmentConstraint()));				
 			}
 			if (bundle.getSalesAvailability() != null) {
-				if (sb.length() > 0 && !(sb.lastIndexOf("-") == (sb.length() - 1))) sb.append("-");
+				if (sb.length() > 0 && !(sb.lastIndexOf(" - ") == (sb.length() - 1))) sb.append("-");
 				SalesAvailabilityConstraintItemProvider labelProvider = (SalesAvailabilityConstraintItemProvider) adapterFactory.adapt(bundle.getSalesAvailability(), SalesAvailabilityConstraintItemProvider.class);
 				sb.append(labelProvider.getText(bundle.getSalesAvailability()));				
 			}			
 			if (bundle.getTravelValidity() != null) {
-				if (sb.length() > 0 && !(sb.lastIndexOf("-") == (sb.length() - 1))) sb.append("-");
+				if (sb.length() > 0 && !(sb.lastIndexOf(" - ") == (sb.length() - 1))) sb.append("-");
 				TravelValidityConstraintItemProvider labelProvider = (TravelValidityConstraintItemProvider) adapterFactory.adapt(bundle.getTravelValidity(), TravelValidityConstraintItemProvider.class);
 				sb.append(labelProvider.getText(bundle.getTravelValidity()));				
 			}				
 			if (bundle.getTotalPassengerConstraint() != null) {
-				if (sb.length() > 0 && !(sb.lastIndexOf("-") == (sb.length() - 1))) sb.append("-");
+				if (sb.length() > 0 && !(sb.lastIndexOf(" - ") == (sb.length() - 1))) sb.append("-");
 				TotalPassengerCombinationConstraintItemProvider labelProvider = (TotalPassengerCombinationConstraintItemProvider) adapterFactory.adapt(bundle.getTotalPassengerConstraint(), TotalPassengerCombinationConstraintItemProvider.class);
 				sb.append(labelProvider.getText(bundle.getTotalPassengerConstraint()));				
 			}				

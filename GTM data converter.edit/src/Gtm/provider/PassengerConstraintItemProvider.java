@@ -343,14 +343,24 @@ public class PassengerConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	@Override
+	@Override 
 	public String getText(Object object) {
-		String label = ((PassengerConstraint)object).getDataDescription();
-		return label == null || label.length() == 0 ?
-			getString("_UI_PassengerConstraint_type") :
-			getString("_UI_PassengerConstraint_type") + " " + label;
+		StringBuilder sb = new StringBuilder();
+		
+		PassengerConstraint pc = (PassengerConstraint)object;
+			
+		sb.append(getString("_UI_PassengerConstraint_type"));
+		
+		if (pc.getDataDescription() != null && pc.getDataDescription().length() > 0) {
+			sb.append(pc.getDataDescription());
+		} else if (pc.getTravelerType() != null){
+			sb.append(" - ").append(pc.getTravelerType().getLiteral());
+		}
+		
+		return sb.toString();
+		
 	}
 
 

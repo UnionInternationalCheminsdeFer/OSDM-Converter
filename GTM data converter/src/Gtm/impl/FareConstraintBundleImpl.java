@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,6 +47,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getTotalPassengerConstraint <em>Total Passenger Constraint</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getDefaultRegulatoryConditions <em>Default Regulatory Conditions</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getConvertedBundles <em>Converted Bundles</em>}</li>
  * </ul>
  *
  * @generated
@@ -210,6 +212,16 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * @ordered
 	 */
 	protected DataSource dataSource = DATA_SOURCE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getConvertedBundles() <em>Converted Bundles</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConvertedBundles()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FareConstraintBundle> convertedBundles;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -597,6 +609,18 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<FareConstraintBundle> getConvertedBundles() {
+		if (convertedBundles == null) {
+			convertedBundles = new EObjectResolvingEList<FareConstraintBundle>(FareConstraintBundle.class, this, GtmPackage.FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES);
+		}
+		return convertedBundles;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -631,6 +655,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 				return getDefaultRegulatoryConditions();
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
 				return getDataSource();
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES:
+				return getConvertedBundles();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -681,6 +707,10 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
 				setDataSource((DataSource)newValue);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES:
+				getConvertedBundles().clear();
+				getConvertedBundles().addAll((Collection<? extends FareConstraintBundle>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -729,6 +759,9 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
 				setDataSource(DATA_SOURCE_EDEFAULT);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES:
+				getConvertedBundles().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -765,6 +798,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 				return defaultRegulatoryConditions != null && !defaultRegulatoryConditions.isEmpty();
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__DATA_SOURCE:
 				return dataSource != DATA_SOURCE_EDEFAULT;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES:
+				return convertedBundles != null && !convertedBundles.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

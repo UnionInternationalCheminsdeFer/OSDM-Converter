@@ -1,5 +1,6 @@
 package Gtm.converter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -73,7 +74,8 @@ import Gtm.TravelerType;
 import Gtm.ViaStation;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
-import Gtm.utils.GtmUtils; 
+import Gtm.utils.GtmUtils;
+import Gtm.utils.GtmValidator; 
 
 /**
  * The Class ConverterToLegacy.
@@ -147,6 +149,9 @@ public class 	ConverterToLegacy {
 	 * @return the int
 	 */
 	public int convert(IProgressMonitor monitor) {
+		
+		//clean up the data
+		GtmUtils.deleteOrphanedObjects(domain,tool);
 		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
 		if (carrier == null) {
@@ -415,7 +420,6 @@ public class 	ConverterToLegacy {
 		if (routeNumberTooHigh.size() > 0) {
 			//remove corresponding route fares
 			ArrayList<LegacyRouteFare> excludeFare = new ArrayList<LegacyRouteFare>();
-			
 						
 			for (LegacyRouteFare fare : routeFares) {
 				if (routeNumberTooHigh.contains(fare.getSeries())) {
@@ -427,8 +431,6 @@ public class 	ConverterToLegacy {
 			}
 			
 		}
-		
-		
 		
 	}
 
@@ -450,6 +452,7 @@ public class 	ConverterToLegacy {
 			
 			if (fare2 == null) {
 				uniqueFares.put(getFareId(fare), fare);			
+				fare2 = fare;
 			} else {
 				if (fare.isSetFare1st()) {
 					fare2.setFare1st(fare.getFare1st());
@@ -460,23 +463,38 @@ public class 	ConverterToLegacy {
 					fare2.setReturnFare2nd(fare.getFare2nd() + fare.getFare2nd());
 				}
 			}
-	
+			
 		}
 		
-		HashSet<LegacyRouteFare> fares = new HashSet<LegacyRouteFare>();
-		fares.addAll(uniqueFares.values());
+		ArrayList<LegacyRouteFare> faresWithoutPrice = new ArrayList<LegacyRouteFare>();
 		
-		//distance must be zero in case the price was not set
-		for (LegacyRouteFare fare: fares) {
+		for (LegacyRouteFare fare: uniqueFares.values()) {
 			
+			if (!fare.isSetFare1st() && !fare.isSetFare2nd() ) {
+				
+				faresWithoutPrice.add(fare);
+				
+				GtmUtils.writeConsoleError("Fare will be ignored as price indication by series distance failed: " + GtmUtils.getLabelText(fare), editor);
+				
+			}
+			
+			//distance must be zero in case the price was not set
 			if (!fare.isSetFare1st()) {
 				 fare.getSeries().setDistance1(0);
 			}
 			if (!fare.isSetFare2nd()) {
 				 fare.getSeries().setDistance2(0);
-			}			
+			}	
+	
 		}
 		
+		for (LegacyRouteFare fare: faresWithoutPrice) {
+			uniqueFares.remove(getFareId(fare));
+		}
+		
+		HashSet<LegacyRouteFare> fares = new HashSet<LegacyRouteFare>();
+		fares.addAll(uniqueFares.values());
+				
 		return fares;
 	}
 
@@ -600,47 +618,7 @@ public class 	ConverterToLegacy {
 				}
 			}
 		}
-		
-		//fare description local
-		Text text = fare.getFareDetailDescription();
-		if (text != null && tool.getConversionFromLegacy().getParams().isConvertFareDescriptions()) {
-			if (text.getShortTextICAO() != null && text.getShortTextICAO().length() > 0) {
-				if (sbl.length() > 0) {
-					sbl.append("--"); //$NON-NLS-1$
-				}
-				sbl.append(text.getShortTextICAO());
-				String fdl = "--" + text.getShortTextICAO(); //$NON-NLS-1$
-				
-				if (text.getTranslations() != null) {	
-					//translations
-					for (Translation trans : text.getTranslations()) {
-						if (trans.getLanguage().getCode().equals("fr")) { //$NON-NLS-1$
-							if (trans.getShortTextICAO() != null && trans.getShortTextICAO().length() > 0) {
-								sbfr.append(trans.getShortTextICAO());
-							} else {
-								sbfr.append(fdl);
-							}
-						}
-						if (trans.getLanguage().getCode().equals("de")) { //$NON-NLS-1$
-							if (trans.getShortTextICAO() != null && trans.getShortTextICAO().length() > 0) {
-								sbge.append(trans.getShortTextICAO());
-							} else {
-								sbge.append(fdl);
-							}
-						}			
-						if (trans.getLanguage().getCode().equals("en")) { //$NON-NLS-1$
-							if (trans.getShortTextICAO() != null && trans.getShortTextICAO().length() > 0) {
-								sben.append(trans.getShortTextICAO());
-							} else {
-								sben.append(fdl);
-							}
-						}		
-					}
-				}				
-			}
-		}
-
-		
+			
 		if (sbText != null && sbText.length() > 0) {
 			sbl.append(sbText);
 			sbfr.append(sbText);
@@ -661,7 +639,7 @@ public class 	ConverterToLegacy {
 	 * @param tool the tool
 	 * @return the end date
 	 */
-	private Object getEndDate(GTMTool tool) {
+	private Date getEndDate(GTMTool tool) {
 		if (tool == null || tool.getGeneralTariffModel() == null || tool.getGeneralTariffModel().getFareStructure()==null|| tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints() == null) {
 			return null;
 		}
@@ -1092,7 +1070,15 @@ public class 	ConverterToLegacy {
 		
 		routeFare.setFareTableNumber(addFareDescription(fare));
 		series.setFareTableNumber(routeFare.getFareTableNumber());
-
+		
+		try {
+			String converterError = GtmValidator.checkConvertability(fare, tool.getConversionFromLegacy().getLegacy108().getCarrier());
+			if (converterError != null) {
+				GtmUtils.writeConsoleWarning("Fare not convertable: " + converterError + " " + GtmUtils.getLabelText(fare), editor);
+			}
+		} catch (Exception e) {
+			//do nothing
+		}
 		return routeFare;
 	}
 
@@ -1190,7 +1176,6 @@ public class 	ConverterToLegacy {
 	 */
 	private LegacySeries convertToSeries(FareElement fare) {
 		
-		
 		if (fare.getRegionalConstraint() == null ||
 				fare.getFareConstraintBundle() == null ||
 				fare.getRegionalConstraint().getRegionalValidity() == null ||
@@ -1198,7 +1183,6 @@ public class 	ConverterToLegacy {
 				fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null ) {
 				return null;
 		}
-			
 			
 		RegionalConstraint regionalConstraint = fare.getRegionalConstraint();
 		
@@ -1226,8 +1210,9 @@ public class 	ConverterToLegacy {
 		}		
 		
 	
-		series.setDistance1((int) regionalConstraint.getDistance());
-		series.setDistance2((int) regionalConstraint.getDistance());
+		BigDecimal distance = new BigDecimal(Float.toString(regionalConstraint.getDistance()));
+		series.setDistance1(distance.intValue());
+		series.setDistance2(distance.intValue());
 		
 		series.setPricetype(LegacyCalculationType.ROUTE_BASED);
 		
@@ -1299,9 +1284,13 @@ public class 	ConverterToLegacy {
 		
 		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
 		
-		series.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-		series.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
-
+		HashSet<SalesAvailabilityConstraint> salesAvailabilities = new HashSet<SalesAvailabilityConstraint>();
+		for (FareElement f : regionalConstraint.getLinkedFares()){
+			salesAvailabilities.add(f.getFareConstraintBundle().getSalesAvailability());
+		}	
+		DateRange dateRange = getDateRange(salesAvailabilities);
+		series.setValidFrom(dateRange.getStartDate());
+		series.setValidUntil(dateRange.getEndDate());	
 		
 		if (fare.getServiceConstraint() != null && fare.getServiceConstraint().getIncludedServiceBrands() != null) {
 			for (ServiceBrand brand : fare.getServiceConstraint().getIncludedServiceBrands()) {
@@ -1320,6 +1309,40 @@ public class 	ConverterToLegacy {
 		
 		return series;
 	}
+	
+	private DateRange getDateRange(HashSet<SalesAvailabilityConstraint> salesAvailabilities) {
+		
+		Date startDate = null;
+		Date endDate = null;
+		
+		for (SalesAvailabilityConstraint s : salesAvailabilities) {
+		
+			for (SalesRestriction r : s.getRestrictions()) {
+			
+				if (r.getSalesDates() != null && r.getSalesDates().getFromDate() != null) {
+					if (startDate == null) {
+						startDate = r.getSalesDates().getFromDate();
+					} else {
+						if (startDate.after(r.getSalesDates().getFromDate())) {
+							startDate = r.getSalesDates().getFromDate();
+						}
+					}
+				}
+			
+				if (r.getSalesDates() != null && r.getSalesDates().getUntilDate() != null) {
+					if (endDate == null) {
+						endDate = r.getSalesDates().getUntilDate();
+					} else {
+						if (endDate.before(r.getSalesDates().getUntilDate())) {
+							endDate = r.getSalesDates().getUntilDate();
+						}
+					}
+				}
+			}
+		}
+		return new DateRange(startDate, endDate);
+	}
+
 
 
 	/**
@@ -1344,7 +1367,6 @@ public class 	ConverterToLegacy {
 				}
 			
 				//failed, try an on border station in the required country
-
 				s = getLocalStations(tool.getConversionFromLegacy().getParams().getCountry(),lbp.getOnBorderStations());
 				if (s != null && s.size() > 0) {
 					return legacyStations.get(Integer.parseInt(s.get(0).getCode()));
@@ -1683,8 +1705,16 @@ public class 	ConverterToLegacy {
 		if (fare.getLegacyConversion() == LegacyConversionType.NO) return false;
 		
 		//only ADULT
-		if (fare.getPassengerConstraint().getTravelerType() != TravelerType.ADULT)  return false;
+		if (fare.getPassengerConstraint() == null) {
+			String message = "Passenger constraint missing in: " + GtmUtils.getLabelText(fare) + " will not be converted";
+			GtmUtils.writeConsoleError(message, editor);			
+			return false;
+		}
 		
+		if (fare.getPassengerConstraint().getTravelerType() != TravelerType.ADULT)  {
+			return false;
+		}
+	
 		//only FULL_FLEX combination
 		if (!isFullFlexCombi(fare))  return false;
 		

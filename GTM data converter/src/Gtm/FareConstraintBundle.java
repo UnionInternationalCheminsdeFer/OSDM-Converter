@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareConstraintBundle#getTotalPassengerConstraint <em>Total Passenger Constraint</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getDefaultRegulatoryConditions <em>Default Regulatory Conditions</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link Gtm.FareConstraintBundle#getConvertedBundles <em>Converted Bundles</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareConstraintBundle()
@@ -295,5 +296,17 @@ public interface FareConstraintBundle extends EObject {
 	 * @generated
 	 */
 	void setDataSource(DataSource value);
+
+	/**
+	 * Returns the value of the '<em><b>Converted Bundles</b></em>' reference list.
+	 * The list contents are of type {@link Gtm.FareConstraintBundle}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Converted Bundles</em>' reference list.
+	 * @see Gtm.GtmPackage#getFareConstraintBundle_ConvertedBundles()
+	 * @model
+	 * @generated
+	 */
+	EList<FareConstraintBundle> getConvertedBundles();
 
 } // FareConstraintBundle

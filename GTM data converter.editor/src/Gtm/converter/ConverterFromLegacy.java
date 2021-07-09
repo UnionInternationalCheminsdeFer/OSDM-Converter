@@ -16,7 +16,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.DeleteCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
@@ -34,7 +33,6 @@ import Gtm.ConnectionPoint;
 import Gtm.Country;
 import Gtm.CurrencyPrice;
 import Gtm.DataSource;
-import Gtm.EndOfSale;
 import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.FareElements;
@@ -45,6 +43,7 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Language;
+import Gtm.Legacy108;
 import Gtm.Legacy108Memo;
 import Gtm.Legacy108Station;
 import Gtm.LegacyAccountingIdentifier;
@@ -52,8 +51,10 @@ import Gtm.LegacyBorderPoint;
 import Gtm.LegacyBorderPointMapping;
 import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
+import Gtm.LegacyConversionType;
 import Gtm.LegacyDistanceFare;
 import Gtm.LegacyFareDetailMap;
+import Gtm.LegacyFareTemplates;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeparateContractSeries;
 import Gtm.LegacySeries;
@@ -69,7 +70,6 @@ import Gtm.RoundingType;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.SalesRestriction;
 import Gtm.ServiceConstraint;
-import Gtm.StartOfSale;
 import Gtm.Station;
 import Gtm.StationFareDetailType;
 import Gtm.StationNames;
@@ -124,6 +124,10 @@ public class ConverterFromLegacy {
 	
 	/** The local stations in the legacy data country. */
 	private HashMap<Integer,Text> memoTexts = new HashMap<Integer,Text>();
+	
+	/**  The connectionPoints with border code. */
+	private HashMap<Date,SalesAvailabilityConstraint> salesAvailabilitiesFromSeries = new HashMap<Date,SalesAvailabilityConstraint>();
+
 	
 	/** The country */
 	private Country myCountry = null;
@@ -220,7 +224,7 @@ public class ConverterFromLegacy {
 			command.append(com);
 			executeAndFlush(command,domain);	
 		} else {
-			command.append(RemoveCommand.create(domain,tool.getGeneralTariffModel().getFareStructure().getFareElements(),GtmPackage.Literals.FARE_ELEMENTS__FARE_ELEMENTS, fares) );
+			command.append(DeleteCommand.create(domain, fares));
 			executeAndFlush(command,domain);
 		}
 		fares.clear();	
@@ -239,7 +243,7 @@ public class ConverterFromLegacy {
 			command.append(com);
 			executeAndFlush(command,domain);			
 		} else {
-			command.append(RemoveCommand.create(domain,tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints(),GtmPackage.Literals.REGIONAL_CONSTRAINTS__REGIONAL_CONSTRAINTS, regions) );
+			command.append(DeleteCommand.create(domain, regions));
 			executeAndFlush(command,domain);
 		}
 		deleted = regions.size();
@@ -258,7 +262,7 @@ public class ConverterFromLegacy {
 			command.append(SetCommand.create(domain, tool.getGeneralTariffModel().getFareStructure(), GtmPackage.Literals.FARE_STRUCTURE__PRICES, priceList));
 			executeAndFlush(command,domain);
 		} else {
-			command.append(RemoveCommand.create(domain,tool.getGeneralTariffModel().getFareStructure().getPrices(),GtmPackage.Literals.PRICES__PRICES, prices) );
+			command.append(DeleteCommand.create(domain, prices));
 			executeAndFlush(command,domain);
 		}
 		prices.clear();
@@ -280,6 +284,16 @@ public class ConverterFromLegacy {
 			}
 		}		
 		executeAndFlush(command,domain);
+		
+		//delete fare constraint bundles
+		command = new CompoundCommand();
+		for (FareConstraintBundle sa : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
+			if (sa.getDataSource() == DataSource.CONVERTED || sa.getDataSource() == DataSource.IMPORTED) {
+				command.append(DeleteCommand.create(domain, sa) );
+			}
+		}		
+		executeAndFlush(command,domain);
+
 		
 		//delete Carrier Constraints
 		command = new CompoundCommand();
@@ -346,10 +360,13 @@ public class ConverterFromLegacy {
 			}
 		}
 		executeAndFlush(command,domain);
+		
+		GtmUtils.deleteOrphanedObjects(domain,tool);
+
+		
 
 		return deleted;
 	}
-
 
 	/**
 	 * Convert to OSDM model.
@@ -363,11 +380,15 @@ public class ConverterFromLegacy {
 		ArrayList<AfterSalesRule> afterSalesRules = new ArrayList<AfterSalesRule>();
 		ArrayList<RegionalConstraint> regions = new ArrayList<RegionalConstraint>();
 		ArrayList<FareElement> fares = new ArrayList<FareElement>();
+		ArrayList<DateRange> priceValidityRanges = new ArrayList<DateRange>();
+
 		
 		int nbSeries = 0;
 		int worked = 100000 / tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size();
 		if (worked < 1 ) worked = 1;
 		int added = 0;
+		
+		checkFareTemplates();
 
 		monitor.subTask(NationalLanguageSupport.ConverterFromLegacy_1);
 		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
@@ -409,12 +430,14 @@ public class ConverterFromLegacy {
 		executeAndFlush(command, domain);
 		monitor.worked(1);
 		
+		priceValidityRanges = findAllPriceValidityRanges(tool.getConversionFromLegacy().getLegacy108());
 		
 		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			
 			nbSeries++;
 			
-			ArrayList<DateRange> validityRanges = findValidRanges (series);
+			ArrayList<DateRange> validityRanges = priceValidityRanges;
+					// findPriceValidityRanges (series);
 			
 			RegionalConstraint regionalConstraint = null;
 			try {
@@ -445,12 +468,10 @@ public class ConverterFromLegacy {
 					boolean convert = true;
 					//check series type
 					if (fareTemplate.getSeriesFilter() != null && fareTemplate.getSeriesFilter().size() > 0) {
-						
 						//check the filter on series type
 						if (series.getType()!= null && !fareTemplate.getSeriesFilter().contains(series.getType())) {
 							convert = false;
 						}
-						
 					}
 					
 					//check the carrier filter
@@ -477,14 +498,29 @@ public class ConverterFromLegacy {
 						convert = false;
 					}
 					
+					SalesAvailabilityConstraint s = fareTemplate.getSalesAvailability();
+					if (s == null) {
+						s = fareTemplate.getFareConstraintBundle().getSalesAvailability();
+					}
+					
 					if (convert) {
-						try {
-							for (DateRange dateRange : validityRanges) {
+						
+						if (s != null) {
+							try {
+								DateRange dateRange = getDateRange(s);
 								convertSeriesToFares(series, fareTemplate,dateRange, regionalConstraint,regionalConstraintR ,priceList, legacyFareCounter, fares, afterSalesRules);
+							} catch (ConverterException e) {
+								//already logged
 							}
-							added++;
-						} catch (ConverterException e) {
-							// error already logged
+						} else {
+							try {
+								for (DateRange dateRange : validityRanges) {
+									convertSeriesToFares(series, fareTemplate,dateRange, regionalConstraint,regionalConstraintR ,priceList, legacyFareCounter, fares, afterSalesRules);
+								}
+								added++;
+							} catch (ConverterException e) {
+								// error already logged
+							}
 						}
 					}
 				}	
@@ -555,6 +591,113 @@ public class ConverterFromLegacy {
 	}
 
 
+	private ArrayList<DateRange> findAllPriceValidityRanges(Legacy108 legacy108) {
+		
+		
+					
+		HashMap<String,DateRange> dateSet = new HashMap<String,DateRange>();
+		
+		for (LegacyDistanceFare fare :  tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
+			DateRange r = new DateRange(fare.getValidFrom(), fare.getValidUntil());
+			String key = fare.getValidFrom().toString() + fare.getValidUntil().toString();
+			dateSet.put(key,r);
+		} 
+
+		for (LegacyRouteFare fare :  tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
+			DateRange r = new DateRange(fare.getValidFrom(), fare.getValidUntil());
+			String key = fare.getValidFrom().toString() + fare.getValidUntil().toString();
+			dateSet.put(key,r);		
+		}
+		
+		ArrayList<DateRange> list = new ArrayList<DateRange>();
+		list.addAll(dateSet.values());
+		return list;
+		//return DateRange.getIntervalls(dateSet);
+	}
+
+	private DateRange getDateRange(SalesAvailabilityConstraint s) {
+		
+		Date startDate = null;
+		Date endDate = null;
+		
+		for (SalesRestriction r : s.getRestrictions()) {
+			
+			if (r.getSalesDates() != null && r.getSalesDates().getFromDate() != null) {
+				if (startDate == null) {
+					startDate = r.getSalesDates().getFromDate();
+				} else {
+					if (startDate.after(r.getSalesDates().getFromDate())) {
+						startDate = r.getSalesDates().getFromDate();
+					}
+				}
+			}
+			
+			if (r.getSalesDates() != null && r.getSalesDates().getUntilDate() != null) {
+				if (endDate == null) {
+					endDate = r.getSalesDates().getUntilDate();
+				} else {
+					if (endDate.before(r.getSalesDates().getUntilDate())) {
+						endDate = r.getSalesDates().getUntilDate();
+					}
+				}
+			}
+			
+		}
+		return new DateRange(startDate, endDate);
+	}
+
+	private void checkFareTemplates() {
+		
+		
+		if (tool.getConversionFromLegacy().getParams().getLegacyFareTemplates() == null) {
+			return;
+		}
+			
+		LegacyFareTemplates legacyFareTemplates = tool.getConversionFromLegacy().getParams().getLegacyFareTemplates();
+			
+		//check for issues in the fare templates.
+		
+		
+		
+		//check for split between first and second class
+		FareTemplate wrongFare = null;
+		
+		for (FareTemplate fare : legacyFareTemplates.getFareTemplates()) {
+			
+			if (fare.getLegacyConversion().equals(LegacyConversionType.YES) || fare.getLegacyConversion().equals(LegacyConversionType.ONLY)  ) {
+				
+				//check for another fare with a different class and a different text
+				
+				for (FareTemplate fare2 : legacyFareTemplates.getFareTemplates()) {
+					
+					if ( (fare2.getLegacyConversion().equals(LegacyConversionType.YES) 
+						  || fare2.getLegacyConversion().equals(LegacyConversionType.ONLY)  )
+							
+						&& fare2 != fare 
+						&& fare2.getText() != fare.getText()
+						&& fare2.getCarrierConstraint() == fare.getCarrierConstraint()
+						&& fare2.getServiceClass() != fare.getServiceClass()) {
+						
+						wrongFare = fare;
+						
+					}
+						
+				}
+				
+			}
+			
+		}
+		
+		if (wrongFare != null) {
+			StringBuilder sb = new StringBuilder();
+			sb.append( "Fare template split with different fare names by class not allowed for convertable faretemplate: ");
+			sb.append(GtmUtils.getLabelText(wrongFare));
+			GtmUtils.writeConsoleError( sb.toString(),editor);
+		}
+		return;
+	}
+
+
 	/** The direction original. */
 	private static int DIRECTION_ORIGINAL = 1;
 	
@@ -581,6 +724,10 @@ public class ConverterFromLegacy {
 			
 			Price price = convertSeriesToPrice(tool, series, fareTemplate, dateRange, priceList,regionalConstraint);
 		
+			if (price == null) {
+				return;
+			}
+			
 			if (regionalConstraint != null) {
 				convertSeriesToFare(tool, series, fareTemplate, DIRECTION_ORIGINAL,legacyFareCounter,price,regionalConstraint,dateRange,afterSalesRules, priceList, fares);
 			}
@@ -732,7 +879,6 @@ public class ConverterFromLegacy {
 			bd =  GtmUtils.round(0.0f,1,RoundingMode.UP, 5);
 			amount = bd.floatValue();
 		}
-		
 		
 		return amount;
 	}
@@ -920,7 +1066,7 @@ public class ConverterFromLegacy {
 		
 		for (SalesAvailabilityConstraint sa : tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()){
 			
-			if ( sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa.getDataSource() == DataSource.CONVERTED) {
 				
 				if (sa.getRestrictions() != null &&
 					!sa.getRestrictions().isEmpty() &&	
@@ -931,8 +1077,7 @@ public class ConverterFromLegacy {
 					if (sa.getRestrictions().get(0).getSalesDates().getFromDate().equals(dateRange.startDate) 
 							&& sa.getRestrictions().get(0).getSalesDates().getUntilDate().equals(dateRange.endDate) ) {
 							return sa;
-						}
-					return null;
+					}
 				}
 			}
 		}
@@ -940,45 +1085,6 @@ public class ConverterFromLegacy {
 		return null;
 	}
 
-
-	/**
-	 * Find valid ranges.
-	 *
-	 * @param series the series
-	 * @return the array list
-	 */
-	private ArrayList<DateRange> findValidRanges(LegacySeries series) {
-				
-		HashSet<Date> dateSet = new HashSet<Date>();
-		dateSet.add(series.getValidFrom());
-		dateSet.add(series.getValidUntil());
-		
-		if (series.getPricetype() == LegacyCalculationType.DISTANCE_BASED) {
-		
-			for (LegacyDistanceFare fare :  tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
-				if (fare.getValidFrom().after(series.getValidFrom()) && fare.getValidFrom().before(series.getValidUntil())) {
-					dateSet.add(fare.getValidFrom());
-				}
-				if (fare.getValidUntil().after(series.getValidFrom()) && fare.getValidUntil().before(series.getValidUntil())) {
-					dateSet.add(fare.getValidUntil());
-				}
-			} 
-		} else if (series.getPricetype() == LegacyCalculationType.ROUTE_BASED) {
-			
-			for (LegacyRouteFare fare :  tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
-				if (fare.getValidFrom().after(series.getValidFrom()) && fare.getValidFrom().before(series.getValidUntil())) {
-					dateSet.add(fare.getValidFrom());
-				}
-				if (fare.getValidUntil().after(series.getValidFrom()) && fare.getValidUntil().before(series.getValidUntil())) {
-					dateSet.add(fare.getValidUntil());
-				}
-			} 
-			
-		}
-		
-		return DateRange.getIntervalls(dateSet);
-
-	}
 
 
 	/**
@@ -1717,8 +1823,15 @@ public class ConverterFromLegacy {
 		curPrice.setAmount(amount);
 		curPrice.setCurrency(tool.getCodeLists().getCurrencies().findCurrency("EUR")); //$NON-NLS-1$
 	
-		addVat(curPrice,regionalConstraint);
-	
+		try {
+			addVat(curPrice,regionalConstraint);
+		} catch (Exception e) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Vat calculation failed for amount: ");
+			sb.append(amount).append(" - ");
+			sb.append(e.getMessage());
+			GtmUtils.writeConsoleError("Vat calculation failed for ", editor);
+		}
 		price.getCurrencies().add(curPrice);
 		return price;
 		
@@ -1821,12 +1934,15 @@ public class ConverterFromLegacy {
 					
 			//get the lowest price where the distance is ok
 			for (LegacyDistanceFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
-				if (   fare.getFareTableNumber() == series.getFareTableNumber()				
+				if (   fare.getFareTableNumber() == series.getFareTableNumber()	
+					&& (fare.getValidFrom().equals(dateRange.getStartDate()) )
+					&& (fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {	
+					/*	
 					&& (   fare.getValidFrom().before(dateRange.getStartDate())
 						|| fare.getValidFrom().equals(dateRange.getStartDate()) )
 					&& ( fare.getValidUntil().after(dateRange.getEndDate())
 					   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {
-				
+				    */
 					if (travelClass == 1) {
 						if (distance <= fare.getDistance() && (fare.getFare1st() < price || !distanceFound)) {
 							price = fare.getFare1st();
@@ -1912,6 +2028,8 @@ public class ConverterFromLegacy {
 			fare.setCarrierConstraint(fareTemplate.getCarrierConstraint());
 		}
 		
+		FareConstraintBundle bundle = null;
+		
 		if (isSeparateContract(series)) {
 			if (fareTemplate.getSeparateContractFareConstraintBundle() ==  null) {
 				StringBuilder sb = new StringBuilder();
@@ -1919,7 +2037,7 @@ public class ConverterFromLegacy {
 				GtmUtils.writeConsoleError(sb.toString(), editor);
 				return;
 			}
-			fare.setFareConstraintBundle(fareTemplate.getSeparateContractFareConstraintBundle());
+			bundle = fareTemplate.getSeparateContractFareConstraintBundle();
 		} else {
 			if (fareTemplate.getFareConstraintBundle() == null) {
 				StringBuilder sb = new StringBuilder();
@@ -1927,7 +2045,7 @@ public class ConverterFromLegacy {
 				GtmUtils.writeConsoleError(sb.toString(), editor);		
 				return;
 			}
-			fare.setFareConstraintBundle(fareTemplate.getFareConstraintBundle());
+			bundle = fareTemplate.getFareConstraintBundle();
 		}
 		fare.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_44 + Integer.toString(series.getNumber()) +NationalLanguageSupport.ConverterFromLegacy_45 + fareTemplate.getDataDescription());
 		
@@ -1935,11 +2053,48 @@ public class ConverterFromLegacy {
 		fare.setRegionalConstraint(regionalConstraint);
 		regionalConstraint.getLinkedFares().add(fare);
 		
-		if (fareTemplate.getSalesAvailability() != null) {
-			fare.setSalesAvailability(fareTemplate.getSalesAvailability());
-		} else if (fare.getFareConstraintBundle().getSalesAvailability() == null){
-			fare.getFareConstraintBundle().setSalesAvailability(findSalesAvailability(tool,dateRange));
-		}
+		
+		
+		fare.setFareConstraintBundle(bundle);
+		
+		if (bundle.getSalesAvailability() == null) {
+			if(tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints() != null
+				&& tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints() != null
+				&& tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 1) {
+						
+				SalesAvailabilityConstraint s = tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().get(0);				
+				bundle.setSalesAvailability(s);
+				
+			} else {
+				
+				
+				FareConstraintBundle validityBundle = findBundle(bundle, dateRange); 
+				if (validityBundle != null) {
+					fare.setFareConstraintBundle(validityBundle);
+				} else {
+					
+					//multiple sales availabilities to choose
+					GtmUtils.writeConsoleWarning("Validity Ranges are not unique! Fare constraint bundles will be copied per validity range.", editor);
+
+					SalesAvailabilityConstraint s = findSalesAvailability(tool, dateRange);
+					FareConstraintBundle bundle2 = EcoreUtil.copy(bundle);
+					bundle2.setSalesAvailability(s);
+					bundle2.setDataSource(DataSource.CONVERTED);	
+				
+					CompoundCommand command = new CompoundCommand();	
+					command.append(AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles(), GtmPackage.Literals.FARE_CONSTRAINT_BUNDLES__FARE_CONSTRAINT_BUNDLES, bundle2));
+					command.append(AddCommand.create(domain, bundle, GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES, bundle2));
+					if (command != null && !command.isEmpty() && command.canExecute()) {
+						domain.getCommandStack().execute(command);
+					}
+				
+					fare.setFareConstraintBundle(bundle2);
+				}
+			}
+		} 
+		
+		
+		
 		mapConstraintsAndDescriptions(fare, series);
 		if (price != null && fare != null) {
 			fare.setAfterSalesRule(convertAfterSalesRules(price, fareTemplate, afterSalesRules, priceList));
@@ -1949,6 +2104,33 @@ public class ConverterFromLegacy {
 	}
 
 	
+	private FareConstraintBundle findBundle(FareConstraintBundle bundle, DateRange dateRange) {
+		
+		
+		for (FareConstraintBundle bu : bundle.getConvertedBundles()){
+			
+			SalesAvailabilityConstraint sa = bu.getSalesAvailability();
+			
+			if (sa != null &&  sa.getDataSource() == DataSource.CONVERTED) {
+				
+				if (sa.getRestrictions() != null &&
+					!sa.getRestrictions().isEmpty() &&	
+					sa.getRestrictions().get(0).getSalesDates() != null &&
+					sa.getRestrictions().get(0).getSalesDates().getFromDate() != null &&
+					sa.getRestrictions().get(0).getSalesDates().getUntilDate() != null) {
+					
+					if (   sa.getRestrictions().get(0).getSalesDates().getFromDate().equals(dateRange.startDate) 
+						&& sa.getRestrictions().get(0).getSalesDates().getUntilDate().equals(dateRange.endDate) ) {
+						return bu;
+					}
+				}
+			}
+		}
+		
+		return null;
+
+	}
+
 	private void setDetailDescription(FareElement fare, int memoNumber) {
 		
 		// search memo
@@ -2052,18 +2234,14 @@ public class ConverterFromLegacy {
 	private void template2Fare(FareElement fare,FareTemplate fareTemplate) {
 		
 		fare.setFareDetailDescription(fareTemplate.getFareDetailDescription());
-		//C2.0 fare.setFulfillmentConstraint(fareTemplate.getFulfillmentConstraint());
 		fare.setIndividualContracts(fareTemplate.isIndividualContracts());		
 		fare.setPassengerConstraint(fareTemplate.getPassengerConstraint());
 		fare.setReductionConstraint(fareTemplate.getReductionConstraint());
-		//C2.0 fare.setPersonalDataConstraint(fareTemplate.getPersonalDataConstraint());
 		fare.setReservationParameter(fareTemplate.getReservationParameter());
-		//C2.0 fare.setSalesAvailability(fareTemplate.getSalesAvailability());
 		fare.setServiceClass(fareTemplate.getServiceClass());
 		fare.setServiceConstraint(fareTemplate.getServiceConstraint());
 		fare.setServiceLevel(fareTemplate.getServiceLevel());
 		fare.setText(fareTemplate.getText());
-		//C2.0 fare.setTravelValidity(fareTemplate.getTravelValidity());
 		fare.setType(fareTemplate.getType());
 		fare.setLegacyConversion(fareTemplate.getLegacyConversion());
 		
@@ -2248,30 +2426,24 @@ public class ConverterFromLegacy {
 	 */
 	public int convertSalesAvailabilities() {
 		
-		ArrayList<DateRange> validityRanges = new ArrayList<DateRange>();
-
-		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
-			
-			ArrayList<DateRange> seriesRanges = findValidRanges (series);
-			
-			if (validityRanges.isEmpty()) validityRanges.addAll(seriesRanges);
-			
-			DateRange.addUniqueRanges(validityRanges, seriesRanges);
-			
-		}
+		ArrayList<DateRange> validityRanges = findAllPriceValidityRanges(tool.getConversionFromLegacy().getLegacy108());
 		
+		
+		
+		//check whether we need	to convert sales availability or whether it is already set manualy
 		boolean conversionNeeded = false;
 		for (FareTemplate t : tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
-			if (t.getSalesAvailability() == null){
+			if (t.getSalesAvailability() == null 
+				&& t.getFareConstraintBundle().getSalesAvailability() == null){
 				 conversionNeeded = true;
-			}
+			} 
 		}
-		
 		if (!conversionNeeded) {
 			return 0;
 		}
 		
 		CompoundCommand command = new CompoundCommand();
+			
 		
 		for ( DateRange r : validityRanges) {
 			
@@ -2286,16 +2458,7 @@ public class ConverterFromLegacy {
 			if (tz != null) {
 				cal.setUtcOffset(tz.getOffset(new Date().getTime()) / 1000 / 60 );
 			}
-			
-			if (tool.getConversionFromLegacy().getParams().getStartOfSale()!= null) {
-				rest.setStartOfSale((StartOfSale) EcoreUtil.copy(tool.getConversionFromLegacy().getParams().getStartOfSale()));
-			} 
-			
-			
-			if (tool.getConversionFromLegacy().getParams().getEndOfSale()!= null) {
-				rest.setEndOfSale((EndOfSale) EcoreUtil.copy(tool.getConversionFromLegacy().getParams().getEndOfSale()));
-			} 
-			
+					
 			rest.setSalesDates(cal);
 
 			constraint.getRestrictions().add(rest);
@@ -2303,6 +2466,7 @@ public class ConverterFromLegacy {
 			command.append(AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getCalendars() , GtmPackage.Literals.CALENDARS__CALENDARS, cal));
 			command.append(AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints(),GtmPackage.Literals.SALES_AVAILABILITY_CONSTRAINTS__SALES_AVAILABILITY_CONSTRAINTS , constraint));
 			
+			salesAvailabilitiesFromSeries.put(r.startDate,constraint);		
 		}
 		
 		if (!command.isEmpty()) {

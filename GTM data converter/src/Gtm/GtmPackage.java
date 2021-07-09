@@ -3114,13 +3114,22 @@ public interface GtmPackage extends EPackage {
 	int FARE_CONSTRAINT_BUNDLE__DATA_SOURCE = 11;
 
 	/**
+	 * The feature id for the '<em><b>Converted Bundles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES = 12;
+
+	/**
 	 * The number of structural features of the '<em>Fare Constraint Bundle</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_CONSTRAINT_BUNDLE_FEATURE_COUNT = 12;
+	int FARE_CONSTRAINT_BUNDLE_FEATURE_COUNT = 13;
 
 	/**
 	 * The number of operations of the '<em>Fare Constraint Bundle</em>' class.
@@ -13023,6 +13032,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getFareConstraintBundle_DataSource();
 
 	/**
+	 * Returns the meta object for the reference list '{@link Gtm.FareConstraintBundle#getConvertedBundles <em>Converted Bundles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Converted Bundles</em>'.
+	 * @see Gtm.FareConstraintBundle#getConvertedBundles()
+	 * @see #getFareConstraintBundle()
+	 * @generated
+	 */
+	EReference getFareConstraintBundle_ConvertedBundles();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.FareStationSetDefinitions <em>Fare Station Set Definitions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -21224,6 +21244,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FARE_CONSTRAINT_BUNDLE__DATA_SOURCE = eINSTANCE.getFareConstraintBundle_DataSource();
+
+		/**
+		 * The meta object literal for the '<em><b>Converted Bundles</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES = eINSTANCE.getFareConstraintBundle_ConvertedBundles();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.FareStationSetDefinitionsImpl <em>Fare Station Set Definitions</em>}' class.
