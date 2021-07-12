@@ -873,10 +873,10 @@ public class ConverterFromLegacy {
 			bd = GtmUtils.round(amountF, 1, RoundingMode.HALF_EVEN, 10);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.DOWN20CENT) {
-			bd =  GtmUtils.round(0.0f,1,RoundingMode.DOWN, 5);
+			bd =  GtmUtils.round(amountF,1,RoundingMode.DOWN, 5);
 			amount = bd.floatValue();
 		} else if (roundingMode == RoundingType.UP20CENT) {
-			bd =  GtmUtils.round(0.0f,1,RoundingMode.UP, 5);
+			bd =  GtmUtils.round(amountF,1,RoundingMode.UP, 5);
 			amount = bd.floatValue();
 		}
 		
