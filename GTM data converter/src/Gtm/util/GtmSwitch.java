@@ -265,6 +265,12 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.CARRIER_RESOURCE_LOCATION: {
+				CarrierResourceLocation carrierResourceLocation = (CarrierResourceLocation)theEObject;
+				T result = caseCarrierResourceLocation(carrierResourceLocation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.ONLINE_RESOURCE: {
 				OnlineResource onlineResource = (OnlineResource)theEObject;
 				T result = caseOnlineResource(onlineResource);
@@ -697,12 +703,6 @@ public class GtmSwitch<T> extends Switch<T> {
 			case GtmPackage.ZONE_DEFINITION: {
 				ZoneDefinition zoneDefinition = (ZoneDefinition)theEObject;
 				T result = caseZoneDefinition(zoneDefinition);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GtmPackage.CARRIER_RESOURCE_LOCATION: {
-				CarrierResourceLocation carrierResourceLocation = (CarrierResourceLocation)theEObject;
-				T result = caseCarrierResourceLocation(carrierResourceLocation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

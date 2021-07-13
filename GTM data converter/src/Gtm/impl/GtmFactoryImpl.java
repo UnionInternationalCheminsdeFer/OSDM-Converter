@@ -91,6 +91,7 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.CARRIER_RESOURCE_LOCATIONS: return createCarrierResourceLocations();
 			case GtmPackage.TRAIN_RESOURCE_LOCATION: return createTrainResourceLocation();
 			case GtmPackage.STATION_RESOURCE_LOCATION: return createStationResourceLocation();
+			case GtmPackage.CARRIER_RESOURCE_LOCATION: return createCarrierResourceLocation();
 			case GtmPackage.ONLINE_RESOURCE: return createOnlineResource();
 			case GtmPackage.FULFILLMENT_CONSTRAINTS: return createFulfillmentConstraints();
 			case GtmPackage.FULFILLMENT_CONSTRAINT: return createFulfillmentConstraint();
@@ -163,7 +164,6 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.EDGE: return createEdge();
 			case GtmPackage.ZONE_DEFINITIONS: return createZoneDefinitions();
 			case GtmPackage.ZONE_DEFINITION: return createZoneDefinition();
-			case GtmPackage.CARRIER_RESOURCE_LOCATION: return createCarrierResourceLocation();
 			case GtmPackage.CROSS_BORDER_CONDITION: return createCrossBorderCondition();
 			case GtmPackage.FARE_COMBINATION_MODEL: return createFareCombinationModel();
 			case GtmPackage.REDUCTION_CONSTRAINTS: return createReductionConstraints();

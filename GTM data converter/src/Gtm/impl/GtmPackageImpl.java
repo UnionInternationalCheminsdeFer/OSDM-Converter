@@ -9081,6 +9081,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(stationResourceLocationEClass, STATION_RESOURCE_LOCATION__STATIONS);
 		createEReference(stationResourceLocationEClass, STATION_RESOURCE_LOCATION__CONNECTION_POINTS);
 
+		carrierResourceLocationEClass = createEClass(CARRIER_RESOURCE_LOCATION);
+		createEReference(carrierResourceLocationEClass, CARRIER_RESOURCE_LOCATION__CARRIER);
+		createEReference(carrierResourceLocationEClass, CARRIER_RESOURCE_LOCATION__SERVICE_BRAND);
+		createEReference(carrierResourceLocationEClass, CARRIER_RESOURCE_LOCATION__ONLINE_RESOURCES);
+
 		onlineResourceEClass = createEClass(ONLINE_RESOURCE);
 		createEAttribute(onlineResourceEClass, ONLINE_RESOURCE__OFFER_REQUEST_TYPE);
 		createEAttribute(onlineResourceEClass, ONLINE_RESOURCE__INTERFACE_TYPE);
@@ -9493,11 +9498,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(zoneDefinitionEClass, ZONE_DEFINITION__NAME_UTF8);
 		createEReference(zoneDefinitionEClass, ZONE_DEFINITION__STATION_SET);
 		createEReference(zoneDefinitionEClass, ZONE_DEFINITION__NUTS_CODES);
-
-		carrierResourceLocationEClass = createEClass(CARRIER_RESOURCE_LOCATION);
-		createEReference(carrierResourceLocationEClass, CARRIER_RESOURCE_LOCATION__CARRIER);
-		createEReference(carrierResourceLocationEClass, CARRIER_RESOURCE_LOCATION__SERVICE_BRAND);
-		createEReference(carrierResourceLocationEClass, CARRIER_RESOURCE_LOCATION__ONLINE_RESOURCES);
 
 		crossBorderConditionEClass = createEClass(CROSS_BORDER_CONDITION);
 		createEReference(crossBorderConditionEClass, CROSS_BORDER_CONDITION__FROM_COUNTRY);
@@ -10109,6 +10109,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getStationResourceLocation_Stations(), this.getStation(), null, "stations", null, 0, -1, StationResourceLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getStationResourceLocation_ConnectionPoints(), this.getConnectionPoint(), null, "connectionPoints", null, 0, -1, StationResourceLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(carrierResourceLocationEClass, CarrierResourceLocation.class, "CarrierResourceLocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCarrierResourceLocation_Carrier(), this.getCarrier(), null, "carrier", null, 1, 1, CarrierResourceLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCarrierResourceLocation_ServiceBrand(), this.getServiceBrand(), null, "serviceBrand", null, 0, 1, CarrierResourceLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCarrierResourceLocation_OnlineResources(), this.getOnlineResource(), null, "onlineResources", null, 0, -1, CarrierResourceLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(onlineResourceEClass, OnlineResource.class, "OnlineResource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOnlineResource_OfferRequestType(), this.getOfferRequestType(), "offerRequestType", null, 0, 1, OnlineResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOnlineResource_InterfaceType(), this.getInterfaceType(), "interfaceType", null, 0, 1, OnlineResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10525,11 +10530,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getZoneDefinition_NameUtf8(), ecorePackage.getEString(), "nameUtf8", null, 0, 1, ZoneDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getZoneDefinition_StationSet(), this.getStationSet(), null, "stationSet", null, 0, 1, ZoneDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getZoneDefinition_NutsCodes(), this.getNutsCode(), null, "nutsCodes", null, 0, -1, ZoneDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(carrierResourceLocationEClass, CarrierResourceLocation.class, "CarrierResourceLocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCarrierResourceLocation_Carrier(), this.getCarrier(), null, "carrier", null, 1, 1, CarrierResourceLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCarrierResourceLocation_ServiceBrand(), this.getServiceBrand(), null, "serviceBrand", null, 0, 1, CarrierResourceLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCarrierResourceLocation_OnlineResources(), this.getOnlineResource(), null, "onlineResources", null, 0, -1, CarrierResourceLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(crossBorderConditionEClass, CrossBorderCondition.class, "CrossBorderCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCrossBorderCondition_FromCountry(), this.getCountry(), null, "fromCountry", null, 0, 1, CrossBorderCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

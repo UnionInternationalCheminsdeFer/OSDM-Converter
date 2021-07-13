@@ -62,6 +62,12 @@ public class LegacyExporter {
 		this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
 		this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
 		
+		if (fromDate == null || untilDate == null) {
+			String message = "From / Until Date in Legacy Parameters is missing";
+			GtmUtils.writeConsoleError(message, editor);
+			return;
+		}
+		
 		try  {
 			if (tool.getConversionFromLegacy().getLegacy108().getCharacterSet().equals(CharacterSet.COUNTRY_DEFAULT)) {
 				charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getParams().getCountry().getDefaultCharacterSet(), editor);
@@ -71,7 +77,7 @@ public class LegacyExporter {
 		} catch (Exception e) {
 			String message = "no local character set provided using ISO-8859-1 instead - local station names might be corrupted in the export";
 			GtmUtils.writeConsoleError(message, editor);
-			e.printStackTrace();
+			GtmUtils.writeConsoleStackTrace(e, editor);
 		}
 		
 		writeL = false;
