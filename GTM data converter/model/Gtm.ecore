@@ -347,6 +347,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionPoints" upperBound="-1"
         eType="#//ConnectionPoint"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CarrierResourceLocation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrier" lowerBound="1"
+        eType="#//Carrier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceBrand" eType="#//ServiceBrand"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="onlineResources" upperBound="-1"
+        eType="#//OnlineResource" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OnlineResource">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="REQUEST_TYPE_MUST INTERFACE_TYPE_MUST SYSTEM_MUST"/>
@@ -994,13 +1001,6 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nutsCodes" upperBound="-1"
         eType="#//NutsCode"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CarrierResourceLocation">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="carrier" lowerBound="1"
-        eType="#//Carrier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceBrand" eType="#//ServiceBrand"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="onlineResources" upperBound="-1"
-        eType="#//OnlineResource" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CrossBorderCondition">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">

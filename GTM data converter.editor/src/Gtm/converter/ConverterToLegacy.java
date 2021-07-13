@@ -108,7 +108,7 @@ public class 	ConverterToLegacy {
 	private HashMap<Integer,Legacy108Station> legacyBorderStations = new HashMap<Integer,Legacy108Station>();	
 
 	/** The legacy separate contract series. */
-	private HashSet<LegacySeparateContractSeries> legacySeparateContractSeries = new HashSet<LegacySeparateContractSeries>();	
+	private HashMap<Integer, LegacySeparateContractSeries> legacySeparateContractSeries = new HashMap<Integer,LegacySeparateContractSeries>();	
 	
 	/** The legacy fare descriptions. */
 	private HashMap<Integer,Legacy108FareDescription> legacyFareDescriptions = new HashMap<Integer,Legacy108FareDescription>();	
@@ -233,9 +233,6 @@ public class 	ConverterToLegacy {
 			String message = NationalLanguageSupport.ConverterToLegacy_7;
 			GtmUtils.writeConsoleError(message, editor);
 		}
-		for (LegacySeparateContractSeries s : legacySeparateContractSeries) {
-			s.setSeriesNumber(s.getSeries().getNumber());
-		}
 		monitor.worked(1);
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_9);	
@@ -324,7 +321,7 @@ public class 	ConverterToLegacy {
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_14);	
 		LegacySeparateContractSeriesList lscsl = GtmFactory.eINSTANCE.createLegacySeparateContractSeriesList();
-		lscsl.getSeparateContractSeries().addAll(legacySeparateContractSeries);
+		lscsl.getSeparateContractSeries().addAll(legacySeparateContractSeries.values());
 		com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_SEPARATE_CONTRACT_SERIES, lscsl);
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
@@ -451,9 +448,11 @@ public class 	ConverterToLegacy {
 			LegacyRouteFare fare2 = uniqueFares.get(getFareId(fare)); 
 			
 			if (fare2 == null) {
-				uniqueFares.put(getFareId(fare), fare);			
+				uniqueFares.put(getFareId(fare), fare);	
+								
 				fare2 = fare;
 			} else {
+				
 				if (fare.isSetFare1st()) {
 					fare2.setFare1st(fare.getFare1st());
 					fare2.setReturnFare1st(fare.getFare1st() + fare.getFare1st());
@@ -1065,7 +1064,11 @@ public class 	ConverterToLegacy {
 			fare.getFareConstraintBundle().getFulfillmentConstraint().isSeparateFulFillmentRequired()) {
 			LegacySeparateContractSeries scl = GtmFactory.eINSTANCE.createLegacySeparateContractSeries();
 			scl.setSeries(series);
-			legacySeparateContractSeries.add(scl);
+			scl.setSeriesNumber(series.getNumber());
+			scl.setValidFrom(series.getValidFrom());
+			scl.setValidUntil(series.getValidUntil());
+
+			legacySeparateContractSeries.put(series.getNumber(),scl);
 		}
 		
 		routeFare.setFareTableNumber(addFareDescription(fare));

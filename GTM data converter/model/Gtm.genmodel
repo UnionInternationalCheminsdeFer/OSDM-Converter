@@ -618,9 +618,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConnectionPoint/nameUtf8"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//FareResourceLocations">
-      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareResourceLocations/trainResourceLocations"/>
-      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareResourceLocations/stationResourceLocations"/>
-      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareResourceLocations/carrierResourceLocations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareResourceLocations/trainResourceLocations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareResourceLocations/stationResourceLocations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareResourceLocations/carrierResourceLocations"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//TrainResourceLocations">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TrainResourceLocations/trainResourceLocations"/>
@@ -640,6 +640,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//StationResourceLocation/onlineResources"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//StationResourceLocation/stations"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//StationResourceLocation/connectionPoints"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//CarrierResourceLocation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierResourceLocation/carrier"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierResourceLocation/serviceBrand"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierResourceLocation/onlineResources"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//OnlineResource">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//OnlineResource/offerRequestType"/>
@@ -1071,11 +1076,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ZoneDefinition/nameUtf8"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ZoneDefinition/stationSet"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ZoneDefinition/nutsCodes"/>
-    </genClasses>
-    <genClasses ecoreClass="Gtm.ecore#//CarrierResourceLocation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierResourceLocation/carrier"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierResourceLocation/serviceBrand"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierResourceLocation/onlineResources"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//CrossBorderCondition">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CrossBorderCondition/fromCountry"/>

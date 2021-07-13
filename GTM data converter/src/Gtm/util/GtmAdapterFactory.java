@@ -200,6 +200,10 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createStationResourceLocationAdapter();
 			}
 			@Override
+			public Adapter caseCarrierResourceLocation(CarrierResourceLocation object) {
+				return createCarrierResourceLocationAdapter();
+			}
+			@Override
 			public Adapter caseOnlineResource(OnlineResource object) {
 				return createOnlineResourceAdapter();
 			}
@@ -486,10 +490,6 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseZoneDefinition(ZoneDefinition object) {
 				return createZoneDefinitionAdapter();
-			}
-			@Override
-			public Adapter caseCarrierResourceLocation(CarrierResourceLocation object) {
-				return createCarrierResourceLocationAdapter();
 			}
 			@Override
 			public Adapter caseCrossBorderCondition(CrossBorderCondition object) {

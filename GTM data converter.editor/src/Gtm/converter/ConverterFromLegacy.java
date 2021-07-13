@@ -386,7 +386,7 @@ public class ConverterFromLegacy {
 		int nbSeries = 0;
 		int worked = 100000 / tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size();
 		if (worked < 1 ) worked = 1;
-		int added = 0;
+		int faresConverted = 0;
 		
 		checkFareTemplates();
 
@@ -509,6 +509,7 @@ public class ConverterFromLegacy {
 							try {
 								DateRange dateRange = getDateRange(s);
 								convertSeriesToFares(series, fareTemplate,dateRange, regionalConstraint,regionalConstraintR ,priceList, legacyFareCounter, fares, afterSalesRules);
+								faresConverted++;
 							} catch (ConverterException e) {
 								//already logged
 							}
@@ -516,8 +517,8 @@ public class ConverterFromLegacy {
 							try {
 								for (DateRange dateRange : validityRanges) {
 									convertSeriesToFares(series, fareTemplate,dateRange, regionalConstraint,regionalConstraintR ,priceList, legacyFareCounter, fares, afterSalesRules);
+									faresConverted++;
 								}
-								added++;
 							} catch (ConverterException e) {
 								// error already logged
 							}
@@ -585,9 +586,11 @@ public class ConverterFromLegacy {
 		singleStationConnectionPoints.clear();
 		borderConnectionPoints.clear();
 		
+		GtmUtils.deleteOrphanedObjects(domain,tool);
+		
 		System.gc();
 		
-		return added;
+		return faresConverted;
 	}
 
 

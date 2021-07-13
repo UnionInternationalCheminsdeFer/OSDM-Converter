@@ -3812,6 +3812,7 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (carrierResourceLocationsItemProvider != null) carrierResourceLocationsItemProvider.dispose();
 		if (trainResourceLocationItemProvider != null) trainResourceLocationItemProvider.dispose();
 		if (stationResourceLocationItemProvider != null) stationResourceLocationItemProvider.dispose();
+		if (carrierResourceLocationItemProvider != null) carrierResourceLocationItemProvider.dispose();
 		if (onlineResourceItemProvider != null) onlineResourceItemProvider.dispose();
 		if (fulfillmentConstraintsItemProvider != null) fulfillmentConstraintsItemProvider.dispose();
 		if (fulfillmentConstraintItemProvider != null) fulfillmentConstraintItemProvider.dispose();
@@ -3884,7 +3885,6 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (edgeItemProvider != null) edgeItemProvider.dispose();
 		if (zoneDefinitionsItemProvider != null) zoneDefinitionsItemProvider.dispose();
 		if (zoneDefinitionItemProvider != null) zoneDefinitionItemProvider.dispose();
-		if (carrierResourceLocationItemProvider != null) carrierResourceLocationItemProvider.dispose();
 		if (crossBorderConditionItemProvider != null) crossBorderConditionItemProvider.dispose();
 		if (fareCombinationModelItemProvider != null) fareCombinationModelItemProvider.dispose();
 		if (reductionConstraintsItemProvider != null) reductionConstraintsItemProvider.dispose();

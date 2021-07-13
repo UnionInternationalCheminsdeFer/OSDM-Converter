@@ -156,6 +156,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateTrainResourceLocation((TrainResourceLocation)value, diagnostics, context);
 			case GtmPackage.STATION_RESOURCE_LOCATION:
 				return validateStationResourceLocation((StationResourceLocation)value, diagnostics, context);
+			case GtmPackage.CARRIER_RESOURCE_LOCATION:
+				return validateCarrierResourceLocation((CarrierResourceLocation)value, diagnostics, context);
 			case GtmPackage.ONLINE_RESOURCE:
 				return validateOnlineResource((OnlineResource)value, diagnostics, context);
 			case GtmPackage.FULFILLMENT_CONSTRAINTS:
@@ -300,8 +302,6 @@ public class GtmValidator extends EObjectValidator {
 				return validateZoneDefinitions((ZoneDefinitions)value, diagnostics, context);
 			case GtmPackage.ZONE_DEFINITION:
 				return validateZoneDefinition((ZoneDefinition)value, diagnostics, context);
-			case GtmPackage.CARRIER_RESOURCE_LOCATION:
-				return validateCarrierResourceLocation((CarrierResourceLocation)value, diagnostics, context);
 			case GtmPackage.CROSS_BORDER_CONDITION:
 				return validateCrossBorderCondition((CrossBorderCondition)value, diagnostics, context);
 			case GtmPackage.FARE_COMBINATION_MODEL:
