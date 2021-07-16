@@ -3102,20 +3102,41 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateCarrierConstraint_INCLUDE_OR_EXCLUDE(CarrierConstraint carrierConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (carrierConstraint.getIncludedCarriers() != null && carrierConstraint.getExcludedCarriers() != null && !carrierConstraint.getExcludedCarriers().isEmpty() && !carrierConstraint.getIncludedCarriers().isEmpty()) {
+		if (carrierConstraint.getIncludedCarriers() != null 
+			&& carrierConstraint.getExcludedCarriers() != null
+			&& !carrierConstraint.getExcludedCarriers().isEmpty() 
+			&& !carrierConstraint.getIncludedCarriers().isEmpty()) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createGtmDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 "", //$NON-NLS-1$
+						 "Included and excluded carriers used at the same time in:" + " " + getObjectLabel(carrierConstraint, context),
 						 new Object[] { getObjectLabel(carrierConstraint, context) },
 						 new Object[] { carrierConstraint },
 						 context));
 			}
 			return false;
 		}
+		
+		if (   (carrierConstraint.getIncludedCarriers() == null || carrierConstraint.getIncludedCarriers().isEmpty())
+			&& (carrierConstraint.getExcludedCarriers() == null || carrierConstraint.getExcludedCarriers().isEmpty()) ) {
+			
+			if (diagnostics != null) {
+				diagnostics.add
+					(createGtmDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Either included and excluded carriers must be privided in:" + " " + getObjectLabel(carrierConstraint, context),
+						 new Object[] { getObjectLabel(carrierConstraint, context) },
+						 new Object[] { carrierConstraint },
+						 context));
+			}
+			return false;
+		}
+		
 		return true;
 	}
 
@@ -4107,7 +4128,10 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateServiceConstraint_INCLUDE_OR_EXCLUDE(ServiceConstraint serviceConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (serviceConstraint.getExcludedServiceBrands() != null && serviceConstraint.getIncludedServiceBrands()!= null && !serviceConstraint.getExcludedServiceBrands().isEmpty() && !serviceConstraint.getIncludedServiceBrands().isEmpty()) {
+		if (serviceConstraint.getExcludedServiceBrands() != null && 
+			serviceConstraint.getIncludedServiceBrands() != null && 
+			!serviceConstraint.getExcludedServiceBrands().isEmpty() &&
+			!serviceConstraint.getIncludedServiceBrands().isEmpty()) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createGtmDiagnostic
@@ -4121,6 +4145,26 @@ public class GtmValidator extends EObjectValidator {
 			}
 			return false;
 		}
+		
+		if ( (serviceConstraint.getExcludedServiceBrands() == null || serviceConstraint.getExcludedServiceBrands().isEmpty()) &&
+			 (serviceConstraint.getIncludedServiceBrands() == null || serviceConstraint.getIncludedServiceBrands().isEmpty()) ) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createGtmDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Either included and excluded service brands must be provided in:" + " " + getObjectLabel(serviceConstraint, context),
+						 new Object[] { getObjectLabel(serviceConstraint, context) },
+						 new Object[] { serviceConstraint },
+						 context));
+			}
+			return false;
+		}		
+		
+		
+		
+		
 		return true;
 	}
 
