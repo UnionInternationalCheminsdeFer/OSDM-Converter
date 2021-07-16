@@ -66,7 +66,9 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 				try {
 					
 					monitor.beginTask(NationalLanguageSupport.ImportServiceBrandsAction_5, 250); 
-		
+					
+					GtmUtils.addWorkflowStep("Import of service brands started", editor);
+							
 					monitor.subTask(NationalLanguageSupport.ImportServiceBrandsAction_6);
 					prepareStructure(tool, domain);
 					monitor.worked(10);
@@ -129,10 +131,13 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 					
 					ECollections.sort(tool.getCodeLists().getServiceBrands().getServiceBrands(), new ServiceBrandComparator());			
 					
+					GtmUtils.addWorkflowStep("Import of service brands completed", editor);
+					
 					monitor.done();
 					
 				} catch (IOException e) {
-
+					GtmUtils.addWorkflowStep("Import of service brands abandoned", editor);
+					GtmUtils.writeConsoleStackTrace(e, editor);
 					return;			
 				} finally {
 					monitor.done();

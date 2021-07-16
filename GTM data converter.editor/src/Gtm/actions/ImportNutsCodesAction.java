@@ -65,6 +65,8 @@ public class ImportNutsCodesAction extends ImportCsvDataAction {
 				try {
 					
 					monitor.beginTask(NationalLanguageSupport.ImportNutsCodesAction_5, 10000); 
+					
+					GtmUtils.addWorkflowStep("Import of NUTS codes started", editor);
 		
 					monitor.subTask(NationalLanguageSupport.ImportNutsCodesAction_6);
 					prepareStructure(tool, domain);
@@ -117,10 +119,13 @@ public class ImportNutsCodesAction extends ImportCsvDataAction {
 						GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportNutsCodesAction_11 + Integer.toString(updated) + ")", editor ); //$NON-NLS-2$
 			        }	
 					monitor.worked(10);
+					
+					GtmUtils.addWorkflowStep("Import of NUTS codes completed", editor);
 					monitor.done();
 					
 				} catch (IOException e) {
-
+					GtmUtils.addWorkflowStep("Import of NUTS codes abandoned", editor);
+					GtmUtils.writeConsoleStackTrace(e, editor);
 					return;			
 				} finally {
 					monitor.done();

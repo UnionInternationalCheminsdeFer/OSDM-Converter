@@ -88,7 +88,11 @@ public class ExportLegacyAction extends BasicGtmAction {
 					
 					monitor.beginTask(NationalLanguageSupport.ExportLegacyAction_3, exporter.getMonitorTasks()); 
 					
+					GtmUtils.addWorkflowStep("Export to 108 started for carrier: " + tool.getConversionFromLegacy().getLegacy108().getCarrier().getName(), editor);
+					
 					exporter.export(monitor);
+					
+					GtmUtils.addWorkflowStep("Export to 108 completed for carrier: " + tool.getConversionFromLegacy().getLegacy108().getCarrier().getName(), editor);
 
 					monitor.done();
 				}
@@ -99,9 +103,11 @@ public class ExportLegacyAction extends BasicGtmAction {
 		
 				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
 
-			} catch (Exception exception) {
+			} catch (Exception e) {
 					// Something went wrong that shouldn't.
-					GtmEditorPlugin.INSTANCE.log(exception);
+					GtmUtils.addWorkflowStep("Export to 108 abandoned for carrier: " + tool.getConversionFromLegacy().getLegacy108().getCarrier().getName(), editor);
+					GtmUtils.writeConsoleStackTrace(e, editor);
+					GtmUtils.writeConsoleError("Export to 108 files failed", editor);
 			} finally {
 					editor.reconnectViews();
 			}			

@@ -85,6 +85,8 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 				
 				try {
 					
+					GtmUtils.addWorkflowStep("Import Border Point List started", editor);
+					
 					monitor.beginTask(NationalLanguageSupport.ImportBorderPointsAction_0, 250); 
 		
 					monitor.subTask(NationalLanguageSupport.ImportServiceBrandsAction_6);
@@ -120,6 +122,9 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 						writeConsoleInfo(NationalLanguageSupport.ImportBorderPointsAction_12 + Integer.toString(borderPoints.getLegacyBorderPoints().size()), editor);
 			        }	
 					monitor.worked(10);
+					
+					GtmUtils.addWorkflowStep("Import Border Point List completed", editor);
+					
 					monitor.done();
 					
 				} catch (IOException e) {

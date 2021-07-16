@@ -60,6 +60,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 		switch (eClass.getClassifierID()) {
 			case GtmPackage.GTM_TOOL: return createGTMTool();
 			case GtmPackage.CODE_LISTS: return createCodeLists();
+			case GtmPackage.WORKFLOW_HISTORY: return createWorkflowHistory();
+			case GtmPackage.WORKFLOW_STEP: return createWorkflowStep();
 			case GtmPackage.NUTS_CODES: return createNUTSCodes();
 			case GtmPackage.NUTS_CODE: return createNutsCode();
 			case GtmPackage.SERVICE_BRANDS: return createServiceBrands();
@@ -458,6 +460,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public CodeLists createCodeLists() {
 		CodeListsImpl codeLists = new CodeListsImpl();
 		return codeLists;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WorkflowHistory createWorkflowHistory() {
+		WorkflowHistoryImpl workflowHistory = new WorkflowHistoryImpl();
+		return workflowHistory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WorkflowStep createWorkflowStep() {
+		WorkflowStepImpl workflowStep = new WorkflowStepImpl();
+		return workflowStep;
 	}
 
 	/**

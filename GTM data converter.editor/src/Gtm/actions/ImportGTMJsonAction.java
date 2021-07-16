@@ -182,6 +182,9 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 					
 						monitor.beginTask(NationalLanguageSupport.ImportGTMJsonAction_4, 5); 
 						
+						GtmUtils.addWorkflowStep("Import started for OSDM file: " + file.getName(), editor);
+						
+						
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_5);
 						GtmUtils.deleteOrphanedObjects(domain, tool);
 						prepareStructure(tool,domain);
@@ -265,6 +268,9 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						sb.append(importedFares);
 						
 						GtmUtils.writeConsoleInfo(sb.toString(), editor);
+						
+						GtmUtils.addWorkflowStep("Import completed for OSDM file: " + file.getName(), editor);
+
 
 					} catch (JsonParseException e) {
 						GtmUtils.displayAsyncErrorMessage(e,"json parsing error");
@@ -297,6 +303,8 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 					dialog.setMessage("no details available");
 					GtmUtils.writeConsoleStackTrace(e, editor);
 				}
+				GtmUtils.addWorkflowStep("Import abandoned for OSDM file: " + file.getName(), editor);
+
 				dialog.open(); 				
 				
 				

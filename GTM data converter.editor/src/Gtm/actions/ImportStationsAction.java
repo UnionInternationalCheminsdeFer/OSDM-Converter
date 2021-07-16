@@ -88,6 +88,8 @@ public class ImportStationsAction extends BasicGtmAction {
 					try {
 						
 						monitor.beginTask(NationalLanguageSupport.ImportStationsAction_11, 90000); 
+						
+						GtmUtils.addWorkflowStep("Import of stations started", editor);
 			
 						monitor.subTask(NationalLanguageSupport.ImportStationsAction_12);
 						prepareStructure(tool, domain);
@@ -178,6 +180,9 @@ public class ImportStationsAction extends BasicGtmAction {
 							domain.getCommandStack().execute(command);
 							GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportStationsAction_20 + Integer.toString(updatedStationsF) + ")" , editor); //$NON-NLS-2$
 						}
+						
+						GtmUtils.addWorkflowStep("Import of stations completed", editor);
+
 						monitor.worked(1000);
 						
 					} catch (IOException e) {
@@ -198,6 +203,10 @@ public class ImportStationsAction extends BasicGtmAction {
 				editor.disconnectViews();
 				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
 			} catch (Exception e) {
+				
+				GtmUtils.addWorkflowStep("Import of station codes abandoned", editor);
+				GtmUtils.writeConsoleStackTrace(e, editor);
+				
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(NationalLanguageSupport.ImportStationsAction_23);
 				dialog.setMessage(e.getMessage());

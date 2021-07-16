@@ -81,6 +81,7 @@ public class GTMToolItemProvider
 			childrenFeatures.add(GtmPackage.Literals.GTM_TOOL__CONVERSION_FROM_LEGACY);
 			childrenFeatures.add(GtmPackage.Literals.GTM_TOOL__CODE_LISTS);
 			childrenFeatures.add(GtmPackage.Literals.GTM_TOOL__GENERAL_TARIFF_MODEL);
+			childrenFeatures.add(GtmPackage.Literals.GTM_TOOL__WORKFLOW_HISTORY);
 		}
 		return childrenFeatures;
 	}
@@ -136,6 +137,7 @@ public class GTMToolItemProvider
 			case GtmPackage.GTM_TOOL__CONVERSION_FROM_LEGACY:
 			case GtmPackage.GTM_TOOL__CODE_LISTS:
 			case GtmPackage.GTM_TOOL__GENERAL_TARIFF_MODEL:
+			case GtmPackage.GTM_TOOL__WORKFLOW_HISTORY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -167,6 +169,11 @@ public class GTMToolItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.GTM_TOOL__GENERAL_TARIFF_MODEL,
 				 GtmFactory.eINSTANCE.createGeneralTariffModel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.GTM_TOOL__WORKFLOW_HISTORY,
+				 GtmFactory.eINSTANCE.createWorkflowHistory()));
 	}
 
 	/**

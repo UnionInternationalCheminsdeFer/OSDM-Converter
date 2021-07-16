@@ -40,6 +40,24 @@ public interface GtmFactory extends EFactory {
 	CodeLists createCodeLists();
 
 	/**
+	 * Returns a new object of class '<em>Workflow History</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Workflow History</em>'.
+	 * @generated
+	 */
+	WorkflowHistory createWorkflowHistory();
+
+	/**
+	 * Returns a new object of class '<em>Workflow Step</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Workflow Step</em>'.
+	 * @generated
+	 */
+	WorkflowStep createWorkflowStep();
+
+	/**
 	 * Returns a new object of class '<em>NUTS Codes</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

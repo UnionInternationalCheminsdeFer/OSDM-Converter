@@ -65,6 +65,8 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 				try {
 					
 					monitor.beginTask(NationalLanguageSupport.ImportCarriersAction_5, 4000); 
+					
+					GtmUtils.addWorkflowStep("Import of Carriers started", editor);
 		
 					monitor.subTask(NationalLanguageSupport.ImportCarriersAction_6);
 					prepareStructure(tool, domain);
@@ -121,10 +123,14 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 						GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportCarriersAction_11 + Integer.toString(updated) + ")" , editor); //$NON-NLS-2$
 			        }	
 					monitor.worked(10);
+					
+					GtmUtils.addWorkflowStep("Import of Carriers completed", editor);
+
 					monitor.done();
 					
 				} catch (IOException e) {
-
+					GtmUtils.addWorkflowStep("Import of Carriers abandoned", editor);
+					GtmUtils.writeConsoleStackTrace(e, editor);
 					return;			
 				} finally {
 					monitor.done();

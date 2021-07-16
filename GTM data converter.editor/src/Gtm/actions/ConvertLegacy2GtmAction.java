@@ -130,6 +130,8 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 				public void run(IProgressMonitor monitor) {
 					
 					monitor.beginTask(NationalLanguageSupport.ConvertLegacy2GtmAction_4, 107); 
+					
+					GtmUtils.addWorkflowStep("Conversion to OSDM started for country: " + country.getName(), editor);
 
 					monitor.subTask(NationalLanguageSupport.ConvertLegacy2GtmAction_5);
 					prepareStructure(tool, domain);
@@ -167,6 +169,8 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 					GtmUtils.writeConsoleInfo(NationalLanguageSupport.ConvertLegacy2GtmAction_17 + Integer.toString(added),editor);
 					monitor.worked(1);
 
+					GtmUtils.addWorkflowStep("Conversion to OSDM completed for country: " + country.getName(), editor);
+					
 					monitor.done();
 				}
 			};
@@ -177,7 +181,9 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				
+				GtmUtils.addWorkflowStep("Conversion to OSDM abandoned for country: " + country.getName(), editor);
+				
 				MessageBox dialog =  new MessageBox(editor.getSite().getShell(), SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(NationalLanguageSupport.ExportGTMJsonAction_9);
 				if (e.getMessage()!= null) {

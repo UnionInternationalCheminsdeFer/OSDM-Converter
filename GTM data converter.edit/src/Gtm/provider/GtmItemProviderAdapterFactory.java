@@ -135,6 +135,52 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.WorkflowHistory} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WorkflowHistoryItemProvider workflowHistoryItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.WorkflowHistory}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWorkflowHistoryAdapter() {
+		if (workflowHistoryItemProvider == null) {
+			workflowHistoryItemProvider = new WorkflowHistoryItemProvider(this);
+		}
+
+		return workflowHistoryItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.WorkflowStep} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WorkflowStepItemProvider workflowStepItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.WorkflowStep}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWorkflowStepAdapter() {
+		if (workflowStepItemProvider == null) {
+			workflowStepItemProvider = new WorkflowStepItemProvider(this);
+		}
+
+		return workflowStepItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.NUTSCodes} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3781,6 +3827,8 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	public void dispose() {
 		if (gtmToolItemProvider != null) gtmToolItemProvider.dispose();
 		if (codeListsItemProvider != null) codeListsItemProvider.dispose();
+		if (workflowHistoryItemProvider != null) workflowHistoryItemProvider.dispose();
+		if (workflowStepItemProvider != null) workflowStepItemProvider.dispose();
 		if (nutsCodesItemProvider != null) nutsCodesItemProvider.dispose();
 		if (nutsCodeItemProvider != null) nutsCodeItemProvider.dispose();
 		if (serviceBrandsItemProvider != null) serviceBrandsItemProvider.dispose();

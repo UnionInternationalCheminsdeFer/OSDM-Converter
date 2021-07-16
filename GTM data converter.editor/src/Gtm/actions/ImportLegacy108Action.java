@@ -82,9 +82,13 @@ public class ImportLegacy108Action extends BasicGtmAction {
 			public void run(IProgressMonitor monitor) {
 
 				monitor.beginTask(NationalLanguageSupport.ImportLegacyAction_Monitor, 31); 
-		
+				
+				GtmUtils.addWorkflowStep("Import started for OSDM file: " + file.getName(), editor);
+
 				importer.importAll(monitor);
-					
+				
+				GtmUtils.addWorkflowStep("Import completed for OSDM file: " + file.getName(), editor);
+
 				monitor.done();
 				
 			}
@@ -94,7 +98,8 @@ public class ImportLegacy108Action extends BasicGtmAction {
 			editor.disconnectViews();
 			new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
 		} catch (Exception e) {
-			e.printStackTrace();
+			GtmUtils.addWorkflowStep("Import abandoned for OSDM file: " + file.getName(), editor);
+			GtmUtils.writeConsoleStackTrace(e, editor);
 			MessageBox dialog =  new MessageBox(editor.getSite().getShell(), SWT.ICON_ERROR | SWT.OK);
 			dialog.setText(NationalLanguageSupport.ImportStationsAction_23);
 			if (e.getMessage()!= null) {
