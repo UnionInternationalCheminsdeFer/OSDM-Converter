@@ -962,11 +962,13 @@
     <genClasses ecoreClass="Gtm.ecore#//Calendar">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/id"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/fromDate"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/untilDate"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/fromDate"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/untilDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/utcOffset"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/dates"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/dataSource"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/fromDateTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Calendar/untilDateTime"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ReservationParameters">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReservationParameters/reservationParameters"/>

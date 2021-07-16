@@ -2153,8 +2153,8 @@ public class GtmJsonExporter {
 		calJ.setId(cal.getId());
 		calJ.setUtcOffset(cal.getUtcOffset());		
 		
-		calJ.setFromDate(cal.getFromDate());
-		calJ.setUntilDate(cal.getUntilDate());		
+		calJ.setFromDate(cal.getFromDateTime());
+		calJ.setUntilDate(cal.getUntilDateTime());		
 		
 		if (cal.getDates() != null && !cal.getDates().isEmpty()) {
 			calJ.setDates(cal.getDates());

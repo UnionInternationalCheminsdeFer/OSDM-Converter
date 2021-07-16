@@ -17,7 +17,6 @@ import Gtm.GTMTool;
 import Gtm.legacyImportExport.LegacyExporter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
-import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
 
 

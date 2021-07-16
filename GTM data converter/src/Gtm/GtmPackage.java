@@ -5770,13 +5770,31 @@ public interface GtmPackage extends EPackage {
 	int CALENDAR__DATA_SOURCE = 6;
 
 	/**
+	 * The feature id for the '<em><b>From Date Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__FROM_DATE_TIME = 7;
+
+	/**
+	 * The feature id for the '<em><b>Until Date Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__UNTIL_DATE_TIME = 8;
+
+	/**
 	 * The number of structural features of the '<em>Calendar</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALENDAR_FEATURE_COUNT = 7;
+	int CALENDAR_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>Calendar</em>' class.
@@ -15115,6 +15133,28 @@ public interface GtmPackage extends EPackage {
 	EAttribute getCalendar_DataSource();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.Calendar#getFromDateTime <em>From Date Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>From Date Time</em>'.
+	 * @see Gtm.Calendar#getFromDateTime()
+	 * @see #getCalendar()
+	 * @generated
+	 */
+	EAttribute getCalendar_FromDateTime();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Gtm.Calendar#getUntilDateTime <em>Until Date Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Until Date Time</em>'.
+	 * @see Gtm.Calendar#getUntilDateTime()
+	 * @see #getCalendar()
+	 * @generated
+	 */
+	EAttribute getCalendar_UntilDateTime();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.ReservationParameters <em>Reservation Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -19341,7 +19381,7 @@ public interface GtmPackage extends EPackage {
 	 * @return the meta object for data type '<em>Date As Date Time</em>'.
 	 * @see java.util.Date
 	 * @model instanceClass="java.util.Date"
-	 *        annotation="http:///org/eclipse/emf/ecore/util/DateConversionDelegate format='//SimpleDateFormat/yyyy-MM-dd\'T\'HH:mm'"
+	 *        annotation="http:///org/eclipse/emf/ecore/util/DateConversionDelegate format='//SimpleDateFormat/yyyy-MM-dd\'T\'HH:mm:ss\'.\'SSSZ'"
 	 * @generated
 	 */
 	EDataType getDateAsDateTime();
@@ -22966,6 +23006,22 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CALENDAR__DATA_SOURCE = eINSTANCE.getCalendar_DataSource();
+
+		/**
+		 * The meta object literal for the '<em><b>From Date Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CALENDAR__FROM_DATE_TIME = eINSTANCE.getCalendar_FromDateTime();
+
+		/**
+		 * The meta object literal for the '<em><b>Until Date Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CALENDAR__UNTIL_DATE_TIME = eINSTANCE.getCalendar_UntilDateTime();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.ReservationParametersImpl <em>Reservation Parameters</em>}' class.

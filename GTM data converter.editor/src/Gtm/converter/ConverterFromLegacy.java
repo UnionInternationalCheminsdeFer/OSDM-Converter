@@ -2455,8 +2455,8 @@ public class ConverterFromLegacy {
 			SalesRestriction rest = GtmFactory.eINSTANCE.createSalesRestriction();
 			Calendar cal = GtmFactory.eINSTANCE.createCalendar();
 			cal.setDataSource(DataSource.CONVERTED);
-			cal.setFromDate(r.startDate);
-			cal.setUntilDate(r.getEndDate());
+			cal.setFromDateTime(r.startDate);
+			cal.setUntilDateTime(r.getEndDate());
 			TimeZone tz = TimeZone.getTimeZone(tool.getConversionFromLegacy().getLegacy108().getTimeZone().getName());
 			if (tz != null) {
 				cal.setUtcOffset(tz.getOffset(new Date().getTime()) / 1000 / 60 );

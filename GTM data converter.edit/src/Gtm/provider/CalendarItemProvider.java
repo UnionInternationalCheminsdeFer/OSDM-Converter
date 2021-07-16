@@ -64,11 +64,11 @@ public class CalendarItemProvider
 
 			addNamePropertyDescriptor(object);
 			addIdPropertyDescriptor(object);
-			addFromDatePropertyDescriptor(object);
-			addUntilDatePropertyDescriptor(object);
 			addUtcOffsetPropertyDescriptor(object);
 			addDatesPropertyDescriptor(object);
 			addDataSourcePropertyDescriptor(object);
+			addFromDateTimePropertyDescriptor(object);
+			addUntilDateTimePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -115,52 +115,6 @@ public class CalendarItemProvider
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the From Date feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFromDatePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Calendar_fromDate_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Calendar_fromDate_feature", "_UI_Calendar_type"),
-				 GtmPackage.Literals.CALENDAR__FROM_DATE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null,
-				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd")));
-	}
-
-	/**
-	 * This adds a property descriptor for the Until Date feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addUntilDatePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Calendar_untilDate_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Calendar_untilDate_feature", "_UI_Calendar_type"),
-				 GtmPackage.Literals.CALENDAR__UNTIL_DATE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null,
-				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd")));
 	}
 
 	/**
@@ -231,6 +185,52 @@ public class CalendarItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the From Date Time feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFromDateTimePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Calendar_fromDateTime_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Calendar_fromDateTime_feature", "_UI_Calendar_type"),
+				 GtmPackage.Literals.CALENDAR__FROM_DATE_TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null,
+				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd\'T\'HH:mm:ssZZZ")));
+	}
+
+	/**
+	 * This adds a property descriptor for the Until Date Time feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUntilDateTimePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Calendar_untilDateTime_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Calendar_untilDateTime_feature", "_UI_Calendar_type"),
+				 GtmPackage.Literals.CALENDAR__UNTIL_DATE_TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null,
+				 URI.createURI("editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd\'T\'HH:mm:ssZZZ")));
+	}
+
+	/**
 	 * This returns Calendar.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -255,7 +255,7 @@ public class CalendarItemProvider
 		StringBuilder sb = new StringBuilder();
 		if (label == null || label.length() == 1) {
 			if (c.getDates() == null || c.getDates().isEmpty()) {
-				sb.append(c.getFromDate()).append(" - ").append(c.getUntilDate());
+				sb.append(c.getFromDateTime()).append(" - ").append(c.getUntilDateTime());
 			} else {
 				sb.append(c.getDates());
 			}
@@ -286,6 +286,8 @@ public class CalendarItemProvider
 			case GtmPackage.CALENDAR__UTC_OFFSET:
 			case GtmPackage.CALENDAR__DATES:
 			case GtmPackage.CALENDAR__DATA_SOURCE:
+			case GtmPackage.CALENDAR__FROM_DATE_TIME:
+			case GtmPackage.CALENDAR__UNTIL_DATE_TIME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
