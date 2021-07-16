@@ -35,6 +35,8 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link Gtm.impl.CalendarImpl#getUtcOffset <em>Utc Offset</em>}</li>
  *   <li>{@link Gtm.impl.CalendarImpl#getDates <em>Dates</em>}</li>
  *   <li>{@link Gtm.impl.CalendarImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link Gtm.impl.CalendarImpl#getFromDateTime <em>From Date Time</em>}</li>
+ *   <li>{@link Gtm.impl.CalendarImpl#getUntilDateTime <em>Until Date Time</em>}</li>
  * </ul>
  *
  * @generated
@@ -169,6 +171,46 @@ public class CalendarImpl extends MinimalEObjectImpl.Container implements Calend
 	 * @ordered
 	 */
 	protected DataSource dataSource = DATA_SOURCE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFromDateTime() <em>From Date Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFromDateTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Date FROM_DATE_TIME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFromDateTime() <em>From Date Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFromDateTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected Date fromDateTime = FROM_DATE_TIME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getUntilDateTime() <em>Until Date Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUntilDateTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Date UNTIL_DATE_TIME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getUntilDateTime() <em>Until Date Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUntilDateTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected Date untilDateTime = UNTIL_DATE_TIME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -332,6 +374,48 @@ public class CalendarImpl extends MinimalEObjectImpl.Container implements Calend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Date getFromDateTime() {
+		return fromDateTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFromDateTime(Date newFromDateTime) {
+		Date oldFromDateTime = fromDateTime;
+		fromDateTime = newFromDateTime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.CALENDAR__FROM_DATE_TIME, oldFromDateTime, fromDateTime));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Date getUntilDateTime() {
+		return untilDateTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUntilDateTime(Date newUntilDateTime) {
+		Date oldUntilDateTime = untilDateTime;
+		untilDateTime = newUntilDateTime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.CALENDAR__UNTIL_DATE_TIME, oldUntilDateTime, untilDateTime));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -349,6 +433,10 @@ public class CalendarImpl extends MinimalEObjectImpl.Container implements Calend
 				return getDates();
 			case GtmPackage.CALENDAR__DATA_SOURCE:
 				return getDataSource();
+			case GtmPackage.CALENDAR__FROM_DATE_TIME:
+				return getFromDateTime();
+			case GtmPackage.CALENDAR__UNTIL_DATE_TIME:
+				return getUntilDateTime();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -384,6 +472,12 @@ public class CalendarImpl extends MinimalEObjectImpl.Container implements Calend
 			case GtmPackage.CALENDAR__DATA_SOURCE:
 				setDataSource((DataSource)newValue);
 				return;
+			case GtmPackage.CALENDAR__FROM_DATE_TIME:
+				setFromDateTime((Date)newValue);
+				return;
+			case GtmPackage.CALENDAR__UNTIL_DATE_TIME:
+				setUntilDateTime((Date)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -417,6 +511,12 @@ public class CalendarImpl extends MinimalEObjectImpl.Container implements Calend
 			case GtmPackage.CALENDAR__DATA_SOURCE:
 				setDataSource(DATA_SOURCE_EDEFAULT);
 				return;
+			case GtmPackage.CALENDAR__FROM_DATE_TIME:
+				setFromDateTime(FROM_DATE_TIME_EDEFAULT);
+				return;
+			case GtmPackage.CALENDAR__UNTIL_DATE_TIME:
+				setUntilDateTime(UNTIL_DATE_TIME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -443,6 +543,10 @@ public class CalendarImpl extends MinimalEObjectImpl.Container implements Calend
 				return dates != null && !dates.isEmpty();
 			case GtmPackage.CALENDAR__DATA_SOURCE:
 				return dataSource != DATA_SOURCE_EDEFAULT;
+			case GtmPackage.CALENDAR__FROM_DATE_TIME:
+				return FROM_DATE_TIME_EDEFAULT == null ? fromDateTime != null : !FROM_DATE_TIME_EDEFAULT.equals(fromDateTime);
+			case GtmPackage.CALENDAR__UNTIL_DATE_TIME:
+				return UNTIL_DATE_TIME_EDEFAULT == null ? untilDateTime != null : !UNTIL_DATE_TIME_EDEFAULT.equals(untilDateTime);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -471,6 +575,10 @@ public class CalendarImpl extends MinimalEObjectImpl.Container implements Calend
 		result.append(dates);
 		result.append(", dataSource: ");
 		result.append(dataSource);
+		result.append(", fromDateTime: ");
+		result.append(fromDateTime);
+		result.append(", untilDateTime: ");
+		result.append(untilDateTime);
 		result.append(')');
 		return result.toString();
 	}

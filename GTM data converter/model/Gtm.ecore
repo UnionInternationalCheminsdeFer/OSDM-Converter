@@ -15,10 +15,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="DateAsDateTime" instanceClassName="java.util.Date">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="propertyEditorFactory" value="editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd'T'HH:mm"/>
+      <details key="propertyEditorFactory" value="editor://org.eclipse.nebula.widgets.cdatetime/yyyy-MM-dd'T'HH:mm:ssZZZ"/>
     </eAnnotations>
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/DateConversionDelegate">
-      <details key="format" value="//SimpleDateFormat/yyyy-MM-dd'T'HH:mm"/>
+      <details key="format" value="//SimpleDateFormat/yyyy-MM-dd'T'HH:mm:ss'.'SSSZ"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GTMTool">
@@ -828,6 +828,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dates" upperBound="-1"
         eType="#//DateAsDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fromDateTime" eType="#//DateAsDateTime"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="untilDateTime" eType="#//DateAsDateTime"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReservationParameters">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reservationParameters"

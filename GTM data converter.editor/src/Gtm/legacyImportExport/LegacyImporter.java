@@ -266,7 +266,7 @@ public class LegacyImporter {
 
 		Date dt2 = parseDate(validUntilString);
 		if (dt2 != null) {
-			series.setValidUntil(dt2);
+			series.setValidUntil(GtmUtils.setTo2359UTC(dt2));
 		}
 		
 		return series;
@@ -591,7 +591,7 @@ public class LegacyImporter {
 
 			Date dt2 = parseDate(validUntilString);
 			if (dt2 != null) {
-				fare.setValidUntil(dt2);
+				fare.setValidUntil(GtmUtils.setTo2359UTC(dt2));
 			}
 		
 			return fare;
@@ -640,7 +640,7 @@ public class LegacyImporter {
 
 			Date dt2 = parseDate(validUntilString);
 			if (dt2 != null) {
-				fare.setValidUntil(dt2);
+				fare.setValidUntil(GtmUtils.setTo2359UTC(dt2));
 			}
 		
 			return fare;
@@ -983,7 +983,7 @@ public class LegacyImporter {
 
 			Date dt2 = parseDate(validUntilString);
 			if (dt2 != null) {
-				series.setValidUntil(dt2);
+				series.setValidUntil(GtmUtils.setTo2359UTC(dt2));
 			}
 			
 			int viaStation1 = Integer.parseInt(via1); 

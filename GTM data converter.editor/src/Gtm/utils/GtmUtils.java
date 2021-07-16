@@ -12,11 +12,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.StringCharacterIterator;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.command.Command;
@@ -1908,6 +1910,36 @@ public class GtmUtils {
 		
 
 				
+	}
+	
+	
+	public static Date setTo2359UTC(Date date) {
+	
+		TimeZone tz = TimeZone.getDefault();
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(java.util.Calendar.HOUR_OF_DAY, 23);
+		cal.set(java.util.Calendar.MINUTE, 59);
+		cal.set(java.util.Calendar.SECOND, 59);
+		Date date2 = cal.getTime();
+		TimeZone.setDefault(tz);
+		
+		return date2;
+	}
+	
+	public static Date setTo0000UTC(Date date) {
+		
+		TimeZone tz = TimeZone.getDefault();
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(java.util.Calendar.HOUR_OF_DAY, 0);
+		cal.set(java.util.Calendar.MINUTE, 0);
+		cal.set(java.util.Calendar.SECOND, 0);
+		TimeZone.setDefault(tz);
+		
+		return cal.getTime();
 	}
 }
 

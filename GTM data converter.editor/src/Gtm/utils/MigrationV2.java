@@ -1,6 +1,7 @@
 package Gtm.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
@@ -15,6 +16,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
+import Gtm.Calendar;
 import Gtm.Countries;
 import Gtm.Country;
 import Gtm.FareConstraintBundle;
@@ -91,6 +93,8 @@ public class MigrationV2 {
 		
 		migrateTariffIds((GTMTool)object,domain);
 		
+		migrateCalendars((GTMTool)object,domain);
+		
 		cleanStationData((GTMTool)object,domain);
 		
 
@@ -155,6 +159,46 @@ public class MigrationV2 {
 
 	}
 	
+	private static void migrateCalendars(GTMTool tool, EditingDomain domain) {
+	
+		if (tool == null ||
+			tool.getGeneralTariffModel() == null ||
+			tool.getGeneralTariffModel().getFareStructure() == null ||
+			tool.getGeneralTariffModel().getFareStructure().getCalendars() == null ||
+			tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars() == null ||
+			tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().isEmpty() ) {
+
+			return;
+		}
+			
+		CompoundCommand com = new CompoundCommand();	
+				
+		for (Calendar c : tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars()) {
+				
+			if (c.getFromDateTime() == null && c.getFromDate() != null) {
+				
+				com.append(SetCommand.create(domain, c, GtmPackage.Literals.CALENDAR__FROM_DATE_TIME, c.getFromDate()));
+				com.append(SetCommand.create(domain, c, GtmPackage.Literals.CALENDAR__FROM_DATE, null));
+				
+			}
+			
+			if (c.getUntilDateTime() == null && c.getUntilDate() != null) {
+				
+				Date date = GtmUtils.setTo2359UTC(c.getUntilDate());
+				com.append(SetCommand.create(domain, c, GtmPackage.Literals.CALENDAR__UNTIL_DATE_TIME, date));
+				com.append(SetCommand.create(domain, c, GtmPackage.Literals.CALENDAR__UNTIL_DATE, null));
+				
+			}
+
+		}
+	
+		if (com != null && !com.isEmpty() && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
+		
+	}
+
+
 	private static void cleanStationData(GTMTool tool, EditingDomain domain) {
 		if (tool.getCodeLists()!= null &&
 			tool.getCodeLists().getStations() != null &&

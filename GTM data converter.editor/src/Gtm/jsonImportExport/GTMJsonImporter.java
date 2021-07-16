@@ -2038,8 +2038,8 @@ public class GTMJsonImporter {
 		Calendar o = GtmFactory.eINSTANCE.createCalendar();
 		o.setId(jc.getId());
 		o.setDataSource(DataSource.IMPORTED);
-		o.setFromDate(jc.getFromDate());
-		o.setUntilDate(jc.getUntilDate());	
+		o.setFromDateTime(jc.getFromDate());
+		o.setUntilDateTime(jc.getUntilDate());	
 		if ( jc.getDates() != null && !jc.getDates().isEmpty()) {
 			o.getDates().addAll(jc.getDates());
 		}

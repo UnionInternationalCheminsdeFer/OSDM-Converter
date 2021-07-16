@@ -5326,6 +5326,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCalendar_FromDateTime() {
+		return (EAttribute)calendarEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCalendar_UntilDateTime() {
+		return (EAttribute)calendarEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getReservationParameters() {
 		return reservationParametersEClass;
 	}
@@ -9456,6 +9474,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(calendarEClass, CALENDAR__UTC_OFFSET);
 		createEAttribute(calendarEClass, CALENDAR__DATES);
 		createEAttribute(calendarEClass, CALENDAR__DATA_SOURCE);
+		createEAttribute(calendarEClass, CALENDAR__FROM_DATE_TIME);
+		createEAttribute(calendarEClass, CALENDAR__UNTIL_DATE_TIME);
 
 		reservationParametersEClass = createEClass(RESERVATION_PARAMETERS);
 		createEReference(reservationParametersEClass, RESERVATION_PARAMETERS__RESERVATION_PARAMETERS);
@@ -10495,6 +10515,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getCalendar_UtcOffset(), ecorePackage.getEInt(), "utcOffset", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCalendar_Dates(), this.getDateAsDate(), "dates", null, 0, -1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCalendar_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCalendar_FromDateTime(), this.getDateAsDateTime(), "fromDateTime", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCalendar_UntilDateTime(), this.getDateAsDateTime(), "untilDateTime", null, 0, 1, Calendar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(reservationParametersEClass, ReservationParameters.class, "ReservationParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReservationParameters_ReservationParameters(), this.getReservationParameter(), null, "reservationParameters", null, 0, -1, ReservationParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11858,7 +11880,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (dateAsDateTimeEDataType,
 		   source,
 		   new String[] {
-			   "format", "//SimpleDateFormat/yyyy-MM-dd\'T\'HH:mm"
+			   "format", "//SimpleDateFormat/yyyy-MM-dd\'T\'HH:mm:ss\'.\'SSSZ"
 		   });
 	}
 

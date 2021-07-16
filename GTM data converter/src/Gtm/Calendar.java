@@ -24,6 +24,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Calendar#getUtcOffset <em>Utc Offset</em>}</li>
  *   <li>{@link Gtm.Calendar#getDates <em>Dates</em>}</li>
  *   <li>{@link Gtm.Calendar#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link Gtm.Calendar#getFromDateTime <em>From Date Time</em>}</li>
+ *   <li>{@link Gtm.Calendar#getUntilDateTime <em>Until Date Time</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getCalendar()
@@ -177,5 +179,49 @@ public interface Calendar extends EObject {
 	 * @generated
 	 */
 	void setDataSource(DataSource value);
+
+	/**
+	 * Returns the value of the '<em><b>From Date Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>From Date Time</em>' attribute.
+	 * @see #setFromDateTime(Date)
+	 * @see Gtm.GtmPackage#getCalendar_FromDateTime()
+	 * @model dataType="Gtm.DateAsDateTime"
+	 * @generated
+	 */
+	Date getFromDateTime();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Calendar#getFromDateTime <em>From Date Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>From Date Time</em>' attribute.
+	 * @see #getFromDateTime()
+	 * @generated
+	 */
+	void setFromDateTime(Date value);
+
+	/**
+	 * Returns the value of the '<em><b>Until Date Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Until Date Time</em>' attribute.
+	 * @see #setUntilDateTime(Date)
+	 * @see Gtm.GtmPackage#getCalendar_UntilDateTime()
+	 * @model dataType="Gtm.DateAsDateTime"
+	 * @generated
+	 */
+	Date getUntilDateTime();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Calendar#getUntilDateTime <em>Until Date Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Until Date Time</em>' attribute.
+	 * @see #getUntilDateTime()
+	 * @generated
+	 */
+	void setUntilDateTime(Date value);
 
 } // Calendar
