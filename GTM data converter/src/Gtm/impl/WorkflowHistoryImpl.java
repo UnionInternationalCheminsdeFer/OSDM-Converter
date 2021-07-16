@@ -8,13 +8,16 @@ import Gtm.WorkflowStep;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +34,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class WorkflowHistoryImpl extends MinimalEObjectImpl.Container implements WorkflowHistory {
 	/**
-	 * The cached value of the '{@link #getWorkflowSteps() <em>Workflow Steps</em>}' reference list.
+	 * The cached value of the '{@link #getWorkflowSteps() <em>Workflow Steps</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getWorkflowSteps()
@@ -66,9 +69,23 @@ public class WorkflowHistoryImpl extends MinimalEObjectImpl.Container implements
 	 */
 	public EList<WorkflowStep> getWorkflowSteps() {
 		if (workflowSteps == null) {
-			workflowSteps = new EObjectResolvingEList<WorkflowStep>(WorkflowStep.class, this, GtmPackage.WORKFLOW_HISTORY__WORKFLOW_STEPS);
+			workflowSteps = new EObjectContainmentEList<WorkflowStep>(WorkflowStep.class, this, GtmPackage.WORKFLOW_HISTORY__WORKFLOW_STEPS);
 		}
 		return workflowSteps;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GtmPackage.WORKFLOW_HISTORY__WORKFLOW_STEPS:
+				return ((InternalEList<?>)getWorkflowSteps()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

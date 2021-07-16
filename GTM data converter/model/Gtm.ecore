@@ -52,7 +52,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WorkflowHistory">
     <eStructuralFeatures xsi:type="ecore:EReference" name="workflowSteps" upperBound="-1"
-        eType="#//WorkflowStep"/>
+        eType="#//WorkflowStep" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WorkflowStep">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>

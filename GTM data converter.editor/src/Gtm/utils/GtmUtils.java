@@ -1866,10 +1866,11 @@ public class GtmUtils {
 
 	}
 
-	public static void addWorkflowStep(String string, GtmEditor editor) {
+	public static void addWorkflowStep(String description, GtmEditor editor) {
 		
 		WorkflowStep step = GtmFactory.eINSTANCE.createWorkflowStep();
 		step.setTime(java.util.Calendar.getInstance().getTime());
+		step.setDescription(description);
 		
 	   	if (editor == null) return;
 	   	
@@ -1894,16 +1895,18 @@ public class GtmUtils {
 			WorkflowHistory history = GtmFactory.eINSTANCE.createWorkflowHistory();
 			history.getWorkflowSteps().add(step);
 			com = SetCommand.create(editor.getEditingDomain(), tool, GtmPackage.Literals.GTM_TOOL__WORKFLOW_HISTORY, history);
-			
+			if (com != null && com.canExecute()) {
+				editor.getEditingDomain().getCommandStack().execute(com);
+			}
 		} else {
 			
-			com = AddCommand.create(editor.getEditingDomain(), tool, GtmPackage.Literals.WORKFLOW_HISTORY__WORKFLOW_STEPS, step);
-
+			com = AddCommand.create(editor.getEditingDomain(), tool.getWorkflowHistory(), GtmPackage.Literals.WORKFLOW_HISTORY__WORKFLOW_STEPS, step);
+			if (com != null && com.canExecute()) {
+				editor.getEditingDomain().getCommandStack().execute(com);
+			}
 		}
 		
-		if (com != null && com.canExecute()) {
-			editor.getEditingDomain().getCommandStack().execute(com);
-		}
+
 				
 	}
 }

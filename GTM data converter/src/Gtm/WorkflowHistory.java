@@ -24,13 +24,13 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface WorkflowHistory extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Workflow Steps</b></em>' reference list.
+	 * Returns the value of the '<em><b>Workflow Steps</b></em>' containment reference list.
 	 * The list contents are of type {@link Gtm.WorkflowStep}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Workflow Steps</em>' reference list.
+	 * @return the value of the '<em>Workflow Steps</em>' containment reference list.
 	 * @see Gtm.GtmPackage#getWorkflowHistory_WorkflowSteps()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<WorkflowStep> getWorkflowSteps();

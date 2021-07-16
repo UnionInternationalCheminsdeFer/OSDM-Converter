@@ -7,7 +7,6 @@ import Gtm.GtmPackage;
 import Gtm.WorkflowStep;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;

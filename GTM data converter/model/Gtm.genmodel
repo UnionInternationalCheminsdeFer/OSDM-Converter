@@ -450,7 +450,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CodeLists/nutsCodes"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//WorkflowHistory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//WorkflowHistory/workflowSteps"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//WorkflowHistory/workflowSteps"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//WorkflowStep">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//WorkflowStep/time"/>
