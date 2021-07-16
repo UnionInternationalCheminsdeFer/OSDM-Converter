@@ -45,6 +45,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass workflowHistoryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass workflowStepEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass nutsCodesEClass = null;
 
 	/**
@@ -1568,6 +1582,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGTMTool_WorkflowHistory() {
+		return (EReference)gtmToolEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCodeLists() {
 		return codeListsEClass;
 	}
@@ -1633,6 +1656,51 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getCodeLists_NutsCodes() {
 		return (EReference)codeListsEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWorkflowHistory() {
+		return workflowHistoryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWorkflowHistory_WorkflowSteps() {
+		return (EReference)workflowHistoryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWorkflowStep() {
+		return workflowStepEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWorkflowStep_Time() {
+		return (EAttribute)workflowStepEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWorkflowStep_Description() {
+		return (EAttribute)workflowStepEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -8894,6 +8962,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(gtmToolEClass, GTM_TOOL__CONVERSION_FROM_LEGACY);
 		createEReference(gtmToolEClass, GTM_TOOL__CODE_LISTS);
 		createEReference(gtmToolEClass, GTM_TOOL__GENERAL_TARIFF_MODEL);
+		createEReference(gtmToolEClass, GTM_TOOL__WORKFLOW_HISTORY);
 
 		codeListsEClass = createEClass(CODE_LISTS);
 		createEReference(codeListsEClass, CODE_LISTS__CARRIERS);
@@ -8903,6 +8972,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(codeListsEClass, CODE_LISTS__CURRENCIES);
 		createEReference(codeListsEClass, CODE_LISTS__SERVICE_BRANDS);
 		createEReference(codeListsEClass, CODE_LISTS__NUTS_CODES);
+
+		workflowHistoryEClass = createEClass(WORKFLOW_HISTORY);
+		createEReference(workflowHistoryEClass, WORKFLOW_HISTORY__WORKFLOW_STEPS);
+
+		workflowStepEClass = createEClass(WORKFLOW_STEP);
+		createEAttribute(workflowStepEClass, WORKFLOW_STEP__TIME);
+		createEAttribute(workflowStepEClass, WORKFLOW_STEP__DESCRIPTION);
 
 		nutsCodesEClass = createEClass(NUTS_CODES);
 		createEReference(nutsCodesEClass, NUTS_CODES__NUTS_CODES);
@@ -9906,6 +9982,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getGTMTool_ConversionFromLegacy(), this.getConversionFromLegacy(), null, "conversionFromLegacy", null, 1, 1, GTMTool.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGTMTool_CodeLists(), this.getCodeLists(), null, "codeLists", null, 1, 1, GTMTool.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGTMTool_GeneralTariffModel(), this.getGeneralTariffModel(), null, "generalTariffModel", null, 1, 1, GTMTool.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGTMTool_WorkflowHistory(), this.getWorkflowHistory(), null, "workflowHistory", null, 0, 1, GTMTool.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(codeListsEClass, CodeLists.class, "CodeLists", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCodeLists_Carriers(), this.getCarriers(), null, "carriers", null, 0, 1, CodeLists.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -9915,6 +9992,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getCodeLists_Currencies(), this.getCurrencies(), null, "currencies", null, 0, 1, CodeLists.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCodeLists_ServiceBrands(), this.getServiceBrands(), null, "serviceBrands", null, 0, 1, CodeLists.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCodeLists_NutsCodes(), this.getNUTSCodes(), null, "nutsCodes", null, 0, 1, CodeLists.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(workflowHistoryEClass, WorkflowHistory.class, "WorkflowHistory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getWorkflowHistory_WorkflowSteps(), this.getWorkflowStep(), null, "workflowSteps", null, 0, -1, WorkflowHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(workflowStepEClass, WorkflowStep.class, "WorkflowStep", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getWorkflowStep_Time(), ecorePackage.getEDate(), "time", null, 0, 1, WorkflowStep.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWorkflowStep_Description(), ecorePackage.getEString(), "description", null, 0, 1, WorkflowStep.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nutsCodesEClass, NUTSCodes.class, "NUTSCodes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNUTSCodes_NutsCodes(), this.getNutsCode(), null, "nutsCodes", null, 0, -1, NUTSCodes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

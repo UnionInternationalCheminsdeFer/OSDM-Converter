@@ -132,6 +132,8 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 				return;
 			}
 			
+			final Country finalCountry = country;
+			
 			if (domain == null) return;
 			
 			
@@ -145,6 +147,8 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 					
 					monitor.beginTask(NationalLanguageSupport.ConvertGtm2LegacyAction_6, converter.getMonitorTasks() + 1); 
 
+					GtmUtils.addWorkflowStep("Conversion to 108 started for country: " + finalCountry.getName(), editor);
+					
 					monitor.subTask(NationalLanguageSupport.ConvertGtm2LegacyAction_7);
 					prepareStructure(tool,domain);
 					monitor.worked(1);
@@ -152,6 +156,8 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 					int created = converter.convert(monitor);
 					String message = NationalLanguageSupport.ConvertGtm2LegacyAction_8 + Integer.toString(created);
 					GtmUtils.writeConsoleInfo(message, editor);
+					
+					GtmUtils.addWorkflowStep("Conversion to 108 completed for country: " + finalCountry.getName(), editor);
 
 					monitor.done();
 				}
@@ -166,6 +172,8 @@ public class ConvertGtm2LegacyAction extends BasicGtmAction {
 
 			} catch (Exception exception) {
 				// Something went wrong that shouldn't.
+				GtmUtils.addWorkflowStep("Conversion to 108 abandoned for country: " + finalCountry.getName(), editor);
+
 				GtmUtils.displayAsyncErrorMessage(exception, "unknown error");	
 				GtmUtils.writeConsoleStackTrace(exception, editor);
 			} finally {

@@ -119,6 +119,8 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						
 						monitor.beginTask(NationalLanguageSupport.ExportGTMJsonAction_4, 31); 
 
+						GtmUtils.addWorkflowStep("Export started to OSDM file: " + name, editor);
+						
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_5);
 						GtmUtils.deleteOrphanedObjects(domain, tool);
 						prepareStructure(tool,domain);
@@ -136,9 +138,14 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						fileExporter.exportFareDelivery(fares, file);
 						monitor.worked(1);
 						
+						GtmUtils.addWorkflowStep("Export completed to OSDM file: " + name, editor);
+						
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						GtmEditorPlugin.INSTANCE.log(e);
+						GtmUtils.addWorkflowStep("Export abandoned to OSDM file: " + name, editor);
+						GtmUtils.writeConsoleError("Export failed", editor);
+						GtmUtils.writeConsoleStackTrace(e, editor);
+						
 					}  finally {
 											
 						monitor.done();

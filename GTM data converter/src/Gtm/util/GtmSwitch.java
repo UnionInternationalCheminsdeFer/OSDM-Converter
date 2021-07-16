@@ -78,6 +78,18 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.WORKFLOW_HISTORY: {
+				WorkflowHistory workflowHistory = (WorkflowHistory)theEObject;
+				T result = caseWorkflowHistory(workflowHistory);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.WORKFLOW_STEP: {
+				WorkflowStep workflowStep = (WorkflowStep)theEObject;
+				T result = caseWorkflowStep(workflowStep);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.NUTS_CODES: {
 				NUTSCodes nutsCodes = (NUTSCodes)theEObject;
 				T result = caseNUTSCodes(nutsCodes);
@@ -1031,6 +1043,36 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCodeLists(CodeLists object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Workflow History</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Workflow History</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWorkflowHistory(WorkflowHistory object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Workflow Step</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Workflow Step</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWorkflowStep(WorkflowStep object) {
 		return null;
 	}
 

@@ -8,6 +8,7 @@ import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
 import Gtm.GtmPackage;
 
+import Gtm.WorkflowHistory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.GTMToolImpl#getConversionFromLegacy <em>Conversion From Legacy</em>}</li>
  *   <li>{@link Gtm.impl.GTMToolImpl#getCodeLists <em>Code Lists</em>}</li>
  *   <li>{@link Gtm.impl.GTMToolImpl#getGeneralTariffModel <em>General Tariff Model</em>}</li>
+ *   <li>{@link Gtm.impl.GTMToolImpl#getWorkflowHistory <em>Workflow History</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,6 +64,16 @@ public class GTMToolImpl extends MinimalEObjectImpl.Container implements GTMTool
 	 * @ordered
 	 */
 	protected GeneralTariffModel generalTariffModel;
+
+	/**
+	 * The cached value of the '{@link #getWorkflowHistory() <em>Workflow History</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWorkflowHistory()
+	 * @generated
+	 * @ordered
+	 */
+	protected WorkflowHistory workflowHistory;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -216,6 +228,49 @@ public class GTMToolImpl extends MinimalEObjectImpl.Container implements GTMTool
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public WorkflowHistory getWorkflowHistory() {
+		return workflowHistory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetWorkflowHistory(WorkflowHistory newWorkflowHistory, NotificationChain msgs) {
+		WorkflowHistory oldWorkflowHistory = workflowHistory;
+		workflowHistory = newWorkflowHistory;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.GTM_TOOL__WORKFLOW_HISTORY, oldWorkflowHistory, newWorkflowHistory);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setWorkflowHistory(WorkflowHistory newWorkflowHistory) {
+		if (newWorkflowHistory != workflowHistory) {
+			NotificationChain msgs = null;
+			if (workflowHistory != null)
+				msgs = ((InternalEObject)workflowHistory).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.GTM_TOOL__WORKFLOW_HISTORY, null, msgs);
+			if (newWorkflowHistory != null)
+				msgs = ((InternalEObject)newWorkflowHistory).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.GTM_TOOL__WORKFLOW_HISTORY, null, msgs);
+			msgs = basicSetWorkflowHistory(newWorkflowHistory, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.GTM_TOOL__WORKFLOW_HISTORY, newWorkflowHistory, newWorkflowHistory));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -225,6 +280,8 @@ public class GTMToolImpl extends MinimalEObjectImpl.Container implements GTMTool
 				return basicSetCodeLists(null, msgs);
 			case GtmPackage.GTM_TOOL__GENERAL_TARIFF_MODEL:
 				return basicSetGeneralTariffModel(null, msgs);
+			case GtmPackage.GTM_TOOL__WORKFLOW_HISTORY:
+				return basicSetWorkflowHistory(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -243,6 +300,8 @@ public class GTMToolImpl extends MinimalEObjectImpl.Container implements GTMTool
 				return getCodeLists();
 			case GtmPackage.GTM_TOOL__GENERAL_TARIFF_MODEL:
 				return getGeneralTariffModel();
+			case GtmPackage.GTM_TOOL__WORKFLOW_HISTORY:
+				return getWorkflowHistory();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -263,6 +322,9 @@ public class GTMToolImpl extends MinimalEObjectImpl.Container implements GTMTool
 				return;
 			case GtmPackage.GTM_TOOL__GENERAL_TARIFF_MODEL:
 				setGeneralTariffModel((GeneralTariffModel)newValue);
+				return;
+			case GtmPackage.GTM_TOOL__WORKFLOW_HISTORY:
+				setWorkflowHistory((WorkflowHistory)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -285,6 +347,9 @@ public class GTMToolImpl extends MinimalEObjectImpl.Container implements GTMTool
 			case GtmPackage.GTM_TOOL__GENERAL_TARIFF_MODEL:
 				setGeneralTariffModel((GeneralTariffModel)null);
 				return;
+			case GtmPackage.GTM_TOOL__WORKFLOW_HISTORY:
+				setWorkflowHistory((WorkflowHistory)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -303,6 +368,8 @@ public class GTMToolImpl extends MinimalEObjectImpl.Container implements GTMTool
 				return codeLists != null;
 			case GtmPackage.GTM_TOOL__GENERAL_TARIFF_MODEL:
 				return generalTariffModel != null;
+			case GtmPackage.GTM_TOOL__WORKFLOW_HISTORY:
+				return workflowHistory != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -88,6 +88,8 @@ import Gtm.Station;
 import Gtm.Text;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
+import Gtm.WorkflowHistory;
+import Gtm.WorkflowStep;
 import Gtm.console.ConsoleUtil;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.preferences.PreferenceConstants;
@@ -1862,6 +1864,50 @@ public class GtmUtils {
 		}
 		return;
 
+	}
+
+	public static void addWorkflowStep(String description, GtmEditor editor) {
+		
+		WorkflowStep step = GtmFactory.eINSTANCE.createWorkflowStep();
+		step.setTime(java.util.Calendar.getInstance().getTime());
+		step.setDescription(description);
+		
+	   	if (editor == null) return;
+	   	
+	   	EditingDomain domain = ((GtmEditor) editor).getEditingDomain();
+		Resource resource = domain.getResourceSet().getResources().get(0);
+	   	
+		TreeIterator<EObject> it = resource.getAllContents();
+		EObject object = it.next();
+		
+		if (object == null) return;
+
+		GTMTool tool = null;
+		if (object instanceof GTMTool){
+			tool = (GTMTool) object;
+		} else {
+			return;
+		}
+		
+		Command com = null;
+		if (tool.getWorkflowHistory() == null) {
+			
+			WorkflowHistory history = GtmFactory.eINSTANCE.createWorkflowHistory();
+			history.getWorkflowSteps().add(step);
+			com = SetCommand.create(editor.getEditingDomain(), tool, GtmPackage.Literals.GTM_TOOL__WORKFLOW_HISTORY, history);
+			if (com != null && com.canExecute()) {
+				editor.getEditingDomain().getCommandStack().execute(com);
+			}
+		} else {
+			
+			com = AddCommand.create(editor.getEditingDomain(), tool.getWorkflowHistory(), GtmPackage.Literals.WORKFLOW_HISTORY__WORKFLOW_STEPS, step);
+			if (com != null && com.canExecute()) {
+				editor.getEditingDomain().getCommandStack().execute(com);
+			}
+		}
+		
+
+				
 	}
 }
 

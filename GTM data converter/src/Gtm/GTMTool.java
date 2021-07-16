@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.GTMTool#getConversionFromLegacy <em>Conversion From Legacy</em>}</li>
  *   <li>{@link Gtm.GTMTool#getCodeLists <em>Code Lists</em>}</li>
  *   <li>{@link Gtm.GTMTool#getGeneralTariffModel <em>General Tariff Model</em>}</li>
+ *   <li>{@link Gtm.GTMTool#getWorkflowHistory <em>Workflow History</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getGTMTool()
@@ -88,5 +89,27 @@ public interface GTMTool extends EObject {
 	 * @generated
 	 */
 	void setGeneralTariffModel(GeneralTariffModel value);
+
+	/**
+	 * Returns the value of the '<em><b>Workflow History</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Workflow History</em>' containment reference.
+	 * @see #setWorkflowHistory(WorkflowHistory)
+	 * @see Gtm.GtmPackage#getGTMTool_WorkflowHistory()
+	 * @model containment="true"
+	 * @generated
+	 */
+	WorkflowHistory getWorkflowHistory();
+
+	/**
+	 * Sets the value of the '{@link Gtm.GTMTool#getWorkflowHistory <em>Workflow History</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Workflow History</em>' containment reference.
+	 * @see #getWorkflowHistory()
+	 * @generated
+	 */
+	void setWorkflowHistory(WorkflowHistory value);
 
 } // GTMTool

@@ -438,6 +438,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//GTMTool/conversionFromLegacy"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//GTMTool/codeLists"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//GTMTool/generalTariffModel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//GTMTool/workflowHistory"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//CodeLists">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CodeLists/carriers"/>
@@ -447,6 +448,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CodeLists/currencies"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CodeLists/serviceBrands"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CodeLists/nutsCodes"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//WorkflowHistory">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//WorkflowHistory/workflowSteps"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//WorkflowStep">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//WorkflowStep/time"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//WorkflowStep/description"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//NUTSCodes">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//NUTSCodes/nutsCodes"/>

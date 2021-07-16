@@ -76,6 +76,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createCodeListsAdapter();
 			}
 			@Override
+			public Adapter caseWorkflowHistory(WorkflowHistory object) {
+				return createWorkflowHistoryAdapter();
+			}
+			@Override
+			public Adapter caseWorkflowStep(WorkflowStep object) {
+				return createWorkflowStepAdapter();
+			}
+			@Override
 			public Adapter caseNUTSCodes(NUTSCodes object) {
 				return createNUTSCodesAdapter();
 			}
@@ -732,6 +740,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCodeListsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.WorkflowHistory <em>Workflow History</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.WorkflowHistory
+	 * @generated
+	 */
+	public Adapter createWorkflowHistoryAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.WorkflowStep <em>Workflow Step</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.WorkflowStep
+	 * @generated
+	 */
+	public Adapter createWorkflowStepAdapter() {
 		return null;
 	}
 
