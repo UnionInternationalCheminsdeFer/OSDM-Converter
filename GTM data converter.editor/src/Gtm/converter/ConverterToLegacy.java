@@ -190,7 +190,6 @@ public class 	ConverterToLegacy {
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_3);	
 		for (FareElement fare : convertableFares) {
-
 			try {
 				LegacyRouteFare  legacyFare = convertFare(fare);
 				if (series.size() < 99999 && legacyFare != null) {
@@ -400,7 +399,9 @@ public class 	ConverterToLegacy {
 					serie1.getToStation() == serie2.getToStation() &&
 					serie1 != serie2) {
 					routeIndex++;
-					serie1.setRouteNumber(routeIndex);
+					if (serie1.getRouteNumber() == 0) {
+						serie1.setRouteNumber(routeIndex);
+					}
 				}
 			}
 			if (routeIndex > 9) {
