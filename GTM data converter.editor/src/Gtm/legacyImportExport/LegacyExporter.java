@@ -909,11 +909,11 @@ public class LegacyExporter {
 		//	57 Flag 14 for computerised route numeric 1 M  211 Relates to Fields 40-54 or 3 (see point 2.2) 
 		sb.append("0"); //$NON-NLS-1$
 		//	58 First day of validity of fare numeric 8 M  212-219 Expressed as: 'YYYYMMDD' 
-		sb.append(dateFormat.format(series.getValidFrom()));		
+		sb.append(dateFormat.format(fromDate));		
 		//	59 Version number numeric 2 M  220-221 Sequential version number related to the fare date; '01' for the first issue, '02' for the second etc. 
 		sb.append("01"); //$NON-NLS-1$
 		//	60 Last day of validity of fare numeric 8 M  222-229 Expressed as: 'YYYYMMDD' 
-		sb.append(dateFormat.format(series.getValidUntil()));
+		sb.append(dateFormat.format(untilDate));
 		
 		return sb.toString();
 	}
