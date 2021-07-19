@@ -1842,6 +1842,19 @@ public class GtmUtils {
 		    else if(Character.toString(ch).equals("Ó")){sb.append("O");}
 		    else if(Character.toString(ch).equals("É")){sb.append("E");}
 		    else if(Character.toString(ch).equals("Č")){sb.append("C");}
+		    else if(Character.toString(ch).equals("ă")){sb.append("a");}
+		    else if(Character.toString(ch).equals("ţ")){sb.append("t");}
+		    else if(Character.toString(ch).equals("Á")){sb.append("A");}
+		    else if(Character.toString(ch).equals("Ž")){sb.append("Z");}
+		    else if(Character.toString(ch).equals("ő")){sb.append("o");}
+		    else if(Character.toString(ch).equals("ł")){sb.append("l");}
+		    else if(Character.toString(ch).equals("ó")){sb.append("o");}
+		    else if(Character.toString(ch).equals("ž")){sb.append("z");}
+		    else if(Character.toString(ch).equals("š")){sb.append("s");}
+		    else if(Character.toString(ch).equals("Ú")){sb.append("U");}
+		    else if(Character.toString(ch).equals("ú")){sb.append("u");}
+		    else if(Character.toString(ch).equals("ó")){sb.append("o");}
+		    else if(Character.toString(ch).equals("ű")){sb.append("u");}		    
 		    else {
 		     sb.append(ch);
 		    }

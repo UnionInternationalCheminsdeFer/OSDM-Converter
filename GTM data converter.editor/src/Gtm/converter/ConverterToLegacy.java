@@ -1135,8 +1135,8 @@ public class 	ConverterToLegacy {
 		if (legacyFare == null) {	
 			legacyFare = GtmFactory.eINSTANCE.createLegacyRouteFare();
 			legacyFare.setSeriesNumber(series.getNumber());
-			legacyFare.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDate());
-			legacyFare.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDate());	
+			legacyFare.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDateTime());
+			legacyFare.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDateTime());	
 			legacyFare.setSeries(series);		
 		} 
 		if (fare.getServiceClass().getId() == ClassId.B) {
@@ -1324,22 +1324,22 @@ public class 	ConverterToLegacy {
 		
 			for (SalesRestriction r : s.getRestrictions()) {
 			
-				if (r.getSalesDates() != null && r.getSalesDates().getFromDate() != null) {
+				if (r.getSalesDates() != null && r.getSalesDates().getFromDateTime() != null) {
 					if (startDate == null) {
-						startDate = r.getSalesDates().getFromDate();
+						startDate = r.getSalesDates().getFromDateTime();
 					} else {
-						if (startDate.after(r.getSalesDates().getFromDate())) {
-							startDate = r.getSalesDates().getFromDate();
+						if (startDate.after(r.getSalesDates().getFromDateTime())) {
+							startDate = r.getSalesDates().getFromDateTime();
 						}
 					}
 				}
 			
-				if (r.getSalesDates() != null && r.getSalesDates().getUntilDate() != null) {
+				if (r.getSalesDates() != null && r.getSalesDates().getUntilDateTime() != null) {
 					if (endDate == null) {
-						endDate = r.getSalesDates().getUntilDate();
+						endDate = r.getSalesDates().getUntilDateTime();
 					} else {
-						if (endDate.before(r.getSalesDates().getUntilDate())) {
-							endDate = r.getSalesDates().getUntilDate();
+						if (endDate.before(r.getSalesDates().getUntilDateTime())) {
+							endDate = r.getSalesDates().getUntilDateTime();
 						}
 					}
 				}
