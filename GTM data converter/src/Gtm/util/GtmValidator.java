@@ -2097,7 +2097,7 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateCalendar_START_END_DATE_ORDER(Calendar calendar, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (calendar.getFromDate() == null || calendar.getUntilDate() == null || calendar.getFromDate().after(calendar.getUntilDate()) ) {
+		if (calendar.getFromDateTime() == null || calendar.getUntilDateTime() == null || calendar.getFromDateTime().after(calendar.getUntilDateTime()) ) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -2124,8 +2124,8 @@ public class GtmValidator extends EObjectValidator {
 		boolean result = true;
 		
 		for (Date date : calendar.getDates()) {
-			if (calendar.getFromDate().after(date) || 
-				calendar.getUntilDate().before(date)) {
+			if (calendar.getFromDateTime().after(date) || 
+				calendar.getUntilDateTime().before(date)) {
 				result = false;
 				break;
 			}
