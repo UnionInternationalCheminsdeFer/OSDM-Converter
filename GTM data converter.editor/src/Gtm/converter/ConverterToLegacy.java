@@ -190,7 +190,6 @@ public class 	ConverterToLegacy {
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_3);	
 		for (FareElement fare : convertableFares) {
-
 			try {
 				LegacyRouteFare  legacyFare = convertFare(fare);
 				if (series.size() < 99999 && legacyFare != null) {
@@ -400,7 +399,9 @@ public class 	ConverterToLegacy {
 					serie1.getToStation() == serie2.getToStation() &&
 					serie1 != serie2) {
 					routeIndex++;
-					serie1.setRouteNumber(routeIndex);
+					if (serie1.getRouteNumber() == 0) {
+						serie1.setRouteNumber(routeIndex);
+					}
 				}
 			}
 			if (routeIndex > 9) {
@@ -649,10 +650,10 @@ public class 	ConverterToLegacy {
 				for (SalesRestriction sr : sac.getRestrictions()) {
 					if (sr.getSalesDates() != null) {
 						if (endDate == null) {
-							endDate = sr.getSalesDates().getUntilDate();
+							endDate = sr.getSalesDates().getUntilDateTime();
 						} else {
-							if (endDate.before(sr.getSalesDates().getUntilDate())) {
-								endDate = sr.getSalesDates().getUntilDate();
+							if (endDate.before(sr.getSalesDates().getUntilDateTime())) {
+								endDate = sr.getSalesDates().getUntilDateTime();
 							}
 						}
 					}
@@ -680,10 +681,10 @@ public class 	ConverterToLegacy {
 				for (SalesRestriction sr : sac.getRestrictions()) {
 					if (sr.getSalesDates() != null) {
 						if (startDate == null) {
-							startDate = sr.getSalesDates().getFromDate();
+							startDate = sr.getSalesDates().getFromDateTime();
 						} else {
-							if (startDate.after(sr.getSalesDates().getFromDate())) {
-								startDate = sr.getSalesDates().getFromDate();
+							if (startDate.after(sr.getSalesDates().getFromDateTime())) {
+								startDate = sr.getSalesDates().getFromDateTime();
 							}
 						}
 					}
@@ -1247,7 +1248,8 @@ public class 	ConverterToLegacy {
 		
 		Route mainRoute = mainVia.getRoute();
 		int altRoute = 1;
-		addViaStations (series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint);
+		boolean excludeStartEnd = true;
+		addViaStations (series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint, excludeStartEnd);
 		if (series.getViastations().size() > 5) {
 			String message = NationalLanguageSupport.ConverterToLegacy_29 + routeDescription;
 			GtmUtils.writeConsoleError(message, editor);
@@ -1470,13 +1472,19 @@ public class 	ConverterToLegacy {
 	 * @param vias the vias
 	 * @param altRoute the alt route
 	 * @param routeServiceConstraint 
+	 * @param excludeStartEnd 
 	 * @return true, if successful
 	 */
-	private boolean addViaStations(EList<LegacyViastation> viastations, EList<ViaStation> vias, int altRoute, ServiceConstraint routeServiceConstraint) {
+	private boolean addViaStations(EList<LegacyViastation> viastations, EList<ViaStation> vias, int altRoute, ServiceConstraint routeServiceConstraint, boolean excludeStartEnd) {
 		
-		int lastIndex = vias.size() - 1;
+		int startIndex = 0;
+		int endIndex = vias.size();
+		if (excludeStartEnd) {
+			startIndex++;
+			endIndex--;			
+		}
 		
-		for (int index = 1;index < lastIndex; index++) {
+		for (int index = startIndex;index < endIndex; index++) {
 			
 			ViaStation station = vias.get(index);
 			if (station.getServiceConstraint() != null && station.getServiceConstraint().getLegacy108Code() > 0) {
@@ -1505,7 +1513,7 @@ public class 	ConverterToLegacy {
 			} else if (station.getAlternativeRoutes() != null) {
 				for (AlternativeRoute altr : station.getAlternativeRoutes()) {
 					altRoute++;
-					if (!addViaStations(viastations, altr.getStations(), altRoute,null)) {
+					if (!addViaStations(viastations, altr.getStations(), altRoute,null, false)) {
 						return false;
 					};
 				}

@@ -56,43 +56,10 @@ public class LegacyExporter {
 		this.exportPath = path;
 		this.editor = editor;
 		
-		if (tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().isEmpty()) return;
 		
-		this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
-		this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
-		this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
-		
-		if (fromDate == null || untilDate == null) {
-			String message = "From / Until Date in Legacy Parameters is missing";
-			GtmUtils.writeConsoleError(message, editor);
+		if (tool == null ||tool.getConversionFromLegacy() == null) {	
 			return;
 		}
-		
-		try  {
-			if (tool.getConversionFromLegacy().getLegacy108().getCharacterSet().equals(CharacterSet.COUNTRY_DEFAULT)) {
-				charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getParams().getCountry().getDefaultCharacterSet(), editor);
-			} else {
-				charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getLegacy108().getCharacterSet(), editor);
-			}
-		} catch (Exception e) {
-			String message = "no local character set provided using ISO-8859-1 instead - local station names might be corrupted in the export";
-			GtmUtils.writeConsoleError(message, editor);
-			GtmUtils.writeConsoleStackTrace(e, editor);
-		}
-		
-		writeL = false;
-		writeP = false;
-		writeM = false;
-		
-		
-		if (tool.getConversionFromLegacy().getLegacy108().getTimeZone() != null) {
-			this.timeZone = tool.getConversionFromLegacy().getLegacy108().getTimeZone().getName();
-		}
-		if (timeZone == null || timeZone.length() < 3) {
-			timeZone = "UTC"; //$NON-NLS-1$
-		}
-		dateFormat.setTimeZone(TimeZone.getTimeZone(timeZone)); 
-	
 
 	}
 	
@@ -111,6 +78,53 @@ public class LegacyExporter {
 	
 	public void export(IProgressMonitor monitor) {
 		try {
+			
+			if (tool == null
+					||tool.getConversionFromLegacy() == null
+					||tool.getConversionFromLegacy().getLegacy108() == null
+					||tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList() == null
+					||tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() == null
+					||tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().isEmpty()) {
+					
+					String message = "no converted 108 data available for export";
+					GtmUtils.writeConsoleWarning(message, editor);
+					
+					return;
+				}
+			
+			
+			this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
+			
+			this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
+			this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
+			
+			if (fromDate == null || untilDate == null) {
+				String message = "From / Until Date in Legacy Parameters is missing";
+				GtmUtils.writeConsoleError(message, editor);
+				return;
+			}
+			
+				
+			if (tool.getConversionFromLegacy().getLegacy108().getTimeZone() != null) {
+				this.timeZone = tool.getConversionFromLegacy().getLegacy108().getTimeZone().getName();
+			}
+			if (timeZone == null || timeZone.length() < 3) {
+				timeZone = "UTC"; //$NON-NLS-1$
+			}
+			dateFormat.setTimeZone(TimeZone.getTimeZone(timeZone)); 
+			
+			try  {
+				if (tool.getConversionFromLegacy().getLegacy108().getCharacterSet().equals(CharacterSet.COUNTRY_DEFAULT)) {
+					charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getParams().getCountry().getDefaultCharacterSet(), editor);
+				} else {
+					charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getLegacy108().getCharacterSet(), editor);
+				}
+			} catch (Exception e) {
+				String message = "no local character set provided using ISO-8859-1 instead - local station names might be corrupted in the export";
+				GtmUtils.writeConsoleWarning(message, editor);
+				GtmUtils.writeConsoleStackTrace(e, editor);
+			}
+
 			
 			writeL = false;
 			writeP = false;
@@ -846,7 +860,7 @@ public class LegacyExporter {
 			//	43 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(0).getPosition()));  	 //$NON-NLS-1$
 			//	44 Abridging code for 1st station numeric 1 O  182  
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}
@@ -856,7 +870,7 @@ public class LegacyExporter {
 			//	46 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(1).getPosition()));  	 //$NON-NLS-1$
 			//	47 Abridging code for 1st station numeric 1 O  182  
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}
@@ -866,7 +880,7 @@ public class LegacyExporter {
 			//	49 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(2).getPosition())); 
 			//	50 Abridging code for 1st station numeric 1 O  182    
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}		
@@ -876,7 +890,7 @@ public class LegacyExporter {
 			//	52 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(3).getPosition()));  	 //$NON-NLS-1$
 			//	53 Abridging code for 1st station numeric 1 O  182  
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}		
@@ -886,7 +900,7 @@ public class LegacyExporter {
 			//	55 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(4).getPosition()));  	 //$NON-NLS-1$
 			//	56 Abridging code for 1st station numeric 1 O  182  
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}		
@@ -920,11 +934,13 @@ public class LegacyExporter {
 		//5 Key flag for carrier code numeric 1 M 11 0, 1 or 2 (see point 2.2)
 		sb.append("1");
 		//6 Carrier's shortened name alpha numeric 17 M 12-28
-		sb.append(String.format("%-17s",GtmUtils.limitStringLengthWithConsoleEntry(carrier.getCarrierShortName(),17,editor,"TCVC export - carrier")));		 //$NON-NLS-1$
+		String shortName = GtmUtils.utf2ascii(carrier.getCarrierShortName());
+		sb.append(String.format("%-17s",GtmUtils.limitStringLengthWithConsoleEntry(shortName,17,editor,"TCVC export - carrier")));		 //$NON-NLS-1$
 		//7 Flag 1 for carrier's shortened name	numeric 1 M 29 0 or 3 (see point 2.2)
 		sb.append("0");
 		//8 Carrier’s full name alpha numeric 60 M 30-89
-		sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(carrier.getCarrierName(),60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$	
+		String name = GtmUtils.utf2ascii(carrier.getCarrierName());
+		sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(name,60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$	
 		//9 Flag 2 for carrier's full name numeric 1 M 90 0 or 3 (see point 2.2)
 		sb.append("0");
 		//10 Address - street alpha numeric 60 M 91-1 50

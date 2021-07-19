@@ -1841,6 +1841,7 @@ public class GtmUtils {
 		    else if(Character.toString(ch).equals("á")){sb.append("a");}
 		    else if(Character.toString(ch).equals("Ó")){sb.append("O");}
 		    else if(Character.toString(ch).equals("É")){sb.append("E");}
+		    else if(Character.toString(ch).equals("Č")){sb.append("C");}
 		    else {
 		     sb.append(ch);
 		    }
