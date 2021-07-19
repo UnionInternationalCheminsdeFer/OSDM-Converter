@@ -650,10 +650,10 @@ public class 	ConverterToLegacy {
 				for (SalesRestriction sr : sac.getRestrictions()) {
 					if (sr.getSalesDates() != null) {
 						if (endDate == null) {
-							endDate = sr.getSalesDates().getUntilDate();
+							endDate = sr.getSalesDates().getUntilDateTime();
 						} else {
-							if (endDate.before(sr.getSalesDates().getUntilDate())) {
-								endDate = sr.getSalesDates().getUntilDate();
+							if (endDate.before(sr.getSalesDates().getUntilDateTime())) {
+								endDate = sr.getSalesDates().getUntilDateTime();
 							}
 						}
 					}
@@ -681,10 +681,10 @@ public class 	ConverterToLegacy {
 				for (SalesRestriction sr : sac.getRestrictions()) {
 					if (sr.getSalesDates() != null) {
 						if (startDate == null) {
-							startDate = sr.getSalesDates().getFromDate();
+							startDate = sr.getSalesDates().getFromDateTime();
 						} else {
-							if (startDate.after(sr.getSalesDates().getFromDate())) {
-								startDate = sr.getSalesDates().getFromDate();
+							if (startDate.after(sr.getSalesDates().getFromDateTime())) {
+								startDate = sr.getSalesDates().getFromDateTime();
 							}
 						}
 					}

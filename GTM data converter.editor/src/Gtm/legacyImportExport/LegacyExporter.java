@@ -56,43 +56,10 @@ public class LegacyExporter {
 		this.exportPath = path;
 		this.editor = editor;
 		
-		if (tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().isEmpty()) return;
 		
-		this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
-		this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
-		this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
-		
-		if (fromDate == null || untilDate == null) {
-			String message = "From / Until Date in Legacy Parameters is missing";
-			GtmUtils.writeConsoleError(message, editor);
+		if (tool == null ||tool.getConversionFromLegacy() == null) {	
 			return;
 		}
-		
-		try  {
-			if (tool.getConversionFromLegacy().getLegacy108().getCharacterSet().equals(CharacterSet.COUNTRY_DEFAULT)) {
-				charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getParams().getCountry().getDefaultCharacterSet(), editor);
-			} else {
-				charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getLegacy108().getCharacterSet(), editor);
-			}
-		} catch (Exception e) {
-			String message = "no local character set provided using ISO-8859-1 instead - local station names might be corrupted in the export";
-			GtmUtils.writeConsoleError(message, editor);
-			GtmUtils.writeConsoleStackTrace(e, editor);
-		}
-		
-		writeL = false;
-		writeP = false;
-		writeM = false;
-		
-		
-		if (tool.getConversionFromLegacy().getLegacy108().getTimeZone() != null) {
-			this.timeZone = tool.getConversionFromLegacy().getLegacy108().getTimeZone().getName();
-		}
-		if (timeZone == null || timeZone.length() < 3) {
-			timeZone = "UTC"; //$NON-NLS-1$
-		}
-		dateFormat.setTimeZone(TimeZone.getTimeZone(timeZone)); 
-	
 
 	}
 	
@@ -111,6 +78,53 @@ public class LegacyExporter {
 	
 	public void export(IProgressMonitor monitor) {
 		try {
+			
+			if (tool == null
+					||tool.getConversionFromLegacy() == null
+					||tool.getConversionFromLegacy().getLegacy108() == null
+					||tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList() == null
+					||tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() == null
+					||tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().isEmpty()) {
+					
+					String message = "no converted 108 data available for export";
+					GtmUtils.writeConsoleWarning(message, editor);
+					
+					return;
+				}
+			
+			
+			this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
+			
+			this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
+			this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
+			
+			if (fromDate == null || untilDate == null) {
+				String message = "From / Until Date in Legacy Parameters is missing";
+				GtmUtils.writeConsoleError(message, editor);
+				return;
+			}
+			
+				
+			if (tool.getConversionFromLegacy().getLegacy108().getTimeZone() != null) {
+				this.timeZone = tool.getConversionFromLegacy().getLegacy108().getTimeZone().getName();
+			}
+			if (timeZone == null || timeZone.length() < 3) {
+				timeZone = "UTC"; //$NON-NLS-1$
+			}
+			dateFormat.setTimeZone(TimeZone.getTimeZone(timeZone)); 
+			
+			try  {
+				if (tool.getConversionFromLegacy().getLegacy108().getCharacterSet().equals(CharacterSet.COUNTRY_DEFAULT)) {
+					charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getParams().getCountry().getDefaultCharacterSet(), editor);
+				} else {
+					charset = GtmUtils.getSupportedCharset(tool.getConversionFromLegacy().getLegacy108().getCharacterSet(), editor);
+				}
+			} catch (Exception e) {
+				String message = "no local character set provided using ISO-8859-1 instead - local station names might be corrupted in the export";
+				GtmUtils.writeConsoleWarning(message, editor);
+				GtmUtils.writeConsoleStackTrace(e, editor);
+			}
+
 			
 			writeL = false;
 			writeP = false;
