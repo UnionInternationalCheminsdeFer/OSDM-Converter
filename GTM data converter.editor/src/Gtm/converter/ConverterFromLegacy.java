@@ -625,22 +625,22 @@ public class ConverterFromLegacy {
 		
 		for (SalesRestriction r : s.getRestrictions()) {
 			
-			if (r.getSalesDates() != null && r.getSalesDates().getFromDate() != null) {
+			if (r.getSalesDates() != null && r.getSalesDates().getFromDateTime() != null) {
 				if (startDate == null) {
-					startDate = r.getSalesDates().getFromDate();
+					startDate = r.getSalesDates().getFromDateTime();
 				} else {
-					if (startDate.after(r.getSalesDates().getFromDate())) {
-						startDate = r.getSalesDates().getFromDate();
+					if (startDate.after(r.getSalesDates().getFromDateTime())) {
+						startDate = r.getSalesDates().getFromDateTime();
 					}
 				}
 			}
 			
-			if (r.getSalesDates() != null && r.getSalesDates().getUntilDate() != null) {
+			if (r.getSalesDates() != null && r.getSalesDates().getUntilDateTime() != null) {
 				if (endDate == null) {
-					endDate = r.getSalesDates().getUntilDate();
+					endDate = r.getSalesDates().getUntilDateTime();
 				} else {
-					if (endDate.before(r.getSalesDates().getUntilDate())) {
-						endDate = r.getSalesDates().getUntilDate();
+					if (endDate.before(r.getSalesDates().getUntilDateTime())) {
+						endDate = r.getSalesDates().getUntilDateTime();
 					}
 				}
 			}
@@ -1074,11 +1074,11 @@ public class ConverterFromLegacy {
 				if (sa.getRestrictions() != null &&
 					!sa.getRestrictions().isEmpty() &&	
 					sa.getRestrictions().get(0).getSalesDates() != null &&
-					sa.getRestrictions().get(0).getSalesDates().getFromDate() != null &&
-					sa.getRestrictions().get(0).getSalesDates().getUntilDate() != null) {
+					sa.getRestrictions().get(0).getSalesDates().getFromDateTime() != null &&
+					sa.getRestrictions().get(0).getSalesDates().getUntilDateTime() != null) {
 					
-					if (sa.getRestrictions().get(0).getSalesDates().getFromDate().equals(dateRange.startDate) 
-							&& sa.getRestrictions().get(0).getSalesDates().getUntilDate().equals(dateRange.endDate) ) {
+					if (sa.getRestrictions().get(0).getSalesDates().getFromDateTime().equals(dateRange.startDate) 
+							&& sa.getRestrictions().get(0).getSalesDates().getUntilDateTime().equals(dateRange.endDate) ) {
 							return sa;
 					}
 				}
@@ -1803,9 +1803,9 @@ public class ConverterFromLegacy {
 			return price;
 		
 		} catch (Exception e) {
-			e.printStackTrace();
 			String message = NationalLanguageSupport.ConverterFromLegacy_42 + Integer.toString(series.getNumber()) + ")"; //$NON-NLS-2$
 			GtmUtils.writeConsoleError(message, editor);
+			GtmUtils.writeConsoleStackTrace(e, editor);
 			return null;
 		}
 	}
@@ -2119,11 +2119,11 @@ public class ConverterFromLegacy {
 				if (sa.getRestrictions() != null &&
 					!sa.getRestrictions().isEmpty() &&	
 					sa.getRestrictions().get(0).getSalesDates() != null &&
-					sa.getRestrictions().get(0).getSalesDates().getFromDate() != null &&
-					sa.getRestrictions().get(0).getSalesDates().getUntilDate() != null) {
+					sa.getRestrictions().get(0).getSalesDates().getFromDateTime() != null &&
+					sa.getRestrictions().get(0).getSalesDates().getUntilDateTime() != null) {
 					
-					if (   sa.getRestrictions().get(0).getSalesDates().getFromDate().equals(dateRange.startDate) 
-						&& sa.getRestrictions().get(0).getSalesDates().getUntilDate().equals(dateRange.endDate) ) {
+					if (   sa.getRestrictions().get(0).getSalesDates().getFromDateTime().equals(dateRange.startDate) 
+						&& sa.getRestrictions().get(0).getSalesDates().getUntilDateTime().equals(dateRange.endDate) ) {
 						return bu;
 					}
 				}
