@@ -1706,29 +1706,29 @@ public class GtmUtils {
 		if (set == null) {
 			return StandardCharsets.ISO_8859_1;
 		} else if (set.equals(CharacterSet.LATIN10_ISO885916)) {
-			return getCharSet("ISO_8859_16", editor);
+			return getCharSet("ISO8859_16", editor);
 		} else if (set.equals(CharacterSet.LATIN1_ISO88591)) {
 			return StandardCharsets.ISO_8859_1;
 		} else if (set.equals(CharacterSet.LATIN2_ISO88592)) {
-			return getCharSet("ISO_8859_2", editor);			
+			return getCharSet("ISO8859_2", editor);
 		} else if (set.equals(CharacterSet.LATIN3_ISO88593)) {
-			return getCharSet("ISO_8859_3", editor);
+			return getCharSet("ISO8859_3", editor);
 		} else if (set.equals(CharacterSet.LATIN4_ISO88594)) {
-			return getCharSet("ISO_8859_4", editor);
+			return getCharSet("ISO8859_4", editor);
 		} else if (set.equals(CharacterSet.LATIN5_ISO88599)) {
-			return getCharSet("ISO_8859_9", editor);
+			return getCharSet("ISO8859_9", editor);
 		} else if (set.equals(CharacterSet.LATIN7_ISO885913)) {
-			return getCharSet("ISO_8859_13", editor);
+			return getCharSet("ISO8859_13", editor);
 		} else if (set.equals(CharacterSet.LATIN9_ISO885915)) {
-			return getCharSet("ISO_8859_15", editor);
+			return getCharSet("ISO8859_15", editor);
 		} else if (set.equals(CharacterSet.LATINARABIC_ISO88596)) {
-			return getCharSet("ISO_8859_6", editor);
+			return getCharSet("ISO8859_6", editor);
 		} else if (set.equals(CharacterSet.LATINGREEK_ISO88597)) {
-			return getCharSet("ISO_8859_7", editor);
+			return getCharSet("ISO8859_7", editor);
 		} else if (set.equals(CharacterSet.LATINHEBREW_ISO88598)) {
-			return getCharSet("ISO_8859_8", editor);
+			return getCharSet("ISO8859_8", editor);
 		} else if (set.equals(CharacterSet.LATINKYRILLIC_ISO88595)) {
-			return getCharSet("ISO_8859_5", editor);
+			return getCharSet("ISO8859_5", editor);
 		} else if (set.equals(CharacterSet.RUSSIAN_KOI8R)) {
 			return getCharSet("KOI8_R", editor);
 		} else if (set.equals(CharacterSet.UKRAINIAN_KOI8U)) {
@@ -1741,12 +1741,15 @@ public class GtmUtils {
 	}
 
 	private static Charset getCharSet(String charset,GtmEditor editor) {
-		if (!Charset.isSupported(charset)) {
+		
+		Charset set = Charset.forName(charset);
+		
+		if (set == null) {
 			String message = "local character set " + charset + " not supported using ISO-8859-1 instead - local station names might be corrupted in the export";
 			GtmUtils.writeConsoleInfo(message, editor);
 			return StandardCharsets.ISO_8859_1;
 		} else {
-			return Charset.availableCharsets().get(charset);
+			return set;
 		}
 	}
 	
