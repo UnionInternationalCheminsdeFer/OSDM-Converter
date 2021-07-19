@@ -846,7 +846,7 @@ public class LegacyExporter {
 			//	43 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(0).getPosition()));  	 //$NON-NLS-1$
 			//	44 Abridging code for 1st station numeric 1 O  182  
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}
@@ -856,7 +856,7 @@ public class LegacyExporter {
 			//	46 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(1).getPosition()));  	 //$NON-NLS-1$
 			//	47 Abridging code for 1st station numeric 1 O  182  
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}
@@ -866,7 +866,7 @@ public class LegacyExporter {
 			//	49 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(2).getPosition())); 
 			//	50 Abridging code for 1st station numeric 1 O  182    
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}		
@@ -876,7 +876,7 @@ public class LegacyExporter {
 			//	52 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(3).getPosition()));  	 //$NON-NLS-1$
 			//	53 Abridging code for 1st station numeric 1 O  182  
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}		
@@ -886,7 +886,7 @@ public class LegacyExporter {
 			//	55 Position of 1st station numeric 1 O  181 1 = centre 2 = left 3 = right 
 			sb.append(String.format("%01d", series.getViastations().get(4).getPosition()));  	 //$NON-NLS-1$
 			//	56 Abridging code for 1st station numeric 1 O  182  
-			sb.append("0"); //$NON-NLS-1$
+			sb.append("1"); //$NON-NLS-1$
 		} else {
 			sb.append("0000000"); //$NON-NLS-1$
 		}		
