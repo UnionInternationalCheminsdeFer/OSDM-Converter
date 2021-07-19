@@ -920,11 +920,13 @@ public class LegacyExporter {
 		//5 Key flag for carrier code numeric 1 M 11 0, 1 or 2 (see point 2.2)
 		sb.append("1");
 		//6 Carrier's shortened name alpha numeric 17 M 12-28
-		sb.append(String.format("%-17s",GtmUtils.limitStringLengthWithConsoleEntry(carrier.getCarrierShortName(),17,editor,"TCVC export - carrier")));		 //$NON-NLS-1$
+		String shortName = GtmUtils.utf2ascii(carrier.getCarrierShortName());
+		sb.append(String.format("%-17s",GtmUtils.limitStringLengthWithConsoleEntry(shortName,17,editor,"TCVC export - carrier")));		 //$NON-NLS-1$
 		//7 Flag 1 for carrier's shortened name	numeric 1 M 29 0 or 3 (see point 2.2)
 		sb.append("0");
 		//8 Carrier’s full name alpha numeric 60 M 30-89
-		sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(carrier.getCarrierName(),60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$	
+		String name = GtmUtils.utf2ascii(carrier.getCarrierName());
+		sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(name,60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$	
 		//9 Flag 2 for carrier's full name numeric 1 M 90 0 or 3 (see point 2.2)
 		sb.append("0");
 		//10 Address - street alpha numeric 60 M 91-1 50
