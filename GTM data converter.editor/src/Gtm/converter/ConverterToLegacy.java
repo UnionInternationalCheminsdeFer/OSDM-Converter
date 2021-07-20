@@ -1260,7 +1260,15 @@ public class 	ConverterToLegacy {
 		Route mainRoute = mainVia.getRoute();
 		int altRoute = 1;
 		boolean excludeStartEnd = true;
-		addViaStations (series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint, excludeStartEnd);
+		boolean success = addViaStations (series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint, excludeStartEnd);
+		if (!success) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Could not convert route: ").append(routeDescription);
+			sb.append("in series: ").append(series.getNumber());
+			GtmUtils.writeConsoleError(sb.toString(), editor);
+			return null;
+		}
+		
 		if (series.getViastations().size() > 5) {
 			String message = NationalLanguageSupport.ConverterToLegacy_29 + routeDescription;
 			GtmUtils.writeConsoleError(message, editor);
@@ -1503,7 +1511,7 @@ public class 	ConverterToLegacy {
 				lvia.setPosition(altRoute);
 				lvia.setCode(station.getServiceConstraint().getLegacy108Code());
 				viastations.add(lvia);
-			} else if (index == 1 && routeServiceConstraint != null && station.getServiceConstraint() == null) {
+			} else if (index == 1 && routeServiceConstraint != null && routeServiceConstraint != null && routeServiceConstraint.getLegacy108Code() > 0) {
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
 				lvia.setPosition(altRoute);
 				lvia.setCode(routeServiceConstraint.getLegacy108Code());
