@@ -1153,6 +1153,11 @@ public class ConverterFromLegacy {
 			
 			LegacyViastation legacyViaStation = series.getViastations().get(i);
 			if (legacyViaStation.getPosition() != lastPosition) {
+				if (legacyViaStation.getPosition() == 2 && lastPosition == 3){
+					//switch back to main route
+					lastRoute = mainRoute;
+					lastPosition = mainRoutePosition;				
+				}
 				if (legacyViaStation.getPosition() == mainRoutePosition){
 					//switch back to main route
 					lastRoute = mainRoute;
@@ -1407,6 +1412,11 @@ public class ConverterFromLegacy {
 		
 		for (LegacyViastation legacyViaStation : series.getViastations()) {
 			if (legacyViaStation.getPosition() != lastPosition) {
+				if (legacyViaStation.getPosition() == 2 && lastPosition == 3){
+					//switch back to main route
+					lastRoute = mainRoute;
+					lastPosition = mainRoutePosition;				
+				}
 				if (legacyViaStation.getPosition() == mainRoutePosition){
 					//switch back to main route
 					lastRoute = mainRoute;
