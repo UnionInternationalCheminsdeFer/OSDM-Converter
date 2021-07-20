@@ -853,95 +853,106 @@ public class 	ConverterToLegacy {
 		if ( tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints() != null) {
 		
 			for (LegacyBorderPoint lbp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
-				try {
-					String name = "";
-					String nameASCII = "";
-					String nameUTF8 = "";
-					int localCode = 0;
-					
-					LegacyBorderSide lbs = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(), lbp);
-					
-					if (lbs != null) {
-						localCode = lbs.getLegacyStationCode();
-						//real station?
-						Legacy108Station ls = legacyStations.get(localCode);
-						if (ls != null) {
-							ls.setBorderPointCode(lbp.getBorderPointCode());
-						} else {	
-							//use the central station on the border or select the station on the carriers side
-							if (lbs.getStations().getStations().size() == 1) {
-								Station s = lbs.getStations().getStations().get(0);
-	
-								name = s.getNameCaseUTF8();
-								nameASCII = s.getShortNameCaseASCII();
-								nameUTF8 = s.getNameCaseUTF8();
-								
-								if (name == null || name.length() == 0) {
-									StringBuilder sb = new StringBuilder();
-									sb.append( "Station names missing - code: ");
-									sb.append(lbs.getLegacyStationCode());
-									sb.append(" time table name: ").append(s.getTimetableName());
-									sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
-	 								GtmUtils.writeConsoleError(sb.toString(), editor);
-	 								return;
-								}
-							} else {
-								boolean found = false;
-								for (Station s : lbs.getStations().getStations()) {
-									
-									if (s.getCountry().equals(tool.getConversionFromLegacy().getParams().getCountry())) {
-										found = true;
-										name = s.getName();
-										nameASCII = s.getShortNameCaseASCII();
-										nameUTF8 = s.getNameCaseUTF8();
-										if (name == null || name.length() == 0) {
-											StringBuilder sb = new StringBuilder();
-											sb.append( "Station names missing - legacy code: ");
-											sb.append(lbs.getLegacyStationCode());
-											sb.append(" time table name: ").append(s.getTimetableName());
-											sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
-											GtmUtils.writeConsoleError(sb.toString(), editor);
-											return;
-										}
-									}
-								}
-								if (!found) {
-									StringBuilder sb = new StringBuilder();
-									sb.append( "Could not identify legacy station for legacy border point on: ");
-									sb.append(GtmUtils.getLabelText(lbp));
-									GtmUtils.writeConsoleError(sb.toString(), editor);								
-									return;
-								}
-								
-							}
-							
-							ls = GtmFactory.eINSTANCE.createLegacy108Station();
-							ls.setStationCode(localCode);	
-							ls.setName(name);
-							ls.setNameUTF8(nameASCII);
-							ls.setShortName(nameUTF8);
-							ls.setBorderPointCode(lbp.getBorderPointCode());
-							if (ls.getName() == null || ls.getName().length() == 0) {
-								String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
-								GtmUtils.writeConsoleError(message, editor);
-							} else {
-								legacyStations.put(ls.getStationCode(),ls);
-							}
-						}
-					}
+
+				convertStationsFromBorderPoint(lbp);
 				
-				} catch (Exception e) {
-					StringBuilder sb = new StringBuilder();
-					sb.append("Unknown error! Border Station not converted: station - ").append(lbp.getBorderPointCode()).append('\n');
-					sb.append(GtmUtils.getStackTrace(e));
-					GtmUtils.writeConsoleError(sb.toString(), editor);
-				}
 			}
 		}
 
 		return;
 	}
 	
+	
+	
+	
+	private void convertStationsFromBorderPoint(LegacyBorderPoint lbp) {
+
+		try {
+			String name = "";
+			String nameASCII = "";
+			String nameUTF8 = "";
+			int localCode = 0;
+			
+			LegacyBorderSide lbs = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(), lbp);
+			
+			if (lbs != null) {
+				localCode = lbs.getLegacyStationCode();
+				//real station?
+				Legacy108Station ls = legacyStations.get(localCode);
+				if (ls != null) {
+					ls.setBorderPointCode(lbp.getBorderPointCode());
+				} else {	
+					//use the central station on the border or select the station on the carriers side
+					if (lbs.getStations().getStations().size() == 1) {
+						Station s = lbs.getStations().getStations().get(0);
+
+						name = s.getNameCaseUTF8();
+						nameASCII = s.getShortNameCaseASCII();
+						nameUTF8 = s.getNameCaseUTF8();
+						
+						if (name == null || name.length() == 0) {
+							StringBuilder sb = new StringBuilder();
+							sb.append( "Station names missing - code: ");
+							sb.append(lbs.getLegacyStationCode());
+							sb.append(" time table name: ").append(s.getTimetableName());
+							sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
+								GtmUtils.writeConsoleError(sb.toString(), editor);
+								return;
+						}
+					} else {
+						boolean found = false;
+						for (Station s : lbs.getStations().getStations()) {
+							
+							if (s.getCountry().equals(tool.getConversionFromLegacy().getParams().getCountry())) {
+								found = true;
+								name = s.getName();
+								nameASCII = s.getShortNameCaseASCII();
+								nameUTF8 = s.getNameCaseUTF8();
+								if (name == null || name.length() == 0) {
+									StringBuilder sb = new StringBuilder();
+									sb.append( "Station names missing - legacy code: ");
+									sb.append(lbs.getLegacyStationCode());
+									sb.append(" time table name: ").append(s.getTimetableName());
+									sb.append(" station code ").append(s.getCountry().getCode()).append(" ").append(s.getCode());
+									GtmUtils.writeConsoleError(sb.toString(), editor);
+									return;
+								}
+							}
+						}
+						if (!found) {
+							StringBuilder sb = new StringBuilder();
+							sb.append( "Could not identify legacy station for legacy border point on: ");
+							sb.append(GtmUtils.getLabelText(lbp));
+							GtmUtils.writeConsoleError(sb.toString(), editor);								
+							return;
+						}
+						
+					}
+					
+					ls = GtmFactory.eINSTANCE.createLegacy108Station();
+					ls.setStationCode(localCode);	
+					ls.setName(name);
+					ls.setNameUTF8(nameASCII);
+					ls.setShortName(nameUTF8);
+					ls.setBorderPointCode(lbp.getBorderPointCode());
+					if (ls.getName() == null || ls.getName().length() == 0) {
+						String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
+						GtmUtils.writeConsoleError(message, editor);
+					} else {
+						legacyStations.put(ls.getStationCode(),ls);
+					}
+				}
+			}
+		
+		} catch (Exception e) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Unknown error! Border Station not converted: station - ").append(lbp.getBorderPointCode()).append('\n');
+			sb.append(GtmUtils.getStackTrace(e));
+			GtmUtils.writeConsoleError(sb.toString(), editor);
+		}
+
+	}
+
 	private void addMappedLegacyStation(Station station) { 
 		 if (station == null ||
 			 tool.getConversionFromLegacy().getParams() == null ||
@@ -1510,7 +1521,11 @@ public class 	ConverterToLegacy {
 				lvia.setPosition(altRoute);
 				lvia.setCode(Integer.parseInt(station.getFareStationSet().getCode()));
 				viastations.add(lvia);			
-			} else if (station.getAlternativeRoutes() != null) {
+			} else if (station.getAlternativeRoutes() != null && !station.getAlternativeRoutes().isEmpty()) {
+				if (station.getAlternativeRoutes().size() > 2) {
+					GtmUtils.writeConsoleError("More than 2 alternative routes can not be converted to 108: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
+					return false;
+				}						
 				for (AlternativeRoute altr : station.getAlternativeRoutes()) {
 					altRoute++;
 					if (!addViaStations(viastations, altr.getStations(), altRoute,null, false)) {
@@ -1519,6 +1534,11 @@ public class 	ConverterToLegacy {
 				}
 				altRoute = 1;
 			} 
+			if (station.getRoute()!= null) {
+				if (!addViaStations(viastations, station.getRoute().getStations(), altRoute,null, false)) {
+					return false;
+				};
+			}
 		}
 		
 		return true;
