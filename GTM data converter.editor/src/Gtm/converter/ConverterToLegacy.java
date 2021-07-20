@@ -1506,22 +1506,31 @@ public class 	ConverterToLegacy {
 		for (int index = startIndex;index < endIndex; index++) {
 			
 			ViaStation station = vias.get(index);
-			if (station.getServiceConstraint() != null && station.getServiceConstraint().getLegacy108Code() > 0) {
-				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
-				lvia.setPosition(altRoute);
-				lvia.setCode(station.getServiceConstraint().getLegacy108Code());
-				viastations.add(lvia);
-			} else if (index == 1 && routeServiceConstraint != null && routeServiceConstraint != null && routeServiceConstraint.getLegacy108Code() > 0) {
-				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
-				lvia.setPosition(altRoute);
-				lvia.setCode(routeServiceConstraint.getLegacy108Code());
-				viastations.add(lvia);
+			if (station.getServiceConstraint() != null) {
+				if(station.getServiceConstraint().getLegacy108Code() > 0) {
+					LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
+					lvia.setPosition(altRoute);
+					lvia.setCode(station.getServiceConstraint().getLegacy108Code());
+					viastations.add(lvia);
+				} else {
+					GtmUtils.writeConsoleWarning("Service constraint in route ignored - no legacy code provided: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
+				}
+			} else if (index == 1 && routeServiceConstraint != null) {
+				if (routeServiceConstraint.getLegacy108Code() > 0) {
+					LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
+					lvia.setPosition(altRoute);
+					lvia.setCode(routeServiceConstraint.getLegacy108Code());
+					viastations.add(lvia);
+				} else {
+					GtmUtils.writeConsoleWarning("Service constraint for route ignored - no legacy code provided: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
+				}
 			} else	if (station.getStation() != null) {
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
 				lvia.setPosition(altRoute);
 				lvia.setCode(Integer.parseInt(station.getStation().getCode()));
 				viastations.add(lvia);
 				if (station.getStation().getCountry().getCode() != tool.getConversionFromLegacy().getParams().getCountry().getCode()) {
+					GtmUtils.writeConsoleError("Via station not in country: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
 					return false;
 				}
 			} else if (station.getFareStationSet() != null){
