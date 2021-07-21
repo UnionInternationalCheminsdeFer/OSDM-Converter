@@ -97,6 +97,12 @@ public class MigrationV2 {
 		
 		cleanStationData((GTMTool)object,domain);
 		
+		addFareDetailsMaps((GTMTool)object,domain);
+		
+		addVATTemplates((GTMTool)object,domain);
+		
+		cleanUnusedOjects((GTMTool)object,domain);
+		
 
 		if (!conversionNeeded((GTMTool)object)){
 			return;
@@ -159,6 +165,67 @@ public class MigrationV2 {
 
 	}
 	
+	private static void addFareDetailsMaps(GTMTool tool, EditingDomain domain) {
+		
+		if (tool.getConversionFromLegacy() != null && 
+			tool.getConversionFromLegacy().getParams() != null &&
+			tool.getConversionFromLegacy().getParams().getLegacyStationToFareDetailMappings() == null) {
+			
+			Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_TO_FARE_DETAIL_MAPPINGS, GtmFactory.eINSTANCE.createLegacyFareDetailMaps());
+			
+			if (com != null && com.canExecute()) {
+				domain.getCommandStack().execute(com);
+			}	
+		}
+
+	}
+
+	private static void addVATTemplates(GTMTool tool, EditingDomain domain) {
+		
+		if (tool.getConversionFromLegacy() != null && 
+			tool.getConversionFromLegacy().getParams() != null &&
+			tool.getConversionFromLegacy().getParams().getVatTemplates() == null) {
+			
+			Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getParams(), GtmPackage.Literals.CONVERSION_PARAMS__VAT_TEMPLATES, GtmFactory.eINSTANCE.createVatTemplates());
+			
+			if (com != null && com.canExecute()) {
+				domain.getCommandStack().execute(com);
+			}	
+		}
+
+	}
+
+	private static void cleanUnusedOjects(GTMTool tool, EditingDomain domain) {
+	
+		CompoundCommand com = new CompoundCommand();
+		
+		if (tool.getConversionFromLegacy()!= null &&
+			tool.getConversionFromLegacy().getParams() != null) {
+			
+			if (tool.getConversionFromLegacy().getParams().getEndOfSale() != null) {		
+				com.append(DeleteCommand.create(domain, tool.getConversionFromLegacy().getParams().getEndOfSale()));			
+			}
+			
+			if (tool.getConversionFromLegacy().getParams().getStartOfSale() != null) {		
+				com.append(DeleteCommand.create(domain, tool.getConversionFromLegacy().getParams().getStartOfSale()));			
+			}
+			
+			if (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings() != null) {
+				com.append(DeleteCommand.create(domain, tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings()));			
+			}
+			
+			if (tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings() != null) {
+				com.append(DeleteCommand.create(domain, tool.getConversionFromLegacy().getParams().getLegacyFareStationMappings()));			
+			}			
+			
+		}
+		
+		if (com != null && !com.isEmpty() && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}		
+	}
+
+
 	private static void migrateCalendars(GTMTool tool, EditingDomain domain) {
 	
 		if (tool == null ||
