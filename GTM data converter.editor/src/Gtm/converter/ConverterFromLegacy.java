@@ -2094,8 +2094,14 @@ public class ConverterFromLegacy {
 					GtmUtils.writeConsoleWarning("Validity Ranges are not unique! Fare constraint bundles will be copied per validity range.", editor);
 
 					SalesAvailabilityConstraint s = findSalesAvailability(tool, dateRange);
+
+					
 					FareConstraintBundle bundle2 = EcoreUtil.copy(bundle);
-					bundle2.setSalesAvailability(s);
+					if (s == null) {
+						GtmUtils.writeConsoleError("No Sales Availability found" , editor);
+					} else {
+						bundle2.setSalesAvailability(s);
+					}
 					bundle2.setDataSource(DataSource.CONVERTED);	
 				
 					CompoundCommand command = new CompoundCommand();	
