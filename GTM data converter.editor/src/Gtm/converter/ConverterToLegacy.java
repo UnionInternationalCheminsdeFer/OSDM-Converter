@@ -1260,7 +1260,15 @@ public class 	ConverterToLegacy {
 		Route mainRoute = mainVia.getRoute();
 		int altRoute = 1;
 		boolean excludeStartEnd = true;
-		addViaStations (series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint, excludeStartEnd);
+		boolean success = addViaStations (series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint, excludeStartEnd);
+		if (!success) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Could not convert route: ").append(routeDescription);
+			sb.append("in series: ").append(series.getNumber());
+			GtmUtils.writeConsoleError(sb.toString(), editor);
+			return null;
+		}
+		
 		if (series.getViastations().size() > 5) {
 			String message = NationalLanguageSupport.ConverterToLegacy_29 + routeDescription;
 			GtmUtils.writeConsoleError(message, editor);
@@ -1498,22 +1506,31 @@ public class 	ConverterToLegacy {
 		for (int index = startIndex;index < endIndex; index++) {
 			
 			ViaStation station = vias.get(index);
-			if (station.getServiceConstraint() != null && station.getServiceConstraint().getLegacy108Code() > 0) {
-				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
-				lvia.setPosition(altRoute);
-				lvia.setCode(station.getServiceConstraint().getLegacy108Code());
-				viastations.add(lvia);
-			} else if (index == 1 && routeServiceConstraint != null && station.getServiceConstraint() == null) {
-				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
-				lvia.setPosition(altRoute);
-				lvia.setCode(routeServiceConstraint.getLegacy108Code());
-				viastations.add(lvia);
+			if (station.getServiceConstraint() != null) {
+				if(station.getServiceConstraint().getLegacy108Code() > 0) {
+					LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
+					lvia.setPosition(altRoute);
+					lvia.setCode(station.getServiceConstraint().getLegacy108Code());
+					viastations.add(lvia);
+				} else {
+					GtmUtils.writeConsoleWarning("Service constraint in route ignored - no legacy code provided: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
+				}
+			} else if (index == 1 && routeServiceConstraint != null) {
+				if (routeServiceConstraint.getLegacy108Code() > 0) {
+					LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
+					lvia.setPosition(altRoute);
+					lvia.setCode(routeServiceConstraint.getLegacy108Code());
+					viastations.add(lvia);
+				} else {
+					GtmUtils.writeConsoleWarning("Service constraint for route ignored - no legacy code provided: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
+				}
 			} else	if (station.getStation() != null) {
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
 				lvia.setPosition(altRoute);
 				lvia.setCode(Integer.parseInt(station.getStation().getCode()));
 				viastations.add(lvia);
 				if (station.getStation().getCountry().getCode() != tool.getConversionFromLegacy().getParams().getCountry().getCode()) {
+					GtmUtils.writeConsoleError("Via station not in country: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
 					return false;
 				}
 			} else if (station.getFareStationSet() != null){

@@ -99,8 +99,6 @@ but the station sets of the connection points might be incomplete and must be co
 <table border ="1">
 <tr><td>data item</td><td>description</td></tr>
 <tr><td>carrier</td><td>carrier of the data delivery (company code)</td></tr>
-<tr><td>start date</td><td>start of availability for sale for the data delivery</td></tr>
-<tr><td>end date</td><td>end of availability for sale for the data delivery</td></tr>
 <tr><td>Time Zone</td><td>time zone to convert date and time values</td></tr>
 </table>
 
@@ -139,12 +137,10 @@ The referenced data items must be defined in the General Tariff Model fare struc
 <tr><td>Legacy Bus and Ferry Mapping</td>
     <td>A mapping of the series Bus and Ferry Code to ServiceConstraints can be defined here. This mapping will override a mapping of the fare template and will be overwritten y a mapping to a station to service constraint mapping.</td>
     <td>Selection list on service constraints defined in the fare data</td></tr>
-<tr><td>Legacy fare station set mappings</td>
-    <td><b>deprecated</b> The fare references stations of 108 are converted automatically. Additional mappings can be added manually here. Fare station sets must be added in the fare data before the mapping. </td> 
-    <td>Mapping of 108.1 stations to fare station sets. The fare references stations of 108 are converted automatically. Additional mappings can be added manually here. Fare station sets must be added in the fare data before the mapping. </td> 
-</tr>
-<tr><td>Legacy border point mappings</td><td>deprecated. Please use the border point table to import border points.</td>
-    <td></td></tr>
+<tr><td>Legacy Station to Fare Detail Description Mapping</td>
+    <td>A mapping of a station to a fare detail description.</td>
+    <td>Selection list on the text defined in the fare data.Can be used to add details depending on a station on arrival, departure or both. (E.g. Diabolo airport fee in Brussels)</td></tr>
+    
 </table>
 
 

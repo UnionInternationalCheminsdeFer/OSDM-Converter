@@ -48,7 +48,6 @@ import Gtm.Legacy108Memo;
 import Gtm.Legacy108Station;
 import Gtm.LegacyAccountingIdentifier;
 import Gtm.LegacyBorderPoint;
-import Gtm.LegacyBorderPointMapping;
 import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyConversionType;
@@ -1153,12 +1152,18 @@ public class ConverterFromLegacy {
 			
 			LegacyViastation legacyViaStation = series.getViastations().get(i);
 			if (legacyViaStation.getPosition() != lastPosition) {
-				if (legacyViaStation.getPosition() == 2 && lastPosition == 3){
+				if (legacyViaStation.getPosition() == 3 && lastPosition == 2){
 					//switch back to main route
 					lastRoute = mainRoute;
-					lastPosition = mainRoutePosition;				
-				}
-				if (legacyViaStation.getPosition() == mainRoutePosition){
+					lastPosition = mainRoutePosition;	
+					alternativeRoutesVia = null;
+					try {
+						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
+					} catch (ConverterException e) {
+						String message = NationalLanguageSupport.ConverterFromLegacy_35 + Integer.toString(series.getNumber()) + NationalLanguageSupport.ConverterFromLegacy_36 + e.getMessage();
+						GtmUtils.writeConsoleError(message, editor);
+					}						
+				} else if (legacyViaStation.getPosition() == mainRoutePosition){
 					//switch back to main route
 					lastRoute = mainRoute;
 					lastPosition = mainRoutePosition;
@@ -1368,7 +1373,7 @@ public class ConverterFromLegacy {
 	 * @return the regional constraint
 	 * @throws ConverterException the converter exception
 	 */
-	public RegionalConstraint convertSeriesToRegionalConstraint(LegacySeries series) throws ConverterException{
+	private RegionalConstraint convertSeriesToRegionalConstraint(LegacySeries series) throws ConverterException{
 		
 		RegionalConstraint constraint = createRegionalConstraint(series);
 			
@@ -1415,9 +1420,16 @@ public class ConverterFromLegacy {
 				if (legacyViaStation.getPosition() == 2 && lastPosition == 3){
 					//switch back to main route
 					lastRoute = mainRoute;
-					lastPosition = mainRoutePosition;				
-				}
-				if (legacyViaStation.getPosition() == mainRoutePosition){
+					lastPosition = mainRoutePosition;	
+					alternativeRoutesVia = null;
+					try {
+						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
+					} catch (ConverterException e) {
+						String message = NationalLanguageSupport.ConverterFromLegacy_35 + Integer.toString(series.getNumber()) + NationalLanguageSupport.ConverterFromLegacy_36 + e.getMessage();
+						GtmUtils.writeConsoleError(message, editor);
+					}		
+					
+				} else if (legacyViaStation.getPosition() == mainRoutePosition){
 					//switch back to main route
 					lastRoute = mainRoute;
 					lastPosition = mainRoutePosition;
@@ -1695,15 +1707,7 @@ public class ConverterFromLegacy {
 				return s;
 			}
 		}
-		
-		//deprecated manual border mapping
-		if (tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings() != null) {
-			LegacyBorderPointMapping map = tool.getConversionFromLegacy().getParams().getLegacyBorderPointMappings().getMappingByBorderPointCode(localCode);
-			if (map != null && map.getStation() != null) {
-				return map.getStation();
-			}
-		}
-		
+			
 		//is it a virtual fare station set?
 		if (ls.getFareReferenceStationCode() == ls.getStationCode() && ls.getStationCode() > 0) {
 			StringBuilder sb = new StringBuilder();
@@ -2292,13 +2296,15 @@ public class ConverterFromLegacy {
 	 * @return the number of added connection points
 	 */
      public int convertBorderPoints() {
+    	 
+    	HashSet<Carrier> involvedCarriers = getInvolvedCarriers(tool);   	
 		
 		//add converted border points related to the carrier
 		for (LegacyBorderPoint lp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
 			
 			try {
 			
-				ConnectionPoint connectionPoint = convertImportedBorderPoint(lp);
+				ConnectionPoint connectionPoint = convertImportedBorderPoint(lp, involvedCarriers);
 				if (connectionPoint != null) {
 					borderConnectionPoints.put(lp.getBorderPointCode(), connectionPoint);
 				}
@@ -2337,21 +2343,59 @@ public class ConverterFromLegacy {
 		return borderConnectionPoints.size() + legacyStationConnectionPoints.size();
 	}
 
+	private HashSet<Carrier> getInvolvedCarriers(GTMTool tool) {
+		
+    	HashSet<Carrier> involvedCarriers = new HashSet<Carrier>();
+    	
+    	if (tool.getConversionFromLegacy().getLegacy108().getCarrier() != null){
+    		involvedCarriers.add(tool.getConversionFromLegacy().getLegacy108().getCarrier());
+    	}
+    	
+    	if (tool.getConversionFromLegacy() != null &&
+    		tool.getConversionFromLegacy().getLegacy108() != null &&
+    		tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList()!= null &&
+    		tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null) {
+    	
+    		for (LegacySeries s : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
+    		
+    			Carrier c = carriers.get(s.getCarrierCode());
+    			if (c != null) involvedCarriers.add(c);
+    		}
+    	}
+    	
+    	if (tool.getGeneralTariffModel()!= null &&
+    		tool.getGeneralTariffModel().getFareStructure() != null &&
+    		tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints() != null &&	
+    		tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints() != null) {
+    		
+    		for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
+    			
+    			if (cc.getIncludedCarriers() != null && !cc.getIncludedCarriers().isEmpty()) {
+    				involvedCarriers.addAll(cc.getIncludedCarriers());
+    			}
+    		}
+    		
+    		
+    	}
+ 
+		return involvedCarriers;
+	}
+
 	/**
 	 * Convert imported border point.
 	 *
 	 * @param lBorder the l border
+	 * @param involvedCarriers 
 	 * @return the connection point
 	 */
-	private ConnectionPoint convertImportedBorderPoint(LegacyBorderPoint lBorder) {
+	private ConnectionPoint convertImportedBorderPoint(LegacyBorderPoint lBorder, HashSet<Carrier> involvedCarriers) {
 		
 		boolean carrierInvolved = false;
 		for (LegacyBorderSide side: lBorder.getBorderSides()) {
-			if (side.getCarrier().equals(tool.getConversionFromLegacy().getLegacy108().getCarrier())) {
+			if (involvedCarriers.contains(side.getCarrier())) {
 				carrierInvolved = true;
 			}
 		}
-		
 		if (!carrierInvolved) return null;
 		
 		// keep only one connection point per legacy border point code

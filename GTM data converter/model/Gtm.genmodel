@@ -1134,14 +1134,14 @@
           suppressedUnsetVisibility="false"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/VATpercentage"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/country"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/legacyBorderPointMappings"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/legacyBorderPointMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/legacyStationMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/legacyFareTemplates"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/legacyFareStationMappings"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/legacyFareStationMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/legacyStationToServiceBrandMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/legacyStationToFareDetailMappings"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/endOfSale"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/StartOfSale"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/endOfSale"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/StartOfSale"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/stationImportFilter"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/convertFareDescriptions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/convertServiceConstraints"/>
@@ -1299,8 +1299,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyFareDescriptions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108/timeZone"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/carrier"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108/startDate"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108/endDate"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108/startDate"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108/endDate"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyBorderPoints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyMemos"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Legacy108/legacyCarriers"/>

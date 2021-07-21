@@ -172,14 +172,10 @@ public class ConversionParamsItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_BORDER_POINT_MAPPINGS);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_MAPPINGS);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_TEMPLATES);
-			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_TO_SERVICE_BRAND_MAPPINGS);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_TO_FARE_DETAIL_MAPPINGS);
-			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__END_OF_SALE);
-			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__START_OF_SALE);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__VAT_TEMPLATES);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING);
 		}
@@ -236,19 +232,19 @@ public class ConversionParamsItemProvider
 		switch (notification.getFeatureID(ConversionParams.class)) {
 			case GtmPackage.CONVERSION_PARAMS__TAX_ID:
 			case GtmPackage.CONVERSION_PARAMS__VA_TPERCENTAGE:
+			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_POINT_MAPPINGS:
+			case GtmPackage.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS:
+			case GtmPackage.CONVERSION_PARAMS__END_OF_SALE:
+			case GtmPackage.CONVERSION_PARAMS__START_OF_SALE:
 			case GtmPackage.CONVERSION_PARAMS__STATION_IMPORT_FILTER:
 			case GtmPackage.CONVERSION_PARAMS__CONVERT_FARE_DESCRIPTIONS:
 			case GtmPackage.CONVERSION_PARAMS__CONVERT_SERVICE_CONSTRAINTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_POINT_MAPPINGS:
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_STATION_MAPPINGS:
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_FARE_TEMPLATES:
-			case GtmPackage.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS:
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_STATION_TO_SERVICE_BRAND_MAPPINGS:
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_STATION_TO_FARE_DETAIL_MAPPINGS:
-			case GtmPackage.CONVERSION_PARAMS__END_OF_SALE:
-			case GtmPackage.CONVERSION_PARAMS__START_OF_SALE:
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
 			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -270,11 +266,6 @@ public class ConversionParamsItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_BORDER_POINT_MAPPINGS,
-				 GtmFactory.eINSTANCE.createLegacyBoderPointMappings()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_MAPPINGS,
 				 GtmFactory.eINSTANCE.createLegacyStationMappings()));
 
@@ -282,11 +273,6 @@ public class ConversionParamsItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_TEMPLATES,
 				 GtmFactory.eINSTANCE.createLegacyFareTemplates()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_FARE_STATION_MAPPINGS,
-				 GtmFactory.eINSTANCE.createLegacyFareStationSetMappings()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -300,16 +286,6 @@ public class ConversionParamsItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GtmPackage.Literals.CONVERSION_PARAMS__END_OF_SALE,
-				 GtmFactory.eINSTANCE.createEndOfSale()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GtmPackage.Literals.CONVERSION_PARAMS__START_OF_SALE,
-				 GtmFactory.eINSTANCE.createEndOfSale()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(GtmPackage.Literals.CONVERSION_PARAMS__VAT_TEMPLATES,
 				 GtmFactory.eINSTANCE.createVatTemplates()));
 
@@ -317,29 +293,6 @@ public class ConversionParamsItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING,
 				 GtmFactory.eINSTANCE.createLegacyBusFerryMapping()));
-	}
-
-	/**
-	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
-		Object childFeature = feature;
-		Object childObject = child;
-
-		boolean qualify =
-			childFeature == GtmPackage.Literals.CONVERSION_PARAMS__END_OF_SALE ||
-			childFeature == GtmPackage.Literals.CONVERSION_PARAMS__START_OF_SALE;
-
-		if (qualify) {
-			return getString
-				("_UI_CreateChild_text2",
-				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
-		}
-		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**
