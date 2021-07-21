@@ -850,7 +850,7 @@ public class GtmUtils {
 		countries.getCountries().add(createCountry(50,"Bosnia and Herzegovina, Muslim-Croat Federation of","BA",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(51,"Poland","PL",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(52,"Bulgaria"," BG",CharacterSet.LATINKYRILLIC_ISO88595)); //$NON-NLS-1$ //$NON-NLS-2$
-		countries.getCountries().add(createCountry(53,"Romania","RO",CharacterSet.LATIN10_ISO885916)); //$NON-NLS-1$ //$NON-NLS-2$
+		countries.getCountries().add(createCountry(53,"Romania","RO",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(54,"Czech Republic","CZ",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(55,"Hungary","HU",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
 		countries.getCountries().add(createCountry(56,"Slovakia","SK",CharacterSet.LATIN2_ISO88592)); //$NON-NLS-1$ //$NON-NLS-2$
@@ -1730,8 +1730,12 @@ public class GtmUtils {
 
 	private static Charset getCharSet(String charset,GtmEditor editor) {
 		
-		Charset set = Charset.forName(charset);
-		
+		Charset set = null;
+		try {
+			set = Charset.forName(charset);
+		} catch (Exception e) {
+			return StandardCharsets.ISO_8859_1;
+		}
 		if (set == null) {
 			String message = "local character set " + charset + " not supported using ISO-8859-1 instead - local station names might be corrupted in the export";
 			GtmUtils.writeConsoleInfo(message, editor);

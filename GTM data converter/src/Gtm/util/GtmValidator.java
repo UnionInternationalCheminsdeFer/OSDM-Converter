@@ -1557,7 +1557,7 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateFareTemplate_REGULATORY_REGIME(FareTemplate fareTemplate, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (fareTemplate.getReductionConstraint() == null || fareTemplate.getRegulatoryConditions().isEmpty()) {
+		if (fareTemplate.getRegulatoryConditions() == null || fareTemplate.getRegulatoryConditions().isEmpty()) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic

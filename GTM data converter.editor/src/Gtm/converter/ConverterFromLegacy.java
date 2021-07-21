@@ -2508,7 +2508,7 @@ public class ConverterFromLegacy {
 		boolean conversionNeeded = false;
 		for (FareTemplate t : tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
 			if (t.getSalesAvailability() == null 
-				&& t.getFareConstraintBundle().getSalesAvailability() == null){
+				&& ( t.getFareConstraintBundle() == null || t.getSalesAvailability() == null)){
 				 conversionNeeded = true;
 			} 
 		}
