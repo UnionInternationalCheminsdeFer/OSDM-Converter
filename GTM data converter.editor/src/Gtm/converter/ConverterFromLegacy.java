@@ -1066,9 +1066,16 @@ public class ConverterFromLegacy {
 	 */
 	private static SalesAvailabilityConstraint findSalesAvailability(GTMTool tool, DateRange dateRange) {
 		
+		if (tool.getGeneralTariffModel().getFareStructure() == null ||
+			tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints() == null || 
+			tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints() == null) {
+			return null;
+		}
+		
+		
 		for (SalesAvailabilityConstraint sa : tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()){
 			
-			if (sa.getDataSource() == DataSource.CONVERTED) {
+			if (DataSource.CONVERTED.equals(sa.getDataSource())) {
 				
 				if (sa.getRestrictions() != null &&
 					!sa.getRestrictions().isEmpty() &&	
@@ -1077,7 +1084,7 @@ public class ConverterFromLegacy {
 					sa.getRestrictions().get(0).getSalesDates().getUntilDateTime() != null) {
 					
 					if (sa.getRestrictions().get(0).getSalesDates().getFromDateTime().equals(dateRange.startDate) 
-							&& sa.getRestrictions().get(0).getSalesDates().getUntilDateTime().equals(dateRange.endDate) ) {
+						&& sa.getRestrictions().get(0).getSalesDates().getUntilDateTime().equals(dateRange.endDate) ) {
 							return sa;
 					}
 				}
@@ -2129,12 +2136,16 @@ public class ConverterFromLegacy {
 	
 	private FareConstraintBundle findBundle(FareConstraintBundle bundle, DateRange dateRange) {
 		
+		if (dateRange == null || dateRange.getStartDate() == null || dateRange.getEndDate() == null) {
+			return null;
+		}
+		
 		
 		for (FareConstraintBundle bu : bundle.getConvertedBundles()){
 			
 			SalesAvailabilityConstraint sa = bu.getSalesAvailability();
 			
-			if (sa != null &&  sa.getDataSource() == DataSource.CONVERTED) {
+			if (sa != null && sa.getDataSource() != null && sa.getDataSource() == DataSource.CONVERTED) {
 				
 				if (sa.getRestrictions() != null &&
 					!sa.getRestrictions().isEmpty() &&	
