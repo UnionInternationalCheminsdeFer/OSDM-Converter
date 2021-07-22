@@ -1161,15 +1161,20 @@ public class ConverterFromLegacy {
 			if (legacyViaStation.getPosition() != lastPosition) {
 				if (legacyViaStation.getPosition() == 3 && lastPosition == 2){
 					//switch back to main route
-					lastRoute = mainRoute;
-					lastPosition = mainRoutePosition;	
-					alternativeRoutesVia = null;
+					//start alternatives to the main route
+					alternativeRoutesVia = GtmFactory.eINSTANCE.createViaStation();
+					mainRoute.add(alternativeRoutesVia);
+					AlternativeRoute alternativeRoute = GtmFactory.eINSTANCE.createAlternativeRoute();
+					alternativeRoutesVia.getAlternativeRoutes().add(alternativeRoute);
+					lastRoute = alternativeRoute.getStations();
+					lastPosition = legacyViaStation.getPosition();
 					try {
 						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 					} catch (ConverterException e) {
-						String message = NationalLanguageSupport.ConverterFromLegacy_35 + Integer.toString(series.getNumber()) + NationalLanguageSupport.ConverterFromLegacy_36 + e.getMessage();
+						String message = NationalLanguageSupport.ConverterFromLegacy_15 + Integer.toString(series.getNumber()) + ") : " + e.getMessage(); //$NON-NLS-2$
 						GtmUtils.writeConsoleError(message, editor);
-					}						
+						throw e;
+					}					
 				} else if (legacyViaStation.getPosition() == mainRoutePosition){
 					//switch back to main route
 					lastRoute = mainRoute;
@@ -1428,14 +1433,20 @@ public class ConverterFromLegacy {
 					//switch back to main route
 					lastRoute = mainRoute;
 					lastPosition = mainRoutePosition;	
-					alternativeRoutesVia = null;
+					//start alternatives to the main route
+					alternativeRoutesVia = GtmFactory.eINSTANCE.createViaStation();
+					mainRoute.add(alternativeRoutesVia);
+					AlternativeRoute alternativeRoute = GtmFactory.eINSTANCE.createAlternativeRoute();
+					alternativeRoutesVia.getAlternativeRoutes().add(alternativeRoute);
+					lastRoute = alternativeRoute.getStations();
+					lastPosition = legacyViaStation.getPosition();
 					try {
 						addToRoute(lastRoute, legacyViaStation, country,series.getNumber());
 					} catch (ConverterException e) {
-						String message = NationalLanguageSupport.ConverterFromLegacy_35 + Integer.toString(series.getNumber()) + NationalLanguageSupport.ConverterFromLegacy_36 + e.getMessage();
+						String message = "error in series: " + Integer.toString(series.getNumber()) + ": " + e.getMessage(); //$NON-NLS-2$
 						GtmUtils.writeConsoleError(message, editor);
-					}		
-					
+						throw new ConverterException(message);
+					}						
 				} else if (legacyViaStation.getPosition() == mainRoutePosition){
 					//switch back to main route
 					lastRoute = mainRoute;
