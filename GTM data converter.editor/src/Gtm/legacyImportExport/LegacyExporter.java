@@ -206,6 +206,7 @@ public class LegacyExporter {
 			firstLine = false;
 			writer.write(getSeparateTicketLine(ticket));
 		}
+		writer.newLine();
  		writer.close();
 		GtmUtils.writeConsoleInfo("TCVL-File written in " + exportPath, editor);
 	}
@@ -255,6 +256,7 @@ public class LegacyExporter {
 			firstLine = false;
 			writer.write(getFareLine(fare));
 		}
+		writer.newLine();
  		writer.close();
 		GtmUtils.writeConsoleInfo("TCVP-File written in " + exportPath, editor);
 	}
@@ -340,6 +342,7 @@ public class LegacyExporter {
 				writer.write(getFareLine(fare));
 			}
 		}
+		writer.newLine();
 		writer.close();
 		GtmUtils.writeConsoleInfo("Price-File " + fileName + " written in " + exportPath, editor);
 		
@@ -366,6 +369,7 @@ public class LegacyExporter {
 			firstLine = false;
 			writer.write(getSeriesLine(series));
 		}
+		writer.newLine();
 		writer.close();
 		GtmUtils.writeConsoleInfo("TCVS-File written in " + exportPath, editor);
 		
@@ -397,6 +401,7 @@ public class LegacyExporter {
 			firstLine = false;
 			writer.write(getCarrierLine(carrier));
 		}
+		writer.newLine();
 		writer.close();
 		GtmUtils.writeConsoleInfo("TCVC-File written in " + exportPath, editor);
 		
@@ -426,6 +431,7 @@ public class LegacyExporter {
 			firstLine = false;
 			writer.write(getMemoLine(memo));
 		}
+		writer.newLine();
 		writer.close();
 		
 		writeM = true;
@@ -448,6 +454,7 @@ public class LegacyExporter {
 			firstLine = false;
 			writer.write(getStationLine(station));
 		}
+		writer.newLine();
 		writer.close();
 		GtmUtils.writeConsoleInfo("TCVG-File written in " + exportPath, editor);
 		
@@ -539,7 +546,7 @@ public class LegacyExporter {
 				writer.newLine();					
 				writer.write(line3);
 			}	
-			
+			writer.newLine();
 			writer.close();
 			GtmUtils.writeConsoleInfo("TCV-File written in " + exportPath, editor);
 			
