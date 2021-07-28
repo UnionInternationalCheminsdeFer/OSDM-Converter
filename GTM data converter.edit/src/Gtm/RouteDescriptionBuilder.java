@@ -177,7 +177,7 @@ public class RouteDescriptionBuilder {
 			StringBuilder  routeLable = new StringBuilder(); //$NON-NLS-1$
 					
 			for (ViaStation via2 :  route.getStations()) {
-				if (routeLable.length() < 2 || routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
+				if (routeLable.length() < 1 || routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
 					routeLable.append(getRouteDescription(via2));
 				} else {
 					routeLable.append("*").append(getRouteDescription(via2)); //$NON-NLS-1$
