@@ -2,6 +2,8 @@ package Gtm.actions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
@@ -53,7 +55,8 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 			return;
 		}
 		
-		BufferedReader br = super.getReader(NationalLanguageSupport.ImportCarriersAction_4);
+		BufferedReader br = super.getReader(NationalLanguageSupport.ImportCarriersAction_4, StandardCharsets.ISO_8859_1.name());
+
 
 		if (br == null) return;
 		
@@ -165,7 +168,7 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 			carrier.setCode(strings[0]);
 			
 			String nameUTF8 = null;
-			nameUTF8 = strings[2];//new String(strings[2].getBytes("ISO-8859-1"));
+			nameUTF8 = strings[2];			
 			
 			carrier.setName(nameUTF8);
 			carrier.setShortName(strings[1]);

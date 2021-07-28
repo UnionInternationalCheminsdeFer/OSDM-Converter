@@ -9,7 +9,9 @@ Bundle-Activator: Gtm.presentation.GtmEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: Gtm.presentation
+Export-Package: Gtm.converter,
+ Gtm.presentation,
+ Gtm.utils
 Require-Bundle: org.eclipse.core.runtime,
  GTM_data_converter.edit;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,

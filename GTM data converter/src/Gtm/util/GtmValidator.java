@@ -2143,9 +2143,45 @@ public class GtmValidator extends EObjectValidator {
 						 new Object[] { calendar },
 						 context));
 			}
-			return false;
 		}
-		return true;
+		
+		if ((calendar.getDates() == null || calendar.getDates().isEmpty()) 
+			&&
+			 (calendar.getFromDateTime() == null && calendar.getUntilDateTime() == null)) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Calendar does not include dates and no date range: " + getObjectLabel(calendar, context),
+						 new Object[] { "DATES_WITHIN_RANGE", getObjectLabel(calendar, context) }, //$NON-NLS-1$
+						 new Object[] { calendar },
+						 context));
+			}
+			result = false;		
+		}
+		
+		if ((calendar.getFromDateTime() == null && calendar.getUntilDateTime() != null) 
+				||
+			 (calendar.getFromDateTime() != null && calendar.getUntilDateTime() == null)) {
+				if (diagnostics != null) {
+					diagnostics.add
+						(createSimpleDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							 0,
+							 "Calendar includes only from date or until date: " + getObjectLabel(calendar, context),
+							 new Object[] { "DATES_WITHIN_RANGE", getObjectLabel(calendar, context) }, //$NON-NLS-1$
+							 new Object[] { calendar },
+							 context));
+				}
+				result = false;		
+			}
+		
+		
+		
+		return result;
 	}
 
 	/**
@@ -4622,6 +4658,22 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateText_FORMAT_TEXT_SHORT(Text text, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		
+		if (text.getShortTextICAO() == null || text.getShortTextICAO().length() == 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Short text is missing in: " + getObjectLabel(text, context),
+						 new Object[] { "FORMAT_TEXT_SHORT", getObjectLabel(text, context) }, //$NON-NLS-1$
+						 new Object[] { text },
+						 context));
+			}
+			return false;
+		}			
+		
 		if (!StringFormatValidator.isASCII(text.getShortTextICAO())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -4646,6 +4698,22 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateText_FORMAT_TEXT_UTF8(Text text, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (text.getTextUTF8() == null || text.getTextUTF8().length() == 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "UTF-8 text is missing in: " + getObjectLabel(text, context),
+						 new Object[] { "FORMAT_TEXT_SHORT", getObjectLabel(text, context) }, //$NON-NLS-1$
+						 new Object[] { text },
+						 context));
+			}
+			return false;
+		}	
+		
 		if (!StringFormatValidator.isUTF8(text.getTextUTF8())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -4670,6 +4738,22 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateText_FORMAT_TEXT_SHORT_UTF8(Text text, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (text.getShortTextUTF8() == null || text.getShortTextUTF8().length() == 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Short UTF-8 text is missing in: " + getObjectLabel(text, context),
+						 new Object[] { "FORMAT_TEXT_SHORT", getObjectLabel(text, context) }, //$NON-NLS-1$
+						 new Object[] { text },
+						 context));
+			}
+			return false;
+		}			
+		
 		if (!StringFormatValidator.isUTF8(text.getShortTextUTF8())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -4742,6 +4826,22 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateTranslation_FORMAT_TEXT(Translation translation, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (translation.getTextICAO() == null || translation.getTextICAO().length() == 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Text is missing in: " + getObjectLabel(translation, context),
+						 new Object[] { "FORMAT_TEXT_SHORT", getObjectLabel(translation, context) }, //$NON-NLS-1$
+						 new Object[] { translation },
+						 context));
+			}
+			return false;
+		}			
+		
 		if (!StringFormatValidator.isASCII(translation.getTextICAO())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -4766,6 +4866,22 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateTranslation_FORMAT_TEXT_SHORT(Translation translation, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (translation.getShortTextICAO() == null || translation.getShortTextICAO().length() == 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Short text is missing in: " + getObjectLabel(translation, context),
+						 new Object[] { "FORMAT_TEXT_SHORT", getObjectLabel(translation, context) }, //$NON-NLS-1$
+						 new Object[] { translation },
+						 context));
+			}
+			return false;
+		}	
+		
 		if (!StringFormatValidator.isASCII(translation.getShortTextICAO())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -4790,6 +4906,23 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateTranslation_FORMAT_TEXT_UTF8(Translation translation, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (translation.getTextUTF8() == null || translation.getTextUTF8().length() == 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Text UTF-8 is missing in: " + getObjectLabel(translation, context),
+						 new Object[] { "FORMAT_TEXT_SHORT", getObjectLabel(translation, context) }, //$NON-NLS-1$
+						 new Object[] { translation },
+						 context));
+			}
+			return false;
+		}	
+		
+		
 		if (!StringFormatValidator.isUTF8(translation.getTextUTF8())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -4814,7 +4947,23 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */ 
 	public boolean validateTranslation_FORMAT_TEXT_SHORT_UTF8(Translation translation, DiagnosticChain diagnostics, Map<Object, Object> context) {
-			if (!StringFormatValidator.isUTF8(translation.getShortTextUTF8())) {
+
+		if (translation.getShortTextUTF8() == null || translation.getShortTextUTF8().length() == 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Short text UTF-8 is missing in: " + getObjectLabel(translation, context),
+						 new Object[] { "FORMAT_TEXT_SHORT", getObjectLabel(translation, context) }, //$NON-NLS-1$
+						 new Object[] { translation },
+						 context));
+			}
+			return false;
+		}			
+		
+		if (!StringFormatValidator.isUTF8(translation.getShortTextUTF8())) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
