@@ -16,6 +16,34 @@ public class RouteDescriptionBuilder {
 	
 
 	
+	/**
+	 * Gets the route description.
+	 *
+	 * @param rc the regional constraint
+	 * @return the route description
+	 */
+	public static String getRouteDescription(RegionalConstraint rc) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if (rc.getEntryConnectionPoint() != null 
+			&& rc.getEntryConnectionPoint().getConnectedStationSets() != null 
+			&& rc.getEntryConnectionPoint().getConnectedStationSets().size() > 1) {
+			sb.append("--> ");
+		}
+		
+		sb.append(getRouteDescription(rc.getRegionalValidity()));
+		
+		if (rc.getExitConnectionPoint() != null 
+			&& rc.getExitConnectionPoint().getConnectedStationSets() != null 
+			&& rc.getExitConnectionPoint().getConnectedStationSets().size() > 1) {
+			sb.append("--> ");
+		}
+		
+		return sb.toString();
+		
+	}
+	
 	
 	/**
 	 * Gets the route description.

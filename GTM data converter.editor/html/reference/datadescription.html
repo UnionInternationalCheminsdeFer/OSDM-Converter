@@ -118,6 +118,10 @@ but the station sets of the connection points might be incomplete and must be co
 <tr><td>Station import filter</td>
     <td>a list of counties that limits the station import to those countries</td>
     <td>Selection of multiple countries</td></tr>
+<tr><td>Legacy Border Indication for 108 Export</td>
+   <td>The indication of a border point in the station name used to virtual border stations not contained in Merits. 
+ The station code will be taken from the border point list, the name is taken from the station before the border and the border indication is attached to the station name.</td>
+   <td>The default value is (GR).</td></tr>      
 <tr><td>VAT Templates</td>
    <td>Templates to create VAT tax information. Templates can be provided for different scope and countries. The template applies to regional constraints within the specified country. Templates with scope INTERNATIONAL are used additionally for regional constraints with connection points.</td>
    <td>Add VAT details for different countries</td></tr>
@@ -142,9 +146,6 @@ The referenced data items must be defined in the General Tariff Model fare struc
     <td>Selection list on the text defined in the fare data.Can be used to add details depending on a station on arrival, departure or both. (E.g. Diabolo airport fee in Brussels)</td></tr>
     
 </table>
-
-
-
 
 </ul></p>
 

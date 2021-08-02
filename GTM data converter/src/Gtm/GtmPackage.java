@@ -7432,13 +7432,22 @@ public interface GtmPackage extends EPackage {
 	int CONVERSION_PARAMS__BUS_FERRY_MAPPING = 15;
 
 	/**
+	 * The feature id for the '<em><b>Legacy Border Indication</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_PARAMS__LEGACY_BORDER_INDICATION = 16;
+
+	/**
 	 * The number of structural features of the '<em>Conversion Params</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONVERSION_PARAMS_FEATURE_COUNT = 16;
+	int CONVERSION_PARAMS_FEATURE_COUNT = 17;
 
 	/**
 	 * The number of operations of the '<em>Conversion Params</em>' class.
@@ -16666,6 +16675,17 @@ public interface GtmPackage extends EPackage {
 	EReference getConversionParams_BusFerryMapping();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.ConversionParams#getLegacyBorderIndication <em>Legacy Border Indication</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Legacy Border Indication</em>'.
+	 * @see Gtm.ConversionParams#getLegacyBorderIndication()
+	 * @see #getConversionParams()
+	 * @generated
+	 */
+	EAttribute getConversionParams_LegacyBorderIndication();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.VatTemplates <em>Vat Templates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -24198,6 +24218,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONVERSION_PARAMS__BUS_FERRY_MAPPING = eINSTANCE.getConversionParams_BusFerryMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Legacy Border Indication</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONVERSION_PARAMS__LEGACY_BORDER_INDICATION = eINSTANCE.getConversionParams_LegacyBorderIndication();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.VatTemplatesImpl <em>Vat Templates</em>}' class.

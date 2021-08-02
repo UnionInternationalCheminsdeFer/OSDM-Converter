@@ -1119,6 +1119,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="busFerryMapping" eType="#//LegacyBusFerryMapping"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacyBorderIndication"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="(GR)"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VatTemplates">
     <eStructuralFeatures xsi:type="ecore:EReference" name="vatTemplates" upperBound="-1"

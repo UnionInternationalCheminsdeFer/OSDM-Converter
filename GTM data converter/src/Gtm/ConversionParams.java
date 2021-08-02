@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ConversionParams#isConvertServiceConstraints <em>Convert Service Constraints</em>}</li>
  *   <li>{@link Gtm.ConversionParams#getVatTemplates <em>Vat Templates</em>}</li>
  *   <li>{@link Gtm.ConversionParams#getBusFerryMapping <em>Bus Ferry Mapping</em>}</li>
+ *   <li>{@link Gtm.ConversionParams#getLegacyBorderIndication <em>Legacy Border Indication</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getConversionParams()
@@ -387,5 +388,28 @@ public interface ConversionParams extends EObject {
 	 * @generated
 	 */
 	void setBusFerryMapping(LegacyBusFerryMapping value);
+
+	/**
+	 * Returns the value of the '<em><b>Legacy Border Indication</b></em>' attribute.
+	 * The default value is <code>"(GR)"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Legacy Border Indication</em>' attribute.
+	 * @see #setLegacyBorderIndication(String)
+	 * @see Gtm.GtmPackage#getConversionParams_LegacyBorderIndication()
+	 * @model default="(GR)"
+	 * @generated
+	 */
+	String getLegacyBorderIndication();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ConversionParams#getLegacyBorderIndication <em>Legacy Border Indication</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Legacy Border Indication</em>' attribute.
+	 * @see #getLegacyBorderIndication()
+	 * @generated
+	 */
+	void setLegacyBorderIndication(String value);
 
 } // ConversionParams

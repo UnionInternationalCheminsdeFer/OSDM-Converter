@@ -8,9 +8,13 @@ import Gtm.Carrier;
 import Gtm.CharacterSet;
 import Gtm.ClassId;
 import Gtm.ClassicClassType;
+import Gtm.Clusters;
+import Gtm.CombinationConstraint;
+import Gtm.CombinationModel;
 import Gtm.ConversionParams;
 import Gtm.Country;
 import Gtm.Currency;
+import Gtm.FareCombinationModel;
 import Gtm.FareConstraintBundle;
 import Gtm.FareTemplate;
 import Gtm.GTMTool;
@@ -235,6 +239,7 @@ public class LegacyDataFactory {
 		stations.getLegacyStations().add(createLegacyStation(7,"G-Stadt","A-Stadt","G", 0,900));
 		stations.getLegacyStations().add(createLegacyStation(100,"A-Area","A-area","A-ar", 0,100));
 		stations.getLegacyStations().add(createLegacyStation(900,"H-Stadt","H-area","H-ar", 0,900));
+		stations.getLegacyStations().add(createLegacyStation(8,"H-Main","H-Main","H", 0,900));
 			
 	}
 
@@ -271,16 +276,24 @@ public class LegacyDataFactory {
 		Text t = addText(tool,"Standard","Standard","Standard","Standard");
 		
 		tool.getGeneralTariffModel().getFareStructure().setFareConstraintBundles(GtmFactory.eINSTANCE.createFareConstraintBundles());;
-		FareConstraintBundle b = GtmFactory.eINSTANCE.createFareConstraintBundle();
-		tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles().add(b);
+		FareConstraintBundle bundle = GtmFactory.eINSTANCE.createFareConstraintBundle();
+		tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles().add(bundle);
 		
 		tool.getGeneralTariffModel().getFareStructure().setPassengerConstraints(GtmFactory.eINSTANCE.createPassengerConstraints());;
 		PassengerConstraint p = GtmFactory.eINSTANCE.createPassengerConstraint();
 		p.setTravelerType(TravelerType.ADULT);
 		tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints().add(p);
+
+		tool.getGeneralTariffModel().getFareStructure().setCombinationConstraints(GtmFactory.eINSTANCE.createCombinationConstraints());
+		CombinationConstraint combi = GtmFactory.eINSTANCE.createCombinationConstraint();
+		tool.getGeneralTariffModel().getFareStructure().getCombinationConstraints().getCombinationConstraints().add(combi);
+		FareCombinationModel combiModel = GtmFactory.eINSTANCE.createFareCombinationModel();
+		combi.getCombinationModels().add(combiModel);
+		combiModel.setModel(CombinationModel.CLUSTERING);
+		combiModel.setReferenceCluster(Clusters.FULLFLEX);
+		bundle.setCombinationConstraint(combi);
 		
-		tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints().add(p);
-		
+				
 		params.setLegacyFareTemplates(GtmFactory.eINSTANCE.createLegacyFareTemplates());
 
 		FareTemplate template1 = GtmFactory.eINSTANCE.createFareTemplate();
@@ -288,7 +301,7 @@ public class LegacyDataFactory {
 		template1.setLegacyAccountingTariffId(10000);	
 		template1.setPriceFactor(1.0F);
 		template1.setRoundingMode(RoundingType.UP2CENT);
-		template1.setFareConstraintBundle(b);
+		template1.setFareConstraintBundle(bundle);
 		template1.setText(t);
 		template1.setServiceClass(c1);
 		template1.setLegacyConversion(LegacyConversionType.YES);
@@ -300,7 +313,7 @@ public class LegacyDataFactory {
 		template2.setLegacyAccountingTariffId(10000);	
 		template2.setPriceFactor(1.0F);
 		template2.setRoundingMode(RoundingType.UP2CENT);
-		template2.setFareConstraintBundle(b);
+		template2.setFareConstraintBundle(bundle);
 		template2.setText(t);
 		template2.setServiceClass(c2);
 		template2.setLegacyConversion(LegacyConversionType.YES);
@@ -335,7 +348,7 @@ public class LegacyDataFactory {
 		return txt;
 	}
 
-	private static void createCodeLists(GTMTool tool) {
+	public static void createCodeLists(GTMTool tool) {
 		
 		tool.setCodeLists(GtmFactory.eINSTANCE.createCodeLists());
 		
@@ -348,14 +361,11 @@ public class LegacyDataFactory {
 		
 		//carrier
 		tool.getCodeLists().setCarriers(GtmFactory.eINSTANCE.createCarriers());
-		Carrier carrier = createCarrier("9999","RAILWAY ONE", "RAIL-1");
-		tool.getConversionFromLegacy().getLegacy108().setCarrier(carrier);
-		tool.getCodeLists().getCarriers().getCarriers().add(carrier);
+		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9999","Wonderland Railways", "RAIL-W"));
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9998","RAILWAY TWO", "RAIL-2"));
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9997","RAILWAY THREE", "RAIL-3"));
-		
-		
-		
+		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9995","Atlantis Rail", "RAIL-A"));
+			
 		//countries
 		tool.getCodeLists().setCountries(GtmFactory.eINSTANCE.createCountries());
 		Country wonderland = GtmFactory.eINSTANCE.createCountry();
@@ -364,6 +374,12 @@ public class LegacyDataFactory {
 		wonderland.setName("Wonderland");
 		wonderland.setDefaultCharacterSet(CharacterSet.LATIN1_ISO88591);
 		tool.getCodeLists().getCountries().getCountries().add(wonderland);
+		Country atlantis = GtmFactory.eINSTANCE.createCountry();
+		atlantis.setCode(98);
+		atlantis.setISOcode("AT");
+		atlantis.setName("Atlantis");
+		atlantis.setDefaultCharacterSet(CharacterSet.LATIN1_ISO88591);
+		tool.getCodeLists().getCountries().getCountries().add(atlantis);		
 		
 		//stations
 		tool.getCodeLists().setStations(GtmFactory.eINSTANCE.createStations());
@@ -374,8 +390,10 @@ public class LegacyDataFactory {
 		tool.getCodeLists().getStations().getStations().add(createStation("E","00005", wonderland));
 		tool.getCodeLists().getStations().getStations().add(createStation("F","00006", wonderland));
 		tool.getCodeLists().getStations().getStations().add(createStation("G","00007", wonderland));		
-		tool.getCodeLists().getStations().getStations().add(createStation("H","00008", wonderland));		
-		
+		tool.getCodeLists().getStations().getStations().add(createStation("H","00008", wonderland));
+		tool.getCodeLists().getStations().getStations().add(createStation("HM","00900", wonderland));
+		tool.getCodeLists().getStations().getStations().add(createStation("Z","10000", atlantis));		
+			
 	}
 
 	private static Carrier createCarrier(String code, String name, String shortName) {
@@ -396,6 +414,19 @@ public class LegacyDataFactory {
 		station.setNameCaseASCII(name + "-Town");
 		station.setNameCaseASCII(name + "-Town");
 		return station;
+	}
+
+	public static Legacy108Station createStation(String name,String nameUtf8,String shortName, int code, int borderCode, int setCode) {
+		Legacy108Station s = GtmFactory.eINSTANCE.createLegacy108Station();
+		s.setStationCode(code);
+		s.setName(name);
+		s.setNameUTF8(nameUtf8);
+		s.setShortName(shortName);
+		s.setShortNameUtf8(shortName);
+		s.setBorderPointCode(borderCode);
+		s.setFareReferenceStationCode(setCode);
+		
+		return s;
 	}
 
 }

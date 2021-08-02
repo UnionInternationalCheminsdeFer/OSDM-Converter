@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.ConversionParamsImpl#isConvertServiceConstraints <em>Convert Service Constraints</em>}</li>
  *   <li>{@link Gtm.impl.ConversionParamsImpl#getVatTemplates <em>Vat Templates</em>}</li>
  *   <li>{@link Gtm.impl.ConversionParamsImpl#getBusFerryMapping <em>Bus Ferry Mapping</em>}</li>
+ *   <li>{@link Gtm.impl.ConversionParamsImpl#getLegacyBorderIndication <em>Legacy Border Indication</em>}</li>
  * </ul>
  *
  * @generated
@@ -260,6 +261,26 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected LegacyBusFerryMapping busFerryMapping;
+
+	/**
+	 * The default value of the '{@link #getLegacyBorderIndication() <em>Legacy Border Indication</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLegacyBorderIndication()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LEGACY_BORDER_INDICATION_EDEFAULT = "(GR)";
+
+	/**
+	 * The cached value of the '{@link #getLegacyBorderIndication() <em>Legacy Border Indication</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLegacyBorderIndication()
+	 * @generated
+	 * @ordered
+	 */
+	protected String legacyBorderIndication = LEGACY_BORDER_INDICATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -858,6 +879,27 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getLegacyBorderIndication() {
+		return legacyBorderIndication;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLegacyBorderIndication(String newLegacyBorderIndication) {
+		String oldLegacyBorderIndication = legacyBorderIndication;
+		legacyBorderIndication = newLegacyBorderIndication;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION, oldLegacyBorderIndication, legacyBorderIndication));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -926,6 +968,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return getVatTemplates();
 			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
 				return getBusFerryMapping();
+			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
+				return getLegacyBorderIndication();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -987,6 +1031,9 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
 				setBusFerryMapping((LegacyBusFerryMapping)newValue);
 				return;
+			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
+				setLegacyBorderIndication((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1047,6 +1094,9 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
 				setBusFerryMapping((LegacyBusFerryMapping)null);
 				return;
+			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
+				setLegacyBorderIndication(LEGACY_BORDER_INDICATION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1091,6 +1141,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return vatTemplates != null;
 			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
 				return busFerryMapping != null;
+			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
+				return LEGACY_BORDER_INDICATION_EDEFAULT == null ? legacyBorderIndication != null : !LEGACY_BORDER_INDICATION_EDEFAULT.equals(legacyBorderIndication);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1115,6 +1167,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 		result.append(convertFareDescriptions);
 		result.append(", convertServiceConstraints: ");
 		result.append(convertServiceConstraints);
+		result.append(", legacyBorderIndication: ");
+		result.append(legacyBorderIndication);
 		result.append(')');
 		return result.toString();
 	}

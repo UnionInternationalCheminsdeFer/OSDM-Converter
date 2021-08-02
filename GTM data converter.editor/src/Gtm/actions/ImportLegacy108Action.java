@@ -83,11 +83,11 @@ public class ImportLegacy108Action extends BasicGtmAction {
 
 				monitor.beginTask(NationalLanguageSupport.ImportLegacyAction_Monitor, 31); 
 				
-				GtmUtils.addWorkflowStep("Import started for OSDM file: " + file.getName(), editor);
+				GtmUtils.addWorkflowStep("Import started for 108 file: " + file.getName(), editor);
 
 				importer.importAll(monitor);
 				
-				GtmUtils.addWorkflowStep("Import completed for OSDM file: " + file.getName(), editor);
+				GtmUtils.addWorkflowStep("Import completed for 108 file: " + file.getName(), editor);
 
 				monitor.done();
 				
