@@ -238,7 +238,7 @@ public class RegionalConstraintItemProvider
 		RegionalConstraint c = (RegionalConstraint) object;
 		String label = null;
 		if (c.getRegionalValidity() != null && !c.getRegionalValidity().isEmpty()) {
-			label = RouteDescriptionBuilder.getRouteDescription(c.getRegionalValidity());
+			label = RouteDescriptionBuilder.getRouteDescription(c);
 		} else {
 			label = getString("_UI_RegionalConstraint_type");
 		}

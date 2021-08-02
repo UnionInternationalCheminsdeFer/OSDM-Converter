@@ -68,6 +68,7 @@ public class ConversionParamsItemProvider
 			addStationImportFilterPropertyDescriptor(object);
 			addConvertFareDescriptionsPropertyDescriptor(object);
 			addConvertServiceConstraintsPropertyDescriptor(object);
+			addLegacyBorderIndicationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -161,6 +162,28 @@ public class ConversionParamsItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Legacy Border Indication feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLegacyBorderIndicationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ConversionParams_legacyBorderIndication_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConversionParams_legacyBorderIndication_feature", "_UI_ConversionParams_type"),
+				 GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -239,6 +262,7 @@ public class ConversionParamsItemProvider
 			case GtmPackage.CONVERSION_PARAMS__STATION_IMPORT_FILTER:
 			case GtmPackage.CONVERSION_PARAMS__CONVERT_FARE_DESCRIPTIONS:
 			case GtmPackage.CONVERSION_PARAMS__CONVERT_SERVICE_CONSTRAINTS:
+			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_STATION_MAPPINGS:
