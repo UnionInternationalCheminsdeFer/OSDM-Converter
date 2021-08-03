@@ -10,6 +10,7 @@ import Gtm.FareElement;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Language;
+import Gtm.Legacy108FareDescription;
 import Gtm.Legacy108Station;
 import Gtm.Legacy108Stations;
 import Gtm.RegionalConstraint;
@@ -151,6 +152,14 @@ public class TestUtils {
 	public static Language getLanguage(GTMTool tool, String code) {
 		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
 			if (l.getCode().equals(code)) return l;
+		}
+		return null;
+	}
+
+	public static Legacy108FareDescription findFareDescription(GTMTool tool, int fareTableNumber) {
+		
+		for (Legacy108FareDescription fd : tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares()) {
+			if (fd.getTableId() == fareTableNumber) return fd;
 		}
 		return null;
 	}

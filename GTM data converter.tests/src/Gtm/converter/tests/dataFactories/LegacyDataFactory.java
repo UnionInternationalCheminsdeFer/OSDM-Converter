@@ -442,5 +442,36 @@ public class LegacyDataFactory {
 		
 		return s;
 	}
+	
+	public static FareTemplate cloneTemplate(FareTemplate t1) {
+		
+		FareTemplate t = GtmFactory.eINSTANCE.createFareTemplate();
+		
+		t.setBasePriceClass(t1.getBasePriceClass());
+		t.setCarrierConstraint(t1.getCarrierConstraint());
+		t.setCombinationConstraint(t1.getCombinationConstraint());
+		t.setDataDescription(t1.getDataDescription());
+		t.setFareConstraintBundle(t1.getFareConstraintBundle());
+		t.setFareDetailDescription(t1.getFareDetailDescription());
+		t.setFulfillmentConstraint(t1.getFulfillmentConstraint());
+		t.setIndividualContracts(t1.isIndividualContracts());
+		t.setLegacyAccountingTariffId(t1.getLegacyAccountingTariffId());
+		t.setLegacyConversion(t1.getLegacyConversion());
+		t.setPassengerConstraint(t1.getPassengerConstraint());
+		t.setPersonalDataConstraint(t1.getPersonalDataConstraint());
+		t.setPrice(t1.getPrice());
+		t.setPriceFactor(t1.getPriceFactor());
+		t.setReductionConstraint(t1.getReductionConstraint());
+		t.setRoundingMode(t1.getRoundingMode());
+		t.setSalesAvailability(t1.getSalesAvailability());
+		t.setSeparateContractFareConstraintBundle(t1.getSeparateContractFareConstraintBundle());
+		t.setServiceClass(t1.getServiceClass());
+		t.setServiceConstraint(t1.getServiceConstraint());
+		t.setServiceLevel(t1.getServiceLevel());
+		t.setText(t1.getText());
+		t.setTravelValidity(t1.getTravelValidity());
+		t.setType(t1.getType());
+		return t;
+	}
 
 }
