@@ -19,6 +19,7 @@ import Gtm.FareConstraintBundle;
 import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
+import Gtm.Language;
 import Gtm.Legacy108Station;
 import Gtm.Legacy108Stations;
 import Gtm.LegacyCalculationType;
@@ -359,6 +360,12 @@ public class LegacyDataFactory {
 		cur.setName("Euro");
 		tool.getCodeLists().getCurrencies().getCurrencies().add(cur);
 		
+		//languages
+		tool.getCodeLists().setLanguages(GtmFactory.eINSTANCE.createLanguages());
+		tool.getCodeLists().getLanguages().getLanguages().add(createLanguage("en", "English"));
+		tool.getCodeLists().getLanguages().getLanguages().add(createLanguage("de", "German"));
+		tool.getCodeLists().getLanguages().getLanguages().add(createLanguage("fr", "French"));
+		
 		//carrier
 		tool.getCodeLists().setCarriers(GtmFactory.eINSTANCE.createCarriers());
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9999","Wonderland Railways", "RAIL-W"));
@@ -394,6 +401,13 @@ public class LegacyDataFactory {
 		tool.getCodeLists().getStations().getStations().add(createStation("HM","00900", wonderland));
 		tool.getCodeLists().getStations().getStations().add(createStation("Z","10000", atlantis));		
 			
+	}
+
+	private static Language createLanguage(String code, String name) {
+		Language l = GtmFactory.eINSTANCE.createLanguage();
+		l.setCode(code);
+		l.setName(name);
+		return l;
 	}
 
 	private static Carrier createCarrier(String code, String name, String shortName) {

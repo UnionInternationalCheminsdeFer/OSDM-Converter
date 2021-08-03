@@ -9,10 +9,13 @@ import Gtm.Carrier;
 import Gtm.FareElement;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
+import Gtm.Language;
 import Gtm.Legacy108Station;
+import Gtm.Legacy108Stations;
 import Gtm.RegionalConstraint;
 import Gtm.Station;
 import Gtm.ViaStation;
+import Gtm.LegacySeries;
 
 public class TestUtils {
 	
@@ -124,6 +127,32 @@ public class TestUtils {
 			}
 		}
 		return 0;
+	}
+
+	public static Legacy108Station getLegacyStation(Legacy108Stations legacyStations, int code) {
+		
+		for (Legacy108Station s : legacyStations.getLegacyStations()) {
+			if (s.getStationCode() == code) {
+				return s;
+			}
+			
+		}
+		return null;
+	}
+
+	public static LegacySeries getLegacySeries(GTMTool tool, int seriesId) {
+		
+		for (LegacySeries s :  tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
+			if (s.getNumber() == seriesId) return s;
+		}
+		return null;
+	}
+
+	public static Language getLanguage(GTMTool tool, String code) {
+		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
+			if (l.getCode().equals(code)) return l;
+		}
+		return null;
 	}
 	
 }

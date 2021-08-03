@@ -9,22 +9,24 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import Gtm.FareElement;
 import Gtm.GTMTool;
+import Gtm.GtmFactory;
 import Gtm.Legacy108Station;
-import Gtm.LegacyRouteFare;
-import Gtm.Price;
+import Gtm.LegacyCalculationType;
+import Gtm.LegacySeries;
+import Gtm.LegacySeriesType;
 import Gtm.RegionalConstraint;
 import Gtm.RouteDescriptionBuilder;
-import Gtm.ViaStation;
 import Gtm.converter.ConverterFromLegacy;
+import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
 import Gtm.converter.tests.mocks.MockedEditingDomain;
 import Gtm.converter.tests.mocks.MockedProgressMonitor;
+import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class BasicConversionTest108toOSDM {
+public class BasicConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -33,7 +35,10 @@ public class BasicConversionTest108toOSDM {
 	GtmUtils gtmUtilsMock;
 	
 	@InjectMocks 
-	ConverterFromLegacy converter;	
+	ConverterFromLegacy converterFromLegacy;	
+	
+	@InjectMocks 
+	ConverterToLegacy converterToLegacy;	
 	
 	@Before 
 	public void initialize() {
@@ -44,18 +49,18 @@ public class BasicConversionTest108toOSDM {
 		
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
-		converter = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
+		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 		
 		//prepare codelists
-		converter.initializeConverter();
+		converterFromLegacy.initializeConverter();
 		
 		//convert
-		converter.convertToGtmTest(new MockedProgressMonitor());
+		converterFromLegacy.convertToGtmTest(new MockedProgressMonitor());
 			
 	}
 	
 	@Test 
-	public void testConversion108toOdsmBasic() {
+	public void testBasicConversion() {
 		
 		
 		//validate basics	
@@ -88,11 +93,14 @@ public class BasicConversionTest108toOSDM {
 			}
 		}
 		assert(tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions().size() == fareStations.size());
-	}
-	
-	@Test 
-	public void testConversion108toOdsmRoutes() {
-						
+
+		//prepare for return conversion		
+		TestUtils.resetLegacy(tool);
+		
+		
+		tool.getGeneralTariffModel().setDelivery(GtmFactory.eINSTANCE.createDelivery());
+		tool.getGeneralTariffModel().getDelivery().setProvider(TestUtils.findCarrier(tool, "9999"));
+		
 		//validate Routes
 		for (RegionalConstraint r : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
 			// one regional validity
@@ -104,8 +112,8 @@ public class BasicConversionTest108toOSDM {
 			assert(r.getRegionalValidity().get(0).getViaStation().getRoute() != null);
 			
 			String description = RouteDescriptionBuilder.getRouteDescription( r.getRegionalValidity().get(0).getViaStation());
-			boolean isReturnRoute = isReturnRoute(r);		
-			int seriesId = getSeriesId(r);
+			boolean isReturnRoute = TestUtils.isReturnRoute(r);		
+			int seriesId = TestUtils.getSeriesId(tool, r);
 			
 			if (seriesId == 1) {
 				if (isReturnRoute) {
@@ -146,73 +154,61 @@ public class BasicConversionTest108toOSDM {
 			} 
 		}
 		
-		//validate Price
-		HashSet<Integer> prices = new HashSet<Integer>();
-		for (LegacyRouteFare lrf :tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
-			prices.add(lrf.getFare1st());
-			prices.add(lrf.getFare2nd());
-		}
-		for (Price p : tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices()) {
-			assert(p.getCurrencies().size() == 1);
-			int value = GtmUtils.getEuroCent(p.getCurrencies().get(0).getAmount());
-			assert(prices.contains(value));
-		}
+		converterToLegacy = new ConverterToLegacy(tool, null, new MockedEditingDomain());
+			
+		//convert
+		converterToLegacy.convertTest(new MockedProgressMonitor());
 		
-	}
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyStations() != null);
+		
+		assert(TestUtils.getLegacyStation(tool.getConversionFromLegacy().getLegacy108().getLegacyStations(), 1) != null);
+				
+		
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList() != null);
+		
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null);
+		
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size() == 6);
 
-	@Test 
-	public void testConversion108toOdsmPrices() {
-							
-		//validate Price
-		HashSet<Integer> prices = new HashSet<Integer>();
-		for (LegacyRouteFare lrf :tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
-			prices.add(lrf.getFare1st());
-			prices.add(lrf.getFare2nd());
-		}
-		for (Price p : tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices()) {
-			assert(p.getCurrencies().size() == 1);
-			int value = GtmUtils.getEuroCent(p.getCurrencies().get(0).getAmount());
-			assert(prices.contains(value));
-		}
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions() != null);
+
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().size() == 1);
 		
-	}
+		int fareTableNumber = tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().get(0).getTableId();
+		
+		for (LegacySeries s : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {;
+		
+			int seriesId = s.getNumber();
+			String description = s.getRouteDescription();
+			if (seriesId == 1) {
+				assert(s.getFromStationName().equals("A-Town"));
+				assert(description.equals("B*C*D*E*F"));
+				assert(s.getToStationName().equals("G-Town"));
+				assert(s.getDistance1() == 10);
+				assert(s.getDistance2() == 10);
+				assert(s.getCarrierCode().equals("9999"));
+				assert(s.getFareTableNumber() == fareTableNumber);
+				assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
+				assert(s.getRouteNumber() == 1);
+				assert(s.getSupplyingCarrierCode().equals("9999"));
+				assert(s.getValidFrom().equals(TestUtils.getFromDate()));
+				assert(s.getValidUntil().equals(TestUtils.getUntilDate()));	
+				assert(s.getType().equals(LegacySeriesType.STATION_STATION));
+			} else if (seriesId == 2) {   
+				assert(description.equals("(B/C)*D*E*F"));
+			} else if (seriesId == 3) {
+				assert(description.equals("B*(C/D*E)*F")); 
+			} else if (seriesId == 4) {
+				assert(description.equals("B*(C*D/E)*F"));
+			} else if (seriesId == 5) {
+				assert(description.equals("(B/C)*D*(E/F)"));
+			} else if (seriesId == 6) {
+				assert(description.equals("(B/C)*(D/E)*F"));
+			} 
+		}
 	
-	private boolean isReturnRoute(RegionalConstraint r) {
-		ViaStation via = r.getRegionalValidity().get(0).getViaStation();
-		
-		ViaStation firstVia = via.getRoute().getStations().get(0);
-		ViaStation lastVia = via.getRoute().getStations().get(via.getRoute().getStations().size() -1);
-		String firstName = getName(firstVia);
-		String lastName = getName(lastVia);
-		int comp = firstName.compareTo(lastName);
-		boolean returnRoute = false;
-		if (comp > 0) {
-			returnRoute = true;
-		}
-		return returnRoute;
 	}
 
-	private String getName(ViaStation via) {
-		
-		if (via.getStation() != null) {
-			return via.getStation().getName();
-		}
-		if (via.getFareStationSet() != null) {
-			return via.getFareStationSet().getName();
-		}
-		return "";
-	}
-
-	private int getSeriesId(RegionalConstraint r) {
-		
-		for (FareElement f : tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {
-			if (f.getRegionalConstraint().equals(r)) {
-				return f.getLegacyAccountingIdentifier().getSeriesId();
-			}
-		}
-		return 0;
-	}
-	
 	
 	
 

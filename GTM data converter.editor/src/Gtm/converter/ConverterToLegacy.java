@@ -1187,6 +1187,7 @@ public class 	ConverterToLegacy {
 		memo.setEnglish(getTranslation(text, "en"));
 		memo.setFrench(getTranslation(text, "fr"));	
 		memo.setGerman(getTranslation(text, "de"));
+		series.setMemoNumber(memo.getNumber());
 
 	}
 

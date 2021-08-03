@@ -2427,7 +2427,7 @@ public class ConverterFromLegacy {
 
 	private Language getEnglish() {
 		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
-			if (l.getCode().equals("en")) {
+			if (l.getCode() != null && l.getCode().equals("en")) {
 				return l;
 			}
 		}
