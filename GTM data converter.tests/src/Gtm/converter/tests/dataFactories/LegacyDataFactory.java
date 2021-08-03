@@ -32,6 +32,7 @@ import Gtm.LegacySeriesType;
 import Gtm.LegacyViastation;
 import Gtm.PassengerConstraint;
 import Gtm.RoundingType;
+import Gtm.ServiceBrand;
 import Gtm.ServiceClass;
 import Gtm.Station;
 import Gtm.Text;
@@ -233,11 +234,11 @@ public class LegacyDataFactory {
 		
 		stations.getLegacyStations().add(createLegacyStation(1,"A-Stadt","A-Stadt","A", 0,100));
 		stations.getLegacyStations().add(createLegacyStation(2,"B-Stadt","A-Stadt","B", 0,100));
-		stations.getLegacyStations().add(createLegacyStation(3,"C-Stadt","A-Stadt","C", 0,0));
+		stations.getLegacyStations().add(createLegacyStation(3,"C-Stadt","C-Stadt","C", 0,0));
 		stations.getLegacyStations().add(createLegacyStation(4,"D-Stadt","D-Stadt","D", 0,0));
-		stations.getLegacyStations().add(createLegacyStation(5,"E-Stadt","A-Stadt","E", 0,0));
-		stations.getLegacyStations().add(createLegacyStation(6,"F-Stadt","A-Stadt","F", 0,0));
-		stations.getLegacyStations().add(createLegacyStation(7,"G-Stadt","A-Stadt","G", 0,900));
+		stations.getLegacyStations().add(createLegacyStation(5,"E-Stadt","E-Stadt","E", 0,0));
+		stations.getLegacyStations().add(createLegacyStation(6,"F-Stadt","F-Stadt","F", 0,0));
+		stations.getLegacyStations().add(createLegacyStation(7,"G-Stadt","G-Stadt","G", 0,900));
 		stations.getLegacyStations().add(createLegacyStation(100,"A-Area","A-area","A-ar", 0,100));
 		stations.getLegacyStations().add(createLegacyStation(900,"H-Stadt","H-area","H-ar", 0,900));
 		stations.getLegacyStations().add(createLegacyStation(8,"H-Main","H-Main","H", 0,900));
@@ -373,6 +374,12 @@ public class LegacyDataFactory {
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9997","RAILWAY THREE", "RAIL-3"));
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9995","Atlantis Rail", "RAIL-A"));
 			
+		//service brands
+		tool.getCodeLists().setServiceBrands(GtmFactory.eINSTANCE.createServiceBrands());
+		tool.getCodeLists().getServiceBrands().getServiceBrands().add(createServiceBrand(1,"ship"));
+		tool.getCodeLists().getServiceBrands().getServiceBrands().add(createServiceBrand(2,"bus"));
+		tool.getCodeLists().getServiceBrands().getServiceBrands().add(createServiceBrand(3,"rail"));
+		
 		//countries
 		tool.getCodeLists().setCountries(GtmFactory.eINSTANCE.createCountries());
 		Country wonderland = GtmFactory.eINSTANCE.createCountry();
@@ -401,6 +408,14 @@ public class LegacyDataFactory {
 		tool.getCodeLists().getStations().getStations().add(createStation("HM","00900", wonderland));
 		tool.getCodeLists().getStations().getStations().add(createStation("Z","10000", atlantis));		
 			
+	}
+
+	private static ServiceBrand createServiceBrand(int code, String name) {
+		ServiceBrand brand = GtmFactory.eINSTANCE.createServiceBrand();
+		brand.setCode(code);
+		brand.setName(name);
+		brand.setAbbreviation(name);
+		return brand;
 	}
 
 	private static Language createLanguage(String code, String name) {
