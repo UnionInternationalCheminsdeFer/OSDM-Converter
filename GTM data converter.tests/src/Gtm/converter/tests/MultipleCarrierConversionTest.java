@@ -100,6 +100,13 @@ public class MultipleCarrierConversionTest {
 		assert (c.getCarrierName().equals("RAILWAY TWO"));
 		assert(c.getCarrierShortName().equals("RAIL-2"));
 		
+		LegacySeries s = TestUtils.getLegacySeries(tool, 1);
+		assert(s.getCarrierCode().equals("9998"));
+		
+		s = TestUtils.getLegacySeries(tool, 2);
+		assert(s.getCarrierCode().equals("9999"));
+		
+		
 	}
 
 	
