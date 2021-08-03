@@ -1,7 +1,5 @@
 package Gtm.converter.tests;
 
-import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -9,15 +7,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
-import Gtm.Legacy108FareDescription;
-import Gtm.Legacy108Station;
 import Gtm.LegacyCarrier;
 import Gtm.LegacySeries;
-import Gtm.Text;
-import Gtm.Translation;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;

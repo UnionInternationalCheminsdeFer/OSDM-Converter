@@ -16,6 +16,8 @@ import Gtm.Legacy108Stations;
 import Gtm.LegacyCarrier;
 import Gtm.RegionalConstraint;
 import Gtm.Station;
+import Gtm.Text;
+import Gtm.Translation;
 import Gtm.ViaStation;
 import Gtm.LegacySeries;
 
@@ -171,6 +173,37 @@ public class TestUtils {
 			if (c.getCarrierCode().equals(code)) return c;
 		}
 		return null;
+	}
+	
+	public static Text addText(GTMTool tool, String value) {
+		Text text = GtmFactory.eINSTANCE.createText();
+		text.setTextICAO(value);
+		text.setShortTextICAO(value);
+		text.setTextUTF8(value);
+		text.setShortTextUTF8(value);
+		Translation tr = GtmFactory.eINSTANCE.createTranslation();
+		tr.setLanguage(TestUtils.getLanguage(tool,"en"));
+		tr.setTextICAO(value+"en");
+		tr.setShortTextICAO(value+"en");
+		tr.setTextUTF8(value+"en");
+		tr.setShortTextUTF8(value+"en");
+		text.getTranslations().add(tr);
+		Translation tr2 = GtmFactory.eINSTANCE.createTranslation();
+		tr2.setLanguage(TestUtils.getLanguage(tool,"fr"));
+		tr2.setTextICAO(value+"fr");
+		tr2.setTextUTF8(value+"fr");
+		tr2.setShortTextICAO(value+"fr");
+		tr2.setShortTextUTF8(value+"fr");
+		text.getTranslations().add(tr2);
+		Translation tr3 = GtmFactory.eINSTANCE.createTranslation();
+		tr3.setLanguage(TestUtils.getLanguage(tool,"de"));
+		tr3.setTextICAO(value+"de");
+		tr3.setShortTextICAO(value+"de");
+		tr3.setTextUTF8(value+"de");
+		tr3.setShortTextUTF8(value+"de");
+		text.getTranslations().add(tr3);
+		tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts().add(text);
+		return text;
 	}
 	
 }

@@ -9,14 +9,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
-import Gtm.Legacy108FareDescription;
+import Gtm.Legacy108Memo;
 import Gtm.Legacy108Station;
+import Gtm.LegacyFareDetailMap;
 import Gtm.LegacySeries;
-import Gtm.Text;
-import Gtm.Translation;
+import Gtm.StationFareDetailType;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
@@ -26,7 +25,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class MultipleFareTextConversionTest {
+public class Station2MemoConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -47,53 +46,14 @@ public class MultipleFareTextConversionTest {
 				
 		tool = LegacyDataFactory.createBasicData();
 		
-		for (LegacySeries ls : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
-			if (ls.getNumber() == 1) {
-				ls.setCarrierCode("9998");
-			} else {
-				ls.setCarrierCode("9999");
-			}
-		}
+		tool.getConversionFromLegacy().getParams().setLegacyStationToFareDetailMappings(GtmFactory.eINSTANCE.createLegacyFareDetailMaps());
+		LegacyFareDetailMap map = GtmFactory.eINSTANCE.createLegacyFareDetailMap();
+		tool.getConversionFromLegacy().getParams().getLegacyStationToFareDetailMappings().getLegacyFareDetailMaps().add(map);
+		map.setFareDetailDescription(TestUtils.addText(tool, "Diabolo") );
+		map.setLegacyCode(1);
+		map.setFareDetailMappingType(StationFareDetailType.ON_ARRIVAL_ON_DEPARTURE);
+
 		
-		
-		Text text = GtmFactory.eINSTANCE.createText();
-		text.setTextICAO("Local");
-		text.setShortTextICAO("Local");
-		text.setTextUTF8("Local");
-		text.setShortTextUTF8("Local");
-		Translation tr = GtmFactory.eINSTANCE.createTranslation();
-		tr.setLanguage(TestUtils.getLanguage(tool,"en"));
-		tr.setTextICAO("English");
-		tr.setShortTextICAO("English");
-		tr.setTextUTF8("English");
-		tr.setShortTextUTF8("English");
-		text.getTranslations().add(tr);
-		Translation tr2 = GtmFactory.eINSTANCE.createTranslation();
-		tr2.setLanguage(TestUtils.getLanguage(tool,"fr"));
-		tr2.setTextICAO("French");
-		tr2.setTextUTF8("French");
-		tr2.setShortTextICAO("French");
-		tr2.setShortTextUTF8("French");
-		text.getTranslations().add(tr2);
-		Translation tr3 = GtmFactory.eINSTANCE.createTranslation();
-		tr3.setLanguage(TestUtils.getLanguage(tool,"de"));
-		tr3.setTextICAO("German");
-		tr3.setShortTextICAO("German");
-		tr3.setTextUTF8("German");
-		tr3.setShortTextUTF8("German");
-		text.getTranslations().add(tr3);
-		tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts().add(text);
-			
-		HashSet<FareTemplate> newTemplates = new HashSet<FareTemplate>();
-		for (FareTemplate ft : tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
-			FareTemplate ft2 = LegacyDataFactory.cloneTemplate(ft);
-			ft2.getCarrierFilter().add(TestUtils.findCarrier(tool, "9998"));
-			ft.getCarrierFilter().add(TestUtils.findCarrier(tool, "9999"));
-			ft2.setText(text);
-			newTemplates.add(ft2);
-		}
-		tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().addAll(newTemplates);		
-	
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
 		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
@@ -107,14 +67,28 @@ public class MultipleFareTextConversionTest {
 	}
 	
 	@Test 
-	public void testFareTextConversion() {
+	public void testMemoConversion() {
 		
 		
 		//validate basics	
 		
 		//one calendar
 		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 1);
-			
+		
+		//one regional constraint per series * 2
+		assert(tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints().size()
+				== tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size()
+				* 2 //route and return route
+		);
+
+		// number of fares = number of series * 2 * number of templates
+		assert(tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements().size() 
+				==
+			   tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size()
+			   * 2 // route and return route
+			   * tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().size()
+		);
+		
 		// number of prices
 		assert(tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices().size() == 2);
 		
@@ -150,23 +124,17 @@ public class MultipleFareTextConversionTest {
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null);
 					
 			
-		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions() != null);
-		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().size() == 2);
-	
-		LegacySeries s = TestUtils.getLegacySeries(tool, 1);
-		Legacy108FareDescription fd = TestUtils.findFareDescription(tool, s.getFareTableNumber());
-		assert(fd.getDescriptionLocal().equals("Local"));
-		assert(fd.getDescriptionEn().equals("English"));
-		assert(fd.getDescriptionFr().equals("French"));
-		assert(fd.getDescriptionGe().equals("German"));
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyMemos().getLegacyMemos().size() == 1);
 		
-		s = TestUtils.getLegacySeries(tool, 2);
-		fd = TestUtils.findFareDescription(tool, s.getFareTableNumber());
-		assert(fd.getDescriptionLocal().equals("Standard"));
-		assert(fd.getDescriptionEn().equals(""));
-		assert(fd.getDescriptionFr().equals(""));
-		assert(fd.getDescriptionGe().equals(""));
+		Legacy108Memo memo = tool.getConversionFromLegacy().getLegacy108().getLegacyMemos().getLegacyMemos().get(0);
 		
+		assert(memo.getLocal().equals("Diabolo"));
+		assert(memo.getEnglish().equals("Diaboloen"));
+		assert(memo.getFrench().equals("Diabolofr"));
+		assert(memo.getGerman().equals("Diabolode"));
+				
+	    LegacySeries s = TestUtils.getLegacySeries(tool,1);
+		assert(s.getMemoNumber() == memo.getNumber());
 		
 	}
 
