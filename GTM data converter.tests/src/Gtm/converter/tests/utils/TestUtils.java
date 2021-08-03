@@ -13,6 +13,7 @@ import Gtm.Language;
 import Gtm.Legacy108FareDescription;
 import Gtm.Legacy108Station;
 import Gtm.Legacy108Stations;
+import Gtm.LegacyCarrier;
 import Gtm.RegionalConstraint;
 import Gtm.Station;
 import Gtm.ViaStation;
@@ -160,6 +161,14 @@ public class TestUtils {
 		
 		for (Legacy108FareDescription fd : tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares()) {
 			if (fd.getTableId() == fareTableNumber) return fd;
+		}
+		return null;
+	}
+
+	public static LegacyCarrier findLegacyCarrier(GTMTool tool, String code) {
+		
+		for (LegacyCarrier c : tool.getConversionFromLegacy().getLegacy108().getLegacyCarriers().getLegacyCarrier()) {
+			if (c.getCarrierCode().equals(code)) return c;
 		}
 		return null;
 	}
