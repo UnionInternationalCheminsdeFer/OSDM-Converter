@@ -24,6 +24,7 @@ import Gtm.Legacy108Station;
 import Gtm.Legacy108Stations;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyConversionType;
+import Gtm.LegacyDistanceFare;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacyRouteFares;
 import Gtm.LegacySeries;
@@ -37,12 +38,97 @@ import Gtm.ServiceClass;
 import Gtm.Station;
 import Gtm.Text;
 import Gtm.TravelerType;
+import Gtm.converter.tests.utils.TestUtils;
 
 public class LegacyDataFactory {
 	
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
+		
 	
 	public static GTMTool createBasicData() {
+		
+		GTMTool tool = init();
+				
+		//add fare structure
+		addFareStructure(tool);
+		
+		//legacy 108 data
+		createRouteFareLegacy(tool);
+		
+		//conversion parameter
+		createParams(tool, tool.getCodeLists().getCarriers().getCarriers().get(0), tool.getCodeLists().getCountries().getCountries().get(0));
+				
+		return tool;
+	}
+	
+	public static GTMTool createBasicDistanceFareData() {
+		
+		GTMTool tool = init();
+				
+		//add fare structure
+		addFareStructure(tool);
+		
+		//legacy 108 data
+		createDistanceFareLegacy(tool);
+		
+		//conversion parameter
+		createParams(tool, tool.getCodeLists().getCarriers().getCarriers().get(0), tool.getCodeLists().getCountries().getCountries().get(0));
+				
+		return tool;
+	}
+	
+	private static void createDistanceFareLegacy(GTMTool tool) {
+		initLegacy(tool);
+		addLegacyStations(tool);
+		addLegacyDistanceSeries(tool);
+		addLegacyDistanceFares(tool);		
+	}
+
+	private static void addLegacyDistanceSeries(GTMTool tool) {
+		
+		LegacySeriesList series = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList();
+		series.getSeries().add(createRouteBasedSeries(tool,1,2,1,2));	
+		series.getSeries().add(createRouteBasedSeries(tool,2,10,1,3));
+		series.getSeries().add(createRouteBasedSeries(tool,3,22,1,4));	
+		series.getSeries().add(createRouteBasedSeries(tool,4,24,1,5));	
+		series.getSeries().add(createRouteBasedSeries(tool,5,45,1,6));	
+		series.getSeries().add(createRouteBasedSeries(tool,6,80,1,7));	
+		
+	}
+
+	private static void addLegacyDistanceFares(GTMTool tool) {
+		
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,5,4));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,10,8));		
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,15,12));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,20,16));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,25,20));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,30,24));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,35,28));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,40,32));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,45,36));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,50,40));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,55,44));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,60,48));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,65,52));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,70,56));
+
+	}
+
+	private static LegacyDistanceFare createDistanceFare(int table, int distance, int value) {
+		LegacyDistanceFare f = GtmFactory.eINSTANCE.createLegacyDistanceFare();
+		f.setDistance(distance);
+		f.setFare1st(value * 2);
+		f.setFare2nd(value);
+		f.setFareTableNumber(table);
+		f.setReturnFare1st(value * 4);
+		f.setReturnFare2nd(value * 2);
+		f.setValidFrom(TestUtils.getFromDate());
+		f.setValidUntil(TestUtils.getUntilDate());
+		return f;
+	}
+
+	private static GTMTool init() {
 		GTMTool tool = GtmFactory.eINSTANCE.createGTMTool();
 		
 		tool.setConversionFromLegacy(GtmFactory.eINSTANCE.createConversionFromLegacy());	
@@ -50,25 +136,22 @@ public class LegacyDataFactory {
 		tool.getConversionFromLegacy().setParams(GtmFactory.eINSTANCE.createConversionParams());
 		tool.setGeneralTariffModel(GtmFactory.eINSTANCE.createGeneralTariffModel());
 		tool.getGeneralTariffModel().setFareStructure(GtmFactory.eINSTANCE.createFareStructure());
-		
+
 		//codelists
 		createCodeLists(tool);
 		
-		//add fare structure
-		addFareStructure(tool);
-		
-		
-		//legacy 108 data
-		createLegacy(tool);
-		
-		//conversion parameter
-		createParams(tool, tool.getCodeLists().getCarriers().getCarriers().get(0), tool.getCodeLists().getCountries().getCountries().get(0));
-				
 		return tool;
 	}
 
-	private static void createLegacy(GTMTool tool) {
-				
+	private static void createRouteFareLegacy(GTMTool tool) {
+		initLegacy(tool);
+		addLegacyStations(tool);
+		addLegacySeries(tool);
+		addLegacyRouteFares(tool);
+	
+	}
+	
+	private static void initLegacy(GTMTool tool) {
 		tool.getConversionFromLegacy().getLegacy108().setLegacySeriesList(GtmFactory.eINSTANCE.createLegacySeriesList());
 		tool.getConversionFromLegacy().getLegacy108().setLegacyStations(GtmFactory.eINSTANCE.createLegacy108Stations());
 		tool.getConversionFromLegacy().getLegacy108().setLegacyDistanceFares(GtmFactory.eINSTANCE.createLegacyDistanceFares());
@@ -78,11 +161,6 @@ public class LegacyDataFactory {
 		tool.getConversionFromLegacy().getLegacy108().setLegacyMemos(GtmFactory.eINSTANCE.createLegacy108Memos());
 		tool.getConversionFromLegacy().getLegacy108().setLegacySeparateContractSeries(GtmFactory.eINSTANCE.createLegacySeparateContractSeriesList());
 		tool.getConversionFromLegacy().getLegacy108().setLegacyStations(GtmFactory.eINSTANCE.createLegacy108Stations());
-		
-		addLegacyStations(tool);
-		addLegacySeries(tool);
-		addLegacyRouteFares(tool);
-	
 	}
 
 	private static void addFareStructure(GTMTool tool) {
@@ -146,7 +224,7 @@ public class LegacyDataFactory {
 		
 		LegacySeriesList series = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList();
 		
-		LegacySeries s1 = createBasicSeries(tool,1,1);	
+		LegacySeries s1 = createDistanceBasedSeries(tool,1,1);	
 		s1.getViastations().add(createViaStation(2,1,false));
 		s1.getViastations().add(createViaStation(3,1,false));
 		s1.getViastations().add(createViaStation(4,1,false));
@@ -154,7 +232,7 @@ public class LegacyDataFactory {
 		s1.getViastations().add(createViaStation(6,1,false));
 		series.getSeries().add(s1);
 
-		LegacySeries s2 = createBasicSeries(tool,1,2);	
+		LegacySeries s2 = createDistanceBasedSeries(tool,1,2);	
 		s2.getViastations().add(createViaStation(2,2,false));
 		s2.getViastations().add(createViaStation(3,3,false));
 		s2.getViastations().add(createViaStation(4,1,false));
@@ -162,7 +240,7 @@ public class LegacyDataFactory {
 		s2.getViastations().add(createViaStation(6,1,false));
 		series.getSeries().add(s2);
 
-		LegacySeries s3 = createBasicSeries(tool,1,3);	
+		LegacySeries s3 = createDistanceBasedSeries(tool,1,3);	
 		s3.getViastations().add(createViaStation(2,1,false));
 		s3.getViastations().add(createViaStation(3,2,false));
 		s3.getViastations().add(createViaStation(4,3,false));
@@ -170,7 +248,7 @@ public class LegacyDataFactory {
 		s3.getViastations().add(createViaStation(6,1,false));
 		series.getSeries().add(s3);
 
-		LegacySeries s4 = createBasicSeries(tool,1,4);	
+		LegacySeries s4 = createDistanceBasedSeries(tool,1,4);	
 		s4.getViastations().add(createViaStation(2,1,false));
 		s4.getViastations().add(createViaStation(3,2,false));
 		s4.getViastations().add(createViaStation(4,2,false));
@@ -178,7 +256,7 @@ public class LegacyDataFactory {
 		s4.getViastations().add(createViaStation(6,1,false));
 		series.getSeries().add(s4);
 
-		LegacySeries s5 = createBasicSeries(tool,1,5);	
+		LegacySeries s5 = createDistanceBasedSeries(tool,1,5);	
 		s5.getViastations().add(createViaStation(2,2,false));
 		s5.getViastations().add(createViaStation(3,3,false));
 		s5.getViastations().add(createViaStation(4,1,false));
@@ -186,7 +264,7 @@ public class LegacyDataFactory {
 		s5.getViastations().add(createViaStation(6,3,false));
 		series.getSeries().add(s5);
 
-		LegacySeries s6 = createBasicSeries(tool,1,6);	
+		LegacySeries s6 = createDistanceBasedSeries(tool,1,6);	
 		s6.getViastations().add(createViaStation(2,2,false));
 		s6.getViastations().add(createViaStation(3,3,false));
 		s6.getViastations().add(createViaStation(4,2,false));
@@ -196,16 +274,8 @@ public class LegacyDataFactory {
 
 		
 	}
-
-	private static LegacyViastation createViaStation(int code, int position, boolean optional) {
-		LegacyViastation v1 = GtmFactory.eINSTANCE.createLegacyViastation();
-		v1.setCode(code);
-		v1.setPosition(position);
-		v1.setOptional(optional);		
-		return v1;
-	}
-
-	private static LegacySeries createBasicSeries(GTMTool tool, int fareTable, int seriesNumber) {
+	
+	private static LegacySeries createDistanceBasedSeries(GTMTool tool, int fareTable , int seriesNumber) {
 		LegacySeries s = GtmFactory.eINSTANCE.createLegacySeries();
 		s.setCarrierCode("9999");
 		s.setDistance1(10);
@@ -217,7 +287,6 @@ public class LegacyDataFactory {
 		s.setPricetype(LegacyCalculationType.ROUTE_BASED);
 		s.setSupplyingCarrierCode("9999");
 		s.setType(LegacySeriesType.STATION_STATION);
-			
 		
 		try {
 			s.setValidFrom(dateFormat.parse("20190101"));
@@ -227,6 +296,38 @@ public class LegacyDataFactory {
 		}
 		return s;
 	}
+
+	private static LegacySeries createRouteBasedSeries(GTMTool tool, int seriesNumber, int distance, int from, int to) {
+		LegacySeries s = GtmFactory.eINSTANCE.createLegacySeries();
+		s.setCarrierCode("9999");
+		s.setDistance1(distance);
+		s.setDistance2(distance);
+		s.setFareTableNumber(1);
+		s.setFromStation(from);
+		s.setToStation(to);
+		s.setNumber(seriesNumber);
+		s.setPricetype(LegacyCalculationType.DISTANCE_BASED);
+		s.setSupplyingCarrierCode("9999");
+		s.setType(LegacySeriesType.STATION_STATION);
+		
+		try {
+			s.setValidFrom(dateFormat.parse("20190101"));
+			s.setValidUntil(dateFormat.parse("20990101"));
+		} catch (ParseException e) {
+			//
+		}
+		return s;
+	}
+
+	private static LegacyViastation createViaStation(int code, int position, boolean optional) {
+		LegacyViastation v1 = GtmFactory.eINSTANCE.createLegacyViastation();
+		v1.setCode(code);
+		v1.setPosition(position);
+		v1.setOptional(optional);		
+		return v1;
+	}
+
+	
 
 	private static void addLegacyStations(GTMTool tool) {
 		

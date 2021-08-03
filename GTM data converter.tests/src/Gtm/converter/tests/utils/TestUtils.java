@@ -14,6 +14,7 @@ import Gtm.Legacy108FareDescription;
 import Gtm.Legacy108Station;
 import Gtm.Legacy108Stations;
 import Gtm.LegacyCarrier;
+import Gtm.LegacyRouteFare;
 import Gtm.RegionalConstraint;
 import Gtm.Station;
 import Gtm.Text;
@@ -204,6 +205,13 @@ public class TestUtils {
 		text.getTranslations().add(tr3);
 		tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts().add(text);
 		return text;
+	}
+
+	public static LegacyRouteFare findLegacyRouteFare(GTMTool tool, int fareTableNumber, int seriesNumber) {
+		for (LegacyRouteFare f : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
+			if (f.getFareTableNumber() == fareTableNumber && f.getSeriesNumber() == seriesNumber) return f;
+		}
+		return null;
 	}
 	
 }

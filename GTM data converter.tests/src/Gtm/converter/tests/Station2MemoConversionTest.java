@@ -9,7 +9,6 @@ import org.mockito.MockitoAnnotations;
 
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
-import Gtm.Legacy108Memo;
 import Gtm.Legacy108Station;
 import Gtm.LegacySeries;
 import Gtm.LegacyStationToServiceConstraintMapping;

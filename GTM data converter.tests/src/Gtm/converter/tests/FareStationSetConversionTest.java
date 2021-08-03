@@ -7,10 +7,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import Gtm.FareStationSetDefinition;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
-import Gtm.Legacy108Station;
+import Gtm.LegacyCalculationType;
+import Gtm.LegacyRouteFare;
+import Gtm.LegacySeries;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
@@ -39,7 +40,7 @@ public class FareStationSetConversionTest {
 		
 		MockitoAnnotations.initMocks(this);
 				
-		tool = LegacyDataFactory.createBasicData();
+		tool = LegacyDataFactory.createBasicDistanceFareData();
 		
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
@@ -60,23 +61,7 @@ public class FareStationSetConversionTest {
 		//validate fare station sets
 		assert(tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions() != null);
 		
-		assert(tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions().size() == 2);
-		
-		int i = 0;
-		for (FareStationSetDefinition fs : tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions()) {
-			
-			if (fs.getLegacyCode() == 100) {
-				i++;
-				assert(fs.getName().equals("A-ar"));
-				assert(fs.getStations().size() == 2);				
-			} else if  (fs.getLegacyCode() == 900) {
-				i++;
-				assert(fs.getName().equals("H-ar"));
-				assert(fs.getStations().size() == 3);
-			}
-		}
-		assert(i == 2);
-		
+		assert(tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions().size() == 2);		
 		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
@@ -91,32 +76,59 @@ public class FareStationSetConversionTest {
 		//convert
 		converterToLegacy.convertTest(new MockedProgressMonitor());
 		
-		Legacy108Station s = TestUtils.findLegacyStation(tool,100);
-		assert(s.getFareReferenceStationCode() == 100);
+		LegacySeries s = TestUtils.getLegacySeries(tool, 1);
+		LegacyRouteFare f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
+		assert(s.getDistance1() == 2);
+		assert(s.getDistance2() == 2);
+		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
+		assert(f.getFare1st() == 8);
+		assert(f.getFare2nd() == 4);
+		assert(f.getReturnFare1st() == 16);
+		assert(f.getReturnFare2nd() == 8);
+		
+		s = TestUtils.getLegacySeries(tool, 2);
+		f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
+		assert(s.getDistance1() == 10);
+		assert(s.getDistance2() == 10);
+		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
+		assert(f.getFare1st() == 16);
+		assert(f.getFare2nd() == 8);
+		assert(f.getReturnFare1st() == 32);
+		assert(f.getReturnFare2nd() == 16);
+		
+		s = TestUtils.getLegacySeries(tool, 3);
+		f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
+		assert(s.getDistance1() == 22);
+		assert(s.getDistance2() == 22);
+		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
+		assert(f.getFare1st() == 40);
+		assert(f.getFare2nd() == 20);
+		assert(f.getReturnFare1st() == 80);
+		assert(f.getReturnFare2nd() == 40);
+		
+		s = TestUtils.getLegacySeries(tool, 4);
+		f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
+		assert(s.getDistance1() == 24);
+		assert(s.getDistance2() == 24);
+		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
+		assert(f.getFare1st() == 40);
+		assert(f.getFare2nd() == 20);
+		assert(f.getReturnFare1st() == 80);
+		assert(f.getReturnFare2nd() == 40);
+		
+		s = TestUtils.getLegacySeries(tool, 5);
+		f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
+		assert(s.getDistance1() == 45);
+		assert(s.getDistance2() == 45);
+		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
+		assert(f.getFare1st() == 72);
+		assert(f.getFare2nd() == 36);
+		assert(f.getReturnFare1st() == 144);
+		assert(f.getReturnFare2nd() == 72);
+		
+		s = TestUtils.getLegacySeries(tool, 6);
+		assert( s == null); // distance too big
 
-		s = TestUtils.findLegacyStation(tool,900);
-		assert(s.getFareReferenceStationCode() == 900);
-		
-		s = TestUtils.findLegacyStation(tool,1);
-		assert(s.getFareReferenceStationCode() == 100);
-		
-		s = TestUtils.findLegacyStation(tool,1);
-		assert(s.getFareReferenceStationCode() == 100);
-		
-		s = TestUtils.findLegacyStation(tool,2);
-		assert(s.getFareReferenceStationCode() == 100);
-
-		s = TestUtils.findLegacyStation(tool,7);
-		assert(s.getFareReferenceStationCode() == 900);
-		
-		s = TestUtils.findLegacyStation(tool,8);
-		assert(s.getFareReferenceStationCode() == 900);
-		
-		s = TestUtils.findLegacyStation(tool,3);
-		assert(s.getFareReferenceStationCode() == 0);
-		
-		s = TestUtils.findLegacyStation(tool,4);
-		assert(s.getFareReferenceStationCode() == 0);
 	}
 
 	
