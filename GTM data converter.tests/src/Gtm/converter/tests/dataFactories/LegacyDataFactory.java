@@ -26,7 +26,6 @@ import Gtm.LegacyCalculationType;
 import Gtm.LegacyConversionType;
 import Gtm.LegacyDistanceFare;
 import Gtm.LegacyRouteFare;
-import Gtm.LegacyRouteFares;
 import Gtm.LegacySeries;
 import Gtm.LegacySeriesList;
 import Gtm.LegacySeriesType;
@@ -87,12 +86,12 @@ public class LegacyDataFactory {
 	private static void addLegacyDistanceSeries(GTMTool tool) {
 		
 		LegacySeriesList series = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList();
-		series.getSeries().add(createRouteBasedSeries(tool,1,2,1,2));	
-		series.getSeries().add(createRouteBasedSeries(tool,2,10,1,3));
-		series.getSeries().add(createRouteBasedSeries(tool,3,22,1,4));	
-		series.getSeries().add(createRouteBasedSeries(tool,4,24,1,5));	
-		series.getSeries().add(createRouteBasedSeries(tool,5,45,1,6));	
-		series.getSeries().add(createRouteBasedSeries(tool,6,80,1,7));	
+		series.getSeries().add(createRouteBasedSeries(1,2,1,2));	
+		series.getSeries().add(createRouteBasedSeries(2,10,1,3));
+		series.getSeries().add(createRouteBasedSeries(3,22,1,4));	
+		series.getSeries().add(createRouteBasedSeries(4,24,1,5));	
+		series.getSeries().add(createRouteBasedSeries(5,45,1,6));	
+		series.getSeries().add(createRouteBasedSeries(6,80,1,7));	
 		
 	}
 
@@ -115,7 +114,7 @@ public class LegacyDataFactory {
 
 	}
 
-	private static LegacyDistanceFare createDistanceFare(int table, int distance, int value) {
+	public static LegacyDistanceFare createDistanceFare(int table, int distance, int value) {
 		LegacyDistanceFare f = GtmFactory.eINSTANCE.createLegacyDistanceFare();
 		f.setDistance(distance);
 		f.setFare1st(value * 2);
@@ -185,35 +184,30 @@ public class LegacyDataFactory {
 	}
 
 	private static void addLegacyRouteFares(GTMTool tool) {
-		
-		LegacyRouteFares fares = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares();
-		
-		LegacyRouteFare f1 = createBasicRouteFare(tool,1,1);	
-		LegacyRouteFare f2 = createBasicRouteFare(tool,1,2);	
-		LegacyRouteFare f3 = createBasicRouteFare(tool,1,3);	
-		LegacyRouteFare f4 = createBasicRouteFare(tool,1,4);	
-		LegacyRouteFare f5 = createBasicRouteFare(tool,1,5);	
-		LegacyRouteFare f6 = createBasicRouteFare(tool,1,6);	
-			
-		fares.getRouteFare().add(f1);
-		fares.getRouteFare().add(f2);
-		fares.getRouteFare().add(f3);
-		fares.getRouteFare().add(f4);
-		fares.getRouteFare().add(f5);
-		fares.getRouteFare().add(f6);
+		addRouteFare(tool, "20190101", "20990101", 100, 50, 1, 1);	
+		addRouteFare(tool, "20190101", "20990101", 100, 50, 1, 2);		
+		addRouteFare(tool, "20190101", "20990101", 100, 50, 1, 3);		
+		addRouteFare(tool, "20190101", "20990101", 100, 50, 1, 4);	
+		addRouteFare(tool, "20190101", "20990101", 100, 50, 1, 5);	
+		addRouteFare(tool, "20190101", "20990101", 100, 50, 1, 6);	
 	}
+	
+	public static void addRouteFare(GTMTool tool, String validFrom, String validUntil, int fareFirst, int fareSecond, int fareTable, int series) {
+		tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().add(createRouteFare(validFrom, validUntil, fareFirst, fareSecond, fareTable, series));
+	};
 
-	private static LegacyRouteFare createBasicRouteFare(GTMTool tool, int fareTable, int series) {
+
+	public static LegacyRouteFare createRouteFare(String validFrom, String validUntil, int fareFirst, int fareSecond, int fareTable, int series) {
 		
 		LegacyRouteFare f = GtmFactory.eINSTANCE.createLegacyRouteFare();
-		f.setFare1st(100);
-		f.setFare2nd(50);
+		f.setFare1st(fareFirst);
+		f.setFare2nd(fareSecond);
 		f.setFareTableNumber(fareTable);
 		f.setSeriesNumber(series);
 		
 		try {
-			f.setValidFrom(dateFormat.parse("20190101"));
-			f.setValidUntil(dateFormat.parse("20990101"));
+			f.setValidFrom(dateFormat.parse(validFrom));
+			f.setValidUntil(dateFormat.parse(validUntil));
 		} catch (ParseException e) {
 			//
 		}
@@ -297,7 +291,7 @@ public class LegacyDataFactory {
 		return s;
 	}
 
-	private static LegacySeries createRouteBasedSeries(GTMTool tool, int seriesNumber, int distance, int from, int to) {
+	private static LegacySeries createRouteBasedSeries(int seriesNumber, int distance, int from, int to) {
 		LegacySeries s = GtmFactory.eINSTANCE.createLegacySeries();
 		s.setCarrierCode("9999");
 		s.setDistance1(distance);
@@ -329,7 +323,7 @@ public class LegacyDataFactory {
 
 	
 
-	private static void addLegacyStations(GTMTool tool) {
+	public static void addLegacyStations(GTMTool tool) {
 		
 		Legacy108Stations stations = tool.getConversionFromLegacy().getLegacy108().getLegacyStations();
 		

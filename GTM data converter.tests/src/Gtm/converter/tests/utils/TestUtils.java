@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import Gtm.Carrier;
+import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
@@ -84,6 +85,18 @@ public class TestUtils {
 		} catch (ParseException e) {
 			return null;
 		}
+	}
+	
+	public static Date getDate(String dateString) {
+		try {
+			return dateFormat.parse(dateString);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
+	public static String getDateString(Date date) {
+		return dateFormat.format(date);
 	}
 	
 	public static boolean isReturnRoute(RegionalConstraint r) {
@@ -212,6 +225,25 @@ public class TestUtils {
 			if (f.getFareTableNumber() == fareTableNumber && f.getSeriesNumber() == seriesNumber) return f;
 		}
 		return null;
+	}
+
+	public static LegacyRouteFare findLegacyRouteFare(GTMTool tool,Date date,  int fareTableNumber, int seriesNumber) {
+		for (LegacyRouteFare f : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
+			if (f.getValidFrom().equals(date) && f.getFareTableNumber() == fareTableNumber && f.getSeriesNumber() == seriesNumber) return f;
+		}
+		return null;
+	}
+	
+	public static FareConstraintBundle clone(FareConstraintBundle bundle1) {
+		FareConstraintBundle bundle2 = GtmFactory.eINSTANCE.createFareConstraintBundle();
+		bundle2.setCarrierConstraint(bundle1.getCarrierConstraint());
+		bundle2.setCombinationConstraint(bundle1.getCombinationConstraint());
+		bundle2.setFulfillmentConstraint(bundle1.getFulfillmentConstraint());
+		bundle2.setPersonalDataConstraint(bundle1.getPersonalDataConstraint());
+		bundle2.setSalesAvailability(bundle1.getSalesAvailability());
+		bundle2.setTotalPassengerConstraint(bundle1.getTotalPassengerConstraint());
+		bundle2.setTravelValidity(bundle1.getTravelValidity());
+		return bundle2;
 	}
 	
 }

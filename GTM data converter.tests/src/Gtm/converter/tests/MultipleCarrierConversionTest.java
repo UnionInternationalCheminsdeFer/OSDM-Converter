@@ -62,7 +62,7 @@ public class MultipleCarrierConversionTest {
 	}
 	
 	@Test 
-	public void testFareTextConversion() {
+	public void testMultipleCarriersConversion() {
 		
 		
 		//validate basics	

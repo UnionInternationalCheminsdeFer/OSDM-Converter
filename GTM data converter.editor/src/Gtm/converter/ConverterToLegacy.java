@@ -92,9 +92,7 @@ public class 	ConverterToLegacy {
 	/** The editor. */
 	private GtmEditor editor = null;
 	
-	/** The legacy fares. */
-	private HashMap<String,LegacyRouteFare> legacyFares = new HashMap<String,LegacyRouteFare>(); 
-	
+
 	/** The route fares. */
 	private HashSet<LegacyRouteFare> routeFares = new HashSet<LegacyRouteFare>();
 	
@@ -483,8 +481,8 @@ public class 	ConverterToLegacy {
 					serie1.getToStation() == serie2.getToStation() &&
 					serie1 != serie2) {
 					routeIndex++;
-					if (serie1.getRouteNumber() == 0) {
-						serie1.setRouteNumber(routeIndex);
+					if (serie2.getRouteNumber() == 0) {
+						serie2.setRouteNumber(routeIndex);
 					}
 				}
 			}
@@ -588,8 +586,13 @@ public class 	ConverterToLegacy {
 	 * @param fare the fare
 	 * @return the fare id
 	 */
-	private String getFareId(LegacyRouteFare fare) {	
-		return String.format("%d+%d",fare.getSeriesNumber(), fare.getFareTableNumber());
+	private String getFareId(LegacyRouteFare fare) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(fare.getSeriesNumber());
+		sb.append("+");
+		sb.append(fare.getFareTableNumber());
+		sb.append(fare.getValidFrom());
+		return sb.toString();
 	}
 
 	/**
@@ -1124,6 +1127,15 @@ public class 	ConverterToLegacy {
 	 */
 	private LegacyRouteFare convertFare(FareElement fare) throws ConverterException {
 		
+		try {
+			String converterError = GtmValidator.checkConvertability(fare, tool.getConversionFromLegacy().getLegacy108().getCarrier());
+			if (converterError != null) {
+				GtmUtils.writeConsoleWarning("Fare not convertable: " + converterError + " " + GtmUtils.getLabelText(fare), editor);
+			}
+		} catch (Exception e) {
+			//do nothing
+		}
+		
 		LegacySeries series = convertToSeries(fare);
 		if (series == null) return null;
 		
@@ -1156,18 +1168,7 @@ public class 	ConverterToLegacy {
 
 			legacySeparateContractSeries.put(series.getNumber(),scl);
 		}
-		
-		routeFare.setFareTableNumber(addFareDescription(fare));
-		series.setFareTableNumber(routeFare.getFareTableNumber());
-		
-		try {
-			String converterError = GtmValidator.checkConvertability(fare, tool.getConversionFromLegacy().getLegacy108().getCarrier());
-			if (converterError != null) {
-				GtmUtils.writeConsoleWarning("Fare not convertable: " + converterError + " " + GtmUtils.getLabelText(fare), editor);
-			}
-		} catch (Exception e) {
-			//do nothing
-		}
+
 		return routeFare;
 	}
 
@@ -1215,16 +1216,22 @@ public class 	ConverterToLegacy {
 	private LegacyRouteFare convertToFare(FareElement fare, LegacySeries series) throws ConverterException {
 		
 		if (fare == null || fare.getFareConstraintBundle() == null) return null;
-
-		//search for legacy route fare to add class
-		LegacyRouteFare legacyFare = legacyFares.get(series.getRouteDescription());
-		if (legacyFare == null) {	
+		
+		Date validFrom = fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDateTime();
+		int fareTableNumber = addFareDescription(fare);
+		
+		LegacyRouteFare legacyFare = findLegacyRouteFare(series.getNumber(),validFrom, fareTableNumber);
+		if (legacyFare == null) {
 			legacyFare = GtmFactory.eINSTANCE.createLegacyRouteFare();
 			legacyFare.setSeriesNumber(series.getNumber());
-			legacyFare.setValidFrom(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getFromDateTime());
+			legacyFare.setValidFrom(validFrom);
 			legacyFare.setValidUntil(fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().get(0).getSalesDates().getUntilDateTime());	
-			legacyFare.setSeries(series);		
-		} 
+			legacyFare.setSeries(series);	
+			legacyFare.setFareTableNumber(fareTableNumber);
+			series.setFareTableNumber(legacyFare.getFareTableNumber());
+			routeFares.add(legacyFare);
+		}
+		 
 		if (fare.getServiceClass().getId() == ClassId.B) {
 			legacyFare.setFare1st(getPrice(fare.getPrice()));
 			legacyFare.setReturnFare1st(legacyFare.getFare1st() + legacyFare.getFare1st());
@@ -1235,8 +1242,19 @@ public class 	ConverterToLegacy {
 			legacyFare.setReturnFare2nd(legacyFare.getFare2nd( ) + legacyFare.getFare2nd());
 		}
 
-
 		return legacyFare;
+	}
+
+	private LegacyRouteFare findLegacyRouteFare(int seriesNumber, Date validFrom, int fareTableNumber) {
+		
+		for (LegacyRouteFare lf : routeFares) {
+			if(lf.getSeriesNumber() == seriesNumber &&			
+			   lf.getFareTableNumber() == fareTableNumber &&
+			   lf.getValidFrom().equals(validFrom)) {
+				return lf;
+			}
+		}
+		return null;
 	}
 
 	/**

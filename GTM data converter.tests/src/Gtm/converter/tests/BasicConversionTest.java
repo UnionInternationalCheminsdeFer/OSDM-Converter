@@ -114,7 +114,7 @@ public class BasicConversionTest {
 			String description = RouteDescriptionBuilder.getRouteDescription( r.getRegionalValidity().get(0).getViaStation());
 			boolean isReturnRoute = TestUtils.isReturnRoute(r);		
 			int seriesId = TestUtils.getSeriesId(tool, r);
-			
+				
 			if (seriesId == 1) {
 				if (isReturnRoute) {
 					assert(description.equals("G*F*E*D*C*B*A"));
@@ -176,6 +176,9 @@ public class BasicConversionTest {
 		
 		int fareTableNumber = tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().get(0).getTableId();
 		
+		//check for unique route numbers as all series go from A to F
+		HashSet<Integer> routeNumbers = new HashSet<Integer>(); 
+			
 		for (LegacySeries s : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {;
 		
 			int seriesId = s.getNumber();
@@ -194,18 +197,35 @@ public class BasicConversionTest {
 				assert(s.getValidFrom().equals(TestUtils.getFromDate()));
 				assert(s.getValidUntil().equals(TestUtils.getUntilDate()));	
 				assert(s.getType().equals(LegacySeriesType.STATION_STATION));
+				assert(!routeNumbers.contains(s.getRouteNumber()));
+				routeNumbers.add(s.getRouteNumber());
+				
 			} else if (seriesId == 2) {   
 				assert(description.equals("(B/C)*D*E*F"));
+				assert(!routeNumbers.contains(s.getRouteNumber()));
+				routeNumbers.add(s.getRouteNumber());
 			} else if (seriesId == 3) {
 				assert(description.equals("B*(C/D*E)*F")); 
+				assert(!routeNumbers.contains(s.getRouteNumber()));
+				routeNumbers.add(s.getRouteNumber());
 			} else if (seriesId == 4) {
 				assert(description.equals("B*(C*D/E)*F"));
+				assert(!routeNumbers.contains(s.getRouteNumber()));
+				routeNumbers.add(s.getRouteNumber());
 			} else if (seriesId == 5) {
 				assert(description.equals("(B/C)*D*(E/F)"));
+				assert(!routeNumbers.contains(s.getRouteNumber()));
+				routeNumbers.add(s.getRouteNumber());
 			} else if (seriesId == 6) {
 				assert(description.equals("(B/C)*(D/E)*F"));
+				assert(!routeNumbers.contains(s.getRouteNumber()));
+				routeNumbers.add(s.getRouteNumber());
 			} 
+			
+			
 		}
+		
+		
 	
 	}
 
