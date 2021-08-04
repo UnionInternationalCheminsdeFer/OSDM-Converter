@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -126,6 +127,9 @@ public class ConverterFromLegacy {
 	
 	/**  The connectionPoints with border code. */
 	private HashMap<Date,SalesAvailabilityConstraint> salesAvailabilitiesFromSeries = new HashMap<Date,SalesAvailabilityConstraint>();
+
+	/**  The connectionPoints with border code. */
+	private HashMap<FareConstraintBundle,HashSet<FareConstraintBundle>> convertedBundles = new HashMap<FareConstraintBundle,HashSet<FareConstraintBundle>>();
 
 	
 	/** The country */
@@ -413,7 +417,7 @@ public class ConverterFromLegacy {
 			Command com = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, connectionPoints);
 			if  (com != null && com.canExecute()) {
 				added = connectionPoints.size();
-				domain.getCommandStack().execute(command);
+				domain.getCommandStack().execute(com);
 			}
 		}	
 		GtmUtils.writeConsoleInfo(NationalLanguageSupport.ConvertLegacy2GtmAction_11 + Integer.toString(added),editor);	
@@ -454,6 +458,18 @@ public class ConverterFromLegacy {
 		
 		int faresConverted = convertSeries(monitor, priceValidityRanges, regions,priceList, fares, afterSalesRules);
 				
+		CompoundCommand com = new CompoundCommand();	
+		for (Entry<FareConstraintBundle, HashSet<FareConstraintBundle>> bundleEntry :convertedBundles.entrySet()) {
+			FareConstraintBundle bundle = bundleEntry.getKey();
+			for (FareConstraintBundle bundle2 : bundleEntry.getValue()) {
+				com.append(AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles(), GtmPackage.Literals.FARE_CONSTRAINT_BUNDLES__FARE_CONSTRAINT_BUNDLES, bundle2));
+				com.append(AddCommand.create(domain, bundle, GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES, bundle2));
+			}
+		}
+		if (com != null && !com.isEmpty() && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
+		
 		command = new CompoundCommand();
 		if (regions != null && !regions.isEmpty()) {
 			command = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints(), GtmPackage.Literals.REGIONAL_CONSTRAINTS__REGIONAL_CONSTRAINTS, regions);
@@ -539,6 +555,8 @@ public class ConverterFromLegacy {
 			tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().add(constraint);
 		}
 		
+		
+		
 		checkFareTemplates();
 		convertCarrierConstraints(tool);
 			
@@ -551,6 +569,14 @@ public class ConverterFromLegacy {
 		}
 		
 		int faresConverted = convertSeries(monitor, priceValidityRanges, regions,priceList, fares, afterSalesRules);
+		
+		for (Entry<FareConstraintBundle, HashSet<FareConstraintBundle>> bundleEntry :convertedBundles.entrySet()) {
+			FareConstraintBundle bundle = bundleEntry.getKey();
+			for (FareConstraintBundle bundle2 : bundleEntry.getValue()) {
+				tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles().add(bundle2);
+				bundle.getConvertedBundles().add(bundle2);
+			}
+		}
 		
 		if (regions != null && !regions.isEmpty()) {
 			tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints().addAll(regions);
@@ -2110,10 +2136,8 @@ public class ConverterFromLegacy {
 			
 				if (   fare.getFareTableNumber() == series.getFareTableNumber()
 				    && fare.getSeriesNumber() == series.getNumber() 
-					&& ( fare.getValidFrom().before(dateRange.getStartDate())
-							   || fare.getValidFrom().equals(dateRange.getStartDate()) )
-					&& ( fare.getValidUntil().after(dateRange.getEndDate())
-							   ||fare.getValidUntil().equals(dateRange.getEndDate()) ) )  {
+					&& ( fare.getValidFrom().equals(dateRange.getStartDate()) )
+					&& ( fare.getValidUntil().equals(dateRange.getEndDate())) )  {
 					if (travelClass == 1) {
 						return GtmUtils.getEuroFromCent(fare.getFare1st()); 
 					} else {
@@ -2292,12 +2316,15 @@ public class ConverterFromLegacy {
 						bundle2.setSalesAvailability(s);
 					}
 					bundle2.setDataSource(DataSource.CONVERTED);	
-				
-					CompoundCommand command = new CompoundCommand();	
-					command.append(AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles(), GtmPackage.Literals.FARE_CONSTRAINT_BUNDLES__FARE_CONSTRAINT_BUNDLES, bundle2));
-					command.append(AddCommand.create(domain, bundle, GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES, bundle2));
-					if (command != null && !command.isEmpty() && command.canExecute()) {
-						domain.getCommandStack().execute(command);
+					
+					
+					HashSet<FareConstraintBundle> validityBundles = convertedBundles.get(bundle);
+					if (validityBundles == null) {
+						validityBundles = new HashSet<FareConstraintBundle>();
+						validityBundles.add(bundle2);
+						convertedBundles.put(bundle, validityBundles);
+					} else {
+						validityBundles.add(bundle2);
 					}
 				
 					fare.setFareConstraintBundle(bundle2);
@@ -2322,8 +2349,9 @@ public class ConverterFromLegacy {
 			return null;
 		}
 		
+		if (convertedBundles == null | convertedBundles.get(bundle) == null || convertedBundles.get(bundle).isEmpty()) return null;
 		
-		for (FareConstraintBundle bu : bundle.getConvertedBundles()){
+		for (FareConstraintBundle bu : convertedBundles.get(bundle)){
 			
 			SalesAvailabilityConstraint sa = bu.getSalesAvailability();
 			
@@ -2427,7 +2455,7 @@ public class ConverterFromLegacy {
 
 	private Language getEnglish() {
 		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
-			if (l.getCode().equals("en")) {
+			if (l.getCode() != null && l.getCode().equals("en")) {
 				return l;
 			}
 		}

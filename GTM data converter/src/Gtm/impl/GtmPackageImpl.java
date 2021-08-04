@@ -7936,6 +7936,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getLegacy108Station_Longitude() {
+		return (EAttribute)legacy108StationEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLegacy108Station_Latitude() {
+		return (EAttribute)legacy108StationEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLegacyRouteFares() {
 		return legacyRouteFaresEClass;
 	}
@@ -9842,6 +9860,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacy108StationEClass, LEGACY108_STATION__FARE_REFERENCE_STATION_CODE);
 		createEAttribute(legacy108StationEClass, LEGACY108_STATION__SHORT_NAME);
 		createEAttribute(legacy108StationEClass, LEGACY108_STATION__SHORT_NAME_UTF8);
+		createEAttribute(legacy108StationEClass, LEGACY108_STATION__LONGITUDE);
+		createEAttribute(legacy108StationEClass, LEGACY108_STATION__LATITUDE);
 
 		legacyRouteFaresEClass = createEClass(LEGACY_ROUTE_FARES);
 		createEReference(legacyRouteFaresEClass, LEGACY_ROUTE_FARES__ROUTE_FARE);
@@ -10895,6 +10915,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacy108Station_FareReferenceStationCode(), ecorePackage.getEInt(), "fareReferenceStationCode", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacy108Station_ShortName(), ecorePackage.getEString(), "shortName", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLegacy108Station_ShortNameUtf8(), ecorePackage.getEString(), "shortNameUtf8", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacy108Station_Longitude(), ecorePackage.getEInt(), "longitude", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLegacy108Station_Latitude(), ecorePackage.getEInt(), "latitude", null, 0, 1, Legacy108Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(legacyRouteFaresEClass, LegacyRouteFares.class, "LegacyRouteFares", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLegacyRouteFares_RouteFare(), this.getLegacyRouteFare(), null, "routeFare", null, 0, -1, LegacyRouteFares.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

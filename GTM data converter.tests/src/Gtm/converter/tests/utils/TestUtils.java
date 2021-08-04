@@ -6,13 +6,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import Gtm.Carrier;
+import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
+import Gtm.Language;
+import Gtm.Legacy108FareDescription;
 import Gtm.Legacy108Station;
+import Gtm.Legacy108Stations;
+import Gtm.LegacyCarrier;
+import Gtm.LegacyRouteFare;
 import Gtm.RegionalConstraint;
 import Gtm.Station;
+import Gtm.Text;
+import Gtm.Translation;
 import Gtm.ViaStation;
+import Gtm.LegacySeries;
 
 public class TestUtils {
 	
@@ -78,6 +87,18 @@ public class TestUtils {
 		}
 	}
 	
+	public static Date getDate(String dateString) {
+		try {
+			return dateFormat.parse(dateString);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
+	public static String getDateString(Date date) {
+		return dateFormat.format(date);
+	}
+	
 	public static boolean isReturnRoute(RegionalConstraint r) {
 		
 		
@@ -124,6 +145,76 @@ public class TestUtils {
 			}
 		}
 		return 0;
+	}
+
+	public static Legacy108Station getLegacyStation(Legacy108Stations legacyStations, int code) {
+		
+		for (Legacy108Station s : legacyStations.getLegacyStations()) {
+			if (s.getStationCode() == code) {
+				return s;
+			}
+			
+		}
+		return null;
+	}
+
+	public static LegacySeries getLegacySeries(GTMTool tool, int seriesId) {
+		
+		for (LegacySeries s :  tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
+			if (s.getNumber() == seriesId) return s;
+		}
+		return null;
+	}
+
+	public static Language getLanguage(GTMTool tool, String code) {
+		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
+			if (l.getCode().equals(code)) return l;
+		}
+		return null;
+	}
+
+	public static Legacy108FareDescription findFareDescription(GTMTool tool, int fareTableNumber) {
+		
+		for (Legacy108FareDescription fd : tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares()) {
+			if (fd.getTableId() == fareTableNumber) return fd;
+		}
+		return null;
+	}
+
+	public static LegacyCarrier findLegacyCarrier(GTMTool tool, String code) {
+		
+		for (LegacyCarrier c : tool.getConversionFromLegacy().getLegacy108().getLegacyCarriers().getLegacyCarrier()) {
+			if (c.getCarrierCode().equals(code)) return c;
+		}
+		return null;
+	}
+	
+
+
+	public static LegacyRouteFare findLegacyRouteFare(GTMTool tool, int fareTableNumber, int seriesNumber) {
+		for (LegacyRouteFare f : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
+			if (f.getFareTableNumber() == fareTableNumber && f.getSeriesNumber() == seriesNumber) return f;
+		}
+		return null;
+	}
+
+	public static LegacyRouteFare findLegacyRouteFare(GTMTool tool,Date date,  int fareTableNumber, int seriesNumber) {
+		for (LegacyRouteFare f : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
+			if (f.getValidFrom().equals(date) && f.getFareTableNumber() == fareTableNumber && f.getSeriesNumber() == seriesNumber) return f;
+		}
+		return null;
+	}
+	
+	public static FareConstraintBundle clone(FareConstraintBundle bundle1) {
+		FareConstraintBundle bundle2 = GtmFactory.eINSTANCE.createFareConstraintBundle();
+		bundle2.setCarrierConstraint(bundle1.getCarrierConstraint());
+		bundle2.setCombinationConstraint(bundle1.getCombinationConstraint());
+		bundle2.setFulfillmentConstraint(bundle1.getFulfillmentConstraint());
+		bundle2.setPersonalDataConstraint(bundle1.getPersonalDataConstraint());
+		bundle2.setSalesAvailability(bundle1.getSalesAvailability());
+		bundle2.setTotalPassengerConstraint(bundle1.getTotalPassengerConstraint());
+		bundle2.setTravelValidity(bundle1.getTravelValidity());
+		return bundle2;
 	}
 	
 }

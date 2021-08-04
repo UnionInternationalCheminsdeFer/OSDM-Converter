@@ -250,7 +250,9 @@ public class RouteDescriptionBuilder {
 		if (viaStation == null) {
 			return "missing arrival";
 		}
-		
+		if (viaStation.getRoute() == null || viaStation.getRoute().getStations().isEmpty()) {
+			return " - ";
+		}
 		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
 		if (via.getStation() != null) {
 			return getFullName(via.getStation());
@@ -271,10 +273,12 @@ public class RouteDescriptionBuilder {
 		if (viaStation == null) {
 			return "missing departure";
 		}
-		
+		if (viaStation.getRoute() == null || viaStation.getRoute().getStations().isEmpty()) {
+			return " - ";
+		}
 		ViaStation via = viaStation.getRoute().getStations().get(0);
 		if (via.getStation() != null) {
-			return getFullName(via.getStation());
+			return getFullName(via.getStation()); 
 		} else if (via.getFareStationSet() != null) {
 			return via.getFareStationSet().getName();
 		}

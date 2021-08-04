@@ -24,7 +24,7 @@ import Gtm.converter.tests.mocks.MockedProgressMonitor;
 import Gtm.utils.GtmUtils;
 
                      
-public class BasicConversionTest108toOSDM {
+public class BasicConversionToOsdmTest {
 	
 	
 	GTMTool tool = null;

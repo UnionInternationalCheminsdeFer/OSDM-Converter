@@ -1344,6 +1344,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/fareReferenceStationCode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/shortName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/shortNameUtf8"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/longitude"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Legacy108Station/latitude"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//LegacyRouteFares">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LegacyRouteFares/routeFare"/>

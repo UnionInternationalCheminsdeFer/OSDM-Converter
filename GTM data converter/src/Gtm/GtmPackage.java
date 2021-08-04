@@ -9423,13 +9423,31 @@ public interface GtmPackage extends EPackage {
 	int LEGACY108_STATION__SHORT_NAME_UTF8 = 6;
 
 	/**
+	 * The feature id for the '<em><b>Longitude</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEGACY108_STATION__LONGITUDE = 7;
+
+	/**
+	 * The feature id for the '<em><b>Latitude</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LEGACY108_STATION__LATITUDE = 8;
+
+	/**
 	 * The number of structural features of the '<em>Legacy108 Station</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LEGACY108_STATION_FEATURE_COUNT = 7;
+	int LEGACY108_STATION_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>Legacy108 Station</em>' class.
@@ -18270,6 +18288,28 @@ public interface GtmPackage extends EPackage {
 	EAttribute getLegacy108Station_ShortNameUtf8();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.Legacy108Station#getLongitude <em>Longitude</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Longitude</em>'.
+	 * @see Gtm.Legacy108Station#getLongitude()
+	 * @see #getLegacy108Station()
+	 * @generated
+	 */
+	EAttribute getLegacy108Station_Longitude();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Gtm.Legacy108Station#getLatitude <em>Latitude</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Latitude</em>'.
+	 * @see Gtm.Legacy108Station#getLatitude()
+	 * @see #getLegacy108Station()
+	 * @generated
+	 */
+	EAttribute getLegacy108Station_Latitude();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.LegacyRouteFares <em>Legacy Route Fares</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -25458,6 +25498,22 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LEGACY108_STATION__SHORT_NAME_UTF8 = eINSTANCE.getLegacy108Station_ShortNameUtf8();
+
+		/**
+		 * The meta object literal for the '<em><b>Longitude</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LEGACY108_STATION__LONGITUDE = eINSTANCE.getLegacy108Station_Longitude();
+
+		/**
+		 * The meta object literal for the '<em><b>Latitude</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LEGACY108_STATION__LATITUDE = eINSTANCE.getLegacy108Station_Latitude();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.LegacyRouteFaresImpl <em>Legacy Route Fares</em>}' class.
