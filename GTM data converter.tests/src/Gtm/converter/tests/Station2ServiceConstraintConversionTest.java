@@ -49,7 +49,7 @@ public class Station2ServiceConstraintConversionTest {
 		tool.getConversionFromLegacy().getParams().setLegacyStationToFareDetailMappings(GtmFactory.eINSTANCE.createLegacyFareDetailMaps());
 		LegacyFareDetailMap map = GtmFactory.eINSTANCE.createLegacyFareDetailMap();
 		tool.getConversionFromLegacy().getParams().getLegacyStationToFareDetailMappings().getLegacyFareDetailMaps().add(map);
-		map.setFareDetailDescription(TestUtils.addText(tool, "Diabolo") );
+		map.setFareDetailDescription(LegacyDataFactory.addText(tool, "Diabolo") );
 		map.setLegacyCode(1);
 		map.setFareDetailMappingType(StationFareDetailType.ON_ARRIVAL_ON_DEPARTURE);
 

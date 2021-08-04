@@ -31,11 +31,13 @@ import Gtm.LegacySeriesList;
 import Gtm.LegacySeriesType;
 import Gtm.LegacyViastation;
 import Gtm.PassengerConstraint;
+import Gtm.RegulatoryCondition;
 import Gtm.RoundingType;
 import Gtm.ServiceBrand;
 import Gtm.ServiceClass;
 import Gtm.Station;
 import Gtm.Text;
+import Gtm.Translation;
 import Gtm.TravelerType;
 import Gtm.converter.tests.utils.TestUtils;
 
@@ -402,6 +404,7 @@ public class LegacyDataFactory {
 		template1.setText(t);
 		template1.setServiceClass(c1);
 		template1.setLegacyConversion(LegacyConversionType.YES);
+		template1.getRegulatoryConditions().add(RegulatoryCondition.CIV);
 		template1.setPassengerConstraint(p);
 		params.getLegacyFareTemplates().getFareTemplates().add(template1);
 
@@ -414,6 +417,7 @@ public class LegacyDataFactory {
 		template2.setText(t);
 		template2.setServiceClass(c2);
 		template2.setLegacyConversion(LegacyConversionType.YES);
+		template2.getRegulatoryConditions().add(RegulatoryCondition.CIV);
 		template2.setPassengerConstraint(p);
 		params.getLegacyFareTemplates().getFareTemplates().add(template2);
 		
@@ -432,7 +436,7 @@ public class LegacyDataFactory {
 		return c;
 	}
 
-	private static Text addText(GTMTool tool, String t, String t8, String st, String st8) {
+	public static Text addText(GTMTool tool, String t, String t8, String st, String st8) {
 		if (tool.getGeneralTariffModel().getFareStructure().getTexts() == null) {
 			tool.getGeneralTariffModel().getFareStructure().setTexts(GtmFactory.eINSTANCE.createTexts());
 		}
@@ -582,6 +586,37 @@ public class LegacyDataFactory {
 		t.setTravelValidity(t1.getTravelValidity());
 		t.setType(t1.getType());
 		return t;
+	}
+	
+	public static Text addText(GTMTool tool, String value) {
+		Text text = GtmFactory.eINSTANCE.createText();
+		text.setTextICAO(value);
+		text.setShortTextICAO(value);
+		text.setTextUTF8(value);
+		text.setShortTextUTF8(value);
+		Translation tr = GtmFactory.eINSTANCE.createTranslation();
+		tr.setLanguage(TestUtils.getLanguage(tool,"en"));
+		tr.setTextICAO(value+"en");
+		tr.setShortTextICAO(value+"en");
+		tr.setTextUTF8(value+"en");
+		tr.setShortTextUTF8(value+"en");
+		text.getTranslations().add(tr);
+		Translation tr2 = GtmFactory.eINSTANCE.createTranslation();
+		tr2.setLanguage(TestUtils.getLanguage(tool,"fr"));
+		tr2.setTextICAO(value+"fr");
+		tr2.setTextUTF8(value+"fr");
+		tr2.setShortTextICAO(value+"fr");
+		tr2.setShortTextUTF8(value+"fr");
+		text.getTranslations().add(tr2);
+		Translation tr3 = GtmFactory.eINSTANCE.createTranslation();
+		tr3.setLanguage(TestUtils.getLanguage(tool,"de"));
+		tr3.setTextICAO(value+"de");
+		tr3.setShortTextICAO(value+"de");
+		tr3.setTextUTF8(value+"de");
+		tr3.setShortTextUTF8(value+"de");
+		text.getTranslations().add(tr3);
+		tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts().add(text);
+		return text;
 	}
 
 }

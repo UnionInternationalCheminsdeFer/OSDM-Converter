@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import Gtm.FareElement;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Legacy108Station;
@@ -94,6 +95,16 @@ public class BasicConversionTest {
 		}
 		assert(tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions().size() == fareStations.size());
 
+		for (FareElement fare : tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {
+			assert(fare.getServiceClass() != null);
+			assert(!fare.getRegulatoryConditions().isEmpty());
+			assert(fare.getPrice() != null);
+			assert(fare.getLegacyAccountingIdentifier() != null);
+			assert(fare.getLegacyAccountingIdentifier().getTariffId() > 0);
+			assert(fare.getLegacyAccountingIdentifier().getSeriesId() > 0);
+			assert(fare.getFareConstraintBundle() != null);
+		}
+		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
 		

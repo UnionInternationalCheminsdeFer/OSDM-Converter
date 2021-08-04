@@ -53,7 +53,7 @@ public class Station2MemoConversionTest {
 		ServiceConstraint sc = GtmFactory.eINSTANCE.createServiceConstraint();
 		tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints().add(sc);
 		map.setServiceConstraint(sc);
-		sc.setDescription(TestUtils.addText(tool, "by steampunk airship"));
+		sc.setDescription(LegacyDataFactory.addText(tool, "by steampunk airship"));
 		sc.setLegacy108Code(2);
 		sc.getIncludedServiceBrands().add(tool.getCodeLists().getServiceBrands().getServiceBrands().get(0));
 		
