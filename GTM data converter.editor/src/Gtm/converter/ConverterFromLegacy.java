@@ -417,7 +417,7 @@ public class ConverterFromLegacy {
 			Command com = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getConnectionPoints(), GtmPackage.Literals.CONNECTION_POINTS__CONNECTION_POINTS, connectionPoints);
 			if  (com != null && com.canExecute()) {
 				added = connectionPoints.size();
-				domain.getCommandStack().execute(command);
+				domain.getCommandStack().execute(com);
 			}
 		}	
 		GtmUtils.writeConsoleInfo(NationalLanguageSupport.ConvertLegacy2GtmAction_11 + Integer.toString(added),editor);	

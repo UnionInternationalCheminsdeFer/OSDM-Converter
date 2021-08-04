@@ -21,7 +21,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class FareStationSetConversionTest {
+public class DistanceFareConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -55,7 +55,7 @@ public class FareStationSetConversionTest {
 	}
 	
 	@Test 
-	public void testBasicConversion() {
+	public void testDistanceFareConversion() {
 		
 		
 		//validate fare station sets
@@ -128,6 +128,9 @@ public class FareStationSetConversionTest {
 		
 		s = TestUtils.getLegacySeries(tool, 6);
 		assert( s == null); // distance too big
+		
+		
+		
 
 	}
 

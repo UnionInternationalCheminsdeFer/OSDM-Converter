@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.Legacy108StationImpl#getFareReferenceStationCode <em>Fare Reference Station Code</em>}</li>
  *   <li>{@link Gtm.impl.Legacy108StationImpl#getShortName <em>Short Name</em>}</li>
  *   <li>{@link Gtm.impl.Legacy108StationImpl#getShortNameUtf8 <em>Short Name Utf8</em>}</li>
+ *   <li>{@link Gtm.impl.Legacy108StationImpl#getLongitude <em>Longitude</em>}</li>
+ *   <li>{@link Gtm.impl.Legacy108StationImpl#getLatitude <em>Latitude</em>}</li>
  * </ul>
  *
  * @generated
@@ -169,6 +171,46 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected String shortNameUtf8 = SHORT_NAME_UTF8_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLongitude() <em>Longitude</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLongitude()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int LONGITUDE_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getLongitude() <em>Longitude</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLongitude()
+	 * @generated
+	 * @ordered
+	 */
+	protected int longitude = LONGITUDE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLatitude() <em>Latitude</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLatitude()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int LATITUDE_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getLatitude() <em>Latitude</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLatitude()
+	 * @generated
+	 * @ordered
+	 */
+	protected int latitude = LATITUDE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -341,6 +383,48 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getLongitude() {
+		return longitude;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLongitude(int newLongitude) {
+		int oldLongitude = longitude;
+		longitude = newLongitude;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY108_STATION__LONGITUDE, oldLongitude, longitude));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getLatitude() {
+		return latitude;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLatitude(int newLatitude) {
+		int oldLatitude = latitude;
+		latitude = newLatitude;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LEGACY108_STATION__LATITUDE, oldLatitude, latitude));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -358,6 +442,10 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 				return getShortName();
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
 				return getShortNameUtf8();
+			case GtmPackage.LEGACY108_STATION__LONGITUDE:
+				return getLongitude();
+			case GtmPackage.LEGACY108_STATION__LATITUDE:
+				return getLatitude();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -390,6 +478,12 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 				return;
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
 				setShortNameUtf8((String)newValue);
+				return;
+			case GtmPackage.LEGACY108_STATION__LONGITUDE:
+				setLongitude((Integer)newValue);
+				return;
+			case GtmPackage.LEGACY108_STATION__LATITUDE:
+				setLatitude((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -424,6 +518,12 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
 				setShortNameUtf8(SHORT_NAME_UTF8_EDEFAULT);
 				return;
+			case GtmPackage.LEGACY108_STATION__LONGITUDE:
+				setLongitude(LONGITUDE_EDEFAULT);
+				return;
+			case GtmPackage.LEGACY108_STATION__LATITUDE:
+				setLatitude(LATITUDE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -450,6 +550,10 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 				return SHORT_NAME_EDEFAULT == null ? shortName != null : !SHORT_NAME_EDEFAULT.equals(shortName);
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
 				return SHORT_NAME_UTF8_EDEFAULT == null ? shortNameUtf8 != null : !SHORT_NAME_UTF8_EDEFAULT.equals(shortNameUtf8);
+			case GtmPackage.LEGACY108_STATION__LONGITUDE:
+				return longitude != LONGITUDE_EDEFAULT;
+			case GtmPackage.LEGACY108_STATION__LATITUDE:
+				return latitude != LATITUDE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -478,6 +582,10 @@ public class Legacy108StationImpl extends MinimalEObjectImpl.Container implement
 		result.append(shortName);
 		result.append(", shortNameUtf8: ");
 		result.append(shortNameUtf8);
+		result.append(", longitude: ");
+		result.append(longitude);
+		result.append(", latitude: ");
+		result.append(latitude);
 		result.append(')');
 		return result.toString();
 	}

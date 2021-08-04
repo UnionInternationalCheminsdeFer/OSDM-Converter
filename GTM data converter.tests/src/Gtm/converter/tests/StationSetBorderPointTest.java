@@ -257,14 +257,14 @@ public class StationSetBorderPointTest {
 		assert(nonBorderStation != null);
 		assert(borderStation.getStationCode() == legacyBorderStationCode);	
 		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("H-A"));
+		assert(borderStation.getName().equals("H-area"));
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().size() == 3);
 		
 		Legacy108Station s1 = TestUtils.findLegacyStation(tool, legacyBorderStationCode);
 		assert(s1.getFareReferenceStationCode() == legacyStationSetCode);
 		assert(s1.getBorderPointCode() == borderPointCode);
-		assert(s1.getName().equals("H-A"));
+		assert(s1.getName().equals("H-area"));
 		assert(s1.getNameUTF8().equals("H-area"));
 		assert(s1.getShortName().equals("H-A"));		
 		

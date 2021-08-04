@@ -746,9 +746,9 @@ public class LegacyExporter {
 		//	30 Flag 11 for accounting station numeric 1 M  141 0 or 3 (see point 2.2) 
 		sb.append("0");	 //$NON-NLS-1$
 		//	31 Station latitude numeric 10 O  142-1 51 Latitude using Gauss-Kr�ger coordinate system 10-digit figure with 6 decimal places 
-		sb.append("0000000000");	 //$NON-NLS-1$
+		sb.append(String.format("%10d", station.getLatitude()));	 //$NON-NLS-1$
 		//	32 Station�s longitude numeric 10 O  152-161 Longitude using Gauss-Kr�ger coordinate system 10-digit figure with 6 decimal places 
-		sb.append("0000000000");	 //$NON-NLS-1$
+		sb.append(String.format("%10d", station.getLongitude()));	 //$NON-NLS-1$
 		//	33 Flag 12 for geographic details numeric 1 M  162 This field relates to fields 31-32;  0 or 3 (see point 2.2) 
 		sb.append("0");	 //$NON-NLS-1$
 		//	34 First day of validity of fare numeric 8 M  163-170 Expressed as: 'YYYYMMDD' 

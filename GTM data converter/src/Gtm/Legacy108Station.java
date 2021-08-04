@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Legacy108Station#getFareReferenceStationCode <em>Fare Reference Station Code</em>}</li>
  *   <li>{@link Gtm.Legacy108Station#getShortName <em>Short Name</em>}</li>
  *   <li>{@link Gtm.Legacy108Station#getShortNameUtf8 <em>Short Name Utf8</em>}</li>
+ *   <li>{@link Gtm.Legacy108Station#getLongitude <em>Longitude</em>}</li>
+ *   <li>{@link Gtm.Legacy108Station#getLatitude <em>Latitude</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getLegacy108Station()
@@ -180,5 +182,49 @@ public interface Legacy108Station extends EObject {
 	 * @generated
 	 */
 	void setShortNameUtf8(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Longitude</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Longitude</em>' attribute.
+	 * @see #setLongitude(int)
+	 * @see Gtm.GtmPackage#getLegacy108Station_Longitude()
+	 * @model
+	 * @generated
+	 */
+	int getLongitude();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Legacy108Station#getLongitude <em>Longitude</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Longitude</em>' attribute.
+	 * @see #getLongitude()
+	 * @generated
+	 */
+	void setLongitude(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Latitude</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Latitude</em>' attribute.
+	 * @see #setLatitude(int)
+	 * @see Gtm.GtmPackage#getLegacy108Station_Latitude()
+	 * @model
+	 * @generated
+	 */
+	int getLatitude();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Legacy108Station#getLatitude <em>Latitude</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Latitude</em>' attribute.
+	 * @see #getLatitude()
+	 * @generated
+	 */
+	void setLatitude(int value);
 
 } // Legacy108Station

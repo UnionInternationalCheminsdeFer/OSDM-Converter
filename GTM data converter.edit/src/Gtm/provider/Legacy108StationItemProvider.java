@@ -68,6 +68,8 @@ public class Legacy108StationItemProvider
 			addFareReferenceStationCodePropertyDescriptor(object);
 			addShortNamePropertyDescriptor(object);
 			addShortNameUtf8PropertyDescriptor(object);
+			addLongitudePropertyDescriptor(object);
+			addLatitudePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -227,6 +229,50 @@ public class Legacy108StationItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Longitude feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLongitudePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Legacy108Station_longitude_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Legacy108Station_longitude_feature", "_UI_Legacy108Station_type"),
+				 GtmPackage.Literals.LEGACY108_STATION__LONGITUDE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Latitude feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLatitudePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Legacy108Station_latitude_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Legacy108Station_latitude_feature", "_UI_Legacy108Station_type"),
+				 GtmPackage.Literals.LEGACY108_STATION__LATITUDE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Legacy108Station.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -271,6 +317,8 @@ public class Legacy108StationItemProvider
 			case GtmPackage.LEGACY108_STATION__FARE_REFERENCE_STATION_CODE:
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME:
 			case GtmPackage.LEGACY108_STATION__SHORT_NAME_UTF8:
+			case GtmPackage.LEGACY108_STATION__LONGITUDE:
+			case GtmPackage.LEGACY108_STATION__LATITUDE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
