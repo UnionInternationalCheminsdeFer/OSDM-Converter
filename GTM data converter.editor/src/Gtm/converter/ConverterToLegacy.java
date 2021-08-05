@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Set;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
@@ -912,7 +910,7 @@ public class 	ConverterToLegacy {
 			tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName() == null || 
 			tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName().isEmpty()) {
 			
-			String message = "Station names are missing - conversion to 108 is not prossible";
+			String message = "All station names are missing - conversion to 108 is not prossible";
 			GtmUtils.writeConsoleError(message, editor);
 			return;
 		}
@@ -1071,7 +1069,12 @@ public class 	ConverterToLegacy {
 			   			   } else if (s.getNameCaseASCII() != null && s.getNameCaseASCII().length() > 0) {
 			   				  sbName.append(s.getNameCaseASCII()).append(borderIndication);
 			   			   } else {
-			   				 sbName.append(s.getTimetableName()).append(borderIndication);   
+			   				  sbName.append(s.getTimetableName()).append(borderIndication); 
+			  				  StringBuilder sb = new StringBuilder();
+							  sb.append( "Station names missing for  -");
+							  sb.append(" code: ").append(ls.getStationCode());
+							  sb.append(" using MERITS name :").append(s.getTimetableName());
+							  GtmUtils.writeConsoleError(sb.toString(), editor);			   				 
 			   			   }
 			   			   
 			   			   if (sbNameUtf8.length() > 0) {
@@ -1083,13 +1086,6 @@ public class 	ConverterToLegacy {
 			   				  sbNameUtf8.append(s.getNameCaseUTF8()).append(borderIndication);
 			   			   } else {
 			   				  sbNameUtf8.append(s.getTimetableName()).append(borderIndication); 
-			   			   }
-			   				   
-			   			   if (s.getNameCaseASCII() == null || s.getNameCaseASCII().length() == 0) {
-			  					StringBuilder sb = new StringBuilder();
-								sb.append( "Station names missing for  -");
-								sb.append(" code: ").append(ls.getStationCode());
-								GtmUtils.writeConsoleError(sb.toString(), editor);
 			   			   }
 
 			   			   ls.setName(sbName.toString());
