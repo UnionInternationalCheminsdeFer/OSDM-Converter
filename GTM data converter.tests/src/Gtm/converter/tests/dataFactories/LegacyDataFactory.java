@@ -21,7 +21,6 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Language;
 import Gtm.Legacy108Station;
-import Gtm.Legacy108Stations;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyConversionType;
 import Gtm.LegacyDistanceFare;

@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import Gtm.FareStationSetDefinition;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Legacy108Station;
