@@ -18,8 +18,6 @@ import Gtm.LegacyCarrier;
 import Gtm.LegacyRouteFare;
 import Gtm.RegionalConstraint;
 import Gtm.Station;
-import Gtm.Text;
-import Gtm.Translation;
 import Gtm.ViaStation;
 import Gtm.LegacySeries;
 

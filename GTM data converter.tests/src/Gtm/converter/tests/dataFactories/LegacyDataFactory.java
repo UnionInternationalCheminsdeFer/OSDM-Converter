@@ -21,7 +21,6 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Language;
 import Gtm.Legacy108Station;
-import Gtm.Legacy108Stations;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyConversionType;
 import Gtm.LegacyDistanceFare;
@@ -326,23 +325,20 @@ public class LegacyDataFactory {
 	
 
 	public static void addLegacyStations(GTMTool tool) {
-		
-		Legacy108Stations stations = tool.getConversionFromLegacy().getLegacy108().getLegacyStations();
-		
-		stations.getLegacyStations().add(createLegacyStation(1,"A-Stadt","A-Stadt","A", 0,100));
-		stations.getLegacyStations().add(createLegacyStation(2,"B-Stadt","A-Stadt","B", 0,100));
-		stations.getLegacyStations().add(createLegacyStation(3,"C-Stadt","C-Stadt","C", 0,0));
-		stations.getLegacyStations().add(createLegacyStation(4,"D-Stadt","D-Stadt","D", 0,0));
-		stations.getLegacyStations().add(createLegacyStation(5,"E-Stadt","E-Stadt","E", 0,0));
-		stations.getLegacyStations().add(createLegacyStation(6,"F-Stadt","F-Stadt","F", 0,0));
-		stations.getLegacyStations().add(createLegacyStation(7,"G-Stadt","G-Stadt","G", 0,900));
-		stations.getLegacyStations().add(createLegacyStation(100,"A-Area","A-area","A-ar", 0,100));
-		stations.getLegacyStations().add(createLegacyStation(900,"H-Stadt","H-area","H-ar", 0,900));
-		stations.getLegacyStations().add(createLegacyStation(8,"H-Main","H-Main","H", 0,900));
+		addLegacyStation(tool,1,"A-Stadt","A-Stadt","A", 0,100);
+		addLegacyStation(tool,2,"B-Stadt","A-Stadt","B", 0,100);
+		addLegacyStation(tool,3,"C-Stadt","C-Stadt","C", 0,0);
+		addLegacyStation(tool,4,"D-Stadt","D-Stadt","D", 0,0);
+		addLegacyStation(tool,5,"E-Stadt","E-Stadt","E", 0,0);
+		addLegacyStation(tool,6,"F-Stadt","F-Stadt","F", 0,0);
+		addLegacyStation(tool,7,"G-Stadt","G-Stadt","G", 0,900);
+		addLegacyStation(tool,100,"A-Area","A-area","A-ar", 0,100);
+		addLegacyStation(tool,900,"H-Stadt","H-area","H-ar", 0,900);
+		addLegacyStation(tool,8,"H-Main","H-Main","H", 0,900);
 			
 	}
-
-	private static Legacy108Station createLegacyStation(int code, String name, String nameUtf8, String shortName, int borderCode,
+	
+	public static void addLegacyStation(GTMTool tool, int code, String name, String nameUtf8, String shortName, int borderCode,
 			int setCode) {
 		Legacy108Station s = GtmFactory.eINSTANCE.createLegacy108Station();
 		s.setStationCode(code);
@@ -351,9 +347,19 @@ public class LegacyDataFactory {
 		s.setShortName(shortName);
 		s.setBorderPointCode(borderCode);
 		s.setFareReferenceStationCode(setCode);
-		
-		return s;
+		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(s);
+	}
 
+	public static Legacy108Station createLegacyStation(int code, String name, String nameUtf8, String shortName, int borderCode,
+			int setCode) {
+		Legacy108Station s = GtmFactory.eINSTANCE.createLegacy108Station();
+		s.setStationCode(code);
+		s.setName(name);
+		s.setNameUTF8(nameUtf8);
+		s.setShortName(shortName);
+		s.setBorderPointCode(borderCode);
+		s.setFareReferenceStationCode(setCode);
+		return s;
 	}
 
 	private static void createParams(GTMTool tool,Carrier carrier, Country country) {
