@@ -880,13 +880,13 @@ public class LegacyImporter {
 			String type 					= st.substring(10,11);
 			//String flag2 					= st.substring(11,12);		
 			String departure 				= st.substring(12,17);		
-			String departureStationName 	= st.substring(19,36);	
+			String departureStationName 	= st.substring(19,36).trim();	
 			
 			String destination				= st.substring(37,42);		
-			String destinationStationName 	= st.substring(44,61);	
+			String destinationStationName 	= st.substring(44,61).trim();	
 	
 			String carrier   	        	= st.substring(74,78);
-			String routeDescription 		= st.substring(79,137);	
+			String routeDescription 		= st.substring(79,137).trim();	
 	
 			String distanceKl2				= st.substring(138,143);
 			String distanceKl1				= st.substring(144,149);		

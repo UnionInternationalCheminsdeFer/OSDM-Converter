@@ -119,7 +119,11 @@ public class StationSetItemProvider
 				if (!first) {
 					sb.append("/");
 				}
-				sb.append(s.getName());
+				String stationName = s.getNameCaseASCII();
+				if (stationName == null|| stationName.length() == 0) {
+					stationName = s.getName();
+				}
+				sb.append(stationName);
 				first = false;
 			}
 		}

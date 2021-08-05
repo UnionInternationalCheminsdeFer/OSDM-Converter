@@ -473,26 +473,32 @@ public class 	ConverterToLegacy {
 			int routeIndex = 1;
 			if (serie1.getRouteNumber() == 0) {
 				serie1.setRouteNumber(1);
-			}
-			for (LegacySeries serie2 : series.values()) {
-				if (serie1.getFromStation() == serie2.getFromStation() && 
-					serie1.getToStation() == serie2.getToStation() &&
-					serie1 != serie2) {
-					routeIndex++;
-					if (serie2.getRouteNumber() == 0) {
-						serie2.setRouteNumber(routeIndex);
+			
+				for (LegacySeries serie2 : series.values()) {
+					if (serie1.getFromStation() == serie2.getFromStation() && 
+						serie1.getToStation() == serie2.getToStation() &&
+						serie1 != serie2) {
+						routeIndex++;
+						if (serie2.getRouteNumber() == 0) {
+							serie2.setRouteNumber(routeIndex);
+							if (routeIndex > 9) {
+								routeNumberTooHigh.add(serie2);
+								StringBuilder sb = new StringBuilder();
+								sb.append("route number too high (too many routes for the same O/D) for: ");
+								sb.append(serie2.getFromStationName()).append(" - ");
+								sb.append(serie2.getRouteDescription() );
+								sb.append(" - ").append(serie2.getToStationName());
+								GtmUtils.writeConsoleInfo(sb.toString(), editor);
+							}
+						}
 					}
 				}
 			}
-			if (routeIndex > 9) {
-				routeNumberTooHigh.add(serie1);
-			}
+
 		}
 		
 		for (LegacySeries s : routeNumberTooHigh) {
 			series.remove(s.getNumber(),s);
-			String message = String.format("route number too high (too many routes for the same O/D) for: ",s.getRouteDescription() );
-			GtmUtils.writeConsoleInfo(message, editor);
 		}
 			
 		if (routeNumberTooHigh.size() > 0) {

@@ -1,5 +1,9 @@
 package Gtm;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import Gtm.provider.GtmItemProviderAdapterFactory;
+
 public class GtmUtils {
 	
 	public static String toPrintableAscII(String text) {
@@ -18,5 +22,27 @@ public class GtmUtils {
 		if (s == null) return " "; //$NON-NLS-1$
 		return s.substring(0, Math.min(maxChar, s.length()));
 	}
+	
+	/**
+	 * Gets the label text for an eObject.
+	 *
+	 * @param object the object
+	 * @return the label text
+	 */
+	public static String getLabelText(EObject object) {
+		
+		if (object == null) return "";
+		
+		GtmItemProviderAdapterFactory factory = new GtmItemProviderAdapterFactory();
+		if(factory.isFactoryForType(IItemLabelProvider.class)){
+			IItemLabelProvider labelProvider = (IItemLabelProvider)	factory.adapt(object, IItemLabelProvider.class);
+			if(labelProvider != null){
+				return labelProvider.getText(object);
+			}
+		}
+	
+		return null;
+	}
+	
 
 }
