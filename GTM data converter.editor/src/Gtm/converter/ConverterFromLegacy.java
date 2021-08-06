@@ -2130,6 +2130,14 @@ public class ConverterFromLegacy {
 	 */
 	private static Float getAdultAmount(GTMTool tool, LegacySeries series, int travelClass, DateRange dateRange) {
 		
+		if (travelClass == 1) {
+			//distance = 0 indicates no price in that class!
+			if (series.getDistance1() == 0) return null;
+		} else {
+			//distance = 0 indicates no price in that class!
+			if (series.getDistance2() == 0) return null;
+		}
+		
 		if (series.getPricetype() == LegacyCalculationType.ROUTE_BASED) {
 			
 			for (LegacyRouteFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()){
@@ -2141,26 +2149,22 @@ public class ConverterFromLegacy {
 					if (travelClass == 1) {
 						return GtmUtils.getEuroFromCent(fare.getFare1st()); 
 					} else {
-						return GtmUtils.getEuroFromCent(fare.getFare2nd()); 			
+							return GtmUtils.getEuroFromCent(fare.getFare2nd()); 
 					}
 				}
 			}
-		}  else {
+		}  else if (series.getPricetype() == LegacyCalculationType.DISTANCE_BASED) {
+			//calculate distance based fare 
+			
 			int price = 0;
 			boolean distanceFound = false;
 			
 			int distance = 0;
 			if (travelClass == 1) {
 				distance = series.getDistance1();
-				//distance = 0 indicates no price in that class!
-				if (distance== 0) return null;
 			} else {
 				distance = series.getDistance2();
-				//distance = 0 indicates no price in that class!
-				if (distance == 0) return null;
 			}
-			
-			
 					
 			//get the lowest price where the distance is ok
 			for (LegacyDistanceFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {

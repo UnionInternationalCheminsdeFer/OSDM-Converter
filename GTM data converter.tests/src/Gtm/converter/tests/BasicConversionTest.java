@@ -231,16 +231,7 @@ public class BasicConversionTest {
 				assert(description.equals("(B/C)*(D/E)*F"));
 				assert(!routeNumbers.contains(s.getRouteNumber()));
 				routeNumbers.add(s.getRouteNumber());
-			} 
-			
-			
+			} 	
 		}
-		
-		
-	
 	}
-
-	
-	
-
 }

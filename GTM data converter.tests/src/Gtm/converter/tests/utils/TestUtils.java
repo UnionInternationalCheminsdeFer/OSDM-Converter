@@ -8,6 +8,7 @@ import java.util.Date;
 import Gtm.Carrier;
 import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
+import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Language;
@@ -213,6 +214,37 @@ public class TestUtils {
 		bundle2.setTotalPassengerConstraint(bundle1.getTotalPassengerConstraint());
 		bundle2.setTravelValidity(bundle1.getTravelValidity());
 		return bundle2;
+	}
+
+	public static FareTemplate clone(FareTemplate f) {
+		
+		FareTemplate t = GtmFactory.eINSTANCE.createFareTemplate();
+		t.setBasePriceClass(f.getBasePriceClass());
+		t.setCarrierConstraint(f.getCarrierConstraint());
+		t.setDataDescription(f.getDataDescription());
+		t.setCombinationConstraint(f.getCombinationConstraint());
+		t.setFareConstraintBundle(f.getFareConstraintBundle());
+		t.setFareDetailDescription(f.getFareDetailDescription());
+		t.setFulfillmentConstraint(f.getFulfillmentConstraint());
+		t.setLegacyAccountingTariffId(f.getLegacyAccountingTariffId());
+		t.setLegacyConversion(f.getLegacyConversion());
+		t.setPassengerConstraint(f.getPassengerConstraint());
+		t.setPersonalDataConstraint(f.getPersonalDataConstraint());
+		t.setPrice(f.getPrice());
+		t.setPriceFactor(f.getPriceFactor());
+		t.setReductionConstraint(f.getReductionConstraint());
+		t.setReservationParameter(f.getReservationParameter());
+		t.setRoundingMode(f.getRoundingMode());
+		t.setSalesAvailability(f.getSalesAvailability());
+		t.setSeparateContractFareConstraintBundle(f.getSeparateContractFareConstraintBundle());
+		t.setServiceClass(f.getServiceClass());
+		t.setServiceConstraint(f.getServiceConstraint());
+		t.setServiceLevel(f.getServiceLevel());
+		t.getRegulatoryConditions().addAll(f.getRegulatoryConditions());
+		if (f.getCarrierFilter() != null && !t.getCarrierFilter().isEmpty()) {
+			t.getCarrierFilter().addAll(t.getCarrierFilter());
+		}
+		return t;
 	}
 	
 }

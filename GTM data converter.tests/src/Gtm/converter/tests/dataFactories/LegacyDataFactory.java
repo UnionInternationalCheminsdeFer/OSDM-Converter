@@ -146,7 +146,7 @@ public class LegacyDataFactory {
 	private static void createRouteFareLegacy(GTMTool tool) {
 		initLegacy(tool);
 		addLegacyStations(tool);
-		addLegacySeries(tool);
+		addDistanceBasedLegacySeries(tool);
 		addLegacyRouteFares(tool);
 	
 	}
@@ -203,6 +203,8 @@ public class LegacyDataFactory {
 		LegacyRouteFare f = GtmFactory.eINSTANCE.createLegacyRouteFare();
 		f.setFare1st(fareFirst);
 		f.setFare2nd(fareSecond);
+		f.setReturnFare1st(fareFirst * 2);
+		f.setReturnFare2nd(fareSecond * 2);
 		f.setFareTableNumber(fareTable);
 		f.setSeriesNumber(series);
 		
@@ -215,7 +217,7 @@ public class LegacyDataFactory {
 		return f;
 	}
 
-	private static void addLegacySeries(GTMTool tool) {
+	private static void addDistanceBasedLegacySeries(GTMTool tool) {
 		
 		LegacySeriesList series = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList();
 		
@@ -291,8 +293,30 @@ public class LegacyDataFactory {
 		}
 		return s;
 	}
+	
+	public static void addRouteBasedSeries(GTMTool tool, int seriesNumber, int distance, int from, int to) {
+		LegacySeries s = GtmFactory.eINSTANCE.createLegacySeries();
+		s.setCarrierCode("9999");
+		s.setDistance1(distance);
+		s.setDistance2(distance);
+		s.setFareTableNumber(1);
+		s.setFromStation(from);
+		s.setToStation(to);
+		s.setNumber(seriesNumber);
+		s.setPricetype(LegacyCalculationType.ROUTE_BASED);
+		s.setSupplyingCarrierCode("9999");
+		s.setType(LegacySeriesType.STATION_STATION);
+		
+		try {
+			s.setValidFrom(dateFormat.parse("20190101"));
+			s.setValidUntil(dateFormat.parse("20990101"));
+		} catch (ParseException e) {
+			//
+		}
+		tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().add(s);
+	}
 
-	private static LegacySeries createRouteBasedSeries(int seriesNumber, int distance, int from, int to) {
+	public static LegacySeries createRouteBasedSeries(int seriesNumber, int distance, int from, int to) {
 		LegacySeries s = GtmFactory.eINSTANCE.createLegacySeries();
 		s.setCarrierCode("9999");
 		s.setDistance1(distance);
