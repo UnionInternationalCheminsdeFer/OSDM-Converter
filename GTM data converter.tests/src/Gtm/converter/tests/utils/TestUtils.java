@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import Gtm.Carrier;
+import Gtm.Country;
 import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
 import Gtm.FareTemplate;
@@ -245,6 +246,13 @@ public class TestUtils {
 			t.getCarrierFilter().addAll(t.getCarrierFilter());
 		}
 		return t;
+	}
+
+	public static Country findCountry(GTMTool tool, int code) {
+		for (Country c : tool.getCodeLists().getCountries().getCountries()) {
+			if (c.getCode() == code) return c;
+		}
+		return null;
 	}
 	
 }

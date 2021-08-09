@@ -338,7 +338,7 @@ public class LegacyDataFactory {
 		return s;
 	}
 
-	private static LegacyViastation createViaStation(int code, int position, boolean optional) {
+	public static LegacyViastation createViaStation(int code, int position, boolean optional) {
 		LegacyViastation v1 = GtmFactory.eINSTANCE.createLegacyViastation();
 		v1.setCode(code);
 		v1.setPosition(position);
@@ -562,7 +562,7 @@ public class LegacyDataFactory {
 		return carrier;
 	}
 
-	private static Station createStation(String name, String code, Country country) {
+	public static Station createStation(String name, String code, Country country) {
 		Station station = GtmFactory.eINSTANCE.createStation();
 		station.setCode(code);
 		station.setCountry(country);
@@ -572,6 +572,35 @@ public class LegacyDataFactory {
 		station.setNameCaseASCII(name + "-Town");
 		station.setNameCaseASCII(name + "-Town");
 		return station;
+	}
+	
+	public static Station addStation(GTMTool tool,String name, String code, Country country) {
+		Station station = GtmFactory.eINSTANCE.createStation();
+		station.setCode(code);
+		station.setCountry(country);
+		station.setName(name + "-TOWN");
+		station.setNameCaseASCII(name + "-Town");
+		station.setNameCaseASCII(name + "-Town");
+		station.setNameCaseASCII(name + "-Town");
+		station.setNameCaseASCII(name + "-Town");
+		tool.getCodeLists().getStations().getStations().add(station);
+		return station;
+	}
+	
+	
+	
+	public static Legacy108Station addLegacyStation(GTMTool tool, String name,String nameUtf8,String shortName, int code, int borderCode, int setCode) {
+		Legacy108Station s = GtmFactory.eINSTANCE.createLegacy108Station();
+		s.setStationCode(code);
+		s.setName(name);
+		s.setNameUTF8(nameUtf8);
+		s.setShortName(shortName);
+		s.setShortNameUtf8(shortName);
+		s.setBorderPointCode(borderCode);
+		s.setFareReferenceStationCode(setCode);
+		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(s);
+		
+		return s;
 	}
 
 	public static Legacy108Station createStation(String name,String nameUtf8,String shortName, int code, int borderCode, int setCode) {

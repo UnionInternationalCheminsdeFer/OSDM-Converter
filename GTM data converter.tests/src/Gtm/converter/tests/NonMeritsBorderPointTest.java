@@ -26,13 +26,13 @@ import Gtm.converter.tests.mocks.MockedProgressMonitor;
 import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
-public class VirtualBorderPointTestDifferentStartStation {
+public class NonMeritsBorderPointTest {
 	
 	GTMTool tool = null;
 	
 	int borderPointCode = 10;
 	int legacyBorderStationCode = 1000;  //A-Town (GR)
-	int legacyNonBorderStationCode = 2; //A-Town
+	int legacyNonBorderStationCode = 1; //A-Town
 	
 	@Mock
 	GtmUtils gtmUtilsMock;
@@ -52,11 +52,9 @@ public class VirtualBorderPointTestDifferentStartStation {
 			
 		//set legacy stations
 		tool.getConversionFromLegacy().getLegacy108().setLegacyStations(GtmFactory.eINSTANCE.createLegacy108Stations());	
-		Legacy108Station ls1 = GtmFactory.eINSTANCE.createLegacy108Station();
-		ls1 = LegacyDataFactory.createStation("B-Town","B-Town","B",legacyNonBorderStationCode,0,0);
+		Legacy108Station ls1 = LegacyDataFactory.createStation("A-Town","A-Town","A",legacyNonBorderStationCode,0,0);
 		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls1);
-		Legacy108Station ls2 = GtmFactory.eINSTANCE.createLegacy108Station();
-		ls2 = LegacyDataFactory.createStation("A-Town (GR)","A-Town (GR)","A (GR)",legacyBorderStationCode,borderPointCode,0);
+		Legacy108Station ls2 = LegacyDataFactory.createStation("A-Town (GR)","A-Town (GR)","A (GR)",legacyBorderStationCode,borderPointCode,0);
 		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls2);
 		
 		//set border point
@@ -85,7 +83,7 @@ public class VirtualBorderPointTestDifferentStartStation {
 		s.setDistance1(10);
 		s.setDistance2(10);
 		s.setFareTableNumber(1);
-		s.setFromStation(legacyNonBorderStationCode);
+		s.setFromStation(1);
 		s.setToStation(legacyBorderStationCode);
 		s.setNumber(1);
 		s.setPricetype(LegacyCalculationType.ROUTE_BASED);
@@ -108,7 +106,7 @@ public class VirtualBorderPointTestDifferentStartStation {
 	}
 
 	@Test 
-	public void testVirtualNonMeritsBorderStationWIthDifferentStationConversion() {
+	public void testVirtualNonMeritsBorderStationConversion() {
 		
 		
 		//validate basics	
@@ -205,12 +203,12 @@ public class VirtualBorderPointTestDifferentStartStation {
 		assert(borderStation != null);	
 		assert(nonBorderStation.getStationCode() == legacyNonBorderStationCode);
 		assert(nonBorderStation.getBorderPointCode() == 0);
-		assert(nonBorderStation.getName().equals("B-Town"));
+		assert(nonBorderStation.getName().equals("A-Town"));
 		
 		assert(nonBorderStation != null);
 		assert(borderStation.getStationCode() == legacyBorderStationCode);	
 		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("A-Town (GR)"));
+		assert(borderStation.getName().equals("A (GR)"));
 		
 	}
 	
