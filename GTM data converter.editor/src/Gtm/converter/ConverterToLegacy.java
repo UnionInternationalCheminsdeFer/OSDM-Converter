@@ -1173,7 +1173,7 @@ public class 	ConverterToLegacy {
 		ls.setBorderPointCode(sn.getLegacyBorderPointCode());
 		
 		ls.setLatitude((int) (1000000*sn.getLatitude()));
-		ls.setLongitude((int) (1000000*sn.getLatitude()));
+		ls.setLongitude((int) (1000000*sn.getLongitude()));
 
 		return ls;
 	}
