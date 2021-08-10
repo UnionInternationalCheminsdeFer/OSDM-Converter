@@ -1273,7 +1273,7 @@ public class ConverterFromLegacy {
 		ViaStation viaDeparture = getViaStation(tool, country, series.getToStation(),series.getNumber());
 		Legacy108Station lsd = legacyStations.get(series.getToStation());
 		if (viaDeparture == null && lsd == null) {
-			String message = "arrival station missing legacy stations: " + Integer.valueOf(series.getToStationName());
+			String message = "arrival station missing legacy stations: " + series.getToStationName();
 			GtmUtils.writeConsoleError(message, editor);
 			throw new ConverterException(message);
 		}
@@ -1288,7 +1288,7 @@ public class ConverterFromLegacy {
 		ViaStation viaArrival = getViaStation(tool, country, series.getFromStation(),series.getNumber());	
 		Legacy108Station lsa = legacyStations.get(series.getFromStation());
 		if (viaArrival == null && lsa == null) {
-			String message = "departure station missing legacy stations: " + Integer.valueOf(series.getFromStationName());
+			String message = "departure station missing legacy stations: " + series.getFromStationName();
 			GtmUtils.writeConsoleError(message, editor);
 			throw new ConverterException(message);
 		}
@@ -1588,7 +1588,7 @@ public class ConverterFromLegacy {
 		ViaStation viaDeparture = getViaStation(tool, country, series.getFromStation(),series.getNumber());
 		Legacy108Station lsd = legacyStations.get(series.getFromStation());
 		if (viaDeparture == null && lsd == null) {
-			String message = "departure station missing legacy stations: " + Integer.valueOf(series.getFromStationName());
+			String message = "departure station missing legacy stations: " + series.getFromStationName();
 			GtmUtils.writeConsoleError(message, editor);
 			throw new ConverterException(message);
 		}
@@ -1603,7 +1603,7 @@ public class ConverterFromLegacy {
 		ViaStation viaArrival = getViaStation(tool, country, series.getToStation(),series.getNumber());
 		Legacy108Station lsa = legacyStations.get(series.getToStation());
 		if (viaArrival == null && lsa == null) {
-			String message = "arrival station missing legacy stations: " + Integer.valueOf(series.getToStationName());
+			String message = "arrival station missing legacy stations: " + series.getToStationName();
 			GtmUtils.writeConsoleError(message, editor);
 			throw new ConverterException(message);
 		}
