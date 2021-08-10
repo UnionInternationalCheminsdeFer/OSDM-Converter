@@ -87,6 +87,7 @@ import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
 import Gtm.util.StringFormatValidator;
 import Gtm.utils.GtmUtils;
+import Gtm.utils.StationSelector;
 
 
 /**
@@ -1277,7 +1278,7 @@ public class ConverterFromLegacy {
 			throw new ConverterException(message);
 		}
 		if (viaDeparture == null && lsd != null && lsd.getBorderPointCode() > 0) {
-			viaDeparture = getBorderSideViaStation(lsd.getBorderPointCode());
+			viaDeparture = getBorderSideViaStation(lsd);
 			if (viaDeparture == null) {
 				borderDeparture = true;
 			}
@@ -1292,8 +1293,14 @@ public class ConverterFromLegacy {
 			throw new ConverterException(message);
 		}
 		if (viaArrival == null && lsa != null && lsa.getBorderPointCode() > 0) {
-			viaArrival = getBorderSideViaStation(lsa.getBorderPointCode());
-			if (viaArrival == null) {
+			viaArrival = getBorderSideViaStation(lsa);
+		}
+		if (viaArrival != null && viaDeparture != null && viaArrival.getStation() == viaDeparture.getStation()) {
+			if (lsd != null && lsd.getBorderPointCode() > 0) {
+				viaDeparture = null;
+				borderDeparture =  true;
+			} else if (lsa != null && lsa.getBorderPointCode() > 0) {
+				viaArrival = null;
 				borderArrival = true;
 			}
 		}
@@ -1586,7 +1593,7 @@ public class ConverterFromLegacy {
 			throw new ConverterException(message);
 		}
 		if (viaDeparture == null && lsd != null && lsd.getBorderPointCode() > 0) {
-			viaDeparture = getBorderSideViaStation(lsd.getBorderPointCode());
+			viaDeparture = getBorderSideViaStation(lsd);
 			if (viaDeparture == null) {
 				borderDeparture = true;
 			}
@@ -1601,8 +1608,16 @@ public class ConverterFromLegacy {
 			throw new ConverterException(message);
 		}
 		if (viaArrival == null && lsa != null && lsa.getBorderPointCode() > 0) {
-			viaArrival = getBorderSideViaStation(lsa.getBorderPointCode());
-			if (viaArrival == null) {
+			viaArrival = getBorderSideViaStation(lsa);
+		}
+		
+		
+		if (viaArrival != null && viaDeparture != null && viaArrival.getStation() == viaDeparture.getStation()) {
+			if (lsd != null && lsd.getBorderPointCode() > 0) {
+				viaDeparture = null;
+				borderDeparture =  true;
+			} else if (lsa != null && lsa.getBorderPointCode() > 0) {
+				viaArrival = null;
 				borderArrival = true;
 			}
 		}
@@ -1718,7 +1733,9 @@ public class ConverterFromLegacy {
 	}
 	
 
-	private ViaStation getBorderSideViaStation(int borderPointCode) {
+	private ViaStation getBorderSideViaStation(Legacy108Station ls) {
+		
+		int borderPointCode = ls.getBorderPointCode();
 		
 		LegacyBorderPoint lbp = borderPoints.get(borderPointCode);
 		if (lbp == null) return null;
@@ -1740,7 +1757,11 @@ public class ConverterFromLegacy {
 						if (bs.getStations() != null && !bs.getStations().getStations().isEmpty() ) {
 							fareStationSet = this.fareStationSets.get(bs.getLegacyStationCode());
 							if (fareStationSet == null) {
-								station = bs.getStations().getStations().get(0);
+								if (bs.getStations().getStations().size() == 1) {
+									station = bs.getStations().getStations().get(0);
+								} else {
+									station = StationSelector.selectStation(ls.getShortName(),bs.getStations());
+								}
 							}
 						}
 					}

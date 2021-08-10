@@ -105,7 +105,7 @@ public class TestUtils {
 		ViaStation via = r.getRegionalValidity().get(0).getViaStation();
 		
 		ViaStation firstVia = via.getRoute().getStations().get(0);
-		ViaStation lastVia = via.getRoute().getStations().get(via.getRoute().getStations().size() -1);
+		ViaStation lastVia = via.getRoute().getStations().get(via.getRoute().getStations().size() - 1);
 
 		if (r.getEntryConnectionPoint().getLegacyBorderPointCode() > 0 && 
 			r.getExitConnectionPoint().getLegacyBorderPointCode() == 0) {

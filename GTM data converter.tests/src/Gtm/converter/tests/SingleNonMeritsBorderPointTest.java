@@ -26,7 +26,7 @@ import Gtm.converter.tests.mocks.MockedProgressMonitor;
 import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
-public class NonMeritsBorderPointTest {
+public class SingleNonMeritsBorderPointTest {
 	
 	GTMTool tool = null;
 	
@@ -106,7 +106,7 @@ public class NonMeritsBorderPointTest {
 	}
 
 	@Test 
-	public void testVirtualNonMeritsBorderStationConversion() {
+	public void testSingleNonMeritsBorderStationConversion() {
 		
 		
 		//validate basics	
@@ -155,7 +155,7 @@ public class NonMeritsBorderPointTest {
 
 				ViaStation route = r.getRegionalValidity().get(0).getViaStation();
 				
-				assert (route.getRoute().getStations().size() == 2);
+				assert (route.getRoute().getStations().size() == 1);
 				
 			} else {
 				
@@ -165,7 +165,7 @@ public class NonMeritsBorderPointTest {
 
 				ViaStation route = r.getRegionalValidity().get(0).getViaStation();
 				
-				assert (route.getRoute().getStations().size() == 2);
+				assert (route.getRoute().getStations().size() == 1);
 				
 			}
 		}
