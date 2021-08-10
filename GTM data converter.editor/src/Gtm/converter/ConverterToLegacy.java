@@ -1042,7 +1042,7 @@ public class 	ConverterToLegacy {
 					ls.setBorderPointCode(lbp.getBorderPointCode());
 					return;
 				} else {				
-					//use the stations on the border side of the carrier t get names
+					//use the stations on the border side of the carrier to get names
 					ls = GtmFactory.eINSTANCE.createLegacy108Station();
 					ls.setStationCode(localCode);
 					ls.setBorderPointCode(lbp.getBorderPointCode());
@@ -1173,7 +1173,7 @@ public class 	ConverterToLegacy {
 		ls.setBorderPointCode(sn.getLegacyBorderPointCode());
 		
 		ls.setLatitude((int) (1000000*sn.getLatitude()));
-		ls.setLongitude((int) (1000000*sn.getLatitude()));
+		ls.setLongitude((int) (1000000*sn.getLongitude()));
 
 		return ls;
 	}

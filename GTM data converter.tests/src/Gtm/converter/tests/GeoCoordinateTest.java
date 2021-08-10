@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import Gtm.ConnectionPoint;
 import Gtm.Country;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
@@ -17,9 +16,7 @@ import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacySeries;
 import Gtm.LegacySeriesType;
-import Gtm.RegionalConstraint;
-import Gtm.RouteDescriptionBuilder;
-import Gtm.ViaStation;
+import Gtm.Station;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
@@ -28,7 +25,7 @@ import Gtm.converter.tests.mocks.MockedProgressMonitor;
 import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
-public class VirtualBorderPointTest {
+public class GeoCoordinateTest {
 	
 	GTMTool tool = null;
 	
@@ -79,6 +76,9 @@ public class VirtualBorderPointTest {
 		LegacyDataFactory.addStation(tool,"Z","10000",TestUtils.findCountry(tool,98));
 		
 
+		Station station = TestUtils.findStation(tool, 99, "00003");
+		station.setLatitude(10.123456F);
+		station.setLongitude(12.34567F);
 		
 		
 		//set border point
@@ -139,89 +139,7 @@ public class VirtualBorderPointTest {
 	}
 
 	@Test 
-	public void testVirtualNonMeritsBorderStationConversion() {
-		
-		
-		//one calendar
-		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 1);
-		
-		//one regional constraint per series * 2
-		assert(tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints().size()
-				== tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size()
-				* 2 //route and return route
-		);
-
-		// number of fares = number of series * 2 * number of templates
-		assert(tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements().size() 
-				==
-			   tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size()
-			   * 2 // route and return route
-			   * tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().size()
-		);
-		
-		// number of prices
-		assert(tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices().size() == 2);
-		
-		
-		assert(tool.getGeneralTariffModel().getFareStructure().getConnectionPoints() != null);
-		assert(tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints().size() == 2);
-		
-		for (ConnectionPoint p : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
-			
-			if (p.getConnectedStationSets().size() == 2) {
-				assert(p.getLegacyBorderPointCode() == borderPointCode);
-			} else {
-				assert(p.getLegacyBorderPointCode() == 0);
-			}
-		}
-
-		
-		
-		for (RegionalConstraint r : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
-
-			if (!TestUtils.isReturnRoute(r)) {
-				
-				assert(r.getExitConnectionPoint().getLegacyBorderPointCode() == 0);
-
-				assert(r.getEntryConnectionPoint().getLegacyBorderPointCode() == borderPointCode);
-
-				ViaStation route = r.getRegionalValidity().get(0).getViaStation();
-				
-				assert (route.getRoute().getStations().size() == 7);
-				
-			} else {
-				
-				assert(r.getExitConnectionPoint().getLegacyBorderPointCode() == borderPointCode);
-
-				assert(r.getEntryConnectionPoint().getLegacyBorderPointCode() == 0);
-
-				ViaStation route = r.getRegionalValidity().get(0).getViaStation();
-				
-				assert (route.getRoute().getStations().size() == 7);
-				
-			}
-		}
-		
-		//validate Routes
-		for (RegionalConstraint r : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
-			// one regional validity
-			assert(r.getRegionalValidity().size() == 1);
-			
-			//route description contained
-			assert(r.getRegionalValidity().get(0).getViaStation() != null);
-			
-			assert(r.getRegionalValidity().get(0).getViaStation().getRoute() != null);
-			
-			String description = RouteDescriptionBuilder.getRouteDescription( r.getRegionalValidity().get(0).getViaStation());
-			boolean isReturnRoute = TestUtils.isReturnRoute(r);		
-							
-			if (isReturnRoute) {
-				assert(description.equals("G*F*E*D*C*B*A"));
-			} else {
-				assert(description.equals("A*B*C*D*E*F*G"));
-			}
-		}
-		
+	public void testGeoCoordinatesConversion() {
 		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
@@ -229,50 +147,16 @@ public class VirtualBorderPointTest {
 		
 		tool.getGeneralTariffModel().setDelivery(GtmFactory.eINSTANCE.createDelivery());
 		tool.getGeneralTariffModel().getDelivery().setProvider(TestUtils.findCarrier(tool, "9999"));
-		
-		
+	
 		converter2legacy = new ConverterToLegacy(tool, null, new MockedEditingDomain());
 			
 		//convert
 		converter2legacy.convertTest(new MockedProgressMonitor());
 		
-		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList() != null);
 		
-		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null);
-		
-		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size() == 1);
-		
-		LegacySeries s = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0);
-		
-		assert(s.getFromStation() == legacyBorderStationCode);
-		assert(s.getToStation() == 7);
-		assert(s.getType().equals(LegacySeriesType.BORDER_DESTINATION));
-		
-		Legacy108Station borderStation = TestUtils.findLegacyStation(tool,legacyBorderStationCode);
-		Legacy108Station nonBorderStation = TestUtils.findLegacyStation(tool,7);
-		
-		assert(borderStation != null);	
-		assert(nonBorderStation.getStationCode() == 7);
-		assert(nonBorderStation.getBorderPointCode() == 0);
-		assert(nonBorderStation.getName().equals("G-Town"));
-		
-		assert(nonBorderStation != null);
-		assert(borderStation.getStationCode() == legacyBorderStationCode);	
-		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("A (GR)"));
-		
-
-		assert(s.getFromStationName().equals("A (GR)"));
-		assert(s.getRouteDescription().equals("B*C*D*E*F"));
-		assert(s.getToStationName().equals("G-Town"));
-		assert(s.getDistance1() == 10);
-		assert(s.getDistance2() == 10);
-		assert(s.getCarrierCode().equals("9999"));
-		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
-		assert(s.getRouteNumber() == 1);
-		assert(s.getSupplyingCarrierCode().equals("9999"));
-		assert(s.getValidFrom().equals(TestUtils.getFromDate()));
-		assert(s.getValidUntil().equals(TestUtils.getUntilDate()));	
+		Legacy108Station s = TestUtils.findLegacyStation(tool, 3);
+		assert( s.getLatitude() == 10123456);
+		assert(s.getLongitude() == 12345670);
 									
 	}
 		

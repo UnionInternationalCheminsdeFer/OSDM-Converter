@@ -146,7 +146,7 @@ public class LegacyDataFactory {
 	private static void createRouteFareLegacy(GTMTool tool) {
 		initLegacy(tool);
 		addLegacyStations(tool);
-		addLegacySeries(tool);
+		addDistanceBasedLegacySeries(tool);
 		addLegacyRouteFares(tool);
 	
 	}
@@ -203,6 +203,8 @@ public class LegacyDataFactory {
 		LegacyRouteFare f = GtmFactory.eINSTANCE.createLegacyRouteFare();
 		f.setFare1st(fareFirst);
 		f.setFare2nd(fareSecond);
+		f.setReturnFare1st(fareFirst * 2);
+		f.setReturnFare2nd(fareSecond * 2);
 		f.setFareTableNumber(fareTable);
 		f.setSeriesNumber(series);
 		
@@ -215,7 +217,7 @@ public class LegacyDataFactory {
 		return f;
 	}
 
-	private static void addLegacySeries(GTMTool tool) {
+	private static void addDistanceBasedLegacySeries(GTMTool tool) {
 		
 		LegacySeriesList series = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList();
 		
@@ -291,8 +293,30 @@ public class LegacyDataFactory {
 		}
 		return s;
 	}
+	
+	public static void addRouteBasedSeries(GTMTool tool, int seriesNumber, int distance, int from, int to) {
+		LegacySeries s = GtmFactory.eINSTANCE.createLegacySeries();
+		s.setCarrierCode("9999");
+		s.setDistance1(distance);
+		s.setDistance2(distance);
+		s.setFareTableNumber(1);
+		s.setFromStation(from);
+		s.setToStation(to);
+		s.setNumber(seriesNumber);
+		s.setPricetype(LegacyCalculationType.ROUTE_BASED);
+		s.setSupplyingCarrierCode("9999");
+		s.setType(LegacySeriesType.STATION_STATION);
+		
+		try {
+			s.setValidFrom(dateFormat.parse("20190101"));
+			s.setValidUntil(dateFormat.parse("20990101"));
+		} catch (ParseException e) {
+			//
+		}
+		tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().add(s);
+	}
 
-	private static LegacySeries createRouteBasedSeries(int seriesNumber, int distance, int from, int to) {
+	public static LegacySeries createRouteBasedSeries(int seriesNumber, int distance, int from, int to) {
 		LegacySeries s = GtmFactory.eINSTANCE.createLegacySeries();
 		s.setCarrierCode("9999");
 		s.setDistance1(distance);
@@ -314,7 +338,7 @@ public class LegacyDataFactory {
 		return s;
 	}
 
-	private static LegacyViastation createViaStation(int code, int position, boolean optional) {
+	public static LegacyViastation createViaStation(int code, int position, boolean optional) {
 		LegacyViastation v1 = GtmFactory.eINSTANCE.createLegacyViastation();
 		v1.setCode(code);
 		v1.setPosition(position);
@@ -538,7 +562,7 @@ public class LegacyDataFactory {
 		return carrier;
 	}
 
-	private static Station createStation(String name, String code, Country country) {
+	public static Station createStation(String name, String code, Country country) {
 		Station station = GtmFactory.eINSTANCE.createStation();
 		station.setCode(code);
 		station.setCountry(country);
@@ -548,6 +572,35 @@ public class LegacyDataFactory {
 		station.setNameCaseASCII(name + "-Town");
 		station.setNameCaseASCII(name + "-Town");
 		return station;
+	}
+	
+	public static Station addStation(GTMTool tool,String name, String code, Country country) {
+		Station station = GtmFactory.eINSTANCE.createStation();
+		station.setCode(code);
+		station.setCountry(country);
+		station.setName(name + "-TOWN");
+		station.setNameCaseASCII(name + "-Town");
+		station.setNameCaseASCII(name + "-Town");
+		station.setNameCaseASCII(name + "-Town");
+		station.setNameCaseASCII(name + "-Town");
+		tool.getCodeLists().getStations().getStations().add(station);
+		return station;
+	}
+	
+	
+	
+	public static Legacy108Station addLegacyStation(GTMTool tool, String name,String nameUtf8,String shortName, int code, int borderCode, int setCode) {
+		Legacy108Station s = GtmFactory.eINSTANCE.createLegacy108Station();
+		s.setStationCode(code);
+		s.setName(name);
+		s.setNameUTF8(nameUtf8);
+		s.setShortName(shortName);
+		s.setShortNameUtf8(shortName);
+		s.setBorderPointCode(borderCode);
+		s.setFareReferenceStationCode(setCode);
+		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(s);
+		
+		return s;
 	}
 
 	public static Legacy108Station createStation(String name,String nameUtf8,String shortName, int code, int borderCode, int setCode) {

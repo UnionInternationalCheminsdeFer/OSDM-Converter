@@ -87,6 +87,7 @@ import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
 import Gtm.util.StringFormatValidator;
 import Gtm.utils.GtmUtils;
+import Gtm.utils.StationSelector;
 
 
 /**
@@ -1271,15 +1272,37 @@ public class ConverterFromLegacy {
 		//handle departure
 		ViaStation viaDeparture = getViaStation(tool, country, series.getToStation(),series.getNumber());
 		Legacy108Station lsd = legacyStations.get(series.getToStation());
-		if (viaDeparture == null && lsd.getBorderPointCode() > 0) {
-			borderDeparture = true;
+		if (viaDeparture == null && lsd == null) {
+			String message = "arrival station missing legacy stations: " + series.getToStationName();
+			GtmUtils.writeConsoleError(message, editor);
+			throw new ConverterException(message);
+		}
+		if (viaDeparture == null && lsd != null && lsd.getBorderPointCode() > 0) {
+			viaDeparture = getBorderSideViaStation(lsd);
+			if (viaDeparture == null) {
+				borderDeparture = true;
+			}
 		}
 		
 		//handle arrival
 		ViaStation viaArrival = getViaStation(tool, country, series.getFromStation(),series.getNumber());	
 		Legacy108Station lsa = legacyStations.get(series.getFromStation());
-		if (viaArrival == null && lsa.getBorderPointCode() > 0) {
-			borderArrival = true;
+		if (viaArrival == null && lsa == null) {
+			String message = "departure station missing legacy stations: " + series.getFromStationName();
+			GtmUtils.writeConsoleError(message, editor);
+			throw new ConverterException(message);
+		}
+		if (viaArrival == null && lsa != null && lsa.getBorderPointCode() > 0) {
+			viaArrival = getBorderSideViaStation(lsa);
+		}
+		if (viaArrival != null && viaDeparture != null && viaArrival.getStation() == viaDeparture.getStation()) {
+			if (lsd != null && lsd.getBorderPointCode() > 0) {
+				viaDeparture = null;
+				borderDeparture =  true;
+			} else if (lsa != null && lsa.getBorderPointCode() > 0) {
+				viaArrival = null;
+				borderArrival = true;
+			}
 		}
 		
 		if ((viaDeparture == null &&  !borderDeparture) 
@@ -1564,16 +1587,39 @@ public class ConverterFromLegacy {
 		//handle departure
 		ViaStation viaDeparture = getViaStation(tool, country, series.getFromStation(),series.getNumber());
 		Legacy108Station lsd = legacyStations.get(series.getFromStation());
-		if (viaDeparture == null && lsd.getBorderPointCode() > 0) {
-			borderDeparture = true;
+		if (viaDeparture == null && lsd == null) {
+			String message = "departure station missing legacy stations: " + series.getFromStationName();
+			GtmUtils.writeConsoleError(message, editor);
+			throw new ConverterException(message);
+		}
+		if (viaDeparture == null && lsd != null && lsd.getBorderPointCode() > 0) {
+			viaDeparture = getBorderSideViaStation(lsd);
+			if (viaDeparture == null) {
+				borderDeparture = true;
+			}
 		}
 		
 		//handle arrival
-			
 		ViaStation viaArrival = getViaStation(tool, country, series.getToStation(),series.getNumber());
 		Legacy108Station lsa = legacyStations.get(series.getToStation());
-		if (viaArrival == null && lsa.getBorderPointCode() > 0) {
-			borderArrival = true;
+		if (viaArrival == null && lsa == null) {
+			String message = "arrival station missing legacy stations: " + series.getToStationName();
+			GtmUtils.writeConsoleError(message, editor);
+			throw new ConverterException(message);
+		}
+		if (viaArrival == null && lsa != null && lsa.getBorderPointCode() > 0) {
+			viaArrival = getBorderSideViaStation(lsa);
+		}
+		
+		
+		if (viaArrival != null && viaDeparture != null && viaArrival.getStation() == viaDeparture.getStation()) {
+			if (lsd != null && lsd.getBorderPointCode() > 0) {
+				viaDeparture = null;
+				borderDeparture =  true;
+			} else if (lsa != null && lsa.getBorderPointCode() > 0) {
+				viaArrival = null;
+				borderArrival = true;
+			}
 		}
 		
 		if ((viaDeparture == null &&  !borderDeparture) 
@@ -1686,6 +1732,49 @@ public class ConverterFromLegacy {
 		return constraint;
 	}
 	
+
+	private ViaStation getBorderSideViaStation(Legacy108Station ls) {
+		
+		int borderPointCode = ls.getBorderPointCode();
+		
+		LegacyBorderPoint lbp = borderPoints.get(borderPointCode);
+		if (lbp == null) return null;
+		
+		Station station = null;
+		FareStationSetDefinition fareStationSet = null;
+		
+		if (lbp.getBorderSides() != null) {
+			for (LegacyBorderSide bs : lbp.getBorderSides()) {
+				if (bs.getCarrier().equals(tool.getConversionFromLegacy().getLegacy108().getCarrier())) {
+						
+					if (lbp.getOnBorderStations() != null && lbp.getOnBorderStations().getStations() != null && 
+						!lbp.getOnBorderStations().getStations().getStations().isEmpty() ) {
+						fareStationSet = this.fareStationSets.get(bs.getLegacyStationCode());
+						if (fareStationSet == null) {
+							station = lbp.getOnBorderStations().getStations().getStations().get(0);
+						}
+					} else {
+						if (bs.getStations() != null && !bs.getStations().getStations().isEmpty() ) {
+							fareStationSet = this.fareStationSets.get(bs.getLegacyStationCode());
+							if (fareStationSet == null) {
+								if (bs.getStations().getStations().size() == 1) {
+									station = bs.getStations().getStations().get(0);
+								} else {
+									station = StationSelector.selectStation(ls.getShortName(),bs.getStations());
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		ViaStation viaStation = GtmFactory.eINSTANCE.createViaStation();
+		viaStation.setStation(station);
+		viaStation.setFareStationSet(fareStationSet);
+		return viaStation;
+	}
+
 
 	/**
 	 * Find connection point.
@@ -2130,6 +2219,14 @@ public class ConverterFromLegacy {
 	 */
 	private static Float getAdultAmount(GTMTool tool, LegacySeries series, int travelClass, DateRange dateRange) {
 		
+		if (travelClass == 1) {
+			//distance = 0 indicates no price in that class!
+			if (series.getDistance1() == 0) return null;
+		} else {
+			//distance = 0 indicates no price in that class!
+			if (series.getDistance2() == 0) return null;
+		}
+		
 		if (series.getPricetype() == LegacyCalculationType.ROUTE_BASED) {
 			
 			for (LegacyRouteFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()){
@@ -2141,26 +2238,22 @@ public class ConverterFromLegacy {
 					if (travelClass == 1) {
 						return GtmUtils.getEuroFromCent(fare.getFare1st()); 
 					} else {
-						return GtmUtils.getEuroFromCent(fare.getFare2nd()); 			
+							return GtmUtils.getEuroFromCent(fare.getFare2nd()); 
 					}
 				}
 			}
-		}  else {
+		}  else if (series.getPricetype() == LegacyCalculationType.DISTANCE_BASED) {
+			//calculate distance based fare 
+			
 			int price = 0;
 			boolean distanceFound = false;
 			
 			int distance = 0;
 			if (travelClass == 1) {
 				distance = series.getDistance1();
-				//distance = 0 indicates no price in that class!
-				if (distance== 0) return null;
 			} else {
 				distance = series.getDistance2();
-				//distance = 0 indicates no price in that class!
-				if (distance == 0) return null;
 			}
-			
-			
 					
 			//get the lowest price where the distance is ok
 			for (LegacyDistanceFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
@@ -2877,6 +2970,8 @@ public class ConverterFromLegacy {
 			}
 		}
 		
+		//add fare station sets from border points
+	
 		return fareStationSetDefinitions;
 		
 	}
