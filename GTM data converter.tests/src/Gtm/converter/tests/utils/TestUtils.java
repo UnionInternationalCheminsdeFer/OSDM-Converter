@@ -254,5 +254,12 @@ public class TestUtils {
 		}
 		return null;
 	}
+
+	public static LegacySeries findLegacySeries(GTMTool tool, int code) {
+		for (LegacySeries ls : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()){
+			if (ls.getNumber() == code) return ls;
+		}
+		return null;
+	}
 	
 }

@@ -1769,6 +1769,8 @@ public class ConverterFromLegacy {
 			}
 		}
 		
+		if (station == null && fareStationSet == null) return null;
+		
 		ViaStation viaStation = GtmFactory.eINSTANCE.createViaStation();
 		viaStation.setStation(station);
 		viaStation.setFareStationSet(fareStationSet);
