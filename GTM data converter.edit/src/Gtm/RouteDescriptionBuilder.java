@@ -68,16 +68,25 @@ public class RouteDescriptionBuilder {
 		String last = getLastStationCodeName(getMainVia(rvl));
 		
 		StringBuilder sb = new StringBuilder();
-			
-		sb.append(start);
-		if (via.length() == 0 && last.length() == 0) return sb.toString();
 		
-		if (start.length() > 0) {	
+		if (start != null) {
+			sb.append(start);
+		}
+		if ((via == null || via.length() == 0)
+			&& (last == null || last.length() == 0)) {
+			return sb.toString();
+		}
+		
+		if (start != null && start.length() > 0) {	
 			sb.append(" -- ");
 		}
-		sb.append(via);
+		if (via != null) {
+			sb.append(via);
+		}
 		
-		if (last.length() == 0) return sb.toString();
+		if (last == null || last.length() == 0) {
+			return sb.toString();
+		}
 		sb.append(" -- ");
 		sb.append(last);
 		

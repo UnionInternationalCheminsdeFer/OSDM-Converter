@@ -24,7 +24,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class MultipleValidityRangesConversionTest {
+public class MultipleFareTableConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -50,10 +50,10 @@ public class MultipleValidityRangesConversionTest {
 		for (LegacySeries ls : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			if (ls.getNumber() == 1 || ls.getNumber() == 2) {
 				ls.setFareTableNumber(2);
-				LegacyDataFactory.addRouteFare(tool,"20190101", "20980101", 80, 40, 2, ls.getNumber());
+				LegacyDataFactory.addRouteFare(tool,"20190101", "20990101", 80, 40, 2, ls.getNumber());
 			} if (ls.getNumber() == 3 || ls.getNumber() == 4) {
 				ls.setFareTableNumber(3);
-				LegacyDataFactory.addRouteFare(tool,"20190601", "20990101", 70, 36, 3, ls.getNumber());
+				LegacyDataFactory.addRouteFare(tool,"20190101", "20990101", 70, 36, 3, ls.getNumber());
 			} else {
 				LegacyDataFactory.addRouteFare(tool,"20190101", "20990101", 100, 50, 1, ls.getNumber());
 			}
@@ -77,10 +77,10 @@ public class MultipleValidityRangesConversionTest {
 		
 		
 		//three sales availabilities	
-		assert(tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 3);
+		assert(tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 1);
 		
 		//three calendar
-		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 3);
+		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 1);
 		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
@@ -111,12 +111,12 @@ public class MultipleValidityRangesConversionTest {
 				assert(rf.getFare1st() == 80);
 				assert(rf.getFare2nd() == 40);
 				assert(TestUtils.getDateString(rf.getValidFrom()).equals("20190101"));
-				assert(TestUtils.getDateString(rf.getValidUntil()).equals("20980101"));				
+				assert(TestUtils.getDateString(rf.getValidUntil()).equals("20990101"));				
 			} else if (s.getNumber() == 3 || s.getNumber() == 4) {
-				LegacyRouteFare rf = TestUtils.findLegacyRouteFare(tool, TestUtils.getDate("20190601"), s.getFareTableNumber(), s.getNumber());
+				LegacyRouteFare rf = TestUtils.findLegacyRouteFare(tool, TestUtils.getDate("20190101"), s.getFareTableNumber(), s.getNumber());
 				assert(rf.getFare1st() == 70);
 				assert(rf.getFare2nd() == 36);
-				assert(TestUtils.getDateString(rf.getValidFrom()).equals("20190601"));
+				assert(TestUtils.getDateString(rf.getValidFrom()).equals("20190101"));
 				assert(TestUtils.getDateString(rf.getValidUntil()).equals("20990101"));				
 			} else {	
 				LegacyRouteFare rf = TestUtils.findLegacyRouteFare(tool,s.getFareTableNumber(), s.getNumber());

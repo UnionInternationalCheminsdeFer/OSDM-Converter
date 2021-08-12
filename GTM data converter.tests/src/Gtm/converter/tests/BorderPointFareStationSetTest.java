@@ -276,9 +276,7 @@ public class BorderPointFareStationSetTest {
 		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
 		assert(s.getRouteNumber() == 1);
 		assert(s.getSupplyingCarrierCode().equals("9999"));
-		assert(s.getValidFrom().equals(TestUtils.getFromDate()));
-		assert(s.getValidUntil().equals(TestUtils.getUntilDate()));	
-									
+
 	}
 		
 

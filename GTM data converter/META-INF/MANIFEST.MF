@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: GTM_data_converter;singleton:=true
 Automatic-Module-Name: GTM_data_converter
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.1.27
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin

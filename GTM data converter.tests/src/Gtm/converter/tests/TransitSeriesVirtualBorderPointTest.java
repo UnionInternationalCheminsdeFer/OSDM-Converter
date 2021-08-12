@@ -11,8 +11,6 @@ import Gtm.ConnectionPoint;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Legacy108Station;
-import Gtm.LegacyBorderPoint;
-import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacySeries;
 import Gtm.LegacySeriesType;
@@ -26,13 +24,16 @@ import Gtm.converter.tests.mocks.MockedProgressMonitor;
 import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
-public class VirtualBorderPointTestDifferentStartStation {
+public class TransitSeriesVirtualBorderPointTest {
 	
 	GTMTool tool = null;
 	
-	int borderPointCode = 10;
-	int legacyBorderStationCode = 1000;  //A-Town (GR)
-	int legacyNonBorderStationCode = 2; //A-Town
+	int borderPointCodeA = 10;
+	int borderPointCodeG = 20;
+	int legacyBorderStationCodeA = 1000;  //A-Town (GR)
+	int legacyBorderStationCodeG = 2000;  //G-Town (GR)
+	int legacyNonBorderStationCodeA = 1; //A-Town
+	int legacyNonBorderStationCodeG = 7; //G-Town
 	
 	@Mock
 	GtmUtils gtmUtilsMock;
@@ -53,29 +54,24 @@ public class VirtualBorderPointTestDifferentStartStation {
 		//set legacy stations
 		tool.getConversionFromLegacy().getLegacy108().setLegacyStations(GtmFactory.eINSTANCE.createLegacy108Stations());	
 		Legacy108Station ls1 = GtmFactory.eINSTANCE.createLegacy108Station();
-		ls1 = LegacyDataFactory.createStation("B-Town","B-Town","B",legacyNonBorderStationCode,0,0);
+		ls1 = LegacyDataFactory.createStation("A-Town","A-Town","A",legacyNonBorderStationCodeA,0,0);
 		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls1);
 		Legacy108Station ls2 = GtmFactory.eINSTANCE.createLegacy108Station();
-		ls2 = LegacyDataFactory.createStation("A-Town (GR)","A-Town (GR)","A (GR)",legacyBorderStationCode,borderPointCode,0);
+		ls2 = LegacyDataFactory.createStation("A-Town (GR)","A-Town (GR)","A (GR)",legacyBorderStationCodeA,borderPointCodeA,0);
 		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls2);
 		
-		//set border point
+		Legacy108Station ls3 = GtmFactory.eINSTANCE.createLegacy108Station();
+		ls3 = LegacyDataFactory.createStation("G-Town","G-Town","G",legacyNonBorderStationCodeG,0,0);
+		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls3);
+		Legacy108Station ls4 = GtmFactory.eINSTANCE.createLegacy108Station();
+		ls4 = LegacyDataFactory.createStation("G-Town (GR)","G-Town (GR)","G (GR)",legacyBorderStationCodeG,borderPointCodeG,0);
+		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls4);
+			
+		//set border point 1
 		tool.getConversionFromLegacy().getLegacy108().setLegacyBorderPoints(GtmFactory.eINSTANCE.createLegacyBorderPoints());
-		LegacyBorderPoint border = GtmFactory.eINSTANCE.createLegacyBorderPoint();
-		tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints().add(border);
-		border.setBorderPointCode(borderPointCode);
-		LegacyBorderSide side1 = GtmFactory.eINSTANCE.createLegacyBorderSide();
-		side1.setStations(GtmFactory.eINSTANCE.createStationSet());
-		side1.getStations().getStations().add(TestUtils.findStation(tool, 99,"00001")); //A-Town
-		side1.setCarrier(TestUtils.findCarrier(tool, "9999")); //Wonderland rail
-		side1.setLegacyStationCode(legacyBorderStationCode);
-		border.getBorderSides().add(side1);
-		LegacyBorderSide side2 = GtmFactory.eINSTANCE.createLegacyBorderSide();
-		side2.setStations(GtmFactory.eINSTANCE.createStationSet());
-		side2.getStations().getStations().add(TestUtils.findStation(tool, 98,"10000"));
-		side2.setCarrier(TestUtils.findCarrier(tool, "9995"));
-		side2.setLegacyStationCode(2);
-		border.getBorderSides().add(side2);
+		LegacyDataFactory.addBorderPoint(tool,borderPointCodeA,"9999",99,legacyBorderStationCodeA,"00001","9995",98,10000,"10000");
+		//set border point 2
+		LegacyDataFactory.addBorderPoint(tool,borderPointCodeG,"9999",99,legacyBorderStationCodeG,"00007","9996",97,20000,"20000");
 		
 		
 		//series A-Town to A-Town (GR)
@@ -85,12 +81,12 @@ public class VirtualBorderPointTestDifferentStartStation {
 		s.setDistance1(10);
 		s.setDistance2(10);
 		s.setFareTableNumber(1);
-		s.setFromStation(legacyNonBorderStationCode);
-		s.setToStation(legacyBorderStationCode);
+		s.setFromStation(legacyBorderStationCodeA);
+		s.setToStation(legacyBorderStationCodeG);
 		s.setNumber(1);
 		s.setPricetype(LegacyCalculationType.ROUTE_BASED);
 		s.setSupplyingCarrierCode("9999");
-		s.setType(LegacySeriesType.BORDER_DESTINATION);
+		s.setType(LegacySeriesType.TRANSIT);
 		s.setValidFrom(TestUtils.getFromDate());
 		s.setValidUntil(TestUtils.getUntilDate());	
 		tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().add(s);
@@ -108,7 +104,7 @@ public class VirtualBorderPointTestDifferentStartStation {
 	}
 
 	@Test 
-	public void testVirtualNonMeritsBorderStationWIthDifferentStationConversion() {
+	public void testTransitNonMeritsBorderStationConversion() {
 		
 		
 		//validate basics	
@@ -139,11 +135,10 @@ public class VirtualBorderPointTestDifferentStartStation {
 		
 		for (ConnectionPoint p : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
 			
-			if (p.getConnectedStationSets().size() == 2) {
-				assert(p.getLegacyBorderPointCode() == borderPointCode);
-			} else {
-				assert(p.getLegacyBorderPointCode() == 0);
-			}
+			assert(p.getConnectedStationSets().size() == 2);
+			
+			assert(p.getLegacyBorderPointCode() == borderPointCodeA || p.getLegacyBorderPointCode() == borderPointCodeG);
+
 		}
 
 		
@@ -151,9 +146,9 @@ public class VirtualBorderPointTestDifferentStartStation {
 		for (RegionalConstraint r : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
 			if (!TestUtils.isReturnRoute(r)) {
 				
-				assert(r.getExitConnectionPoint().getLegacyBorderPointCode() == 0);
+				assert(r.getExitConnectionPoint().getLegacyBorderPointCode() == borderPointCodeG);
 
-				assert(r.getEntryConnectionPoint().getLegacyBorderPointCode() == borderPointCode);
+				assert(r.getEntryConnectionPoint().getLegacyBorderPointCode() == borderPointCodeA);
 
 				ViaStation route = r.getRegionalValidity().get(0).getViaStation();
 				
@@ -161,9 +156,9 @@ public class VirtualBorderPointTestDifferentStartStation {
 				
 			} else {
 				
-				assert(r.getExitConnectionPoint().getLegacyBorderPointCode() == borderPointCode);
+				assert(r.getExitConnectionPoint().getLegacyBorderPointCode() == borderPointCodeA);
 
-				assert(r.getEntryConnectionPoint().getLegacyBorderPointCode() == 0);
+				assert(r.getEntryConnectionPoint().getLegacyBorderPointCode() == borderPointCodeG);
 
 				ViaStation route = r.getRegionalValidity().get(0).getViaStation();
 				
@@ -195,22 +190,23 @@ public class VirtualBorderPointTestDifferentStartStation {
 		
 		LegacySeries s = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0);
 		
-		assert(s.getFromStation() == legacyBorderStationCode);
-		assert(s.getToStation() == legacyNonBorderStationCode);
-		assert(s.getType().equals(LegacySeriesType.BORDER_DESTINATION));
+		assert(s.getFromStation() == legacyBorderStationCodeA);
+		assert(s.getToStation() == legacyBorderStationCodeG);
+		assert(s.getType().equals(LegacySeriesType.TRANSIT));
 		
-		Legacy108Station borderStation = TestUtils.findLegacyStation(tool,legacyBorderStationCode);
-		Legacy108Station nonBorderStation = TestUtils.findLegacyStation(tool,legacyNonBorderStationCode);
+		Legacy108Station borderStation1 = TestUtils.findLegacyStation(tool,s.getFromStation());
+		Legacy108Station borderStation2 = TestUtils.findLegacyStation(tool,s.getToStation());
 		
-		assert(borderStation != null);	
-		assert(nonBorderStation.getStationCode() == legacyNonBorderStationCode);
-		assert(nonBorderStation.getBorderPointCode() == 0);
-		assert(nonBorderStation.getName().equals("B-Town"));
+		assert(borderStation1 != null);	
+		assert(borderStation1.getStationCode() == legacyBorderStationCodeA);	
+		assert(borderStation1.getBorderPointCode() == borderPointCodeA);
+		assert(borderStation1.getName().equals("A (GR)"));
 		
-		assert(nonBorderStation != null);
-		assert(borderStation.getStationCode() == legacyBorderStationCode);	
-		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("A-Town (GR)"));
+		assert(borderStation2 != null);
+		assert(borderStation2.getStationCode() == legacyBorderStationCodeG);
+		assert(borderStation2.getBorderPointCode() == borderPointCodeG);
+		assert(borderStation2.getName().equals("G (GR)"));
+
 		
 	}
 	

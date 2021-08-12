@@ -21,6 +21,8 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Language;
 import Gtm.Legacy108Station;
+import Gtm.LegacyBorderPoint;
+import Gtm.LegacyBorderSide;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacyConversionType;
 import Gtm.LegacyDistanceFare;
@@ -350,7 +352,7 @@ public class LegacyDataFactory {
 
 	public static void addLegacyStations(GTMTool tool) {
 		addLegacyStation(tool,1,"A-Stadt","A-Stadt","A", 0,100);
-		addLegacyStation(tool,2,"B-Stadt","A-Stadt","B", 0,100);
+		addLegacyStation(tool,2,"B-Stadt","B-Stadt","B", 0,100);
 		addLegacyStation(tool,3,"C-Stadt","C-Stadt","C", 0,0);
 		addLegacyStation(tool,4,"D-Stadt","D-Stadt","D", 0,0);
 		addLegacyStation(tool,5,"E-Stadt","E-Stadt","E", 0,0);
@@ -501,6 +503,7 @@ public class LegacyDataFactory {
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9999","Wonderland Railways", "RAIL-W"));
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9998","RAILWAY TWO", "RAIL-2"));
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9997","RAILWAY THREE", "RAIL-3"));
+		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9996","RAILWAY FOUR", "RAIL-4"));
 		tool.getCodeLists().getCarriers().getCarriers().add(createCarrier("9995","Atlantis Rail", "RAIL-A"));
 			
 		//service brands
@@ -522,7 +525,13 @@ public class LegacyDataFactory {
 		atlantis.setISOcode("AT");
 		atlantis.setName("Atlantis");
 		atlantis.setDefaultCharacterSet(CharacterSet.LATIN1_ISO88591);
-		tool.getCodeLists().getCountries().getCountries().add(atlantis);		
+		tool.getCodeLists().getCountries().getCountries().add(atlantis);
+		Country liliput = GtmFactory.eINSTANCE.createCountry();
+		liliput.setCode(97);
+		liliput.setISOcode("LP");
+		liliput.setName("Liliput");
+		liliput.setDefaultCharacterSet(CharacterSet.LATIN1_ISO88591);
+		tool.getCodeLists().getCountries().getCountries().add(liliput);	
 		
 		//stations
 		tool.getCodeLists().setStations(GtmFactory.eINSTANCE.createStations());
@@ -535,7 +544,8 @@ public class LegacyDataFactory {
 		tool.getCodeLists().getStations().getStations().add(createStation("G","00007", wonderland));		
 		tool.getCodeLists().getStations().getStations().add(createStation("H","00008", wonderland));
 		tool.getCodeLists().getStations().getStations().add(createStation("HM","00900", wonderland));
-		tool.getCodeLists().getStations().getStations().add(createStation("Z","10000", atlantis));		
+		tool.getCodeLists().getStations().getStations().add(createStation("Z","10000", atlantis));	
+		tool.getCodeLists().getStations().getStations().add(createStation("Y","20000", liliput));	
 			
 	}
 
@@ -579,16 +589,10 @@ public class LegacyDataFactory {
 		station.setCode(code);
 		station.setCountry(country);
 		station.setName(name + "-TOWN");
-		station.setNameCaseASCII(name + "-Town");
-		station.setNameCaseASCII(name + "-Town");
-		station.setNameCaseASCII(name + "-Town");
-		station.setNameCaseASCII(name + "-Town");
 		tool.getCodeLists().getStations().getStations().add(station);
 		return station;
 	}
-	
-	
-	
+		
 	public static Legacy108Station addLegacyStation(GTMTool tool, String name,String nameUtf8,String shortName, int code, int borderCode, int setCode) {
 		Legacy108Station s = GtmFactory.eINSTANCE.createLegacy108Station();
 		s.setStationCode(code);
@@ -676,6 +680,26 @@ public class LegacyDataFactory {
 		text.getTranslations().add(tr3);
 		tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts().add(text);
 		return text;
+	}
+
+	public static LegacyBorderPoint addBorderPoint(GTMTool tool, int borderPointCode, String carrierCode1, int counryCode1,int legacyStationCode1, String stationCode1, String carrierCode2, int counryCode2,int legacyStationCode2, String stationCode2) {
+		LegacyBorderPoint border = GtmFactory.eINSTANCE.createLegacyBorderPoint();
+		tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints().add(border);
+		border.setBorderPointCode(borderPointCode);
+		LegacyBorderSide side1 = GtmFactory.eINSTANCE.createLegacyBorderSide();
+		side1.setStations(GtmFactory.eINSTANCE.createStationSet());
+		side1.getStations().getStations().add(TestUtils.findStation(tool, counryCode1,stationCode1)); 
+		side1.setCarrier(TestUtils.findCarrier(tool, carrierCode1)); 
+		side1.setLegacyStationCode(legacyStationCode1);
+		border.getBorderSides().add(side1);
+		LegacyBorderSide side2 = GtmFactory.eINSTANCE.createLegacyBorderSide();
+		side2.setStations(GtmFactory.eINSTANCE.createStationSet());
+		side2.getStations().getStations().add(TestUtils.findStation(tool, counryCode2,stationCode2));
+		side2.setCarrier(TestUtils.findCarrier(tool, carrierCode2));
+		side2.setLegacyStationCode(legacyStationCode2);
+		border.getBorderSides().add(side2);
+		return border;
+		
 	}
 
 }

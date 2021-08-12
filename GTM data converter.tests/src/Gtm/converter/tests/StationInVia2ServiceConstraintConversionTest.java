@@ -22,7 +22,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class Station2ServiceConstraintConversionTest {
+public class StationInVia2ServiceConstraintConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -46,7 +46,7 @@ public class Station2ServiceConstraintConversionTest {
 		tool.getConversionFromLegacy().getParams().setLegacyStationToServiceBrandMappings(GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
 		LegacyStationToServiceConstraintMapping map = GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMapping();
 		tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings().add(map);
-		map.setCode(1);
+		map.setCode(2);
 		map.setDescription("test");
 		
 		tool.getGeneralTariffModel().getFareStructure().setServiceConstraints(GtmFactory.eINSTANCE.createServiceConstraints());
@@ -54,9 +54,12 @@ public class Station2ServiceConstraintConversionTest {
 		tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints().add(sc);
 		map.setServiceConstraint(sc);
 		sc.setDescription(LegacyDataFactory.addText(tool, "by steampunk airship"));
-		sc.setLegacy108Code(1);
+		sc.setLegacy108Code(2);
 		sc.getIncludedServiceBrands().add(tool.getCodeLists().getServiceBrands().getServiceBrands().get(0));
-			
+		
+		
+
+		
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
 		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
@@ -70,7 +73,7 @@ public class Station2ServiceConstraintConversionTest {
 	}
 	
 	@Test 
-	public void testFirstStationToServiceConstraintConversion() {
+	public void testViaStationToServiceConstraintMappintConversion() {
 		
 		
 		//validate basics	
@@ -83,8 +86,7 @@ public class Station2ServiceConstraintConversionTest {
 				== tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size()
 				* 2 //route and return route
 		);
-
-
+		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
 		
@@ -107,12 +109,12 @@ public class Station2ServiceConstraintConversionTest {
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null);
 									
 	    LegacySeries s = TestUtils.getLegacySeries(tool,1);
-		assert(s.getRouteDescription().equals("B*C*D*E*F"));
-		assert(s.getFromStationName().equals("by steampunk airship"));
+		assert(s.getRouteDescription().equals("by steampunk airship*C*D*E*F"));
 				
-		Legacy108Station st = TestUtils.getLegacyStation(tool.getConversionFromLegacy().getLegacy108().getLegacyStations(), 1);
+		Legacy108Station st = TestUtils.getLegacyStation(tool.getConversionFromLegacy().getLegacy108().getLegacyStations(), 2);
 		assert(st.getName().equals("by steampunk airship"));
 	}
 	
 
 }
+

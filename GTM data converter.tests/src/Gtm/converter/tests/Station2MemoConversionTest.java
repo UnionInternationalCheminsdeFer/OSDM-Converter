@@ -1,5 +1,7 @@
 package Gtm.converter.tests;
 
+import java.util.HashSet;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -9,10 +11,11 @@ import org.mockito.MockitoAnnotations;
 
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
+import Gtm.Legacy108Memo;
 import Gtm.Legacy108Station;
+import Gtm.LegacyFareDetailMap;
 import Gtm.LegacySeries;
-import Gtm.LegacyStationToServiceConstraintMapping;
-import Gtm.ServiceConstraint;
+import Gtm.StationFareDetailType;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
@@ -43,21 +46,12 @@ public class Station2MemoConversionTest {
 				
 		tool = LegacyDataFactory.createBasicData();
 		
-		tool.getConversionFromLegacy().getParams().setLegacyStationToServiceBrandMappings(GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
-		LegacyStationToServiceConstraintMapping map = GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMapping();
-		tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings().add(map);
-		map.setCode(2);
-		map.setDescription("test");
-		
-		tool.getGeneralTariffModel().getFareStructure().setServiceConstraints(GtmFactory.eINSTANCE.createServiceConstraints());
-		ServiceConstraint sc = GtmFactory.eINSTANCE.createServiceConstraint();
-		tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints().add(sc);
-		map.setServiceConstraint(sc);
-		sc.setDescription(LegacyDataFactory.addText(tool, "by steampunk airship"));
-		sc.setLegacy108Code(2);
-		sc.getIncludedServiceBrands().add(tool.getCodeLists().getServiceBrands().getServiceBrands().get(0));
-		
-		
+		tool.getConversionFromLegacy().getParams().setLegacyStationToFareDetailMappings(GtmFactory.eINSTANCE.createLegacyFareDetailMaps());
+		LegacyFareDetailMap map = GtmFactory.eINSTANCE.createLegacyFareDetailMap();
+		tool.getConversionFromLegacy().getParams().getLegacyStationToFareDetailMappings().getLegacyFareDetailMaps().add(map);
+		map.setFareDetailDescription(LegacyDataFactory.addText(tool, "Diabolo") );
+		map.setLegacyCode(1);
+		map.setFareDetailMappingType(StationFareDetailType.ON_ARRIVAL_ON_DEPARTURE);
 
 		
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
@@ -73,7 +67,7 @@ public class Station2MemoConversionTest {
 	}
 	
 	@Test 
-	public void testStationToServiceConstraintMappintConversion() {
+	public void testMemoConversion() {
 		
 		
 		//validate basics	
@@ -87,6 +81,25 @@ public class Station2MemoConversionTest {
 				* 2 //route and return route
 		);
 
+		// number of fares = number of series * 2 * number of templates
+		assert(tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements().size() 
+				==
+			   tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size()
+			   * 2 // route and return route
+			   * tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().size()
+		);
+		
+		// number of prices
+		assert(tool.getGeneralTariffModel().getFareStructure().getPrices().getPrices().size() == 2);
+		
+		// number of fare station sets
+		HashSet<Integer> fareStations = new HashSet<Integer>();
+		for (Legacy108Station s : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations())	{
+			if (s.getFareReferenceStationCode() > 0) {
+				fareStations.add(s.getFareReferenceStationCode());
+			}
+		}
+		assert(tool.getGeneralTariffModel().getFareStructure().getFareStationSetDefinitions().getFareStationSetDefinitions().size() == fareStations.size());
 
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
@@ -105,16 +118,27 @@ public class Station2MemoConversionTest {
 		
 		assert(TestUtils.getLegacyStation(tool.getConversionFromLegacy().getLegacy108().getLegacyStations(), 1) != null);
 				
+		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList() != null);
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null);
-									
-	    LegacySeries s = TestUtils.getLegacySeries(tool,1);
-		assert(s.getRouteDescription().equals("by steampunk airship*C*D*E*F"));
+					
+			
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyMemos().getLegacyMemos().size() == 1);
+		
+		Legacy108Memo memo = tool.getConversionFromLegacy().getLegacy108().getLegacyMemos().getLegacyMemos().get(0);
+		
+		assert(memo.getLocal().equals("Diabolo"));
+		assert(memo.getEnglish().equals("Diaboloen"));
+		assert(memo.getFrench().equals("Diabolofr"));
+		assert(memo.getGerman().equals("Diabolode"));
 				
-		Legacy108Station st = TestUtils.getLegacyStation(tool.getConversionFromLegacy().getLegacy108().getLegacyStations(), 2);
-		assert(st.getName().equals("by steampunk airship"));
+	    LegacySeries s = TestUtils.getLegacySeries(tool,1);
+		assert(s.getMemoNumber() == memo.getNumber());
+		
 	}
+
+	
 	
 
 }

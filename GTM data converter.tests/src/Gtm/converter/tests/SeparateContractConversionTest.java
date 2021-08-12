@@ -116,8 +116,9 @@ public class SeparateContractConversionTest {
 		LegacySeparateContractSeries scs = tool.getConversionFromLegacy().getLegacy108().getLegacySeparateContractSeries().getSeparateContractSeries().get(0);
 		
 		assert(scs.getSeriesNumber() == 1);
-		assert(scs.getValidFrom().equals(TestUtils.getFromDate()));
-		assert(scs.getValidUntil().equals(TestUtils.getUntilDate()));
+		
+		assert(TestUtils.checkDateOnlyEqual(scs.getValidFrom(),TestUtils.getFromDate()));
+		assert(TestUtils.checkDateOnlyEqual(scs.getValidUntil(),TestUtils.getUntilDate()));
 
 
 		

@@ -397,7 +397,11 @@ public class StationItemProvider
 		StringBuilder sb = new StringBuilder();
 		sb.append("Station: ");
 		if (station.getNameCaseUTF8() != null) {
-			sb.append(station.getNameCaseUTF8()).append(" - ").append(station.getCountry().getCode()).append(" ").append(station.getCode());
+			sb.append(station.getNameCaseUTF8()).append(" - ");
+		if (station.getCountry() != null) {
+			sb.append(station.getCountry().getCode());
+		}
+		sb.append(" ").append(station.getCode());
 		} else {
 			sb.append(station.getName());
 			if (station.getCountry() != null) {

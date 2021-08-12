@@ -22,7 +22,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class Station2ServiceConstraintConversionTest {
+public class LastStation2ServiceConstraintConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -46,7 +46,7 @@ public class Station2ServiceConstraintConversionTest {
 		tool.getConversionFromLegacy().getParams().setLegacyStationToServiceBrandMappings(GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
 		LegacyStationToServiceConstraintMapping map = GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMapping();
 		tool.getConversionFromLegacy().getParams().getLegacyStationToServiceBrandMappings().getLegacyStationToServiceBrandMappings().add(map);
-		map.setCode(1);
+		map.setCode(7);
 		map.setDescription("test");
 		
 		tool.getGeneralTariffModel().getFareStructure().setServiceConstraints(GtmFactory.eINSTANCE.createServiceConstraints());
@@ -54,7 +54,7 @@ public class Station2ServiceConstraintConversionTest {
 		tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints().add(sc);
 		map.setServiceConstraint(sc);
 		sc.setDescription(LegacyDataFactory.addText(tool, "by steampunk airship"));
-		sc.setLegacy108Code(1);
+		sc.setLegacy108Code(7);
 		sc.getIncludedServiceBrands().add(tool.getCodeLists().getServiceBrands().getServiceBrands().get(0));
 			
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
@@ -108,9 +108,9 @@ public class Station2ServiceConstraintConversionTest {
 									
 	    LegacySeries s = TestUtils.getLegacySeries(tool,1);
 		assert(s.getRouteDescription().equals("B*C*D*E*F"));
-		assert(s.getFromStationName().equals("by steampunk airship"));
+		assert(s.getToStationName().equals("by steampunk airship"));
 				
-		Legacy108Station st = TestUtils.getLegacyStation(tool.getConversionFromLegacy().getLegacy108().getLegacyStations(), 1);
+		Legacy108Station st = TestUtils.getLegacyStation(tool.getConversionFromLegacy().getLegacy108().getLegacyStations(), 7);
 		assert(st.getName().equals("by steampunk airship"));
 	}
 	
