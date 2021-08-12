@@ -352,7 +352,7 @@ public class LegacyDataFactory {
 
 	public static void addLegacyStations(GTMTool tool) {
 		addLegacyStation(tool,1,"A-Stadt","A-Stadt","A", 0,100);
-		addLegacyStation(tool,2,"B-Stadt","A-Stadt","B", 0,100);
+		addLegacyStation(tool,2,"B-Stadt","B-Stadt","B", 0,100);
 		addLegacyStation(tool,3,"C-Stadt","C-Stadt","C", 0,0);
 		addLegacyStation(tool,4,"D-Stadt","D-Stadt","D", 0,0);
 		addLegacyStation(tool,5,"E-Stadt","E-Stadt","E", 0,0);

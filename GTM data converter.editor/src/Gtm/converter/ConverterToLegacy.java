@@ -1839,6 +1839,15 @@ public class 	ConverterToLegacy {
 				GtmUtils.writeConsoleError(message, editor);
 			}
 		}
+		
+		if (ls == null) {
+			//check for service constraint
+			if (via.getServiceConstraint() != null && via.getServiceConstraint().getLegacy108Code() > 0) {	
+				ls = legacyStations.get(via.getServiceConstraint().getLegacy108Code());
+			};
+		}
+		
+		
 		return ls;
 		
 	}
@@ -1977,7 +1986,7 @@ public class 	ConverterToLegacy {
 				return false;
 			}
 		}
-		if (regionalValidity.getViaStation() == null) {
+		if (regionalValidity.getViaStation() != null) {
 			if (!isConvertable(regionalValidity.getViaStation())) {
 				return false;
 			}
@@ -2027,7 +2036,7 @@ public class 	ConverterToLegacy {
 			GtmUtils.writeConsoleError(message, editor);
 			return false;
 		}
-		if (serviceConstraint.getIncludedServiceBrands() != null || serviceConstraint.getIncludedServiceBrands().isEmpty()) {
+		if (serviceConstraint.getIncludedServiceBrands() == null || serviceConstraint.getIncludedServiceBrands().isEmpty()) {
 			String message = "ServiceConstraint without included Service Brands is not convertable! ";
 			GtmUtils.writeConsoleError(message, editor);
 			return false;
@@ -2101,8 +2110,12 @@ public class 	ConverterToLegacy {
 		try {
 			if (first.getStation()!= null){
 				startName = first.getStation().getNameCaseASCII();
-			} else { 
+			} else if (first.getFareStationSet()!= null) { 
 				startName = first.getFareStationSet().getName();
+			} else if (first.getServiceConstraint()!= null 
+					&& first.getServiceConstraint().getDescription() != null 
+					&& first.getServiceConstraint().getDescription().getTextICAO() != null) { 
+				startName = first.getServiceConstraint().getDescription().getTextICAO();
 			}
 		} catch (Exception e) {
 			return true;
@@ -2111,8 +2124,12 @@ public class 	ConverterToLegacy {
 		try {
 			if (last.getStation()!= null){
 				endName = last.getStation().getNameCaseASCII();
-			} else { 
+			} else if (last.getFareStationSet()!= null) { 
 				endName = last.getFareStationSet().getName();
+			} else if (last.getServiceConstraint()!= null 
+					&& last.getServiceConstraint().getDescription() != null 
+					&& last.getServiceConstraint().getDescription().getTextICAO() != null) { 
+				endName = last.getServiceConstraint().getDescription().getTextICAO();
 			}
 		} catch (Exception e) {
 			return true;

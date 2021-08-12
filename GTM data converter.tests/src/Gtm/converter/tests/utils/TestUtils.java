@@ -5,6 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import Gtm.AfterSalesTemplate;
 import Gtm.Carrier;
 import Gtm.Country;
 import Gtm.FareConstraintBundle;
@@ -220,6 +223,11 @@ public class TestUtils {
 	public static FareTemplate clone(FareTemplate f) {
 		
 		FareTemplate t = GtmFactory.eINSTANCE.createFareTemplate();
+		if (!f.getAfterSalesTemplate().isEmpty()) {
+			for (AfterSalesTemplate at: f.getAfterSalesTemplate()) {
+				t.getAfterSalesTemplate().add(EcoreUtil.copy(at));
+			}
+		}
 		t.setBasePriceClass(f.getBasePriceClass());
 		t.setCarrierConstraint(f.getCarrierConstraint());
 		t.setDataDescription(f.getDataDescription());
@@ -260,6 +268,15 @@ public class TestUtils {
 			if (ls.getNumber() == code) return ls;
 		}
 		return null;
+	}
+	
+	public static boolean checkDateOnlyEqual(Date date1, Date date2) {
+		
+		String d1 = dateFormat.format(date1);
+		String d2 = dateFormat.format(date2);
+		
+		return d1.equals(d2);
+
 	}
 	
 }

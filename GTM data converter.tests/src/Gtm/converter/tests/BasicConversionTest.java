@@ -1,6 +1,9 @@
 package Gtm.converter.tests;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
+import java.util.TimeZone;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import Gtm.Calendar;
 import Gtm.FareElement;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
@@ -29,6 +33,7 @@ import Gtm.utils.GtmUtils;
                      
 public class BasicConversionTest {
 	
+	private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd:HHmm"); //$NON-NLS-1$
 	
 	GTMTool tool = null;
 	
@@ -68,6 +73,17 @@ public class BasicConversionTest {
 		
 		//one calendar
 		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 1);
+		
+		Calendar cal = tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().get(0);
+		
+		TimeZone local = TimeZone.getDefault();
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		String fromDate = dateFormat.format(cal.getFromDateTime());
+		String untilDate = dateFormat.format(cal.getUntilDateTime()); 
+		assert("20190101:0000".equals(fromDate));
+		assert("20990101:2359".equals(untilDate));
+		TimeZone.setDefault(local);
+		
 		
 		//one regional constraint per series * 2
 		assert(tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints().size()
@@ -205,8 +221,8 @@ public class BasicConversionTest {
 				assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
 				assert(s.getRouteNumber() == 1);
 				assert(s.getSupplyingCarrierCode().equals("9999"));
-				assert(s.getValidFrom().equals(TestUtils.getFromDate()));
-				assert(s.getValidUntil().equals(TestUtils.getUntilDate()));	
+				assert(TestUtils.checkDateOnlyEqual(s.getValidFrom(), TestUtils.getFromDate()));
+				assert(TestUtils.checkDateOnlyEqual(s.getValidUntil(), TestUtils.getUntilDate()));
 				assert(s.getType().equals(LegacySeriesType.STATION_STATION));
 				assert(!routeNumbers.contains(s.getRouteNumber()));
 				routeNumbers.add(s.getRouteNumber());
