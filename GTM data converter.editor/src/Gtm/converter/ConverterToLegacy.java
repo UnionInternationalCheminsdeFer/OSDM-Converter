@@ -939,6 +939,9 @@ public class 	ConverterToLegacy {
 						legacyBorderStations.put(ls.getBorderPointCode(), ls);
 					}
 				} else {			
+					
+					addBorderPointMaping(station);
+					
 					addMappedLegacyStation(station);
 				}
 			} catch (Exception e) {
@@ -965,10 +968,7 @@ public class 	ConverterToLegacy {
 			
 			boolean isSelfContained = false;
 			
-			Legacy108Station lsSet = legacyStations.get(Integer.parseInt(set.getCode()));
-			
-			
-			
+			Legacy108Station lsSet = legacyStations.get(Integer.parseInt(set.getCode()));	
 			
 			for (Station s : set.getStations()) {
 				
@@ -1027,6 +1027,38 @@ public class 	ConverterToLegacy {
 	
 	
 	
+	private void addBorderPointMaping(Station station) {
+		
+		//add a foreign station via the border point list
+		
+		for (LegacyBorderPoint lbp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints() ) {
+	
+			LegacyBorderSide lbs = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(), lbp);
+					
+			if (lbp.getOnBorderStations() != null
+				&& lbp.getOnBorderStations().getStations() != null
+				&& lbp.getOnBorderStations().getStations().getStations().contains(station)) {
+						
+					Legacy108Station ls = convertStation(station);
+					ls.setBorderPointCode(lbp.getBorderPointCode());
+					ls.setStationCode(lbs.getLegacyStationCode());
+					legacyStations.put(lbs.getLegacyStationCode(), ls);
+					legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+					
+			} else if (lbs.getStations() != null
+					&& lbs.getStations().getStations().contains(station)){
+							
+					Legacy108Station ls = convertStation(station);
+					ls.setBorderPointCode(lbp.getBorderPointCode());
+					ls.setStationCode(lbs.getLegacyStationCode());
+					legacyStations.put(lbs.getLegacyStationCode(), ls);
+					legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+			}
+
+		}
+
+	}
+
 	private void convertStationsFromBorderPoint(LegacyBorderPoint lbp) {
 
 		try {
@@ -1100,8 +1132,10 @@ public class 	ConverterToLegacy {
 			   			   ls.setShortNameUtf8(sbNameUtf8.toString());
 					}
 					legacyStations.put(localCode, ls);
-					
 					StringBuilder sb = new StringBuilder();
+					if (ls.getName() == null) {
+						sb.append("failed");
+					}
 					sb.append( "Station names for virtual border station restored -");
 					sb.append(" code: ").append(ls.getStationCode());
 					sb.append(" name: ").append(ls.getName());
@@ -1125,6 +1159,7 @@ public class 	ConverterToLegacy {
 			 tool.getConversionFromLegacy().getParams().getLegacyStationMappings() == null ||
 		     tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings() == null) {
 		}
+		  
 		 //check for mapping
 		for (LegacyStationMap map :  tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
 			if (map.getStation().getCode().equals(station.getCode())) {
@@ -1404,6 +1439,17 @@ public class 	ConverterToLegacy {
 				GtmUtils.writeConsoleError(message, editor);
 				return null;
 			}
+			if (ls.getName() == null) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Station Name missing for: ");
+				sb.append(ls.getStationCode());
+				if (ls.getBorderPointCode() > 0) {
+					sb.append(" border point: ");
+					sb.append(ls.getBorderPointCode());
+				}
+				GtmUtils.writeConsoleError(sb.toString(), editor);	
+				return null;
+			}
 			series.setFromStation(ls.getStationCode());
 			series.setFromStationName(ls.getName());	
 		}
@@ -1444,6 +1490,17 @@ public class 	ConverterToLegacy {
 				return null;
 			}
 			series.setToStation(ls.getStationCode());
+			if (ls.getName() == null) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Station Name missing for: ");
+				sb.append(ls.getStationCode());
+				if (ls.getBorderPointCode() > 0) {
+					sb.append(" border point: ");
+					sb.append(ls.getBorderPointCode());
+				}
+				GtmUtils.writeConsoleError(sb.toString(), editor);	
+				return null;
+			}
 			series.setToStationName(ls.getName());	
 		}
 		

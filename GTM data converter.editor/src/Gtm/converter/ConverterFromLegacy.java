@@ -2598,6 +2598,9 @@ public class ConverterFromLegacy {
 				if (connectionPoint != null) {
 					borderConnectionPoints.put(lp.getBorderPointCode(), connectionPoint);
 				}
+				
+				
+				
 			
 			} catch (Exception e) {
 				StringBuilder sb = new StringBuilder();
@@ -2691,7 +2694,8 @@ public class ConverterFromLegacy {
 			}
 		}
 		
-		
+		HashSet<Station> stationNamesNeeded = new HashSet<Station>();
+				
 		if (lBorder.getOnBorderStations()!= null && lBorder.getOnBorderStations().getStations() != null && !lBorder.getOnBorderStations().getStations().getStations().isEmpty()) {
 			
 			ConnectionPoint point = GtmFactory.eINSTANCE.createConnectionPoint();
@@ -2700,6 +2704,8 @@ public class ConverterFromLegacy {
 			StationSet stations = EcoreUtil.copy(lBorder.getOnBorderStations().getStations());
 			stations.getStations().addAll(lBorder.getOnBorderStations().getStations().getStations());
 			point.getConnectedStationSets().add(stations);
+			stationNamesNeeded.addAll(stations.getStations());
+			
 			return point;
 		}
 		if (lBorder.getBorderSides()!= null && lBorder.getBorderSides().size() > 1) {
@@ -2711,11 +2717,17 @@ public class ConverterFromLegacy {
 				if (side.getStations() != null && !side.getStations().getStations().isEmpty()) {
 					stations.getStations().addAll(side.getStations().getStations());
 				}
+				if (involvedCarriers.contains(side.getCarrier())) {
+					stationNamesNeeded.addAll(stations.getStations());
+				}
 				point.getConnectedStationSets().add(stations);
 			}
 			return point;			
 		}
+		
+		
 		return null;
+		
 		
 	}
 
@@ -3046,6 +3058,41 @@ public class ConverterFromLegacy {
 				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
 		}
+		
+		HashSet<Carrier> involvedCarriers = getInvolvedCarriers(tool);   	
+		
+		for (LegacyBorderPoint lBorder : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
+			   	
+			for (LegacyBorderSide side: lBorder.getBorderSides()) {
+				if (involvedCarriers.contains(side.getCarrier())) {
+					
+					if (lBorder.getOnBorderStations() != null 
+						&& 	lBorder.getOnBorderStations().getStations() != null
+						&&	!lBorder.getOnBorderStations().getStations().getStations().isEmpty()) {
+						
+						for (Station s : lBorder.getOnBorderStations().getStations().getStations()) {
+							if (!stationNames.getStationName().contains(s) ) {
+								stationNames.getStationName().add(s);
+								if (s.getNameCaseASCII() == null || s.getNameCaseASCII().length() == 0){
+									mergeStationNames(legacyStations.get(side.getLegacyStationCode()), s);
+								}
+							}
+						}
+					} else if (side.getStations() != null && !side.getStations().getStations().isEmpty() ) {
+						for (Station s : side.getStations().getStations()) {
+							if (!stationNames.getStationName().contains(s) ) {
+								stationNames.getStationName().add(s);
+								if (s.getNameCaseASCII() == null || s.getNameCaseASCII().length() == 0){
+									mergeStationNames(legacyStations.get(side.getLegacyStationCode()), s);
+								}
+							}
+						}
+						
+					}
+				}
+			}
+		}
+		
 		
 		return stationNames;
 

@@ -12,8 +12,16 @@ public class SeriesComparator implements Comparator<LegacySeries> {
 		if (i != 0) return i;
 				
 		i = o1.getFromStationName().compareTo(o2.getFromStationName());
+		if (o1.getFromStationName() == null || o2.getFromStationName() == null) {
+			return 1;
+		}
+
 		
 		if (i != 0) return i;
+		
+		if (o1.getToStationName() == null || o2.getToStationName() == null) {
+			return 1;
+		}
 		
 		i = o1.getToStationName().compareTo(o2.getToStationName());
 		
