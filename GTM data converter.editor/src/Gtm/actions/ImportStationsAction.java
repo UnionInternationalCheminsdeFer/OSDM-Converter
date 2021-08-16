@@ -264,10 +264,10 @@ public class ImportStationsAction extends BasicGtmAction {
 					 if (section.length > 4) {
 				 
 						 // Format = ddmmssx   dd = degrees   mm = minutes   ss = seconds   x = N (North) or S (South) 
-						 longitude = decodeMeritsGeoString(section[3]);
+						 latitude = decodeMeritsGeoString(section[3]);
 				 
 						 //Format = ddmmssx   dd = degrees   mm = minutes   ss = seconds   x = E (East) or W (West) 
-						 latitude = decodeMeritsGeoString(section[4]);
+						 longitude = decodeMeritsGeoString(section[4]);
 					 
 					 }
 				 } catch(Exception e ) {

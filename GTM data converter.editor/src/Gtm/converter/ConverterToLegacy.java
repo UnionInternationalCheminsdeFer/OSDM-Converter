@@ -414,6 +414,8 @@ public class 	ConverterToLegacy {
 
 		addCarrier(carrier); 
 		tool.getConversionFromLegacy().getLegacy108().setCarrier(carrier);
+		
+
 		convertStations();
 		convertfareStations();
 		convertServiceConstraintStations();	
