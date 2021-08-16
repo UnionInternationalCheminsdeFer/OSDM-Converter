@@ -41,6 +41,23 @@ public class TestUtils {
 		tool.getConversionFromLegacy().getLegacy108().setLegacySeparateContractSeries(GtmFactory.eINSTANCE.createLegacySeparateContractSeriesList());
 		tool.getConversionFromLegacy().getLegacy108().setLegacyStations(GtmFactory.eINSTANCE.createLegacy108Stations());
 
+		
+		for (Station s : tool.getCodeLists().getStations().getStations()) {
+			//names are transfered via the staion names list only
+			if (!tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName().contains(s)) {
+				s.setLegacyBorderPointCode(0);
+				s.setNameCaseASCII(null);
+				s.setNameCaseUTF8(null);
+				s.setShortNameCaseASCII(null);
+				s.setShortNameCaseUTF8(null);				
+			}
+		}
+		
+		tool.getConversionFromLegacy().getParams().setLegacyStationMappings(GtmFactory.eINSTANCE.createLegacyStationMappings());
+		tool.getConversionFromLegacy().getParams().setLegacyStationToFareDetailMappings(GtmFactory.eINSTANCE.createLegacyFareDetailMaps());
+		tool.getConversionFromLegacy().getParams().setLegacyStationToServiceBrandMappings(GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
+		tool.getConversionFromLegacy().getParams().setVatTemplates(GtmFactory.eINSTANCE.createVatTemplates());
+		
 	}
 
 	public static Station findStation(GTMTool tool, int country , String code) {
