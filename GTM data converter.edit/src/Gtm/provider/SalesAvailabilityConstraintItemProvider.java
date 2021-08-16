@@ -195,14 +195,14 @@ public class SalesAvailabilityConstraintItemProvider
 			if (   a.getRestrictions() != null
 				&& !a.getRestrictions().isEmpty()	
 				&& a.getRestrictions().get(0).getSalesDates() != null
-				&& a.getRestrictions().get(0).getSalesDates().getFromDate() != null) {
-				sb.append(a.getRestrictions().get(0).getSalesDates().getFromDate());
+				&& a.getRestrictions().get(0).getSalesDates().getFromDateTime() != null) {
+				sb.append(a.getRestrictions().get(0).getSalesDates().getFromDateTime());
 			}
 			if (   a.getRestrictions() != null
 				&& !a.getRestrictions().isEmpty()
 				&& a.getRestrictions().get(0).getSalesDates() != null
-				&& a.getRestrictions().get(0).getSalesDates().getUntilDate() != null) {
-				sb.append("-").append(a.getRestrictions().get(0).getSalesDates().getUntilDate());
+				&& a.getRestrictions().get(0).getSalesDates().getUntilDateTime() != null) {
+				sb.append("-").append(a.getRestrictions().get(0).getSalesDates().getUntilDateTime());
 			}			
 		}
 		

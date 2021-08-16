@@ -1036,25 +1036,28 @@ public class 	ConverterToLegacy {
 		for (LegacyBorderPoint lbp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints() ) {
 	
 			LegacyBorderSide lbs = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(), lbp);
-					
-			if (lbp.getOnBorderStations() != null
-				&& lbp.getOnBorderStations().getStations() != null
-				&& lbp.getOnBorderStations().getStations().getStations().contains(station)) {
-						
-					Legacy108Station ls = convertStation(station);
-					ls.setBorderPointCode(lbp.getBorderPointCode());
-					ls.setStationCode(lbs.getLegacyStationCode());
-					legacyStations.put(lbs.getLegacyStationCode(), ls);
-					legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
-					
-			} else if (lbs.getStations() != null
-					&& lbs.getStations().getStations().contains(station)){
+				
+			if (lbs != null) {
+
+				if (lbp.getOnBorderStations() != null
+					&& lbp.getOnBorderStations().getStations() != null
+					&& lbp.getOnBorderStations().getStations().getStations().contains(station)) {
 							
-					Legacy108Station ls = convertStation(station);
-					ls.setBorderPointCode(lbp.getBorderPointCode());
-					ls.setStationCode(lbs.getLegacyStationCode());
-					legacyStations.put(lbs.getLegacyStationCode(), ls);
-					legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+						Legacy108Station ls = convertStation(station);
+						ls.setBorderPointCode(lbp.getBorderPointCode());
+						ls.setStationCode(lbs.getLegacyStationCode());
+						legacyStations.put(lbs.getLegacyStationCode(), ls);
+						legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+						
+				} else if (lbs.getStations() != null
+						&& lbs.getStations().getStations().contains(station)){
+								
+						Legacy108Station ls = convertStation(station);
+						ls.setBorderPointCode(lbp.getBorderPointCode());
+						ls.setStationCode(lbs.getLegacyStationCode());
+						legacyStations.put(lbs.getLegacyStationCode(), ls);
+						legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+				}
 			}
 
 		}

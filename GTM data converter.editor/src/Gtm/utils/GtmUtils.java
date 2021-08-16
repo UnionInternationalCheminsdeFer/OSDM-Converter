@@ -10,6 +10,8 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.text.StringCharacterIterator;
 import java.util.Collection;
 import java.util.Date;
@@ -109,6 +111,8 @@ public class GtmUtils {
 	
 	/** The one hundred. */
 	private static 	BigDecimal oneHundred = new BigDecimal("100.0");
+	
+	private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
 	
 	
 	/**
@@ -1971,6 +1975,16 @@ public class GtmUtils {
 
 		return cal.getTime();
 	}
+	
+	public static boolean checkDateOnlyEqual(Date date1, Date date2) {
+		
+		String d1 = dateFormat.format(date1);
+		String d2 = dateFormat.format(date2);
+		
+		return d1.equals(d2);
+
+	}
+
 }
 
 
