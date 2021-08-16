@@ -18,7 +18,6 @@ import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
@@ -38,7 +37,6 @@ import Gtm.CurrencyPrice;
 import Gtm.DataSource;
 import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
-import Gtm.FareElements;
 import Gtm.FareStationSetDefinition;
 import Gtm.FareStationSetDefinitions;
 import Gtm.FareTemplate;
@@ -64,9 +62,7 @@ import Gtm.LegacyStationMap;
 import Gtm.LegacyStationToServiceConstraintMapping;
 import Gtm.LegacyViastation;
 import Gtm.Price;
-import Gtm.Prices;
 import Gtm.RegionalConstraint;
-import Gtm.RegionalConstraints;
 import Gtm.RegionalValidity;
 import Gtm.RoundingType;
 import Gtm.SalesAvailabilityConstraint;
@@ -2272,8 +2268,11 @@ public class ConverterFromLegacy {
 					sa.getRestrictions().get(0).getSalesDates().getFromDateTime() != null &&
 					sa.getRestrictions().get(0).getSalesDates().getUntilDateTime() != null) {
 					
-					if (   sa.getRestrictions().get(0).getSalesDates().getFromDateTime().equals(dateRange.startDate) 
-						&& sa.getRestrictions().get(0).getSalesDates().getUntilDateTime().equals(dateRange.endDate) ) {
+					Calendar ca = sa.getRestrictions().get(0).getSalesDates();
+					
+					if (GtmUtils.checkDateOnlyEqual(ca.getFromDateTime(), dateRange.startDate)
+						&&
+						GtmUtils.checkDateOnlyEqual(ca.getUntilDateTime(), dateRange.endDate)){
 						return bu;
 					}
 				}
