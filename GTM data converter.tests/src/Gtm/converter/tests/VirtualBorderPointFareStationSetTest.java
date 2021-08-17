@@ -253,10 +253,10 @@ public class VirtualBorderPointFareStationSetTest {
 		assert(nonBorderStation != null);
 		assert(borderStation.getStationCode() == legacyBorderStationCode);	
 		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("A (GR)"));
+		assert(borderStation.getName().equals("A"));
 		
 
-		assert(s.getFromStationName().equals("A (GR)"));
+		assert(s.getFromStationName().equals("A"));
 		assert(s.getRouteDescription().equals("D*E*F"));
 		assert(s.getToStationName().equals("G-Town"));
 		assert(s.getDistance1() == 10);

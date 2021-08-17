@@ -56,18 +56,11 @@ public class StationSetBorderPointTest {
 		tool.getConversionFromLegacy().getLegacy108().setLegacyStations(GtmFactory.eINSTANCE.createLegacy108Stations());;
 
 		tool.getConversionFromLegacy().getLegacy108().setLegacyStations(GtmFactory.eINSTANCE.createLegacy108Stations());	
-		Legacy108Station ls1 = GtmFactory.eINSTANCE.createLegacy108Station();
-		ls1 = LegacyDataFactory.createStation("A-Town","A-Town","A",legacyNonBorderStationCode,0,0);
-		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls1);
+		LegacyDataFactory.addLegacyStation(tool,"A-Town","A-Town","A",legacyNonBorderStationCode,0,0);
 		
 		//legacy stations incl. station set on the border 
-		Legacy108Station ls2 = GtmFactory.eINSTANCE.createLegacy108Station();
-		ls2 = LegacyDataFactory.createStation("H-Town (GR)","H-area","H-A",legacyBorderStationCode,borderPointCode,legacyStationSetCode);
-		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls2);
-		Legacy108Station ls4 = GtmFactory.eINSTANCE.createLegacy108Station();
-		ls4 = LegacyDataFactory.createStation("H-Main","H-Main","H-M",8,0,legacyStationSetCode);
-		tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().add(ls4);
-		
+		LegacyDataFactory.addLegacyStation(tool,"H-Area (GR)","H-Town","H-area",legacyStationSetCode,borderPointCode,legacyStationSetCode);
+		LegacyDataFactory.addLegacyStation(tool,"H-Main","H-Main","H-M",8,0,legacyStationSetCode);
 		
 		//set border point
 		tool.getConversionFromLegacy().getLegacy108().setLegacyBorderPoints(GtmFactory.eINSTANCE.createLegacyBorderPoints());
@@ -265,8 +258,8 @@ public class StationSetBorderPointTest {
 		assert(s1.getFareReferenceStationCode() == legacyStationSetCode);
 		assert(s1.getBorderPointCode() == borderPointCode);
 		assert(s1.getName().equals("H-area"));
-		assert(s1.getNameUTF8().equals("H-area"));
-		assert(s1.getShortName().equals("H-A"));		
+		assert(s1.getNameUTF8().equals("H-Town"));
+		assert(s1.getShortName().equals("H-area"));		
 		
 		s1 = TestUtils.findLegacyStation(tool, 8);
 		assert(s1.getFareReferenceStationCode() == legacyStationSetCode);

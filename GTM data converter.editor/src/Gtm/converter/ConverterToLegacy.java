@@ -830,11 +830,10 @@ public class 	ConverterToLegacy {
 					ls = GtmFactory.eINSTANCE.createLegacy108Station();
 					ls.setStationCode(code);
 					ls.setName(fs.getName());
+					ls.setShortName(fs.getName());
 					ls.setNameUTF8(fs.getNameUtf8());
 				} else {
-					if (ls.getName() == null || ls.getName().length() == 0) {
-						ls.setName(fs.getName());
-					}
+					ls.setName(fs.getName());
 					ls.setShortName(fs.getName());
 				}
 				if (fs.getLegacyCode() != 0) {
@@ -1127,7 +1126,11 @@ public class 	ConverterToLegacy {
 			   				  sbNameUtf8.append(s.getShortNameCaseUTF8()).append(borderIndication);	   
 			   			   } else if (s.getNameCaseUTF8() != null && s.getNameCaseUTF8().length() > 0) {
 			   				  sbNameUtf8.append(s.getNameCaseUTF8()).append(borderIndication);
-			   			   } else {
+			   			   } else if (s.getShortNameCaseASCII() != null && s.getShortNameCaseASCII().length() > 0) {
+				   			  sbNameUtf8.append(s.getShortNameCaseASCII()).append(borderIndication);
+				   		   } else if (s.getNameCaseASCII() != null && s.getNameCaseASCII().length() > 0) {
+				   			  sbNameUtf8.append(s.getNameCaseASCII()).append(borderIndication);
+				   		   } else {
 			   				  sbNameUtf8.append(s.getTimetableName()).append(borderIndication); 
 			   			   }
 

@@ -295,6 +295,7 @@ public class ConverterFromLegacy {
 		}
 		monitor.worked(1);
 		
+		monitor.subTask(NationalLanguageSupport.ConverterFromLegacy_3);
 		int faresConverted = convertSeries(monitor, priceValidityRanges, regions,priceList, fares, afterSalesRules);
 		CompoundCommand com = new CompoundCommand();	
 		for (Entry<FareConstraintBundle, HashSet<FareConstraintBundle>> bundleEntry :convertedBundles.entrySet()) {
