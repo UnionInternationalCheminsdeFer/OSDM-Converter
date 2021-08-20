@@ -7071,6 +7071,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(passengerConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePassengerConstraint_TRAVELLER_TYPE_MUST(passengerConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePassengerConstraint_NAME_MUST(passengerConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validatePassengerConstraint_NOT_REFERENCED(passengerConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -7210,7 +7211,6 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(passengerCombinationConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePassengerCombinationConstraint_NUMBER_AT_LEAST_ONE(passengerCombinationConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validatePassengerCombinationConstraint_TRAVELLER_TYPE_MUST(passengerCombinationConstraint, diagnostics, context);
-		if (result || diagnostics != null) result &= validatePassengerCombinationConstraint_NOT_REFERENCED(passengerCombinationConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -7270,19 +7270,19 @@ public class GtmValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public boolean validatePassengerCombinationConstraint_NOT_REFERENCED(PassengerCombinationConstraint passengerCombinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		FareStructure fareData = GtmUtils.getFareStructure(passengerCombinationConstraint);
+	public boolean validatePassengerConstraint_NOT_REFERENCED(PassengerConstraint passengerConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		FareStructure fareData = GtmUtils.getFareStructure(passengerConstraint);
 		if ( (fareData == null) ||
-			 ! (   GtmUtils.isReferenced(passengerCombinationConstraint,fareData.getFareElements()) )  ) {
+			 ! (   GtmUtils.isReferenced(passengerConstraint,fareData.getFareElements()) )  ) {
 			if (diagnostics != null) {
 				diagnostics.add
 		        (createSimpleDiagnostic
 				        (Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
-						 getObjectLabel(passengerCombinationConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
-						 new Object[] { "NOT_REFERENCED", getObjectLabel(passengerCombinationConstraint, context) }, //$NON-NLS-1$
-						 new Object[] {  passengerCombinationConstraint },
+						 getObjectLabel(passengerConstraint, context) + " " + NationalLanguageSupport.GtmValidator_Not_REFERENCED,
+						 new Object[] { "NOT_REFERENCED", getObjectLabel(passengerConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  passengerConstraint },
 						 context));	
 			}
 			return false;

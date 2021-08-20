@@ -1,6 +1,8 @@
 package Gtm.actions;
 
 import java.io.File;
+import java.io.IOException;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -107,9 +109,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 			
 			GtmJsonExporter jsonModelExporter = new GtmJsonExporter();
 			
-			ExportFareDelivery fileExporter = new ExportFareDelivery(editor.getSite().getShell());
-
-		
+	
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
 
@@ -135,7 +135,13 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						monitor.worked(1);
 			 	
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_8);
-						fileExporter.exportFareDelivery(fares, file);
+						try {
+							ExportFareDelivery.exportFareDelivery(fares, file);
+						} catch (IOException ioe){
+							GtmUtils.displayAsyncErrorMessage(ioe,"format error");
+						} catch (Exception e) {
+							GtmUtils.displayAsyncErrorMessage(e," file error");
+						}
 						monitor.worked(1);
 						
 						GtmUtils.addWorkflowStep("Export completed to OSDM file: " + name, editor);

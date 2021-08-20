@@ -19,8 +19,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
@@ -272,11 +270,6 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						GtmUtils.addWorkflowStep("Import completed for OSDM file: " + file.getName(), editor);
 
 
-					} catch (JsonParseException e) {
-						GtmUtils.displayAsyncErrorMessage(e,"json parsing error");
-						return;
-					} catch (JsonMappingException e) {
-						GtmUtils.displayAsyncErrorMessage(e,"json mapping error");
 					} catch (IOException e) {
 						GtmUtils.displayAsyncErrorMessage(e,"file error");
 					} catch (Exception e) {

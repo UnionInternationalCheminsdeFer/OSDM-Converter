@@ -573,7 +573,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PassengerConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="TRAVELLER_TYPE_MUST NAME_MUST"/>
+      <details key="constraints" value="TRAVELLER_TYPE_MUST NAME_MUST NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="travelerType" eType="#//TravelerType"/>
@@ -597,7 +597,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PassengerCombinationConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST NOT_REFERENCED"/>
+      <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

@@ -6,12 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -19,13 +13,7 @@ import gtm.FareDelivery;
 
 public class ExportFareDelivery {
 	
-	private Shell shell = null;
-	
-	public ExportFareDelivery (Shell shell) {
-		this.shell = shell;
-	}
-	
-	public void exportFareDelivery (FareDelivery fares, File file) {
+	public static void exportFareDelivery (FareDelivery fares, File file) throws IOException, Exception {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
@@ -33,34 +21,14 @@ public class ExportFareDelivery {
 		//mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
 		
-		try {
-
-			if (!file.exists()) {
+		if (!file.exists()) {
 				file.createNewFile();
-			}
-		
-			BufferedWriter writer = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
-			mapper.writeValue(writer, fares);
-			writer.close();
-		} catch (JsonGenerationException e) {
-			MessageBox dialog =  new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			dialog.setText("json formating error");
-			dialog.setMessage(e.getMessage());
-			dialog.open(); 
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			MessageBox dialog =  new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			dialog.setText("json mapping error");
-			dialog.setMessage(e.getMessage());
-			dialog.open(); 
-			e.printStackTrace();
-		} catch (IOException e) {
-			MessageBox dialog =  new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			dialog.setText("file error");
-			dialog.setMessage(e.getMessage());
-			dialog.open(); 
-			e.printStackTrace();
 		}
+	
+		BufferedWriter writer = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+		mapper.writeValue(writer, fares);
+		writer.close();
+
 		return;
 	}
 

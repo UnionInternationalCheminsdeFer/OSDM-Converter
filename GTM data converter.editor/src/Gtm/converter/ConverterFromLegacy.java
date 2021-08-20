@@ -73,6 +73,8 @@ import Gtm.StationFareDetailType;
 import Gtm.StationNames;
 import Gtm.StationSet;
 import Gtm.Text;
+import Gtm.TimeReferenceType;
+import Gtm.TimeUnit;
 import Gtm.Translation;
 import Gtm.VATDetail;
 import Gtm.VatTemplate;
@@ -541,14 +543,14 @@ public class ConverterFromLegacy {
 						convert = false;
 					}
 					
-					SalesAvailabilityConstraint s = fareTemplate.getSalesAvailability();
+					SalesAvailabilityConstraint s = fareTemplate.getSalesAvailability();					
 					if (s == null) {
 						s = fareTemplate.getFareConstraintBundle().getSalesAvailability();
-					}
+					} 
 					
 					if (convert) {
 						
-						if (s != null) {
+						if (isUsableSalesAvailability(s)) {
 							try {
 								DateRange dateRange = getDateRange(s);
 								convertSeriesToFares(series, fareTemplate,dateRange, regionalConstraint,regionalConstraintR ,priceList, legacyFareCounter, fares, afterSalesRules);
@@ -580,6 +582,26 @@ public class ConverterFromLegacy {
 		return faresConverted;
 	}	
 
+
+	/*
+	 * check whether the sales availability can be used or needs to be created by conversion
+	 */
+	private boolean isUsableSalesAvailability(SalesAvailabilityConstraint s) {
+		
+		if (s == null) return false;
+		
+		if (s.getRestrictions() == null) return false;
+		
+		if (s.getRestrictions().size() == 0) return false;
+
+		if (s.getRestrictions().get(0).getSalesDates() == null) return false;
+
+		if (s.getRestrictions().get(0).getSalesDates().getFromDateTime() == null) return false;
+		
+		if (s.getRestrictions().get(0).getSalesDates().getUntilDateTime() == null) return false;
+		
+		return true;
+	}
 
 
 	private ArrayList<DateRange> findAllPriceValidityRanges(Legacy108 legacy108) {
@@ -2191,52 +2213,53 @@ public class ConverterFromLegacy {
 		fare.setRegionalConstraint(regionalConstraint);
 		regionalConstraint.getLinkedFares().add(fare);
 		
-		
-		
 		fare.setFareConstraintBundle(bundle);
 		
 		if (bundle.getSalesAvailability() == null) {
 			if(tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints() != null
 				&& tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints() != null
-				&& tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 1) {
-						
-				SalesAvailabilityConstraint s = tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().get(0);				
-				bundle.setSalesAvailability(s);
+				&& tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 1 
+				) {
 				
+				//use a predefined sales availability in case it is complete
+				SalesAvailabilityConstraint s = tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().get(0);				
+				if (isUsableSalesAvailability(s)) {
+					bundle.setSalesAvailability(s);
+				}
+			}
+		}
+		
+		//still not set
+		if (bundle.getSalesAvailability() == null || !isUsableSalesAvailability(bundle.getSalesAvailability())) {
+		
+			FareConstraintBundle validityBundle = findBundle(bundle, dateRange); 
+			if (validityBundle != null) {
+				fare.setFareConstraintBundle(validityBundle);
 			} else {
 				
+				//multiple sales availabilities to choose
+				GtmUtils.writeConsoleWarning("Validity Ranges are not unique! Fare constraint bundles will be copied per validity range.", editor);
+
+				SalesAvailabilityConstraint s = findSalesAvailability(tool, dateRange);
 				
-				FareConstraintBundle validityBundle = findBundle(bundle, dateRange); 
-				if (validityBundle != null) {
-					fare.setFareConstraintBundle(validityBundle);
+				FareConstraintBundle bundle2 = EcoreUtil.copy(bundle);
+				if (s == null) {
+					GtmUtils.writeConsoleError("No Sales Availability found" , editor);
 				} else {
-					
-					//multiple sales availabilities to choose
-					GtmUtils.writeConsoleWarning("Validity Ranges are not unique! Fare constraint bundles will be copied per validity range.", editor);
-
-					SalesAvailabilityConstraint s = findSalesAvailability(tool, dateRange);
-
-					
-					FareConstraintBundle bundle2 = EcoreUtil.copy(bundle);
-					if (s == null) {
-						GtmUtils.writeConsoleError("No Sales Availability found" , editor);
-					} else {
-						bundle2.setSalesAvailability(s);
-					}
-					bundle2.setDataSource(DataSource.CONVERTED);	
-					
-					
-					HashSet<FareConstraintBundle> validityBundles = convertedBundles.get(bundle);
-					if (validityBundles == null) {
-						validityBundles = new HashSet<FareConstraintBundle>();
-						validityBundles.add(bundle2);
-						convertedBundles.put(bundle, validityBundles);
-					} else {
-						validityBundles.add(bundle2);
-					}
-				
-					fare.setFareConstraintBundle(bundle2);
+					bundle2.setSalesAvailability(s);
 				}
+				bundle2.setDataSource(DataSource.CONVERTED);	
+					
+				HashSet<FareConstraintBundle> validityBundles = convertedBundles.get(bundle);
+				if (validityBundles == null) {
+					validityBundles = new HashSet<FareConstraintBundle>();
+					validityBundles.add(bundle2);
+					convertedBundles.put(bundle, validityBundles);
+				} else {
+					validityBundles.add(bundle2);
+				}
+				
+				fare.setFareConstraintBundle(bundle2);
 			}
 		} 
 		
@@ -2263,11 +2286,7 @@ public class ConverterFromLegacy {
 			
 			if (sa != null && sa.getDataSource() != null && sa.getDataSource() == DataSource.CONVERTED) {
 				
-				if (sa.getRestrictions() != null &&
-					!sa.getRestrictions().isEmpty() &&	
-					sa.getRestrictions().get(0).getSalesDates() != null &&
-					sa.getRestrictions().get(0).getSalesDates().getFromDateTime() != null &&
-					sa.getRestrictions().get(0).getSalesDates().getUntilDateTime() != null) {
+				if (isUsableSalesAvailability(sa)) {
 					
 					Calendar ca = sa.getRestrictions().get(0).getSalesDates();
 					
@@ -2637,17 +2656,37 @@ public class ConverterFromLegacy {
 		
 		ArrayList<DateRange> validityRanges = findAllPriceValidityRanges(tool.getConversionFromLegacy().getLegacy108());	
 		
-		//check whether we need	to convert sales availability or whether it is already set manualy
+		//check whether we need	to convert sales availability or whether it is already set manually
 		boolean conversionNeeded = false;
+		
+		SalesAvailabilityConstraint templateSalesAvailability = null;
+		
 		for (FareTemplate t : tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
-			if (t.getSalesAvailability() == null 
-				&& ( t.getFareConstraintBundle() == null || t.getSalesAvailability() == null)){
+
+			templateSalesAvailability = null;
+			
+			if (t.getFareConstraintBundle() != null && t.getFareConstraintBundle().getSalesAvailability() != null) {
+				templateSalesAvailability = t.getFareConstraintBundle().getSalesAvailability();
+			} else if (t.getSalesAvailability() != null) {
+				templateSalesAvailability = t.getSalesAvailability();
+			} 
+						
+			if (templateSalesAvailability == null 
+				|| templateSalesAvailability.getRestrictions() == null
+				|| templateSalesAvailability.getRestrictions().size() < 1 
+				|| templateSalesAvailability.getRestrictions().get(0).getSalesDates() == null 
+				|| templateSalesAvailability.getRestrictions().get(0).getSalesDates().getFromDateTime() == null 
+				|| templateSalesAvailability.getRestrictions().get(0).getSalesDates().getUntilDateTime() == null){
 				 conversionNeeded = true;
 			} 
+			
 		}
 		if (!conversionNeeded) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("SalesAvailabilities are manually defined and reused. No SalesAvailability is converted from the 108 data.");
+			GtmUtils.writeConsoleInfo(sb.toString(), editor);		
 			return constraints;
-		}
+		}		
 		
 		for ( DateRange r : validityRanges) {
 			
@@ -2662,14 +2701,41 @@ public class ConverterFromLegacy {
 			if (tz != null) {
 				cal.setUtcOffset(tz.getOffset(new Date().getTime()) / 1000 / 60 );
 			}
-					
 			rest.setSalesDates(cal);
+			if (templateSalesAvailability != null 
+				&& templateSalesAvailability.getRestrictions() != null 
+				&& templateSalesAvailability.getRestrictions().size() == 1
+				&& templateSalesAvailability.getRestrictions().get(0).getStartOfSale() != null) {
+				rest.setStartOfSale(EcoreUtil.copy(templateSalesAvailability.getRestrictions().get(0).getStartOfSale()));
+			} else {
+				rest.setStartOfSale(GtmFactory.eINSTANCE.createStartOfSale());
+				rest.getStartOfSale().setReference(TimeReferenceType.BEFORE_START_VALIDITY);
+				rest.getStartOfSale().setUnit(TimeUnit.DAY);
+				rest.getStartOfSale().setValue(182);
+			}
 
+			if (templateSalesAvailability != null 
+				&& templateSalesAvailability.getRestrictions() != null 
+				&& templateSalesAvailability.getRestrictions().size() == 1
+				&& templateSalesAvailability.getRestrictions().get(0).getEndOfSale() != null) {
+				rest.setEndOfSale(EcoreUtil.copy(templateSalesAvailability.getRestrictions().get(0).getEndOfSale()));
+			} else {	
+				rest.setEndOfSale(GtmFactory.eINSTANCE.createEndOfSale());
+				rest.getEndOfSale().setReference(TimeReferenceType.AFTER_END_VALIDITY);
+				rest.getEndOfSale().setUnit(TimeUnit.DAY);
+				rest.getEndOfSale().setValue(1);
+			}
+			
 			constraint.getRestrictions().add(rest);
-						
+					
 			constraints.add(constraint);
 		
 			salesAvailabilitiesFromSeries.put(cal.getFromDateTime(),constraint);		
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("SalesAvailabilities are missing or don't contain calendars. New SalesAvailabilituies have been created.");
+			GtmUtils.writeConsoleInfo(sb.toString(), editor);
+
 		}
 				
 		return constraints;
@@ -2729,7 +2795,6 @@ public class ConverterFromLegacy {
 				sb.append(GtmUtils.getStackTrace(e));
 				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
-
 		}
 		
 		//create FareStationSets
