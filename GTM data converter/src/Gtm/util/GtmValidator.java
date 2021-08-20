@@ -3243,7 +3243,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateConnectionPoint_LEGACY_BORDER_POINT_MISSING(ConnectionPoint connectionPoint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (connectionPoint.getLegacyBorderPointCode() == 0) {
+		if (connectionPoint.getConnectedStationSets().size() > 1 && connectionPoint.getLegacyBorderPointCode() == 0) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
