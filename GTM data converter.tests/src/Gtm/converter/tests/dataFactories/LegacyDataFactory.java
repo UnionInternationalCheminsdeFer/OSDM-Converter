@@ -548,6 +548,7 @@ public class LegacyDataFactory {
 		tool.getCodeLists().getStations().getStations().add(createStation("Y","20000", liliput));	
 			
 	}
+	
 
 	private static ServiceBrand createServiceBrand(int code, String name) {
 		ServiceBrand brand = GtmFactory.eINSTANCE.createServiceBrand();
