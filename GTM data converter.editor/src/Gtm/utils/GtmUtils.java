@@ -1492,22 +1492,20 @@ public class GtmUtils {
 	public static void displayAsyncErrorMessage(Exception e , String text) {
 			
 		GtmEditor editor = GtmUtils.getActiveEditor();
+		
+		GtmUtils.writeConsoleError(text + " - " + e.getMessage(), editor);
 
 		Display display = getDisplay();
 		
-		//final Shell shell1 =  editor.getSite().getShell();
+		final Shell shell =  display.getActiveShell();
+		
 			
-		if (display != null) {
+		if (shell != null) {
 			display.asyncExec(() -> {
-				MessageBox dialog =  new MessageBox(display.getActiveShell(), SWT.ICON_ERROR | SWT.OK);
+				MessageBox dialog =  new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(text);
 				if (e != null && e.getMessage() != null) {
 					dialog.setMessage(e.getMessage());
-				}
-				if (dialog.getMessage() != null) {
-					GtmUtils.writeConsoleError(text + " - " + dialog.getMessage(), editor);
-				} else {
-					GtmUtils.writeConsoleError(text, editor);
 				}
 				dialog.open(); 
 				e.printStackTrace();

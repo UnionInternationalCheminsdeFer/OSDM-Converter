@@ -971,9 +971,11 @@ public class 	ConverterToLegacy {
 			
 			Legacy108Station lsSet = legacyStations.get(Integer.parseInt(set.getCode()));	
 			
+			
+			
 			for (Station s : set.getStations()) {
 				
-				Legacy108Station ls = legacyStations.get(Integer.parseInt(s.getCode()));
+				Legacy108Station ls = legacyStations.get(this.getLegacyStationCode(s));
 				
 				if (ls == null) {
 					
@@ -1085,9 +1087,38 @@ public class 	ConverterToLegacy {
    				    StringBuilder sbName = new StringBuilder();
 					StringBuilder sbNameUtf8 = new StringBuilder();
 			   		for (Station s : lbs.getStations().getStations()) {
+			   			    
+			   			 	String borderIndication = " (GR)";
 			   			
-							String borderIndication = " " + tool.getConversionFromLegacy().getParams().getLegacyBorderIndication();
-	
+			   			 	
+			   				if (tool.getConversionFromLegacy() != null && 
+			   					tool.getConversionFromLegacy().getParams() != null &&
+			   					tool.getConversionFromLegacy().getParams().getLegacyBorderIndication() != null) {
+			   					borderIndication = " " + tool.getConversionFromLegacy().getParams().getLegacyBorderIndication();
+			   				}
+			   				
+			   				String name = s.getShortNameCaseASCII();
+			   				if (name == null) {
+			   					name = s.getNameCaseASCII();
+				   				if (name == null) {
+				   					name = s.getTimetableName();
+				   				}
+			   				}
+			   					
+			   				//shorten the name
+			   				if(name != null && name.length() == 13) {
+			   					borderIndication = borderIndication.trim();
+			   				} else if (name.length() == 14) {
+			   					borderIndication = borderIndication.replace('(', ' ');
+			   					borderIndication = borderIndication.replace(')', ' ');
+			   					borderIndication = borderIndication.trim();
+			   					borderIndication = " " + borderIndication;					
+			   				} else if (name.length() > 14) {
+			   					borderIndication = borderIndication.replace('(', ' ');
+			   					borderIndication = borderIndication.replace(')', ' ');
+			   					borderIndication = borderIndication.trim();
+			   				}	
+			   					
 			   				if (s.getShortNameCaseASCII() != null && s.getShortNameCaseASCII().length() > 0) {
 			   					if (s.getShortNameCaseASCII().toUpperCase().endsWith("(GR)") ||
 			   						s.getShortNameCaseASCII().toUpperCase().endsWith("(FR)")	
@@ -1160,6 +1191,26 @@ public class 	ConverterToLegacy {
 		}
 
 	}
+	
+	private int getLegacyStationCode(Station station) { 
+		 if (station == null ||
+			 tool.getConversionFromLegacy().getParams() == null ||
+			 tool.getConversionFromLegacy().getParams().getLegacyStationMappings() == null ||
+		     tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings() == null) {
+		}
+		  
+		 //check for mapping
+		for (LegacyStationMap map :  tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
+			if (map.getStation() != null &&
+				map.getStation().getCountry() != null &&
+				station.getCountry() != null &&
+				map.getStation().getCode().equals(station.getCode()) && 
+				map.getStation().getCountry().getCode() == station.getCountry().getCode()) {
+				return map.getLegacyCode();
+			}
+		}
+		return Integer.parseInt(station.getCode());		
+	}
 
 	private void addMappedLegacyStation(Station station) { 
 		 if (station == null ||
@@ -1170,7 +1221,11 @@ public class 	ConverterToLegacy {
 		  
 		 //check for mapping
 		for (LegacyStationMap map :  tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
-			if (map.getStation().getCode().equals(station.getCode())) {
+			if (map.getStation() != null &&
+				map.getStation().getCountry() != null &&
+				station.getCountry() != null &&
+				map.getStation().getCode().equals(station.getCode()) && 
+				map.getStation().getCountry().getCode() == station.getCountry().getCode()) {
 				Legacy108Station ls = convertStation(station);
 				ls.setStationCode(map.getLegacyCode());
 				legacyStations.put(ls.getStationCode(),ls);
@@ -1404,6 +1459,10 @@ public class 	ConverterToLegacy {
 		
 		LegacySeries series = GtmFactory.eINSTANCE.createLegacySeries();
 		
+		if (fare.getLegacyAccountingIdentifier() != null) {
+			series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
+		}
+		
 		if (regionalConstraint == null ||
 			regionalConstraint.getRegionalValidity().isEmpty() ||
 			regionalConstraint.getRegionalValidity().get(0).getViaStation() == null ) {
@@ -1476,7 +1535,7 @@ public class 	ConverterToLegacy {
 		if (!success) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Could not convert route: ").append(routeDescription);
-			sb.append("in series: ").append(series.getNumber());
+			sb.append(" in series: ").append(series.getNumber());
 			GtmUtils.writeConsoleError(sb.toString(), editor);
 			return null;
 		}
@@ -1750,7 +1809,7 @@ public class 	ConverterToLegacy {
 			} else	if (station.getStation() != null) {
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
 				lvia.setPosition(altRoute);
-				lvia.setCode(Integer.parseInt(station.getStation().getCode()));
+				lvia.setCode(getLegacyStationCode(station.getStation()));
 				viastations.add(lvia);
 				if (station.getStation().getCountry().getCode() != tool.getConversionFromLegacy().getParams().getCountry().getCode()) {
 					GtmUtils.writeConsoleError("Via station not in country: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
@@ -1855,10 +1914,15 @@ public class 	ConverterToLegacy {
 
 		int code = 0;
 		if (via.getStation() != null) {
-			code = Integer.parseInt(via.getStation().getCode());
+			code = getLegacyStationCode(via.getStation());
+			if (code == 0) {
+				code = Integer.parseInt(via.getStation().getCode());
+			}
 		} else if (via.getFareStationSet() != null) {
 			code = Integer.parseInt(via.getFareStationSet().getCode());
 		}
+		
+		
 		
 		Legacy108Station ls =  legacyStations.get(code);
 		

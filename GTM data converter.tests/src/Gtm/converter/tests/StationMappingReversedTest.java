@@ -11,6 +11,7 @@ import Gtm.ConnectionPoint;
 import Gtm.Country;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
+import Gtm.Legacy108Station;
 import Gtm.LegacyCalculationType;
 import Gtm.LegacySeries;
 import Gtm.LegacySeriesType;
@@ -26,7 +27,7 @@ import Gtm.converter.tests.mocks.MockedProgressMonitor;
 import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
-public class StationMappingTest {
+public class StationMappingReversedTest {
 	
 	GTMTool tool = null;
 	
@@ -115,7 +116,7 @@ public class StationMappingTest {
 	}
 
 	@Test 
-	public void testStationMapping() {
+	public void testStationMappingReversed() {
 		
 		
 		//one calendar
@@ -205,7 +206,14 @@ public class StationMappingTest {
 		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
-				
+			
+		//station mapping
+		tool.getConversionFromLegacy().getParams().setLegacyStationMappings(GtmFactory.eINSTANCE.createLegacyStationMappings());;
+		LegacyStationMap map = GtmFactory.eINSTANCE.createLegacyStationMap();
+		tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings().add(map);
+		map.setLegacyCode(1);
+		map.setStation(TestUtils.findStation(tool, 98, "10000"));
+		
 		tool.getGeneralTariffModel().setDelivery(GtmFactory.eINSTANCE.createDelivery());
 		tool.getGeneralTariffModel().getDelivery().setProvider(TestUtils.findCarrier(tool, "9999"));
 		
@@ -218,7 +226,19 @@ public class StationMappingTest {
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null);
 		
-		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size() == 0);
+		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().size() == 1);
+		
+		
+		Legacy108Station s = TestUtils.getLegacyStation(tool.getConversionFromLegacy().getLegacy108().getLegacyStations(), 1);
+		
+		assert(s.getName().contentEquals("A-Town"));
+		assert(s.getShortName().contentEquals("A"));
+		assert(s.getNameUTF8().contentEquals("A-Town"));
+		
+		LegacySeries ls = tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().get(0);
+		
+		assert(ls.getFromStation() == 1);
+		
 		
 		
 		

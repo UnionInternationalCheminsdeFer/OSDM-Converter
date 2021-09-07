@@ -9,12 +9,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import Gtm.Calendar;
 import Gtm.DataSource;
 import Gtm.FareConstraintBundle;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeries;
+import Gtm.SalesAvailabilityConstraint;
 import Gtm.SalesRestriction;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
@@ -25,7 +27,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class MultipleValidityRangesConversionTest {
+public class SalesAvailabilityManualConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -60,6 +62,25 @@ public class MultipleValidityRangesConversionTest {
 			}
 		}
 		
+		
+		SalesAvailabilityConstraint sa = GtmFactory.eINSTANCE.createSalesAvailabilityConstraint();
+		Calendar cal = GtmFactory.eINSTANCE.createCalendar();
+		cal.setFromDateTime(TestUtils.getFromDate());
+		cal.setUntilDateTime(TestUtils.getUntilDate());
+		sa.setDataDescription("test");
+		sa.setDataSource(DataSource.MANUAL);
+		sa.getRestrictions().add(GtmFactory.eINSTANCE.createSalesRestriction());
+		sa.getRestrictions().get(0).setSalesDates(cal);
+		
+		for (FareConstraintBundle b : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
+			b.setSalesAvailability(sa);
+		}
+		
+		tool.getGeneralTariffModel().getFareStructure().setCalendars(GtmFactory.eINSTANCE.createCalendars());
+		tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().add(cal);
+		tool.getGeneralTariffModel().getFareStructure().setSalesAvailabilityConstraints(GtmFactory.eINSTANCE.createSalesAvailabilityConstraints());
+		tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().add(sa);
+
 			
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
@@ -74,53 +95,39 @@ public class MultipleValidityRangesConversionTest {
 	}
 	
 	@Test 
-	public void testMultipleValidityRangesConversion() {
+	public void testSallesAvailabilityManualConversion() {
 		
 		
 		//three sales availabilities	
-		assert(tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 3);
+		assert(tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 1);
 		
 		//three calendar
-		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 3);
+		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 1);
 		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
-		HashSet<FareConstraintBundle> bundels = new HashSet<FareConstraintBundle>();
-		for (FareConstraintBundle b : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
-			if (DataSource.CONVERTED.equals(b.getDataSource())) {
-				bundels.add(b);
-			}
-		}
-		tool.getGeneralTariffModel().getFareStructure().setFareConstraintBundles(GtmFactory.eINSTANCE.createFareConstraintBundles());;
-		tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles().addAll(bundels);
-		
-	
 		
 		tool.getGeneralTariffModel().setDelivery(GtmFactory.eINSTANCE.createDelivery());
 		tool.getGeneralTariffModel().getDelivery().setProvider(TestUtils.findCarrier(tool, "9999"));
 		
-		assert(tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles().size() == 3);
+		assert(tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles().size() == 1);
 		
 		
 		
 		for (FareConstraintBundle bundle : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
 			
 			assert(bundle.getSalesAvailability() != null);
-			
+					
 			assert(bundle.getSalesAvailability().getRestrictions() != null);
 			
 			assert(bundle.getSalesAvailability().getRestrictions().size() == 1);
 			
 			SalesRestriction rest = bundle.getSalesAvailability().getRestrictions().get(0);
 			
-			assert(rest.getEndOfSale() != null);
-			assert(rest.getEndOfSale().getReference() != null);
-			assert(rest.getEndOfSale().getUnit() != null);
-			assert(rest.getEndOfSale().getValue() == 1);
-			assert(rest.getStartOfSale() != null);
-			assert(rest.getStartOfSale().getReference() != null);
-			assert(rest.getStartOfSale().getUnit() != null);
-			assert(rest.getStartOfSale().getValue() == 182);
+			assert(rest.getSalesDates() != null);
+			
+			assert(bundle.getSalesAvailability().getDataDescription().equals("test"));
+			
 			
 			
 			

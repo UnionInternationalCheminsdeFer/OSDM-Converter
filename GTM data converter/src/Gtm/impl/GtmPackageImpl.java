@@ -11603,13 +11603,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (passengerConstraintEClass,
 		   source,
 		   new String[] {
-			   "constraints", "TRAVELLER_TYPE_MUST NAME_MUST"
+			   "constraints", "TRAVELLER_TYPE_MUST NAME_MUST NOT_REFERENCED"
 		   });
 		addAnnotation
 		  (passengerCombinationConstraintEClass,
 		   source,
 		   new String[] {
-			   "constraints", "NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST NOT_REFERENCED"
+			   "constraints", "NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST"
 		   });
 		addAnnotation
 		  (includedFreePassengerLimitEClass,

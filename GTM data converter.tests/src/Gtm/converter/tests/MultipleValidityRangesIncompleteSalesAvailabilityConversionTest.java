@@ -9,12 +9,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import Gtm.Calendar;
 import Gtm.DataSource;
 import Gtm.FareConstraintBundle;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.LegacyRouteFare;
 import Gtm.LegacySeries;
+import Gtm.SalesAvailabilityConstraint;
 import Gtm.SalesRestriction;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
@@ -25,7 +27,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class MultipleValidityRangesConversionTest {
+public class MultipleValidityRangesIncompleteSalesAvailabilityConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -60,6 +62,26 @@ public class MultipleValidityRangesConversionTest {
 			}
 		}
 		
+		SalesAvailabilityConstraint sa = GtmFactory.eINSTANCE.createSalesAvailabilityConstraint();
+		// dates are missing sales availability should not be used
+		Calendar cal = GtmFactory.eINSTANCE.createCalendar();
+		sa.setDataDescription("test");
+		sa.setDataSource(DataSource.MANUAL);
+		sa.getRestrictions().add(GtmFactory.eINSTANCE.createSalesRestriction());
+		sa.getRestrictions().get(0).setSalesDates(cal);
+		
+		tool.getGeneralTariffModel().getFareStructure().setCalendars(GtmFactory.eINSTANCE.createCalendars());
+		tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().add(cal);
+		tool.getGeneralTariffModel().getFareStructure().setSalesAvailabilityConstraints(GtmFactory.eINSTANCE.createSalesAvailabilityConstraints());
+		tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().add(sa);
+		
+		
+		for (FareConstraintBundle b : tool.getGeneralTariffModel().getFareStructure().getFareConstraintBundles().getFareConstraintBundles()) {
+			b.setSalesAvailability(sa);
+			b.setDataSource(DataSource.MANUAL);
+		}
+
+		
 			
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
@@ -74,14 +96,14 @@ public class MultipleValidityRangesConversionTest {
 	}
 	
 	@Test 
-	public void testMultipleValidityRangesConversion() {
+	public void testMultipleValidityRangesIncompleteSlaesAvailabilityConversion() {
 		
 		
 		//three sales availabilities	
-		assert(tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 3);
+		assert(tool.getGeneralTariffModel().getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 4);
 		
 		//three calendar
-		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 3);
+		assert(tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars().size() == 4);
 		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);

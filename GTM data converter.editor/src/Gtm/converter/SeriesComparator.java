@@ -19,9 +19,8 @@ public class SeriesComparator implements Comparator<LegacySeries> {
 		
 		if (i != 0) return i;
 		
-		if (o1.getToStationName() == null || o2.getToStationName() == null) {
-			return 1;
-		}
+		if (o1.getToStationName() == null) return 1;
+		if (o2.getToStationName() == null) return -1;
 		
 		i = o1.getToStationName().compareTo(o2.getToStationName());
 		
