@@ -189,7 +189,18 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						monitor.worked(1);
 					
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_6);
-						FareDelivery fareDelivery = ImportFareDelivery.importFareDelivery(file);
+						FareDelivery fareDelivery;
+						try {
+							fareDelivery = ImportFareDelivery.importFareDelivery(file);
+						} catch (IOException e) {
+							GtmUtils.displayAsyncErrorMessage(e,"file error");
+							monitor.done();
+							return;
+						} catch (Exception e) {
+							GtmUtils.writeConsoleError(e.getMessage(), editor);
+							monitor.done();
+							return;
+						}
 						monitor.worked(1);
 					
 						int deliveredFares = 0;
@@ -268,12 +279,6 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						GtmUtils.writeConsoleInfo(sb.toString(), editor);
 						
 						GtmUtils.addWorkflowStep("Import completed for OSDM file: " + file.getName(), editor);
-
-
-					} catch (IOException e) {
-						GtmUtils.displayAsyncErrorMessage(e,"file error");
-					} catch (Exception e) {
-						GtmUtils.displayAsyncErrorMessage(e,"unknown error");
 					} finally {
 						monitor.done();
 					}
@@ -287,6 +292,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
 
 			} catch (Exception e) {
+				GtmUtils.displayAsyncErrorMessage(e,"unknown error");
 				MessageBox dialog =  new MessageBox(editor.getSite().getShell(), SWT.ICON_ERROR | SWT.OK);
 				dialog.setText("Export to JSON failed");
 				if (e.getMessage()!= null) {

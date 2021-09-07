@@ -28,7 +28,7 @@ import Gtm.converter.tests.mocks.MockedProgressMonitor;
 import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
-public class VirtualBorderPointLongerNameLengthTest {
+public class VirtualBorderPointLongestNameLengthTest {
 	
 	GTMTool tool = null;
 	
@@ -59,7 +59,7 @@ public class VirtualBorderPointLongerNameLengthTest {
 		LegacyDataFactory.addLegacyStation(tool,"A-Town (GR)","A-Town (GR)","A (GR)",legacyBorderStationCode,borderPointCode,0);
 		
 		//legacy stations
-		LegacyDataFactory.addLegacyStation(tool,"A-Town","A-Town","A-tool-long---",1,0,0);
+		LegacyDataFactory.addLegacyStation(tool,"A-Town","A-Town","A-tool-long--------",1,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"B-Town","B-Town","B",2,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"C-Town","C-Town","C",3,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"D-Town","D-Town","D",4,0,0);
@@ -216,9 +216,9 @@ public class VirtualBorderPointLongerNameLengthTest {
 			boolean isReturnRoute = TestUtils.isReturnRoute(r);		
 							
 			if (isReturnRoute) {
-				assert(description.equals("G*F*E*D*C*B*A-tool-long---"));
+				assert(description.equals("G*F*E*D*C*B*A-tool-long--------"));
 			} else {
-				assert(description.equals("A-tool-long---*B*C*D*E*F*G"));
+				assert(description.equals("A-tool-long--------*B*C*D*E*F*G"));
 			}
 		}
 		
@@ -259,10 +259,10 @@ public class VirtualBorderPointLongerNameLengthTest {
 		assert(nonBorderStation != null);
 		assert(borderStation.getStationCode() == legacyBorderStationCode);	
 		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("A-tool-long--- GR"));
+		assert(borderStation.getName().equals("A-tool-long--------GR"));
 		
 
-		assert(s.getFromStationName().equals("A-tool-long--- GR"));
+		assert(s.getFromStationName().equals("A-tool-long--------GR"));
 		assert(s.getRouteDescription().equals("B*C*D*E*F"));
 		assert(s.getToStationName().equals("G-Town"));
 		assert(s.getDistance1() == 10);

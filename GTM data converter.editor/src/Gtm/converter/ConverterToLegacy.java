@@ -1108,7 +1108,12 @@ public class 	ConverterToLegacy {
 			   				//shorten the name
 			   				if(name != null && name.length() == 13) {
 			   					borderIndication = borderIndication.trim();
-			   				} else if (name.length() > 13) {
+			   				} else if (name.length() == 14) {
+			   					borderIndication = borderIndication.replace('(', ' ');
+			   					borderIndication = borderIndication.replace(')', ' ');
+			   					borderIndication = borderIndication.trim();
+			   					borderIndication = " " + borderIndication;					
+			   				} else if (name.length() > 14) {
 			   					borderIndication = borderIndication.replace('(', ' ');
 			   					borderIndication = borderIndication.replace(')', ' ');
 			   					borderIndication = borderIndication.trim();
@@ -1454,6 +1459,10 @@ public class 	ConverterToLegacy {
 		
 		LegacySeries series = GtmFactory.eINSTANCE.createLegacySeries();
 		
+		if (fare.getLegacyAccountingIdentifier() != null) {
+			series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
+		}
+		
 		if (regionalConstraint == null ||
 			regionalConstraint.getRegionalValidity().isEmpty() ||
 			regionalConstraint.getRegionalValidity().get(0).getViaStation() == null ) {
@@ -1526,7 +1535,7 @@ public class 	ConverterToLegacy {
 		if (!success) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Could not convert route: ").append(routeDescription);
-			sb.append("in series: ").append(series.getNumber());
+			sb.append(" in series: ").append(series.getNumber());
 			GtmUtils.writeConsoleError(sb.toString(), editor);
 			return null;
 		}
