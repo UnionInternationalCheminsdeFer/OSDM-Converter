@@ -7891,7 +7891,7 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		
-		if (StringFormatValidator.isASCII(requiredReductionCard.getName())) {
+		if (!StringFormatValidator.isASCII(requiredReductionCard.getName())) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic

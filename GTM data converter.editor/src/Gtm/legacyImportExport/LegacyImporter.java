@@ -232,7 +232,7 @@ public class LegacyImporter {
 			}
 	}
 
-	private LegacySeparateContractSeries decodeTCVLLine(String st, Charset charset2) {
+	public LegacySeparateContractSeries decodeTCVLLine(String st, Charset charset2) {
 		
 		// 1 Code of the supplier RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for �BB 
 		// 2 Series numeric 5 M  5-9 Serves to assign fares to a specific series 
@@ -319,7 +319,7 @@ public class LegacyImporter {
 			}
 	}
 
-	private Legacy108Memo decodeTCVMLine(String st) {
+	public Legacy108Memo decodeTCVMLine(String st) {
 		
 		//1 code of the supplying RU numeric 4 M	1-4 e.g. 0081 for ÖBB
 		//2 Info code numeric 4 M 5-8 Info data are consecutively number-coded.
@@ -385,52 +385,52 @@ public class LegacyImporter {
 
 			StringBuilder sb = new StringBuilder();
 			sb.append(local1);
-			if (local2.length() > 0) {
+			if (local2.trim().length() > 0) {
 				sb.append('\n').append(local2);
 			}
-			if (local3.length() > 0) {
+			if (local3.trim().length() > 0) {
 				sb.append('\n').append(local3);
 			}
-			if (local4.length() > 0) {
+			if (local4.trim().length() > 0) {
 				sb.append('\n').append(local4);
 			}
 			memo.setLocal(sb.toString());
 			
 			sb = new StringBuilder();
 			sb.append(french1);
-			if (french2.length() > 0) {
+			if (french2.trim().length() > 0) {
 				sb.append('\n').append(french2);
 			}
-			if (french3.length() > 0) {
+			if (french3.trim().length() > 0) {
 				sb.append('\n').append(french3);
 			}
-			if (french4.length() > 0) {
+			if (french4.trim().length() > 0) {
 				sb.append('\n').append(french4);
 			}
 			memo.setFrench(sb.toString());
 			
 			sb = new StringBuilder();
 			sb.append(english1);
-			if (english2.length() > 0) {
+			if (english2.trim().length() > 0) {
 				sb.append('\n').append(english2);
 			}
-			if (english3.length() > 0) {
+			if (english3.trim().length() > 0) {
 				sb.append('\n').append(english3);
 			}
-			if (english4.length() > 0) {
+			if (english4.trim().length() > 0) {
 				sb.append('\n').append(english4);
 			}
 			memo.setEnglish(sb.toString());
 			
 			sb = new StringBuilder();
 			sb.append(german1);
-			if (german2.length() > 0) {
+			if (german2.trim().length() > 0) {
 				sb.append('\n').append(german2);
 			}
-			if (german3.length() > 0) {
+			if (german3.trim().length() > 0) {
 				sb.append('\n').append(german3);
 			}
-			if (german4.length() > 0) {
+			if (german4.trim().length() > 0) {
 				sb.append('\n').append(german4);
 			}
 			memo.setGerman(sb.toString());
@@ -545,7 +545,6 @@ public class LegacyImporter {
 				  }
 				}
 			} catch (IOException e) {
-				
 				String message = NationalLanguageSupport.LegacyImporter_14 + " - " + e.getMessage();
 				GtmUtils.writeConsoleInfo(message, editor);
 				e.printStackTrace();
@@ -555,9 +554,11 @@ public class LegacyImporter {
 	}
 
 
-	private LegacyRouteFare decodeLineRouteFare(String st, String timeZone) {
+	public LegacyRouteFare decodeLineRouteFare(String st, String timeZone) {
 			
-			if (st.length() != 174)	return null;
+			if (st.length() < 174)	return null;
+			
+			if (st.length() > 176)	return null;
 			
 			//String carrier 		= st.substring(0, 4);
 			String number  		    = st.substring(4, 8);
@@ -597,11 +598,13 @@ public class LegacyImporter {
 			return fare;
 	}
 
-	private LegacyDistanceFare decodeLineDistanceFare(String st, String timeZone) {
+	public LegacyDistanceFare decodeLineDistanceFare(String st, String timeZone) {
 
-			if (st.length()!= 64)	return null;
+		if (st.length() < 64)	return null;
+		
+		if (st.length() > 68)	return null;
 			
-			try {
+		try {
 				
 
 			//String carrier 		= st.substring(0, 4);
@@ -646,6 +649,8 @@ public class LegacyImporter {
 			return fare;
 			
 		} catch (Exception e) {
+			String message = "Legacy distance fare record not readlable: "+ " - " + st + " - " + e.getMessage();
+			GtmUtils.writeConsoleError(message, editor);
 			e.printStackTrace();
 			return null;
 		}
@@ -697,7 +702,7 @@ public class LegacyImporter {
 
 	}
 	
-	private String decodeTCVLine(String st) {
+	public String decodeTCVLine(String st) {
 		//get fare file names
 		String name	= st.substring(34,42);
 		if (name.startsWith("TCV")) { //$NON-NLS-1$
@@ -708,7 +713,7 @@ public class LegacyImporter {
 		
 	}
 	
-	private Legacy108Station decodeTCVGLine(String st) {
+	public Legacy108Station decodeTCVGLine(String st) {
 		
 		//	1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for �BB 
 		//	2 station code numeric 5 M TAP TSI Technical Document B.9 5-9  
@@ -750,62 +755,62 @@ public class LegacyImporter {
 		
 		try {
 		
-		String flag  		= st.substring(9, 10);
-		
-		if (flag.equals("2")) return null; //$NON-NLS-1$
-
-
-		String nameUTF8     = st.substring(15, 50).trim();
+			String flag  		= st.substring(9, 10);
+			
+			if (flag.equals("2")) return null; //$NON-NLS-1$
 	
-		String nameASCII 	= st.substring(51,68).trim();	
+	
+			String nameUTF8     = st.substring(15, 50).trim();
+		
+			String nameASCII 	= st.substring(51,68).trim();	
+	
+			String shortNameASCII 	= st.substring(69,86).trim();	
+			
+			int code = Integer.parseInt(st.substring(4, 9));		
 
-		String shortNameASCII 	= st.substring(69,86).trim();	
-		
-		int code	= 0;
-		try  {
-			code = Integer.parseInt(st.substring(4, 9));		
+			int fareReferenceStationCode = 0;
+			try {
+				fareReferenceStationCode = Integer.parseInt(st.substring(129,134));		
+			} catch (Exception e) {
+				//continue without fare reference code
+			}
+			
+			int borderPointCode	= 0;
+			try {
+				borderPointCode = Integer.parseInt(st.substring(92,96));		
+			} catch (Exception e) {
+				//continue as normal station
+			}
+			
+			Legacy108Station station = GtmFactory.eINSTANCE.createLegacy108Station();
+			
+			station.setStationCode(code);
+			station.setFareReferenceStationCode(fareReferenceStationCode);
+			station.setBorderPointCode(borderPointCode);
+			station.setName(nameASCII);
+			station.setNameUTF8(nameUTF8);
+			if (nameUTF8.length() == 0) {
+				station.setNameUTF8(nameASCII);
+			}
+			if (shortNameASCII != null && shortNameASCII.length() > 0 ) {
+				station.setShortName(shortNameASCII);
+			} else {
+				station.setShortName(nameASCII);
+			}
+					
+			
+			return station;
+			
 		} catch (Exception e) {
-			//do nothing
-		}
-
-		int fareReferenceStationCode = 0;
-		try {
-			fareReferenceStationCode = Integer.parseInt(st.substring(129,134));		
-		} catch (Exception e) {
-			//do nothing
-		}	
-		
-		int borderPointCode	= 0;
-		try  {
-			borderPointCode = Integer.parseInt(st.substring(92,96));		
-		} catch (Exception e) {
-			//do nothing
-		}
-
-		
-		Legacy108Station station = GtmFactory.eINSTANCE.createLegacy108Station();
-		
-		station.setBorderPointCode(borderPointCode);
-		station.setName(nameASCII);
-		station.setNameUTF8(nameUTF8);
-		if (nameUTF8.length() == 0) {
-			station.setNameUTF8(nameASCII);
-		}
-		station.setShortName(shortNameASCII);
-				
-		station.setStationCode(code);
-		station.setFareReferenceStationCode(fareReferenceStationCode);
-		
-		return station;
-		
-		} catch (Exception e) {
+			String message = "Legacy TCVG record not readlable: "+ " - " + st + " - " + e.getMessage();
+			GtmUtils.writeConsoleError(message, editor);
 			e.printStackTrace();
 			return null;
 		}
 
 	}
 	
-	private LegacySeries decodeTCVSLine(String st, String timeZone) {
+	public LegacySeries decodeTCVSLine(String st, String timeZone) {
 		
 		//	1 code of the supplying RU numeric 4 M TAP TSI Technical Document B.8 1-4 e.g. 0081 for �BB 
 		//	2 Series number numeric 5 M TAP TSI Technical Document B.8 5-9 Coding for distance and routing between two stations or two fare points within a given country. 
@@ -1017,7 +1022,7 @@ public class LegacyImporter {
 			return series;
 		
 		} catch (Exception e) {
-			GtmUtils.writeConsoleError("Series import field for series: " + number, editor);
+			GtmUtils.writeConsoleError("Series import failed for series: " + number, editor);
 			e.printStackTrace();
 			return null;
 		}

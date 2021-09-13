@@ -171,7 +171,7 @@ public class ConverterFromLegacy {
 	 */
 	public void initializeConverter() {
 		
-		Country myCountry = tool.getConversionFromLegacy().getParams().getCountry();
+		myCountry = tool.getConversionFromLegacy().getParams().getCountry();
 		if (myCountry == null) {
 			String message = NationalLanguageSupport.ConvertGtm2LegacyAction_CountryMissing;
 			GtmUtils.writeConsoleError(message, editor);
@@ -231,6 +231,8 @@ public class ConverterFromLegacy {
 	 * @return the number of fares created
 	 */
 	public int convertToGtm(IProgressMonitor monitor) {
+		
+		initializeConverter();
 		
 		initConversion();
 		
@@ -381,6 +383,8 @@ public class ConverterFromLegacy {
 	 * @return the number of fares created
 	 */
 	public int convertToGtmTest(IProgressMonitor monitor) {
+		
+		initializeConverter();
 			
 		initConversion();
 
@@ -2911,33 +2915,7 @@ public class ConverterFromLegacy {
 			try {
 				//add stations from the exporter country
 				boolean found = false;
-				
-				Station station = updateStationNames(tool,lStation);
-				if (station != null) {
-					stationNames.getStationName().add(station);
-					found = true;
-				}
-	
-				//add station names for used border points
-				if (lStation.getBorderPointCode() > 0 ) {
-				
-					ConnectionPoint p = borderConnectionPoints.get(lStation.getBorderPointCode());
-					
-					if (p != null && p.getConnectedStationSets() != null && p.getConnectedStationSets().size() == 1) {
-						for   (StationSet set : p.getConnectedStationSets()) {
-							if (set.getStations().size() == 1) {
-								for (Station s : set.getStations()) {
-									if (!stationNames.getStationName().contains(s)) {
-										mergeStationNames(lStation, s);
-										stationNames.getStationName().add(s);
-									}
-								}
-							}
-						}
-					}
-					
-				}
-				
+
 				//add  names for mapped stations
 				for (LegacyStationMap map : tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
 					
@@ -2948,6 +2926,14 @@ public class ConverterFromLegacy {
 							stationNames.getStationName().add(mappedStation);
 							found = true;
 						}
+					}
+				}
+				
+				if (!found) {
+					Station station = updateStationNames(tool,lStation);
+					if (station != null) {
+						stationNames.getStationName().add(station);
+						found = true;
 					}
 				}
 				
@@ -2990,7 +2976,8 @@ public class ConverterFromLegacy {
 						for (Station s : lBorder.getOnBorderStations().getStations().getStations()) {
 							if (!stationNames.getStationName().contains(s) ) {
 								stationNames.getStationName().add(s);
-								if (s.getNameCaseASCII() == null || s.getNameCaseASCII().length() == 0){
+								if (s.getNameCaseASCII() == null || 
+									s.getNameCaseASCII().length() == 0){
 									mergeStationNames(legacyStations.get(side.getLegacyStationCode()), s);
 								}
 							}
@@ -3029,13 +3016,16 @@ public class ConverterFromLegacy {
 			station = getStation(tool,myCountry,lStation.getStationCode());
 			if (station != null) {
 				
-				if (Integer.parseInt(station.getCode()) == lStation.getStationCode() || 
-					station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0) {
+				if (Integer.parseInt(station.getCode()) == lStation.getStationCode() 
+					&&
+					station.getCountry().equals(myCountry)) {
 				
 					mergeStationNames(lStation,station);
 					
+					station.setLegacyBorderPointCode(lStation.getBorderPointCode());
+					
 				}
-				station.setLegacyBorderPointCode(lStation.getBorderPointCode());
+				
 			}
 		} catch (ConverterException e) {
 			// only names

@@ -142,6 +142,8 @@ public class LegacyDataFactory {
 		//codelists
 		createCodeLists(tool);
 		
+		tool.getConversionFromLegacy().getParams().setCountry(TestUtils.findCountry(tool,99));
+		
 		return tool;
 	}
 

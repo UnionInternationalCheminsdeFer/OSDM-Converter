@@ -15,7 +15,7 @@ public class StringFormatValidator {
 	public static boolean isASCII(String s) {
 		if (s == null) return false;
 		if (s.length() < 1) return false;
-		Matcher mtch = ASCPattern.matcher(s);
+		Matcher mtch = ASCPattern.matcher(s.replace('\n', ' '));
 	    return mtch.matches();
 	}
 
