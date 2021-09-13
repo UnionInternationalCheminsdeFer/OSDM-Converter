@@ -8,7 +8,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: Gtm.tests
+Export-Package: Gtm.converter.tests, Gtm.legacyImport.test
 Require-Bundle: org.eclipse.core.runtime,
  GTM_data_converter;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,

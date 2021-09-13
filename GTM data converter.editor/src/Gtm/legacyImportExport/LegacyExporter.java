@@ -76,6 +76,13 @@ public class LegacyExporter {
 	}
 	
 	
+	public void init() {
+		this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
+		this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
+		this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
+	}
+	
+	
 	public void export(IProgressMonitor monitor) {
 		try {
 			
@@ -212,7 +219,7 @@ public class LegacyExporter {
 	}
 
 
-	private String getSeparateTicketLine(LegacySeparateContractSeries ticket) {
+	public String getSeparateTicketLine(LegacySeparateContractSeries ticket) {
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -262,7 +269,7 @@ public class LegacyExporter {
 	}
 
 
-	private String getFareLine(Legacy108FareDescription fare) {
+	public String getFareLine(Legacy108FareDescription fare) {
 		
 		
 		StringBuilder sb = new StringBuilder();
@@ -559,7 +566,7 @@ public class LegacyExporter {
 
 	}
 
-	private String getHeaderLine(String fileName, String provider, String providerName, int size, Date startDate, Date endDate) {
+	public String getHeaderLine(String fileName, String provider, String providerName, int size, Date startDate, Date endDate) {
 
 		
 		StringBuilder sb = new StringBuilder();
@@ -614,7 +621,7 @@ public class LegacyExporter {
 		return sb.toString();
 	}
 
-	private String getFareLine(LegacyRouteFare fare) {
+	public String getFareLine(LegacyRouteFare fare) {
 		
 		
 		StringBuilder sb = new StringBuilder();
@@ -679,7 +686,7 @@ public class LegacyExporter {
 
 	}
 
-	private String getStationLine(Legacy108Station station) {
+	public String getStationLine(Legacy108Station station) {
 		
 		
 		StringBuilder sb = new StringBuilder();
@@ -761,7 +768,7 @@ public class LegacyExporter {
 		return sb.toString();
 	}
 
-	private String getSeriesLine(LegacySeries series) {
+	public String getSeriesLine(LegacySeries series) {
 		
 		
 		StringBuilder sb = new StringBuilder();
@@ -926,7 +933,7 @@ public class LegacyExporter {
 	}
 	
 	
-	String getCarrierLine(LegacyCarrier carrier) {
+	public String getCarrierLine(LegacyCarrier carrier) {
 		
 		StringBuilder sb = new StringBuilder();
 				
@@ -979,7 +986,7 @@ public class LegacyExporter {
 		return sb.toString();
 	}
 	
-	private String getMemoLine(Legacy108Memo memo) {
+	public String getMemoLine(Legacy108Memo memo) {
 		
 		
 		StringBuilder sb = new StringBuilder();
