@@ -614,7 +614,7 @@ public class 	ConverterToLegacy {
 		
 		Legacy108FareDescription descr = createFareDescription(fare);
 		
-		if (descr.getDescriptionLocal() == null || descr.getDescriptionLocal() .length() < 1) return 0;
+		if (descr.getDescriptionLocal() == null || descr.getDescriptionLocal().length() < 1) return 0;
 
 		/*
 		 * is it a new description text? --> create a new fare description resulting in a new fare table
@@ -659,13 +659,13 @@ public class 	ConverterToLegacy {
 		StringBuilder sb = new StringBuilder();
 		boolean firstBrand = true;
 		ServiceConstraint sc = fare.getServiceConstraint();
-		if (sc != null && tool.getConversionFromLegacy().getParams().isConvertServiceConstraints()) {
+		if (sc != null && tool.getConversionFromLegacy().getParams().isConvertServiceConstraints()) {		
 			if (sc != null && sc.getIncludedServiceBrands() != null && !sc.getIncludedServiceBrands().isEmpty()) {
-				sb.append(","); //$NON-NLS-1$
 				for (ServiceBrand brand : sc.getIncludedServiceBrands()) {
-					if (brand.getAbbreviation() == null || brand.getAbbreviation().length() > 0)
+					if (brand.getAbbreviation() != null || brand.getAbbreviation().length() > 0) {
 						if (!firstBrand) {
 							sb.append("/"); //$NON-NLS-1$
+						}
 						sb.append(brand.getAbbreviation());
 						firstBrand = false;
 					}
@@ -674,6 +674,8 @@ public class 	ConverterToLegacy {
 		}
 		
 		String sbText = sb.toString();
+		
+		
 		StringBuilder sbl  = new StringBuilder();
 		StringBuilder sben = new StringBuilder();
 		StringBuilder sbge = new StringBuilder();
@@ -711,12 +713,28 @@ public class 	ConverterToLegacy {
 				}
 			}
 		}
+		
+		if (sc != null && sc.getDescription() != null) {
+			if (sbl.length() > 0) sbl.append(",");
+			if (sbge.length() > 0) sbge.append(",");
+			if (sbfr.length() > 0) sbfr.append(",");
+			if (sben.length() > 0) sben.append(",");
+			sbl.append(getTextString(sc.getDescription(),"","short"));
+			sben.append(getTextString(sc.getDescription(),"en","short"));
+			sbfr.append(getTextString(sc.getDescription(),"fr","short"));
+			sbge.append(getTextString(sc.getDescription(),"de","short"));
 			
-		if (sbText != null && sbText.length() > 0) {
+		} else if (sbText != null && sbText.length() > 0) {
+			
+			if (sbl.length() > 0) sbl.append(",");
+			if (sbge.length() > 0) sbge.append(",");
+			if (sbfr.length() > 0) sbfr.append(",");
+			if (sben.length() > 0) sben.append(",");
 			sbl.append(sbText);
 			sbfr.append(sbText);
 			sbge.append(sbText);
 			sben.append(sbText);
+			
 		}
 		desc.setDescriptionLocal(sbl.toString());
 		desc.setDescriptionFr(sbfr.toString());	
@@ -724,6 +742,41 @@ public class 	ConverterToLegacy {
 		desc.setDescriptionEn(sben.toString());	
 
 		return desc;
+	}
+	
+	private String getTextString(Text text, String language,String type) {
+		
+		if (text == null) return "";
+		
+		String result = "";
+		String resultT = "";
+		
+		if (language == null || language.length() == 0 || text.getTranslations() == null) {
+			
+			if ("short".equals(type)) result = text.getShortTextUTF8();
+			if ("long".equals(type)) result =  text.getTextUTF8();
+			if ("shortA".equals(type)) result =  text.getShortTextICAO();
+			if ("longA".equals(type)) result =  text.getTextICAO();
+		}
+		
+		for (Translation t : text.getTranslations()) {
+			if (t.getLanguage().getCode().equals(language)) {
+			
+				if ("short".equals(type)) resultT =  t.getShortTextUTF8();
+				if ("long".equals(type)) resultT =  t.getTextUTF8();
+				if ("shortA".equals(type)) resultT =  t.getShortTextICAO();
+				if ("longA".equals(type)) resultT =  t.getTextICAO();
+				
+			}
+		}
+		
+		if (resultT != null && resultT.length() > 0) return resultT;
+		
+		//no translation
+		if (result != null && result.length() > 0) return result;
+		
+		//no content
+		return "";
 	}
 
 	/**
@@ -1209,7 +1262,11 @@ public class 	ConverterToLegacy {
 				return map.getLegacyCode();
 			}
 		}
-		return Integer.parseInt(station.getCode());		
+		//must be in the same country
+		if (station.getCountry().getCode() == tool.getConversionFromLegacy().getParams().getCountry().getCode()) {
+			return Integer.parseInt(station.getCode());		
+		}
+		return 0;
 	}
 
 	private void addMappedLegacyStation(Station station) { 
@@ -1811,8 +1868,8 @@ public class 	ConverterToLegacy {
 				lvia.setPosition(altRoute);
 				lvia.setCode(getLegacyStationCode(station.getStation()));
 				viastations.add(lvia);
-				if (station.getStation().getCountry().getCode() != tool.getConversionFromLegacy().getParams().getCountry().getCode()) {
-					GtmUtils.writeConsoleError("Via station not in country: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
+				if (lvia.getCode() == 0 && station.getStation().getCountry().getCode() != tool.getConversionFromLegacy().getParams().getCountry().getCode()) {
+					GtmUtils.writeConsoleError("Via station not mapped and not in country: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
 					return false;
 				}
 			} else if (station.getFareStationSet() != null){
@@ -1921,8 +1978,6 @@ public class 	ConverterToLegacy {
 		} else if (via.getFareStationSet() != null) {
 			code = Integer.parseInt(via.getFareStationSet().getCode());
 		}
-		
-		
 		
 		Legacy108Station ls =  legacyStations.get(code);
 		

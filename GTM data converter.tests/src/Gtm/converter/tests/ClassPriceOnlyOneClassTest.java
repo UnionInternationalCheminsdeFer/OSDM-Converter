@@ -7,9 +7,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import Gtm.ClassId;
+import Gtm.FareElement;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
-import Gtm.LegacyRouteFare;
 import Gtm.LegacySeries;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
@@ -20,7 +21,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class ClassPriceMergeTest {
+public class ClassPriceOnlyOneClassTest {
 	
 	GTMTool tool = null;
 	
@@ -39,7 +40,18 @@ public class ClassPriceMergeTest {
 		MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
+		
+		for (LegacySeries s : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			
+			if (s.getNumber() == 2) {
+				s.setDistance1(0);
+			}
+			if (s.getNumber() == 3) {
+				s.setDistance2(0);
+			}
+			
+		}
+		
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
 		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
@@ -55,10 +67,22 @@ public class ClassPriceMergeTest {
 	@Test 
 	public void testBasicConversion() {
 		
+		
+		//validate fares
+		
+		for (FareElement f : tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {
 			
+			if (f.getLegacyAccountingIdentifier().getSeriesId() == 2) {
+				assert(f.getServiceClass().getId().equals(ClassId.D));
+			}
+			if (f.getLegacyAccountingIdentifier().getSeriesId() == 3) {
+				assert(f.getServiceClass().getId().equals(ClassId.B));
+			}
+			
+		}
+		
 		//prepare for return conversion		
 		TestUtils.resetLegacy(tool);
-		
 		
 		tool.getGeneralTariffModel().setDelivery(GtmFactory.eINSTANCE.createDelivery());
 		tool.getGeneralTariffModel().getDelivery().setProvider(TestUtils.findCarrier(tool, "9999"));
@@ -68,27 +92,19 @@ public class ClassPriceMergeTest {
 		//convert
 		converterToLegacy.convertTest(new MockedProgressMonitor());
 		
-		
-		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().size() == 6);
-		
-		int fareTable = 0;
-		
-		for (LegacyRouteFare f : tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare()) {
-			
-			assert(f.getFare1st() == 100);
-			assert(f.getFare2nd() == 50);
-			assert(f.getReturnFare1st() == 200);
-			assert(f.getReturnFare2nd() == 100);
-			
-			fareTable = f.getFareTableNumber();
-			
-		}
-		
+		//validate Series
 		for (LegacySeries s : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			
-			assert(TestUtils.findLegacyRouteFare(tool, fareTable, s.getNumber()) != null);
-			
+			if (s.getNumber() == 2) {
+				assert(s.getDistance1() == 0);
+				assert(s.getDistance2() > 0);
+			} else if (s.getNumber() == 3) {
+				assert(s.getDistance1() > 0);
+				assert(s.getDistance2() == 0);
+			} else {
+				assert(s.getDistance1() > 0);
+				assert(s.getDistance2() > 0);
+			}	
 		}
-
 	}
 }

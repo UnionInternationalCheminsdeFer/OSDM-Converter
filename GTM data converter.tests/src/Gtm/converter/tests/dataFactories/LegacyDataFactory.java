@@ -186,6 +186,8 @@ public class LegacyDataFactory {
 		tool.getGeneralTariffModel().getFareStructure().setCarrierConstraints(GtmFactory.eINSTANCE.createCarrierConstraints());
 		tool.getGeneralTariffModel().getFareStructure().setServiceLevelDefinitions(GtmFactory.eINSTANCE.createServiceLevelDefinitions());
 		tool.getGeneralTariffModel().getFareStructure().setTotalPassengerCombinationConstraints(GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraints());	
+		tool.getGeneralTariffModel().getFareStructure().setTexts(GtmFactory.eINSTANCE.createTexts());
+		
 	}
 
 	private static void addLegacyRouteFares(GTMTool tool) {
@@ -466,6 +468,7 @@ public class LegacyDataFactory {
 		c.setText(t);
 		c.setClassicClass(cc);
 		c.setId(ci);
+		tool.getGeneralTariffModel().getFareStructure().getServiceClassDefinitions().getServiceClassDefinitions().add(c);
 
 		return c;
 	}

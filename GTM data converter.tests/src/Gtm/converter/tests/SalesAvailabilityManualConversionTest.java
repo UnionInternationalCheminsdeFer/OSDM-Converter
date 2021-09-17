@@ -1,7 +1,5 @@
 package Gtm.converter.tests;
 
-import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

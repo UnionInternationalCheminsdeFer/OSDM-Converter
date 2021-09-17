@@ -7,16 +7,19 @@ import org.mockito.MockitoAnnotations;
 
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
-import Gtm.LegacySeparateContractSeries;
+import Gtm.LegacyCarrier;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
 import Gtm.converter.tests.utils.TestUtils;
 import Gtm.legacyImportExport.LegacyExporter;
 import Gtm.utils.GtmUtils;
 
                      
-public class ExportTCVLtest {
+public class ExportTCVCtest {
 	
-	String line = "9999010010201901010120990101"; 
+	String line = "9999<9990>1ABC              0ABC Rail                                          "
+			+ "          0                                                                        "
+			+ "                                                                                   "
+			+ "                                   0<0000>0201901010120990101"; 
 	
 	@Mock
 	GtmUtils gtmUtilsMock;
@@ -44,12 +47,14 @@ public class ExportTCVLtest {
 	public void testExportTCVL() {
 		
 		
-		LegacySeparateContractSeries sc = GtmFactory.eINSTANCE.createLegacySeparateContractSeries();
-		sc.setSeriesNumber(1001);
+		LegacyCarrier sc = GtmFactory.eINSTANCE.createLegacyCarrier();
+		sc.setCarrierCode("9990");
+		sc.setCarrierShortName("ABC");
+		sc.setCarrierName("ABC Rail");
 
 		
 		exporter.init();
-		String line2 = exporter.getSeparateTicketLine(sc);
+		String line2 = exporter.getCarrierLine(sc);
 		
 		assert(line.equals(line2));
 		

@@ -71,9 +71,9 @@ public class ExportTCVMtest {
 
 		
 		exporter.init();
-		String line = exporter.getMemoLine(sc);
+		String line2 = exporter.getMemoLine(sc);
 		
-		assert(line.equals(line));;
+		assert(line.equals(line2));
 		
 
 	}
