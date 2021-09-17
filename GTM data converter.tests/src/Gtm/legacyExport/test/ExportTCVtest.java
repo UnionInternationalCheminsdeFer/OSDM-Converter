@@ -6,17 +6,17 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import Gtm.GTMTool;
-import Gtm.GtmFactory;
-import Gtm.LegacySeparateContractSeries;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
 import Gtm.converter.tests.utils.TestUtils;
 import Gtm.legacyImportExport.LegacyExporter;
 import Gtm.utils.GtmUtils;
 
                      
-public class ExportTCVLtest {
+public class ExportTCVtest {
 	
-	String line = "9999010010201901010120990101"; 
+	String line = "1234Test                          fileName.txt0000120000120000000000"
+			+ "000000000000000000000000000000000000000000000000000000000000000000000000"
+			+ "00000000201901010120990101"; 
 	
 	@Mock
 	GtmUtils gtmUtilsMock;
@@ -44,12 +44,9 @@ public class ExportTCVLtest {
 	public void testExportTCVL() {
 		
 		
-		LegacySeparateContractSeries sc = GtmFactory.eINSTANCE.createLegacySeparateContractSeries();
-		sc.setSeriesNumber(1001);
-
 		
 		exporter.init();
-		String line2 = exporter.getSeparateTicketLine(sc);
+		String line2 = exporter.getHeaderLine("fileName.txt", "1234", "Test", 12, TestUtils.getFromDate(), TestUtils.getUntilDate());
 		
 		assert(line.equals(line2));
 		

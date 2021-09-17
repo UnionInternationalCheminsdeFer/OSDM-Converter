@@ -824,7 +824,13 @@ public class GtmUtils {
 		card.setName(text);
 		//no export of the card
 		card.setUicCode(true);
+		if (fareStructure.getTexts() == null) {
+			fareStructure.setTexts(GtmFactory.eINSTANCE.createTexts());
+		}
 		fareStructure.getTexts().getTexts().add(text);
+		if (fareStructure.getReductionCards() == null) {
+			fareStructure.setReductionCards(GtmFactory.eINSTANCE.createReductionCards());
+		}
 		fareStructure.getReductionCards().getReductionCards().add(card);
 		
 		return card;
@@ -1433,13 +1439,27 @@ public class GtmUtils {
 	
 		for (Station station : tool.getCodeLists().getStations().getStations()) {
 			try {
-				stations.put(Integer.valueOf(Integer.parseInt(station.getCode()) + station.getCountry().getCode() * 100000 ), station);
+				stations.put(Integer.valueOf(getNumericStationCode(station)),station);
 			} catch (Exception e){
 				//do nothing 
 			}
 		}
 		return stations;
 	}
+	
+	public static int getNumericStationCode(Station station) {
+		int i = 0;
+		try {
+			i = Integer.parseInt(station.getCode()) + station.getCountry().getCode() * 100000;
+		} catch (Exception e ) {
+			return 0;
+		}
+		
+		return i;
+		
+	}
+	
+	
 	
 	/**
 	 * Gets the station code.

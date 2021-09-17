@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -147,14 +148,20 @@ public class GTMJsonImporter {
 			countries.put(Integer.valueOf(country.getCode()),country);
 			countriesISO.put(country.getISOcode(), country);
 		}
-		for (Currency currency : tool.getCodeLists().getCurrencies().getCurrencies()) {
-			currencies.put(currency.getIsoCode(),currency);
-		}		
-		for (ServiceBrand s : tool.getCodeLists().getServiceBrands().getServiceBrands()) {
-			serviceBrands.put(Integer.valueOf(s.getCode()),s);
+		if (tool.getCodeLists().getCurrencies() != null) {
+			for (Currency currency : tool.getCodeLists().getCurrencies().getCurrencies()) {
+				currencies.put(currency.getIsoCode(),currency);
+			}
 		}
-		for (NutsCode s : tool.getCodeLists().getNutsCodes().getNutsCodes()) {
-			nutsCodes.put(s.getCode(),s);
+		if (tool.getCodeLists().getServiceBrands() != null) {
+			for (ServiceBrand s : tool.getCodeLists().getServiceBrands().getServiceBrands()) {
+				serviceBrands.put(Integer.valueOf(s.getCode()),s);
+			}
+		}
+		if (tool.getCodeLists().getNutsCodes() != null) {
+			for (NutsCode s : tool.getCodeLists().getNutsCodes().getNutsCodes()) {
+				nutsCodes.put(s.getCode(),s);
+			}
 		}
 	}
 	
@@ -866,10 +873,10 @@ public class GTMJsonImporter {
 		z.setCarrier(getCarrier(jz.getCarrier()));
 		z.setCity(jz.getCity());
 		if (jz.getEntryStation()!= null) {
-			z.setEntryStation(getStation(jz.getEntryStation().getCode()));
+			z.setEntryStation(getStation(jz.getEntryStation()));
 		}
 		if (jz.getTerminalStation()!= null) {
-			z.setTerminalStation(getStation(jz.getTerminalStation().getCode()));
+			z.setTerminalStation(getStation(jz.getTerminalStation()));
 		}		
 		z.setNutsCode(getNutsCode(jz.getNutsCode()));
 		
@@ -887,7 +894,7 @@ public class GTMJsonImporter {
 			v.setCarrier(getCarrier(jv.getCarrier()));
 		}
 		if (jv.getStation() != null) {
-			v.setStation(getStation(jv.getStation().getCode()));
+			v.setStation(getStation(jv.getStation()));
 		}
 		
 		if (jv.getFareReferenceStationSet() != null) {
@@ -963,10 +970,10 @@ public class GTMJsonImporter {
 		l.setCarrier(getCarrier(jz.getCarrier()));
 		l.setCity(jz.getCity());
 		if (jz.getEntryStation()!= null) {
-			l.setEntryStation(getStation(jz.getEntryStation().getCode()));
+			l.setEntryStation(getStation(jz.getEntryStation()));
 		}
 		if (jz.getTerminalStation()!= null) {
-			l.setTerminalStation(getStation(jz.getTerminalStation().getCode()));
+			l.setTerminalStation(getStation(jz.getTerminalStation()));
 		}		
 		l.setNutsCode(getNutsCode(jz.getNutsCode()));
 		
@@ -1436,7 +1443,7 @@ public class GTMJsonImporter {
 		if (jl == null || jl.isEmpty()) return l;
 		for (StationDef s : jl) {
 			try {
-				int code = Integer.parseInt(s.getCode());
+				int code = getNumericStationCode(s);
 				int uicCountry = code / 100000;
 				int localCode = code - (uicCountry * 100000);		
 				Station station = getStation(uicCountry,localCode);
@@ -1450,6 +1457,36 @@ public class GTMJsonImporter {
 		return l;
 	}
 
+	public int getNumericStationCode(StationDef s) {
+		
+		if (s == null || s.getCode() == null || s.getCode().length() == 0) {
+			return 0;
+		}
+		
+		int i = 0;
+		
+		try {
+		
+			i = Integer.parseInt(s.getCode());
+		
+		} catch (Exception e) {
+			
+			//maybe its URN format
+			String decoded = URI.decode(s.getCode());
+			String[] parts = decoded.split(":");
+			
+			try {
+				i =  Integer.parseInt(parts[parts.length - 1]);
+			} catch (Exception e2) {
+				return 0;
+			}
+			
+		}
+		
+		return i;
+		
+	}
+	
 
 
 
@@ -1717,17 +1754,20 @@ public class GTMJsonImporter {
 			}
 		}
 		
-		ServiceClassIdDef scd = ServiceClassIdDef.fromValue(id);
-		
 		// failed, check for converted id
-		ClassId scid = convertServiceClassId(scd);
-		if (scid != null) {
-			ServiceClass sc = findServiceClass(scid.getName());
-			if (sc != null) {
-				return sc;
+		ServiceClassIdDef scd = null;
+		try {
+			scd = ServiceClassIdDef.fromValue(id);
+			ClassId scid = convertServiceClassId(scd);
+			if (scid != null) {
+				ServiceClass sc = findServiceClass(scid.getName());
+				if (sc != null) {
+					return sc;
+				}
 			}
+		} catch (Exception e) {
+			//handle later
 		}
-	
 	
 		GtmUtils.writeConsoleError("Referenced Service Class Definition not found: " + id, editor);
 		
@@ -2192,13 +2232,13 @@ public class GTMJsonImporter {
 	}
 	
 
-	private Station getStation (String code) {
+	private Station getStation (StationDef station) {
 		try {
-			Integer icode = Integer.parseInt(code);
+			Integer icode = getNumericStationCode(station);
 			Station s = stations.get(icode);
 			
 			if (s == null) {
-				GtmUtils.writeConsoleError("Station not found: " + code, editor);
+				GtmUtils.writeConsoleError("Station not found: " + station.getCode(), editor);
 			}		
 			
 			return s;

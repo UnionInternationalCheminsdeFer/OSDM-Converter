@@ -152,6 +152,8 @@ public class RouteDescriptionBuilder {
 			return label.toString();
 		}
 		
+		if (label.length() > 0) label.append(" ");
+		
 		int first = 1;
 		int last = route.getStations().size() - 1;
 		

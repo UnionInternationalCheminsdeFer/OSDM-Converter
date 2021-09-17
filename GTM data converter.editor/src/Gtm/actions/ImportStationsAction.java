@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -28,6 +29,7 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Station;
+import Gtm.converter.StationByNumberComparator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
@@ -180,6 +182,10 @@ public class ImportStationsAction extends BasicGtmAction {
 							domain.getCommandStack().execute(command);
 							GtmUtils.writeConsoleInfo(NationalLanguageSupport.ImportStationsAction_20 + Integer.toString(updatedStationsF) + ")" , editor); //$NON-NLS-2$
 						}
+						
+						//sort the stations by country and number
+						GtmUtils.addWorkflowStep("Sorting stations", editor);
+						ECollections.sort(tool.getCodeLists().getStations().getStations(), new StationByNumberComparator());			
 						
 						GtmUtils.addWorkflowStep("Import of stations completed", editor);
 

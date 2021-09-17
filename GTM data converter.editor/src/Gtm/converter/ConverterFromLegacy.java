@@ -2987,11 +2987,10 @@ public class ConverterFromLegacy {
 							if (!stationNames.getStationName().contains(s) ) {
 								stationNames.getStationName().add(s);
 								if (s.getNameCaseASCII() == null || s.getNameCaseASCII().length() == 0){
-									mergeStationNames(legacyStations.get(side.getLegacyStationCode()), s);
+									mergeStationNamesOnly(legacyStations.get(side.getLegacyStationCode()), s);
 								}
 							}
 						}
-						
 					}
 				}
 			}
@@ -3033,6 +3032,7 @@ public class ConverterFromLegacy {
 		return station;	
 	}
 	
+	
 	/**
 	 * Merges legacy 108 station into a real station.
 	 * character set errors in the legacy station names are corrected
@@ -3043,6 +3043,23 @@ public class ConverterFromLegacy {
 	 * @return the station
 	 */
 	public void mergeStationNames(Legacy108Station lStation, Station station) {
+
+		 mergeStationNamesOnly(lStation, station);
+		 
+		 station.setLegacyBorderPointCode(lStation.getBorderPointCode());	
+		
+	}
+	
+	/**
+	 * Merges legacy 108 station into a real station.
+	 * character set errors in the legacy station names are corrected
+	 *
+	 * @param tool the tool
+	 * @param lStation the l station
+	 * @param station the station
+	 * @return the station
+	 */
+	public void mergeStationNamesOnly(Legacy108Station lStation, Station station) {
 		
 		if (station == null || lStation == null) return;
 			
@@ -3093,8 +3110,6 @@ public class ConverterFromLegacy {
 			station.setShortNameCaseUTF8(lStation.getNameUTF8());
 			
 		}
-		
-		station.setLegacyBorderPointCode(lStation.getBorderPointCode());	
 		
 	}
 	
