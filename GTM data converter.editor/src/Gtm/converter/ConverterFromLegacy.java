@@ -1365,7 +1365,15 @@ public class ConverterFromLegacy {
 	private RegionalConstraint createRegionalConstraint(LegacySeries series) {
 		RegionalConstraint constraint = GtmFactory.eINSTANCE.createRegionalConstraint();
 		constraint.setDataSource(DataSource.CONVERTED);
-		constraint.setDistance( (series.getDistance1() + series.getDistance2())/2 );
+		if (series.getDistance1() == 0) {
+			constraint.setDistance(series.getDistance2());	
+		} else if (series.getDistance2() == 0) {
+			constraint.setDistance(series.getDistance1());	
+		} else if (series.getDistance1() == series.getDistance2()) {
+			constraint.setDistance(series.getDistance2());	
+		} else if (series.getDistance1() != series.getDistance2()) {
+			constraint.setDistance(series.getDistance2() );
+		}
 		return constraint;
 	}
 
@@ -2074,43 +2082,46 @@ public class ConverterFromLegacy {
 					if (travelClass == 1) {
 						return GtmUtils.getEuroFromCent(fare.getFare1st()); 
 					} else {
-							return GtmUtils.getEuroFromCent(fare.getFare2nd()); 
+						return GtmUtils.getEuroFromCent(fare.getFare2nd()); 
 					}
 				}
 			}
 		}  else if (series.getPricetype() == LegacyCalculationType.DISTANCE_BASED) {
 			//calculate distance based fare 
 			
-			int price = 0;
-			boolean distanceFound = false;
-			
+			Integer price = null;
+					
 			int distance = 0;
+			int distance1 = 0;
 			if (travelClass == 1) {
 				distance = series.getDistance1();
+				if (series.getDistance1() != series.getDistance2() && series.getDistance1() != 0) {
+					distance1 = series.getDistance1();
+					distance = series.getDistance2();
+				}
 			} else {
 				distance = series.getDistance2();
 			}
-					
-			//get the lowest price where the distance is ok
-			for (LegacyDistanceFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
-				if (   fare.getFareTableNumber() == series.getFareTableNumber()	
-					 && checkDateEqual(fare.getValidFrom(), dateRange.getStartDate())
-					 && checkDateEqual(fare.getValidUntil(), dateRange.getEndDate())
-					)  {	
-					if (travelClass == 1) {
-						if (distance <= fare.getDistance() && (fare.getFare1st() < price || !distanceFound)) {
-							price = fare.getFare1st();
-							distanceFound = true;
-						}
+			if (distance1 == 0) {
+				price = calculateDistancePrice(tool, travelClass, distance, series.getFareTableNumber(), dateRange);
+			} else {
+				Integer price1section = calculateDistancePrice(tool, 1, distance1, series.getFareTableNumber(), dateRange);
+				Integer price2section = calculateDistancePrice(tool, 2, distance1, series.getFareTableNumber(), dateRange);
+				Integer price2 = calculateDistancePrice(tool, 2, distance, series.getFareTableNumber(), dateRange);
+				Integer priceUpgrade = null;
+				if (price2 != null && price1section != null && price1section != null) {
+					priceUpgrade = price1section - price2section;
+					if (priceUpgrade > 0 ) {
+						price = price2 + priceUpgrade;
 					} else {
-						if (distance <= fare.getDistance() && (fare.getFare2nd() < price || !distanceFound)) {
-							price = fare.getFare2nd();
-							distanceFound = true;
-						}				
+						price = price2;
 					}
+				} else {
+					return null;
 				}
 			}
-			if (!distanceFound) return null;
+
+			if (price == null) return null;
 			
 			return GtmUtils.getEuroFromCent(price);
 		}
@@ -2118,6 +2129,37 @@ public class ConverterFromLegacy {
 	}
 
 	
+
+
+	private static Integer calculateDistancePrice(GTMTool tool, int travelClass, int distance, int fareTableNumber, DateRange dateRange) {
+		//get the lowest price where the distance is ok
+		int price = 0;
+		boolean distanceFound = false;
+		for (LegacyDistanceFare fare : tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare()) {
+			if (   fare.getFareTableNumber() == fareTableNumber	
+				 && checkDateEqual(fare.getValidFrom(), dateRange.getStartDate())
+				 && checkDateEqual(fare.getValidUntil(), dateRange.getEndDate())
+				)  {	
+				if (travelClass == 1) {
+					if (distance <= fare.getDistance() && (fare.getFare1st() < price || !distanceFound)) {
+						price = fare.getFare1st();
+						distanceFound = true;
+					}
+				} else {
+					if (distance <= fare.getDistance() && (fare.getFare2nd() < price || !distanceFound)) {
+						price = fare.getFare2nd();
+						distanceFound = true;
+					}				
+				}
+			}
+		}
+		if (!distanceFound) {
+			return null;
+		} else {
+			return Integer.valueOf(price);
+		}
+
+	}
 
 
 	private static boolean checkDateEqual(Date date1, Date date2) {

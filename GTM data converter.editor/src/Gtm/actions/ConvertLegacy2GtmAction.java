@@ -206,7 +206,4 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 		}
 
 
-
-	
-
 }

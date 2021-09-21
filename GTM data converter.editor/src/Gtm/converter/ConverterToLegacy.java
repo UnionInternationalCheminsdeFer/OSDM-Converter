@@ -1254,7 +1254,8 @@ public class 	ConverterToLegacy {
 		  
 		 //check for mapping
 		for (LegacyStationMap map :  tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()) {
-			if (map.getStation() != null &&
+			if (!map.getStation().getCountry().equals(tool.getConversionFromLegacy().getParams().getCountry()) &&
+				map.getStation() != null &&
 				map.getStation().getCountry() != null &&
 				station.getCountry() != null &&
 				map.getStation().getCode().equals(station.getCode()) && 
