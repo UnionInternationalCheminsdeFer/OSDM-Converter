@@ -21,7 +21,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class DistanceFareConversionTest {
+public class DistanceFarePartialFirstClassConversionTest {
 	
 	
 	GTMTool tool = null;
@@ -41,6 +41,10 @@ public class DistanceFareConversionTest {
 		MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicDistanceFareData();
+		
+		for (LegacySeries ls : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
+			ls.setDistance2(ls.getDistance1() * 3);
+		}
 		
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
@@ -78,54 +82,51 @@ public class DistanceFareConversionTest {
 		
 		LegacySeries s = TestUtils.getLegacySeries(tool, 1);
 		LegacyRouteFare f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
-		assert(s.getDistance1() == 2);
-		assert(s.getDistance2() == 2);
+		assert(s.getDistance1() == 6);
+		assert(s.getDistance2() == 6);
 		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
-		assert(f.getFare1st() == 8);
-		assert(f.getFare2nd() == 4);
-		assert(f.getReturnFare1st() == 16);
-		assert(f.getReturnFare2nd() == 8);
+		assert(f.getFare1st() == 12);
+		assert(f.getFare2nd() == 8);
+		assert(f.getReturnFare1st() == 24);
+		assert(f.getReturnFare2nd() == 16);
 		
 		s = TestUtils.getLegacySeries(tool, 2);
 		f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
-		assert(s.getDistance1() == 10);
-		assert(s.getDistance2() == 10);
+		assert(s.getDistance1() == 30);
+		assert(s.getDistance2() == 30);
 		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
-		assert(f.getFare1st() == 16);
-		assert(f.getFare2nd() == 8);
-		assert(f.getReturnFare1st() == 32);
-		assert(f.getReturnFare2nd() == 16);
+		assert(f.getFare1st() == 32);
+		assert(f.getFare2nd() == 24);
+		assert(f.getReturnFare1st() == 64);
+		assert(f.getReturnFare2nd() == 48);
 		
 		s = TestUtils.getLegacySeries(tool, 3);
 		f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
-		assert(s.getDistance1() == 22);
-		assert(s.getDistance2() == 22);
+		assert(s.getDistance1() == 66);
+		assert(s.getDistance2() == 66);
 		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
-		assert(f.getFare1st() == 40);
-		assert(f.getFare2nd() == 20);
-		assert(f.getReturnFare1st() == 80);
-		assert(f.getReturnFare2nd() == 40);
+		assert(f.getFare1st() == 76);
+		assert(f.getFare2nd() == 56);
+		assert(f.getReturnFare1st() == 152);
+		assert(f.getReturnFare2nd() == 112);
 		
 		s = TestUtils.getLegacySeries(tool, 4);
 		f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
-		assert(s.getDistance1() == 24);
-		assert(s.getDistance2() == 24);
+		assert(s.getDistance1() == 72);
+		assert(s.getDistance2() == 72);
 		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
-		assert(f.getFare1st() == 40);
-		assert(f.getFare2nd() == 20);
-		assert(f.getReturnFare1st() == 80);
-		assert(f.getReturnFare2nd() == 40);
+		assert(f.getFare1st() == 80);
+		assert(f.getFare2nd() == 60);
+		assert(f.getReturnFare1st() == 160);
+		assert(f.getReturnFare2nd() == 120);
 		
+		//distance too long, no price found
 		s = TestUtils.getLegacySeries(tool, 5);
-		f = TestUtils.findLegacyRouteFare(tool, s.getFareTableNumber(), s.getNumber());
-		assert(s.getDistance1() == 45);
-		assert(s.getDistance2() == 45);
-		assert(s.getPricetype().equals(LegacyCalculationType.ROUTE_BASED));
-		assert(f.getFare1st() == 72);
-		assert(f.getFare2nd() == 36);
-		assert(f.getReturnFare1st() == 144);
-		assert(f.getReturnFare2nd() == 72);
-			
+		assert (s == null); 
+		
+		s = TestUtils.getLegacySeries(tool, 6);
+		assert( s == null);
+		
 
 	}
 

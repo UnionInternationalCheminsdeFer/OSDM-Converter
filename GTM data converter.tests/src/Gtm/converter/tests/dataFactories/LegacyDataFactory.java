@@ -114,7 +114,10 @@ public class LegacyDataFactory {
 		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,60,48));
 		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,65,52));
 		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,70,56));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,90,60));
+		tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().add(createDistanceFare(1,100,650));
 
+		
 	}
 
 	public static LegacyDistanceFare createDistanceFare(int table, int distance, int value) {
