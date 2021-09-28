@@ -3,14 +3,16 @@
 package Gtm.provider;
 
 
+
+import Gtm.LabelProvider;
 import Gtm.StartOfSale;
-import Gtm.TimeUnit;
+
+
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 
 /**
@@ -60,15 +62,24 @@ public class StartOfSaleItemProvider extends RelativeTimeItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		TimeUnit labelValue = ((StartOfSale)object).getUnit();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_StartOfSale_type") :
-			getString("_UI_StartOfSale_type") + " " + label;
+		StringBuilder sb = new StringBuilder();
+		StartOfSale sos = (StartOfSale) object;
+		sb.append(getString("_UI_StartOfSale_type"));
+		if (sos != null) {
+			sb.append(": ").append(sos.getValue()).append(" ");
+		}
+		if (sos.getUnit()!= null) {
+			sb.append(LabelProvider.getEnumerationLabel(sos.getUnit())).append("s ");
+		}
+		if (sos.getReference() != null) {
+			sb.append(LabelProvider.getEnumerationLabel(sos.getReference()));
+		}
+		String label = sb.toString();
+		return label.toString();
 	}
 
 

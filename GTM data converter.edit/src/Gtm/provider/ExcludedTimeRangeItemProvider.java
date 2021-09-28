@@ -4,8 +4,7 @@ package Gtm.provider;
 
 
 import Gtm.ExcludedTimeRange;
-import Gtm.TimeRangeScope;
-
+import Gtm.LabelProvider;
 import java.util.Collection;
 import java.util.List;
 
@@ -61,15 +60,25 @@ public class ExcludedTimeRangeItemProvider extends TimeRangeItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		TimeRangeScope labelValue = ((ExcludedTimeRange)object).getScope();
-		String label = labelValue == null ? null : labelValue.toString();
+		
+		StringBuilder sb = new StringBuilder();
+		ExcludedTimeRange ex =(ExcludedTimeRange)object;
+		sb.append(getString("_UI_ExcludedTimeRange_type"));
+		if (ex.getFrom() != 0 || ex.getUntil()!= 0) {
+			if (ex.getScope() != null) {
+				sb.append(" excluded for ").append(LabelProvider.getEnumerationLabel(ex.getScope()));
+			}
+			sb.append(" from ").append(LabelProvider.getTime(ex.getFrom()));
+			sb.append(" until ").append(LabelProvider.getTime(ex.getUntil()));	
+		}
+
+		String label = sb.toString();
 		return label == null || label.length() == 0 ?
-			getString("_UI_ExcludedTimeRange_type") :
-			getString("_UI_ExcludedTimeRange_type") + " " + label;
+			getString("_UI_ExcludedTimeRange_type") : label;
 	}
 
 

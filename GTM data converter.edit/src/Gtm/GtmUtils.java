@@ -1,7 +1,10 @@
 package Gtm;
 
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+
+import Gtm.provider.GtmEditPlugin;
 import Gtm.provider.GtmItemProviderAdapterFactory;
 
 public class GtmUtils {
@@ -42,6 +45,10 @@ public class GtmUtils {
 		}
 	
 		return null;
+	}
+	
+	public String getEnumerationLabel(Enumerator enumerator) {
+		return GtmEditPlugin.INSTANCE.getString("_UI_" + enumerator.getClass().getSimpleName() + "_" + enumerator.getName() + "_literal", true );
 	}
 	
 

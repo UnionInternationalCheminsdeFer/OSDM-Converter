@@ -5,6 +5,7 @@ package Gtm.provider;
 
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
+import Gtm.LabelProvider;
 import Gtm.PassengerConstraint;
 import java.util.Collection;
 import java.util.List;
@@ -356,7 +357,7 @@ public class PassengerConstraintItemProvider
 		if (pc.getDataDescription() != null && pc.getDataDescription().length() > 0) {
 			sb.append(pc.getDataDescription());
 		} else if (pc.getTravelerType() != null){
-			sb.append(" - ").append(pc.getTravelerType().getLiteral());
+			sb.append(" - ").append(LabelProvider.getEnumerationLabel(pc.getTravelerType()));
 		}
 		
 		return sb.toString();

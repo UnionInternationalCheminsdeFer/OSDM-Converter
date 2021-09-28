@@ -4,7 +4,7 @@ package Gtm.provider;
 
 
 import Gtm.GtmPackage;
-import Gtm.TimeUnit;
+import Gtm.LabelProvider;
 import Gtm.ValidityRange;
 
 import java.util.Collection;
@@ -150,15 +150,28 @@ public class ValidityRangeItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		TimeUnit labelValue = ((ValidityRange)object).getUnit();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_ValidityRange_type") :
-			getString("_UI_ValidityRange_type") + " " + label;
+		
+		ValidityRange vr = (ValidityRange) object;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(getString("_UI_ValidityRange_type") );
+		if (vr != null) {
+			sb.append(": ").append(vr.getValue());
+		} else {
+			return sb.toString();
+		}
+		if (vr.getUnit() != null) {
+			sb.append(" ").append(LabelProvider.getEnumerationLabel(vr.getUnit())).append("s");
+		}
+		if (vr.getHoursAfterMidnight() > 0) {
+			
+			sb.append(" + ").append(vr.getHoursAfterMidnight()).append(" hours after midnight");
+		}
+		return sb.toString();
 	}
 
 

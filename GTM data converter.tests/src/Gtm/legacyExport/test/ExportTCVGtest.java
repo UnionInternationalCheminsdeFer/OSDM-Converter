@@ -16,10 +16,11 @@ import Gtm.utils.GtmUtils;
                      
 public class ExportTCVGtest {
 	
-	String line = "999989765100000München                            0Munchen          0M"
-			+ "u               00000001230   000000000000000010          0034560000000  1"
-			+ "2345678    4567890201901010120990101"; 
-	
+	String line = 
+			"999989765100000München                            0Munchen          0M"
+			+ "u               00000001230   000000000000000010          0034560000"
+			+ "000001234567800004567890201901010120990101";
+		
 	@Mock
 	GtmUtils gtmUtilsMock;
 	
