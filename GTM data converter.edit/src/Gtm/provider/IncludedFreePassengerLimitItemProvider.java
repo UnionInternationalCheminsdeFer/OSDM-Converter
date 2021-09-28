@@ -5,6 +5,7 @@ package Gtm.provider;
 
 import Gtm.GtmPackage;
 import Gtm.IncludedFreePassengerLimit;
+import Gtm.LabelProvider;
 
 import java.util.Collection;
 import java.util.List;
@@ -126,12 +127,19 @@ public class IncludedFreePassengerLimitItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		IncludedFreePassengerLimit includedFreePassengerLimit = (IncludedFreePassengerLimit)object;
-		return getString("_UI_IncludedFreePassengerLimit_type") + " " + includedFreePassengerLimit.getNumber();
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(getString("_UI_IncludedFreePassengerLimit_type"));
+		sb.append(": ").append(includedFreePassengerLimit.getNumber());
+		sb.append(" ").append(LabelProvider.getEnumerationLabel(includedFreePassengerLimit.getPassengerType()));
+		
+		return sb.toString();
+
 	}
 
 

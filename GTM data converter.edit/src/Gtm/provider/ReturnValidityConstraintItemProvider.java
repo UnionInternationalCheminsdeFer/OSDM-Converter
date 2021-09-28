@@ -4,6 +4,7 @@ package Gtm.provider;
 
 
 import Gtm.GtmPackage;
+import Gtm.LabelProvider;
 import Gtm.ReturnValidityConstraint;
 
 import java.util.Collection;
@@ -11,7 +12,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
@@ -149,12 +149,23 @@ public class ReturnValidityConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		ReturnValidityConstraint returnValidityConstraint = (ReturnValidityConstraint)object;
-		return getString("_UI_ReturnValidityConstraint_type") + " " + returnValidityConstraint.getLatestReturn();
+		ReturnValidityConstraint rv = (ReturnValidityConstraint)object;
+		StringBuilder sb = new StringBuilder();
+		sb.append(getString("_UI_ReturnValidityConstraint_type"));
+		if (rv.getEarliestReturn() > 0) {
+			sb.append(" earliest return: ").append(rv.getEarliestReturn()).append(" days after travel start");
+		}
+		if (rv.getLatestReturn() > 0) {
+			sb.append(" latest return: ").append(rv.getLatestReturn()).append(" after travel start");
+		}
+		if (rv.getExcludedWeekdays() != null && !rv.getExcludedWeekdays().isEmpty()) {
+			sb.append(" excluded: ").append(LabelProvider.getListLabel(rv.getExcludedWeekdays().toArray()));
+		}
+		return sb.toString();
 	}
 
 

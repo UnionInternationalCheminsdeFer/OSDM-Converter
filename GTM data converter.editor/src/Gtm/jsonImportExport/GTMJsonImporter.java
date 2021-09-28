@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
@@ -360,6 +361,9 @@ public class GTMJsonImporter {
 				fareStationSets.put(fssd.getCode(), fssd);
 			}
 		}
+		
+		ECollections.sort(o.getFareStationSetDefinitions(), new FareStationSetComparator());
+		
 		return o;
 	}
 

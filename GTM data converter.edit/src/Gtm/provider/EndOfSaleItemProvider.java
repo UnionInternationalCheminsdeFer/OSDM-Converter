@@ -4,7 +4,8 @@ package Gtm.provider;
 
 
 import Gtm.EndOfSale;
-import Gtm.TimeUnit;
+import Gtm.LabelProvider;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -60,15 +61,24 @@ public class EndOfSaleItemProvider extends RelativeTimeItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		TimeUnit labelValue = ((EndOfSale)object).getUnit();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_EndOfSale_type") :
-			getString("_UI_EndOfSale_type") + " " + label;
+		StringBuilder sb = new StringBuilder();
+		EndOfSale eos = (EndOfSale) object;
+		sb.append(getString("_UI_EndOfSale_type"));
+		if (eos != null) {
+			sb.append(": ").append(eos.getValue());
+		}
+		if (eos.getUnit()!= null) {
+			sb.append(" ").append(LabelProvider.getEnumerationLabel(eos.getUnit())).append("s");
+		}
+		if (eos.getReference() != null) {
+			sb.append(" ").append(LabelProvider.getEnumerationLabel(eos.getReference()));
+		}
+		String label = sb.toString();
+		return label.toString();
 	}
 
 

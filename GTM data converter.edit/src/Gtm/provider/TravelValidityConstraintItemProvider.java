@@ -217,11 +217,7 @@ public class TravelValidityConstraintItemProvider
 		
 		if (t.getDataDescription() != null) {
 			sb.append(t.getDataDescription());
-		} else {
-			if (t.getRange() != null && t.getRange().getUnit() != null) {
-				sb.append("travel day range: ").append(t.getRange().getUnit().getName()).append(":").append(t.getRange().getValue());
-			}
-		}
+		} 
 		String label = sb.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_TravelValidityConstraint_type") :

@@ -29,6 +29,7 @@ import Gtm.CurrencyPrice;
 import Gtm.FareCombinationModel;
 import Gtm.FareElement;
 import Gtm.FareStationSetDefinition;
+import Gtm.FareType;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
@@ -115,6 +116,8 @@ public class 	ConverterToLegacy {
 	/** The used carriers. */
 	private HashMap<String,LegacyCarrier> carriers = new HashMap<String,LegacyCarrier>();	
 
+	/** The used border point codes **/
+	private HashSet<Integer> usedBorderPointCodes = new HashSet<Integer>();
 	
 	/**
 	 * Instantiates a new converter to legacy.
@@ -1012,7 +1015,7 @@ public class 	ConverterToLegacy {
 		if ( tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints() != null) {
 		
 			for (LegacyBorderPoint lbp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints()) {
-
+				
 				convertStationsFromBorderPoint(lbp);
 				
 			}
@@ -1087,11 +1090,14 @@ public class 	ConverterToLegacy {
 		
 		//add a foreign station via the border point list
 		
+		//usedBorderPointCodes = getUsedBorderPointCodes();
+		
+		
 		for (LegacyBorderPoint lbp : tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints().getLegacyBorderPoints() ) {
 	
 			LegacyBorderSide lbs = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(), lbp);
 				
-			if (lbs != null) {
+			if (lbs != null && usedBorderPointCodes.contains(lbp.getBorderPointCode())) {
 
 				if (lbp.getOnBorderStations() != null
 					&& lbp.getOnBorderStations().getStations() != null
@@ -1116,6 +1122,29 @@ public class 	ConverterToLegacy {
 
 		}
 
+	}
+
+	/*
+	 * returns a set of all used border point codes in the fare data
+	 */
+	private HashSet<Integer> getUsedBorderPointCodes() {
+		
+		HashSet<Integer> codes = new HashSet<Integer>();
+		
+		for (ConnectionPoint p : tool.getGeneralTariffModel().getFareStructure().getConnectionPoints().getConnectionPoints()) {
+			if (p.getLegacyBorderPointCode() > 0) {
+				codes.add(p.getLegacyBorderPointCode());
+			}
+		}
+		
+		for (Station s : tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName()) {
+			if (s.getLegacyBorderPointCode() > 0) {
+				codes.add(s.getLegacyBorderPointCode());
+			}
+		}
+		
+		// TODO Auto-generated method stub
+		return codes;
 	}
 
 	private void convertStationsFromBorderPoint(LegacyBorderPoint lbp) {
@@ -1226,13 +1255,17 @@ public class 	ConverterToLegacy {
 					legacyStations.put(localCode, ls);
 					StringBuilder sb = new StringBuilder();
 					if (ls.getName() == null) {
-						sb.append("failed");
+						sb.append("Station name reconstruction failed ");
+						sb.append(" code: ").append(ls.getStationCode());
+						sb.append(" border code: ").append(lbp.getBorderPointCode());
+						GtmUtils.writeConsoleWarning(sb.toString(), editor);
+					} else {
+						sb.append( "Station name for virtual border station restored -");
+						sb.append(" code: ").append(ls.getStationCode());
+						sb.append(" name: ").append(ls.getName());
+						sb.append(" short name: ").append(ls.getShortName());
+						GtmUtils.writeConsoleInfo(sb.toString(), editor);
 					}
-					sb.append( "Station names for virtual border station restored -");
-					sb.append(" code: ").append(ls.getStationCode());
-					sb.append(" name: ").append(ls.getName());
-					sb.append(" short name: ").append(ls.getShortName());
-					GtmUtils.writeConsoleWarning(sb.toString(), editor);
 				}
 			}
 		
@@ -2074,6 +2107,10 @@ public class 	ConverterToLegacy {
 		
 		
 		//service classes B and D are converted
+		
+		if (!fare.getType().equals(FareType.NRT)) {
+			return false;
+		}
 		
 		if (fare.getServiceClass() == null) {
 			String message = "Service class is missing! " + GtmUtils.getLabelText(fare) + " will not be converted";
