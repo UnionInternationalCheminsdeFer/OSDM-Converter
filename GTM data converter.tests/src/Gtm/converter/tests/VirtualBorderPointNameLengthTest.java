@@ -59,7 +59,7 @@ public class VirtualBorderPointNameLengthTest {
 		LegacyDataFactory.addLegacyStation(tool,"A-Town (GR)","A-Town (GR)","A (GR)",legacyBorderStationCode,borderPointCode,0);
 		
 		//legacy stations
-		LegacyDataFactory.addLegacyStation(tool,"A-Town","A-Town","A-tool-long--",1,0,0);
+		LegacyDataFactory.addLegacyStation(tool,"A-Town-long--","A-tool-long--","A-tool-long--",1,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"B-Town","B-Town","B",2,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"C-Town","C-Town","C",3,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"D-Town","D-Town","D",4,0,0);
@@ -259,10 +259,11 @@ public class VirtualBorderPointNameLengthTest {
 		assert(nonBorderStation != null);
 		assert(borderStation.getStationCode() == legacyBorderStationCode);	
 		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("A-tool-long--(GR)"));
-		
+		assert(borderStation.getName().equals("A-Town-long--(GR)"));
+		assert(borderStation.getShortName().equals("A-tool-long--(GR)"));
+		assert(borderStation.getNameUTF8().equals("A-tool-long--(GR)"));
 
-		assert(s.getFromStationName().equals("A-tool-long--(GR)"));
+		assert(s.getFromStationName().equals("A-Town-long--(GR)"));
 		assert(s.getRouteDescription().equals("B*C*D*E*F"));
 		assert(s.getToStationName().equals("G-Town"));
 		assert(s.getDistance1() == 10);

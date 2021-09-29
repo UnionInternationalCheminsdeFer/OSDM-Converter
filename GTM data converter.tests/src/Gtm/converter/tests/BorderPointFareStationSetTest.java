@@ -264,7 +264,7 @@ public class BorderPointFareStationSetTest {
 		assert(borderStation.getStationCode() == legacyBorderStationCode);	
 		assert(borderStation.getBorderPointCode() == borderPointCode);
 		assert(borderStation.getFareReferenceStationCode() == legacyBorderStationCode);	
-		assert(borderStation.getName().equals("A"));
+		assert(borderStation.getName().equals("A-Town"));
 		assert(borderStation.getShortName().equals("A"));
 
 		assert(s.getFromStationName().equals("A"));

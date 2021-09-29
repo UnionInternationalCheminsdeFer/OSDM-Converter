@@ -213,7 +213,7 @@ public class FareStationSetConversionTest {
 		
 
 		assert(setStation.getNameUTF8().equals("A-Town"));
-		assert(setStation.getName().equals("A-Set"));
+		assert(setStation.getName().equals("A-Town"));
 		assert(setStation.getShortName().equals("A-Set"));
 		
 		assert(s.getFromStationName().equals("A-Set"));

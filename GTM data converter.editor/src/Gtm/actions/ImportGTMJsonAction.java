@@ -323,13 +323,23 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 
 			//correcting merits data using OSDM data			
 			CompoundCommand command = new CompoundCommand();
+			
+			HashMap<Integer,StationNamesDef> uniqueNameList = new HashMap<Integer,StationNamesDef>();
 							
 			for (StationNamesDef lStation : list ) {
 				
-				Station station = stations.get(lStation.getCountry() * 100000 + lStation.getLocalCode());
-			
-				if (station != null) {
+				int code = lStation.getCountry() * 100000 + lStation.getLocalCode();
 				
+				Station station = stations.get(lStation.getCountry() * 100000 + lStation.getLocalCode());
+				
+				StationNamesDef sn = uniqueNameList.get(code);
+			
+				//use the station name in case it is longer than a previous one.
+				if (station != null && lStation.getName() != null &&
+					(sn == null || sn.getName() == null || sn.getName().length() < lStation.getName().length())) {
+				
+					uniqueNameList.put(code, lStation);
+					
 					if (lStation.getLegacyBorderPointCode() > 0) {
 					
 						if (station != null && station.isBorderStation() == false){

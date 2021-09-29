@@ -208,7 +208,7 @@ public class SingleNonMeritsBorderPointTest {
 		assert(nonBorderStation != null);
 		assert(borderStation.getStationCode() == legacyBorderStationCode);	
 		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("A (GR)"));
+		assert(borderStation.getName().equals("A-Town (GR)"));
 		
 	}
 	

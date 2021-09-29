@@ -282,6 +282,9 @@ public class GTMJsonImporter {
 	private StationNames convertStationNames(List<StationNamesDef> jl) {
 		
 		StationNames n = GtmFactory.eINSTANCE.createStationNames();
+		
+		HashMap<Integer,Station> stationList = new HashMap<Integer,Station>();
+		
 		HashSet<Station> set = new HashSet<Station>();
 		
 		if (jl == null || jl.isEmpty()) return n;
@@ -291,8 +294,15 @@ public class GTMJsonImporter {
 			
 			Station s = getStation(jn.getCountry(), jn.getLocalCode());
 			if (s != null) {
-				set.add(s);
-				n.getStationName().add(s);
+				
+				int code = GtmUtils.getNumericStationCode(s);
+				//is the station new=
+				Station st = stationList.get(code);
+				if (st == null) {			
+					set.add(s);
+					stationList.put(code, s);
+					n.getStationName().add(s);
+				} 
 			}
 						
 		}

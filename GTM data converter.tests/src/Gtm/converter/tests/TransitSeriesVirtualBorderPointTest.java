@@ -200,12 +200,12 @@ public class TransitSeriesVirtualBorderPointTest {
 		assert(borderStation1 != null);	
 		assert(borderStation1.getStationCode() == legacyBorderStationCodeA);	
 		assert(borderStation1.getBorderPointCode() == borderPointCodeA);
-		assert(borderStation1.getName().equals("A (GR)"));
+		assert(borderStation1.getName().equals("A-Town (GR)"));
 		
 		assert(borderStation2 != null);
 		assert(borderStation2.getStationCode() == legacyBorderStationCodeG);
 		assert(borderStation2.getBorderPointCode() == borderPointCodeG);
-		assert(borderStation2.getName().equals("G (GR)"));
+		assert(borderStation2.getName().equals("G-Town (GR)"));
 
 		
 	}

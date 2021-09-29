@@ -200,7 +200,7 @@ public class ConversionCleaner {
 		
 		GtmUtils.deleteOrphanedObjects(domain,tool);
 
-		
+		GtmUtils.resetBorderPointCodes(domain, tool);
 
 		return deleted;
 	}
