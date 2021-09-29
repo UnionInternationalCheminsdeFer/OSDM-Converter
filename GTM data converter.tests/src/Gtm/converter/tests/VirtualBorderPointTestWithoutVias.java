@@ -254,10 +254,10 @@ public class VirtualBorderPointTestWithoutVias {
 		assert(nonBorderStation != null);
 		assert(borderStation.getStationCode() == legacyBorderStationCode);	
 		assert(borderStation.getBorderPointCode() == borderPointCode);
-		assert(borderStation.getName().equals("A (GR)"));
+		assert(borderStation.getName().equals("A-Town (GR)"));
 		
 
-		assert(s.getFromStationName().equals("A (GR)"));
+		assert(s.getFromStationName().equals("A-Town (GR)"));
 		assert(s.getRouteDescription() == null || s.getRouteDescription().equals(""));
 		assert(s.getToStationName().equals("G-Town"));
 		assert(s.getDistance1() == 10);

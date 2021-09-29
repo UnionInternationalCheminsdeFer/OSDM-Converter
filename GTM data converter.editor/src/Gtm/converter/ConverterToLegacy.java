@@ -152,6 +152,8 @@ public class 	ConverterToLegacy {
 		//clean up the data
 		GtmUtils.deleteOrphanedObjects(domain,tool);
 		
+		GtmUtils.resetBorderPointCodes(domain,tool);
+		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
 		if (carrier == null) {
 			String message = "No Carrier/Provider contained in the OSDM Delivery Data - Conversion aborted!";
@@ -889,7 +891,7 @@ public class 	ConverterToLegacy {
 					ls.setShortName(fs.getName());
 					ls.setNameUTF8(fs.getNameUtf8());
 				} else {
-					ls.setName(fs.getName());
+					//ls.setName(fs.getName()); use the reference set name in short name only
 					ls.setShortName(fs.getName());
 				}
 				if (fs.getLegacyCode() != 0) {
@@ -1104,19 +1106,24 @@ public class 	ConverterToLegacy {
 					&& lbp.getOnBorderStations().getStations().getStations().contains(station)) {
 							
 						Legacy108Station ls = convertStation(station);
-						ls.setBorderPointCode(lbp.getBorderPointCode());
 						ls.setStationCode(lbs.getLegacyStationCode());
 						legacyStations.put(lbs.getLegacyStationCode(), ls);
-						legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+						if (lbs.getLegacyStationCode() == ls.getStationCode()) {
+							ls.setBorderPointCode(lbp.getBorderPointCode());
+							legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+						}
 						
 				} else if (lbs.getStations() != null
 						&& lbs.getStations().getStations().contains(station)){
 								
 						Legacy108Station ls = convertStation(station);
-						ls.setBorderPointCode(lbp.getBorderPointCode());
 						ls.setStationCode(lbs.getLegacyStationCode());
 						legacyStations.put(lbs.getLegacyStationCode(), ls);
-						legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+						if (lbs.getLegacyStationCode() == ls.getStationCode()) {
+							ls.setBorderPointCode(lbp.getBorderPointCode());
+							legacyBorderStations.put(lbs.getLegacyStationCode(),ls);
+						}
+						
 				}
 			}
 
@@ -1143,7 +1150,6 @@ public class 	ConverterToLegacy {
 			}
 		}
 		
-		// TODO Auto-generated method stub
 		return codes;
 	}
 
@@ -1153,12 +1159,22 @@ public class 	ConverterToLegacy {
 			int localCode = 0;
 			
 			LegacyBorderSide lbs = getBorderSide(tool.getGeneralTariffModel().getDelivery().getProvider(), lbp);
-			
-			if (lbs != null) {
-				localCode = lbs.getLegacyStationCode();
-				//real station?
-				Legacy108Station ls = legacyStations.get(localCode);
-				if (ls != null) {
+			if (lbs == null) {
+				return;
+			}	
+				
+			StationSet stations = lbs.getStations();
+			if (stations == null || stations.getStations().isEmpty()) {
+				stations = lbp.getOnBorderStations().getStations();
+			}
+			if (stations == null || stations.getStations().isEmpty()) {
+				return;
+			}
+								
+			localCode = lbs.getLegacyStationCode();
+			//real station?
+			Legacy108Station ls = legacyStations.get(localCode);
+			if (ls != null) {
 					ls.setBorderPointCode(lbp.getBorderPointCode());
 					return;
 				} else {				
@@ -1166,92 +1182,16 @@ public class 	ConverterToLegacy {
 					ls = GtmFactory.eINSTANCE.createLegacy108Station();
 					ls.setStationCode(localCode);
 					ls.setBorderPointCode(lbp.getBorderPointCode());
-   				    StringBuilder sbName = new StringBuilder();
-					StringBuilder sbNameUtf8 = new StringBuilder();
-			   		for (Station s : lbs.getStations().getStations()) {
-			   			    
-			   			 	String borderIndication = " (GR)";
-			   			
-			   			 	
-			   				if (tool.getConversionFromLegacy() != null && 
-			   					tool.getConversionFromLegacy().getParams() != null &&
-			   					tool.getConversionFromLegacy().getParams().getLegacyBorderIndication() != null) {
-			   					borderIndication = " " + tool.getConversionFromLegacy().getParams().getLegacyBorderIndication();
-			   				}
-			   				
-			   				String name = s.getShortNameCaseASCII();
-			   				if (name == null) {
-			   					name = s.getNameCaseASCII();
-				   				if (name == null) {
-				   					name = s.getTimetableName();
-				   				}
-			   				}
-			   					
-			   				//shorten the name
-			   				if(name != null && name.length() == 13) {
-			   					borderIndication = borderIndication.trim();
-			   				} else if (name.length() == 14) {
-			   					borderIndication = borderIndication.replace('(', ' ');
-			   					borderIndication = borderIndication.replace(')', ' ');
-			   					borderIndication = borderIndication.trim();
-			   					borderIndication = " " + borderIndication;					
-			   				} else if (name.length() > 14) {
-			   					borderIndication = borderIndication.replace('(', ' ');
-			   					borderIndication = borderIndication.replace(')', ' ');
-			   					borderIndication = borderIndication.trim();
-			   				}	
-			   					
-			   				if (s.getShortNameCaseASCII() != null && s.getShortNameCaseASCII().length() > 0) {
-			   					if (s.getShortNameCaseASCII().toUpperCase().endsWith("(GR)") ||
-			   						s.getShortNameCaseASCII().toUpperCase().endsWith("(FR)")	
-			   					) {
-			   						borderIndication = "";
-			   					}
-			   				} else if  (s.getShortNameCaseASCII() != null && s.getShortNameCaseASCII().length() > 0){
-			   					if (s.getNameCaseASCII().toUpperCase().endsWith("(GR)") ||
-				   					s.getNameCaseASCII().toUpperCase().endsWith("(FR)")	
-				   				) {
-				   					borderIndication = "";
-				   				}
-			   				}
-
-			   			
-			   			   if (sbName.length() > 0) {
-			   				   sbName.append("/");
-			   			   }
-			   			   if (s.getShortNameCaseASCII() != null && s.getShortNameCaseASCII().length() > 0) {
-			   				  sbName.append(s.getShortNameCaseASCII()).append(borderIndication);
-			   			   } else if (s.getNameCaseASCII() != null && s.getNameCaseASCII().length() > 0) {
-			   				  sbName.append(s.getNameCaseASCII()).append(borderIndication);
-			   			   } else {
-			   				  sbName.append(s.getTimetableName()).append(borderIndication); 
-			  				  StringBuilder sb = new StringBuilder();
-							  sb.append( "Station names missing for  -");
-							  sb.append(" code: ").append(ls.getStationCode());
-							  sb.append(" using MERITS name :").append(s.getTimetableName());
-							  GtmUtils.writeConsoleError(sb.toString(), editor);			   				 
-			   			   }
-			   			   
-			   			   if (sbNameUtf8.length() > 0) {
-			   				   sbNameUtf8.append("/");
-			   			   }
-			   			   if (s.getShortNameCaseUTF8() != null && s.getShortNameCaseUTF8().length() > 0) {
-			   				  sbNameUtf8.append(s.getShortNameCaseUTF8()).append(borderIndication);	   
-			   			   } else if (s.getNameCaseUTF8() != null && s.getNameCaseUTF8().length() > 0) {
-			   				  sbNameUtf8.append(s.getNameCaseUTF8()).append(borderIndication);
-			   			   } else if (s.getShortNameCaseASCII() != null && s.getShortNameCaseASCII().length() > 0) {
-				   			  sbNameUtf8.append(s.getShortNameCaseASCII()).append(borderIndication);
-				   		   } else if (s.getNameCaseASCII() != null && s.getNameCaseASCII().length() > 0) {
-				   			  sbNameUtf8.append(s.getNameCaseASCII()).append(borderIndication);
-				   		   } else {
-			   				  sbNameUtf8.append(s.getTimetableName()).append(borderIndication); 
-			   			   }
-
-			   			   ls.setName(sbName.toString());
-			   			   ls.setNameUTF8(sbNameUtf8.toString());
-			   			   ls.setShortName(sbName.toString());
-			   			   ls.setShortNameUtf8(sbNameUtf8.toString());
-					}
+					
+					String name = getStationNameFromBorder(stations, lbs,localCode);
+					String nameShort = getStationNameShortFromBorder(stations,lbs,localCode);
+					String nameUtf8 = getStationNameUtf8FromBorder(stations,lbs,localCode);
+					
+ 	   			    ls.setName(name);
+			   		ls.setNameUTF8(nameUtf8);
+			   		ls.setShortName(nameShort);
+			   		ls.setShortNameUtf8(nameUtf8);
+			
 					legacyStations.put(localCode, ls);
 					StringBuilder sb = new StringBuilder();
 					if (ls.getName() == null) {
@@ -1266,7 +1206,6 @@ public class 	ConverterToLegacy {
 						sb.append(" short name: ").append(ls.getShortName());
 						GtmUtils.writeConsoleInfo(sb.toString(), editor);
 					}
-				}
 			}
 		
 		} catch (Exception e) {
@@ -1278,6 +1217,302 @@ public class 	ConverterToLegacy {
 
 	}
 	
+	private String getStationNameUtf8FromBorder(StationSet stations, LegacyBorderSide lbs, int code) {
+		
+   		for (Station s : stations.getStations()) {
+   			if (Integer.parseInt(s.getCode()) == lbs.getLegacyStationCode()) {
+   				return getBorderNameUtf8(lbs, s, code);
+   			}
+   		}
+   		
+		if (stations.getStations().size() == 1) {
+			return getBorderNameUtf8(lbs, stations.getStations().get(0), code);
+		}
+	
+		StringBuilder sbName = new StringBuilder();
+		
+   		for (Station s : stations.getStations()) {
+   			
+   			   String name = getShortBorderNameUtf8(lbs,s,code);
+			
+			   if (sbName.length() > 0) {
+				   sbName.append("/");
+			   }
+			   if (name != null && name.length() > 0) {
+				   sbName.append(name);
+			   }
+   		}
+   				   
+		return sbName.toString();	
+	}
+	
+	private String getStationNameShortFromBorder(StationSet stations, LegacyBorderSide lbs, int code) {
+		
+   		for (Station s : stations.getStations()) {
+   			if (Integer.parseInt(s.getCode()) == lbs.getLegacyStationCode()) {
+   				return getShortBorderName(lbs, s, code);
+   			}
+   		}
+		
+		if (stations.getStations().size() == 1) {
+			return getShortBorderName(lbs, stations.getStations().get(0), code);
+		}
+		
+		StringBuilder sbName = new StringBuilder();
+		
+   		for (Station s : stations.getStations()) {
+   			
+   			   String name = getShortBorderName(lbs,s,code);
+			
+			   if (sbName.length() > 0) {
+				   sbName.append("/");
+			   }
+			   if (name != null && name.length() > 0) {
+				   sbName.append(name);
+			   }
+   		}
+   				   
+		return sbName.toString();			   
+	}
+
+
+	private String getStationNameFromBorder(StationSet stations, LegacyBorderSide lbs, int code) {
+		
+   		for (Station s : stations.getStations()) {
+   			if (Integer.parseInt(s.getCode()) == lbs.getLegacyStationCode()) {
+   				return getBorderName(lbs, s, code);
+   			}
+   		}
+		
+		if (stations.getStations().size() == 1) {
+			return getBorderName(lbs, stations.getStations().get(0), code);
+		}
+		
+		StringBuilder sbName = new StringBuilder();
+		
+   		for (Station s : stations.getStations()) {
+   			
+   			   String name = getShortBorderName(lbs,s,code);
+			
+			   if (sbName.length() > 0) {
+				   sbName.append("/");
+			   }
+			   if (name != null && name.length() > 0) {
+				   sbName.append(name);
+			   }
+   		}
+   				   
+		return sbName.toString();			   
+	}
+
+	private String getShortBorderNameUtf8(LegacyBorderSide lbs, Station s, int code) {
+		StringBuilder sbName = new StringBuilder();
+	    
+		String borderIndication = " (GR)";
+			
+		if (tool.getConversionFromLegacy() != null && 
+			tool.getConversionFromLegacy().getParams() != null &&
+			tool.getConversionFromLegacy().getParams().getLegacyBorderIndication() != null) {
+			borderIndication = " " + tool.getConversionFromLegacy().getParams().getLegacyBorderIndication();
+		}
+				
+		String name = s.getShortNameCaseUTF8();
+		if (name == null) {
+			name = s.getShortNameCaseASCII();
+		} 	
+		if (name == null) {
+			name = s.getNameCaseASCII();
+		}	
+		if (name == null) {
+			name = s.getTimetableName();
+		}
+					
+		//shorten the name
+		if(name != null && name.length() == 13) {
+			borderIndication = borderIndication.trim();
+		} else if (name.length() == 14) {
+			borderIndication = borderIndication.replace('(', ' ');
+			borderIndication = borderIndication.replace(')', ' ');
+			borderIndication = borderIndication.trim();
+			borderIndication = " " + borderIndication;					
+		} else if (name.length() > 14) {
+			borderIndication = borderIndication.replace('(', ' ');
+			borderIndication = borderIndication.replace(')', ' ');
+			borderIndication = borderIndication.trim();
+		}	
+					
+		if (name != null && name.length() > 0) {
+			if (name.toUpperCase().endsWith("(GR)") ||
+				name.toUpperCase().endsWith("(FR)")	
+			) {
+				borderIndication = "";
+			}
+		} 
+	
+		if (name != null) {
+		  sbName.append(name).append(borderIndication);
+		}
+  				   
+		return sbName.toString();
+	}
+
+	private String getBorderNameUtf8(LegacyBorderSide lbs, Station s, int code) {
+		StringBuilder sbName = new StringBuilder();
+	    
+		String borderIndication = " (GR)";
+			
+		if (tool.getConversionFromLegacy() != null && 
+			tool.getConversionFromLegacy().getParams() != null &&
+			tool.getConversionFromLegacy().getParams().getLegacyBorderIndication() != null) {
+			borderIndication = " " + tool.getConversionFromLegacy().getParams().getLegacyBorderIndication();
+		}
+				
+		String name = s.getNameCaseUTF8();
+		if (name == null) {
+			name = s.getNameCaseASCII();
+		} 	
+		if (name == null) {
+			name = s.getShortNameCaseASCII();
+		}	
+		if (name == null) {
+			name = s.getTimetableName();
+		}
+					
+		//shorten the name
+		if(name != null && name.length() == 13) {
+			borderIndication = borderIndication.trim();
+		} else if (name.length() == 14) {
+			borderIndication = borderIndication.replace('(', ' ');
+			borderIndication = borderIndication.replace(')', ' ');
+			borderIndication = borderIndication.trim();
+			borderIndication = " " + borderIndication;					
+		} else if (name.length() > 14) {
+			borderIndication = borderIndication.replace('(', ' ');
+			borderIndication = borderIndication.replace(')', ' ');
+			borderIndication = borderIndication.trim();
+		}	
+					
+		if (name != null && name.length() > 0) {
+			if (name.toUpperCase().endsWith("(GR)") ||
+				name.toUpperCase().endsWith("(FR)")	
+			) {
+				borderIndication = "";
+			}
+		} 
+	
+		if (name != null) {
+		  sbName.append(name).append(borderIndication);
+		}
+  		
+		if (sbName.length() > 17) {
+			return getShortBorderNameUtf8(lbs,s, code);
+		}
+		   
+		return sbName.toString();
+	}
+	
+	private String getBorderName(LegacyBorderSide lbs, Station s, int code) {
+		StringBuilder sbName = new StringBuilder();
+		    
+		String borderIndication = " (GR)";
+			
+		if (tool.getConversionFromLegacy() != null && 
+			tool.getConversionFromLegacy().getParams() != null &&
+			tool.getConversionFromLegacy().getParams().getLegacyBorderIndication() != null) {
+			borderIndication = " " + tool.getConversionFromLegacy().getParams().getLegacyBorderIndication();
+		}
+				
+		String name = s.getNameCaseASCII();
+		if (name == null) {
+			name = s.getShortNameCaseASCII();
+			if (name == null) {
+				name = s.getTimetableName();
+				StringBuilder sb = new StringBuilder();
+				sb.append( "Station names missing for  -");
+				sb.append(" code: ").append(code);
+				sb.append(" using MERITS name :").append(s.getTimetableName());
+				GtmUtils.writeConsoleError(sb.toString(), editor);	
+			}
+		}
+					
+		//shorten the name
+		if(name != null && name.length() == 13) {
+			borderIndication = borderIndication.trim();
+		} else if (name.length() == 14) {
+			borderIndication = borderIndication.replace('(', ' ');
+			borderIndication = borderIndication.replace(')', ' ');
+			borderIndication = borderIndication.trim();
+			borderIndication = " " + borderIndication;					
+		} else if (name.length() > 14) {
+			borderIndication = borderIndication.replace('(', ' ');
+			borderIndication = borderIndication.replace(')', ' ');
+			borderIndication = borderIndication.trim();
+		}	
+					
+		if (name != null && name.length() > 0) {
+			if (name.toUpperCase().endsWith("(GR)") ||
+				name.toUpperCase().endsWith("(FR)")	
+			) {
+				borderIndication = "";
+			}
+		} 
+	
+		if (name != null) {
+		  sbName.append(name).append(borderIndication);
+		}
+  		
+		if (sbName.length() > 17) {
+			return getShortBorderName(lbs,s, code);
+		}
+		   
+		return sbName.toString();
+	}
+	
+	private String getShortBorderName(LegacyBorderSide lbs, Station s, int code) {
+		StringBuilder sbName = new StringBuilder();
+		    
+		String borderIndication = " (GR)";
+			
+		if (tool.getConversionFromLegacy() != null && 
+			tool.getConversionFromLegacy().getParams() != null &&
+			tool.getConversionFromLegacy().getParams().getLegacyBorderIndication() != null) {
+			borderIndication = " " + tool.getConversionFromLegacy().getParams().getLegacyBorderIndication();
+		}
+				
+		String name = s.getShortNameCaseASCII();
+		if (name == null) {
+			name = s.getNameCaseASCII();
+			if (name == null) {
+				name = s.getTimetableName();
+				StringBuilder sb = new StringBuilder();
+				sb.append( "Station names missing for  -");
+				sb.append(" code: ").append(code);
+				sb.append(" using MERITS name :").append(s.getTimetableName());
+				GtmUtils.writeConsoleError(sb.toString(), editor);			   				 		 
+			}
+		}
+					
+		//shorten the name
+		if(name != null && name.length() == 13) {
+			borderIndication = borderIndication.trim();
+		} else if (name.length() == 14) {
+			borderIndication = borderIndication.replace('(', ' ');
+			borderIndication = borderIndication.replace(')', ' ');
+			borderIndication = borderIndication.trim();
+			borderIndication = " " + borderIndication;					
+		} else if (name.length() > 14) {
+			borderIndication = borderIndication.replace('(', ' ');
+			borderIndication = borderIndication.replace(')', ' ');
+			borderIndication = borderIndication.trim();
+		}	
+					
+		if (name != null) {
+		  sbName.append(name).append(borderIndication);
+		}
+ 		   
+		return sbName.toString();
+	}
+
 	private int getLegacyStationCode(Station station) { 
 		 if (station == null ||
 			 tool.getConversionFromLegacy().getParams() == null ||
@@ -1359,7 +1594,9 @@ public class 	ConverterToLegacy {
 		ls.setShortName(sn.getShortNameCaseASCII());
 		ls.setShortNameUtf8(sn.getShortNameCaseUTF8());
 		ls.setStationCode(Integer.parseInt(sn.getCode()));
-		ls.setBorderPointCode(sn.getLegacyBorderPointCode());
+		if (sn.getLegacyBorderPointCode() > 0) {
+			ls.setBorderPointCode(sn.getLegacyBorderPointCode());
+		}
 		
 		ls.setLatitude((int) (1000000*sn.getLatitude()));
 		ls.setLongitude((int) (1000000*sn.getLongitude()));
@@ -1589,29 +1826,33 @@ public class 	ConverterToLegacy {
 			GtmUtils.writeConsoleWarning(message, editor);
 		}
 		
-		if (series.getFromStation() == 0) {
-			Legacy108Station ls = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
-			if (ls == null) {
-				String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
-				String message = "Route not covertable - departure not found: " + route;
-				GtmUtils.writeConsoleError(message, editor);
-				return null;
+		//from station
+		Legacy108Station ls = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
+		if (ls == null) {
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not covertable - departure not found: " + route;
+			GtmUtils.writeConsoleError(message, editor);
+			return null;
+		}
+		if (ls.getName() == null) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Station Name missing for: ");
+			sb.append(ls.getStationCode());
+			if (ls.getBorderPointCode() > 0) {
+				sb.append(" border point: ");
+				sb.append(ls.getBorderPointCode());
 			}
-			if (ls.getName() == null) {
-				StringBuilder sb = new StringBuilder();
-				sb.append("Station Name missing for: ");
-				sb.append(ls.getStationCode());
-				if (ls.getBorderPointCode() > 0) {
-					sb.append(" border point: ");
-					sb.append(ls.getBorderPointCode());
-				}
-				GtmUtils.writeConsoleError(sb.toString(), editor);	
-				return null;
-			}
-			series.setFromStation(ls.getStationCode());
+			GtmUtils.writeConsoleError(sb.toString(), editor);	
+			return null;
+		}
+		series.setFromStation(ls.getStationCode());
+		ViaStation via = mainVia.getRoute().getStations().get(0);
+		if (via.getFareStationSet() != null) {
+			series.setFromStationName(via.getFareStationSet().getName());
+		} else {	
 			series.setFromStationName(ls.getName());	
 		}
-	
+		
 		if (series.getFromStation() == 0) {
 			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
 			String message = "Route not convertable - departure code 0: " + route;
@@ -1639,29 +1880,32 @@ public class 	ConverterToLegacy {
 		
 		series.setSupplyingCarrierCode(tool.getGeneralTariffModel().getDelivery().getProvider().getCode());
 		
-		if (series.getToStation() == 0) {
-			Legacy108Station ls = getLastLegacyStation(mainVia,regionalConstraint.getExitConnectionPoint());
-			if (ls == null) {
-				String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
-				String message = "Route not convertable - arrival not found: " + route;
-				GtmUtils.writeConsoleError(message, editor);	
-				return null;
-			}
-			series.setToStation(ls.getStationCode());
-			if (ls.getName() == null) {
-				StringBuilder sb = new StringBuilder();
-				sb.append("Station Name missing for: ");
-				sb.append(ls.getStationCode());
-				if (ls.getBorderPointCode() > 0) {
-					sb.append(" border point: ");
-					sb.append(ls.getBorderPointCode());
-				}
-				GtmUtils.writeConsoleError(sb.toString(), editor);	
-				return null;
-			}
-			series.setToStationName(ls.getName());	
+		Legacy108Station lls = getLastLegacyStation(mainVia,regionalConstraint.getExitConnectionPoint());
+		if (lls == null) {
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not convertable - arrival not found: " + route;
+			GtmUtils.writeConsoleError(message, editor);	
+			return null;
 		}
-		
+		series.setToStation(lls.getStationCode());
+		if (lls.getName() == null) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Station Name missing for: ");
+			sb.append(lls.getStationCode());
+			if (lls.getBorderPointCode() > 0) {
+				sb.append(" border point: ");
+				sb.append(lls.getBorderPointCode());
+			}
+			GtmUtils.writeConsoleError(sb.toString(), editor);	
+			return null;
+		}
+		ViaStation last = mainVia.getRoute().getStations().get(mainVia.getRoute().getStations().size() - 1);
+		if (last.getFareStationSet() != null) {
+			series.setToStationName(last.getFareStationSet().getName());
+		} else {			
+			series.setToStationName(lls.getName());	
+		}
+				
 		if (series.getToStation() == 0) {
 			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
 			String message = "Route not convertable - arrival code 0: " + route;
@@ -1707,6 +1951,9 @@ public class 	ConverterToLegacy {
 		return series;
 	}
 	
+
+
+
 	private DateRange getDateRange(HashSet<SalesAvailabilityConstraint> salesAvailabilities) {
 		
 		Date startDate = null;

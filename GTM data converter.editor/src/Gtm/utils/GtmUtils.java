@@ -2003,6 +2003,31 @@ public class GtmUtils {
 
 	}
 
+	/*
+	 * remove border point codes from previous conversions
+	 */
+	public static void resetBorderPointCodes(EditingDomain domain, GTMTool tool) {
+
+		CompoundCommand command = new CompoundCommand();
+			
+		for (Station s : tool.getCodeLists().getStations().getStations()) {
+				
+			if (s.getLegacyBorderPointCode() > 0) {
+					
+				command.append(SetCommand.create(domain, s, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, 0));
+					
+			}
+				
+		}
+			
+		if (command != null && !command.isEmpty() && command.canExecute()) {
+			domain.getCommandStack().execute(command);
+		}
+
+			
+		
+	}
+
 }
 
 

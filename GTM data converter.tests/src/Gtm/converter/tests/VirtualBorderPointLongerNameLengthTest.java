@@ -59,7 +59,7 @@ public class VirtualBorderPointLongerNameLengthTest {
 		LegacyDataFactory.addLegacyStation(tool,"A-Town (GR)","A-Town (GR)","A (GR)",legacyBorderStationCode,borderPointCode,0);
 		
 		//legacy stations
-		LegacyDataFactory.addLegacyStation(tool,"A-Town","A-Town","A-tool-long---",1,0,0);
+		LegacyDataFactory.addLegacyStation(tool,"A-tool-long---","A-tool-long---","A-tool-long---",1,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"B-Town","B-Town","B",2,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"C-Town","C-Town","C",3,0,0);
 		LegacyDataFactory.addLegacyStation(tool,"D-Town","D-Town","D",4,0,0);

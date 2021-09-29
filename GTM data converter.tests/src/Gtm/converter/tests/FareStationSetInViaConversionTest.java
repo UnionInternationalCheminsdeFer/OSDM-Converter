@@ -213,7 +213,7 @@ public class FareStationSetInViaConversionTest {
 		Legacy108Station setStation = TestUtils.findLegacyStation(tool,2);
 		assert(setStation != null);		
 		assert(setStation.getNameUTF8().equals("B-Town"));
-		assert(setStation.getName().equals("B-Set"));
+		assert(setStation.getName().equals("B-Town"));
 		assert(setStation.getShortName().equals("B-Set"));
 		
 		assert(s.getFromStationName().equals("A-Town"));
