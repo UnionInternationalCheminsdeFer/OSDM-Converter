@@ -159,7 +159,7 @@ public class ImportServiceBrandsAction extends ImportCsvDataAction {
 
 
 	private ServiceBrand decodeLine(String st) {
-		String[] strings = st.split(";"); //$NON-NLS-1$
+		String[] strings = GtmUtils.splitCsv(st);
 		
 		if (strings.length < 3) return null;
 		

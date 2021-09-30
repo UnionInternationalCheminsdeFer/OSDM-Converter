@@ -954,7 +954,11 @@ public class LegacyExporter {
 		sb.append("0");
 		//8 Carrier’s full name alpha numeric 60 M 30-89
 		String name = GtmUtils.utf2ascii(carrier.getCarrierName());
-		sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(name,60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$	
+		if (name.length() > 60) {
+			sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(shortName,60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$				
+		} else {
+			sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(name,60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$	
+		}
 		//9 Flag 2 for carrier's full name numeric 1 M 90 0 or 3 (see point 2.2)
 		sb.append("0");
 		//10 Address - street alpha numeric 60 M 91-1 50
@@ -1043,9 +1047,40 @@ public class LegacyExporter {
 			return;
 		}
 		String[] lines = new String[4];
+		boolean lineTooLong = false;
+		String linebreak = "" + '\n';
 		if (text != null) {
-			lines = text.split("[\\r\\n]+");
+			lines = text.split(linebreak);
 		}
+		for (String l : lines) {
+			if (l != null && l.length() > 60) {
+				lineTooLong = true;
+			}
+		}
+		
+		if (lineTooLong) {
+			lines = new String[4];
+			String[] words = text.split(" ");
+			StringBuilder line = new StringBuilder();
+			int i = 0;
+			for (String word : words) {
+				String wt = word.trim();
+				if (wt.length() > 0 && i < 4) {
+					if (line.length() + wt.length() < 60) {
+						if (line.length() > 0) {
+							line.append(" ");
+						}
+						line.append(wt);
+					} else {
+						lines[i] = line.toString();
+						i++;
+						line = new StringBuilder();
+					}
+				}
+			}
+		}
+		
+		
 		int i = 0;
 		for ( String l : lines) {
 			lines[i] = GtmUtils.limitStringLengthWithConsoleEntry(l,60,editor,"TCVM exort line");		 //$NON-NLS-1$
