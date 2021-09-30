@@ -151,7 +151,7 @@ public class ImportNutsCodesAction extends ImportCsvDataAction {
 
 
 	private NutsCode decodeLine(String st) {
-		String[] strings = st.split(";"); //$NON-NLS-1$
+		String[] strings = GtmUtils.splitCsv(st);
 		if (strings.length < 2) return null;
 		
 		NutsCode nuts = GtmFactory.eINSTANCE.createNutsCode();

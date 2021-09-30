@@ -167,8 +167,8 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 		 * column 8: name (for documentation only)
 		 */
 		
-		
-		String[] strings = st.split(";"); //$NON-NLS-1$
+	
+		String[] strings = GtmUtils.splitCsv(st);
 		
 		if (strings.length < 9) return null;
 		

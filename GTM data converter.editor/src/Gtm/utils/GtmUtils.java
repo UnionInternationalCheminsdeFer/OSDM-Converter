@@ -2028,6 +2028,18 @@ public class GtmUtils {
 		
 	}
 
+	public static String[] splitCsv(String st) {
+	
+		String[] st1 = st.split(";"); //$NON-NLS-1$
+		String[] st2 = st.split(","); //$NON-NLS-1$
+		
+		if (st1.length < st2.length) {
+			return st2;
+		}
+		
+		return 	st1;
+	}
+
 }
 
 

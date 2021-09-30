@@ -159,7 +159,7 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 
 
 	private Carrier decodeLine(String st) {
-		String[] strings = st.split(";"); //$NON-NLS-1$
+		String[] strings = GtmUtils.splitCsv(st);
 		if (strings.length < 3) return null;
 		
 		if (strings[0].length() == 4) {

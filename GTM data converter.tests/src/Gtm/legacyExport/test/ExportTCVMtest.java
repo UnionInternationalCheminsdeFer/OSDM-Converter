@@ -16,25 +16,25 @@ import Gtm.utils.GtmUtils;
                      
 public class ExportTCVMtest {
 	
-	String line = "999901001                                                  Loca"
-			+ "l text                                                             "
-			+ "                                                                   "
-			+ "                                                                   "
-			+ "                                  French text                      "
-			+ "                                                                   "
-			+ "                                                                   "
-			+ "                                                                   "
-			+ "      German text                                                  "
-			+ "                                                                   "
-			+ "                                                                   "
-			+ "                                             EnglishText           "
-			+ "                              English second line                  "
-			+ "                                                                   "
-			+ "                                                                   "
-			+ "                                                                   "
-			+ "                                                                   "
-			+ "                                                                   "
-			+ "       1201901010120990101"; 
+	String line = "999901001                                                  Loc"
+			+ "al text                                                           "
+			+ "                                                                  "
+			+ "                                                                  "
+			+ "                                      French text                 "
+			+ "                                                                  "
+			+ "                                                                  "
+			+ "                                                                  "
+			+ "              German text                                         "
+			+ "                                                                  "
+			+ "                                                                  "
+			+ "        EnglishText EnglishText EnglishText EnglishText EnglishTex"
+			+ "t                                                                 "
+			+ "                                                                  "
+			+ "                                                                  "
+			+ "                                                                  "
+			+ "                                                                  "
+			+ "                                                                  "
+			+ "                         1201901010120990101"; 
 	
 	@Mock
 	GtmUtils gtmUtilsMock;
@@ -59,11 +59,11 @@ public class ExportTCVMtest {
 	}
 	
 	@Test 
-	public void testExportTCVL() {
+	public void testExportTCVMlong() {
 		
 		
 		Legacy108Memo sc = GtmFactory.eINSTANCE.createLegacy108Memo();
-		sc.setEnglish("EnglishText" + '\n' + "English second line");
+		sc.setEnglish("EnglishText EnglishText EnglishText EnglishText EnglishText English second line");
 		sc.setFrench("French text");
 		sc.setLocal("Local text");
 		sc.setGerman("German text");

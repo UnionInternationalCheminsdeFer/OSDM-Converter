@@ -719,27 +719,21 @@ public class 	ConverterToLegacy {
 			}
 		}
 		
-		if (sc != null && sc.getDescription() != null) {
-			if (sbl.length() > 0) sbl.append(",");
-			if (sbge.length() > 0) sbge.append(",");
-			if (sbfr.length() > 0) sbfr.append(",");
-			if (sben.length() > 0) sben.append(",");
-			sbl.append(getTextString(sc.getDescription(),"","short"));
-			sben.append(getTextString(sc.getDescription(),"en","short"));
-			sbfr.append(getTextString(sc.getDescription(),"fr","short"));
-			sbge.append(getTextString(sc.getDescription(),"de","short"));
+		
+		if (sc != null
+			&& tool.getConversionFromLegacy().getParams().isConvertServiceConstraints() ) {
 			
-		} else if (sbText != null && sbText.length() > 0) {
-			
-			if (sbl.length() > 0) sbl.append(",");
-			if (sbge.length() > 0) sbge.append(",");
-			if (sbfr.length() > 0) sbfr.append(",");
-			if (sben.length() > 0) sben.append(",");
-			sbl.append(sbText);
-			sbfr.append(sbText);
-			sbge.append(sbText);
-			sben.append(sbText);
-			
+			if (sc.getDescription() != null) {
+				addLimitedText(sbl,sc.getDescription(),"",30);
+				addLimitedText(sben,sc.getDescription(),"en",30);
+				addLimitedText(sbfr,sc.getDescription(),"fr",30);
+				addLimitedText(sbge,sc.getDescription(),"de",30);	
+			} else if (sbText != null && sbText.length() > 0) {
+				addLimitedText(sbl,sbText,"",30);
+				addLimitedText(sben,sbText,"en",30);
+				addLimitedText(sbfr,sbText,"fr",30);
+				addLimitedText(sbge,sbText,"de",30);				
+			}
 		}
 		desc.setDescriptionLocal(sbl.toString());
 		desc.setDescriptionFr(sbfr.toString());	
@@ -749,6 +743,24 @@ public class 	ConverterToLegacy {
 		return desc;
 	}
 	
+	private void addLimitedText(StringBuilder sbl, String sbText, String language, int maxLength) {
+		String text = sbText;
+		if (sbl.length() + text.length() < maxLength) {
+			if (sbl.length() > 0) sbl.append(",");
+			sbl.append(text);
+		}		
+	}
+
+	private void addLimitedText(StringBuilder sbl, Text description, String language, int maxLength) {
+		
+		String text =getTextString(description,language,"short");
+		if (sbl.length() + text.length() < maxLength) {
+			if (sbl.length() > 0) sbl.append(",");
+			sbl.append(text);
+		}
+		
+	}
+
 	private String getTextString(Text text, String language,String type) {
 		
 		if (text == null) return "";
