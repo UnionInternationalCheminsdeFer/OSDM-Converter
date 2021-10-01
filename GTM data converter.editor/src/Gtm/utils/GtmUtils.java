@@ -1849,17 +1849,14 @@ public class GtmUtils {
 		
 		if (s == null || s.length() == 0) return null;
 		
-		final StringBuffer sb = new StringBuffer( s.length() * 2 );
+		final StringBuffer sb = new StringBuffer();
 
 		final StringCharacterIterator iterator = new StringCharacterIterator( s );
 
 		char ch = iterator.current();
 
 		while( ch != StringCharacterIterator.DONE ){
-		   if(Character.getNumericValue(ch)>0){
-		    sb.append( ch );
-		   } else {
-		    if(Character.toString(ch).equals("Ê")){sb.append("E");}
+	   	    if     (Character.toString(ch).equals("Ê")){sb.append("E");}
 		    else if(Character.toString(ch).equals("È")){sb.append("E");}
 		    else if(Character.toString(ch).equals("ë")){sb.append("e");}
 		    else if(Character.toString(ch).equals("é")){sb.append("e");}
@@ -1901,9 +1898,10 @@ public class GtmUtils {
 		    else if(Character.toString(ch).equals("ű")){sb.append("u");}		    
 		    else {
 		     sb.append(ch);
-		    }
 		   }
+		
 		   ch = iterator.next();
+		   
 		  }
 		  
 		  byte[] ascii = sb.toString().getBytes(StandardCharsets.US_ASCII); 

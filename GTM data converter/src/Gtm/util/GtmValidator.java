@@ -576,7 +576,7 @@ public class GtmValidator extends EObjectValidator {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
-						(Diagnostic.ERROR,
+						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_3,
@@ -745,7 +745,7 @@ public class GtmValidator extends EObjectValidator {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
-						(Diagnostic.ERROR,
+						(Diagnostic.WARNING,
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 NationalLanguageSupport.GtmValidator_13,
@@ -4534,6 +4534,9 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateTravelValidityConstraint_TRAVEL_DAYS_NOT_NULL(TravelValidityConstraint travelValidityConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
+		
+
+		/*
 		if (travelValidityConstraint.getTravelDays() == 0) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -4548,6 +4551,7 @@ public class GtmValidator extends EObjectValidator {
 			}
 			return false;
 		}
+		*/
 		return true;
 	}
 
@@ -5825,7 +5829,7 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	public boolean validateFareStationSetDefinition_NAME_UTF8_FORMAT(FareStationSetDefinition fareStationSetDefinition, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!StringFormatValidator.isStationASCII(fareStationSetDefinition.getNameUtf8())) {
+		if (!StringFormatValidator.isUTF8(fareStationSetDefinition.getNameUtf8())) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -6932,7 +6936,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateEdge_COORDINATE_LIMITS(Edge edge, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (edge.getLongitude() > 160 || edge.getLongitude() < -160 || edge.getLatitude() > 160 || edge.getLatitude() < -160) {
+		if (edge.getLongitude() > 180 || edge.getLongitude() < -180 || edge.getLatitude() > 180 || edge.getLatitude() < -180) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic

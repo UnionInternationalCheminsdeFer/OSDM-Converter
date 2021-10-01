@@ -1078,6 +1078,9 @@ public class LegacyExporter {
 					}
 				}
 			}
+			if (line.length() > 0) {
+				lines[i] = line.toString();
+			}
 		}
 		
 		

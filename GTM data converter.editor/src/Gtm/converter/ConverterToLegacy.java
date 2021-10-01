@@ -2701,7 +2701,7 @@ public class 	ConverterToLegacy {
 			
 			lc = GtmFactory.eINSTANCE.createLegacyCarrier();
 			lc.setCarrierCode(carrier.getCode());
-			lc.setCarrierShortName(GtmUtils.utf2ascii(carrier.getShortName()));
+			lc.setCarrierShortName(carrier.getShortName());
 			lc.setCarrierName(carrier.getName());
 						
 			carriers.put(carrier.getCode(), lc);
