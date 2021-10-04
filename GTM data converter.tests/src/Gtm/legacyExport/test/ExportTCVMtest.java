@@ -17,25 +17,25 @@ import Gtm.utils.GtmUtils;
 public class ExportTCVMtest {
 	
 	String line = "999901001                                                  Loc"
-			+ "al text                                                           "
-			+ "                                                                  "
-			+ "                                                                  "
-			+ "                                      French text                 "
-			+ "                                                                  "
-			+ "                                                                  "
-			+ "                                                                  "
-			+ "              German text                                         "
-			+ "                                                                  "
-			+ "                                                                  "
-			+ "        EnglishText EnglishText EnglishText EnglishText EnglishTex"
-			+ "t                                                                 "
-			+ "                                                                  "
-			+ "                                                                  "
-			+ "                                                                  "
-			+ "                                                                  "
-			+ "                                                                  "
-			+ "                         1201901010120990101"; 
-	
+			+ "al text                                                             "
+			+ "                                                                    "
+			+ "                                                                    "
+			+ "                                French text                         "
+			+ "                                                                    "
+			+ "                                                                    "
+			+ "                                                                    "
+			+ "German text                                                         "
+			+ "                                                                    "
+			+ "                                                        EnglishText "
+			+ "EnglishText EnglishText EnglishText EnglishText                     "
+			+ "                            second line                             "
+			+ "                                                                    "
+			+ "                                                                    "
+			+ "                                                                    "
+			+ "                                                                    "
+			+ "                                                           120190101"
+			+ "0120990101";
+		
 	@Mock
 	GtmUtils gtmUtilsMock;
 	

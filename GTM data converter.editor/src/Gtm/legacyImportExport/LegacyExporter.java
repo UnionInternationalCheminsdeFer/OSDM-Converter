@@ -948,12 +948,12 @@ public class LegacyExporter {
 		//5 Key flag for carrier code numeric 1 M 11 0, 1 or 2 (see point 2.2)
 		sb.append("1");
 		//6 Carrier's shortened name alpha numeric 17 M 12-28
-		String shortName = GtmUtils.utf2ascii(carrier.getCarrierShortName());
+		String shortName = GtmUtils.utf2ascii(carrier.getCarrierShortName().trim());
 		sb.append(String.format("%-17s",GtmUtils.limitStringLengthWithConsoleEntry(shortName,17,editor,"TCVC export - carrier")));		 //$NON-NLS-1$
 		//7 Flag 1 for carrier's shortened name	numeric 1 M 29 0 or 3 (see point 2.2)
 		sb.append("0");
 		//8 Carrier’s full name alpha numeric 60 M 30-89
-		String name = GtmUtils.utf2ascii(carrier.getCarrierName());
+		String name = GtmUtils.utf2ascii(carrier.getCarrierName().trim());
 		if (name.length() > 60) {
 			sb.append(String.format("%-60s",GtmUtils.limitStringLengthWithConsoleEntry(shortName,60,editor,"TCVC export - carrier")));		 //$NON-NLS-1$				
 		} else {
@@ -1077,6 +1077,9 @@ public class LegacyExporter {
 						line = new StringBuilder();
 					}
 				}
+			}
+			if (line.length() > 0) {
+				lines[i] = line.toString();
 			}
 		}
 		

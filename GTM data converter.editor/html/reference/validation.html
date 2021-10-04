@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<title>User preferences</title>
+	<title>Validations</title>
 </head>
 
 <body>
@@ -11,14 +11,188 @@
 
 <p><ul>
 
-Data validation can be called on the data tree via the context menu to validate a branch of the tree. The validation results will be displayed in the Validation problem view. A double click on the validation item in the problem view will select the item in the data tree and outline view.<br/><br/>
+Data validation can be called on the data tree via the context menu to validate a branch of the tree. 
+The validation results will be displayed in the Validation problem view. A double click on the 
+validation item in the problem view will select the item in the data tree and outline view.<br/> 
+The validation covers the object and its included objects but to the referenced objects. So a a validation on a fare template validates 
+the content of the template but not the content of a service constraint referenced by the template.
+
+<br/><br/>
 
 
 <ul>
 <p><img src="../images/validate.png" alt="validate"/>Validation<br/></p>
 </ul>
 
-</ul></p>
+
+<h2>Implemented Validations</h2>
+
+<table border="1">
+<tr><td>data item</td><td>Severity</td><td>Validation</td><td>Hint on the issue</td></tr>
+<tr><td>code list carrier</td><td>Error   </td><td>must not be empty</td><td>Only carriers from the official code list are allowed.</td></tr>
+<tr><td>code list service brands</td><td>Warning  </td><td>must not be empty</td><td>Service brands are required for the conversion of service constraints. Service constraints must use the official service brand codes.</td></tr>
+<tr><td>code list stations         </td><td>Error   </td><td>must not be empty         </td><td> Only stations from the official METITS / TAP-TSI code list are allowed.</td></tr>
+<tr><td>code list countries</td><td>Error   </td><td>must not be empty         </td><td>         </td></tr>
+<tr><td>code list currencies</td><td>Error   </td><td>must not be empty         </td><td>         </td></tr>
+<tr><td>code list languages</td><td>Error   </td><td>must nor be empty         </td><td>         </td></tr>
+<tr><td>code list stations        </td><td>Error   </td><td> longitude and latitude must be between -180 +180        </td><td>         </td></tr>
+<tr><td>Legacy Data character set         </td><td>Error   </td><td> must be set        </td><td> The entry country default links countries to the usually used character set. </td></tr>
+<tr><td>Legacy Data time zone         </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>Legacy Data carrier       </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>Params Country         </td><td>Error   </td><td>must be set         </td><td>Used to link 108.1 data to a country as the 108 station codes do not provide a country. </td></tr>
+<tr><td>Params Fare Template</td><td>Error   </td><td>must not be empty         </td><td>Templates to convert a 108 adult fare into the different fares in the OSDM data. Without fare templates no OSDM data will be created. </td></tr>
+<tr><td>Params Station to Service constraint map         </td><td>Error   </td><td>Service Constraint must be set</td><td>If a mapping is defined a service constraint must be included.         </td></tr>
+<tr><td>Params Station to Service constraint map         </td><td>Error   </td><td>Station code must be set</td><td>If a mapping is defined a 108 station code must be set.         </td></tr>
+<tr><td>Params Station to Station map         </td><td>Error   </td><td>Station must be set</td><td>         </td></tr>
+<tr><td>Params Station to Station map         </td><td>Error   </td><td>station code must be set</td><td>         </td></tr>
+<tr><td>Params Bus/Ferry to Service constraint map         </td><td>Error   </td><td>For the Bus mapping the Service Constraint must contain a Bus service brand</td><td>         </td></tr>
+<tr><td>Params Bus/Ferry to Service constraint map         </td><td>Error   </td><td>For the Ferry mapping the service Constraint must contain a Ship service brand</td><td>         </td></tr>
+<tr><td>Params Bus/Ferry to Service constraint map         </td><td>Error   </td><td>For the Bus and Ferry mapping the service Constraint must contain a Ship and a Bus service brand</td><td>         </td></tr>
+<tr><td>Params Fare templates          </td><td>Error   </td><td>Fare templates must not have different text for first and second class if they are convertable.        </td><td>The text will be converted to the 108 TCVP file which can not have separate texts per class. </td></tr>
+<tr><td>Fare Template price factor         </td><td>Warning   </td><td>Is usually not 0         </td><td>A factor of 0 results in a sales price of 0. This is unusual, but might be ok for some 100% reduction cards.  </td></tr>
+<tr><td>Fare Template price factor         </td><td>Error   </td><td>Must not be less than 0         </td><td>         </td></tr>
+<tr><td>Fare Template price factor         </td><td>Error   </td><td>Must not be larger than 5        </td><td>As the factor is applied to the adult price of the 108 data a high factor is very unusual.         </td></tr>
+<tr><td>Fare Template price factor         </td><td>Warning   </td><td>Is usually not larger than 1    </td><td>As the factor is applied to the adult price of the 108 data a factor > 1 is unusual.         </td></tr>
+<tr><td>Fare Template fare type         </td><td>Error   </td><td>must be set         </td><td>         </td></tr>
+<tr><td>Fare Template travel validity         </td><td>Error   </td><td>must be set         </td><td>Travel validity defines the duration of the validity of a ticket and is required for OSDM  </td></tr>
+<tr><td>Fare Template combination constraint         </td><td>Error   </td><td>must be set         </td><td> Combination Model defines the way the fare can be combined with other fares. It is mandatory in OSDM        </td></tr>
+<tr><td>Fare Template passenger constraint          </td><td>Error   </td><td>must be set       </td><td> The fare must include a passenger constraint defining the passengers to which the fare applies.        </td></tr>
+<tr><td>Fare Template conversion         </td><td>Error   </td><td>must be set to YES or NO         </td><td>         </td></tr>
+<tr><td>Fare Template service class         </td><td>Error   </td><td>must be set         </td><td> Note: Only classes B and D are convertable.        </td></tr>
+<tr><td>Fare Template Price and Factor         </td><td>Error   </td><td>If a price is set the Factor must be 0 </td><td>The price set replaces the price from 108. To avoid mis-interpretation the factor has to be set to 0.         </td></tr>
+<tr><td>Fare Template fare constraint bundle         </td><td>Error   </td><td>must be set</td><td>Fare constraint BUndle bundles mandatory basic definitions of a fare.</td></tr>
+<tr><td>Fare Template class and conversion         </td><td>Warning   </td><td>If conversion is set to YES the class should either be B or D </td><td> Only Class B and D are convertable. </td></tr>
+<tr><td>Fare Template class and conversion         </td><td>Error   </td><td>If conversion is set to ONLY the class must not be A or C  </td><td>If the fare is to be used for conversion only the classes included should be convertable ones.         </td></tr>
+<tr><td>Fare Template accounting tariff id         </td><td>Warning   </td><td>should be between 1 and 99999</td><td>The tariff id will be used in teh accounting data and the current IRS 30301 specification has these size limits.         </td></tr>
+<tr><td>Fare Template regulatory regime         </td><td>Warning   </td><td> should not be empty      </td><td>One of te regulation is applying in any of the participating countries.</td></tr>
+<tr><td>OSDM After Sales Condition fee       </td><td>Error   </td><td> must be set        </td><td>A fee must be defined if after sales conditions are set.   </td></tr>
+<tr><td>OSDM After Sales Condition rules       </td><td>Error   </td><td> at least one rule        </td><td>A rule must be defined if after sales conditions are set.         </td></tr>
+<tr><td>OSDM Calendar         </td><td>Error   </td><td>must have start and end date in correct order         </td><td>       </td></tr>
+<tr><td>OSDM Calendar Dates         </td><td>Error   </td><td>must be within the from until date range of the calendar</td><td>         </td></tr>
+<tr><td>OSDM Calendar</td><td>Warning   </td><td>should be used         </td><td>A calendar defined should be use used in some other data object.         </td></tr>
+<tr><td>OSDM Calendars</td><td>Error   </td><td>must not be empty         </td><td> A calendar is needed at least for the sales availability constraint.   </td></tr>
+<tr><td>OSDM Carrier constraint         </td><td>Error   </td><td>Either included or excluded list must not be empty         </td><td>         </td></tr>
+<tr><td>OSDM Combination Constraint         </td><td>Error   </td><td>must include at least one combination model         </td><td>         </td></tr>
+<tr><td>OSDM Combination Constraint          </td><td>Warning   </td><td> should be used        </td><td>         </td></tr>
+<tr><td>OSDM Connection point         </td><td>Warning   </td><td>A connections point with multiple stations should have a border point code      </td><td>         </td></tr>
+<tr><td>OSDM Connection point         </td><td>Error   </td><td>At least one station in a station set must be included         </td><td>         </td></tr>
+<tr><td>OSDM Connection point         </td><td>Warning   </td><td>A connections point should be used      </td><td>         </td></tr>
+<tr><td>OSDM Cross Border Condition countries         </td><td>Error   </td><td>from and to country must be set         </td><td>         </td></tr>
+<tr><td>OSDM Delivery         </td><td>Error   </td><td>must exist</td><td>         </td></tr>
+<tr><td>OSDM Delivery Carrier</td><td>Error   </td><td>must be set</td><td>         </td></tr>
+<tr><td>OSDM Delivery Id</td><td>Error   </td><td>must be set</td><td>         </td></tr>
+<tr><td>OSDM Delivery Id</td><td>Error   </td><td>must not contain blanks</td><td>         </td></tr>
+<tr><td>OSDM Delivery version         </td><td>Error   </td><td>must be set</td><td>         </td></tr>
+<tr><td>OSDM Delivery accepted version         </td><td>Error   </td><td>must be set</td><td>         </td></tr>
+<tr><td>OSDM Fare Structure         </td><td>Error   </td><td>must exist       </td><td>         </td></tr>
+<tr><td>OSDM Fare fare type         </td><td>Error   </td><td>must be set         </td><td>         </td></tr>
+<tr><td>OSDM Fare travel validity         </td><td>Error   </td><td>must be set         </td><td>         </td></tr>
+<tr><td>OSDM Fare combination constraint         </td><td>Error   </td><td>must be set         </td><td>         </td></tr>
+<tr><td>OSDM Fare passenger constraint          </td><td>Error   </td><td>must be set       </td><td>         </td></tr>
+<tr><td>OSDM Fare passenger constraint          </td><td>Error   </td><td>must be set      </td><td>         </td></tr>
+<tr><td>OSDM Fare conversion         </td><td>Error   </td><td>must be set to YES or NO         </td><td>         </td></tr>
+<tr><td>OSDM Fare service class         </td><td>Error   </td><td>must be set         </td><td>         </td></tr>
+<tr><td>OSDM Fare price         </td><td>Error   </td><td>must be set         </td><td>         </td></tr>
+<tr><td>OSDM Fare fare constraint bundle         </td><td>Error   </td><td>must be set</td><td>         </td></tr>
+<tr><td>OSDM Fare regulatory regime         </td><td>Warning   </td><td> should not be empty      </td><td>         </td></tr>
+<tr><td>OSDM Fare Constraint Bundle sales availability</td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Fare Constraint Bundle fulfillment constraint</td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Fare Constraint Bundle travel validity</td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Fare Constraint Bundle combination constraint</td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Fare Constraint Bundle passenger limits</td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Fare Constraint Bundle </td><td>Warning</td><td> should be used        </td><td>         </td></tr>
+<tr><td>OSDM Fare Reference Station Set         </td><td>Error   </td><td>must include at least one station</td><td>         </td></tr>
+<tr><td>OSDM Fare Reference Station Set legacy code     </td><td>Error   </td><td>must be set</td><td>         </td></tr>
+<tr><td>OSDM Fare Reference Station Set carrier        </td><td>Error   </td><td>must be set</td><td>         </td></tr>
+<tr><td>OSDM Fare Reference Station Set code    </td><td>Error   </td><td>must be set</td><td>         </td></tr>
+<tr><td>OSDM Fare Reference Station Set </td><td>Error   </td><td>must include at least one station</td><td>         </td></tr>
+<tr><td>OSDM Fare Reference Station Set name        </td><td>Error   </td><td>must include ASCII characters only</td><td>         </td></tr>
+<tr><td>OSDM Fare legacy accounting identifier series id </td><td>Error   </td><td>must be between 1 and 99999</td><td> size limit of the IRS 10108 specification        </td></tr>
+<tr><td>OSDM Fare legacy accounting identifier tariff id </td><td>Error   </td><td>must be between 0 and 99999</td><td> size limit of the IRS 30301 specification        </td></tr>
+<tr><td>OSDM Fare combination Model model type        </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Fare combination Model reference cluster         </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Fulfillment Constraint required bar codes</td><td>Error   </td><td> list must not be empty        </td><td>         </td></tr>
+<tr><td>OSDM Fulfillment Constraint accepted type </td><td>Error   </td><td> at least one accepted fulfillment type        </td><td> Without a fulfillment type no ticket an be created.  </td></tr>
+<tr><td>OSDM Fulfillment Constraint accepted type </td><td>Warning   </td><td> should be used      </td><td>         </td></tr>
+<tr><td>OSDM Included free passengers         </td><td>Error   </td><td>  number must not be negative       </td><td>         </td></tr>
+<tr><td>OSDM Included free passengers         </td><td>Error   </td><td>  traveler type must be set      </td><td>         </td></tr>
+<tr><td>OSDM Line carrier         </td><td>Error   </td><td>at least one carrier contained</td><td>         </td></tr>
+<tr><td>OSDM Online Resource system</td><td>Error   </td><td>must be set       </td><td>         </td></tr>
+<tr><td>OSDM Online Resource interface type </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Polygon         </td><td>Error   </td><td>at least three edges</td><td>         </td></tr>
+<tr><td>OSDM Polygon  edge       </td><td>Error   </td><td>geo-coordinates between -180 and +180</td><td>         </td></tr>
+<tr><td>OSDM Passenger Constraint traveler type       </td><td>Error   </td><td>  must be set       </td><td>         </td></tr>
+<tr><td>OSDM Passenger Constraint name       </td><td>Error   </td><td>  must be set       </td><td>         </td></tr>
+<tr><td>OSDM Passenger Combination Constraint max number         </td><td>Error   </td><td> must at least be 1        </td><td>         </td></tr>
+<tr><td>OSDM Passenger Combination Constraint traveler type         </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Price</td><td>Error   </td><td>must include at least one currency price         </td><td>         </td></tr>
+<tr><td>OSDM Price         </td><td>Warning   </td><td>Amount should be less than 10000€         </td><td>         </td></tr>
+<tr><td>OSDM Price         </td><td>Warning   </td><td>Amount should not be negative         </td><td>         </td></tr>
+<tr><td>OSDM Passenger Limit         </td><td>Error   </td><td>Min. and Max. Total number must be set         </td><td>         </td></tr>
+<tr><td>OSDM Passenger Limit         </td><td>Warning   </td><td>should be used         </td><td>         </td></tr>
+<tr><td>OSDM Personal Data Constraint         </td><td>Error   </td><td> must include at least one item in defined        </td><td>         </td></tr>
+<tr><td>OSDM Personal Data Constraint         </td><td>Warning   </td><td> should be used        </td><td>         </td></tr>
+<tr><td>OSDM Personal Data Constraint transfer        </td><td>Error   </td><td> at least one transfer        </td><td> It must be defined on which tranfer way the exchange is allowed.  </td></tr>
+<tr><td>OSDM Personal Data Change Limit         </td><td>Warning   </td><td> time limit should be at least 10 minutes      </td><td>         </td></tr>
+<tr><td>OSDM Personal Data Change Limit         </td><td>Warning   </td><td> time limit should be not more than  1008000  minutes      </td><td>         </td></tr>
+<tr><td>OSDM Passenger Constraint          </td><td>Warning   </td><td> must be used       </td><td>         </td></tr>
+<tr><td>OSDM Relative Time         </td><td>Error  </td><td> must not be negative, unit must be set    </td><td>         </td></tr>
+<tr><td>OSDM Relative Time         </td><td>Warning  </td><td> value usually below 700 days    </td><td>         </td></tr>
+<tr><td>OSDM Reduction Constraint reduction cards         </td><td>Error   </td><td>  at least one reduction card       </td><td> A reduction constraint must include one or more reduction cards.      </td></tr>
+<tr><td>OSDM Reduction Constraint          </td><td>Warning</td><td>should be used       </td><td>       </td></tr>
+<tr><td>OSDM Reduction Name          </td><td>Error</td><td>must be set and must contain ASCII characters only     </td><td>       </td></tr>
+<tr><td>OSDM Reduction Card issuer         </td><td>Error   </td><td>issuer must be set for non-generic cards         </td><td>         </td></tr>
+<tr><td>OSDM Reduction Card         </td><td>Warning   </td><td>card should be used         </td><td>         </td></tr>
+<tr><td>OSDM Reduction Card id        </td><td>Error   </td><td>is must be set         </td><td>         </td></tr>
+<tr><td>OSDM Reduction Card id        </td><td>Error   </td><td>if an issuer is set the card is must start with the issuer code </td><td>         </td></tr>
+<tr><td>OSDM Regional Constraint         </td><td>Error   </td><td>must contain at least one regional validity</td><td>         </td></tr>
+<tr><td>OSDM Regional Constraint distance   </td><td>Warning   </td><td>should at least be 1 km</td><td>         </td></tr>
+<tr><td>OSDM Regional Constraint distance        </td><td>Warning  </td><td>should be less than 10000 km</td><td>         </td></tr>
+<tr><td>OSDM Regional Constraint         </td><td>Warning   </td><td>should be used</td><td>         </td></tr>
+<tr><td>OSDM Sales availability constraints        </td><td>Error   </td><td>must not be empty   </td><td>         </td></tr>
+<tr><td>OSDM Sales Availability Constraint sales restriction         </td><td>Error   </td><td>must include at least one sales restriction</td><td>The sales restrictions define the prebooking time before start of validity and the time after start of validity where a ticket can be sold.  </td></tr>
+<tr><td>OSDM Sales Availability Constraint         </td><td>Warning   </td><td> should be used        </td><td>         </td></tr>
+<tr><td>OSDM Sales Availability Constraint sales restriction         </td><td>Warning   </td><td>start and end should be set</td><td>         </td></tr>
+<tr><td>OSDM Service classes</td><td>Error   </td><td>must not be empty</td><td>         </td></tr>
+<tr><td>OSDM Service constraint         </td><td>Error   </td><td>Either included or excluded list of service brands must not be empty         </td><td>         </td></tr>
+<tr><td>OSDM Service class text        </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Service class class        </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Service class classic class     </td><td>Error   </td><td> must be set and fit to service class        </td><td>         </td></tr>
+<tr><td>OSDM Service constraint legacy code         </td><td>Error   </td><td> must be less than 100000 and not less than 0        </td><td>         </td></tr>
+<tr><td>OSDM Station name</td><td>Error   </td><td>name must contain ASCII characters only         </td><td>         </td></tr>
+<tr><td>OSDM Station name / name UTF8</td><td>Error   </td><td>must not include a *         </td><td>         </td></tr>
+<tr><td>OSDM Station short name</td><td>Error   </td><td>name must contain ASCII characters only         </td><td>         </td></tr>
+<tr><td>OSDM Station short name / short name UTF8</td><td>Error   </td><td>must not include a *         </td><td>         </td></tr>
+<tr><td>OSDM Station Resource Location          </td><td>Error   </td><td> at least one station or connection point      </td><td>         </td></tr>
+<tr><td>OSDM Station Resource Location online resource         </td><td>Error   </td><td> at least one resource        </td><td>         </td></tr>
+<tr><td>OSDM Travel validity</td><td>Warning   </td><td> Number of days larger than 15        </td><td>         </td></tr>
+<tr><td>OSDM Travel validity constraint         </td><td>Warning   </td><td> must be used        </td><td>         </td></tr>
+<tr><td>OSDM Text          </td><td>Error   </td><td> ASCII texts must contain ASCII characters only        </td><td>         </td></tr>
+<tr><td>OSDM Text texts         </td><td>Error   </td><td> text and text UTF-8 must be provided        </td><td>         </td></tr>
+<tr><td>OSDM Text short texts        </td><td>Error   </td><td> short text must be provided        </td><td>         </td></tr>
+<tr><td>OSDM Text translation         </td><td>Error   </td><td>language must be set         </td><td>         </td></tr>
+<tr><td>OSDM Train Resource Location carrier         </td><td>Error   </td><td> must be set        </td><td>         </td></tr>
+<tr><td>OSDM Train Resource Location online resource         </td><td>Error   </td><td> at least one resource        </td><td>         </td></tr>
+<tr><td>OSDM VAT         </td><td>Error   </td><td>   The sum of the VAT amounts must be less than the total price    </td><td>         </td></tr>
+<tr><td>OSDM VAT</td><td>Error   </td><td> amount must not be negative        </td><td>         </td></tr>
+<tr><td>OSDM VAT         </td><td>Error   </td><td> country must be provided in VAT detail        </td><td>         </td></tr>
+<tr><td>OSDM VAT         </td><td>Error   </td><td> percentage must not be negative        </td><td>         </td></tr>
+<tr><td>OSDM Validity Range         </td><td>Error   </td><td>  Unit must be set       </td><td>         </td></tr>
+<tr><td>OSDM Validity Range         </td><td>Error   </td><td>  Value must be larger than 1 minute and less than 700 days     </td><td>         </td></tr>
+<tr><td>OSDM ViaStation         </td><td>Error   </td><td>at least one station, reference station set, route or alternative routes         </td><td>         </td></tr>
+<tr><td>OSDM Via Station Alternative Routes         </td><td>Error   </td><td>the alternative route list must contain at least two alternatives         </td><td>         </td></tr>
+<tr><td>OSDM Via Station Alternative Route         </td><td>Error   </td><td>the alternative route must contain at least one via station       </td><td>         </td></tr>
+<tr><td>OSDM Via Station Route         </td><td>Error   </td><td>the route must contain at least one via station       </td><td>         </td></tr>
+<tr><td>OSDM Zone carrier         </td><td>Error   </td><td>at least one carrier contained</td><td>         </td></tr>
+<tr><td>OSDM Zone         </td><td>Error   </td><td> must contain either zone id or NUTS code        </td><td>         </td></tr>
+<tr><td>OSDM Zone         </td><td>Error   </td><td> either NUTS code, zone id(s), stations or polygon set        </td><td>         </td></tr>
+</table>
+
+</ul>
+
+
+
+</p>
 
 </body>
 </html>
