@@ -101,6 +101,8 @@ import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.provider.GtmItemProviderAdapterFactory;
 
+import com.ibm.icu.text.Transliterator;
+
 /**
  * The Class GtmUtils.
  * 
@@ -1848,54 +1850,63 @@ public class GtmUtils {
 	public synchronized static String utf2ascii(String s){
 		
 		if (s == null || s.length() == 0) return null;
+					
+		Transliterator transliterator = Transliterator.getInstance("Latin-ASCII");
 		
-		final StringBuffer sb = new StringBuffer();
+		return transliterator.transliterate(s);
+		
+		/*
+		 * 
+		 * 		
+		 * final StringBuffer sb = new StringBuffer();
 
 		final StringCharacterIterator iterator = new StringCharacterIterator( s );
 
 		char ch = iterator.current();
-
 		while( ch != StringCharacterIterator.DONE ){
-	   	    if     (Character.toString(ch).equals("Ê")){sb.append("E");}
-		    else if(Character.toString(ch).equals("È")){sb.append("E");}
-		    else if(Character.toString(ch).equals("ë")){sb.append("e");}
-		    else if(Character.toString(ch).equals("é")){sb.append("e");}
-		    else if(Character.toString(ch).equals("è")){sb.append("e");}
-		    else if(Character.toString(ch).equals("è")){sb.append("e");}
-		    else if(Character.toString(ch).equals("Â")){sb.append("A");}
-		    else if(Character.toString(ch).equals("ä")){sb.append("a");}
-		    else if(Character.toString(ch).equals("ß")){sb.append("ss");}
-		    else if(Character.toString(ch).equals("Ç")){sb.append("C");}
-		    else if(Character.toString(ch).equals("Ö")){sb.append("O");}
-		    else if(Character.toString(ch).equals("º")){sb.append("");}
-		    else if(Character.toString(ch).equals("Ó")){sb.append("O");}
-		    else if(Character.toString(ch).equals("ª")){sb.append("");}
-		    else if(Character.toString(ch).equals("º")){sb.append("");}
-		    else if(Character.toString(ch).equals("Ñ")){sb.append("N");}
-		    else if(Character.toString(ch).equals("É")){sb.append("E");}
-		    else if(Character.toString(ch).equals("Ä")){sb.append("A");}
-		    else if(Character.toString(ch).equals("Å")){sb.append("A");}
-		    else if(Character.toString(ch).equals("ä")){sb.append("a");}
-		    else if(Character.toString(ch).equals("Ü")){sb.append("U");}
-		    else if(Character.toString(ch).equals("ö")){sb.append("o");}
-		    else if(Character.toString(ch).equals("ü")){sb.append("u");}
-		    else if(Character.toString(ch).equals("á")){sb.append("a");}
-		    else if(Character.toString(ch).equals("Ó")){sb.append("O");}
-		    else if(Character.toString(ch).equals("É")){sb.append("E");}
-		    else if(Character.toString(ch).equals("Č")){sb.append("C");}
-		    else if(Character.toString(ch).equals("ă")){sb.append("a");}
-		    else if(Character.toString(ch).equals("ţ")){sb.append("t");}
-		    else if(Character.toString(ch).equals("Á")){sb.append("A");}
-		    else if(Character.toString(ch).equals("Ž")){sb.append("Z");}
-		    else if(Character.toString(ch).equals("ő")){sb.append("o");}
-		    else if(Character.toString(ch).equals("ł")){sb.append("l");}
-		    else if(Character.toString(ch).equals("ó")){sb.append("o");}
-		    else if(Character.toString(ch).equals("ž")){sb.append("z");}
-		    else if(Character.toString(ch).equals("š")){sb.append("s");}
-		    else if(Character.toString(ch).equals("Ú")){sb.append("U");}
-		    else if(Character.toString(ch).equals("ú")){sb.append("u");}
-		    else if(Character.toString(ch).equals("ó")){sb.append("o");}
-		    else if(Character.toString(ch).equals("ű")){sb.append("u");}		    
+	   	    if     (ch == 'Ê'){sb.append("E");}
+	   	    else if(ch == 'È'){sb.append('E');}
+	   	    else if(ch == 'ë'){sb.append('e');}
+	   	    else if(ch == 'é'){sb.append('e');}
+	   	    else if(ch == 'è'){sb.append('e');}
+	   	    else if(ch == 'è'){sb.append('e');}
+	   	    else if(ch == 'Â'){sb.append('A');}
+	   	    else if(ch == 'ä'){sb.append('a');}
+	   	    else if(ch == 'ß'){sb.append("ss");}
+	   	    else if(ch == 'Ç'){sb.append('C');}
+	   	    else if(ch == 'Ö') {sb.append('O');}
+	   	    else if(ch == 'º'){sb.append("");}
+	   	    else if(ch == 'Ó'){sb.append('O');}
+	   	    else if(ch == 'ª'){sb.append("");}
+	   	    else if(ch == 'º'){sb.append("");}
+	   	    else if(ch == 'Ñ'){sb.append('N');}
+	   	    else if(ch == 'É'){sb.append('E');}
+	   	    else if(ch == 'Ä'){sb.append('A');}
+	   	    else if(ch == 'Å'){sb.append('A');}
+	   	    else if(ch == 'ä'){sb.append('a');}
+	   	    else if(ch == 'Ü'){sb.append('U');}
+	   	    else if(ch == 'ö'){sb.append('o');}
+	   	    else if(ch == 'ü'){sb.append('u');}
+	   	    else if(ch == 'á'){sb.append('a');}
+	   	    else if(ch == 'Ó'){sb.append('O');}
+	   	    else if(ch == 'É'){sb.append('E');}
+	   	    else if(ch == 'C'){sb.append('C');}
+	   	    else if(ch == 'a'){sb.append('a');}
+	   	    else if(ch == 't'){sb.append('t');}
+	   	    else if(ch == 'Á'){sb.append('A');}
+	   	    else if(ch == 'Ž'){sb.append('Z');}
+	   	    else if(ch == 'o'){sb.append('o');}
+	   	    else if(ch == 'l'){sb.append('l');}
+	   	    else if(ch == 'ó'){sb.append('o');}
+	   	    else if(ch == 'ž'){sb.append('z');}
+	   	    else if(ch == 'š'){sb.append('s');}
+	   	    else if(ch == 'Ú'){sb.append('U');}
+	   	    else if(ch == 'ú'){sb.append('u');}
+	   	    else if(ch == 'ó'){sb.append('o');}
+	   	    else if(ch == 'u'){sb.append('u');}	
+
+
+		       
 		    else {
 		     sb.append(ch);
 		   }
@@ -1906,6 +1917,8 @@ public class GtmUtils {
 		  
 		  byte[] ascii = sb.toString().getBytes(StandardCharsets.US_ASCII); 
 		  return new String(ascii);
+		  
+		  */
 	}
 	
 	

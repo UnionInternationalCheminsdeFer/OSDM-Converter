@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Import Code Lists</title>
+</head>
+
+<body>
+
+<h2>Code Lists</h2>
+<p>
+<ul>The conversion needs reference data for stations, companies and service brands.  <br/><br/>
+ 
+  Company codes can be imported via a csv file created from the UIC RICS Code List taken
+  from the UIC web site. The csv file is assumed to be UTF-8 encoded, so the RICS code table (EXCEL) 
+  must be stored using the <it>csv UTF-8></it> option.<br/><br/>
+  
+  Service Brand codes can be imported via a csv file created from the UIC Service Brand Code List taken
+  from the UIC web site. The csv file is assumed to be ASC-II encoded, so the table (EXCEL) 
+  must be stored using the <it>csv></it> option.<br/><br/>
+  
+  Stations can be imported via the TSDUPD file from MERITS. The file is formated in EDIFACT 
+  according to the MERITS/TAP-TSI specification.<br/><br/>
+  
+  Legacy border point datas can be imported via a csv file from the border point list provided on the UIC extranet. 
+  The same border point data are required for the conversion of border points to and from OSDM.<br/><br/>
+    
+  
+ </ul>
+ 
+ 
+<h2>Reference data</h2>
+<ul>
+	Code lists to be imported:<br/><br/>
+		<ul>
+			<li><a href="../reference/data_companycodes.html" >carriers</a> - UIC company codes</li>
+			<li><a href="../reference/data_servicebrandcodes.html" >service brands</a> - UIC service brands</li>
+			<li><a href="../reference/data_stationcodes.html" >stations</a> - MERITS stations</li>
+			<li><a href="../reference/data_nutscodes.html" >NUTS</a> codes - regional codes (not used for pure conversion)</li>
+			<li>legacy <a href="../reference/data_borderpoints.html">border point</a> codes</li>
+		</ul>
+
+</ul></ul>
+
+</p>
+
+<h2>Import reference data</h2>
+<ul>
+<p>90918-10 fare data are based on reference data for company codes, service brands and stations. These code tables need to be imported first.<br/>
+The data will be shown in the code list section of the data set.</p>
+</ul>
+
+<ul>
+<p><img src="../images/importCarriers.png" alt="import Carriers"/>Import of the <a href="../reference/data_companycodes.html" >carriers</a> as csv copy of the Carrier list available on the UIC web site.<br/></p>
+</ul>
+
+<ul>
+<p><img src="../images/importBrands.png" alt="import Service Brands"/>Import of the <a href="../reference/data_servicebrandcodes.html" >service brands</a> as csv copy of the Service Brand list available on the UIC web site.<br/></p>
+</ul>
+
+<ul>
+<p><img src="../images/importStations.png" alt="import Stations"/>Import of the <a href="../reference/data_stationcodes.html" >station</a> data of MERITS in edifact format.<br/></p>
+</ul>
+
+<ul>
+<p><img src="../images/importborderpoints.png" alt="import boder point codes"/>Import of <a href="../reference/data_borderpoints.html" >border point</a> codes from a csv file.<br/></p>
+</ul>
+
+
+
+
+</p>
+</body>
+</html>
