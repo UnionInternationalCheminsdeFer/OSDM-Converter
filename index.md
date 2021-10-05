@@ -1,6 +1,6 @@
 ---
 title: OSDM Converter
-subtitle: Converts old the fare data format to the new OSDM Offline format
+subtitle: Converts old fare data format to the new OSDM Offline format
 layout: page
 show_sidebar: true
 hero_link: https://github.com/UnionInternationalCheminsdeFer/OSDM-Converter/releases/latest/
