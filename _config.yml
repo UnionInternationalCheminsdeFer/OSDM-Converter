@@ -2,7 +2,7 @@ title: OSDM Converter Tool
 email: clemens.gantert@deutschebahn.com
 
 description: >- # this means to ignore newlines until "baseurl:"
-  Tge OSDM Converter Tool allows to transform old fare data into the OSDM offline 
+  The OSDM Converter Tool allows to transform old fare data into the OSDM offline 
   data format.
 
 baseurl: "/OSDM-Converter" # the subpath of your site, e.g. /blog
