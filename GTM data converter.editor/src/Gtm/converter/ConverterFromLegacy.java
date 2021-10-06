@@ -502,14 +502,9 @@ public class ConverterFromLegacy {
 				//continue
 			}
 			
-			if (regionalConstraint != null) {
+			if (regionalConstraint != null && regionalConstraintR != null) {
 				regions.add(regionalConstraint);
-			}
-			if (regionalConstraintR != null) {
 				regions.add(regionalConstraintR);
-			}
-			
-			if (regionalConstraint != null || regionalConstraintR != null) {
 
 				int legacyFareCounter = 0;
 				for (FareTemplate fareTemplate: tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates()) {
@@ -548,7 +543,7 @@ public class ConverterFromLegacy {
 					}
 					
 					SalesAvailabilityConstraint s = fareTemplate.getSalesAvailability();					
-					if (s == null) {
+					if (s == null && fareTemplate.getFareConstraintBundle() != null ) {
 						s = fareTemplate.getFareConstraintBundle().getSalesAvailability();
 					} 
 					
@@ -1180,7 +1175,7 @@ public class ConverterFromLegacy {
 			}
 		}
 		
-		if ((viaDeparture == null &&  !borderDeparture) 
+		if ((viaDeparture == null && !borderDeparture) 
 			||
 			( viaArrival == null && !borderArrival)){
 			String message = "departure or arrival missing in series: " + Integer.valueOf(series.getNumber()).toString();

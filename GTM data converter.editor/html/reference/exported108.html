@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Unsupported 108 features in export</title>
+</head>
+
+<body>
+
+<h1>Format considerations</h1>
+
+<p>
+<ul>
+The IRS 10108.1 is not clear on code tables to be used and in some parts contardictory as the ASC-II 
+character set is 
+required but at the same time some elements sould contain special characters. The files created will 
+apply charactersets for byte size encoding. Usually 
+these will be the default character sets of the country. Except for data elements where special characters are 
+indicated in 10108.1 all elements will be transliterated to ASC-II.
+
+</ul>
+</p>
+
+
+
+<h1>Unsupported 108 features</h1>
+
+<p><ul>
+The 108 files created from OSDM data should provide the basic features of the specification 10108.1. 
+Some features on 10108.1 are dealing with data management can not be supported as they are not needed and 
+implemented in OSDM.
+<br/><br/>
+
+The OSDM data delivery policy is always to deliver the entire data set and not to indicate data changes. 
+Therefore all flags indicating deletions or 
+changes are not used. The 108 data will only include valid data and the flags are set to <b>new</b></b>
+
+</ul>
+</p>
+
+
+<h2>TCV file</h2>
+
+<p>
+<ul>
+<li>indications on amendments for flags are not provided</li>
+</ul>
+</p>
+
+<h2>TCVP file</h2>
+
+<p>
+<ul>
+<li>fares are provided as they are defined in OSDM. Additional rounding as described in 10108.1 is not applied.</li>
+<li>discount is not supported</li>
+<li>number of children is not supported, only adult fares</li>
+<li>replaced fare table is not supported</li>
+<li>version number is always 1</li>
+</ul>
+</p>
+
+<h2>TCVG file</h2>
+
+<p>
+Station data are exchanged via MERITS. The OSDM data include only a limited set on station names as 
+these are currently not part of MERITS data.
+<br/><br/>
+<ul>
+<li>old railway code is not supported</li>
+<li>zone code is not supported</li>
+<li>pictogram codes are not supported</li>
+<li>fonts are not supported</li>
+<li>designation for third party is not supported</li>
+<li>accounting station code is not supported</li>
+<li>geo-coordinates are supported for real stations only and contain the coordinates of MERITS. The 
+standard WGS84 system is used as in MERITS, not the outdated Gauss-Krüger system.</li>
+<li>version number is always 1</li>
+<li>names of virtual border stations are constructed from real station names. There is no guarantee 
+that border station names of two 
+carriers are identical, the name must not be used to validate a connection of two series.</li>
+</ul>
+</p>
+
+<h2>TCVS file</h2>
+
+<p>
+<ul>
+<li>connecting codes are not supported</li>
+<li>route number is provided as unique number but does not indicate a preference</li>
+<li>product code is not supported</li>
+<li>product offer code is not supported</li>
+<li>indication of usual route is not supported</li>
+<li>fare calculation will always be route based</li>
+<li>ferry link is not supported</li>
+<li>replaced series are not supported</li>
+<li>abridging code will always be 0 as only necessary via stations are included in OSDM</li>
+<li>version number is always 1</li>
+</ul>
+</p>
+
+<h2>Price Table</h2>
+
+<p>
+<ul>
+<li>distance based price table will not be used</li>
+<li>no support for flags</li>
+<li>the data version is always 1</li>
+</ul>
+</p>
+
+<h2>TCVM file</h2>
+
+<p>
+<ul>
+<li>the data version is always 1</li>
+</ul>
+</p>
+
+<h2>TCVC file</h2>
+
+
+<p>
+The data for the TCVC file are not part of OSDM but taken from the RICS code table of UIC.<br/><br/>
+<ul>
+<li>Address is not supported</li>
+<li>RU managing the system is not supported</li>
+<li>the data version is always 1</li>
+</ul>
+</p>
+
+<h2>TCVL file</h2>
+
+<p>
+The 10108.1 specification contains an error in the format definition as element 3 is only
+ one byte and not 5 bytes as indicated. The format created by the converter follows the 
+ format used by the railways (length of element 3 is 1 byte).
+<ul>
+<li>the data version is always 1</li>
+</ul>
+</p>
+
+
+</body>
+</html>
