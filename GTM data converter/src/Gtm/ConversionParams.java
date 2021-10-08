@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ConversionParams#getVatTemplates <em>Vat Templates</em>}</li>
  *   <li>{@link Gtm.ConversionParams#getBusFerryMapping <em>Bus Ferry Mapping</em>}</li>
  *   <li>{@link Gtm.ConversionParams#getLegacyBorderIndication <em>Legacy Border Indication</em>}</li>
+ *   <li>{@link Gtm.ConversionParams#isRemoveUnusedLegacyStations <em>Remove Unused Legacy Stations</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getConversionParams()
@@ -411,5 +412,28 @@ public interface ConversionParams extends EObject {
 	 * @generated
 	 */
 	void setLegacyBorderIndication(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Remove Unused Legacy Stations</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Remove Unused Legacy Stations</em>' attribute.
+	 * @see #setRemoveUnusedLegacyStations(boolean)
+	 * @see Gtm.GtmPackage#getConversionParams_RemoveUnusedLegacyStations()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isRemoveUnusedLegacyStations();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ConversionParams#isRemoveUnusedLegacyStations <em>Remove Unused Legacy Stations</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Remove Unused Legacy Stations</em>' attribute.
+	 * @see #isRemoveUnusedLegacyStations()
+	 * @generated
+	 */
+	void setRemoveUnusedLegacyStations(boolean value);
 
 } // ConversionParams

@@ -5,7 +5,6 @@ package Gtm.provider;
 
 import Gtm.EndOfSale;
 import Gtm.LabelProvider;
-
 import java.util.Collection;
 import java.util.List;
 

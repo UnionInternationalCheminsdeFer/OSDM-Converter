@@ -1149,6 +1149,7 @@
           ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/vatTemplates"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/busFerryMapping"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/legacyBorderIndication"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/removeUnusedLegacyStations"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//VatTemplates">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//VatTemplates/vatTemplates"/>

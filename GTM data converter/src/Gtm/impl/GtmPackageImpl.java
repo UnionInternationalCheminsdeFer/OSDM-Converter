@@ -6613,6 +6613,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getConversionParams_RemoveUnusedLegacyStations() {
+		return (EAttribute)conversionParamsEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getVatTemplates() {
 		return vatTemplatesEClass;
 	}
@@ -9682,6 +9691,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(conversionParamsEClass, CONVERSION_PARAMS__VAT_TEMPLATES);
 		createEReference(conversionParamsEClass, CONVERSION_PARAMS__BUS_FERRY_MAPPING);
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__LEGACY_BORDER_INDICATION);
+		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS);
 
 		vatTemplatesEClass = createEClass(VAT_TEMPLATES);
 		createEReference(vatTemplatesEClass, VAT_TEMPLATES__VAT_TEMPLATES);
@@ -10727,6 +10737,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getConversionParams_VatTemplates(), this.getVatTemplates(), null, "vatTemplates", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConversionParams_BusFerryMapping(), this.getLegacyBusFerryMapping(), null, "busFerryMapping", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConversionParams_LegacyBorderIndication(), ecorePackage.getEString(), "legacyBorderIndication", "(GR)", 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConversionParams_RemoveUnusedLegacyStations(), ecorePackage.getEBoolean(), "removeUnusedLegacyStations", "true", 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(vatTemplatesEClass, VatTemplates.class, "VatTemplates", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVatTemplates_VatTemplates(), this.getVatTemplate(), null, "vatTemplates", null, 0, -1, VatTemplates.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

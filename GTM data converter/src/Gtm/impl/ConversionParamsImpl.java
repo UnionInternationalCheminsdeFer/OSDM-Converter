@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.ConversionParamsImpl#getVatTemplates <em>Vat Templates</em>}</li>
  *   <li>{@link Gtm.impl.ConversionParamsImpl#getBusFerryMapping <em>Bus Ferry Mapping</em>}</li>
  *   <li>{@link Gtm.impl.ConversionParamsImpl#getLegacyBorderIndication <em>Legacy Border Indication</em>}</li>
+ *   <li>{@link Gtm.impl.ConversionParamsImpl#isRemoveUnusedLegacyStations <em>Remove Unused Legacy Stations</em>}</li>
  * </ul>
  *
  * @generated
@@ -281,6 +282,26 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected String legacyBorderIndication = LEGACY_BORDER_INDICATION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isRemoveUnusedLegacyStations() <em>Remove Unused Legacy Stations</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRemoveUnusedLegacyStations()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean REMOVE_UNUSED_LEGACY_STATIONS_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isRemoveUnusedLegacyStations() <em>Remove Unused Legacy Stations</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRemoveUnusedLegacyStations()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean removeUnusedLegacyStations = REMOVE_UNUSED_LEGACY_STATIONS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -900,6 +921,27 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isRemoveUnusedLegacyStations() {
+		return removeUnusedLegacyStations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRemoveUnusedLegacyStations(boolean newRemoveUnusedLegacyStations) {
+		boolean oldRemoveUnusedLegacyStations = removeUnusedLegacyStations;
+		removeUnusedLegacyStations = newRemoveUnusedLegacyStations;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS, oldRemoveUnusedLegacyStations, removeUnusedLegacyStations));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -970,6 +1012,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return getBusFerryMapping();
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
 				return getLegacyBorderIndication();
+			case GtmPackage.CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS:
+				return isRemoveUnusedLegacyStations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1034,6 +1078,9 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
 				setLegacyBorderIndication((String)newValue);
 				return;
+			case GtmPackage.CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS:
+				setRemoveUnusedLegacyStations((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1097,6 +1144,9 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
 				setLegacyBorderIndication(LEGACY_BORDER_INDICATION_EDEFAULT);
 				return;
+			case GtmPackage.CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS:
+				setRemoveUnusedLegacyStations(REMOVE_UNUSED_LEGACY_STATIONS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1143,6 +1193,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return busFerryMapping != null;
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
 				return LEGACY_BORDER_INDICATION_EDEFAULT == null ? legacyBorderIndication != null : !LEGACY_BORDER_INDICATION_EDEFAULT.equals(legacyBorderIndication);
+			case GtmPackage.CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS:
+				return removeUnusedLegacyStations != REMOVE_UNUSED_LEGACY_STATIONS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1169,6 +1221,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 		result.append(convertServiceConstraints);
 		result.append(", legacyBorderIndication: ");
 		result.append(legacyBorderIndication);
+		result.append(", removeUnusedLegacyStations: ");
+		result.append(removeUnusedLegacyStations);
 		result.append(')');
 		return result.toString();
 	}
