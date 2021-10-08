@@ -94,7 +94,7 @@ but the station sets of the connection points might be incomplete and must be co
 
 <br/><br/>
 
-<p>Conversion parameter in <b>Legacy100</b>:
+<p>Conversion parameter in <b>Legacy108</b>:
 
 <table border ="1">
 <tr><td>data item</td><td>description</td></tr>
@@ -125,6 +125,7 @@ but the station sets of the connection points might be incomplete and must be co
 <tr><td>VAT Templates</td>
    <td>Templates to create VAT tax information. Templates can be provided for different scope and countries. The template applies to regional constraints within the specified country. Templates with scope INTERNATIONAL are used additionally for regional constraints with connection points.</td>
    <td>Add VAT details for different countries</td></tr>
+<tr><td>Remove Unused Legacy Stations in 108 Export</td><td>Stations that are not used in series or fare reference stations will be removed from the TCVG data. Default: true</td></tr>  
 <tr><td>fare template</td>
     <td>Template to create a fare in the 90918-10 data. The template must provide service class and price factor to create a fare. All required data for the 
 final fare must be created except the regional validity and the price which come from 108.1 series and fares. <br/> 

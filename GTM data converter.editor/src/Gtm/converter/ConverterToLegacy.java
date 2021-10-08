@@ -13,7 +13,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
@@ -138,7 +138,7 @@ public class 	ConverterToLegacy {
 	 * @return the monitor tasks
 	 */
 	public int getMonitorTasks() {
-		return 14;
+		return 15;
 	}
 	
 	/**
@@ -304,10 +304,87 @@ public class 	ConverterToLegacy {
 			domain.getCommandStack().execute(command);
 		}
 		monitor.worked(1);		
+		
+		if (tool.getConversionFromLegacy().getParams().isRemoveUnusedLegacyStations()) {
+			monitor.subTask("Delete unused 108 stations");		
+			HashSet<Legacy108Station> unusedLegacyStations = getUnusedLegacyStations();
+
+			if (unusedLegacyStations != null && !unusedLegacyStations.isEmpty()) {
+				
+				StringBuilder sb = new StringBuilder();
+				for (Legacy108Station s : unusedLegacyStations) {
+					if (sb.length() > 0) sb.append(", ");
+					sb.append(s.getStationCode()).append("-").append(s.getName());
+				}
+				GtmUtils.writeConsoleInfo("Unused stations removed: " + sb.toString(), editor);
+				
+				Command comDel = DeleteCommand.create(domain, unusedLegacyStations);
+				if (comDel != null && comDel.canExecute()) {
+					domain.getCommandStack().execute(comDel);
+				}		
+			}
+		}
+		
+		monitor.worked(1);		
 			
 		return series.size();
 	}
 	
+	private HashSet<Legacy108Station> getUnusedLegacyStations() {
+		
+		HashSet<Legacy108Station> unusedStations = new HashSet<Legacy108Station>();
+		
+		Legacy108Stations stationList = tool.getConversionFromLegacy().getLegacy108().getLegacyStations();
+		
+		if (stationList == null || stationList.getLegacyStations().isEmpty()) {
+			return null;
+		}
+		
+		for (Legacy108Station s : stationList.getLegacyStations()) {
+			
+			boolean isUsed = isStationUsed(s);
+			if (!isUsed){
+				unusedStations.add(s);
+			}
+			
+		}
+
+		return unusedStations;
+	}
+
+	private boolean isStationUsed(Legacy108Station s) {
+		
+		int code = s.getStationCode();
+		
+		if (s.getFareReferenceStationCode() > 0) {
+			return true;
+		}
+		
+		if (tool.getConversionFromLegacy().getLegacy108() == null ||
+			tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList() == null || 
+			tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().isEmpty()) {
+			return false;
+		}
+		
+		for (LegacySeries ls : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
+			
+			if (ls.getFromStation() == code ||
+				ls.getToStation() == code) {
+				return true;
+			}
+			if (ls.getViastations() != null && !ls.getViastations().isEmpty()) {
+				for (LegacyViastation v : ls.getViastations()) {
+					if (v.getCode() == code) {
+						return true;
+					}
+				}
+			}
+			
+		}
+
+		return false;
+	}
+
 	private LegacyCarriers prepareLegacyCarriers(HashMap<String, LegacyCarrier> carriers2) {
 		LegacyCarriers lcs = GtmFactory.eINSTANCE.createLegacyCarriers();
 		List<LegacyCarrier> carriersCol = new ArrayList<LegacyCarrier>();
@@ -468,6 +545,11 @@ public class 	ConverterToLegacy {
 
 		tool.getConversionFromLegacy().getLegacy108().setStartDate(getStartDate(tool));
 		tool.getConversionFromLegacy().getLegacy108().setEndDate(getEndDate(tool));	
+		
+		HashSet<Legacy108Station> unusedLegacyStations = getUnusedLegacyStations();
+		if (unusedLegacyStations != null && !unusedLegacyStations.isEmpty()) {
+			tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations().removeAll(unusedLegacyStations);
+		}
 		
 		return series.size();
 	}

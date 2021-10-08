@@ -253,7 +253,15 @@ public class ImportStationsAction extends BasicGtmAction {
 				 
 				 String  localCode = stationCode.substring(4, 9);
 				 	 
-				 String stationName = stationElementSplit[1].trim();
+				 String stationName = stationElementSplit[1];
+				 
+				 //remove the end segmentTag
+				 if ( stationName.substring(stationName.length(),stationName.length()).equals("'")){
+					 stationName = stationName.substring(0,stationName.length() - 1);
+				 }
+				 stationName = stationName.trim();
+				 
+				 
 				 
 				 //strange MERITS data
 				 if (countryCodeUIC == 0) {

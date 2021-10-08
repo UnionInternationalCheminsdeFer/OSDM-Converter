@@ -6,8 +6,6 @@ package Gtm.provider;
 
 import Gtm.LabelProvider;
 import Gtm.StartOfSale;
-
-
 import java.util.Collection;
 import java.util.List;
 

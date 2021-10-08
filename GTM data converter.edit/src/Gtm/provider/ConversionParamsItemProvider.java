@@ -69,6 +69,7 @@ public class ConversionParamsItemProvider
 			addConvertFareDescriptionsPropertyDescriptor(object);
 			addConvertServiceConstraintsPropertyDescriptor(object);
 			addLegacyBorderIndicationPropertyDescriptor(object);
+			addRemoveUnusedLegacyStationsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -184,6 +185,28 @@ public class ConversionParamsItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Remove Unused Legacy Stations feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRemoveUnusedLegacyStationsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ConversionParams_removeUnusedLegacyStations_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConversionParams_removeUnusedLegacyStations_feature", "_UI_ConversionParams_type"),
+				 GtmPackage.Literals.CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -263,6 +286,7 @@ public class ConversionParamsItemProvider
 			case GtmPackage.CONVERSION_PARAMS__CONVERT_FARE_DESCRIPTIONS:
 			case GtmPackage.CONVERSION_PARAMS__CONVERT_SERVICE_CONSTRAINTS:
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_BORDER_INDICATION:
+			case GtmPackage.CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_STATION_MAPPINGS:

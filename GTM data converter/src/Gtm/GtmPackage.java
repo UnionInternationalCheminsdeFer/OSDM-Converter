@@ -7441,13 +7441,22 @@ public interface GtmPackage extends EPackage {
 	int CONVERSION_PARAMS__LEGACY_BORDER_INDICATION = 16;
 
 	/**
+	 * The feature id for the '<em><b>Remove Unused Legacy Stations</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS = 17;
+
+	/**
 	 * The number of structural features of the '<em>Conversion Params</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONVERSION_PARAMS_FEATURE_COUNT = 17;
+	int CONVERSION_PARAMS_FEATURE_COUNT = 18;
 
 	/**
 	 * The number of operations of the '<em>Conversion Params</em>' class.
@@ -16704,6 +16713,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getConversionParams_LegacyBorderIndication();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.ConversionParams#isRemoveUnusedLegacyStations <em>Remove Unused Legacy Stations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Remove Unused Legacy Stations</em>'.
+	 * @see Gtm.ConversionParams#isRemoveUnusedLegacyStations()
+	 * @see #getConversionParams()
+	 * @generated
+	 */
+	EAttribute getConversionParams_RemoveUnusedLegacyStations();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.VatTemplates <em>Vat Templates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -24266,6 +24286,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CONVERSION_PARAMS__LEGACY_BORDER_INDICATION = eINSTANCE.getConversionParams_LegacyBorderIndication();
+
+		/**
+		 * The meta object literal for the '<em><b>Remove Unused Legacy Stations</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS = eINSTANCE.getConversionParams_RemoveUnusedLegacyStations();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.VatTemplatesImpl <em>Vat Templates</em>}' class.
