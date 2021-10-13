@@ -1165,7 +1165,12 @@ public class ConverterFromLegacy {
 		if (viaArrival == null && lsa != null && lsa.getBorderPointCode() > 0) {
 			viaArrival = getBorderSideViaStation(lsa);
 		}
-		if (viaArrival != null && viaDeparture != null && viaArrival.getStation() == viaDeparture.getStation()) {
+		if (viaArrival != null && viaDeparture != null && 
+			(viaArrival.getStation() != null 
+				  && viaArrival.getStation() == viaDeparture.getStation()) 
+			||
+			(viaArrival.getFareStationSet() != null 
+				  && viaArrival.getFareStationSet() == viaDeparture.getFareStationSet())  ){				
 			if (lsd != null && lsd.getBorderPointCode() > 0) {
 				viaDeparture = null;
 				borderDeparture =  true;
@@ -1466,7 +1471,12 @@ public class ConverterFromLegacy {
 		}
 		
 		
-		if (viaArrival != null && viaDeparture != null && viaArrival.getStation() == viaDeparture.getStation()) {
+		if (viaArrival != null && viaDeparture != null &&
+			(viaArrival.getStation() != null 
+			  && viaArrival.getStation() == viaDeparture.getStation()) 
+			||
+			(viaArrival.getFareStationSet() != null 
+			  && viaArrival.getFareStationSet() == viaDeparture.getFareStationSet())  ){
 			if (lsd != null && lsd.getBorderPointCode() > 0) {
 				viaDeparture = null;
 				borderDeparture =  true;
