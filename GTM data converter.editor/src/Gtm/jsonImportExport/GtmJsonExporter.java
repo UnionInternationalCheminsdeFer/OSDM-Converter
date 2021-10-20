@@ -1353,7 +1353,9 @@ public class GtmJsonExporter {
 		if (card == null) return null;
 		ReductionCardDef cardJ = new ReductionCardDef();
 		
-		cardJ.setId(card.getId());
+		//standardize cardId
+		cardJ.setId(GtmUtils.standardizeId(card.getCardIssuer(), card.getId()));
+		
 		if (card.getCardIssuer() != null) {
 			cardJ.setIssuer(card.getCardIssuer().getCode());
 		}
@@ -1400,7 +1402,7 @@ public class GtmJsonExporter {
 		
 		ReductionCardReferenceDef jcr = new ReductionCardReferenceDef ();
 		
-		jcr.setCardName(card.getId());
+		jcr.setCardName(GtmUtils.standardizeId(card.getCardIssuer(),card.getId()));
 		if (card.getCardIssuer() != null) {
 			jcr.setIssuer(card.getCardIssuer().getCode());
 		}
@@ -1487,7 +1489,6 @@ public class GtmJsonExporter {
 			it.setFulfillmentType(convertFulFillmentTypesToJson(rpd.getFulfillmentType()));
 			it.setTicketHolderOnly(rpd.isTicketHolderOnly());
 			it.setTransfer(convertPersonalDataTransferToJson(rpd.getTransfer()));
-			
 			
 		}
 

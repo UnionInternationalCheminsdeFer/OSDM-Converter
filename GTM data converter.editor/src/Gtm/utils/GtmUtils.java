@@ -1986,6 +1986,28 @@ public class GtmUtils {
 		return 	st1;
 	}
 
+	public static String standardizeId(Carrier cardIssuer, String id) {
+		
+		//standard UIC ids
+		if (id.startsWith("UIC_")) return id;
+		
+		//issuer must be there
+		if (cardIssuer ==  null || cardIssuer.getCode() == null || cardIssuer.getCode().length() < 1) {
+			return null;
+		}
+		
+		String newId = cardIssuer.getCode();
+		if (id.startsWith(newId)) {
+			newId = id;
+		} else {
+			newId = newId + "_" + id;
+		}
+		
+		newId = newId.trim();
+		newId = newId.replace(" ", "_");
+		return newId;
+	}
+
 }
 
 

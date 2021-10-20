@@ -91,6 +91,8 @@ public class MigrationV2 {
 		
 		updateReductionCards((GTMTool)object, editor);
 		
+		standardizeReductionCardIds((GTMTool)object, editor);
+		
 		migrateTariffIds((GTMTool)object,domain);
 		
 		migrateCalendars((GTMTool)object,domain);
@@ -165,6 +167,35 @@ public class MigrationV2 {
 
 	}
 	
+	private static void standardizeReductionCardIds(GTMTool tool, GtmEditor editor) {
+		
+		CompoundCommand com = new CompoundCommand();
+		
+		if (tool.getGeneralTariffModel()!= null &&
+			tool.getGeneralTariffModel().getFareStructure()!= null &&
+			tool.getGeneralTariffModel().getFareStructure().getReductionCards() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getReductionCards().getReductionCards() != null &&
+			!tool.getGeneralTariffModel().getFareStructure().getReductionCards().getReductionCards().isEmpty()) {
+
+			for (ReductionCard card : tool.getGeneralTariffModel().getFareStructure().getReductionCards().getReductionCards()) {
+			
+				String id = GtmUtils.standardizeId(card.getCardIssuer(), card.getId());
+
+				if (!id.equals(card.getId())) {
+					com.append(SetCommand.create(editor.getEditingDomain(), card, GtmPackage.Literals.REDUCTION_CARD__ID, id));
+				}
+			}	
+		}
+		
+		if (editor != null 
+				&& editor.getEditingDomain() != null 
+				&& !com.isEmpty() && com != null 
+				&& com.canExecute()) {
+			editor.getEditingDomain().getCommandStack().execute(com);
+		}	
+	}
+
+
 	private static void addFareDetailsMaps(GTMTool tool, EditingDomain domain) {
 		
 		if (tool.getConversionFromLegacy() != null && 
