@@ -97,6 +97,7 @@ public class LegacyDataFactory {
 		series.getSeries().add(createRouteBasedSeries(6,80,1,7));	
 		
 	}
+	
 
 	private static void addLegacyDistanceFares(GTMTool tool) {
 		

@@ -1227,7 +1227,7 @@ public class 	ConverterToLegacy {
 
 	/*
 	 * returns a set of all used border point codes in the fare data
-	 */
+
 	private HashSet<Integer> getUsedBorderPointCodes() {
 		
 		HashSet<Integer> codes = new HashSet<Integer>();
@@ -1246,7 +1246,8 @@ public class 	ConverterToLegacy {
 		
 		return codes;
 	}
-
+	 */
+	
 	private void convertStationsFromBorderPoint(LegacyBorderPoint lbp) {
 
 		try {
