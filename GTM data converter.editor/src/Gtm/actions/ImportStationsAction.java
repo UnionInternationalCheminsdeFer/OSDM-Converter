@@ -126,6 +126,18 @@ public class ImportStationsAction extends BasicGtmAction {
 							}
 						} 
 						
+						if (importedStations.isEmpty()) {
+							
+							String message = "No stations contained in import file - No changes made";
+							editor.getSite().getShell().getDisplay().asyncExec(() -> {
+								GtmUtils.writeConsoleError(message, editor);
+							});			
+							GtmUtils.addWorkflowStep("Import of stations abandoned", editor);
+							monitor.done();
+							return;
+						}
+						
+						
 						monitor.subTask(NationalLanguageSupport.ImportStationsAction_15);
 						HashMap<Integer,Station> oldStations = GtmUtils.getStationMap(tool);
 						
@@ -145,6 +157,9 @@ public class ImportStationsAction extends BasicGtmAction {
 							}
 						}
 						monitor.worked(1000);
+						
+						
+						
 									
 						
 						monitor.subTask(NationalLanguageSupport.ImportStationsAction_16);
