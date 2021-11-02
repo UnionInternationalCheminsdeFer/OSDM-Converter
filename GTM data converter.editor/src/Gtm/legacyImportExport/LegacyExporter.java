@@ -806,7 +806,7 @@ public class LegacyExporter {
 		//	16 Product offer code numeric 2 O  66-67 cf. Notes to Appendix B, point B.2. 
 		sb.append("00");		 //$NON-NLS-1$
 		//	17 Symbol marking usual route alpha numeric 1 O  68 Usual route indicated by means of '+' if applicable 
-		sb.append("0");		 //$NON-NLS-1$
+		sb.append(" ");		 //$NON-NLS-1$
 		//	18 Flag 4 for usual route numeric 1 M  69 0 or 3 (see point 2.2) 
 		sb.append("0");		 //$NON-NLS-1$
 		//	19 Bus code alpha numeric 1 O  70 'B' entered here in the case of bus services 
