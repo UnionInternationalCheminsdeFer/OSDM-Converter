@@ -1561,6 +1561,29 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.TrainValidity} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TrainValidityItemProvider trainValidityItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.TrainValidity}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTrainValidityAdapter() {
+		if (trainValidityItemProvider == null) {
+			trainValidityItemProvider = new TrainValidityItemProvider(this);
+		}
+
+		return trainValidityItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.SalesAvailabilityConstraints} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3889,6 +3912,7 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (combinationConstraintItemProvider != null) combinationConstraintItemProvider.dispose();
 		if (travelValidityConstraintsItemProvider != null) travelValidityConstraintsItemProvider.dispose();
 		if (travelValidityConstraintItemProvider != null) travelValidityConstraintItemProvider.dispose();
+		if (trainValidityItemProvider != null) trainValidityItemProvider.dispose();
 		if (salesAvailabilityConstraintsItemProvider != null) salesAvailabilityConstraintsItemProvider.dispose();
 		if (salesAvailabilityConstraintItemProvider != null) salesAvailabilityConstraintItemProvider.dispose();
 		if (salesRestrictionItemProvider != null) salesRestrictionItemProvider.dispose();

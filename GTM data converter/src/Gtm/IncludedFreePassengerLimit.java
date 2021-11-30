@@ -15,10 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link Gtm.IncludedFreePassengerLimit#getNumber <em>Number</em>}</li>
  *   <li>{@link Gtm.IncludedFreePassengerLimit#getPassengerType <em>Passenger Type</em>}</li>
+ *   <li>{@link Gtm.IncludedFreePassengerLimit#getPassengerConstraint <em>Passenger Constraint</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getIncludedFreePassengerLimit()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST'"
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST SIMPLE_PASSENGER_CONSTRAINT_ONLY'"
  * @generated
  */
 public interface IncludedFreePassengerLimit extends EObject {
@@ -68,5 +69,27 @@ public interface IncludedFreePassengerLimit extends EObject {
 	 * @generated
 	 */
 	void setPassengerType(TravelerType value);
+
+	/**
+	 * Returns the value of the '<em><b>Passenger Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Passenger Constraint</em>' reference.
+	 * @see #setPassengerConstraint(PassengerConstraint)
+	 * @see Gtm.GtmPackage#getIncludedFreePassengerLimit_PassengerConstraint()
+	 * @model
+	 * @generated
+	 */
+	PassengerConstraint getPassengerConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.IncludedFreePassengerLimit#getPassengerConstraint <em>Passenger Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Passenger Constraint</em>' reference.
+	 * @see #getPassengerConstraint()
+	 * @generated
+	 */
+	void setPassengerConstraint(PassengerConstraint value);
 
 } // IncludedFreePassengerLimit

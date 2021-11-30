@@ -457,6 +457,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacyConversion" eType="#//LegacyConversionType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="individualContracts" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="involvedTcos" upperBound="-1"
+        eType="#//Carrier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TotalPassengerCombinationConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerCombinationConstraint"
@@ -605,10 +607,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IncludedFreePassengerLimit">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST"/>
+      <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST SIMPLE_PASSENGER_CONSTRAINT_ONLY"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="passengerType" eType="#//TravelerType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="passengerConstraint" eType="#//PassengerConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CombinationConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="combinationConstraints"
@@ -641,6 +644,20 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludedTimeRange" upperBound="-1"
         eType="#//ExcludedTimeRange" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trainValidity" eType="#//TrainValidity"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TrainValidity">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="TRAIN_VALIDITY_REQUIRED_CONTENT"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serrviceConstraint" eType="#//ServiceConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scope" eType="#//BoardingOrArrival"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BoardingOrArrival">
+    <eLiterals name="BOARDING"/>
+    <eLiterals name="ARRIVAL" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SalesAvailabilityConstraints">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -734,6 +751,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="line" eType="#//Line" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="polygone" eType="#//Polygone"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraint" eType="#//ServiceConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceLevelDefinitions">
@@ -930,6 +948,7 @@
     </eAnnotations>
     <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="station" eType="#//Station"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrier" eType="#//Carrier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="route" eType="#//Route"
         containment="true"/>
@@ -1825,6 +1844,7 @@
     <eLiterals name="V_1_2" literal="1.2"/>
     <eLiterals name="V_1_0" value="1" literal="1.0"/>
     <eLiterals name="V_0_0" value="2" literal="0.0"/>
+    <eLiterals name="V_1_4" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
     <eLiterals name="HIGH_SPEED_TRAIN" value="8"/>

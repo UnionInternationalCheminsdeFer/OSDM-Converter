@@ -16,7 +16,10 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
+import Gtm.AlternativeRoute;
 import Gtm.Calendar;
+import Gtm.Carrier;
+import Gtm.CarrierConstraint;
 import Gtm.Countries;
 import Gtm.Country;
 import Gtm.FareConstraintBundle;
@@ -27,10 +30,16 @@ import Gtm.FareTemplate;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
+import Gtm.IncludedFreePassengerLimit;
+import Gtm.PassengerConstraint;
 import Gtm.ReductionCard;
+import Gtm.RegionalConstraint;
+import Gtm.RegionalValidity;
 import Gtm.Station;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TotalPassengerCombinationConstraints;
+import Gtm.TravelerType;
+import Gtm.ViaStation;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
@@ -105,6 +114,8 @@ public class MigrationV2 {
 		
 		cleanUnusedOjects((GTMTool)object,domain);
 		
+		migrateToV14((GTMTool)object,domain);
+		
 
 		if (!conversionNeeded((GTMTool)object)){
 			return;
@@ -144,7 +155,6 @@ public class MigrationV2 {
 				monitor.done();
 			}
 
-
 		};	
 		
 		try {
@@ -167,6 +177,226 @@ public class MigrationV2 {
 
 	}
 	
+	private static void migrateToV14(GTMTool tool, EditingDomain domain) {
+		
+		CompoundCommand com = new CompoundCommand();
+		
+		//migrate free included passengers
+		if (tool.getGeneralTariffModel() != null &&
+			tool.getGeneralTariffModel().getFareStructure() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints() != null) {
+		
+			for (PassengerConstraint pc : tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
+		
+				if (pc.getIncludedFreePassengers() != null) {
+					
+					for (IncludedFreePassengerLimit ip : pc.getIncludedFreePassengers()) {
+						
+						PassengerConstraint pcr = ip.getPassengerConstraint();
+						
+						if (pcr == null && ip.getPassengerType() != null) {
+							
+							pcr = findSimplePassengerConstraint(tool, domain, ip.getPassengerType());						
+							if (pcr != null) {
+								com.append(SetCommand.create(domain, ip, GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT, pcr));
+							} else {
+								pcr = createUniqueSimplePassengerConstraint(tool, domain, ip.getPassengerType());						
+								if (pcr != null) {
+								   com.append(SetCommand.create(domain, ip, GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT, pcr));
+								   com.append(SetCommand.create(domain, ip, GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE, null));
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		//migrate viaStations
+		if (tool.getGeneralTariffModel() != null &&
+			tool.getGeneralTariffModel().getFareStructure() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints() != null) {
+
+			for (RegionalConstraint r : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
+				
+				if (r.getRegionalValidity() != null) {
+					
+					for (RegionalValidity rv : r.getRegionalValidity()) {
+						
+						CompoundCommand command = migrateRegionalValidity(tool,domain, rv);
+						if (command != null && !command.isEmpty() && command.canExecute()) {
+							com.append(command);
+						}
+						
+					}
+				}
+			}
+		}	
+		
+		
+		if (com != null && !com.isEmpty() && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+		}
+		
+		
+	}
+
+
+	private static CompoundCommand migrateRegionalValidity(GTMTool tool, EditingDomain domain, RegionalValidity rv) {
+		//replace carrier by carrier constraint
+		
+		CompoundCommand com = new CompoundCommand();
+		
+		if  ( rv.getViaStation() != null) {
+			
+			migrateViaStation(rv.getViaStation(),tool,domain,com);
+			
+		}
+		
+		if (com != null && !com.isEmpty()) return com;
+		
+		return null;
+	}
+
+
+	private static void migrateViaStation(ViaStation viaStation, GTMTool tool, EditingDomain domain,
+			CompoundCommand com) {
+		
+		if (viaStation.getCarrier() != null && viaStation.getCarrierConstraint() == null) {
+			
+			CarrierConstraint cc = findOrCreateCarrierConstraint ( viaStation.getCarrier(), tool, domain);
+			
+			if (cc != null) {
+				com.append(SetCommand.create(domain, viaStation, GtmPackage.Literals.VIA_STATION__CARRIER_CONSTRAINT, cc));
+				com.append(SetCommand.create(domain, viaStation, GtmPackage.Literals.VIA_STATION__CARRIER, null));
+			}
+		}
+		
+		if (viaStation.getRoute() != null) {
+			for (ViaStation vs : viaStation.getRoute().getStations()) {
+				migrateViaStation(vs,tool,domain,com);
+			}
+		}
+		
+		if (viaStation.getAlternativeRoutes() != null) {
+			
+			for (AlternativeRoute ar : viaStation.getAlternativeRoutes()) {
+				
+				if (ar.getStations() != null) {
+					for (ViaStation vs : ar.getStations()) {
+						migrateViaStation(vs,tool,domain,com);
+					}			
+				}
+			}
+		}
+		
+		return;
+		
+	}
+
+
+	private static CarrierConstraint findOrCreateCarrierConstraint(Carrier carrier, GTMTool tool, EditingDomain domain) {
+		
+		
+		if (tool.getGeneralTariffModel() != null &&
+			tool.getGeneralTariffModel().getFareStructure() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints() != null) {
+		
+			for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
+			
+				if (cc.getExcludedCarriers() == null && 
+					cc.getIncludedCarriers() != null &&
+					cc.getIncludedCarriers().size() == 1 &&
+					cc.getIncludedCarriers().contains(carrier)) {
+					return cc;
+				}
+			}
+		}
+		
+		//create carrier constraint
+		
+		CarrierConstraint cc = GtmFactory.eINSTANCE.createCarrierConstraint();
+		cc.getIncludedCarriers().add(carrier);
+		cc.setDataDescription("created for migration to 1.4");
+		
+		Command com = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints(), GtmPackage.Literals.CARRIER_CONSTRAINTS__CARRIER_CONSTRAINTS, cc);
+		if (com != null && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+			return cc;
+		}
+		
+		return null;
+	}
+
+
+	private static PassengerConstraint findSimplePassengerConstraint(GTMTool tool, EditingDomain domain, TravelerType passengerType) {
+		
+		//migrate free included passengers
+		if (tool.getGeneralTariffModel() != null &&
+			tool.getGeneralTariffModel().getFareStructure() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints() != null) {
+		
+			for (PassengerConstraint pc : tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
+		
+				if (pc.getTravelerType().equals(passengerType) 
+					&& ( pc.getIncludedFreePassengers() == null || pc.getIncludedFreePassengers().isEmpty()) ) {
+					return pc;
+				}
+				
+			}
+		}
+		return null;
+	}
+
+
+	private static PassengerConstraint createUniqueSimplePassengerConstraint(GTMTool tool, EditingDomain domain, TravelerType passengerType) {
+
+		PassengerConstraint pc = GtmFactory.eINSTANCE.createPassengerConstraint();
+		pc.setTravelerType(passengerType);
+		
+		PassengerConstraint pcr = findPassengerConstraint(tool, passengerType);
+		
+		if (pcr != null) {
+			pc.setIsAncilliary(pcr.isIsAncilliary());
+			pc.setLowerAgeLimit(pcr.getLowerAgeLimit());
+			pc.setUpperAgeLimit(pcr.getUpperAgeLimit());
+			pc.setText(pcr.getText());
+			pc.setReservationAgeLimit(pcr.getReservationAgeLimit());
+			pc.setTravelAloneAgeLimit(pcr.getTravelAloneAgeLimit());
+			pc.setPassengerWeight(pcr.getPassengerWeight());
+			pc.setDataDescription("used in included free passengers, created for migration to OSDM 1.4");
+			pc.setMaxTotalPassengerWeight(pcr.getMaxTotalPassengerWeight());
+			pc.setMinTotalPassengerWeight(pcr.getMinTotalPassengerWeight());
+		}
+		
+		Command com = AddCommand.create(domain, tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints(), GtmPackage.Literals.PASSENGER_CONSTRAINTS__PASSENGER_CONSTRAINTS, pc);
+		
+		if (com != null && com.canExecute()) {
+			domain.getCommandStack().execute(com);
+			return pc;
+		}		
+		
+		return null;
+	}
+
+
+	private static PassengerConstraint findPassengerConstraint(GTMTool tool, TravelerType passengerType) {
+		if (tool.getGeneralTariffModel() != null &&
+			tool.getGeneralTariffModel().getFareStructure() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints() != null) {
+				
+			for (PassengerConstraint pcr : tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
+				
+				if (pcr.getTravelerType().equals(passengerType)) {
+					return pcr;
+				}
+
+			}
+		}
+		return null;
+	}
+
+
 	private static void standardizeReductionCardIds(GTMTool tool, GtmEditor editor) {
 		
 		CompoundCommand com = new CompoundCommand();

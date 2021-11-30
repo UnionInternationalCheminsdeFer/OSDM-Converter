@@ -1174,6 +1174,12 @@ public class GtmJsonExporter {
 		if (v.getCarrier()!= null) {
 			vJ.setCarrier(v.getCarrier().getCode());
 			isEmpty = false;
+		} else if (v.getCarrierConstraint() != null) {
+			//downward compatibility from 1.4
+			if (v.getCarrierConstraint().getIncludedCarriers() != null && 
+				!v.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+			   vJ.setCarrier(v.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
+			}
 		}
 		if (v.getFareStationSet() != null) {
 			FareReferenceStationSet fss = convertToRouteJson(v.getFareStationSet());
@@ -1578,6 +1584,11 @@ public class GtmJsonExporter {
 				freeJ.setNumber(freeP.getNumber());
 				if (freeP.getPassengerType() != null) {
 					freeJ.setPassengerTypeRef(freeP.getPassengerType().getName());
+				} else {
+					//downward conversion from 1.4
+					if (freeP.getPassengerConstraint() != null) {
+						freeJ.setPassengerTypeRef(freeP.getPassengerConstraint().getTravelerType().getName());
+					}
 				}
 				
 				listJ.add(freeJ);

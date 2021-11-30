@@ -598,6 +598,15 @@ public interface GtmFactory extends EFactory {
 	TravelValidityConstraint createTravelValidityConstraint();
 
 	/**
+	 * Returns a new object of class '<em>Train Validity</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Train Validity</em>'.
+	 * @generated
+	 */
+	TrainValidity createTrainValidity();
+
+	/**
 	 * Returns a new object of class '<em>Sales Availability Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

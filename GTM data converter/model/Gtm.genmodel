@@ -10,6 +10,10 @@
   <foreignModel>gtm.xsd</foreignModel>
   <genPackages prefix="Gtm" resource="XML" disposableProviderFactory="true" extensibleProviderFactory="true"
       childCreationExtenders="true" ecorePackage="Gtm.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//BoardingOrArrival">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BoardingOrArrival/BOARDING"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BoardingOrArrival/ARRIVAL"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//TransportMode">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/train"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/ship"/>
@@ -355,6 +359,7 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_2"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_0"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_0_0"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_4"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ServiceMode">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ServiceMode/HIGH_SPEED_TRAIN"/>
@@ -725,6 +730,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareElement/legacyAccountingIdentifier"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareElement/legacyConversion"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareElement/individualContracts"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareElement/involvedTcos"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//TotalPassengerCombinationConstraints">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TotalPassengerCombinationConstraints/totalPassengerCombinationConstraint"/>
@@ -824,6 +830,7 @@
     <genClasses ecoreClass="Gtm.ecore#//IncludedFreePassengerLimit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//IncludedFreePassengerLimit/number"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//IncludedFreePassengerLimit/passengerType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//IncludedFreePassengerLimit/passengerConstraint"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//CombinationConstraints">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CombinationConstraints/combinationConstraints"/>
@@ -845,6 +852,12 @@
           ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/range"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/returnConstraint"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/excludedTimeRange"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/trainValidity"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//TrainValidity">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//TrainValidity/carrierConstraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//TrainValidity/serrviceConstraint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TrainValidity/scope"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//SalesAvailabilityConstraints">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//SalesAvailabilityConstraints/salesAvailabilityConstraints"/>
@@ -908,6 +921,7 @@
           ecoreFeature="ecore:EReference Gtm.ecore#//RegionalValidity/zone"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalValidity/line"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalValidity/polygone"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalValidity/carierConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalValidity/serviceConstraint"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ServiceLevelDefinitions">
@@ -1034,6 +1048,7 @@
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ViaStation">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/station"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/carrierConstraint"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/carrier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/route"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/alternativeRoutes"/>

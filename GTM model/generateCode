@@ -1,2 +1,5 @@
-D:\Software\jsonschemajava\jsonschema2pojo-1.0.1\bin\jsonschema2pojo.bat -s "D:\git\UIC-New-Tariff-Model\GTM model\spec" -t "D:\git\UIC-New-Tariff-Model\GTM model\src2" -p gtm -R -f -dp "yyyy-MM-dd'T'HH:mm:ssZZZ" -dtp "yyyy-MM-dd'T'HH:mm:ssZZZ" 
+D:\Software\jsonschemajava\jsonschema2pojo-1.0.1\bin\jsonschema2pojo.bat -s "D:\git\OSDM-Converter\GTM model\spec\1.2" -t "D:\git\UIC-New-Tariff-Model\GTM model\src2" -p gtm -R -f -dp "yyyy-MM-dd'T'HH:mm:ssZZZ" -dtp "yyyy-MM-dd'T'HH:mm:ssZZZ"
+
+
+D:\Software\jsonschemajava\jsonschema2pojo-1.0.1\bin\jsonschema2pojo.bat -s "D:\git\OSDM-Converter\GTM model\spec\1.4" -t "D:\git\UIC-New-Tariff-Model\GTM model\src3" -p gtmV14 -R -f -dp "yyyy-MM-dd'T'HH:mm:ssZZZ" -dtp "yyyy-MM-dd'T'HH:mm:ssZZZ" 
 

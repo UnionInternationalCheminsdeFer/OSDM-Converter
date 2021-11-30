@@ -4,12 +4,14 @@ package Gtm.impl;
 
 import Gtm.GtmPackage;
 import Gtm.IncludedFreePassengerLimit;
+import Gtm.PassengerConstraint;
 import Gtm.TravelerType;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -23,6 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link Gtm.impl.IncludedFreePassengerLimitImpl#getNumber <em>Number</em>}</li>
  *   <li>{@link Gtm.impl.IncludedFreePassengerLimitImpl#getPassengerType <em>Passenger Type</em>}</li>
+ *   <li>{@link Gtm.impl.IncludedFreePassengerLimitImpl#getPassengerConstraint <em>Passenger Constraint</em>}</li>
  * </ul>
  *
  * @generated
@@ -67,6 +70,16 @@ public class IncludedFreePassengerLimitImpl extends MinimalEObjectImpl.Container
 	 * @ordered
 	 */
 	protected TravelerType passengerType = PASSENGER_TYPE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPassengerConstraint() <em>Passenger Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPassengerConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected PassengerConstraint passengerConstraint;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,6 +147,44 @@ public class IncludedFreePassengerLimitImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PassengerConstraint getPassengerConstraint() {
+		if (passengerConstraint != null && passengerConstraint.eIsProxy()) {
+			InternalEObject oldPassengerConstraint = (InternalEObject)passengerConstraint;
+			passengerConstraint = (PassengerConstraint)eResolveProxy(oldPassengerConstraint);
+			if (passengerConstraint != oldPassengerConstraint) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT, oldPassengerConstraint, passengerConstraint));
+			}
+		}
+		return passengerConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PassengerConstraint basicGetPassengerConstraint() {
+		return passengerConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPassengerConstraint(PassengerConstraint newPassengerConstraint) {
+		PassengerConstraint oldPassengerConstraint = passengerConstraint;
+		passengerConstraint = newPassengerConstraint;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT, oldPassengerConstraint, passengerConstraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -141,6 +192,9 @@ public class IncludedFreePassengerLimitImpl extends MinimalEObjectImpl.Container
 				return getNumber();
 			case GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE:
 				return getPassengerType();
+			case GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT:
+				if (resolve) return getPassengerConstraint();
+				return basicGetPassengerConstraint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -158,6 +212,9 @@ public class IncludedFreePassengerLimitImpl extends MinimalEObjectImpl.Container
 				return;
 			case GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE:
 				setPassengerType((TravelerType)newValue);
+				return;
+			case GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT:
+				setPassengerConstraint((PassengerConstraint)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -177,6 +234,9 @@ public class IncludedFreePassengerLimitImpl extends MinimalEObjectImpl.Container
 			case GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE:
 				setPassengerType(PASSENGER_TYPE_EDEFAULT);
 				return;
+			case GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT:
+				setPassengerConstraint((PassengerConstraint)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -193,6 +253,8 @@ public class IncludedFreePassengerLimitImpl extends MinimalEObjectImpl.Container
 				return number != NUMBER_EDEFAULT;
 			case GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE:
 				return passengerType != PASSENGER_TYPE_EDEFAULT;
+			case GtmPackage.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT:
+				return passengerConstraint != null;
 		}
 		return super.eIsSet(featureID);
 	}

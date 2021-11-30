@@ -187,6 +187,8 @@ public class GTMJsonImporter {
 		
 		fareStructure.setTexts(convertTextList(fareDataDef.getTexts()));
 		
+		fareStructure.setPrices(convertPrices(fareDataDef.getPrices()));
+				
 		if (fareDataDef.getStationNames() != null && fareDataDef.getStationNames().size() > 0) {
 			fareStructure.setStationNames(convertStationNames(fareDataDef.getStationNames()));
 		}
@@ -219,8 +221,6 @@ public class GTMJsonImporter {
 		
 		fareStructure.setPersonalDataConstraints(convertPersonalDataConstraints(fareDataDef.getPersonalDataConstraints()));
 		
-		fareStructure.setPrices(convertPrices(fareDataDef.getPrices()));
-			
 		fareStructure.setReductionConstraints(convertReductionConstraints(fareDataDef.getReductionConstraints()));
 			
 		fareStructure.setReservationParameters(convertReservationParameters(fareDataDef.getReservationParameters()));
@@ -2164,8 +2164,7 @@ public class GTMJsonImporter {
 		if (jr == null) return null;
 		AfterSalesCondition c = GtmFactory.eINSTANCE.createAfterSalesCondition();
 		c.setApplicationTime(convert(jr.getApplicationTime()));
-		Price fee = convert(jr.getFee());
-		c.setFee(fee);
+		c.setFee(prices.get(jr.getFeeRef()));
 		c.setCarrierFee(!jr.getIsAllocatorFee());
 		c.setIndividualContracts(jr.getIndividualContracts());
 		c.setTransactionType(AfterSalesTransactionType.getByName(jr.getTransactionType()));

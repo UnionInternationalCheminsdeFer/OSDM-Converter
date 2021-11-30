@@ -1,0 +1,2489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.5" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_cmEpkL4wEeuHYuKEOCI12A" name="GTM model">
+  <packagedElement xmi:type="uml:Package" xmi:id="_cmEpkb4wEeuHYuKEOCI12A" name="OSDM model">
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmEpkr4wEeuHYuKEOCI12A" name="Unknown"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmEpk74wEeuHYuKEOCI12A" name="OffLineOsdm1">
+      <ownedComment xmi:id="_cmEplL4wEeuHYuKEOCI12A">
+        <body>Title: OSDM Offline Fare Delivery</body>
+      </ownedComment>
+      <ownedComment xmi:id="_cmEplb4wEeuHYuKEOCI12A">
+        <body>Description: OSDM extract of offline fare delivery</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmEplr4wEeuHYuKEOCI12A" name="fareDelivery" type="_cmHs9r4wEeuHYuKEOCI12A" association="_cmKJqr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmEpl74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQoL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmFQob4wEeuHYuKEOCI12A" name="AfterSalesCondition">
+      <ownedAttribute xmi:id="_cmFQor4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmFQo74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQpL4wEeuHYuKEOCI12A" name="afterSalesRules" type="_cmFQqL4wEeuHYuKEOCI12A" association="_cmKwjr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmFQpb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQpr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_cmFQp74wEeuHYuKEOCI12A" name="String"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmFQqL4wEeuHYuKEOCI12A" name="AfterSalesRule">
+      <ownedAttribute xmi:id="_cmFQqb4wEeuHYuKEOCI12A" name="transactionType" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmFQqr4wEeuHYuKEOCI12A">
+          <body>Description: code list Reason for after sale</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmFQq74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQrL4wEeuHYuKEOCI12A" name="feeRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmFQrb4wEeuHYuKEOCI12A">
+          <body>Description: Reference to a price data item defining the fee; optional in case there is no fee but the  after sales transaction is allowed. Online services include fee directly in the fee tag.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQrr4wEeuHYuKEOCI12A" name="applicationTimeStamp" type="_cmFQur4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmFQr74wEeuHYuKEOCI12A">
+          <body>Description: absolute application time (UTC) in case of online services</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQsL4wEeuHYuKEOCI12A" name="isAllocatorFee" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmFQsb4wEeuHYuKEOCI12A">
+          <body>Description: indicates that the fee belongs to the allocator</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQsr4wEeuHYuKEOCI12A" name="individualContracts" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmFQs74wEeuHYuKEOCI12A">
+          <body>Description: indicates that the after sales of this fare can be treated independently per person.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQtL4wEeuHYuKEOCI12A" name="fee" type="_cmIUbr4wEeuHYuKEOCI12A" association="_cmJjDb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmFQtb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQtr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQt74wEeuHYuKEOCI12A" name="applicationTime" type="_cmI7J74wEeuHYuKEOCI12A" association="_cmKJMr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmFQuL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQub4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_cmFQur4wEeuHYuKEOCI12A" name="Date"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_cmFQu74wEeuHYuKEOCI12A" name="Boolean"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmFQvL4wEeuHYuKEOCI12A" name="BarCodeTypes">
+      <ownedComment xmi:id="_cmFQvb4wEeuHYuKEOCI12A">
+        <body>Description: Item according to IRS 90918-9: FCB, TLB, SSB</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmFQvr4wEeuHYuKEOCI12A" name="BarCodeTypesDefAttribute" type="_cmFQwL4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmFQv74wEeuHYuKEOCI12A">
+          <body>Description: Item according to IRS 90918-9: FCB, TLB, SSB</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmFQwL4wEeuHYuKEOCI12A" name="BarCodeTypesDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmFQwb4wEeuHYuKEOCI12A" name="FCB"/>
+      <ownedLiteral xmi:id="_cmFQwr4wEeuHYuKEOCI12A" name="TLB"/>
+      <ownedLiteral xmi:id="_cmFQw74wEeuHYuKEOCI12A" name="SSB"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmFQxL4wEeuHYuKEOCI12A" name="CarrierConstraint">
+      <ownedComment xmi:id="_cmFQxb4wEeuHYuKEOCI12A">
+        <body>Description: Either excluded or included carriers can be set.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmFQxr4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmFQx74wEeuHYuKEOCI12A" name="includedCarrier" type="_cmFQp74wEeuHYuKEOCI12A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQyL4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQyb4wEeuHYuKEOCI12A" name="excludedCarrier" type="_cmFQp74wEeuHYuKEOCI12A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQyr4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmFQy74wEeuHYuKEOCI12A" name="CrossBorderCondition">
+      <ownedAttribute xmi:id="_cmFQzL4wEeuHYuKEOCI12A" name="affectedServiceBrands" type="_cmI74r4wEeuHYuKEOCI12A" association="_cmKJSr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmFQzb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQzr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQz74wEeuHYuKEOCI12A" name="toCountry" type="_cmFQ1b4wEeuHYuKEOCI12A" association="_cmKwWr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmFQ0L4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQ0b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmFQ0r4wEeuHYuKEOCI12A" name="fromCountry" type="_cmFQ1b4wEeuHYuKEOCI12A" association="_cmKwYr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmFQ074wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmFQ1L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmFQ1b4wEeuHYuKEOCI12A" name="Country">
+      <ownedComment xmi:id="_cmFQ1r4wEeuHYuKEOCI12A">
+        <body>Description: ISO 3166 2A codes</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmFQ174wEeuHYuKEOCI12A" name="CountryDefAttribute" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmFQ2L4wEeuHYuKEOCI12A">
+          <body>Description: ISO 3166 2A codes</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmFQ2b4wEeuHYuKEOCI12A" name="ControlSecurityType">
+      <ownedComment xmi:id="_cmFQ2r4wEeuHYuKEOCI12A">
+        <body>Description: SIP: secure paper tickets; SID: security in data (signed bar code); SIS: security in system</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmFQ274wEeuHYuKEOCI12A" name="ControlSecurityTypeDefAttribute" type="_cmF3sL4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmFQ3L4wEeuHYuKEOCI12A">
+          <body>Description: SIP: secure paper tickets; SID: security in data (signed bar code); SIS: security in system</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmF3sL4wEeuHYuKEOCI12A" name="ControlSecurityTypeDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmGewL4wEeuHYuKEOCI12A" name="SIP"/>
+      <ownedLiteral xmi:id="_cmGewb4wEeuHYuKEOCI12A" name="SID"/>
+      <ownedLiteral xmi:id="_cmGewr4wEeuHYuKEOCI12A" name="SIS"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGew74wEeuHYuKEOCI12A" name="Currency">
+      <ownedComment xmi:id="_cmGexL4wEeuHYuKEOCI12A">
+        <body>Description: ISO4217 currency codes</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmGexb4wEeuHYuKEOCI12A" name="CurrencyDefAttribute" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGexr4wEeuHYuKEOCI12A">
+          <body>Description: ISO4217 currency codes</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGex74wEeuHYuKEOCI12A" name="CurrencyPrice">
+      <ownedAttribute xmi:id="_cmGeyL4wEeuHYuKEOCI12A" name="amount" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGeyb4wEeuHYuKEOCI12A">
+          <body>Description: by default of the scale the amount in cents</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGeyr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGey74wEeuHYuKEOCI12A" name="scale" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGezL4wEeuHYuKEOCI12A">
+          <body>Description: scale of the amount - the number of positions after the comma</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGezb4wEeuHYuKEOCI12A" name="vatDetails" type="_cmJimb4wEeuHYuKEOCI12A" association="_cmKJrr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGezr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGez74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGe0L4wEeuHYuKEOCI12A" name="currency" type="_cmGew74wEeuHYuKEOCI12A" association="_cmKJ3r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGe0b4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGe0r4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_cmGe074wEeuHYuKEOCI12A" name="Integer"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGe1L4wEeuHYuKEOCI12A" name="Calendar">
+      <ownedComment xmi:id="_cmGe1b4wEeuHYuKEOCI12A">
+        <body>Description: calendar</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmGe1r4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGe174wEeuHYuKEOCI12A">
+          <body>Description: \*** BULK-ONLY *** identification within the bulk data mandatory in bulk data exchange</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGe2L4wEeuHYuKEOCI12A" name="fromDate" type="_cmFQur4wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGe2b4wEeuHYuKEOCI12A" name="untilDate" type="_cmFQur4wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGe2r4wEeuHYuKEOCI12A" name="dates" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGe274wEeuHYuKEOCI12A">
+          <body>Description: dates included in the calendar. In case no dates are provided the range is assumed to be valid</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGe3L4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGe3b4wEeuHYuKEOCI12A" name="utcOffset" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGe3r4wEeuHYuKEOCI12A">
+          <body>Description: offset to UTC in minutes (number of minutes to be added to get UTC dates)</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGe374wEeuHYuKEOCI12A" name="Company">
+      <ownedComment xmi:id="_cmGe4L4wEeuHYuKEOCI12A">
+        <body>Description: RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the  codes must have at least 5 positions and start with x</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmGe4b4wEeuHYuKEOCI12A" name="CompanyDefAttribute" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGe4r4wEeuHYuKEOCI12A">
+          <body>Description: RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the  codes must have at least 5 positions and start with x</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGe474wEeuHYuKEOCI12A" name="ComfortClass">
+      <ownedComment xmi:id="_cmGe5L4wEeuHYuKEOCI12A">
+        <body>Description: Generic class classification, mostly used to harmonize choice and representation across multiple carriers</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmGe5b4wEeuHYuKEOCI12A" name="ComfortClassDefAttribute" type="_cmGe574wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGe5r4wEeuHYuKEOCI12A">
+          <body>Description: Generic class classification, mostly used to harmonize choice and representation across multiple carriers</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmGe574wEeuHYuKEOCI12A" name="ComfortClassDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmGe6L4wEeuHYuKEOCI12A" name="FIRST"/>
+      <ownedLiteral xmi:id="_cmGe6b4wEeuHYuKEOCI12A" name="SECOND"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGe6r4wEeuHYuKEOCI12A" name="ConnectionPoint">
+      <ownedComment xmi:id="_cmGe674wEeuHYuKEOCI12A">
+        <body>Description: connection point connecting two fare regimes. The connection is possible between stations of the two provided station sets.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmGe7L4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGe7b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGe7r4wEeuHYuKEOCI12A" name="legacyBorderPointCode" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGe774wEeuHYuKEOCI12A" name="name" type="_cmFQp74wEeuHYuKEOCI12A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGe8L4wEeuHYuKEOCI12A" name="CarrierResourceLocation">
+      <ownedAttribute xmi:id="_cmGe8b4wEeuHYuKEOCI12A" name="carrier" type="_cmGe374wEeuHYuKEOCI12A" association="_cmJi-b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGe8r4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGe874wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGe9L4wEeuHYuKEOCI12A" name="onlineResource" type="_cmIUZb4wEeuHYuKEOCI12A" association="_cmKJ-r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGe9b4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGe9r4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGe974wEeuHYuKEOCI12A" name="serviceBrandCode" type="_cmI74r4wEeuHYuKEOCI12A" association="_cmKwSr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGe-L4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGe-b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGe-r4wEeuHYuKEOCI12A" name="Fare">
+      <ownedComment xmi:id="_cmGe-74wEeuHYuKEOCI12A">
+        <body>Description: single fare within a blk fare data delivery</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmGe_L4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGe_b4wEeuHYuKEOCI12A">
+          <body>Description: unique id of the fare item to be included in accounting</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGe_r4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGe_74wEeuHYuKEOCI12A" name="bundleRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfAL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfAb4wEeuHYuKEOCI12A" name="nameRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfAr4wEeuHYuKEOCI12A">
+          <body>Description: reference to the fare name</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfA74wEeuHYuKEOCI12A" name="priceRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfBL4wEeuHYuKEOCI12A">
+          <body>Description: reference to the price </body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfBb4wEeuHYuKEOCI12A" name="regionalConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfBr4wEeuHYuKEOCI12A">
+          <body>Description: reference to the regional validity</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfB74wEeuHYuKEOCI12A" name="serviceConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfCL4wEeuHYuKEOCI12A" name="carrierConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfCb4wEeuHYuKEOCI12A" name="serviceClassRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfCr4wEeuHYuKEOCI12A" name="serviceLevelRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfC74wEeuHYuKEOCI12A" name="passengerConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfDL4wEeuHYuKEOCI12A" name="afterSalesRulesRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfDb4wEeuHYuKEOCI12A" name="reductionConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfDr4wEeuHYuKEOCI12A" name="reservationParameterRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfD74wEeuHYuKEOCI12A" name="fareDetailDescriptionRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfEL4wEeuHYuKEOCI12A">
+          <body>Description: reference to a text with the details of the fare</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfEb4wEeuHYuKEOCI12A" name="legacyConversion" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfEr4wEeuHYuKEOCI12A">
+          <body>Description: options for legacy conversion to 108.1: NO ( no conversion) YES (conversion allowed), ONLY (fare is provided only for conversion and should not be used otherwise </body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfE74wEeuHYuKEOCI12A" name="individualContracts" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfFL4wEeuHYuKEOCI12A">
+          <body>Description: indicates that the fare can be treated independently per person although booked for more than one person.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfFb4wEeuHYuKEOCI12A" name="legacyAccountingIdentifier" type="_cmIUML4wEeuHYuKEOCI12A" association="_cmKJcr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfFr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGfF74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfGL4wEeuHYuKEOCI12A" name="fareType" type="_cmHs7b4wEeuHYuKEOCI12A" association="_cmKwQr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfGb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGfGr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfG74wEeuHYuKEOCI12A" name="regulatoryConditions" type="_cmI7Hr4wEeuHYuKEOCI12A" association="_cmKwlr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfHL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGfHb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGfHr4wEeuHYuKEOCI12A" name="FareConstraintBundle">
+      <ownedAttribute xmi:id="_cmGfH74wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfIL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfIb4wEeuHYuKEOCI12A" name="combinationConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfIr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfI74wEeuHYuKEOCI12A" name="salesAvailabilityConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfJL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfJb4wEeuHYuKEOCI12A" name="travelValidityConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfJr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfJ74wEeuHYuKEOCI12A" name="fulfillmentConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfKL4wEeuHYuKEOCI12A" name="personalDataConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfKb4wEeuHYuKEOCI12A" name="passengerCombinationConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfKr4wEeuHYuKEOCI12A" name="defaultCarrierConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfK74wEeuHYuKEOCI12A">
+          <body>Description: CarrierConstraint</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfLL4wEeuHYuKEOCI12A" name="defaultFareType" type="_cmHs7b4wEeuHYuKEOCI12A" association="_cmKJVr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfLb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGfLr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfL74wEeuHYuKEOCI12A" name="defaultRegulatoryConditions" type="_cmI7Hr4wEeuHYuKEOCI12A" association="_cmKwer4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfML4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGfMb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmGfMr4wEeuHYuKEOCI12A" name="FareReferenceStationSet">
+      <ownedComment xmi:id="_cmGfM74wEeuHYuKEOCI12A">
+        <body>Description: set of stations used in the fare equivalently. E.g. Brussels-Region). The set is identified by the fare provider and a code unique within the fare provider.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmGfNL4wEeuHYuKEOCI12A" name="code" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfNb4wEeuHYuKEOCI12A">
+          <body>Description: code of the fare reference station set used in regional validity. Unique within the fare provider.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfNr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfN74wEeuHYuKEOCI12A" name="legacyCode" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfOL4wEeuHYuKEOCI12A">
+          <body>Description: id used in 108 as local station code </body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfOb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfOr4wEeuHYuKEOCI12A" name="name" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmGfO74wEeuHYuKEOCI12A">
+          <body>Description: name to be used in route descriptions</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmGfPL4wEeuHYuKEOCI12A" name="nameUtf8" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmGfPb4wEeuHYuKEOCI12A" name="stations" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKJbr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmGfPr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmGfP74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHF0L4wEeuHYuKEOCI12A" name="fareProvider" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKJur4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHs4L4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHs4b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmHs4r4wEeuHYuKEOCI12A" name="FareResourceLocation">
+      <ownedComment xmi:id="_cmHs474wEeuHYuKEOCI12A">
+        <body>Description: Locate the online services</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmHs5L4wEeuHYuKEOCI12A" name="carrierLocations" type="_cmGe8L4wEeuHYuKEOCI12A" association="_cmJjKb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHs5b4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHs5r4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHs574wEeuHYuKEOCI12A" name="stationLocations" type="_cmI72b4wEeuHYuKEOCI12A" association="_cmKJPr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHs6L4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHs6b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHs6r4wEeuHYuKEOCI12A" name="trainLocations" type="_cmJibL4wEeuHYuKEOCI12A" association="_cmKJhr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHs674wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHs7L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmHs7b4wEeuHYuKEOCI12A" name="FareType">
+      <ownedComment xmi:id="_cmHs7r4wEeuHYuKEOCI12A">
+        <body>Description: UIC fare types</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmHs774wEeuHYuKEOCI12A" name="FareTypeDefAttribute" type="_cmHs8b4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHs8L4wEeuHYuKEOCI12A">
+          <body>Description: UIC fare types</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmHs8b4wEeuHYuKEOCI12A" name="FareTypeDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmHs8r4wEeuHYuKEOCI12A" name="ADMISSION"/>
+      <ownedLiteral xmi:id="_cmHs874wEeuHYuKEOCI12A" name="RESERVATION"/>
+      <ownedLiteral xmi:id="_cmHs9L4wEeuHYuKEOCI12A" name="INTEGRATED_RESERVATION"/>
+      <ownedLiteral xmi:id="_cmHs9b4wEeuHYuKEOCI12A" name="ANCILLARY"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmHs9r4wEeuHYuKEOCI12A" name="FareDelivery">
+      <ownedAttribute xmi:id="_cmHs974wEeuHYuKEOCI12A" name="fareStructure" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmJi9b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHs-L4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHs-b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHs-r4wEeuHYuKEOCI12A" name="delivery" type="_cmHtTr4wEeuHYuKEOCI12A" association="_cmKJ8r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHs-74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHs_L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmHs_b4wEeuHYuKEOCI12A" name="FareData">
+      <ownedAttribute xmi:id="_cmHs_r4wEeuHYuKEOCI12A" name="supportedOnlineServices" type="_cmFQp74wEeuHYuKEOCI12A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHs_74wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtAL4wEeuHYuKEOCI12A" name="salesAvailabilityConstraint" type="_cmI7or4wEeuHYuKEOCI12A" association="_cmJi0b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtAb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtAr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtA74wEeuHYuKEOCI12A" name="travelValidityConstraints" type="_cmJiJr4wEeuHYuKEOCI12A" association="_cmJi1b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtBL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtBb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtBr4wEeuHYuKEOCI12A" name="reductionCards" type="_cmI7gL4wEeuHYuKEOCI12A" association="_cmJi3b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtB74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtCL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtCb4wEeuHYuKEOCI12A" name="zoneDefinitions" type="_cmJiwL4wEeuHYuKEOCI12A" association="_cmJi6b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtCr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtC74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtDL4wEeuHYuKEOCI12A" name="fareConstraintBundles" type="_cmGfHr4wEeuHYuKEOCI12A" association="_cmJi7b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtDb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtDr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtD74wEeuHYuKEOCI12A" name="passengerCombinationConstraints" type="_cmIUo74wEeuHYuKEOCI12A" association="_cmJi_b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtEL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtEb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtEr4wEeuHYuKEOCI12A" name="stationNames" type="_cmI7yr4wEeuHYuKEOCI12A" association="_cmJjJb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtE74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtFL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtFb4wEeuHYuKEOCI12A" name="passengerConstraints" type="_cmIUqr4wEeuHYuKEOCI12A" association="_cmKJLr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtFr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtF74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtGL4wEeuHYuKEOCI12A" name="serviceConstraints" type="_cmI8AL4wEeuHYuKEOCI12A" association="_cmKJZr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtGb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtGr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtG74wEeuHYuKEOCI12A" name="fareResourceLocation" type="_cmHs4r4wEeuHYuKEOCI12A" association="_cmKJer4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtHL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtHb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtHr4wEeuHYuKEOCI12A" name="prices" type="_cmIUbr4wEeuHYuKEOCI12A" association="_cmKJir4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtH74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtIL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtIb4wEeuHYuKEOCI12A" name="texts" type="_cmJiEb4wEeuHYuKEOCI12A" association="_cmKJvr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtIr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtI74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtJL4wEeuHYuKEOCI12A" name="reductionConstraints" type="_cmI7GL4wEeuHYuKEOCI12A" association="_cmKJwr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtJb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtJr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtJ74wEeuHYuKEOCI12A" name="carrierConstraints" type="_cmFQxL4wEeuHYuKEOCI12A" association="_cmKJ0r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtKL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtKb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtKr4wEeuHYuKEOCI12A" name="fulfillmentConstraints" type="_cmIUC74wEeuHYuKEOCI12A" association="_cmKJ2r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtK74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtLL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtLb4wEeuHYuKEOCI12A" name="connectionPoints" type="_cmGe6r4wEeuHYuKEOCI12A" association="_cmKJ4r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtLr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtL74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtML4wEeuHYuKEOCI12A" name="reservationParameters" type="_cmI7ZL4wEeuHYuKEOCI12A" association="_cmKJ6r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtMb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtMr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtM74wEeuHYuKEOCI12A" name="afterSalesConditions" type="_cmFQob4wEeuHYuKEOCI12A" association="_cmKKBr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtNL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtNb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtNr4wEeuHYuKEOCI12A" name="combinationConstraints" type="_cmHtdL4wEeuHYuKEOCI12A" association="_cmKKCr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtN74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtOL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtOb4wEeuHYuKEOCI12A" name="regionalConstraints" type="_cmI7Vb4wEeuHYuKEOCI12A" association="_cmKwMr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtOr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtO74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtPL4wEeuHYuKEOCI12A" name="calendars" type="_cmGe1L4wEeuHYuKEOCI12A" association="_cmKwRr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtPb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtPr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtP74wEeuHYuKEOCI12A" name="fareReferenceStationSetDefinitions" type="_cmGfMr4wEeuHYuKEOCI12A" association="_cmKwZr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtQL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtQb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtQr4wEeuHYuKEOCI12A" name="fares" type="_cmGe-r4wEeuHYuKEOCI12A" association="_cmKwfr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtQ74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtRL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtRb4wEeuHYuKEOCI12A" name="serviceClassDefinitions" type="_cmI7mb4wEeuHYuKEOCI12A" association="_cmKwgr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtRr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtR74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtSL4wEeuHYuKEOCI12A" name="serviceLevelDefinitions" type="_cmI7774wEeuHYuKEOCI12A" association="_cmKwir4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtSb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtSr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtS74wEeuHYuKEOCI12A" name="personalDataConstraints" type="_cmIUeL4wEeuHYuKEOCI12A" association="_cmKwkr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtTL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtTb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmHtTr4wEeuHYuKEOCI12A" name="FareDeliveryDetails">
+      <ownedAttribute xmi:id="_cmHtT74wEeuHYuKEOCI12A" name="deliveryId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtUL4wEeuHYuKEOCI12A">
+          <body>Description: unique id of this data delivery</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtUb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtUr4wEeuHYuKEOCI12A" name="previousDeliveryId" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmHtU74wEeuHYuKEOCI12A" name="replacementDeliveryId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtVL4wEeuHYuKEOCI12A">
+          <body>Description: in case this delivery replaces an previous delivery</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtVb4wEeuHYuKEOCI12A" name="optionalDelivery" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtVr4wEeuHYuKEOCI12A">
+          <body>Description: this delivery is not mandatory to be downloaded. </body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtV74wEeuHYuKEOCI12A" name="version" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtWL4wEeuHYuKEOCI12A">
+          <body>Description: version of the data schema</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtWb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtWr4wEeuHYuKEOCI12A" name="acceptedVersion" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtW74wEeuHYuKEOCI12A">
+          <body>Description: minimal version required to use these data</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtXL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtXb4wEeuHYuKEOCI12A" name="fareProvider" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKJpr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtXr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtX74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmHtYL4wEeuHYuKEOCI12A" name="FareCombinationModel">
+      <ownedAttribute xmi:id="_cmHtYb4wEeuHYuKEOCI12A" name="model" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtYr4wEeuHYuKEOCI12A">
+          <body>Description: Possible models are SEPARATE_CONTRACT, CLUSTERING, COMBINING.  The models need to be supported by the allocator.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtY74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtZL4wEeuHYuKEOCI12A" name="onlyWhenCombined" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtZb4wEeuHYuKEOCI12A">
+          <body>Description: This combination model applies only in case the fare is combined with another carrier</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtZr4wEeuHYuKEOCI12A" name="referenceCluster" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtZ74wEeuHYuKEOCI12A">
+          <body>Description: In case of CLUSTERING model: the cluster to which the fare belongs</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtaL4wEeuHYuKEOCI12A" name="allowedClusters" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmHtab4wEeuHYuKEOCI12A">
+          <body>Description: In case of CLUSTERING model: the other clusters that allow a combination</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtar4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHta74wEeuHYuKEOCI12A" name="combinableCarrier" type="_cmGe374wEeuHYuKEOCI12A" association="_cmJjGb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtbL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtbb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtbr4wEeuHYuKEOCI12A" name="allowedAllocators" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKJ7r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtb74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtcL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmHtcb4wEeuHYuKEOCI12A" name="allowedCommonContracts" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKwUr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmHtcr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmHtc74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmHtdL4wEeuHYuKEOCI12A" name="FareCombinationConstraint">
+      <ownedAttribute xmi:id="_cmIT8L4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIT8b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIT8r4wEeuHYuKEOCI12A" name="combinationModels" type="_cmHtYL4wEeuHYuKEOCI12A" association="_cmKwXr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIT874wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIT9L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIT9b4wEeuHYuKEOCI12A" name="FulfillmentMediaType">
+      <ownedComment xmi:id="_cmIT9r4wEeuHYuKEOCI12A">
+        <body>Description: Fulfillment types. RCT2, RCCST and UIC-PDF are official UIC standards.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmIT974wEeuHYuKEOCI12A" name="FulfillmentMediaTypeDefAttribute" type="_cmIT-b4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIT-L4wEeuHYuKEOCI12A">
+          <body>Description: Fulfillment types. RCT2, RCCST and UIC-PDF are official UIC standards.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmIT-b4wEeuHYuKEOCI12A" name="FulfillmentMediaTypeDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmIT-r4wEeuHYuKEOCI12A" name="RCT2"/>
+      <ownedLiteral xmi:id="_cmIT-74wEeuHYuKEOCI12A" name="RCCST"/>
+      <ownedLiteral xmi:id="_cmIT_L4wEeuHYuKEOCI12A" name="UIC_PDF"/>
+      <ownedLiteral xmi:id="_cmIT_b4wEeuHYuKEOCI12A" name="PDF_A4"/>
+      <ownedLiteral xmi:id="_cmIT_r4wEeuHYuKEOCI12A" name="PKPASS"/>
+      <ownedLiteral xmi:id="_cmIT_74wEeuHYuKEOCI12A" name="TICKETLESS"/>
+      <ownedLiteral xmi:id="_cmIUAL4wEeuHYuKEOCI12A" name="ALLOCATOR_APP"/>
+      <ownedLiteral xmi:id="_cmIUAb4wEeuHYuKEOCI12A" name="SOCIAL_MEDIA_ACCOUNTS"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUAr4wEeuHYuKEOCI12A" name="FulfillmentOption">
+      <ownedComment xmi:id="_cmIUA74wEeuHYuKEOCI12A">
+        <body>Description: CIT paper implies printing on value paper which is stock controlled.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmIUBL4wEeuHYuKEOCI12A" name="fulfillmentType" type="_cmIUCL4wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUBb4wEeuHYuKEOCI12A" name="media" type="_cmIT9b4wEeuHYuKEOCI12A" association="_cmJjEb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUBr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUB74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmIUCL4wEeuHYuKEOCI12A" name="fulfillmentTypeEnum">
+      <ownedLiteral xmi:id="_cmIUCb4wEeuHYuKEOCI12A" name="ETICKET"/>
+      <ownedLiteral xmi:id="_cmIUCr4wEeuHYuKEOCI12A" name="CIT_PAPER"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUC74wEeuHYuKEOCI12A" name="FulfillmentConstraint">
+      <ownedAttribute xmi:id="_cmIUDL4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUDb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUDr4wEeuHYuKEOCI12A" name="requiredSiS" type="_cmIUHr4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUD74wEeuHYuKEOCI12A">
+          <body>Description: To guarantee security in system (SiS) of the fulfillment one of the listed interfaces is required.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUEL4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUEb4wEeuHYuKEOCI12A" name="individualTicketingPermitted" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUEr4wEeuHYuKEOCI12A">
+          <body>Description: a separate fulfillment per traveler is permitted</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUE74wEeuHYuKEOCI12A" name="separateFulfillmentRequired" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUFL4wEeuHYuKEOCI12A">
+          <body>Description: a separate fulfillment for the regional constraint is required</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUFb4wEeuHYuKEOCI12A" name="requiredBarCodes" type="_cmFQvL4wEeuHYuKEOCI12A" association="_cmKJ1r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUFr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUF74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUGL4wEeuHYuKEOCI12A" name="acceptedBarCodes" type="_cmFQvL4wEeuHYuKEOCI12A" association="_cmKJ5r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUGb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUGr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUG74wEeuHYuKEOCI12A" name="acceptedControlSecurityTypes" type="_cmFQ2b4wEeuHYuKEOCI12A" association="_cmKJ_r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUHL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUHb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmIUHr4wEeuHYuKEOCI12A" name="requiredSiSEnum">
+      <ownedLiteral xmi:id="_cmIUH74wEeuHYuKEOCI12A" name="REGISTRY"/>
+      <ownedLiteral xmi:id="_cmIUIL4wEeuHYuKEOCI12A" name="PEER_TO_PEER"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUIb4wEeuHYuKEOCI12A" name="GeoCoordinate">
+      <ownedComment xmi:id="_cmIUIr4wEeuHYuKEOCI12A">
+        <body>Description: Used to provide any geo-encoded location, regardless of environment, using longitude and latitude coordinates.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmIUI74wEeuHYuKEOCI12A" name="system" type="_cmIULb4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUJL4wEeuHYuKEOCI12A">
+          <body>Description: geo coordinate system indication: 
+ - WGS84 = WGS 84 standard system,
+ - GRS80 = (outdated) GRS 80 coordinate system</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUJb4wEeuHYuKEOCI12A" name="accuracy" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUJr4wEeuHYuKEOCI12A">
+          <body>Description: to be provided in degree.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUJ74wEeuHYuKEOCI12A" name="latitude" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUKL4wEeuHYuKEOCI12A">
+          <body>Description: Geographic coordinate that specifies the north-south position of a point on the earths surface</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUKb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUKr4wEeuHYuKEOCI12A" name="longitude" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUK74wEeuHYuKEOCI12A">
+          <body>Description: Geographic coordinate that specifies the east-west position of a point on the earths surface.            </body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIULL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmIULb4wEeuHYuKEOCI12A" name="systemEnum">
+      <ownedLiteral xmi:id="_cmIULr4wEeuHYuKEOCI12A" name="WGS84"/>
+      <ownedLiteral xmi:id="_cmIUL74wEeuHYuKEOCI12A" name="GRS80"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUML4wEeuHYuKEOCI12A" name="LegacyAccountingIdentifier">
+      <ownedComment xmi:id="_cmIUMb4wEeuHYuKEOCI12A">
+        <body>Description: identifier of the fare in the current 301 accounting file</body>
+      </ownedComment>
+      <ownedRule xmi:id="_cmIUMr4wEeuHYuKEOCI12A" name="LegacyAccountingIdentifierDef-serialId-maximumConstraint">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_cmIUM74wEeuHYuKEOCI12A">
+          <language>OCL</language>
+          <body>self.serialId &lt;= 99999</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:id="_cmIUNL4wEeuHYuKEOCI12A" name="LegacyAccountingIdentifierDef-serialId-minimumConstraint">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_cmIUNb4wEeuHYuKEOCI12A">
+          <language>OCL</language>
+          <body>self.serialId >= 0</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:id="_cmIUNr4wEeuHYuKEOCI12A" name="LegacyAccountingIdentifierDef-addId-maximumConstraint">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_cmIUN74wEeuHYuKEOCI12A">
+          <language>OCL</language>
+          <body>self.addId &lt;= 99</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:id="_cmIUOL4wEeuHYuKEOCI12A" name="LegacyAccountingIdentifierDef-addId-minimumConstraint">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_cmIUOb4wEeuHYuKEOCI12A">
+          <language>OCL</language>
+          <body>self.addId >= 0</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:id="_cmIUOr4wEeuHYuKEOCI12A" name="LegacyAccountingIdentifierDef-tariffId-maximumConstraint">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_cmIUO74wEeuHYuKEOCI12A">
+          <language>OCL</language>
+          <body>self.tariffId &lt;= 9999</body>
+        </specification>
+      </ownedRule>
+      <ownedRule xmi:id="_cmIUPL4wEeuHYuKEOCI12A" name="LegacyAccountingIdentifierDef-tariffId-minimumConstraint">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_cmIUPb4wEeuHYuKEOCI12A">
+          <language>OCL</language>
+          <body>self.tariffId >= 0</body>
+        </specification>
+      </ownedRule>
+      <ownedAttribute xmi:id="_cmIUPr4wEeuHYuKEOCI12A" name="serialId" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUP74wEeuHYuKEOCI12A">
+          <body>Description: sequential number of regional validities</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUQL4wEeuHYuKEOCI12A" name="addId" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUQb4wEeuHYuKEOCI12A">
+          <body>Description: sequential number of regional validities (leading positions in case the series is too short</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUQr4wEeuHYuKEOCI12A" name="tariffId" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUQ74wEeuHYuKEOCI12A">
+          <body>Description: sequential number of the fares for one regional validity</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIURL4wEeuHYuKEOCI12A" name="LegacyReservationParameter">
+      <ownedComment xmi:id="_cmIURb4wEeuHYuKEOCI12A">
+        <body>Description: reservation parameter to support the UIC 90918-1 interface for booking</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmIURr4wEeuHYuKEOCI12A" name="travelClass" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUR74wEeuHYuKEOCI12A">
+          <body>Description: 90918-1 class code in reservation</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUSL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUSb4wEeuHYuKEOCI12A" name="serviceLevelCode" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUSr4wEeuHYuKEOCI12A">
+          <body>Description: service level code defined in UIC 90918-1</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUS74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUTL4wEeuHYuKEOCI12A" name="serviceCode" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUTb4wEeuHYuKEOCI12A">
+          <body>Description: service code to be used in reservation</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUTr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUT74wEeuHYuKEOCI12A" name="berthType" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUUL4wEeuHYuKEOCI12A" name="coachTypeCode" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUUb4wEeuHYuKEOCI12A" name="compartmentTypeCode" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUUr4wEeuHYuKEOCI12A" name="tariff" type="_cmFQp74wEeuHYuKEOCI12A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUU74wEeuHYuKEOCI12A" name="Line">
+      <ownedComment xmi:id="_cmIUVL4wEeuHYuKEOCI12A">
+        <body>Description: terminalStation - in case the product requires a destination within the zone (e.g. local ticket  to go to the main rail station).  entryStation - Station to enter the zone in case the product requires to enter the zone via a  specific station (e.g. local zone ticket to start from the main rail station).</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmIUVb4wEeuHYuKEOCI12A" name="binaryLineId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUVr4wEeuHYuKEOCI12A">
+          <body>Description: Id to support local traffic standards (e.g. VDV,...).</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUV74wEeuHYuKEOCI12A" name="city" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUWL4wEeuHYuKEOCI12A" name="lineId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUWb4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUWr4wEeuHYuKEOCI12A" name="nutsCode" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUW74wEeuHYuKEOCI12A">
+          <body>Description: Nomenclature des units territoriales statistiques  
+ COMMISSION REGULATION (EU) No 31/2011</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUXL4wEeuHYuKEOCI12A" name="entryStation" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmJi8b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUXb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUXr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUX74wEeuHYuKEOCI12A" name="terminalStation" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKJor4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUYL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUYb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUYr4wEeuHYuKEOCI12A" name="carrier" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKwTr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUY74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUZL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUZb4wEeuHYuKEOCI12A" name="OnlineResource">
+      <ownedAttribute xmi:id="_cmIUZr4wEeuHYuKEOCI12A" name="offerType" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUZ74wEeuHYuKEOCI12A">
+          <body>Description: The resource provides offers bases on trains or based on areas. Train based offers must start and end at a real station and are not split between a train run. Values TRAIN, AREA</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUaL4wEeuHYuKEOCI12A" name="interfaceType" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUab4wEeuHYuKEOCI12A">
+          <body>Description: GTM,...</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUar4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUa74wEeuHYuKEOCI12A" name="version" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUbL4wEeuHYuKEOCI12A" name="system" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUbb4wEeuHYuKEOCI12A">
+          <body>Description: system where the offer can be found (e.r. for TAP-TSI-B5 the reservation system code)</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUbr4wEeuHYuKEOCI12A" name="Price">
+      <ownedAttribute xmi:id="_cmIUb74wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUcL4wEeuHYuKEOCI12A">
+          <body>Description: required for bulk data transfer</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUcb4wEeuHYuKEOCI12A" name="price" type="_cmGex74wEeuHYuKEOCI12A" association="_cmKJyr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUcr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUc74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUdL4wEeuHYuKEOCI12A" name="Polygon">
+      <ownedAttribute xmi:id="_cmIUdb4wEeuHYuKEOCI12A" name="edge" type="_cmIUIb4wEeuHYuKEOCI12A" association="_cmKJRr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUdr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUd74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUeL4wEeuHYuKEOCI12A" name="PersonalDataConstraint">
+      <ownedAttribute xmi:id="_cmIUeb4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUer4wEeuHYuKEOCI12A" name="requiredData" type="_cmIUgL4wEeuHYuKEOCI12A" association="_cmIUkr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUe74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUfL4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUfb4wEeuHYuKEOCI12A" name="allowedChanges" type="_cmIUlr4wEeuHYuKEOCI12A" association="_cmIUn74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUfr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUf74wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUgL4wEeuHYuKEOCI12A" name="RequiredData">
+      <ownedAttribute xmi:id="_cmIUgb4wEeuHYuKEOCI12A" name="dataItem" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUgr4wEeuHYuKEOCI12A">
+          <body>Description: see code list IRS 90918-10</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUg74wEeuHYuKEOCI12A" name="transfer" type="_cmIUjr4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUhL4wEeuHYuKEOCI12A">
+          <body>Description: Transfer mode: BOOKING, SIS_CONTROL, SID_CONTROL.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUhb4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUhr4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUh74wEeuHYuKEOCI12A" name="ticketHolderOnly" type="_cmFQu74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUiL4wEeuHYuKEOCI12A" name="crossBorder" type="_cmFQy74wEeuHYuKEOCI12A" association="_cmKJUr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUib4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUir4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUi74wEeuHYuKEOCI12A" name="fulfillmentType" type="_cmFQ2b4wEeuHYuKEOCI12A" association="_cmKJtr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUjL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUjb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmIUjr4wEeuHYuKEOCI12A" name="transferEnum">
+      <ownedLiteral xmi:id="_cmIUj74wEeuHYuKEOCI12A" name="BOOKING"/>
+      <ownedLiteral xmi:id="_cmIUkL4wEeuHYuKEOCI12A" name="SIS_CONTROL"/>
+      <ownedLiteral xmi:id="_cmIUkb4wEeuHYuKEOCI12A" name="SID_CONTROL"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmIUkr4wEeuHYuKEOCI12A" memberEnd="_cmIUer4wEeuHYuKEOCI12A _cmIUk74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmIUk74wEeuHYuKEOCI12A" name="PersonalDataConstraint" type="_cmIUeL4wEeuHYuKEOCI12A" association="_cmIUkr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUlL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUlb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUlr4wEeuHYuKEOCI12A" name="AllowedChanges">
+      <ownedAttribute xmi:id="_cmIUl74wEeuHYuKEOCI12A" name="acceptedReason" type="_cmIUmr4wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUmL4wEeuHYuKEOCI12A" name="timeLimit" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUmb4wEeuHYuKEOCI12A">
+          <body>Description: the change is limited to n hours after booking confirmation</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmIUmr4wEeuHYuKEOCI12A" name="acceptedReasonEnum">
+      <ownedLiteral xmi:id="_cmIUm74wEeuHYuKEOCI12A" name="IN_GENERAL"/>
+      <ownedLiteral xmi:id="_cmIUnL4wEeuHYuKEOCI12A" name="MARRIAGE"/>
+      <ownedLiteral xmi:id="_cmIUnb4wEeuHYuKEOCI12A" name="DOCUMENT_CHANGE"/>
+      <ownedLiteral xmi:id="_cmIUnr4wEeuHYuKEOCI12A" name="AGENT_ERROR"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmIUn74wEeuHYuKEOCI12A" memberEnd="_cmIUfb4wEeuHYuKEOCI12A _cmIUoL4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmIUoL4wEeuHYuKEOCI12A" name="PersonalDataConstraint" type="_cmIUeL4wEeuHYuKEOCI12A" association="_cmIUn74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUob4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUor4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUo74wEeuHYuKEOCI12A" name="PassengerCombinationConstraint">
+      <ownedAttribute xmi:id="_cmIUpL4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUpb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUpr4wEeuHYuKEOCI12A" name="maxWeightedPassengers" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUp74wEeuHYuKEOCI12A">
+          <body>Description: The total weighted number of passengers on the offer is restricted to be equal or smaller than this maximum</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUqL4wEeuHYuKEOCI12A" name="minWeightedPassengers" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUqb4wEeuHYuKEOCI12A">
+          <body>Description: The total weighted number of passengers on the offer is restricted to equal or larger than this minimum</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUqr4wEeuHYuKEOCI12A" name="PassengerConstraint">
+      <ownedAttribute xmi:id="_cmIUq74wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUrL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUrb4wEeuHYuKEOCI12A" name="passengerType" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUrr4wEeuHYuKEOCI12A">
+          <body>Description: see code list travelerType</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUr74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUsL4wEeuHYuKEOCI12A" name="nameRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUsb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUsr4wEeuHYuKEOCI12A" name="upperAgeLimit" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUs74wEeuHYuKEOCI12A" name="lowerAgeLimit" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUtL4wEeuHYuKEOCI12A" name="ageLimitToTravelAlone" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUtb4wEeuHYuKEOCI12A" name="ageLimitForReservation" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUtr4wEeuHYuKEOCI12A" name="isAncillaryItem" type="_cmFQu74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmIUt74wEeuHYuKEOCI12A" name="combinationConstraint" type="_cmIUvr4wEeuHYuKEOCI12A" association="_cmIUxr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUuL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUub4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUur4wEeuHYuKEOCI12A" name="includedFreePassenger" type="_cmI7A74wEeuHYuKEOCI12A" association="_cmI7Cb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUu74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUvL4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUvb4wEeuHYuKEOCI12A" name="passengerWeight" type="_cmGe074wEeuHYuKEOCI12A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmIUvr4wEeuHYuKEOCI12A" name="CombinationConstraint">
+      <ownedAttribute xmi:id="_cmIUv74wEeuHYuKEOCI12A" name="maxNumber" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUwL4wEeuHYuKEOCI12A">
+          <body>Description: number of passengers allowed per accompanying passenger</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUwb4wEeuHYuKEOCI12A" name="minNumber" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmIUwr4wEeuHYuKEOCI12A">
+          <body>Description: number of passengers required as accompanying passenger</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmIUw74wEeuHYuKEOCI12A" name="passengerTypeRef" type="_cmJiXL4wEeuHYuKEOCI12A" association="_cmKwhr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmIUxL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmIUxb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmIUxr4wEeuHYuKEOCI12A" memberEnd="_cmIUt74wEeuHYuKEOCI12A _cmI7AL4wEeuHYuKEOCI12A">
+      <ownedComment xmi:id="_cmIUx74wEeuHYuKEOCI12A">
+        <body>Description: constraints on accompanying passengers</body>
+      </ownedComment>
+      <ownedEnd xmi:id="_cmI7AL4wEeuHYuKEOCI12A" name="PassengerConstraint" type="_cmIUqr4wEeuHYuKEOCI12A" association="_cmIUxr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7Ab4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7Ar4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7A74wEeuHYuKEOCI12A" name="IncludedFreePassenger">
+      <ownedAttribute xmi:id="_cmI7BL4wEeuHYuKEOCI12A" name="number" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Bb4wEeuHYuKEOCI12A">
+          <body>Description: Number of passengers that can be included with one passenger for free. The number is given in fractions. The  calculation needs a precision of 1 digit fraction (e.g. with 0.33 dogs you need 3 adults to transport one dog  for free).</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Br4wEeuHYuKEOCI12A" name="passengerTypeRef" type="_cmJiXL4wEeuHYuKEOCI12A" association="_cmKKAr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7B74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7CL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmI7Cb4wEeuHYuKEOCI12A" memberEnd="_cmIUur4wEeuHYuKEOCI12A _cmI7Cr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmI7Cr4wEeuHYuKEOCI12A" name="PassengerConstraint" type="_cmIUqr4wEeuHYuKEOCI12A" association="_cmI7Cb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7C74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7DL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7Db4wEeuHYuKEOCI12A" name="ReductionCardReference">
+      <ownedAttribute xmi:id="_cmI7Dr4wEeuHYuKEOCI12A" name="cardValue" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7D74wEeuHYuKEOCI12A">
+          <body>Description: code of the card type according to code list</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7EL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Eb4wEeuHYuKEOCI12A" name="cardValueType" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Er4wEeuHYuKEOCI12A">
+          <body>Description: code list for the cardValue provided</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7E74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7FL4wEeuHYuKEOCI12A" name="cardName" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Fb4wEeuHYuKEOCI12A">
+          <body>Description: card name for printing on fulfillments</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Fr4wEeuHYuKEOCI12A" name="issuer" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7F74wEeuHYuKEOCI12A">
+          <body>Description: RICS company code or the upcoming compatible ERA company code. In case proprietary codes are used on a bilateral base the codes must have at least 5 positions and start with x.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7GL4wEeuHYuKEOCI12A" name="ReductionConstraint">
+      <ownedAttribute xmi:id="_cmI7Gb4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Gr4wEeuHYuKEOCI12A">
+          <body>Description: in bulk data only</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7G74wEeuHYuKEOCI12A" name="requiredCards" type="_cmI7Db4wEeuHYuKEOCI12A" association="_cmKJzr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7HL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7Hb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7Hr4wEeuHYuKEOCI12A" name="RegulatoryConditions">
+      <ownedComment xmi:id="_cmI7H74wEeuHYuKEOCI12A">
+        <body>Description: regulatory condition</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI7IL4wEeuHYuKEOCI12A" name="RegulatoryConditionsDefAttribute" type="_cmI7I74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Ib4wEeuHYuKEOCI12A">
+          <body>Description: regulatory condition</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7Ir4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmI7I74wEeuHYuKEOCI12A" name="RegulatoryConditionsDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmI7JL4wEeuHYuKEOCI12A" name="CIV"/>
+      <ownedLiteral xmi:id="_cmI7Jb4wEeuHYuKEOCI12A" name="MC"/>
+      <ownedLiteral xmi:id="_cmI7Jr4wEeuHYuKEOCI12A" name="EU_PRR"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7J74wEeuHYuKEOCI12A" name="RelativeTime">
+      <ownedAttribute xmi:id="_cmI7KL4wEeuHYuKEOCI12A" name="timeUnit" type="_cmI7ML4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Kb4wEeuHYuKEOCI12A">
+          <body>Description: Time unit in days, hours or minutes.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7Kr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7K74wEeuHYuKEOCI12A" name="timeValue" type="_cmGe074wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7LL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Lb4wEeuHYuKEOCI12A" name="timeReference" type="_cmI7NL4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Lr4wEeuHYuKEOCI12A">
+          <body>Description: Time reference.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7L74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmI7ML4wEeuHYuKEOCI12A" name="timeUnitEnum">
+      <ownedLiteral xmi:id="_cmI7Mb4wEeuHYuKEOCI12A" name="DAYS"/>
+      <ownedLiteral xmi:id="_cmI7Mr4wEeuHYuKEOCI12A" name="HOURS"/>
+      <ownedLiteral xmi:id="_cmI7M74wEeuHYuKEOCI12A" name="MINUTES"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmI7NL4wEeuHYuKEOCI12A" name="timeReferenceEnum">
+      <ownedLiteral xmi:id="_cmI7Nb4wEeuHYuKEOCI12A" name="BEFORE_DEPARTURE"/>
+      <ownedLiteral xmi:id="_cmI7Nr4wEeuHYuKEOCI12A" name="AFTER_DEPARTURE"/>
+      <ownedLiteral xmi:id="_cmI7N74wEeuHYuKEOCI12A" name="AFTER_SALE"/>
+      <ownedLiteral xmi:id="_cmI7OL4wEeuHYuKEOCI12A" name="BEFORE_START_VALIDITY"/>
+      <ownedLiteral xmi:id="_cmI7Ob4wEeuHYuKEOCI12A" name="AFTER_END_VALIDITY"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7Or4wEeuHYuKEOCI12A" name="RegionalValidity">
+      <ownedAttribute xmi:id="_cmI7O74wEeuHYuKEOCI12A" name="RegionalValidityDefAttribute" type="_cmI7Pr4wEeuHYuKEOCI12A" association="_cmI7Ub4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7PL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7Pb4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7Pr4wEeuHYuKEOCI12A" name="RegionalValidityDefAttribute">
+      <ownedAttribute xmi:id="_cmI7P74wEeuHYuKEOCI12A" name="seqNb" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7QL4wEeuHYuKEOCI12A">
+          <body>Description: order number of the list item</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Qb4wEeuHYuKEOCI12A" name="serviceConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmI7Qr4wEeuHYuKEOCI12A" name="zone" type="_cmJisL4wEeuHYuKEOCI12A" association="_cmJi4b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7Q74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7RL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Rb4wEeuHYuKEOCI12A" name="line" type="_cmIUU74wEeuHYuKEOCI12A" association="_cmKJIr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7Rr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7R74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7SL4wEeuHYuKEOCI12A" name="polygon" type="_cmIUdL4wEeuHYuKEOCI12A" association="_cmKJxr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7Sb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7Sr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7S74wEeuHYuKEOCI12A" name="trainLink" type="_cmJiYL4wEeuHYuKEOCI12A" association="_cmKwNr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7TL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7Tb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Tr4wEeuHYuKEOCI12A" name="viaStations" type="_cmJidr4wEeuHYuKEOCI12A" association="_cmKwar4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7T74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7UL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmI7Ub4wEeuHYuKEOCI12A" memberEnd="_cmI7O74wEeuHYuKEOCI12A _cmI7Ur4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmI7Ur4wEeuHYuKEOCI12A" name="RegionalValidity" type="_cmI7Or4wEeuHYuKEOCI12A" association="_cmI7Ub4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7U74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7VL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7Vb4wEeuHYuKEOCI12A" name="RegionalConstraint">
+      <ownedComment xmi:id="_cmI7Vr4wEeuHYuKEOCI12A">
+        <body>Description: regional constraint of the fare-offline bulk data use the id of connection points whereas in an online environment the connection point is included</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI7V74wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmI7WL4wEeuHYuKEOCI12A" name="entryConnectionPointId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Wb4wEeuHYuKEOCI12A">
+          <body>Description: connection point connecting two fare regimes</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Wr4wEeuHYuKEOCI12A" name="exitConnectionPointId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7W74wEeuHYuKEOCI12A">
+          <body>Description: connection point connecting two fare regimes</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7XL4wEeuHYuKEOCI12A" name="distance" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7Xb4wEeuHYuKEOCI12A">
+          <body>Description: distance in km for statistics </body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Xr4wEeuHYuKEOCI12A" name="exitConnectionPoint" type="_cmGe6r4wEeuHYuKEOCI12A" association="_cmKJdr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7X74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7YL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Yb4wEeuHYuKEOCI12A" name="regionalValidity" type="_cmI7Or4wEeuHYuKEOCI12A" association="_cmKJlr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7Yr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7Y74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7ZL4wEeuHYuKEOCI12A" name="ReservationParameter">
+      <ownedAttribute xmi:id="_cmI7Zb4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7Zr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7Z74wEeuHYuKEOCI12A" name="reservationRequired" type="_cmFQu74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmI7aL4wEeuHYuKEOCI12A" name="reservationOptions" type="_cmI7cb4wEeuHYuKEOCI12A" association="_cmI7e74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7ab4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7ar4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7a74wEeuHYuKEOCI12A" name="reservationRequiredForMode" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7bL4wEeuHYuKEOCI12A">
+          <body>Description: service service mode for which a reservation is mandatory</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7bb4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7br4wEeuHYuKEOCI12A" name="reservationParams918-1" type="_cmIURL4wEeuHYuKEOCI12A" association="_cmKJar4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7b74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7cL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7cb4wEeuHYuKEOCI12A" name="ReservationOptions">
+      <ownedComment xmi:id="_cmI7cr4wEeuHYuKEOCI12A">
+        <body>Description: options for reservations, Note: full details might be provided in the online version only</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI7c74wEeuHYuKEOCI12A" name="graphicalReservation" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7dL4wEeuHYuKEOCI12A">
+          <body>Description: graphical reservation is supported, interface type &quot;NO&quot;,&quot;UIC_918&quot;,..</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7db4wEeuHYuKEOCI12A" name="serviceBrands" type="_cmI74r4wEeuHYuKEOCI12A" association="_cmKJTr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7dr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7d74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7eL4wEeuHYuKEOCI12A" name="preferences" type="_cmI7k74wEeuHYuKEOCI12A" association="_cmKJsr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7eb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7er4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmI7e74wEeuHYuKEOCI12A" memberEnd="_cmI7aL4wEeuHYuKEOCI12A _cmI7fb4wEeuHYuKEOCI12A">
+      <ownedComment xmi:id="_cmI7fL4wEeuHYuKEOCI12A">
+        <body>Description: options for reservations, Note: full details might be provided in the online version only</body>
+      </ownedComment>
+      <ownedEnd xmi:id="_cmI7fb4wEeuHYuKEOCI12A" name="ReservationParameter" type="_cmI7ZL4wEeuHYuKEOCI12A" association="_cmI7e74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7fr4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7f74wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7gL4wEeuHYuKEOCI12A" name="ReductionCard">
+      <ownedAttribute xmi:id="_cmI7gb4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7gr4wEeuHYuKEOCI12A">
+          <body>Description: id of the card type within the issuer</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7g74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7hL4wEeuHYuKEOCI12A" name="nameRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7hb4wEeuHYuKEOCI12A">
+          <body>Description: referenced text in bulk data</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7hr4wEeuHYuKEOCI12A" name="type" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7h74wEeuHYuKEOCI12A">
+          <body>Description: LOYALTY_CARD,REDUCTION_CARD,PASS</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7iL4wEeuHYuKEOCI12A" name="cardIdRequired" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7ib4wEeuHYuKEOCI12A">
+          <body>Description: the card id must be delivered in online sales </body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7ir4wEeuHYuKEOCI12A" name="serviceClasses" type="_cmI75r4wEeuHYuKEOCI12A" association="_cmKJKr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7i74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7jL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7jb4wEeuHYuKEOCI12A" name="includedCards" type="_cmI7Db4wEeuHYuKEOCI12A" association="_cmKJYr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7jr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7j74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7kL4wEeuHYuKEOCI12A" name="issuer" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKwmr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7kb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7kr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7k74wEeuHYuKEOCI12A" name="ReservationOptionGroup">
+      <ownedAttribute xmi:id="_cmI7lL4wEeuHYuKEOCI12A" name="preferenceGroup" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7lb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7lr4wEeuHYuKEOCI12A" name="preferences" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7l74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7mL4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7mb4wEeuHYuKEOCI12A" name="ServiceClassDefinition">
+      <ownedAttribute xmi:id="_cmI7mr4wEeuHYuKEOCI12A" name="textRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7m74wEeuHYuKEOCI12A">
+          <body>Description: id of the text describing the class within the offline data text list</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7nL4wEeuHYuKEOCI12A" name="comfortClass" type="_cmGe474wEeuHYuKEOCI12A" association="_cmKJgr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7nb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7nr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7n74wEeuHYuKEOCI12A" name="id" type="_cmI75r4wEeuHYuKEOCI12A" association="_cmKwVr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7oL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7ob4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7or4wEeuHYuKEOCI12A" name="SalesAvailabilityConstraint">
+      <ownedAttribute xmi:id="_cmI7o74wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7pL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7pb4wEeuHYuKEOCI12A" name="salesRestrictions" type="_cmI7qL4wEeuHYuKEOCI12A" association="_cmI7sb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7pr4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7p74wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7qL4wEeuHYuKEOCI12A" name="SalesRestrictions">
+      <ownedAttribute xmi:id="_cmI7qb4wEeuHYuKEOCI12A" name="salesDatesRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7qr4wEeuHYuKEOCI12A">
+          <body>Description: reference to the calendar with valid sales dates</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7q74wEeuHYuKEOCI12A" name="endOfSale" type="_cmI7J74wEeuHYuKEOCI12A" association="_cmJjAb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7rL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7rb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7rr4wEeuHYuKEOCI12A" name="startOfSale" type="_cmI7J74wEeuHYuKEOCI12A" association="_cmKwPr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7r74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7sL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmI7sb4wEeuHYuKEOCI12A" memberEnd="_cmI7pb4wEeuHYuKEOCI12A _cmI7sr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmI7sr4wEeuHYuKEOCI12A" name="SalesAvailabilityConstraint" type="_cmI7or4wEeuHYuKEOCI12A" association="_cmI7sb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7s74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7tL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7tb4wEeuHYuKEOCI12A" name="Station">
+      <ownedComment xmi:id="_cmI7tr4wEeuHYuKEOCI12A">
+        <body>Description: Used to represent a station location. This is a location that can be used as origin and destination for a train journey</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI7t74wEeuHYuKEOCI12A" name="code" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7uL4wEeuHYuKEOCI12A">
+          <body>Description: the code representing the station in the specified code-list</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7ub4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7ur4wEeuHYuKEOCI12A" name="geoCoordinate" type="_cmIUIb4wEeuHYuKEOCI12A" association="_cmJi5b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7u74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7vL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7vb4wEeuHYuKEOCI12A" name="country" type="_cmFQ1b4wEeuHYuKEOCI12A" association="_cmKJJr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7vr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7v74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7wL4wEeuHYuKEOCI12A" name="codeList" type="_cmI7xr4wEeuHYuKEOCI12A" association="_cmKJNr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7wb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7wr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7w74wEeuHYuKEOCI12A" name="name" type="_cmJiEb4wEeuHYuKEOCI12A" association="_cmKwdr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7xL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7xb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7xr4wEeuHYuKEOCI12A" name="StationCodeList">
+      <ownedComment xmi:id="_cmI7x74wEeuHYuKEOCI12A">
+        <body>Description: Code list used for the station codes: UIC = UIC codes as used by merits (UIC country code + local code) = Default/ UIC-R = UIC codes for reservation (UIC country code + local code reservation) / ERA = future ERA station code</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI7yL4wEeuHYuKEOCI12A" name="StationCodeListDefAttribute" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7yb4wEeuHYuKEOCI12A">
+          <body>Description: Code list used for the station codes: UIC = UIC codes as used by merits (UIC country code + local code) = Default/ UIC-R = UIC codes for reservation (UIC country code + local code reservation) / ERA = future ERA station code</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7yr4wEeuHYuKEOCI12A" name="StationNames">
+      <ownedComment xmi:id="_cmI7y74wEeuHYuKEOCI12A">
+        <body>Description: station names included temporarily until MERITS can provide the names</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI7zL4wEeuHYuKEOCI12A" name="country" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7zb4wEeuHYuKEOCI12A">
+          <body>Description: uic country code</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7zr4wEeuHYuKEOCI12A" name="localCode" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7z74wEeuHYuKEOCI12A">
+          <body>Description: local code </body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI70L4wEeuHYuKEOCI12A" name="name" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI70b4wEeuHYuKEOCI12A">
+          <body>Description: station name with upper and lower case letters in ASCII</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI70r4wEeuHYuKEOCI12A" name="nameUtf8" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7074wEeuHYuKEOCI12A">
+          <body>Description: station name with upper and lower case letters in UTF8</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI71L4wEeuHYuKEOCI12A" name="shortName" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI71b4wEeuHYuKEOCI12A">
+          <body>Description: station name with upper and lower case letters in ASCII</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI71r4wEeuHYuKEOCI12A" name="shortNameUtf8" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7174wEeuHYuKEOCI12A">
+          <body>Description: station name with upper and lower case letters in UTF8</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI72L4wEeuHYuKEOCI12A" name="legacyBorderPointCode" type="_cmGe074wEeuHYuKEOCI12A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI72b4wEeuHYuKEOCI12A" name="StationResourceLocation">
+      <ownedAttribute xmi:id="_cmI72r4wEeuHYuKEOCI12A" name="connectionPointIds" type="_cmFQp74wEeuHYuKEOCI12A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7274wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI73L4wEeuHYuKEOCI12A" name="stations" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKKDr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI73b4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI73r4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7374wEeuHYuKEOCI12A" name="onlineResource" type="_cmIUZb4wEeuHYuKEOCI12A" association="_cmKwOr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI74L4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI74b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI74r4wEeuHYuKEOCI12A" name="ServiceBrandCode">
+      <ownedComment xmi:id="_cmI7474wEeuHYuKEOCI12A">
+        <body>Description: Service brand codes allowed in response, code list can be found on  [https:/uic.org/passenger/passenger-services-group/article/service-brand-code-list] (https:/uic.org/passenger/passenger-services-group/article/service-brand-code-list)</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI75L4wEeuHYuKEOCI12A" name="ServiceBrandCodeDefAttribute" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI75b4wEeuHYuKEOCI12A">
+          <body>Description: Service brand codes allowed in response, code list can be found on  [https:/uic.org/passenger/passenger-services-group/article/service-brand-code-list] (https:/uic.org/passenger/passenger-services-group/article/service-brand-code-list)</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI75r4wEeuHYuKEOCI12A" name="ServiceClassId">
+      <ownedComment xmi:id="_cmI7574wEeuHYuKEOCI12A">
+        <body>Description: Level of quality, finer grained than the comfort class.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI76L4wEeuHYuKEOCI12A" name="ServiceClassIdDefAttribute" type="_cmI76r4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI76b4wEeuHYuKEOCI12A">
+          <body>Description: Level of quality, finer grained than the comfort class.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmI76r4wEeuHYuKEOCI12A" name="ServiceClassIdDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmI7674wEeuHYuKEOCI12A" name="BEST"/>
+      <ownedLiteral xmi:id="_cmI77L4wEeuHYuKEOCI12A" name="HIGH"/>
+      <ownedLiteral xmi:id="_cmI77b4wEeuHYuKEOCI12A" name="STANDARD"/>
+      <ownedLiteral xmi:id="_cmI77r4wEeuHYuKEOCI12A" name="BASIC"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7774wEeuHYuKEOCI12A" name="ServiceLevel">
+      <ownedAttribute xmi:id="_cmI78L4wEeuHYuKEOCI12A" name="textRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI78b4wEeuHYuKEOCI12A">
+          <body>Description: id of the text describing the service level</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI78r4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7874wEeuHYuKEOCI12A" name="doesNotIncludeClassName" type="_cmFQu74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI79L4wEeuHYuKEOCI12A">
+          <body>Description: indicates that the class name is not included</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI79b4wEeuHYuKEOCI12A" name="reservationParameterId" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmI79r4wEeuHYuKEOCI12A" name="id" type="_cmI7_L4wEeuHYuKEOCI12A" association="_cmKJOr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7974wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7-L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI7-b4wEeuHYuKEOCI12A" name="combiningServiceClassIds" type="_cmI75r4wEeuHYuKEOCI12A" association="_cmKJXr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI7-r4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI7-74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI7_L4wEeuHYuKEOCI12A" name="ServiceLevelId">
+      <ownedComment xmi:id="_cmI7_b4wEeuHYuKEOCI12A">
+        <body>Description: Code of the service level, code-list in IRS 90918-1.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI7_r4wEeuHYuKEOCI12A" name="ServiceLevelIdDefAttribute" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI7_74wEeuHYuKEOCI12A">
+          <body>Description: Code of the service level, code-list in IRS 90918-1.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI8AL4wEeuHYuKEOCI12A" name="ServiceConstraint">
+      <ownedComment xmi:id="_cmI8Ab4wEeuHYuKEOCI12A">
+        <body>Description: Either excluded or included service brands can be set.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmI8Ar4wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI8A74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI8BL4wEeuHYuKEOCI12A" name="legacyCode" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI8Bb4wEeuHYuKEOCI12A">
+          <body>Description: id used in 108 as fake local station code </body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI8Br4wEeuHYuKEOCI12A" name="textRef" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI8B74wEeuHYuKEOCI12A">
+          <body>Description: id of the text describing the service constraint for the traveler</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI8CL4wEeuHYuKEOCI12A" name="includedServiceBrands" type="_cmI74r4wEeuHYuKEOCI12A" association="_cmJjBb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI8Cb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI8Cr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI8C74wEeuHYuKEOCI12A" name="excludedServiceBrands" type="_cmI74r4wEeuHYuKEOCI12A" association="_cmJjIb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI8DL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmI8Db4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmI8Dr4wEeuHYuKEOCI12A" name="Translation">
+      <ownedAttribute xmi:id="_cmI8D74wEeuHYuKEOCI12A" name="language" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI8EL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI8Eb4wEeuHYuKEOCI12A" name="textUtf8" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI8Er4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI8E74wEeuHYuKEOCI12A" name="text" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmI8FL4wEeuHYuKEOCI12A">
+          <body>Description: text without special characters according to ICAO specification</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmI8Fb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmI8Fr4wEeuHYuKEOCI12A" name="shortTextUtf8" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmI8F74wEeuHYuKEOCI12A" name="shortText" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiEL4wEeuHYuKEOCI12A">
+          <body>Description: text without special characters according to ICAO specification</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiEb4wEeuHYuKEOCI12A" name="Text">
+      <ownedComment xmi:id="_cmJiEr4wEeuHYuKEOCI12A">
+        <body>Description: directly included text in case of online services</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmJiE74wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiFL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiFb4wEeuHYuKEOCI12A" name="textUtf8" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiFr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiF74wEeuHYuKEOCI12A" name="text" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiGL4wEeuHYuKEOCI12A">
+          <body>Description: text without special characters according to ICAO specification</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiGb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiGr4wEeuHYuKEOCI12A" name="shortTextUtf8" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJiG74wEeuHYuKEOCI12A" name="shortText" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiHL4wEeuHYuKEOCI12A">
+          <body>Description: text without special characters according to ICAO specification</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiHb4wEeuHYuKEOCI12A" name="translations" type="_cmI8Dr4wEeuHYuKEOCI12A" association="_cmKJkr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiHr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiH74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiIL4wEeuHYuKEOCI12A" name="TimeUnit">
+      <ownedAttribute xmi:id="_cmJiIb4wEeuHYuKEOCI12A" name="TimeUnitDefAttribute" type="_cmJiIr4wEeuHYuKEOCI12A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmJiIr4wEeuHYuKEOCI12A" name="TimeUnitDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmJiI74wEeuHYuKEOCI12A" name="DAYS"/>
+      <ownedLiteral xmi:id="_cmJiJL4wEeuHYuKEOCI12A" name="HOURS"/>
+      <ownedLiteral xmi:id="_cmJiJb4wEeuHYuKEOCI12A" name="MINUTES"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiJr4wEeuHYuKEOCI12A" name="TravelValidityConstraint">
+      <ownedAttribute xmi:id="_cmJiJ74wEeuHYuKEOCI12A" name="id" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiKL4wEeuHYuKEOCI12A">
+          <body>Description: mandatory in bulk data exchange</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiKb4wEeuHYuKEOCI12A" name="validityRange" type="_cmJiN74wEeuHYuKEOCI12A" association="_cmJiP74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiKr4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiK74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiLL4wEeuHYuKEOCI12A" name="excludedTimeRange" type="_cmJiQ74wEeuHYuKEOCI12A" association="_cmJiSr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiLb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiLr4wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiL74wEeuHYuKEOCI12A" name="numberOfTravelDays" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiML4wEeuHYuKEOCI12A">
+          <body>Description: number of allowed travel days (e.g. 3 travel days within 2 weeks)</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiMb4wEeuHYuKEOCI12A" name="returnConstraint" type="_cmJiT74wEeuHYuKEOCI12A" association="_cmJiV74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiMr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiM74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiNL4wEeuHYuKEOCI12A" name="validTravelDates" type="_cmGe1L4wEeuHYuKEOCI12A" association="_cmKJQr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiNb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiNr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiN74wEeuHYuKEOCI12A" name="ValidityRange">
+      <ownedAttribute xmi:id="_cmJiOL4wEeuHYuKEOCI12A" name="value" type="_cmGe074wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiOb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiOr4wEeuHYuKEOCI12A" name="hoursAfterMidnight" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiO74wEeuHYuKEOCI12A">
+          <body>Description: validity extended after midnight</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiPL4wEeuHYuKEOCI12A" name="timeUnit" type="_cmJiIL4wEeuHYuKEOCI12A" association="_cmKJWr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiPb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiPr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJiP74wEeuHYuKEOCI12A" memberEnd="_cmJiKb4wEeuHYuKEOCI12A _cmJiQL4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJiQL4wEeuHYuKEOCI12A" name="TravelValidityConstraint" type="_cmJiJr4wEeuHYuKEOCI12A" association="_cmJiP74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiQb4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiQr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiQ74wEeuHYuKEOCI12A" name="ExcludedTimeRange">
+      <ownedAttribute xmi:id="_cmJiRL4wEeuHYuKEOCI12A" name="from" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiRb4wEeuHYuKEOCI12A">
+          <body>Description: minutes of the day in the time zone of travel</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiRr4wEeuHYuKEOCI12A" name="until" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiR74wEeuHYuKEOCI12A">
+          <body>Description: minutes of the day in the time zone of travel</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiSL4wEeuHYuKEOCI12A" name="scope" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiSb4wEeuHYuKEOCI12A">
+          <body>Description: START_OF_TRAVEL,COMPLETE_RANGE</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJiSr4wEeuHYuKEOCI12A" memberEnd="_cmJiLL4wEeuHYuKEOCI12A _cmJiTL4wEeuHYuKEOCI12A">
+      <ownedComment xmi:id="_cmJiS74wEeuHYuKEOCI12A">
+        <body>Description: time ranges excluded from the validity (e.g. off peak fulfillments)</body>
+      </ownedComment>
+      <ownedEnd xmi:id="_cmJiTL4wEeuHYuKEOCI12A" name="TravelValidityConstraint" type="_cmJiJr4wEeuHYuKEOCI12A" association="_cmJiSr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiTb4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiTr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiT74wEeuHYuKEOCI12A" name="ReturnConstraint">
+      <ownedComment xmi:id="_cmJiUL4wEeuHYuKEOCI12A">
+        <body>Description: a return trip with the same carrier must be sold in combination</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmJiUb4wEeuHYuKEOCI12A" name="latestReturn" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiUr4wEeuHYuKEOCI12A">
+          <body>Description: number of days after departure or start of validity of the last return</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiU74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiVL4wEeuHYuKEOCI12A" name="earliestReturn" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiVb4wEeuHYuKEOCI12A">
+          <body>Description: number of days after departure or start of validity of the earliest return</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiVr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJiV74wEeuHYuKEOCI12A" memberEnd="_cmJiMb4wEeuHYuKEOCI12A _cmJiWb4wEeuHYuKEOCI12A">
+      <ownedComment xmi:id="_cmJiWL4wEeuHYuKEOCI12A">
+        <body>Description: a return trip with the same carrier must be sold in combination</body>
+      </ownedComment>
+      <ownedEnd xmi:id="_cmJiWb4wEeuHYuKEOCI12A" name="TravelValidityConstraint" type="_cmJiJr4wEeuHYuKEOCI12A" association="_cmJiV74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiWr4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiW74wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiXL4wEeuHYuKEOCI12A" name="TravelerType">
+      <ownedComment xmi:id="_cmJiXb4wEeuHYuKEOCI12A">
+        <body>Description: Subset of the values from the traveler type code list IRS 90918-10 </body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmJiXr4wEeuHYuKEOCI12A" name="TravelerTypeDefAttribute" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiX74wEeuHYuKEOCI12A">
+          <body>Description: Subset of the values from the traveler type code list IRS 90918-10 </body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiYL4wEeuHYuKEOCI12A" name="TrainLink">
+      <ownedAttribute xmi:id="_cmJiYb4wEeuHYuKEOCI12A" name="train" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiYr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiY74wEeuHYuKEOCI12A" name="travelDate" type="_cmFQur4wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiZL4wEeuHYuKEOCI12A">
+          <body>Description: date and time of the departure where the train link starts</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiZb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiZr4wEeuHYuKEOCI12A" name="fromStation" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmJjHb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiZ74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiaL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiab4wEeuHYuKEOCI12A" name="toStation" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKJnr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiar4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJia74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJibL4wEeuHYuKEOCI12A" name="TrainResourceLocation">
+      <ownedAttribute xmi:id="_cmJibb4wEeuHYuKEOCI12A" name="trainId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJibr4wEeuHYuKEOCI12A">
+          <body>Description: train number (without service brand abbreviation)</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJib74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJicL4wEeuHYuKEOCI12A" name="carrier" type="_cmGe374wEeuHYuKEOCI12A" association="_cmJjCb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJicb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJicr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJic74wEeuHYuKEOCI12A" name="onlineResource" type="_cmIUZb4wEeuHYuKEOCI12A" association="_cmKJfr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJidL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJidb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJidr4wEeuHYuKEOCI12A" name="ViaStations">
+      <ownedAttribute xmi:id="_cmJid74wEeuHYuKEOCI12A" name="isBorder" type="_cmFQu74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJieL4wEeuHYuKEOCI12A" name="routeId" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJieb4wEeuHYuKEOCI12A" name="seriesId" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJier4wEeuHYuKEOCI12A" name="serviceBrand" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJie74wEeuHYuKEOCI12A">
+          <body>Description: restriction to a specific service brand</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJifL4wEeuHYuKEOCI12A" name="fareReferenceStationSet" type="_cmJijL4wEeuHYuKEOCI12A" association="_cmJilL4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJifb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJifr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJif74wEeuHYuKEOCI12A" name="serviceConstraintRef" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJigL4wEeuHYuKEOCI12A" name="route" type="_cmJidr4wEeuHYuKEOCI12A" association="_cmJi2b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJigb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJigr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJig74wEeuHYuKEOCI12A" name="carrier" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKKFr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJihL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJihb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJihr4wEeuHYuKEOCI12A" name="station" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKwbr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJih74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiiL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiib4wEeuHYuKEOCI12A" name="alternativeRoute" type="_cmJidr4wEeuHYuKEOCI12A" association="_cmKwor4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiir4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJii74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJijL4wEeuHYuKEOCI12A" name="FareReferenceStationSet">
+      <ownedComment xmi:id="_cmJijb4wEeuHYuKEOCI12A">
+        <body>Description: reference to a list of stations included in the fare</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmJijr4wEeuHYuKEOCI12A" name="code" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJij74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJikL4wEeuHYuKEOCI12A" name="name" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJikb4wEeuHYuKEOCI12A" name="carrier" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKwcr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJikr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJik74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJilL4wEeuHYuKEOCI12A" memberEnd="_cmJifL4wEeuHYuKEOCI12A _cmJilr4wEeuHYuKEOCI12A">
+      <ownedComment xmi:id="_cmJilb4wEeuHYuKEOCI12A">
+        <body>Description: reference to a list of stations included in the fare</body>
+      </ownedComment>
+      <ownedEnd xmi:id="_cmJilr4wEeuHYuKEOCI12A" name="ViaStations" type="_cmJidr4wEeuHYuKEOCI12A" association="_cmJilL4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJil74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJimL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJimb4wEeuHYuKEOCI12A" name="VatDetail">
+      <ownedAttribute xmi:id="_cmJimr4wEeuHYuKEOCI12A" name="country" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJim74wEeuHYuKEOCI12A">
+          <body>Description: by default of the scale the amount in cents</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJinL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJinb4wEeuHYuKEOCI12A" name="amount" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJinr4wEeuHYuKEOCI12A">
+          <body>Description: by default of the scale the amount in cents</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJin74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJioL4wEeuHYuKEOCI12A" name="scale" type="_cmGe074wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiob4wEeuHYuKEOCI12A">
+          <body>Description: scale of the amount - the number of positions after the comma</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJior4wEeuHYuKEOCI12A" name="percentage" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJio74wEeuHYuKEOCI12A" name="taxId" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJipL4wEeuHYuKEOCI12A" name="scope" type="_cmJip74wEeuHYuKEOCI12A" association="_cmKKEr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJipb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJipr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJip74wEeuHYuKEOCI12A" name="VatScope">
+      <ownedComment xmi:id="_cmJiqL4wEeuHYuKEOCI12A">
+        <body>Description: scope where the VAT applies</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmJiqb4wEeuHYuKEOCI12A" name="VatScopeDefAttribute" type="_cmJiq74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJiqr4wEeuHYuKEOCI12A">
+          <body>Description: scope where the VAT applies</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_cmJiq74wEeuHYuKEOCI12A" name="VatScopeDefAttributeEnum">
+      <ownedLiteral xmi:id="_cmJirL4wEeuHYuKEOCI12A" name="INTERNATIONAL"/>
+      <ownedLiteral xmi:id="_cmJirb4wEeuHYuKEOCI12A" name="NATIONAL"/>
+      <ownedLiteral xmi:id="_cmJirr4wEeuHYuKEOCI12A" name="SHORT_DISTANCE"/>
+      <ownedLiteral xmi:id="_cmJir74wEeuHYuKEOCI12A" name="LONG_DISTANCE"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJisL4wEeuHYuKEOCI12A" name="Zone">
+      <ownedComment xmi:id="_cmJisb4wEeuHYuKEOCI12A">
+        <body>Description: carrier - carrier responsible for the transport. entryStation - Station to enter the zone in case the product requires to enter the zone via a specific station (e.g. local zone ticket to start from the main rail station). terminalStation - Terminal station in case the product requires a destination within the zone (e.g. local ticket to go to the main rail station).</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmJisr4wEeuHYuKEOCI12A" name="binaryZoneId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJis74wEeuHYuKEOCI12A">
+          <body>Description: Id to support local traffic standards (e.g. VDV,...)</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJitL4wEeuHYuKEOCI12A" name="city" type="_cmGe074wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJitb4wEeuHYuKEOCI12A" name="nutsCode" type="_cmFQp74wEeuHYuKEOCI12A">
+        <ownedComment xmi:id="_cmJitr4wEeuHYuKEOCI12A">
+          <body>Description: Nomenclature des units territoriales statistiques COMMISSION REGULATION (EU) No 31/2011</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJit74wEeuHYuKEOCI12A" name="entryStation" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmJjFb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiuL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiub4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiur4wEeuHYuKEOCI12A" name="terminalStation" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKJmr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiu74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJivL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJivb4wEeuHYuKEOCI12A" name="carrier" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKKGr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJivr4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiv74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cmJiwL4wEeuHYuKEOCI12A" name="ZoneDefinition">
+      <ownedComment xmi:id="_cmJiwb4wEeuHYuKEOCI12A">
+        <body>Description: definition of a zone used to define regional validity. The area of the zone can be defined via a geo-polygon, a complete list of all contained stations or area codes from the NUTS code list. The carrier is either the carrier or transport authority responsible for the definition.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_cmJiwr4wEeuHYuKEOCI12A" name="zoneId" type="_cmFQp74wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiw74wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJixL4wEeuHYuKEOCI12A" name="name" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJixb4wEeuHYuKEOCI12A" name="nameUtf8" type="_cmFQp74wEeuHYuKEOCI12A"/>
+      <ownedAttribute xmi:id="_cmJixr4wEeuHYuKEOCI12A" name="nutsCodes" type="_cmFQp74wEeuHYuKEOCI12A">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJix74wEeuHYuKEOCI12A" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiyL4wEeuHYuKEOCI12A" name="polygon" type="_cmIUdL4wEeuHYuKEOCI12A" association="_cmKJjr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiyb4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJiyr4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJiy74wEeuHYuKEOCI12A" name="carrier" type="_cmGe374wEeuHYuKEOCI12A" association="_cmKJ9r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJizL4wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJizb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_cmJizr4wEeuHYuKEOCI12A" name="stationList" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKwnr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJiz74wEeuHYuKEOCI12A"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi0L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi0b4wEeuHYuKEOCI12A" memberEnd="_cmHtAL4wEeuHYuKEOCI12A _cmJi0r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi0r4wEeuHYuKEOCI12A" name="SalesAvailabilityConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmJi0b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi074wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi1L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi1b4wEeuHYuKEOCI12A" memberEnd="_cmHtA74wEeuHYuKEOCI12A _cmJi1r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi1r4wEeuHYuKEOCI12A" name="TravelValidityConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmJi1b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi174wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi2L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi2b4wEeuHYuKEOCI12A" memberEnd="_cmJigL4wEeuHYuKEOCI12A _cmJi2r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi2r4wEeuHYuKEOCI12A" name="ViaStations" type="_cmJidr4wEeuHYuKEOCI12A" association="_cmJi2b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi274wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi3L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi3b4wEeuHYuKEOCI12A" memberEnd="_cmHtBr4wEeuHYuKEOCI12A _cmJi3r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi3r4wEeuHYuKEOCI12A" name="ReductionCard" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmJi3b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi374wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi4L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi4b4wEeuHYuKEOCI12A" memberEnd="_cmI7Qr4wEeuHYuKEOCI12A _cmJi4r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi4r4wEeuHYuKEOCI12A" name="Zone" type="_cmI7Pr4wEeuHYuKEOCI12A" association="_cmJi4b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi474wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi5L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi5b4wEeuHYuKEOCI12A" memberEnd="_cmI7ur4wEeuHYuKEOCI12A _cmJi5r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi5r4wEeuHYuKEOCI12A" name="GeoCoordinate" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmJi5b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi574wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi6L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi6b4wEeuHYuKEOCI12A" memberEnd="_cmHtCb4wEeuHYuKEOCI12A _cmJi6r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi6r4wEeuHYuKEOCI12A" name="ZoneDefinition" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmJi6b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi674wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi7L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi7b4wEeuHYuKEOCI12A" memberEnd="_cmHtDL4wEeuHYuKEOCI12A _cmJi7r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi7r4wEeuHYuKEOCI12A" name="FareConstraintBundle" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmJi7b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi774wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi8L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi8b4wEeuHYuKEOCI12A" memberEnd="_cmIUXL4wEeuHYuKEOCI12A _cmJi8r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi8r4wEeuHYuKEOCI12A" name="Station" type="_cmIUU74wEeuHYuKEOCI12A" association="_cmJi8b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi874wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi9L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi9b4wEeuHYuKEOCI12A" memberEnd="_cmHs974wEeuHYuKEOCI12A _cmJi9r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi9r4wEeuHYuKEOCI12A" name="FareData" type="_cmHs9r4wEeuHYuKEOCI12A" association="_cmJi9b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi974wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi-L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi-b4wEeuHYuKEOCI12A" memberEnd="_cmGe8b4wEeuHYuKEOCI12A _cmJi-r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi-r4wEeuHYuKEOCI12A" name="Company" type="_cmGe8L4wEeuHYuKEOCI12A" association="_cmJi-b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi-74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJi_L4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJi_b4wEeuHYuKEOCI12A" memberEnd="_cmHtD74wEeuHYuKEOCI12A _cmJi_r4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJi_r4wEeuHYuKEOCI12A" name="PassengerCombinationConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmJi_b4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJi_74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjAL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjAb4wEeuHYuKEOCI12A" memberEnd="_cmI7q74wEeuHYuKEOCI12A _cmJjAr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjAr4wEeuHYuKEOCI12A" name="RelativeTime" type="_cmI7qL4wEeuHYuKEOCI12A" association="_cmJjAb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjA74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjBL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjBb4wEeuHYuKEOCI12A" memberEnd="_cmI8CL4wEeuHYuKEOCI12A _cmJjBr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjBr4wEeuHYuKEOCI12A" name="ServiceBrandCode" type="_cmI8AL4wEeuHYuKEOCI12A" association="_cmJjBb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjB74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjCL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjCb4wEeuHYuKEOCI12A" memberEnd="_cmJicL4wEeuHYuKEOCI12A _cmJjCr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjCr4wEeuHYuKEOCI12A" name="Company" type="_cmJibL4wEeuHYuKEOCI12A" association="_cmJjCb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjC74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjDL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjDb4wEeuHYuKEOCI12A" memberEnd="_cmFQtL4wEeuHYuKEOCI12A _cmJjDr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjDr4wEeuHYuKEOCI12A" name="Price" type="_cmFQqL4wEeuHYuKEOCI12A" association="_cmJjDb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjD74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjEL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjEb4wEeuHYuKEOCI12A" memberEnd="_cmIUBb4wEeuHYuKEOCI12A _cmJjEr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjEr4wEeuHYuKEOCI12A" name="FulfillmentMediaType" type="_cmIUAr4wEeuHYuKEOCI12A" association="_cmJjEb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjE74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjFL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjFb4wEeuHYuKEOCI12A" memberEnd="_cmJit74wEeuHYuKEOCI12A _cmJjFr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjFr4wEeuHYuKEOCI12A" name="Station" type="_cmJisL4wEeuHYuKEOCI12A" association="_cmJjFb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjF74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjGL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjGb4wEeuHYuKEOCI12A" memberEnd="_cmHta74wEeuHYuKEOCI12A _cmJjGr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjGr4wEeuHYuKEOCI12A" name="Company" type="_cmHtYL4wEeuHYuKEOCI12A" association="_cmJjGb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjG74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjHL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjHb4wEeuHYuKEOCI12A" memberEnd="_cmJiZr4wEeuHYuKEOCI12A _cmJjHr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjHr4wEeuHYuKEOCI12A" name="Station" type="_cmJiYL4wEeuHYuKEOCI12A" association="_cmJjHb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjH74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjIL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjIb4wEeuHYuKEOCI12A" memberEnd="_cmI8C74wEeuHYuKEOCI12A _cmJjIr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjIr4wEeuHYuKEOCI12A" name="ServiceBrandCode" type="_cmI8AL4wEeuHYuKEOCI12A" association="_cmJjIb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjI74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjJL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjJb4wEeuHYuKEOCI12A" memberEnd="_cmHtEr4wEeuHYuKEOCI12A _cmJjJr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjJr4wEeuHYuKEOCI12A" name="StationNames" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmJjJb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmJjJ74wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmJjKL4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmJjKb4wEeuHYuKEOCI12A" memberEnd="_cmHs5L4wEeuHYuKEOCI12A _cmJjKr4wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmJjKr4wEeuHYuKEOCI12A" name="CarrierResourceLocation" type="_cmHs4r4wEeuHYuKEOCI12A" association="_cmJjKb4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJIL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJIb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJIr4wEeuHYuKEOCI12A" memberEnd="_cmI7Rb4wEeuHYuKEOCI12A _cmKJI74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJI74wEeuHYuKEOCI12A" name="Line" type="_cmI7Pr4wEeuHYuKEOCI12A" association="_cmKJIr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJJL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJJb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJJr4wEeuHYuKEOCI12A" memberEnd="_cmI7vb4wEeuHYuKEOCI12A _cmKJJ74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJJ74wEeuHYuKEOCI12A" name="Country" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKJJr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJKL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJKb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJKr4wEeuHYuKEOCI12A" memberEnd="_cmI7ir4wEeuHYuKEOCI12A _cmKJK74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJK74wEeuHYuKEOCI12A" name="ServiceClassId" type="_cmI7gL4wEeuHYuKEOCI12A" association="_cmKJKr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJLL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJLb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJLr4wEeuHYuKEOCI12A" memberEnd="_cmHtFb4wEeuHYuKEOCI12A _cmKJL74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJL74wEeuHYuKEOCI12A" name="PassengerConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJLr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJML4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJMb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJMr4wEeuHYuKEOCI12A" memberEnd="_cmFQt74wEeuHYuKEOCI12A _cmKJM74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJM74wEeuHYuKEOCI12A" name="RelativeTime" type="_cmFQqL4wEeuHYuKEOCI12A" association="_cmKJMr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJNL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJNb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJNr4wEeuHYuKEOCI12A" memberEnd="_cmI7wL4wEeuHYuKEOCI12A _cmKJN74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJN74wEeuHYuKEOCI12A" name="StationCodeList" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKJNr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJOL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJOb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJOr4wEeuHYuKEOCI12A" memberEnd="_cmI79r4wEeuHYuKEOCI12A _cmKJO74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJO74wEeuHYuKEOCI12A" name="ServiceLevelId" type="_cmI7774wEeuHYuKEOCI12A" association="_cmKJOr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJPL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJPb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJPr4wEeuHYuKEOCI12A" memberEnd="_cmHs574wEeuHYuKEOCI12A _cmKJP74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJP74wEeuHYuKEOCI12A" name="StationResourceLocation" type="_cmHs4r4wEeuHYuKEOCI12A" association="_cmKJPr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJQL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJQb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJQr4wEeuHYuKEOCI12A" memberEnd="_cmJiNL4wEeuHYuKEOCI12A _cmKJQ74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJQ74wEeuHYuKEOCI12A" name="Calendar" type="_cmJiJr4wEeuHYuKEOCI12A" association="_cmKJQr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJRL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJRb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJRr4wEeuHYuKEOCI12A" memberEnd="_cmIUdb4wEeuHYuKEOCI12A _cmKJR74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJR74wEeuHYuKEOCI12A" name="GeoCoordinate" type="_cmIUdL4wEeuHYuKEOCI12A" association="_cmKJRr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJSL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJSb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJSr4wEeuHYuKEOCI12A" memberEnd="_cmFQzL4wEeuHYuKEOCI12A _cmKJS74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJS74wEeuHYuKEOCI12A" name="ServiceBrandCode" type="_cmFQy74wEeuHYuKEOCI12A" association="_cmKJSr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJTL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJTb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJTr4wEeuHYuKEOCI12A" memberEnd="_cmI7db4wEeuHYuKEOCI12A _cmKJT74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJT74wEeuHYuKEOCI12A" name="ServiceBrandCode" type="_cmI7cb4wEeuHYuKEOCI12A" association="_cmKJTr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJUL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJUb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJUr4wEeuHYuKEOCI12A" memberEnd="_cmIUiL4wEeuHYuKEOCI12A _cmKJU74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJU74wEeuHYuKEOCI12A" name="CrossBorderCondition" type="_cmIUgL4wEeuHYuKEOCI12A" association="_cmKJUr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJVL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJVb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJVr4wEeuHYuKEOCI12A" memberEnd="_cmGfLL4wEeuHYuKEOCI12A _cmKJV74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJV74wEeuHYuKEOCI12A" name="FareType" type="_cmGfHr4wEeuHYuKEOCI12A" association="_cmKJVr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJWL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJWb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJWr4wEeuHYuKEOCI12A" memberEnd="_cmJiPL4wEeuHYuKEOCI12A _cmKJW74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJW74wEeuHYuKEOCI12A" name="TimeUnit" type="_cmJiN74wEeuHYuKEOCI12A" association="_cmKJWr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJXL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJXb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJXr4wEeuHYuKEOCI12A" memberEnd="_cmI7-b4wEeuHYuKEOCI12A _cmKJX74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJX74wEeuHYuKEOCI12A" name="ServiceClassId" type="_cmI7774wEeuHYuKEOCI12A" association="_cmKJXr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJYL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJYb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJYr4wEeuHYuKEOCI12A" memberEnd="_cmI7jb4wEeuHYuKEOCI12A _cmKJY74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJY74wEeuHYuKEOCI12A" name="ReductionCardReference" type="_cmI7gL4wEeuHYuKEOCI12A" association="_cmKJYr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJZL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJZb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJZr4wEeuHYuKEOCI12A" memberEnd="_cmHtGL4wEeuHYuKEOCI12A _cmKJZ74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJZ74wEeuHYuKEOCI12A" name="ServiceConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJZr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJaL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJab4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJar4wEeuHYuKEOCI12A" memberEnd="_cmI7br4wEeuHYuKEOCI12A _cmKJa74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJa74wEeuHYuKEOCI12A" name="LegacyReservationParameter" type="_cmI7ZL4wEeuHYuKEOCI12A" association="_cmKJar4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJbL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJbb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJbr4wEeuHYuKEOCI12A" memberEnd="_cmGfPb4wEeuHYuKEOCI12A _cmKJb74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJb74wEeuHYuKEOCI12A" name="Station" type="_cmGfMr4wEeuHYuKEOCI12A" association="_cmKJbr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJcL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJcb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJcr4wEeuHYuKEOCI12A" memberEnd="_cmGfFb4wEeuHYuKEOCI12A _cmKJc74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJc74wEeuHYuKEOCI12A" name="LegacyAccountingIdentifier" type="_cmGe-r4wEeuHYuKEOCI12A" association="_cmKJcr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJdL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJdb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJdr4wEeuHYuKEOCI12A" memberEnd="_cmI7Xr4wEeuHYuKEOCI12A _cmKJd74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJd74wEeuHYuKEOCI12A" name="ConnectionPoint" type="_cmI7Vb4wEeuHYuKEOCI12A" association="_cmKJdr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJeL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJeb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJer4wEeuHYuKEOCI12A" memberEnd="_cmHtG74wEeuHYuKEOCI12A _cmKJe74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJe74wEeuHYuKEOCI12A" name="FareResourceLocation" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJer4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJfL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJfb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJfr4wEeuHYuKEOCI12A" memberEnd="_cmJic74wEeuHYuKEOCI12A _cmKJf74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJf74wEeuHYuKEOCI12A" name="OnlineResource" type="_cmJibL4wEeuHYuKEOCI12A" association="_cmKJfr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJgL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJgb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJgr4wEeuHYuKEOCI12A" memberEnd="_cmI7nL4wEeuHYuKEOCI12A _cmKJg74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJg74wEeuHYuKEOCI12A" name="ComfortClass" type="_cmI7mb4wEeuHYuKEOCI12A" association="_cmKJgr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJhL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJhb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJhr4wEeuHYuKEOCI12A" memberEnd="_cmHs6r4wEeuHYuKEOCI12A _cmKJh74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJh74wEeuHYuKEOCI12A" name="TrainResourceLocation" type="_cmHs4r4wEeuHYuKEOCI12A" association="_cmKJhr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJiL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJib4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJir4wEeuHYuKEOCI12A" memberEnd="_cmHtHr4wEeuHYuKEOCI12A _cmKJi74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJi74wEeuHYuKEOCI12A" name="Price" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJir4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJjL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJjb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJjr4wEeuHYuKEOCI12A" memberEnd="_cmJiyL4wEeuHYuKEOCI12A _cmKJj74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJj74wEeuHYuKEOCI12A" name="Polygon" type="_cmJiwL4wEeuHYuKEOCI12A" association="_cmKJjr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJkL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJkb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJkr4wEeuHYuKEOCI12A" memberEnd="_cmJiHb4wEeuHYuKEOCI12A _cmKJk74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJk74wEeuHYuKEOCI12A" name="Translation" type="_cmJiEb4wEeuHYuKEOCI12A" association="_cmKJkr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJlL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJlb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJlr4wEeuHYuKEOCI12A" memberEnd="_cmI7Yb4wEeuHYuKEOCI12A _cmKJl74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJl74wEeuHYuKEOCI12A" name="RegionalValidity" type="_cmI7Vb4wEeuHYuKEOCI12A" association="_cmKJlr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJmL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJmb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJmr4wEeuHYuKEOCI12A" memberEnd="_cmJiur4wEeuHYuKEOCI12A _cmKJm74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJm74wEeuHYuKEOCI12A" name="Station" type="_cmJisL4wEeuHYuKEOCI12A" association="_cmKJmr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJnL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJnb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJnr4wEeuHYuKEOCI12A" memberEnd="_cmJiab4wEeuHYuKEOCI12A _cmKJn74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJn74wEeuHYuKEOCI12A" name="Station" type="_cmJiYL4wEeuHYuKEOCI12A" association="_cmKJnr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJoL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJob4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJor4wEeuHYuKEOCI12A" memberEnd="_cmIUX74wEeuHYuKEOCI12A _cmKJo74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJo74wEeuHYuKEOCI12A" name="Station" type="_cmIUU74wEeuHYuKEOCI12A" association="_cmKJor4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJpL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJpb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJpr4wEeuHYuKEOCI12A" memberEnd="_cmHtXb4wEeuHYuKEOCI12A _cmKJp74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJp74wEeuHYuKEOCI12A" name="Company" type="_cmHtTr4wEeuHYuKEOCI12A" association="_cmKJpr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJqL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJqb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJqr4wEeuHYuKEOCI12A" memberEnd="_cmEplr4wEeuHYuKEOCI12A _cmKJq74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJq74wEeuHYuKEOCI12A" name="FareDelivery" type="_cmEpk74wEeuHYuKEOCI12A" association="_cmKJqr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJrL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJrb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJrr4wEeuHYuKEOCI12A" memberEnd="_cmGezb4wEeuHYuKEOCI12A _cmKJr74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJr74wEeuHYuKEOCI12A" name="VatDetail" type="_cmGex74wEeuHYuKEOCI12A" association="_cmKJrr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJsL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJsb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJsr4wEeuHYuKEOCI12A" memberEnd="_cmI7eL4wEeuHYuKEOCI12A _cmKJs74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJs74wEeuHYuKEOCI12A" name="ReservationOptionGroup" type="_cmI7cb4wEeuHYuKEOCI12A" association="_cmKJsr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJtL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJtb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJtr4wEeuHYuKEOCI12A" memberEnd="_cmIUi74wEeuHYuKEOCI12A _cmKJt74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJt74wEeuHYuKEOCI12A" name="ControlSecurityType" type="_cmIUgL4wEeuHYuKEOCI12A" association="_cmKJtr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJuL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJub4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJur4wEeuHYuKEOCI12A" memberEnd="_cmHF0L4wEeuHYuKEOCI12A _cmKJu74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJu74wEeuHYuKEOCI12A" name="Company" type="_cmGfMr4wEeuHYuKEOCI12A" association="_cmKJur4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJvL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJvb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJvr4wEeuHYuKEOCI12A" memberEnd="_cmHtIb4wEeuHYuKEOCI12A _cmKJv74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJv74wEeuHYuKEOCI12A" name="Text" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJvr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJwL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJwb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJwr4wEeuHYuKEOCI12A" memberEnd="_cmHtJL4wEeuHYuKEOCI12A _cmKJw74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJw74wEeuHYuKEOCI12A" name="ReductionConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJwr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJxL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJxb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJxr4wEeuHYuKEOCI12A" memberEnd="_cmI7SL4wEeuHYuKEOCI12A _cmKJx74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJx74wEeuHYuKEOCI12A" name="Polygon" type="_cmI7Pr4wEeuHYuKEOCI12A" association="_cmKJxr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJyL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJyb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJyr4wEeuHYuKEOCI12A" memberEnd="_cmIUcb4wEeuHYuKEOCI12A _cmKJy74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJy74wEeuHYuKEOCI12A" name="CurrencyPrice" type="_cmIUbr4wEeuHYuKEOCI12A" association="_cmKJyr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJzL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJzb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJzr4wEeuHYuKEOCI12A" memberEnd="_cmI7G74wEeuHYuKEOCI12A _cmKJz74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJz74wEeuHYuKEOCI12A" name="ReductionCardReference" type="_cmI7GL4wEeuHYuKEOCI12A" association="_cmKJzr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ0L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ0b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ0r4wEeuHYuKEOCI12A" memberEnd="_cmHtJ74wEeuHYuKEOCI12A _cmKJ074wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ074wEeuHYuKEOCI12A" name="CarrierConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJ0r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ1L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ1b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ1r4wEeuHYuKEOCI12A" memberEnd="_cmIUFb4wEeuHYuKEOCI12A _cmKJ174wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ174wEeuHYuKEOCI12A" name="BarCodeTypes" type="_cmIUC74wEeuHYuKEOCI12A" association="_cmKJ1r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ2L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ2b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ2r4wEeuHYuKEOCI12A" memberEnd="_cmHtKr4wEeuHYuKEOCI12A _cmKJ274wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ274wEeuHYuKEOCI12A" name="FulfillmentConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJ2r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ3L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ3b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ3r4wEeuHYuKEOCI12A" memberEnd="_cmGe0L4wEeuHYuKEOCI12A _cmKJ374wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ374wEeuHYuKEOCI12A" name="Currency" type="_cmGex74wEeuHYuKEOCI12A" association="_cmKJ3r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ4L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ4b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ4r4wEeuHYuKEOCI12A" memberEnd="_cmHtLb4wEeuHYuKEOCI12A _cmKJ474wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ474wEeuHYuKEOCI12A" name="ConnectionPoint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJ4r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ5L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ5b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ5r4wEeuHYuKEOCI12A" memberEnd="_cmIUGL4wEeuHYuKEOCI12A _cmKJ574wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ574wEeuHYuKEOCI12A" name="BarCodeTypes" type="_cmIUC74wEeuHYuKEOCI12A" association="_cmKJ5r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ6L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ6b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ6r4wEeuHYuKEOCI12A" memberEnd="_cmHtML4wEeuHYuKEOCI12A _cmKJ674wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ674wEeuHYuKEOCI12A" name="ReservationParameter" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKJ6r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ7L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ7b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ7r4wEeuHYuKEOCI12A" memberEnd="_cmHtbr4wEeuHYuKEOCI12A _cmKJ774wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ774wEeuHYuKEOCI12A" name="Company" type="_cmHtYL4wEeuHYuKEOCI12A" association="_cmKJ7r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ8L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ8b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ8r4wEeuHYuKEOCI12A" memberEnd="_cmHs-r4wEeuHYuKEOCI12A _cmKJ874wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ874wEeuHYuKEOCI12A" name="FareDeliveryDetails" type="_cmHs9r4wEeuHYuKEOCI12A" association="_cmKJ8r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ9L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ9b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ9r4wEeuHYuKEOCI12A" memberEnd="_cmJiy74wEeuHYuKEOCI12A _cmKJ974wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ974wEeuHYuKEOCI12A" name="Company" type="_cmJiwL4wEeuHYuKEOCI12A" association="_cmKJ9r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ-L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ-b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ-r4wEeuHYuKEOCI12A" memberEnd="_cmGe9L4wEeuHYuKEOCI12A _cmKJ-74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ-74wEeuHYuKEOCI12A" name="OnlineResource" type="_cmGe8L4wEeuHYuKEOCI12A" association="_cmKJ-r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKJ_L4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKJ_b4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKJ_r4wEeuHYuKEOCI12A" memberEnd="_cmIUG74wEeuHYuKEOCI12A _cmKJ_74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKJ_74wEeuHYuKEOCI12A" name="ControlSecurityType" type="_cmIUC74wEeuHYuKEOCI12A" association="_cmKJ_r4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKKAL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKKAb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKKAr4wEeuHYuKEOCI12A" memberEnd="_cmI7Br4wEeuHYuKEOCI12A _cmKKA74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKKA74wEeuHYuKEOCI12A" name="TravelerType" type="_cmI7A74wEeuHYuKEOCI12A" association="_cmKKAr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKKBL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKKBb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKKBr4wEeuHYuKEOCI12A" memberEnd="_cmHtM74wEeuHYuKEOCI12A _cmKKB74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKKB74wEeuHYuKEOCI12A" name="AfterSalesCondition" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKKBr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKKCL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKKCb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKKCr4wEeuHYuKEOCI12A" memberEnd="_cmHtNr4wEeuHYuKEOCI12A _cmKKC74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKKC74wEeuHYuKEOCI12A" name="FareCombinationConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKKCr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKKDL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKKDb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKKDr4wEeuHYuKEOCI12A" memberEnd="_cmI73L4wEeuHYuKEOCI12A _cmKKD74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKKD74wEeuHYuKEOCI12A" name="Station" type="_cmI72b4wEeuHYuKEOCI12A" association="_cmKKDr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKKEL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKKEb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKKEr4wEeuHYuKEOCI12A" memberEnd="_cmJipL4wEeuHYuKEOCI12A _cmKKE74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKKE74wEeuHYuKEOCI12A" name="VatScope" type="_cmJimb4wEeuHYuKEOCI12A" association="_cmKKEr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKKFL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKKFb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKKFr4wEeuHYuKEOCI12A" memberEnd="_cmJig74wEeuHYuKEOCI12A _cmKKF74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKKF74wEeuHYuKEOCI12A" name="Company" type="_cmJidr4wEeuHYuKEOCI12A" association="_cmKKFr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKKGL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKKGb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKKGr4wEeuHYuKEOCI12A" memberEnd="_cmJivb4wEeuHYuKEOCI12A _cmKKG74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKKG74wEeuHYuKEOCI12A" name="Company" type="_cmJisL4wEeuHYuKEOCI12A" association="_cmKKGr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwML4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwMb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwMr4wEeuHYuKEOCI12A" memberEnd="_cmHtOb4wEeuHYuKEOCI12A _cmKwM74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwM74wEeuHYuKEOCI12A" name="RegionalConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKwMr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwNL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwNb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwNr4wEeuHYuKEOCI12A" memberEnd="_cmI7S74wEeuHYuKEOCI12A _cmKwN74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwN74wEeuHYuKEOCI12A" name="TrainLink" type="_cmI7Pr4wEeuHYuKEOCI12A" association="_cmKwNr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwOL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwOb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwOr4wEeuHYuKEOCI12A" memberEnd="_cmI7374wEeuHYuKEOCI12A _cmKwO74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwO74wEeuHYuKEOCI12A" name="OnlineResource" type="_cmI72b4wEeuHYuKEOCI12A" association="_cmKwOr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwPL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwPb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwPr4wEeuHYuKEOCI12A" memberEnd="_cmI7rr4wEeuHYuKEOCI12A _cmKwP74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwP74wEeuHYuKEOCI12A" name="RelativeTime" type="_cmI7qL4wEeuHYuKEOCI12A" association="_cmKwPr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwQL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwQb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwQr4wEeuHYuKEOCI12A" memberEnd="_cmGfGL4wEeuHYuKEOCI12A _cmKwQ74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwQ74wEeuHYuKEOCI12A" name="FareType" type="_cmGe-r4wEeuHYuKEOCI12A" association="_cmKwQr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwRL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwRb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwRr4wEeuHYuKEOCI12A" memberEnd="_cmHtPL4wEeuHYuKEOCI12A _cmKwR74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwR74wEeuHYuKEOCI12A" name="Calendar" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKwRr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwSL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwSb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwSr4wEeuHYuKEOCI12A" memberEnd="_cmGe974wEeuHYuKEOCI12A _cmKwS74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwS74wEeuHYuKEOCI12A" name="ServiceBrandCode" type="_cmGe8L4wEeuHYuKEOCI12A" association="_cmKwSr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwTL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwTb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwTr4wEeuHYuKEOCI12A" memberEnd="_cmIUYr4wEeuHYuKEOCI12A _cmKwT74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwT74wEeuHYuKEOCI12A" name="Company" type="_cmIUU74wEeuHYuKEOCI12A" association="_cmKwTr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwUL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwUb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwUr4wEeuHYuKEOCI12A" memberEnd="_cmHtcb4wEeuHYuKEOCI12A _cmKwU74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwU74wEeuHYuKEOCI12A" name="Company" type="_cmHtYL4wEeuHYuKEOCI12A" association="_cmKwUr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwVL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwVb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwVr4wEeuHYuKEOCI12A" memberEnd="_cmI7n74wEeuHYuKEOCI12A _cmKwV74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwV74wEeuHYuKEOCI12A" name="ServiceClassId" type="_cmI7mb4wEeuHYuKEOCI12A" association="_cmKwVr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwWL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwWb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwWr4wEeuHYuKEOCI12A" memberEnd="_cmFQz74wEeuHYuKEOCI12A _cmKwW74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwW74wEeuHYuKEOCI12A" name="Country" type="_cmFQy74wEeuHYuKEOCI12A" association="_cmKwWr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwXL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwXb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwXr4wEeuHYuKEOCI12A" memberEnd="_cmIT8r4wEeuHYuKEOCI12A _cmKwX74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwX74wEeuHYuKEOCI12A" name="FareCombinationModel" type="_cmHtdL4wEeuHYuKEOCI12A" association="_cmKwXr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwYL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwYb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwYr4wEeuHYuKEOCI12A" memberEnd="_cmFQ0r4wEeuHYuKEOCI12A _cmKwY74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwY74wEeuHYuKEOCI12A" name="Country" type="_cmFQy74wEeuHYuKEOCI12A" association="_cmKwYr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwZL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwZb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwZr4wEeuHYuKEOCI12A" memberEnd="_cmHtP74wEeuHYuKEOCI12A _cmKwZ74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwZ74wEeuHYuKEOCI12A" name="FareReferenceStationSet" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKwZr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwaL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwab4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwar4wEeuHYuKEOCI12A" memberEnd="_cmI7Tr4wEeuHYuKEOCI12A _cmKwa74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwa74wEeuHYuKEOCI12A" name="ViaStations" type="_cmI7Pr4wEeuHYuKEOCI12A" association="_cmKwar4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwbL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwbb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwbr4wEeuHYuKEOCI12A" memberEnd="_cmJihr4wEeuHYuKEOCI12A _cmKwb74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwb74wEeuHYuKEOCI12A" name="Station" type="_cmJidr4wEeuHYuKEOCI12A" association="_cmKwbr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwcL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwcb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwcr4wEeuHYuKEOCI12A" memberEnd="_cmJikb4wEeuHYuKEOCI12A _cmKwc74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwc74wEeuHYuKEOCI12A" name="Company" type="_cmJijL4wEeuHYuKEOCI12A" association="_cmKwcr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwdL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwdb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwdr4wEeuHYuKEOCI12A" memberEnd="_cmI7w74wEeuHYuKEOCI12A _cmKwd74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwd74wEeuHYuKEOCI12A" name="Text" type="_cmI7tb4wEeuHYuKEOCI12A" association="_cmKwdr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKweL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKweb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwer4wEeuHYuKEOCI12A" memberEnd="_cmGfL74wEeuHYuKEOCI12A _cmKwe74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwe74wEeuHYuKEOCI12A" name="RegulatoryConditions" type="_cmGfHr4wEeuHYuKEOCI12A" association="_cmKwer4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwfL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwfb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwfr4wEeuHYuKEOCI12A" memberEnd="_cmHtQr4wEeuHYuKEOCI12A _cmKwf74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwf74wEeuHYuKEOCI12A" name="Fare" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKwfr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwgL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwgb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwgr4wEeuHYuKEOCI12A" memberEnd="_cmHtRb4wEeuHYuKEOCI12A _cmKwg74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwg74wEeuHYuKEOCI12A" name="ServiceClassDefinition" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKwgr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwhL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwhb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwhr4wEeuHYuKEOCI12A" memberEnd="_cmIUw74wEeuHYuKEOCI12A _cmKwh74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwh74wEeuHYuKEOCI12A" name="TravelerType" type="_cmIUvr4wEeuHYuKEOCI12A" association="_cmKwhr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwiL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwib4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwir4wEeuHYuKEOCI12A" memberEnd="_cmHtSL4wEeuHYuKEOCI12A _cmKwi74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwi74wEeuHYuKEOCI12A" name="ServiceLevel" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKwir4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwjL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwjb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwjr4wEeuHYuKEOCI12A" memberEnd="_cmFQpL4wEeuHYuKEOCI12A _cmKwj74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwj74wEeuHYuKEOCI12A" name="AfterSalesRule" type="_cmFQob4wEeuHYuKEOCI12A" association="_cmKwjr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwkL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwkb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwkr4wEeuHYuKEOCI12A" memberEnd="_cmHtS74wEeuHYuKEOCI12A _cmKwk74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwk74wEeuHYuKEOCI12A" name="PersonalDataConstraint" type="_cmHs_b4wEeuHYuKEOCI12A" association="_cmKwkr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwlL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwlb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwlr4wEeuHYuKEOCI12A" memberEnd="_cmGfG74wEeuHYuKEOCI12A _cmKwl74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwl74wEeuHYuKEOCI12A" name="RegulatoryConditions" type="_cmGe-r4wEeuHYuKEOCI12A" association="_cmKwlr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwmL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwmb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwmr4wEeuHYuKEOCI12A" memberEnd="_cmI7kL4wEeuHYuKEOCI12A _cmKwm74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwm74wEeuHYuKEOCI12A" name="Company" type="_cmI7gL4wEeuHYuKEOCI12A" association="_cmKwmr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwnL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwnb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwnr4wEeuHYuKEOCI12A" memberEnd="_cmJizr4wEeuHYuKEOCI12A _cmKwn74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwn74wEeuHYuKEOCI12A" name="Station" type="_cmJiwL4wEeuHYuKEOCI12A" association="_cmKwnr4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwoL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwob4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cmKwor4wEeuHYuKEOCI12A" memberEnd="_cmJiib4wEeuHYuKEOCI12A _cmKwo74wEeuHYuKEOCI12A">
+      <ownedEnd xmi:id="_cmKwo74wEeuHYuKEOCI12A" name="ViaStations" type="_cmJidr4wEeuHYuKEOCI12A" association="_cmKwor4wEeuHYuKEOCI12A">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cmKwpL4wEeuHYuKEOCI12A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cmKwpb4wEeuHYuKEOCI12A" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>

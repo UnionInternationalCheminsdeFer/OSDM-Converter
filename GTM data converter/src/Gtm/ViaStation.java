@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link Gtm.ViaStation#getStation <em>Station</em>}</li>
+ *   <li>{@link Gtm.ViaStation#getCarrierConstraint <em>Carrier Constraint</em>}</li>
  *   <li>{@link Gtm.ViaStation#getCarrier <em>Carrier</em>}</li>
  *   <li>{@link Gtm.ViaStation#getRoute <em>Route</em>}</li>
  *   <li>{@link Gtm.ViaStation#getAlternativeRoutes <em>Alternative Routes</em>}</li>
@@ -50,6 +51,28 @@ public interface ViaStation extends EObject {
 	 * @generated
 	 */
 	void setStation(Station value);
+
+	/**
+	 * Returns the value of the '<em><b>Carrier Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Carrier Constraint</em>' reference.
+	 * @see #setCarrierConstraint(CarrierConstraint)
+	 * @see Gtm.GtmPackage#getViaStation_CarrierConstraint()
+	 * @model
+	 * @generated
+	 */
+	CarrierConstraint getCarrierConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ViaStation#getCarrierConstraint <em>Carrier Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Carrier Constraint</em>' reference.
+	 * @see #getCarrierConstraint()
+	 * @generated
+	 */
+	void setCarrierConstraint(CarrierConstraint value);
 
 	/**
 	 * Returns the value of the '<em><b>Carrier</b></em>' reference.

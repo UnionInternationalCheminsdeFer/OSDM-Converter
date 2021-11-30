@@ -219,6 +219,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateTravelValidityConstraints((TravelValidityConstraints)value, diagnostics, context);
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT:
 				return validateTravelValidityConstraint((TravelValidityConstraint)value, diagnostics, context);
+			case GtmPackage.TRAIN_VALIDITY:
+				return validateTrainValidity((TrainValidity)value, diagnostics, context);
 			case GtmPackage.SALES_AVAILABILITY_CONSTRAINTS:
 				return validateSalesAvailabilityConstraints((SalesAvailabilityConstraints)value, diagnostics, context);
 			case GtmPackage.SALES_AVAILABILITY_CONSTRAINT:
@@ -405,6 +407,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyDistanceFare((LegacyDistanceFare)value, diagnostics, context);
 			case GtmPackage.LEGACY_VIASTATION:
 				return validateLegacyViastation((LegacyViastation)value, diagnostics, context);
+			case GtmPackage.BOARDING_OR_ARRIVAL:
+				return validateBoardingOrArrival((BoardingOrArrival)value, diagnostics, context);
 			case GtmPackage.TRANSPORT_MODE:
 				return validateTransportMode((TransportMode)value, diagnostics, context);
 			case GtmPackage.STATION_RELATION_TYPE:
@@ -2820,6 +2824,15 @@ public class GtmValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateBoardingOrArrival(BoardingOrArrival boardingOrArrival, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateTransportMode(TransportMode transportMode, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
@@ -4606,6 +4619,50 @@ public class GtmValidator extends EObjectValidator {
 		}
 		return true;
 
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTrainValidity(TrainValidity trainValidity, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(trainValidity, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(trainValidity, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(trainValidity, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(trainValidity, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(trainValidity, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(trainValidity, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(trainValidity, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(trainValidity, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(trainValidity, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTrainValidity_TRAIN_VALIDITY_REQUIRED_CONTENT(trainValidity, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the TRAIN_VALIDITY_REQUIRED_CONTENT constraint of '<em>Train Validity</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateTrainValidity_TRAIN_VALIDITY_REQUIRED_CONTENT(TrainValidity trainValidity, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if ( trainValidity.getCarrierConstraint() == null  ) {
+				if (diagnostics != null) {
+					diagnostics.add
+					(createSimpleDiagnostic
+							(Diagnostic.WARNING,
+							 DIAGNOSTIC_SOURCE,
+							 0,
+							 getObjectLabel(trainValidity, context) + " Carrier Constraint is missing" ,
+							 new Object[] { "TRAIN_VALIDITY_REQUIRED_CONTENT", getObjectLabel(trainValidity, context) }, //$NON-NLS-1$
+							 new Object[] {  trainValidity},
+							 context));					
+				}
+				return false;
+		}		
+		return true;
 	}
 
 	/**
@@ -7145,6 +7202,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(includedFreePassengerLimit, diagnostics, context);
 		if (result || diagnostics != null) result &= validateIncludedFreePassengerLimit_NUMBER_AT_LEAST_ONE(includedFreePassengerLimit, diagnostics, context);
 		if (result || diagnostics != null) result &= validateIncludedFreePassengerLimit_TRAVELLER_TYPE_MUST(includedFreePassengerLimit, diagnostics, context);
+		if (result || diagnostics != null) result &= validateIncludedFreePassengerLimit_SIMPLE_PASSENGER_CONSTRAINT_ONLY(includedFreePassengerLimit, diagnostics, context);
 		return result;
 	}
 
@@ -7181,7 +7239,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateIncludedFreePassengerLimit_TRAVELLER_TYPE_MUST(IncludedFreePassengerLimit includedFreePassengerLimit, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (includedFreePassengerLimit.getPassengerType() == null) {
+		if (includedFreePassengerLimit.getPassengerType() == null && includedFreePassengerLimit.getPassengerConstraint() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic
@@ -7190,6 +7248,32 @@ public class GtmValidator extends EObjectValidator {
 						 0,
 						 NationalLanguageSupport.GtmValidator_283 + " in " +  getObjectLabel(includedFreePassengerLimit, context),
 						 new Object[] { "TRAVELLER_TYPE_MUST", getObjectLabel(includedFreePassengerLimit, context) }, //$NON-NLS-1$
+						 new Object[] { includedFreePassengerLimit },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the SIMPLE_PASSENGER_CONSTRAINT_ONLY constraint of '<em>Included Free Passenger Limit</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateIncludedFreePassengerLimit_SIMPLE_PASSENGER_CONSTRAINT_ONLY(IncludedFreePassengerLimit includedFreePassengerLimit, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		// a referenced passenger constraint must not include free passengers
+		if (includedFreePassengerLimit.getPassengerConstraint() != null && 
+			includedFreePassengerLimit.getPassengerConstraint().getIncludedFreePassengers() != null && 
+			includedFreePassengerLimit.getPassengerConstraint().getIncludedFreePassengers().size() > 0) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 getObjectLabel(includedFreePassengerLimit, context) + " must not reference passenger constraints that include free passengers",						 new Object[] { "SIMPLE_PASSENGER_CONSTRAINT_ONLY", getObjectLabel(includedFreePassengerLimit, context) }, //$NON-NLS-1$
 						 new Object[] { includedFreePassengerLimit },
 						 context));
 			}

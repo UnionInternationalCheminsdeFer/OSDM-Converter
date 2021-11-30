@@ -9,7 +9,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: lib/,
  .
 Export-Package: export,
- gtm
+ gtm,
+ gtmV14
 Import-Package: Gtm.util
 Require-Bundle: org.eclipse.swt;bundle-version="3.113.0",
  fasterxml;bundle-version="1.0.0"

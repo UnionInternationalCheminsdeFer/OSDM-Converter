@@ -4,6 +4,7 @@ package Gtm.impl;
 
 import Gtm.AlternativeRoute;
 import Gtm.Carrier;
+import Gtm.CarrierConstraint;
 import Gtm.FareStationSetDefinition;
 import Gtm.GtmPackage;
 import Gtm.Route;
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link Gtm.impl.ViaStationImpl#getStation <em>Station</em>}</li>
+ *   <li>{@link Gtm.impl.ViaStationImpl#getCarrierConstraint <em>Carrier Constraint</em>}</li>
  *   <li>{@link Gtm.impl.ViaStationImpl#getCarrier <em>Carrier</em>}</li>
  *   <li>{@link Gtm.impl.ViaStationImpl#getRoute <em>Route</em>}</li>
  *   <li>{@link Gtm.impl.ViaStationImpl#getAlternativeRoutes <em>Alternative Routes</em>}</li>
@@ -57,6 +59,16 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 	 * @ordered
 	 */
 	protected Station station;
+
+	/**
+	 * The cached value of the '{@link #getCarrierConstraint() <em>Carrier Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCarrierConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected CarrierConstraint carrierConstraint;
 
 	/**
 	 * The cached value of the '{@link #getCarrier() <em>Carrier</em>}' reference.
@@ -183,6 +195,44 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 		station = newStation;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.VIA_STATION__STATION, oldStation, station));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CarrierConstraint getCarrierConstraint() {
+		if (carrierConstraint != null && carrierConstraint.eIsProxy()) {
+			InternalEObject oldCarrierConstraint = (InternalEObject)carrierConstraint;
+			carrierConstraint = (CarrierConstraint)eResolveProxy(oldCarrierConstraint);
+			if (carrierConstraint != oldCarrierConstraint) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.VIA_STATION__CARRIER_CONSTRAINT, oldCarrierConstraint, carrierConstraint));
+			}
+		}
+		return carrierConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CarrierConstraint basicGetCarrierConstraint() {
+		return carrierConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCarrierConstraint(CarrierConstraint newCarrierConstraint) {
+		CarrierConstraint oldCarrierConstraint = carrierConstraint;
+		carrierConstraint = newCarrierConstraint;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.VIA_STATION__CARRIER_CONSTRAINT, oldCarrierConstraint, carrierConstraint));
 	}
 
 	/**
@@ -451,6 +501,9 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 			case GtmPackage.VIA_STATION__STATION:
 				if (resolve) return getStation();
 				return basicGetStation();
+			case GtmPackage.VIA_STATION__CARRIER_CONSTRAINT:
+				if (resolve) return getCarrierConstraint();
+				return basicGetCarrierConstraint();
 			case GtmPackage.VIA_STATION__CARRIER:
 				if (resolve) return getCarrier();
 				return basicGetCarrier();
@@ -481,6 +534,9 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 		switch (featureID) {
 			case GtmPackage.VIA_STATION__STATION:
 				setStation((Station)newValue);
+				return;
+			case GtmPackage.VIA_STATION__CARRIER_CONSTRAINT:
+				setCarrierConstraint((CarrierConstraint)newValue);
 				return;
 			case GtmPackage.VIA_STATION__CARRIER:
 				setCarrier((Carrier)newValue);
@@ -516,6 +572,9 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 			case GtmPackage.VIA_STATION__STATION:
 				setStation((Station)null);
 				return;
+			case GtmPackage.VIA_STATION__CARRIER_CONSTRAINT:
+				setCarrierConstraint((CarrierConstraint)null);
+				return;
 			case GtmPackage.VIA_STATION__CARRIER:
 				setCarrier((Carrier)null);
 				return;
@@ -548,6 +607,8 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 		switch (featureID) {
 			case GtmPackage.VIA_STATION__STATION:
 				return station != null;
+			case GtmPackage.VIA_STATION__CARRIER_CONSTRAINT:
+				return carrierConstraint != null;
 			case GtmPackage.VIA_STATION__CARRIER:
 				return carrier != null;
 			case GtmPackage.VIA_STATION__ROUTE:

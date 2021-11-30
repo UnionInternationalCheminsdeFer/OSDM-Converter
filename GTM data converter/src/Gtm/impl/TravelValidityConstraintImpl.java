@@ -6,6 +6,7 @@ import Gtm.Calendar;
 import Gtm.ExcludedTimeRange;
 import Gtm.GtmPackage;
 import Gtm.ReturnValidityConstraint;
+import Gtm.TrainValidity;
 import Gtm.TravelValidityConstraint;
 import Gtm.ValidityRange;
 
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getRange <em>Range</em>}</li>
  *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getReturnConstraint <em>Return Constraint</em>}</li>
  *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getExcludedTimeRange <em>Excluded Time Range</em>}</li>
+ *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getTrainValidity <em>Train Validity</em>}</li>
  * </ul>
  *
  * @generated
@@ -141,6 +143,16 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 	 * @ordered
 	 */
 	protected EList<ExcludedTimeRange> excludedTimeRange;
+
+	/**
+	 * The cached value of the '{@link #getTrainValidity() <em>Train Validity</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTrainValidity()
+	 * @generated
+	 * @ordered
+	 */
+	protected TrainValidity trainValidity;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -251,6 +263,49 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 			excludedTimeRange = new EObjectContainmentEList<ExcludedTimeRange>(ExcludedTimeRange.class, this, GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE);
 		}
 		return excludedTimeRange;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TrainValidity getTrainValidity() {
+		return trainValidity;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTrainValidity(TrainValidity newTrainValidity, NotificationChain msgs) {
+		TrainValidity oldTrainValidity = trainValidity;
+		trainValidity = newTrainValidity;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY, oldTrainValidity, newTrainValidity);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTrainValidity(TrainValidity newTrainValidity) {
+		if (newTrainValidity != trainValidity) {
+			NotificationChain msgs = null;
+			if (trainValidity != null)
+				msgs = ((InternalEObject)trainValidity).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY, null, msgs);
+			if (newTrainValidity != null)
+				msgs = ((InternalEObject)newTrainValidity).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY, null, msgs);
+			msgs = basicSetTrainValidity(newTrainValidity, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY, newTrainValidity, newTrainValidity));
 	}
 
 	/**
@@ -374,6 +429,8 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 				return basicSetReturnConstraint(null, msgs);
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE:
 				return ((InternalEList<?>)getExcludedTimeRange()).basicRemove(otherEnd, msgs);
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
+				return basicSetTrainValidity(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -401,6 +458,8 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 				return getReturnConstraint();
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE:
 				return getExcludedTimeRange();
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
+				return getTrainValidity();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -436,6 +495,9 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 				getExcludedTimeRange().clear();
 				getExcludedTimeRange().addAll((Collection<? extends ExcludedTimeRange>)newValue);
 				return;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
+				setTrainValidity((TrainValidity)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -469,6 +531,9 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE:
 				getExcludedTimeRange().clear();
 				return;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
+				setTrainValidity((TrainValidity)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -495,6 +560,8 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 				return returnConstraint != null;
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE:
 				return excludedTimeRange != null && !excludedTimeRange.isEmpty();
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
+				return trainValidity != null;
 		}
 		return super.eIsSet(featureID);
 	}

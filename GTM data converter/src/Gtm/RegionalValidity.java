@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.RegionalValidity#getZone <em>Zone</em>}</li>
  *   <li>{@link Gtm.RegionalValidity#getLine <em>Line</em>}</li>
  *   <li>{@link Gtm.RegionalValidity#getPolygone <em>Polygone</em>}</li>
+ *   <li>{@link Gtm.RegionalValidity#getCarierConstraint <em>Carier Constraint</em>}</li>
  *   <li>{@link Gtm.RegionalValidity#getServiceConstraint <em>Service Constraint</em>}</li>
  * </ul>
  *
@@ -135,6 +136,28 @@ public interface RegionalValidity extends EObject {
 	 * @generated
 	 */
 	void setPolygone(Polygone value);
+
+	/**
+	 * Returns the value of the '<em><b>Carier Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Carier Constraint</em>' reference.
+	 * @see #setCarierConstraint(CarrierConstraint)
+	 * @see Gtm.GtmPackage#getRegionalValidity_CarierConstraint()
+	 * @model
+	 * @generated
+	 */
+	CarrierConstraint getCarierConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.RegionalValidity#getCarierConstraint <em>Carier Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Carier Constraint</em>' reference.
+	 * @see #getCarierConstraint()
+	 * @generated
+	 */
+	void setCarierConstraint(CarrierConstraint value);
 
 	/**
 	 * Returns the value of the '<em><b>Service Constraint</b></em>' reference.

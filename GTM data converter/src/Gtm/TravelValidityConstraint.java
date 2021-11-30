@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.TravelValidityConstraint#getRange <em>Range</em>}</li>
  *   <li>{@link Gtm.TravelValidityConstraint#getReturnConstraint <em>Return Constraint</em>}</li>
  *   <li>{@link Gtm.TravelValidityConstraint#getExcludedTimeRange <em>Excluded Time Range</em>}</li>
+ *   <li>{@link Gtm.TravelValidityConstraint#getTrainValidity <em>Train Validity</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getTravelValidityConstraint()
@@ -172,5 +173,27 @@ public interface TravelValidityConstraint extends EObject {
 	 * @generated
 	 */
 	EList<ExcludedTimeRange> getExcludedTimeRange();
+
+	/**
+	 * Returns the value of the '<em><b>Train Validity</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Train Validity</em>' containment reference.
+	 * @see #setTrainValidity(TrainValidity)
+	 * @see Gtm.GtmPackage#getTravelValidityConstraint_TrainValidity()
+	 * @model containment="true"
+	 * @generated
+	 */
+	TrainValidity getTrainValidity();
+
+	/**
+	 * Sets the value of the '{@link Gtm.TravelValidityConstraint#getTrainValidity <em>Train Validity</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Train Validity</em>' containment reference.
+	 * @see #getTrainValidity()
+	 * @generated
+	 */
+	void setTrainValidity(TrainValidity value);
 
 } // TravelValidityConstraint

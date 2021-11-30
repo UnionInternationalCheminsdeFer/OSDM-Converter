@@ -25,16 +25,16 @@ import Gtm.GeneralTariffModel;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.Station;
-import Gtm.converter.StationNameMerger;
-import Gtm.jsonImportExport.GTMJsonImporter;
+import Gtm.jsonImportExport.GTMJsonImporterV14;
+import Gtm.jsonImportExport.StationNameMergerV14;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
-import export.ImportFareDelivery;
-import gtm.FareDef;
-import gtm.FareDelivery;
-import gtm.StationNamesDef;
+import export.ImportFareDeliveryV14;
+import gtmV14.FareDef;
+import gtmV14.FareDelivery;
+import gtmV14.StationNamesDef;
 
 
 public class ImportGTMJsonAction extends BasicGtmAction {
@@ -169,7 +169,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 			File file = getFile();
 			if (file == null) return;
 			
-			GTMJsonImporter importer = new GTMJsonImporter(tool, domain, editor);
+			GTMJsonImporterV14 importer = new GTMJsonImporterV14(tool, domain, editor);
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
@@ -191,7 +191,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_6);
 						FareDelivery fareDelivery;
 						try {
-							fareDelivery = ImportFareDelivery.importFareDelivery(file);
+							fareDelivery = ImportFareDeliveryV14.importFareDelivery(file);
 						} catch (IOException e) {
 							GtmUtils.displayAsyncErrorMessage(e,"file error");
 							monitor.done();
@@ -356,7 +356,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 					
 					}
 					
-					CompoundCommand com = StationNameMerger.createMergeStationNamesCommand(domain,lStation,station, editor);
+					CompoundCommand com = StationNameMergerV14.createMergeStationNamesCommand(domain,lStation,station, editor);
 					if (!com.isEmpty() && com.canExecute()) {
 						command.append(com);					
 					}

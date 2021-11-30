@@ -122,6 +122,7 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.COMBINATION_CONSTRAINT: return createCombinationConstraint();
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINTS: return createTravelValidityConstraints();
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT: return createTravelValidityConstraint();
+			case GtmPackage.TRAIN_VALIDITY: return createTrainValidity();
 			case GtmPackage.SALES_AVAILABILITY_CONSTRAINTS: return createSalesAvailabilityConstraints();
 			case GtmPackage.SALES_AVAILABILITY_CONSTRAINT: return createSalesAvailabilityConstraint();
 			case GtmPackage.SALES_RESTRICTION: return createSalesRestriction();
@@ -228,6 +229,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case GtmPackage.BOARDING_OR_ARRIVAL:
+				return createBoardingOrArrivalFromString(eDataType, initialValue);
 			case GtmPackage.TRANSPORT_MODE:
 				return createTransportModeFromString(eDataType, initialValue);
 			case GtmPackage.STATION_RELATION_TYPE:
@@ -339,6 +342,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GtmPackage.BOARDING_OR_ARRIVAL:
+				return convertBoardingOrArrivalToString(eDataType, instanceValue);
 			case GtmPackage.TRANSPORT_MODE:
 				return convertTransportModeToString(eDataType, instanceValue);
 			case GtmPackage.STATION_RELATION_TYPE:
@@ -1080,6 +1085,16 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public TravelValidityConstraint createTravelValidityConstraint() {
 		TravelValidityConstraintImpl travelValidityConstraint = new TravelValidityConstraintImpl();
 		return travelValidityConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TrainValidity createTrainValidity() {
+		TrainValidityImpl trainValidity = new TrainValidityImpl();
+		return trainValidity;
 	}
 
 	/**
@@ -2000,6 +2015,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public LegacyViastation createLegacyViastation() {
 		LegacyViastationImpl legacyViastation = new LegacyViastationImpl();
 		return legacyViastation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BoardingOrArrival createBoardingOrArrivalFromString(EDataType eDataType, String initialValue) {
+		BoardingOrArrival result = BoardingOrArrival.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertBoardingOrArrivalToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

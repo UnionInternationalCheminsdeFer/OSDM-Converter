@@ -175,6 +175,7 @@ public class TravelValidityConstraintItemProvider
 			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__RANGE);
 			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__RETURN_CONSTRAINT);
 			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE);
+			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY);
 		}
 		return childrenFeatures;
 	}
@@ -245,6 +246,7 @@ public class TravelValidityConstraintItemProvider
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__RANGE:
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__RETURN_CONSTRAINT:
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE:
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -276,6 +278,11 @@ public class TravelValidityConstraintItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE,
 				 GtmFactory.eINSTANCE.createExcludedTimeRange()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY,
+				 GtmFactory.eINSTANCE.createTrainValidity()));
 	}
 
 	/**

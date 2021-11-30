@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareElement#getLegacyAccountingIdentifier <em>Legacy Accounting Identifier</em>}</li>
  *   <li>{@link Gtm.FareElement#getLegacyConversion <em>Legacy Conversion</em>}</li>
  *   <li>{@link Gtm.FareElement#isIndividualContracts <em>Individual Contracts</em>}</li>
+ *   <li>{@link Gtm.FareElement#getInvolvedTcos <em>Involved Tcos</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareElement()
@@ -620,5 +621,17 @@ public interface FareElement extends EObject {
 	 * @generated
 	 */
 	void setIndividualContracts(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Involved Tcos</b></em>' reference list.
+	 * The list contents are of type {@link Gtm.Carrier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Involved Tcos</em>' reference list.
+	 * @see Gtm.GtmPackage#getFareElement_InvolvedTcos()
+	 * @model
+	 * @generated
+	 */
+	EList<Carrier> getInvolvedTcos();
 
 } // FareElement

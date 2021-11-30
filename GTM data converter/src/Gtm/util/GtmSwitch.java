@@ -451,6 +451,12 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.TRAIN_VALIDITY: {
+				TrainValidity trainValidity = (TrainValidity)theEObject;
+				T result = caseTrainValidity(trainValidity);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.SALES_AVAILABILITY_CONSTRAINTS: {
 				SalesAvailabilityConstraints salesAvailabilityConstraints = (SalesAvailabilityConstraints)theEObject;
 				T result = caseSalesAvailabilityConstraints(salesAvailabilityConstraints);
@@ -1973,6 +1979,21 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTravelValidityConstraint(TravelValidityConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Train Validity</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Train Validity</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTrainValidity(TrainValidity object) {
 		return null;
 	}
 
