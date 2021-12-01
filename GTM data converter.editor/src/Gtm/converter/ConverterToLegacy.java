@@ -2,6 +2,7 @@ package Gtm.converter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -74,7 +75,8 @@ import Gtm.ViaStation;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
-import Gtm.utils.GtmValidator; 
+import Gtm.utils.GtmValidator;
+import Gtm.utils.InvolvedTcoFinder; 
 
 /**
  * The Class ConverterToLegacy.
@@ -553,6 +555,8 @@ public class 	ConverterToLegacy {
 		
 		return series.size();
 	}
+
+
 
 	private void addRouteNumbers(HashMap<Integer, LegacySeries> series, HashSet<LegacyRouteFare> routeFares) {
 		
@@ -1899,10 +1903,11 @@ public class 	ConverterToLegacy {
 		}
 				
 		ViaStation mainVia = regionalValidity.getViaStation();
-		if (mainVia.getCarrier() != null) {
-			series.setCarrierCode( mainVia.getCarrier().getCode());
-			addCarrier(mainVia.getCarrier());
+		Carrier carrier = getMainCarrier(regionalConstraint.getRegionalValidity().get(0));
+		if (carrier != null) {
+			series.setCarrierCode(carrier.getCode());
 		}
+
 		if (mainVia.getServiceConstraint() != null && mainVia.getServiceConstraint().getLegacy108Code() > 0) {
 			routeServiceConstraint = mainVia.getServiceConstraint();
 		}		
@@ -2015,7 +2020,8 @@ public class 	ConverterToLegacy {
 		    series.getCarrierCode() == null &&
 			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
 			series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
-            addCarrier(fare.getCarrierConstraint().getIncludedCarriers().get(0));
+            addCarrier(fare.getCarrierConstraint().getIncludedCarriers());
+            addCarrier(InvolvedTcoFinder.getInvolvedCarriers(fare.getRegionalConstraint()));
 		} 	
 		
 		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
@@ -2047,7 +2053,23 @@ public class 	ConverterToLegacy {
 	}
 	
 
-
+	private Carrier getMainCarrier(RegionalValidity regionalValidity) {
+		
+		if (regionalValidity == null) return null;
+		
+		if (regionalValidity.getCarrierConstraint() != null 
+			&& regionalValidity.getCarrierConstraint().getIncludedCarriers() != null
+			&& !regionalValidity.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+			return regionalValidity.getCarrierConstraint().getIncludedCarriers().get(0);
+		}
+		
+		if (regionalValidity.getViaStation() != null 
+			&& regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers() != null
+			&& !regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+			return regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers().get(0);
+		}
+		return null;
+	}
 
 	private DateRange getDateRange(HashSet<SalesAvailabilityConstraint> salesAvailabilities) {
 		
@@ -2776,8 +2798,6 @@ public class 	ConverterToLegacy {
 	
 	private void addCarrier(Carrier carrier) {
 		
-		if (carrier == null) return;
-		
 		LegacyCarrier lc = carriers.get(carrier.getCode());
 		
 		if (lc == null) {
@@ -2790,6 +2810,30 @@ public class 	ConverterToLegacy {
 			carriers.put(carrier.getCode(), lc);
 						
 		} 
+	}
+	
+	private void addCarrier(Collection<Carrier> carrierSet) {
+		
+		if (carrierSet == null || carrierSet.isEmpty()) return;
+		
+		for (Carrier carrier : carrierSet) {
+			
+			LegacyCarrier lc = carriers.get(carrier.getCode());
+			
+			if (lc == null) {
+				
+				lc = GtmFactory.eINSTANCE.createLegacyCarrier();
+				lc.setCarrierCode(carrier.getCode());
+				lc.setCarrierShortName(carrier.getShortName());
+				lc.setCarrierName(carrier.getName());
+							
+				carriers.put(carrier.getCode(), lc);
+							
+			} 
+			
+		}
+		
+
 		
 	}
 	

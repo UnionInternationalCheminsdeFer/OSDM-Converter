@@ -4402,13 +4402,22 @@ public interface GtmPackage extends EPackage {
 	int PASSENGER_CONSTRAINT__DATA_DESCRIPTION = 13;
 
 	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PASSENGER_CONSTRAINT__DATA_SOURCE = 14;
+
+	/**
 	 * The number of structural features of the '<em>Passenger Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PASSENGER_CONSTRAINT_FEATURE_COUNT = 14;
+	int PASSENGER_CONSTRAINT_FEATURE_COUNT = 15;
 
 	/**
 	 * The number of operations of the '<em>Passenger Constraint</em>' class.
@@ -5321,13 +5330,13 @@ public interface GtmPackage extends EPackage {
 	int REGIONAL_VALIDITY__POLYGONE = 4;
 
 	/**
-	 * The feature id for the '<em><b>Carier Constraint</b></em>' reference.
+	 * The feature id for the '<em><b>Carrier Constraint</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REGIONAL_VALIDITY__CARIER_CONSTRAINT = 5;
+	int REGIONAL_VALIDITY__CARRIER_CONSTRAINT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Service Constraint</b></em>' reference.
@@ -13913,6 +13922,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getPassengerConstraint_DataDescription();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.PassengerConstraint#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Source</em>'.
+	 * @see Gtm.PassengerConstraint#getDataSource()
+	 * @see #getPassengerConstraint()
+	 * @generated
+	 */
+	EAttribute getPassengerConstraint_DataSource();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.PassengerCombinationConstraint <em>Passenger Combination Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14838,15 +14858,15 @@ public interface GtmPackage extends EPackage {
 	EReference getRegionalValidity_Polygone();
 
 	/**
-	 * Returns the meta object for the reference '{@link Gtm.RegionalValidity#getCarierConstraint <em>Carier Constraint</em>}'.
+	 * Returns the meta object for the reference '{@link Gtm.RegionalValidity#getCarrierConstraint <em>Carrier Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Carier Constraint</em>'.
-	 * @see Gtm.RegionalValidity#getCarierConstraint()
+	 * @return the meta object for the reference '<em>Carrier Constraint</em>'.
+	 * @see Gtm.RegionalValidity#getCarrierConstraint()
 	 * @see #getRegionalValidity()
 	 * @generated
 	 */
-	EReference getRegionalValidity_CarierConstraint();
+	EReference getRegionalValidity_CarrierConstraint();
 
 	/**
 	 * Returns the meta object for the reference '{@link Gtm.RegionalValidity#getServiceConstraint <em>Service Constraint</em>}'.
@@ -22228,6 +22248,14 @@ public interface GtmPackage extends EPackage {
 		EAttribute PASSENGER_CONSTRAINT__DATA_DESCRIPTION = eINSTANCE.getPassengerConstraint_DataDescription();
 
 		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PASSENGER_CONSTRAINT__DATA_SOURCE = eINSTANCE.getPassengerConstraint_DataSource();
+
+		/**
 		 * The meta object literal for the '{@link Gtm.impl.PassengerCombinationConstraintImpl <em>Passenger Combination Constraint</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -22958,12 +22986,12 @@ public interface GtmPackage extends EPackage {
 		EReference REGIONAL_VALIDITY__POLYGONE = eINSTANCE.getRegionalValidity_Polygone();
 
 		/**
-		 * The meta object literal for the '<em><b>Carier Constraint</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Carrier Constraint</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference REGIONAL_VALIDITY__CARIER_CONSTRAINT = eINSTANCE.getRegionalValidity_CarierConstraint();
+		EReference REGIONAL_VALIDITY__CARRIER_CONSTRAINT = eINSTANCE.getRegionalValidity_CarrierConstraint();
 
 		/**
 		 * The meta object literal for the '<em><b>Service Constraint</b></em>' reference feature.

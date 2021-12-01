@@ -140,7 +140,7 @@ public class ConversionCleaner {
 			}
 		}		
 		GtmUtils.executeAndFlush(command,domain,editor);
-		
+			
 		//delete calendars
 		command = new CompoundCommand();		
 		for (Calendar sa : tool.getGeneralTariffModel().getFareStructure().getCalendars().getCalendars()) {

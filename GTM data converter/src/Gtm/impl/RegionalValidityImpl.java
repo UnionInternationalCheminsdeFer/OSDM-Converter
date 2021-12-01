@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.RegionalValidityImpl#getZone <em>Zone</em>}</li>
  *   <li>{@link Gtm.impl.RegionalValidityImpl#getLine <em>Line</em>}</li>
  *   <li>{@link Gtm.impl.RegionalValidityImpl#getPolygone <em>Polygone</em>}</li>
- *   <li>{@link Gtm.impl.RegionalValidityImpl#getCarierConstraint <em>Carier Constraint</em>}</li>
+ *   <li>{@link Gtm.impl.RegionalValidityImpl#getCarrierConstraint <em>Carrier Constraint</em>}</li>
  *   <li>{@link Gtm.impl.RegionalValidityImpl#getServiceConstraint <em>Service Constraint</em>}</li>
  * </ul>
  *
@@ -99,14 +99,14 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	protected Polygone polygone;
 
 	/**
-	 * The cached value of the '{@link #getCarierConstraint() <em>Carier Constraint</em>}' reference.
+	 * The cached value of the '{@link #getCarrierConstraint() <em>Carrier Constraint</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCarierConstraint()
+	 * @see #getCarrierConstraint()
 	 * @generated
 	 * @ordered
 	 */
-	protected CarrierConstraint carierConstraint;
+	protected CarrierConstraint carrierConstraint;
 
 	/**
 	 * The cached value of the '{@link #getServiceConstraint() <em>Service Constraint</em>}' reference.
@@ -330,16 +330,16 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CarrierConstraint getCarierConstraint() {
-		if (carierConstraint != null && carierConstraint.eIsProxy()) {
-			InternalEObject oldCarierConstraint = (InternalEObject)carierConstraint;
-			carierConstraint = (CarrierConstraint)eResolveProxy(oldCarierConstraint);
-			if (carierConstraint != oldCarierConstraint) {
+	public CarrierConstraint getCarrierConstraint() {
+		if (carrierConstraint != null && carrierConstraint.eIsProxy()) {
+			InternalEObject oldCarrierConstraint = (InternalEObject)carrierConstraint;
+			carrierConstraint = (CarrierConstraint)eResolveProxy(oldCarrierConstraint);
+			if (carrierConstraint != oldCarrierConstraint) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.REGIONAL_VALIDITY__CARIER_CONSTRAINT, oldCarierConstraint, carierConstraint));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.REGIONAL_VALIDITY__CARRIER_CONSTRAINT, oldCarrierConstraint, carrierConstraint));
 			}
 		}
-		return carierConstraint;
+		return carrierConstraint;
 	}
 
 	/**
@@ -347,8 +347,8 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CarrierConstraint basicGetCarierConstraint() {
-		return carierConstraint;
+	public CarrierConstraint basicGetCarrierConstraint() {
+		return carrierConstraint;
 	}
 
 	/**
@@ -356,11 +356,11 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCarierConstraint(CarrierConstraint newCarierConstraint) {
-		CarrierConstraint oldCarierConstraint = carierConstraint;
-		carierConstraint = newCarierConstraint;
+	public void setCarrierConstraint(CarrierConstraint newCarrierConstraint) {
+		CarrierConstraint oldCarrierConstraint = carrierConstraint;
+		carrierConstraint = newCarrierConstraint;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.REGIONAL_VALIDITY__CARIER_CONSTRAINT, oldCarierConstraint, carierConstraint));
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.REGIONAL_VALIDITY__CARRIER_CONSTRAINT, oldCarrierConstraint, carrierConstraint));
 	}
 
 	/**
@@ -438,9 +438,9 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 				return getLine();
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
 				return getPolygone();
-			case GtmPackage.REGIONAL_VALIDITY__CARIER_CONSTRAINT:
-				if (resolve) return getCarierConstraint();
-				return basicGetCarierConstraint();
+			case GtmPackage.REGIONAL_VALIDITY__CARRIER_CONSTRAINT:
+				if (resolve) return getCarrierConstraint();
+				return basicGetCarrierConstraint();
 			case GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT:
 				if (resolve) return getServiceConstraint();
 				return basicGetServiceConstraint();
@@ -472,8 +472,8 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
 				setPolygone((Polygone)newValue);
 				return;
-			case GtmPackage.REGIONAL_VALIDITY__CARIER_CONSTRAINT:
-				setCarierConstraint((CarrierConstraint)newValue);
+			case GtmPackage.REGIONAL_VALIDITY__CARRIER_CONSTRAINT:
+				setCarrierConstraint((CarrierConstraint)newValue);
 				return;
 			case GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT:
 				setServiceConstraint((ServiceConstraint)newValue);
@@ -505,8 +505,8 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
 				setPolygone((Polygone)null);
 				return;
-			case GtmPackage.REGIONAL_VALIDITY__CARIER_CONSTRAINT:
-				setCarierConstraint((CarrierConstraint)null);
+			case GtmPackage.REGIONAL_VALIDITY__CARRIER_CONSTRAINT:
+				setCarrierConstraint((CarrierConstraint)null);
 				return;
 			case GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT:
 				setServiceConstraint((ServiceConstraint)null);
@@ -533,8 +533,8 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 				return line != null;
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
 				return polygone != null;
-			case GtmPackage.REGIONAL_VALIDITY__CARIER_CONSTRAINT:
-				return carierConstraint != null;
+			case GtmPackage.REGIONAL_VALIDITY__CARRIER_CONSTRAINT:
+				return carrierConstraint != null;
 			case GtmPackage.REGIONAL_VALIDITY__SERVICE_CONSTRAINT:
 				return serviceConstraint != null;
 		}

@@ -596,6 +596,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludedPassengerCombinations"
         upperBound="-1" eType="#//PassengerCombinationConstraint" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PassengerCombinationConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -751,7 +752,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="line" eType="#//Line" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="polygone" eType="#//Polygone"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="carierConstraint" eType="#//CarrierConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraint" eType="#//ServiceConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceLevelDefinitions">

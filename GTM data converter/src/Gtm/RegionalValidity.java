@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.RegionalValidity#getZone <em>Zone</em>}</li>
  *   <li>{@link Gtm.RegionalValidity#getLine <em>Line</em>}</li>
  *   <li>{@link Gtm.RegionalValidity#getPolygone <em>Polygone</em>}</li>
- *   <li>{@link Gtm.RegionalValidity#getCarierConstraint <em>Carier Constraint</em>}</li>
+ *   <li>{@link Gtm.RegionalValidity#getCarrierConstraint <em>Carrier Constraint</em>}</li>
  *   <li>{@link Gtm.RegionalValidity#getServiceConstraint <em>Service Constraint</em>}</li>
  * </ul>
  *
@@ -138,26 +138,26 @@ public interface RegionalValidity extends EObject {
 	void setPolygone(Polygone value);
 
 	/**
-	 * Returns the value of the '<em><b>Carier Constraint</b></em>' reference.
+	 * Returns the value of the '<em><b>Carrier Constraint</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Carier Constraint</em>' reference.
-	 * @see #setCarierConstraint(CarrierConstraint)
-	 * @see Gtm.GtmPackage#getRegionalValidity_CarierConstraint()
+	 * @return the value of the '<em>Carrier Constraint</em>' reference.
+	 * @see #setCarrierConstraint(CarrierConstraint)
+	 * @see Gtm.GtmPackage#getRegionalValidity_CarrierConstraint()
 	 * @model
 	 * @generated
 	 */
-	CarrierConstraint getCarierConstraint();
+	CarrierConstraint getCarrierConstraint();
 
 	/**
-	 * Sets the value of the '{@link Gtm.RegionalValidity#getCarierConstraint <em>Carier Constraint</em>}' reference.
+	 * Sets the value of the '{@link Gtm.RegionalValidity#getCarrierConstraint <em>Carrier Constraint</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Carier Constraint</em>' reference.
-	 * @see #getCarierConstraint()
+	 * @param value the new value of the '<em>Carrier Constraint</em>' reference.
+	 * @see #getCarrierConstraint()
 	 * @generated
 	 */
-	void setCarierConstraint(CarrierConstraint value);
+	void setCarrierConstraint(CarrierConstraint value);
 
 	/**
 	 * Returns the value of the '<em><b>Service Constraint</b></em>' reference.

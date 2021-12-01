@@ -4197,6 +4197,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPassengerConstraint_DataSource() {
+		return (EAttribute)passengerConstraintEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPassengerCombinationConstraint() {
 		return passengerCombinationConstraintEClass;
 	}
@@ -4971,7 +4980,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRegionalValidity_CarierConstraint() {
+	public EReference getRegionalValidity_CarrierConstraint() {
 		return (EReference)regionalValidityEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -9468,6 +9477,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(passengerConstraintEClass, PASSENGER_CONSTRAINT__INCLUDED_FREE_PASSENGERS);
 		createEReference(passengerConstraintEClass, PASSENGER_CONSTRAINT__EXCLUDED_PASSENGER_COMBINATIONS);
 		createEAttribute(passengerConstraintEClass, PASSENGER_CONSTRAINT__DATA_DESCRIPTION);
+		createEAttribute(passengerConstraintEClass, PASSENGER_CONSTRAINT__DATA_SOURCE);
 
 		passengerCombinationConstraintEClass = createEClass(PASSENGER_COMBINATION_CONSTRAINT);
 		createEAttribute(passengerCombinationConstraintEClass, PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER);
@@ -9563,7 +9573,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__ZONE);
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__LINE);
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__POLYGONE);
-		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__CARIER_CONSTRAINT);
+		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__CARRIER_CONSTRAINT);
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__SERVICE_CONSTRAINT);
 
 		serviceLevelDefinitionsEClass = createEClass(SERVICE_LEVEL_DEFINITIONS);
@@ -10524,6 +10534,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getPassengerConstraint_IncludedFreePassengers(), this.getIncludedFreePassengerLimit(), null, "includedFreePassengers", null, 0, -1, PassengerConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPassengerConstraint_ExcludedPassengerCombinations(), this.getPassengerCombinationConstraint(), null, "excludedPassengerCombinations", null, 0, -1, PassengerConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPassengerConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, PassengerConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPassengerConstraint_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, PassengerConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(passengerCombinationConstraintEClass, PassengerCombinationConstraint.class, "PassengerCombinationConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPassengerCombinationConstraint_MaxNumber(), ecorePackage.getEInt(), "maxNumber", null, 0, 1, PassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10619,7 +10630,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getRegionalValidity_Zone(), this.getZone(), null, "zone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_Line(), this.getLine(), null, "line", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_Polygone(), this.getPolygone(), null, "polygone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRegionalValidity_CarierConstraint(), this.getCarrierConstraint(), null, "carierConstraint", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRegionalValidity_CarrierConstraint(), this.getCarrierConstraint(), null, "carrierConstraint", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_ServiceConstraint(), this.getServiceConstraint(), null, "serviceConstraint", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceLevelDefinitionsEClass, ServiceLevelDefinitions.class, "ServiceLevelDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
