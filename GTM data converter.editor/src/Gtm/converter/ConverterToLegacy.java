@@ -154,6 +154,15 @@ public class 	ConverterToLegacy {
 		//clean up the data
 		GtmUtils.deleteOrphanedObjects(domain,tool);
 		
+		if (tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares() != null && 
+			!tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().isEmpty()) {
+			Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_DISTANCE_FARES, GtmFactory.eINSTANCE.createLegacyDistanceFares());
+			if (com != null && com.canExecute()) {
+				domain.getCommandStack().execute(com);
+			}
+		}
+		
+		
 		GtmUtils.resetBorderPointCodes(domain,tool);
 		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
@@ -168,6 +177,8 @@ public class 	ConverterToLegacy {
 		Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__CARRIER, carrier);
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
+			
+			
 		}
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_0);	
@@ -2020,9 +2031,17 @@ public class 	ConverterToLegacy {
 		    series.getCarrierCode() == null &&
 			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
 			series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
-            addCarrier(fare.getCarrierConstraint().getIncludedCarriers());
-            addCarrier(InvolvedTcoFinder.getInvolvedCarriers(fare.getRegionalConstraint()));
 		} 	
+		
+		if (fare.getCarrierConstraint() != null && 
+			fare.getCarrierConstraint().getIncludedCarriers() != null && 
+			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+            addCarrier(fare.getCarrierConstraint().getIncludedCarriers());
+		}
+		if (fare.getRegionalConstraint() != null) {
+			addCarrier(InvolvedTcoFinder.getInvolvedCarriers(fare.getRegionalConstraint()));
+		}
+		
 		
 		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
 		

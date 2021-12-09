@@ -778,6 +778,18 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.ADD_CARRIER_RULES: {
+				AddCarrierRules addCarrierRules = (AddCarrierRules)theEObject;
+				T result = caseAddCarrierRules(addCarrierRules);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.ADD_CARRIER_RULE: {
+				AddCarrierRule addCarrierRule = (AddCarrierRule)theEObject;
+				T result = caseAddCarrierRule(addCarrierRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.VAT_TEMPLATES: {
 				VatTemplates vatTemplates = (VatTemplates)theEObject;
 				T result = caseVatTemplates(vatTemplates);
@@ -2789,6 +2801,36 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConversionParams(ConversionParams object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Add Carrier Rules</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Add Carrier Rules</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAddCarrierRules(AddCarrierRules object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Add Carrier Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Add Carrier Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAddCarrierRule(AddCarrierRule object) {
 		return null;
 	}
 

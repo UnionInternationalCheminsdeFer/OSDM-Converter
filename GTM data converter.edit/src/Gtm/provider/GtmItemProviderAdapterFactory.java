@@ -2803,6 +2803,52 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.AddCarrierRules} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AddCarrierRulesItemProvider addCarrierRulesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.AddCarrierRules}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAddCarrierRulesAdapter() {
+		if (addCarrierRulesItemProvider == null) {
+			addCarrierRulesItemProvider = new AddCarrierRulesItemProvider(this);
+		}
+
+		return addCarrierRulesItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.AddCarrierRule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AddCarrierRuleItemProvider addCarrierRuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.AddCarrierRule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAddCarrierRuleAdapter() {
+		if (addCarrierRuleItemProvider == null) {
+			addCarrierRuleItemProvider = new AddCarrierRuleItemProvider(this);
+		}
+
+		return addCarrierRuleItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.VatTemplates} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3966,6 +4012,8 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (requiredReductionCardItemProvider != null) requiredReductionCardItemProvider.dispose();
 		if (conversionFromLegacyItemProvider != null) conversionFromLegacyItemProvider.dispose();
 		if (conversionParamsItemProvider != null) conversionParamsItemProvider.dispose();
+		if (addCarrierRulesItemProvider != null) addCarrierRulesItemProvider.dispose();
+		if (addCarrierRuleItemProvider != null) addCarrierRuleItemProvider.dispose();
 		if (vatTemplatesItemProvider != null) vatTemplatesItemProvider.dispose();
 		if (vatTemplateItemProvider != null) vatTemplateItemProvider.dispose();
 		if (legacyFareTemplatesItemProvider != null) legacyFareTemplatesItemProvider.dispose();

@@ -857,6 +857,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass addCarrierRulesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass addCarrierRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass vatTemplatesEClass = null;
 
 	/**
@@ -1131,6 +1145,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum boardingOrArrivalEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum addCarrierScopeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -6726,6 +6747,69 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getConversionParams_AddCarrierRules() {
+		return (EReference)conversionParamsEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAddCarrierRules() {
+		return addCarrierRulesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAddCarrierRules_AddCarrierRule() {
+		return (EReference)addCarrierRulesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAddCarrierRule() {
+		return addCarrierRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAddCarrierRule_Carrier() {
+		return (EReference)addCarrierRuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddCarrierRule_Scope() {
+		return (EAttribute)addCarrierRuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAddCarrierRule_Stations() {
+		return (EReference)addCarrierRuleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getVatTemplates() {
 		return vatTemplatesEClass;
 	}
@@ -8643,6 +8727,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getAddCarrierScope() {
+		return addCarrierScopeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getTransportMode() {
 		return transportModeEEnum;
 	}
@@ -9816,6 +9909,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(conversionParamsEClass, CONVERSION_PARAMS__BUS_FERRY_MAPPING);
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__LEGACY_BORDER_INDICATION);
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS);
+		createEReference(conversionParamsEClass, CONVERSION_PARAMS__ADD_CARRIER_RULES);
+
+		addCarrierRulesEClass = createEClass(ADD_CARRIER_RULES);
+		createEReference(addCarrierRulesEClass, ADD_CARRIER_RULES__ADD_CARRIER_RULE);
+
+		addCarrierRuleEClass = createEClass(ADD_CARRIER_RULE);
+		createEReference(addCarrierRuleEClass, ADD_CARRIER_RULE__CARRIER);
+		createEAttribute(addCarrierRuleEClass, ADD_CARRIER_RULE__SCOPE);
+		createEReference(addCarrierRuleEClass, ADD_CARRIER_RULE__STATIONS);
 
 		vatTemplatesEClass = createEClass(VAT_TEMPLATES);
 		createEReference(vatTemplatesEClass, VAT_TEMPLATES__VAT_TEMPLATES);
@@ -10073,6 +10175,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		// Create enums
 		boardingOrArrivalEEnum = createEEnum(BOARDING_OR_ARRIVAL);
+		addCarrierScopeEEnum = createEEnum(ADD_CARRIER_SCOPE);
 		transportModeEEnum = createEEnum(TRANSPORT_MODE);
 		stationRelationTypeEEnum = createEEnum(STATION_RELATION_TYPE);
 		stationFareDetailTypeEEnum = createEEnum(STATION_FARE_DETAIL_TYPE);
@@ -10874,6 +10977,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getConversionParams_BusFerryMapping(), this.getLegacyBusFerryMapping(), null, "busFerryMapping", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConversionParams_LegacyBorderIndication(), ecorePackage.getEString(), "legacyBorderIndication", "(GR)", 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConversionParams_RemoveUnusedLegacyStations(), ecorePackage.getEBoolean(), "removeUnusedLegacyStations", "true", 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConversionParams_AddCarrierRules(), this.getAddCarrierRules(), null, "addCarrierRules", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(addCarrierRulesEClass, AddCarrierRules.class, "AddCarrierRules", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAddCarrierRules_AddCarrierRule(), this.getAddCarrierRule(), null, "addCarrierRule", null, 0, -1, AddCarrierRules.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(addCarrierRuleEClass, AddCarrierRule.class, "AddCarrierRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAddCarrierRule_Carrier(), this.getCarrier(), null, "carrier", null, 0, 1, AddCarrierRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAddCarrierRule_Scope(), this.getAddCarrierScope(), "scope", null, 0, 1, AddCarrierRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAddCarrierRule_Stations(), this.getStation(), null, "stations", null, 0, -1, AddCarrierRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(vatTemplatesEClass, VatTemplates.class, "VatTemplates", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVatTemplates_VatTemplates(), this.getVatTemplate(), null, "vatTemplates", null, 0, -1, VatTemplates.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11143,6 +11255,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEEnum(boardingOrArrivalEEnum, BoardingOrArrival.class, "BoardingOrArrival");
 		addEEnumLiteral(boardingOrArrivalEEnum, BoardingOrArrival.BOARDING);
 		addEEnumLiteral(boardingOrArrivalEEnum, BoardingOrArrival.ARRIVAL);
+
+		initEEnum(addCarrierScopeEEnum, AddCarrierScope.class, "AddCarrierScope");
+		addEEnumLiteral(addCarrierScopeEEnum, AddCarrierScope.CARRIER);
+		addEEnumLiteral(addCarrierScopeEEnum, AddCarrierScope.TCO);
+		addEEnumLiteral(addCarrierScopeEEnum, AddCarrierScope.TCO_AND_CARRIER);
 
 		initEEnum(transportModeEEnum, TransportMode.class, "TransportMode");
 		addEEnumLiteral(transportModeEEnum, TransportMode.TRAIN);

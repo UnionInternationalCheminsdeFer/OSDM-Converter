@@ -1,16 +1,19 @@
 package Gtm.utils;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import Gtm.AlternativeRoute;
 import Gtm.Carrier;
 import Gtm.FareElement;
+import Gtm.GTMTool;
 import Gtm.Line;
 import Gtm.RegionalConstraint;
 import Gtm.RegionalValidity;
 import Gtm.ViaStation;
 import Gtm.Zone;
+import Gtm.converter.AddCarrierRuleEngine;
 
 public class InvolvedTcoFinder {
 	
@@ -153,6 +156,19 @@ public class InvolvedTcoFinder {
 		}
 		
 		return tcos;
+	}
+
+	public static Collection<? extends Carrier> getInvolvedTcos(GTMTool tool, RegionalConstraint regionalConstraint) {
+		
+		Set<Carrier> carriers = getInvolvedCarriers(regionalConstraint);
+		
+		if (tool.getConversionFromLegacy().getParams().getAddCarrierRules() != null) {
+			Set<Carrier> add = AddCarrierRuleEngine.getAdditionalTCOs(tool, regionalConstraint, tool.getConversionFromLegacy().getParams().getAddCarrierRules());
+		
+			carriers.addAll(add);
+		}
+		
+		return carriers;
 	}
 
 

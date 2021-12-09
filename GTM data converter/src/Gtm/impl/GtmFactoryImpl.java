@@ -176,6 +176,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.REQUIRED_REDUCTION_CARD: return createRequiredReductionCard();
 			case GtmPackage.CONVERSION_FROM_LEGACY: return createConversionFromLegacy();
 			case GtmPackage.CONVERSION_PARAMS: return createConversionParams();
+			case GtmPackage.ADD_CARRIER_RULES: return createAddCarrierRules();
+			case GtmPackage.ADD_CARRIER_RULE: return createAddCarrierRule();
 			case GtmPackage.VAT_TEMPLATES: return createVatTemplates();
 			case GtmPackage.VAT_TEMPLATE: return createVatTemplate();
 			case GtmPackage.LEGACY_FARE_TEMPLATES: return createLegacyFareTemplates();
@@ -231,6 +233,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 		switch (eDataType.getClassifierID()) {
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return createBoardingOrArrivalFromString(eDataType, initialValue);
+			case GtmPackage.ADD_CARRIER_SCOPE:
+				return createAddCarrierScopeFromString(eDataType, initialValue);
 			case GtmPackage.TRANSPORT_MODE:
 				return createTransportModeFromString(eDataType, initialValue);
 			case GtmPackage.STATION_RELATION_TYPE:
@@ -344,6 +348,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 		switch (eDataType.getClassifierID()) {
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return convertBoardingOrArrivalToString(eDataType, instanceValue);
+			case GtmPackage.ADD_CARRIER_SCOPE:
+				return convertAddCarrierScopeToString(eDataType, instanceValue);
 			case GtmPackage.TRANSPORT_MODE:
 				return convertTransportModeToString(eDataType, instanceValue);
 			case GtmPackage.STATION_RELATION_TYPE:
@@ -1632,6 +1638,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AddCarrierRules createAddCarrierRules() {
+		AddCarrierRulesImpl addCarrierRules = new AddCarrierRulesImpl();
+		return addCarrierRules;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddCarrierRule createAddCarrierRule() {
+		AddCarrierRuleImpl addCarrierRule = new AddCarrierRuleImpl();
+		return addCarrierRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public VatTemplates createVatTemplates() {
 		VatTemplatesImpl vatTemplates = new VatTemplatesImpl();
 		return vatTemplates;
@@ -2034,6 +2060,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * @generated
 	 */
 	public String convertBoardingOrArrivalToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddCarrierScope createAddCarrierScopeFromString(EDataType eDataType, String initialValue) {
+		AddCarrierScope result = AddCarrierScope.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAddCarrierScopeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

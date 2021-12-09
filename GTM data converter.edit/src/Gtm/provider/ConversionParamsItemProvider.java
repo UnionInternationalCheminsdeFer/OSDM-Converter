@@ -224,6 +224,7 @@ public class ConversionParamsItemProvider
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__LEGACY_STATION_TO_FARE_DETAIL_MAPPINGS);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__VAT_TEMPLATES);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING);
+			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__ADD_CARRIER_RULES);
 		}
 		return childrenFeatures;
 	}
@@ -295,6 +296,7 @@ public class ConversionParamsItemProvider
 			case GtmPackage.CONVERSION_PARAMS__LEGACY_STATION_TO_FARE_DETAIL_MAPPINGS:
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
 			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
+			case GtmPackage.CONVERSION_PARAMS__ADD_CARRIER_RULES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -341,6 +343,11 @@ public class ConversionParamsItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING,
 				 GtmFactory.eINSTANCE.createLegacyBusFerryMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.CONVERSION_PARAMS__ADD_CARRIER_RULES,
+				 GtmFactory.eINSTANCE.createAddCarrierRules()));
 	}
 
 	/**

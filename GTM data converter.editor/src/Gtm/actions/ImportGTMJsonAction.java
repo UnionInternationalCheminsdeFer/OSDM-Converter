@@ -31,6 +31,8 @@ import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
+import Gtm.utils.MigrationV2;
+import Gtm.utils.ModelInitializer;
 import export.ImportFareDeliveryV14;
 import gtmV14.FareDef;
 import gtmV14.FareDelivery;
@@ -260,12 +262,14 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 							domain.getCommandStack().execute(command);
 						}	
 						
-						Command com = GtmUtils.getLinkReductionCardClassesCommand(tool.getGeneralTariffModel().getFareStructure(), editor.getEditingDomain());
+						Command com = ModelInitializer.getLinkReductionCardClassesCommand(tool.getGeneralTariffModel().getFareStructure(), editor.getEditingDomain());
 						if (com != null && com.canExecute()) {
 							editor.getEditingDomain().getCommandStack().execute(com);
 						}
 
 						GtmUtils.deleteOrphanedObjects(domain, tool);
+							
+						MigrationV2.migrateV2(domain, editor);
 					
 						monitor.worked(1);
 						

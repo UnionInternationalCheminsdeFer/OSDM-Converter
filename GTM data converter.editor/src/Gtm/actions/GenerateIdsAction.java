@@ -8,6 +8,7 @@ import Gtm.FareStructure;
 import Gtm.GTMTool;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.utils.GtmUtils;
+import Gtm.utils.ModelInitializer;
 
 
 
@@ -39,7 +40,7 @@ public class GenerateIdsAction extends BasicGtmAction {
 			
 			GTMTool tool = (GTMTool) editingDomainProvider.getEditingDomain().getRoot(o);
 			
-			CompoundCommand preparationCommand = GtmUtils.getPreparationCommand(tool, editingDomainProvider.getEditingDomain());
+			CompoundCommand preparationCommand = ModelInitializer.getPreparationCommand(tool, editingDomainProvider.getEditingDomain());
 			
 			if (preparationCommand != null && !preparationCommand.isEmpty()) {
 				editingDomainProvider.getEditingDomain().getCommandStack().execute(preparationCommand);

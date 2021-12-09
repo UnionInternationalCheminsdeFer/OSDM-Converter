@@ -1084,6 +1084,24 @@ public interface GtmFactory extends EFactory {
 	ConversionParams createConversionParams();
 
 	/**
+	 * Returns a new object of class '<em>Add Carrier Rules</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Add Carrier Rules</em>'.
+	 * @generated
+	 */
+	AddCarrierRules createAddCarrierRules();
+
+	/**
+	 * Returns a new object of class '<em>Add Carrier Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Add Carrier Rule</em>'.
+	 * @generated
+	 */
+	AddCarrierRule createAddCarrierRule();
+
+	/**
 	 * Returns a new object of class '<em>Vat Templates</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -2355,9 +2355,12 @@ public class ConverterFromLegacy {
 			fares.add(fare);			
 		}
 		
-		//add carriers as involved tcos
-		fare.getInvolvedTcos().addAll(InvolvedTcoFinder.getInvolvedCarriers(regionalConstraint));
-		
+	
+		//add TCOs
+		fare.getInvolvedTcos().addAll(InvolvedTcoFinder.getInvolvedTcos(tool,regionalConstraint));
+
+		//add carriers
+		AddCarrierRuleEngine.addCarriers(tool,fare.getRegionalConstraint());
 	}
 
 	

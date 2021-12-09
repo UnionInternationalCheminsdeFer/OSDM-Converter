@@ -540,6 +540,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createConversionParamsAdapter();
 			}
 			@Override
+			public Adapter caseAddCarrierRules(AddCarrierRules object) {
+				return createAddCarrierRulesAdapter();
+			}
+			@Override
+			public Adapter caseAddCarrierRule(AddCarrierRule object) {
+				return createAddCarrierRuleAdapter();
+			}
+			@Override
 			public Adapter caseVatTemplates(VatTemplates object) {
 				return createVatTemplatesAdapter();
 			}
@@ -2368,6 +2376,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConversionParamsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.AddCarrierRules <em>Add Carrier Rules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.AddCarrierRules
+	 * @generated
+	 */
+	public Adapter createAddCarrierRulesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.AddCarrierRule <em>Add Carrier Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.AddCarrierRule
+	 * @generated
+	 */
+	public Adapter createAddCarrierRuleAdapter() {
 		return null;
 	}
 

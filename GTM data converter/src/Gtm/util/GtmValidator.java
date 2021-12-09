@@ -327,6 +327,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateConversionFromLegacy((ConversionFromLegacy)value, diagnostics, context);
 			case GtmPackage.CONVERSION_PARAMS:
 				return validateConversionParams((ConversionParams)value, diagnostics, context);
+			case GtmPackage.ADD_CARRIER_RULES:
+				return validateAddCarrierRules((AddCarrierRules)value, diagnostics, context);
+			case GtmPackage.ADD_CARRIER_RULE:
+				return validateAddCarrierRule((AddCarrierRule)value, diagnostics, context);
 			case GtmPackage.VAT_TEMPLATES:
 				return validateVatTemplates((VatTemplates)value, diagnostics, context);
 			case GtmPackage.VAT_TEMPLATE:
@@ -409,6 +413,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyViastation((LegacyViastation)value, diagnostics, context);
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return validateBoardingOrArrival((BoardingOrArrival)value, diagnostics, context);
+			case GtmPackage.ADD_CARRIER_SCOPE:
+				return validateAddCarrierScope((AddCarrierScope)value, diagnostics, context);
 			case GtmPackage.TRANSPORT_MODE:
 				return validateTransportMode((TransportMode)value, diagnostics, context);
 			case GtmPackage.STATION_RELATION_TYPE:
@@ -1121,6 +1127,24 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAddCarrierRules(AddCarrierRules addCarrierRules, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(addCarrierRules, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAddCarrierRule(AddCarrierRule addCarrierRule, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(addCarrierRule, diagnostics, context);
 	}
 
 	/**
@@ -2825,6 +2849,15 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBoardingOrArrival(BoardingOrArrival boardingOrArrival, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAddCarrierScope(AddCarrierScope addCarrierScope, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

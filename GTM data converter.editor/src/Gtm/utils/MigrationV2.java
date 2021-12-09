@@ -94,7 +94,7 @@ public class MigrationV2 {
 			return;
 		}
 		
-		CompoundCommand com = GtmUtils.getPreparationCommand((GTMTool)object, domain);
+		CompoundCommand com = ModelInitializer.getPreparationCommand((GTMTool)object, domain);
 		if (com != null && !com.isEmpty() && com.canExecute()) {
 			domain.getCommandStack().execute(com);
 		}
@@ -659,7 +659,7 @@ public class MigrationV2 {
 			}
 			
 			
-			Command com = GtmUtils.getLinkReductionCardClassesCommand(tool.getGeneralTariffModel().getFareStructure(), editor.getEditingDomain());
+			Command com = ModelInitializer.getLinkReductionCardClassesCommand(tool.getGeneralTariffModel().getFareStructure(), editor.getEditingDomain());
 			if (com != null && com.canExecute()) {
 				editor.getEditingDomain().getCommandStack().execute(com);
 			}

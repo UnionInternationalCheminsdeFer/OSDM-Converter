@@ -84,7 +84,7 @@ public class TimeZoneConversionTest {
 		dateFormat.setTimeZone(java.util.TimeZone.getTimeZone(timeZone)); 
 		String dateString = dateFormat.format(date);
 		
-		assert("2021-12-12".equals(dateString));
+		assert("20211212".equals(dateString));
 
 	}
 }

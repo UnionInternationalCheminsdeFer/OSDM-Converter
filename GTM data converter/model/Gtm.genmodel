@@ -14,6 +14,11 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BoardingOrArrival/BOARDING"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//BoardingOrArrival/ARRIVAL"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//AddCarrierScope">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//AddCarrierScope/CARRIER"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//AddCarrierScope/TCO"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//AddCarrierScope/TCO_AND_CARRIER"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//TransportMode">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/train"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TransportMode/ship"/>
@@ -1166,6 +1171,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/busFerryMapping"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/legacyBorderIndication"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/removeUnusedLegacyStations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/addCarrierRules"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//AddCarrierRules">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//AddCarrierRules/addCarrierRule"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//AddCarrierRule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//AddCarrierRule/carrier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//AddCarrierRule/scope"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//AddCarrierRule/stations"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//VatTemplates">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//VatTemplates/vatTemplates"/>
