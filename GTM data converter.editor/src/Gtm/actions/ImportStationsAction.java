@@ -310,7 +310,7 @@ public class ImportStationsAction extends BasicGtmAction {
 					 
 					 int functionCodeQualifierInt = 0;
 					 try {
-						 functionCodeQualifierInt = Integer.parseInt(functionCodeQualifier) 
+						 functionCodeQualifierInt = Integer.parseInt(functionCodeQualifier); 
 					 } catch (Exception e) {
 						 //do nothing
 					 }
