@@ -308,7 +308,14 @@ public class ImportStationsAction extends BasicGtmAction {
 				 if (country != null) {
 					 Station station = GtmFactory.eINSTANCE.createStation();
 					 
-					 if (Integer.parseInt(functionCodeQualifier) == 17) {
+					 int functionCodeQualifierInt = 0;
+					 try {
+						 functionCodeQualifierInt = Integer.parseInt(functionCodeQualifier) 
+					 } catch (Exception e) {
+						 //do nothing
+					 }
+					 
+					 if (functionCodeQualifierInt == 17) {
 						 station.setBorderStation(true);
 					 } else {
 						 station.setBorderStation(false);
