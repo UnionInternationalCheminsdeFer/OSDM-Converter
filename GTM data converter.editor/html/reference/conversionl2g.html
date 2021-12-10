@@ -71,6 +71,12 @@ The referenced data items must be defined in the General Tariff Model fare struc
 <tr><td>Legacy Station to Fare Detail Description Mapping</td>
     <td>A mapping of a station to a fare detail description.</td>
     <td>Selection list on the text defined in the fare data.Can be used to add details depending on a station on arrival, departure or both. (E.g. Diabolo airport fee in Brussels)</td></tr>
+<tr><td>Rules to add Carrier or TCOs</td>
+    <td>Rules to add an additional carrier or a TCO to the OSDM data.</td>
+    <td>The rule defines the carrier to be added and a list of stations. The carrier will be added to all fares and routes where at least two of the stations are included in the regional validity. It can be defined whether the carrier and / or the TCO should be added. TCOs are added as alist on involved TCOS in the fare, carriers are added to the main route.</td></tr>
+
+
+
 </table>
 </ul>
 

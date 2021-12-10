@@ -51,7 +51,7 @@ public class AddCarrierRuleEngine {
 				    		boolean ruleApplies = checkContainsTwoStations(via, rule.getStations()) ;
 		
 				    		if (ruleApplies) {
-				    			if (via.getServiceConstraint() == null) {
+				    			if (via.getCarrierConstraint() == null) {
 				    				via.setCarrierConstraint(GtmFactory.eINSTANCE.createCarrierConstraint());
 				    			} 
 				    							    			
@@ -140,8 +140,7 @@ public class AddCarrierRuleEngine {
 		return false;
 	}
 
-	public static Set<Carrier> getAdditionalTCOs(GTMTool tool, RegionalConstraint regionalConstraint,
-			AddCarrierRules addCarrierRules) {
+	public static Set<Carrier> getAdditionalTCOs(GTMTool tool, RegionalConstraint regionalConstraint) {
 		
 		HashSet<Carrier> tcos = new HashSet<Carrier>();
 		
@@ -162,7 +161,7 @@ public class AddCarrierRuleEngine {
 		for (AddCarrierRule rule : rules.getAddCarrierRule()) {
 				
 			if (rule.getCarrier() != null &&
-				(rule.getScope().equals(AddCarrierScope.CARRIER)
+				(rule.getScope().equals(AddCarrierScope.TCO)
 				|| rule.getScope().equals(AddCarrierScope.TCO_AND_CARRIER))) {
 			
 				boolean ruleApplies = checkContainsTwoStations(regionalConstraint, rule.getStations()) ;

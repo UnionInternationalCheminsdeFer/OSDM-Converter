@@ -163,7 +163,8 @@ public class InvolvedTcoFinder {
 		Set<Carrier> carriers = getInvolvedCarriers(regionalConstraint);
 		
 		if (tool.getConversionFromLegacy().getParams().getAddCarrierRules() != null) {
-			Set<Carrier> add = AddCarrierRuleEngine.getAdditionalTCOs(tool, regionalConstraint, tool.getConversionFromLegacy().getParams().getAddCarrierRules());
+			
+			Set<Carrier> add = AddCarrierRuleEngine.getAdditionalTCOs(tool, regionalConstraint);
 		
 			carriers.addAll(add);
 		}

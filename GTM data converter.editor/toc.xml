@@ -4,7 +4,7 @@
 <toc label="Content" >
 	<topic href="html/gettingstarted/gettingstarted.html" label="Introduction" ></topic>
 	<topic href="html/gettingstarted/recommendedWorkflow.html" label="Recommended Workflow"> </topic>
-
+	<topic href="html/gettingstarted/whatsNew.html" label="What's new with OSDM 1.4"/>
     <topic  href="html/reference/reference.html" label="Reference">
 		<topic href="html/reference/application.html" label="Application">	</topic> 
 		<topic href="html/reference/validation.html" label="Validation"> </topic> 
@@ -12,6 +12,7 @@
   		<topic href="html/reference/userPreferences.html" label="User Preferences"> </topic>
   		<topic href="html/reference/conversionl2g.html" label="Conversion 108 to 90918"/>  
  		<topic href="html/reference/conversiong2l.html" label="Conversion 90918 to 108"/>  
+ 		<topic href="html/reference/conversionOfOsdmVersion.html" label="Conversion of OSDM versions 1.2 and 1.4"/> 
  		<topic href="html/reference/data_editing.html" label="Data Editing"/>	
  		<topic href="html/reference/exported108.html" label="Limitations of the exported 108 Data"/>
  		<topic href="html/reference/datadescription.html" label="Data Description">
