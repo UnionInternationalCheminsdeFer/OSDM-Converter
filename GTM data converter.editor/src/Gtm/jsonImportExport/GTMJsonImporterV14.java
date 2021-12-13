@@ -20,6 +20,7 @@ import Gtm.converter.StationComparator;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.CodeListInitializer;
 import Gtm.utils.GtmUtils;
 import gtmV14.AfterSalesConditionDef;
 import gtmV14.AfterSalesRuleDef;
@@ -215,7 +216,7 @@ public class GTMJsonImporterV14 {
 		
 		fareStructure.setReductionCards(convertReductionCards(fareDataDef.getReductionCards()));
 		
-		GtmUtils.createGenericReductionCards(fareStructure,tool);
+		CodeListInitializer.createGenericReductionCards(fareStructure,tool);
 		
 		fareStructure.setPassengerConstraints(convertPassengerConstraints(fareDataDef.getPassengerConstraints()));
 		
@@ -282,9 +283,7 @@ public class GTMJsonImporterV14 {
 	private StationNames convertStationNames(List<StationNamesDef> jl) {
 		
 		StationNames stationNames = GtmFactory.eINSTANCE.createStationNames();
-		
-		HashMap<Long,Station> stationList = new HashMap<Long,Station>();
-		
+			
 		HashSet<Station> stationSet = new HashSet<Station>();
 		
 		if (jl == null || jl.isEmpty()) return stationNames;
@@ -300,13 +299,9 @@ public class GTMJsonImporterV14 {
 				s = stations.get(Long.valueOf(jn.getCountry() * 100000 + jn.getLocalCode()));
 			}
 			if (s != null) {
+				
+				stationSet.add(s);
 
-				//is the station new
-				Station st = stationList.get(s.getStationCode());
-				if (st == null) {			
-					stationSet.add(s);
-					stationList.put(s.getStationCode(), s);
-				} 
 			}
 						
 		}
@@ -876,6 +871,7 @@ public class GTMJsonImporterV14 {
 			r.setZone(convert(jr.getZone()));
 			r.setLine(convert(jr.getLine()));
 			r.setServiceConstraint(findServiceConstraint(jr.getServiceConstraintRef()));
+			r.setCarrierConstraint(findCarrierConstraint(jr.getCarrierConstraintRef()));
 			
 			l.add(r);
 		}
@@ -948,6 +944,8 @@ public class GTMJsonImporterV14 {
 		}
 		
 		v.setServiceConstraint(findServiceConstraint(jv.getServiceConstraintRef()));
+		
+		v.setCarrierConstraint(findCarrierConstraint(jv.getCarrierConstraintRef()));
 		
 		return v;
 	}
@@ -1643,6 +1641,10 @@ public class GTMJsonImporterV14 {
 				}
 			}
 	    }
+		
+		if (jf.getInvolvedTCOs() != null && !jf.getInvolvedTCOs().isEmpty()) {
+			f.getInvolvedTcos().addAll(convertCarrierList(jf.getInvolvedTCOs()));
+		}
 
 		return f;
 	}

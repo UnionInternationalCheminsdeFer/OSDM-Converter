@@ -6,13 +6,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
+import Gtm.AfterSalesRule;
 import Gtm.AfterSalesTemplate;
+import Gtm.Calendar;
 import Gtm.Carrier;
+import Gtm.CarrierConstraint;
+import Gtm.CombinationConstraint;
+import Gtm.ConnectionPoint;
 import Gtm.Country;
 import Gtm.FareConstraintBundle;
 import Gtm.FareElement;
+import Gtm.FareStationSetDefinition;
+import Gtm.FareStructure;
 import Gtm.FareTemplate;
+import Gtm.FulfillmentConstraint;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.Language;
@@ -22,9 +29,21 @@ import Gtm.Legacy108Stations;
 import Gtm.LegacyCarrier;
 import Gtm.LegacyRouteFare;
 import Gtm.RegionalConstraint;
+import Gtm.ReservationParameter;
+import Gtm.SalesAvailabilityConstraint;
+import Gtm.ServiceConstraint;
+import Gtm.ServiceLevel;
 import Gtm.Station;
+import Gtm.Text;
+import Gtm.TotalPassengerCombinationConstraint;
+import Gtm.TravelValidityConstraint;
 import Gtm.ViaStation;
 import Gtm.LegacySeries;
+import Gtm.PassengerConstraint;
+import Gtm.PersonalDataConstraint;
+import Gtm.Price;
+import Gtm.ReductionCard;
+import Gtm.ReductionConstraint;
 
 public class TestUtils {
 	
@@ -293,6 +312,189 @@ public class TestUtils {
 		String d2 = dateFormat.format(date2);
 		
 		return d1.equals(d2);
+
+	}
+
+	public static void setIds(GTMTool tool) {
+		
+		if (tool == null) return;
+		
+		
+		FareStructure fareStructure = tool.getGeneralTariffModel().getFareStructure();
+		
+		String baseName = "test";
+		baseName = baseName +"_1";		
+		String listName = baseName;
+				
+		listName = baseName + "A_"; //$NON-NLS-1$
+		int i = 0;
+		for (AfterSalesRule object : fareStructure.getAfterSalesRules().getAfterSalesRules()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}
+		
+		listName = baseName + "B_"; //$NON-NLS-1$
+		i = 0;
+		for (Calendar object : fareStructure.getCalendars().getCalendars()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}
+
+		listName = baseName + "C_"; //$NON-NLS-1$
+		i = 0;
+		for (CarrierConstraint object : fareStructure.getCarrierConstraints().getCarrierConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}
+		
+		listName = baseName + "D_"; //$NON-NLS-1$
+		i = 0;		
+		for (CombinationConstraint object : fareStructure.getCombinationConstraints().getCombinationConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}
+		
+		listName = baseName + "E_"; //$NON-NLS-1$
+		i = 0;
+		for (ConnectionPoint object : fareStructure.getConnectionPoints().getConnectionPoints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}
+		
+		for (FulfillmentConstraint object : fareStructure.getFulfillmentConstraints().getFulfillmentConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}
+		
+		listName = baseName + "G_"; //$NON-NLS-1$
+		i = 0;
+		for (PassengerConstraint object : fareStructure.getPassengerConstraints().getPassengerConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}		
+		
+	
+		listName = baseName + "I_"; //$NON-NLS-1$
+		i = 0;
+		for (Price object : fareStructure.getPrices().getPrices()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}		
+		
+		listName = baseName + "J_"; //$NON-NLS-1$		i = 0;
+		for (ReductionCard object : fareStructure.getReductionCards().getReductionCards()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}		
+	
+		
+		listName = baseName + "K_"; //$NON-NLS-1$
+		i = 0;
+		for (ReductionConstraint object : fareStructure.getReductionConstraints().getReductionConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}		
+		
+		for (RegionalConstraint object : fareStructure.getRegionalConstraints().getRegionalConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}	
+		
+		listName = baseName + "M_"; //$NON-NLS-1$
+		i = 0;
+		for (SalesAvailabilityConstraint object : fareStructure.getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}	
+		
+		
+		listName = baseName + "N_"; //$NON-NLS-1$
+		i = 0;
+		for (ServiceConstraint object : fareStructure.getServiceConstraints().getServiceConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}	
+		
+		listName = baseName + "O_"; //$NON-NLS-1$
+		i = 0;
+		for (ServiceLevel object : fareStructure.getServiceLevelDefinitions().getServiceLevelDefinition()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}	
+		
+		listName = baseName + "P_"; //$NON-NLS-1$
+		i = 0;
+		for (Text object : fareStructure.getTexts().getTexts()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}	
+		
+		listName = baseName + "Q_"; //$NON-NLS-1$
+		i = 0;
+		for (TravelValidityConstraint object : fareStructure.getTravelValidityConstraints().getTravelValidityConstraints()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}		
+		
+		listName = baseName + "R_"; //$NON-NLS-1$
+		i = 0;
+		for (FareStationSetDefinition object : fareStructure.getFareStationSetDefinitions().getFareStationSetDefinitions()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}						
+
+		listName = baseName + "S_"; //$NON-NLS-1$
+		i = 0;
+		for (FareConstraintBundle object : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}
+		
+		listName = baseName + "T_"; //$NON-NLS-1$
+		i = 0;
+		for (TotalPassengerCombinationConstraint object : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+			i++;
+			if (object.getId() == null || object.getId().isEmpty()) {
+				object.setId(listName + "_" + Integer.toString(i));
+			}
+		}
+		
 
 	}
 	

@@ -1064,6 +1064,14 @@ public class GtmJsonExporterV14 {
 		if (rv.getServiceConstraint() != null) {
 			rvJ.setServiceConstraintRef(rv.getServiceConstraint().getId());
 		}
+		
+		if (rv.getCarrierConstraint() != null) {
+			rvJ.setCarrierConstraintRef(rv.getCarrierConstraint().getId());
+		}
+		if (rv.getServiceConstraint() != null) {
+			rvJ.setServiceConstraintRef(rv.getServiceConstraint().getId());
+		}
+		
 		return rvJ;
 	}
 
@@ -1165,8 +1173,6 @@ public class GtmJsonExporterV14 {
 	}
 
 
-
-
 	private static ViaStationsDef convertToJson(ViaStation v) {
 		if (v == null) return null;
 		boolean isEmpty = true;
@@ -1236,6 +1242,11 @@ public class GtmJsonExporterV14 {
 		if (v.getServiceConstraint() != null) {
 			isEmpty = false;
 			vJ.setServiceConstraintRef(v.getServiceConstraint().getId());
+		}
+		
+		if (v.getCarrierConstraint() != null) {
+			isEmpty = false;
+			vJ.setCarrierConstraintRef(v.getCarrierConstraint().getId());
 		}
 		
 		if (isEmpty) {
@@ -1941,6 +1952,11 @@ public class GtmJsonExporterV14 {
 			}
 	
 		}
+		
+		if (fare.getInvolvedTcos() != null && !fare.getInvolvedTcos().isEmpty()) {
+			fareJ.setInvolvedTCOs(convertCarriersToJson(fare.getInvolvedTcos()));
+		}
+		
 		
 		return fareJ;
 	}

@@ -15,6 +15,7 @@ import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
 import Gtm.converter.tests.mocks.MockedEditingDomain;
 import Gtm.converter.tests.mocks.MockedProgressMonitor;
+import Gtm.converter.tests.utils.TestUtils;
 import Gtm.jsonImportExport.GTMJsonImporterV14;
 import Gtm.jsonImportExport.GtmJsonExporterV14;
 import Gtm.utils.GtmUtils;
@@ -51,6 +52,8 @@ public class BasicImportTest {
 		
 		//convert
 		converterFromLegacy.convertToGtmTest(new MockedProgressMonitor());
+		
+		TestUtils.setIds(tool);
 			
 	}
 	
@@ -69,7 +72,7 @@ public class BasicImportTest {
 
 		GeneralTariffModel gtm = importer.convertFromJson(fd);
 		
-		
+		TestUtils.setIds(tool);
 		
 		//validate import model
 		assert (gtm != null);
@@ -103,18 +106,21 @@ public class BasicImportTest {
 		assert(gtm.getFareStructure().getPassengerConstraints().getPassengerConstraints().size() == 1 );
 		
 		assert(gtm.getFareStructure().getFareElements().getFareElements().size() == 24 );
+		assert(!gtm.getFareStructure().getFareElements().getFareElements().get(0).getInvolvedTcos().isEmpty());
+
 		
 		assert(gtm.getFareStructure().getPrices().getPrices().size() == 2 );
 		
 		assert(gtm.getFareStructure().getRegionalConstraints().getRegionalConstraints().size() == 12 );
+		assert(gtm.getFareStructure().getRegionalConstraints().getRegionalConstraints().get(0).getRegionalValidity().get(0).getViaStation().getCarrierConstraint() != null);
+		assert(gtm.getFareStructure().getRegionalConstraints().getRegionalConstraints().get(0).getRegionalValidity().get(0).getViaStation().getCarrierConstraint().getIncludedCarriers().size() == 1);
 		
 		assert(gtm.getFareStructure().getSalesAvailabilityConstraints().getSalesAvailabilityConstraints().size() == 1 );
 		
 		assert(gtm.getFareStructure().getStationNames().getStationName().size() == 9 );
+		assert(gtm.getFareStructure().getStationNames().getStationName().get(0).getStationCode() > 0);
 		
+	
 		
-		
-		
-
 	}
 }

@@ -629,7 +629,7 @@ public class MigrationV2 {
 		FareStructure fs = GtmFactory.eINSTANCE.createFareStructure();
 		fs.setTexts(GtmFactory.eINSTANCE.createTexts());
 		fs.setReductionCards(GtmFactory.eINSTANCE.createReductionCards());
-		GtmUtils.createGenericReductionCards(fs, tool);
+		CodeListInitializer.createGenericReductionCards(fs, tool);
 		
 		if (tool.getGeneralTariffModel()!= null &&
 			tool.getGeneralTariffModel().getFareStructure()!= null &&
@@ -726,7 +726,7 @@ public class MigrationV2 {
 		
 		Countries cs = GtmFactory.eINSTANCE.createCountries();
 		
-		GtmUtils.populateUICcountries(cs);
+		CodeListInitializer.populateUICcountries(cs);
 		
 		CompoundCommand com = new CompoundCommand();
 		

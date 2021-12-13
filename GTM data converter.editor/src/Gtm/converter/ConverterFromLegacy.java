@@ -2253,6 +2253,8 @@ public class ConverterFromLegacy {
 	 */
 	public void convertSeriesToFare(GTMTool tool, LegacySeries series, FareTemplate fareTemplate, int direction, int legacyFareCounter, Price price, RegionalConstraint regionalConstraint, DateRange dateRange, ArrayList<AfterSalesRule> afterSalesRules, ArrayList<Price> priceList, ArrayList<FareElement> fares) throws ConverterException{
 		
+		if (regionalConstraint == null) return;
+		
 		FareElement fare = GtmFactory.eINSTANCE.createFareElement();
 		template2Fare(fare, fareTemplate);
 		if (series.getBusCode() != null && series.getFerryCode() != null && "B".equals(series.getBusCode())  && "S".equals(series.getFerryCode())) {
@@ -2289,13 +2291,7 @@ public class ConverterFromLegacy {
 		
 		
 		fare.setDataSource(DataSource.CONVERTED);
-
-		CarrierConstraint cc = findCarrierContraint(tool,InvolvedTcoFinder.getInvolvedCarriers(regionalConstraint));
-		fare.setCarrierConstraint(cc);
-		if (fare.getCarrierConstraint() == null) {
-			fare.setCarrierConstraint(fareTemplate.getCarrierConstraint());
-		}
-		
+	
 		FareConstraintBundle bundle = null;
 		
 		if (isSeparateContract(series)) {
@@ -2319,6 +2315,28 @@ public class ConverterFromLegacy {
 		
 		fare.setPrice(price);
 		fare.setRegionalConstraint(regionalConstraint);
+		
+		//add carrier to viaStation
+		CarrierConstraint cc = findCarrierContraint(tool,InvolvedTcoFinder.getInvolvedCarriers(regionalConstraint));
+		
+		if (fare.getRegionalConstraint() != null 
+			&& fare.getRegionalConstraint().getRegionalValidity() != null
+			&& fare.getRegionalConstraint().getRegionalValidity().get(0) != null
+			&& fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() != null){
+			   fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation().setCarrierConstraint(cc);
+		}
+
+		if (fareTemplate.getCarrierConstraint() != null &&
+			bundle.getCarrierConstraint() != fareTemplate.getCarrierConstraint()) {
+			fare.setCarrierConstraint(fareTemplate.getCarrierConstraint());
+		}
+		
+		if (fare.getCarrierConstraint() == null  
+				&& cc != null 
+				&& bundle.getCarrierConstraint() != cc) {
+			fare.setCarrierConstraint(cc);
+		}
+				
 		regionalConstraint.getLinkedFares().add(fare);
 		
 		fare.setFareConstraintBundle(bundle);

@@ -15,12 +15,13 @@ import Gtm.converter.tests.dataFactories.LegacyDataFactory;
 import Gtm.converter.tests.mocks.MockedEditingDomain;
 import Gtm.converter.tests.mocks.MockedProgressMonitor;
 import Gtm.converter.tests.utils.TestUtils;
-import Gtm.jsonImportExport.GtmJsonExporter;
+import Gtm.jsonImportExport.GtmJsonExporterV14;
 import Gtm.utils.GtmUtils;
-import gtm.FareDelivery;
+import gtmV14.FareDelivery;
+import gtmV14.FareDeliveryDef;
 
                      
-public class BasicExportTest {
+public class BasicExportV14Test {
 	
 	
 	GTMTool tool = null;
@@ -62,7 +63,7 @@ public class BasicExportTest {
 		tool.getGeneralTariffModel().setDelivery(GtmFactory.eINSTANCE.createDelivery());
 		tool.getGeneralTariffModel().getDelivery().setProvider(tool.getConversionFromLegacy().getLegacy108().getCarrier());
 		
-		GtmJsonExporter exporter = new GtmJsonExporter();
+		GtmJsonExporterV14 exporter = new GtmJsonExporterV14();
 		FareDelivery fd = exporter.convertToJson(tool.getGeneralTariffModel(), new MockedProgressMonitor());
 		
 		//validate export model
@@ -70,42 +71,48 @@ public class BasicExportTest {
 		
 		assert(fd.getFareStructureDelivery() != null);
 		
-		assert(fd.getFareStructureDelivery().getDelivery() != null);
+		FareDeliveryDef gtm = fd.getFareStructureDelivery();
 		
-		assert(fd.getFareStructureDelivery().getDelivery().getFareProvider().equals("9999"));
+		assert(gtm.getDelivery() != null);
 		
-		assert(fd.getFareStructureDelivery().getDelivery().getVersion().equals("1.2"));
+		assert(gtm.getDelivery().getFareProvider().equals("9999"));
 		
-		assert(fd.getFareStructureDelivery().getDelivery().getOptionalDelivery() == false);
+		assert(gtm.getDelivery().getVersion().equals("1.2"));
 		
-		assert(fd.getFareStructureDelivery().getDelivery().getAcceptedVersion().equals("1.2"));
+		assert(gtm.getDelivery().getOptionalDelivery() == false);
+		
+		assert(gtm.getDelivery().getAcceptedVersion().equals("1.2"));
 		
 		
-		assert(fd.getFareStructureDelivery().getFareStructure() != null );
+		assert(gtm.getFareStructure() != null );
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getCalendars().size() == 1);
+		assert(gtm.getFareStructure().getCalendars().size() == 1);
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getCarrierConstraints().size() == 1);
+		assert(gtm.getFareStructure().getCarrierConstraints().size() == 1);
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getCombinationConstraints().size() == 1);
+		assert(gtm.getFareStructure().getCombinationConstraints().size() == 1);
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getFareConstraintBundles().size() == 1);
+		assert(gtm.getFareStructure().getFareConstraintBundles().size() == 1);
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getFareReferenceStationSetDefinitions().size() == 2 );
+		assert(gtm.getFareStructure().getFareReferenceStationSetDefinitions().size() == 2 );
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getConnectionPoints().size() == 2);
+		assert(gtm.getFareStructure().getConnectionPoints().size() == 2);
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getPassengerConstraints().size() == 1 );
+		assert(gtm.getFareStructure().getPassengerConstraints().size() == 1 );
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getFares().size() == 24 );
+		assert(gtm.getFareStructure().getFares().size() == 24 );
+		assert(!gtm.getFareStructure().getFares().get(0).getInvolvedTCOs().isEmpty());
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getPrices().size() == 2 );
+		assert(gtm.getFareStructure().getPrices().size() == 2 );
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getRegionalConstraints().size() == 12 );
+		assert(gtm.getFareStructure().getRegionalConstraints().size() == 12 );
+		assert(gtm.getFareStructure().getRegionalConstraints().get(0).getRegionalValidity().get(0).getViaStations().getCarrierConstraintRef() != null);
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getSalesAvailabilityConstraint().size() == 1 );
+		assert(gtm.getFareStructure().getSalesAvailabilityConstraint().size() == 1 );
 		
-		assert(fd.getFareStructureDelivery().getFareStructure().getStationNames().size() == 9 );
+		assert(gtm.getFareStructure().getStationNames().size() == 9 );	
+		assert(gtm.getFareStructure().getStationNames().get(0).getCode() != null);
+		
 		
 		
 		

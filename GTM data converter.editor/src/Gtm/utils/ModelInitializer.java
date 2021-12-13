@@ -319,13 +319,13 @@ public class ModelInitializer {
 		
 		
 		
-		GtmUtils.populateServiceBrands(tool.getCodeLists().getServiceBrands());
-		GtmUtils.populateUICcountries(tool.getCodeLists().getCountries());
-		GtmUtils.populateCurrencies(tool.getCodeLists().getCurrencies());
-		GtmUtils.populateUICLaguages(tool.getCodeLists().getLanguages());
+		CodeListInitializer.populateServiceBrands(tool.getCodeLists().getServiceBrands());
+		CodeListInitializer.populateUICcountries(tool.getCodeLists().getCountries());
+		CodeListInitializer.populateCurrencies(tool.getCodeLists().getCurrencies());
+		CodeListInitializer.populateUICLaguages(tool.getCodeLists().getLanguages());
 
 		//add generic reduction cards
-		GtmUtils.createGenericReductionCards(tool.getGeneralTariffModel().getFareStructure(), tool);
+		CodeListInitializer.createGenericReductionCards(tool.getGeneralTariffModel().getFareStructure(), tool);
 		
 	}
 	
