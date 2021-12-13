@@ -541,6 +541,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Station/shortNameCaseUTF8"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Station/legacyBorderPointCode"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Station/relations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Station/stationCode"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//StationRelation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//StationRelation/relationType"/>

@@ -24,6 +24,7 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
@@ -952,28 +953,31 @@ public class GtmUtils {
 	 * @param tool the tool
 	 * @return the station map
 	 */
-	public static HashMap<Integer,Station> getStationMap(GTMTool tool)	{
+	public static HashMap<Long,Station> getStationMap(GTMTool tool)	{
 		
 	    if (tool == null || tool.getConversionFromLegacy() == null || tool.getConversionFromLegacy().getParams() == null )	{
 	    	return null;
 	    }
 		
-		HashMap<Integer,Station> stations = new HashMap<Integer,Station>();
+		HashMap<Long,Station> stations = new HashMap<Long,Station>();
 	
 		for (Station station : tool.getCodeLists().getStations().getStations()) {
-			try {
-				stations.put(Integer.valueOf(getNumericStationCode(station)),station);
-			} catch (Exception e){
-				//do nothing 
-			}
+			
+			if (station.getStationCode() > 0) {
+				stations.put(station.getStationCode(), station);
+			} 
 		}
 		return stations;
 	}
 	
-	public static int getNumericStationCode(Station station) {
-		int i = 0;
+	public static long getNumericStationCode(Station station) {
+		long i = 0;
+		if (station.getStationCode() > 0) {
+			return station.getStationCode();
+		}
+		
 		try {
-			i = Integer.parseInt(station.getCode()) + station.getCountry().getCode() * 100000;
+			i = Long.parseLong(station.getCode()) + station.getCountry().getCode() * 100000;
 		} catch (Exception e ) {
 			return 0;
 		}
@@ -981,22 +985,7 @@ public class GtmUtils {
 		return i;
 		
 	}
-	
-	
-	
-	/**
-	 * Gets the station code.
-	 *
-	 * @param s the s
-	 * @return the station code
-	 */
-	public static String getStationCode(Station s) {
-		String code = String.format("%02d%5s", s.getCountry().getCode(),s.getCode());
-		code.replace(' ','0');		
-		return code;
-	}
-	
-	
+		
 	/**
 	 * Write console error.
 	 *
@@ -1528,6 +1517,78 @@ public class GtmUtils {
 		newId = newId.trim();
 		newId = newId.replace(" ", "_");
 		return newId;
+	}
+
+	public static boolean isConvertable(Station sn) {
+		
+		if (sn.getStationCode() > 0L && sn.getStationCode() < 10000000L) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	public static long getStationCode(String s) {
+		
+		//pure station code
+		if (s == null || s.length() == 0) {
+			return 0;
+		}
+		
+		long i = 0;
+		
+		try {
+		
+			i = Long.parseLong(s);
+		
+		} catch (Exception e) {
+			
+			//maybe its URN format
+			String decoded = URI.decode(s);
+			String[] parts = decoded.split(":");
+			
+			try {
+				i =  Integer.parseInt(parts[parts.length - 1]);
+			} catch (Exception e2) {
+				return 0;
+			}
+			
+		}
+		
+		return i;		
+
+	}
+
+	public static int getCountryOfStation(String s) {
+		
+		Long codeNum = GtmUtils.getStationCode(s);
+		
+		if (codeNum < 1000000) return 0;
+		
+		//rail code
+		if (codeNum < 10000000) {
+			return (int) (codeNum / 100000);
+		}
+		
+		// long code
+		//type + country
+		int typeAndCountry = (int) (codeNum / 100000);
+		
+		int type = typeAndCountry / 100;
+		
+		return typeAndCountry - type * 100;
+
+	}
+
+	public static long getlocalStationCode(String s) {
+		
+		Long codeNum = GtmUtils.getStationCode(s);
+		
+		if (codeNum < 1000000) return 0;
+		
+		int typeAndCountry = (int) (codeNum / 100000);
+		return codeNum - typeAndCountry * 100000;
+
 	}
 
 }

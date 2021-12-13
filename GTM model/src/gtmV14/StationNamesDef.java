@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "country",
+    "code",
     "localCode",
     "name",
     "nameUtf8",
@@ -31,11 +32,18 @@ public class StationNamesDef {
     @JsonPropertyDescription("uic country code")
     private Integer country;
     /**
-     * local code 
+     * code 
+     * 
+     */
+    @JsonProperty("code")
+    @JsonPropertyDescription("code ")
+    private String code;
+    /**
+     * local code deprecated with version 1.4
      * 
      */
     @JsonProperty("localCode")
-    @JsonPropertyDescription("local code ")
+    @JsonPropertyDescription("local code deprecated with version 1.4")
     private Integer localCode;
     /**
      * station name with upper and lower case letters in ASCII
@@ -87,7 +95,25 @@ public class StationNamesDef {
     }
 
     /**
-     * local code 
+     * code 
+     * 
+     */
+    @JsonProperty("code")
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * code 
+     * 
+     */
+    @JsonProperty("code")
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * local code deprecated with version 1.4
      * 
      */
     @JsonProperty("localCode")
@@ -96,7 +122,7 @@ public class StationNamesDef {
     }
 
     /**
-     * local code 
+     * local code deprecated with version 1.4
      * 
      */
     @JsonProperty("localCode")
@@ -194,6 +220,10 @@ public class StationNamesDef {
         sb.append('=');
         sb.append(((this.country == null)?"<null>":this.country));
         sb.append(',');
+        sb.append("code");
+        sb.append('=');
+        sb.append(((this.code == null)?"<null>":this.code));
+        sb.append(',');
         sb.append("localCode");
         sb.append('=');
         sb.append(((this.localCode == null)?"<null>":this.localCode));
@@ -230,6 +260,7 @@ public class StationNamesDef {
     public int hashCode() {
         int result = 1;
         result = ((result* 31)+((this.country == null)? 0 :this.country.hashCode()));
+        result = ((result* 31)+((this.code == null)? 0 :this.code.hashCode()));
         result = ((result* 31)+((this.legacyBorderPointCode == null)? 0 :this.legacyBorderPointCode.hashCode()));
         result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
         result = ((result* 31)+((this.nameUtf8 == null)? 0 :this.nameUtf8 .hashCode()));
@@ -248,7 +279,7 @@ public class StationNamesDef {
             return false;
         }
         StationNamesDef rhs = ((StationNamesDef) other);
-        return ((((((((this.country == rhs.country)||((this.country!= null)&&this.country.equals(rhs.country)))&&((this.legacyBorderPointCode == rhs.legacyBorderPointCode)||((this.legacyBorderPointCode!= null)&&this.legacyBorderPointCode.equals(rhs.legacyBorderPointCode))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.nameUtf8 == rhs.nameUtf8)||((this.nameUtf8 != null)&&this.nameUtf8 .equals(rhs.nameUtf8))))&&((this.localCode == rhs.localCode)||((this.localCode!= null)&&this.localCode.equals(rhs.localCode))))&&((this.shortName == rhs.shortName)||((this.shortName!= null)&&this.shortName.equals(rhs.shortName))))&&((this.shortNameUtf8 == rhs.shortNameUtf8)||((this.shortNameUtf8 != null)&&this.shortNameUtf8 .equals(rhs.shortNameUtf8))));
+        return (((((((((this.country == rhs.country)||((this.country!= null)&&this.country.equals(rhs.country)))&&((this.code == rhs.code)||((this.code!= null)&&this.code.equals(rhs.code))))&&((this.legacyBorderPointCode == rhs.legacyBorderPointCode)||((this.legacyBorderPointCode!= null)&&this.legacyBorderPointCode.equals(rhs.legacyBorderPointCode))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.nameUtf8 == rhs.nameUtf8)||((this.nameUtf8 != null)&&this.nameUtf8 .equals(rhs.nameUtf8))))&&((this.localCode == rhs.localCode)||((this.localCode!= null)&&this.localCode.equals(rhs.localCode))))&&((this.shortName == rhs.shortName)||((this.shortName!= null)&&this.shortName.equals(rhs.shortName))))&&((this.shortNameUtf8 == rhs.shortNameUtf8)||((this.shortNameUtf8 != null)&&this.shortNameUtf8 .equals(rhs.shortNameUtf8))));
     }
 
 }

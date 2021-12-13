@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.StationImpl#getShortNameCaseUTF8 <em>Short Name Case UTF8</em>}</li>
  *   <li>{@link Gtm.impl.StationImpl#getLegacyBorderPointCode <em>Legacy Border Point Code</em>}</li>
  *   <li>{@link Gtm.impl.StationImpl#getRelations <em>Relations</em>}</li>
+ *   <li>{@link Gtm.impl.StationImpl#getStationCode <em>Station Code</em>}</li>
  * </ul>
  *
  * @generated
@@ -285,6 +286,26 @@ public class StationImpl extends MinimalEObjectImpl.Container implements Station
 	 * @ordered
 	 */
 	protected EList<StationRelation> relations;
+
+	/**
+	 * The default value of the '{@link #getStationCode() <em>Station Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStationCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final long STATION_CODE_EDEFAULT = 0L;
+
+	/**
+	 * The cached value of the '{@link #getStationCode() <em>Station Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStationCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected long stationCode = STATION_CODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -591,6 +612,27 @@ public class StationImpl extends MinimalEObjectImpl.Container implements Station
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public long getStationCode() {
+		return stationCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStationCode(long newStationCode) {
+		long oldStationCode = stationCode;
+		stationCode = newStationCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.STATION__STATION_CODE, oldStationCode, stationCode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -635,6 +677,8 @@ public class StationImpl extends MinimalEObjectImpl.Container implements Station
 				return getLegacyBorderPointCode();
 			case GtmPackage.STATION__RELATIONS:
 				return getRelations();
+			case GtmPackage.STATION__STATION_CODE:
+				return getStationCode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -688,6 +732,9 @@ public class StationImpl extends MinimalEObjectImpl.Container implements Station
 				getRelations().clear();
 				getRelations().addAll((Collection<? extends StationRelation>)newValue);
 				return;
+			case GtmPackage.STATION__STATION_CODE:
+				setStationCode((Long)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -739,6 +786,9 @@ public class StationImpl extends MinimalEObjectImpl.Container implements Station
 			case GtmPackage.STATION__RELATIONS:
 				getRelations().clear();
 				return;
+			case GtmPackage.STATION__STATION_CODE:
+				setStationCode(STATION_CODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -777,6 +827,8 @@ public class StationImpl extends MinimalEObjectImpl.Container implements Station
 				return legacyBorderPointCode != LEGACY_BORDER_POINT_CODE_EDEFAULT;
 			case GtmPackage.STATION__RELATIONS:
 				return relations != null && !relations.isEmpty();
+			case GtmPackage.STATION__STATION_CODE:
+				return stationCode != STATION_CODE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -813,6 +865,8 @@ public class StationImpl extends MinimalEObjectImpl.Container implements Station
 		result.append(shortNameCaseUTF8);
 		result.append(", legacyBorderPointCode: ");
 		result.append(legacyBorderPointCode);
+		result.append(", stationCode: ");
+		result.append(stationCode);
 		result.append(')');
 		return result.toString();
 	}

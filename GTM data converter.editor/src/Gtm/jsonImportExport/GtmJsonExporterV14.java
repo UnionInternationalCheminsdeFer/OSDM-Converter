@@ -396,6 +396,7 @@ public class GtmJsonExporterV14 {
 				StationNamesDef js = new StationNamesDef();
 				js.setCountry(s.getCountry().getCode());
 				js.setLocalCode(Integer.parseInt(s.getCode()));
+				js.setCode(Long.toString(s.getStationCode()));
 				
 				js.setName(s.getNameCaseASCII());
 				js.setNameUtf8(s.getNameCaseUTF8());
@@ -497,7 +498,7 @@ public class GtmJsonExporterV14 {
 				
 				StationDef stationJ = new StationDef();
 				stationJ.setCountry(station.getCountry().getISOcode());
-				stationJ.setCode(GtmUtils.getStationCode(station));
+				stationJ.setCode(Long.toString(station.getStationCode()));
 				list.add(stationJ);
 			}
 			oJ.setStations(list);
@@ -2032,9 +2033,7 @@ public class GtmJsonExporterV14 {
 		} else {
 			sJ.setCountry(s.getCountry().getISOcode());
 		}
-		String code = String.format("%02d%5s", s.getCountry().getCode(),s.getCode());
-		code.replace(' ','0');		
-		sJ.setCode(code);
+		sJ.setCode(s.getCode());
 		return sJ;
 	}
 

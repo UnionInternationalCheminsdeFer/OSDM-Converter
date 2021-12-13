@@ -977,13 +977,22 @@ public interface GtmPackage extends EPackage {
 	int STATION__RELATIONS = 12;
 
 	/**
+	 * The feature id for the '<em><b>Station Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATION__STATION_CODE = 13;
+
+	/**
 	 * The number of structural features of the '<em>Station</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATION_FEATURE_COUNT = 13;
+	int STATION_FEATURE_COUNT = 14;
 
 	/**
 	 * The number of operations of the '<em>Station</em>' class.
@@ -11625,6 +11634,17 @@ public interface GtmPackage extends EPackage {
 	EReference getStation_Relations();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.Station#getStationCode <em>Station Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Station Code</em>'.
+	 * @see Gtm.Station#getStationCode()
+	 * @see #getStation()
+	 * @generated
+	 */
+	EAttribute getStation_StationCode();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.StationRelation <em>Station Relation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -20574,6 +20594,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference STATION__RELATIONS = eINSTANCE.getStation_Relations();
+
+		/**
+		 * The meta object literal for the '<em><b>Station Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATION__STATION_CODE = eINSTANCE.getStation_StationCode();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.StationRelationImpl <em>Station Relation</em>}' class.

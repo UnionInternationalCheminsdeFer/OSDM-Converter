@@ -497,7 +497,7 @@ public class GtmJsonExporter {
 				
 				StationDef stationJ = new StationDef();
 				stationJ.setCountry(station.getCountry().getISOcode());
-				stationJ.setCode(GtmUtils.getStationCode(station));
+				stationJ.setCode(Long.toString(station.getStationCode()));
 				list.add(stationJ);
 			}
 			oJ.setStations(list);

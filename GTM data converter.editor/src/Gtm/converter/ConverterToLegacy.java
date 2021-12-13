@@ -1091,34 +1091,37 @@ public class 	ConverterToLegacy {
 			
 		for (Station station : tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName()) {
 			
-			try {
-				if (station.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
-					
-					Legacy108Station ls = convertStation(station);
-	
-					if (ls.getName() == null || ls.getName().length() == 0) {
-						String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
-						GtmUtils.writeConsoleError(message, editor);
-					} else {
-						legacyStations.put(ls.getStationCode(),ls);
+				try {
+					if (
+						//exclude stations with more than 7 digits in the code
+						GtmUtils.isConvertable(station) 
+					   &&
+						station.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
+						
+						Legacy108Station ls = convertStation(station);
+		
+						if (ls.getName() == null || ls.getName().length() == 0) {
+							String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
+							GtmUtils.writeConsoleError(message, editor);
+						} else {
+							legacyStations.put(ls.getStationCode(),ls);
+						}
+						
+						if (ls.getBorderPointCode() > 0) {
+							legacyBorderStations.put(ls.getBorderPointCode(), ls);
+						}
+					} else {			
+						
+						addBorderPointMaping(station);
+						
+						addMappedLegacyStation(station);
 					}
-					
-					if (ls.getBorderPointCode() > 0) {
-						legacyBorderStations.put(ls.getBorderPointCode(), ls);
-					}
-				} else {			
-					
-					addBorderPointMaping(station);
-					
-					addMappedLegacyStation(station);
+				} catch (Exception e) {
+					StringBuilder sb = new StringBuilder();
+					sb.append("Unknown error! Station not converted: station - ").append(station.getCode()).append('\n');
+					sb.append(GtmUtils.getStackTrace(e));
+					GtmUtils.writeConsoleError(sb.toString(), editor);
 				}
-			} catch (Exception e) {
-				StringBuilder sb = new StringBuilder();
-				sb.append("Unknown error! Station not converted: station - ").append(station.getCode()).append('\n');
-				sb.append(GtmUtils.getStackTrace(e));
-				GtmUtils.writeConsoleError(sb.toString(), editor);
-			}
-				
 		}
 		
 		
@@ -1141,6 +1144,9 @@ public class 	ConverterToLegacy {
 			
 			
 			for (Station s : set.getStations()) {
+				
+				//exclude stations with more than 7 digit codes
+				if (GtmUtils.isConvertable(s)) {
 				
 				Legacy108Station ls = legacyStations.get(this.getLegacyStationCode(s));
 				
@@ -1168,7 +1174,7 @@ public class 	ConverterToLegacy {
 					};
 				
 				}
-							
+				}
 			}		
 			
 			if (!isSelfContained) {
@@ -1696,6 +1702,11 @@ public class 	ConverterToLegacy {
 	 * @return the legacy 108 station
 	 */
 	private Legacy108Station convertStation(Station sn)  {
+		
+		if (GtmUtils.isConvertable(sn)) {
+			return null;
+		}
+		
 		
 		Legacy108Station ls = GtmFactory.eINSTANCE.createLegacy108Station();
 		
@@ -2628,7 +2639,31 @@ public class 	ConverterToLegacy {
 			}
 			
 		}
+		
+		if (viaStation.getStation() != null) {
+			if (!GtmUtils.isConvertable(viaStation.getStation())) {
+				return false;
+			}
+		}
+		
+		if (viaStation.getFareStationSet() != null && viaStation.getFareStationSet().getStations() != null) {
+			//a fare station set is ok if at least one convertable station is included
+			if (!includesConvertableStation(viaStation.getFareStationSet())) {
+				return false;
+			}
+		}
+		
 		return true;
+	}
+
+	private boolean includesConvertableStation(FareStationSetDefinition stations) {
+		
+		for (Station s : stations.getStations()) {
+			if (GtmUtils.isConvertable(s)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isConvertable(ServiceConstraint serviceConstraint) {
@@ -2772,8 +2807,12 @@ public class 	ConverterToLegacy {
 	private void addStations(ViaStation via, List<Station> stations, List<FareStationSetDefinition> fareStations) {
 		
 		if (via == null) return;
-		if (via.getStation() != null) stations.add(via.getStation());
-		if (via.getFareStationSet()!= null) fareStations.add(via.getFareStationSet());
+		if (via.getStation() != null && GtmUtils.isConvertable(via.getStation())) {
+			stations.add(via.getStation());
+		}
+		if (via.getFareStationSet()!= null) {
+			fareStations.add(via.getFareStationSet());
+		}
 		
 		if (via.getRoute() != null) {
 			for (ViaStation via2 :via.getRoute().getStations()) {

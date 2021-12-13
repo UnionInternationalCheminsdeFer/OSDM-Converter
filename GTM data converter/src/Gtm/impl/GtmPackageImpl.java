@@ -2211,6 +2211,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getStation_StationCode() {
+		return (EAttribute)stationEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getStationRelation() {
 		return stationRelationEClass;
 	}
@@ -9303,6 +9312,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(stationEClass, STATION__SHORT_NAME_CASE_UTF8);
 		createEAttribute(stationEClass, STATION__LEGACY_BORDER_POINT_CODE);
 		createEReference(stationEClass, STATION__RELATIONS);
+		createEAttribute(stationEClass, STATION__STATION_CODE);
 
 		stationRelationEClass = createEClass(STATION_RELATION);
 		createEAttribute(stationRelationEClass, STATION_RELATION__RELATION_TYPE);
@@ -10363,6 +10373,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getStation_ShortNameCaseUTF8(), ecorePackage.getEString(), "shortNameCaseUTF8", null, 0, 1, Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStation_LegacyBorderPointCode(), ecorePackage.getEInt(), "legacyBorderPointCode", null, 0, 1, Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getStation_Relations(), this.getStationRelation(), null, "relations", null, 0, -1, Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStation_StationCode(), ecorePackage.getELong(), "stationCode", null, 0, 1, Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stationRelationEClass, StationRelation.class, "StationRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStationRelation_RelationType(), this.getStationRelationType(), "relationType", null, 0, 1, StationRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

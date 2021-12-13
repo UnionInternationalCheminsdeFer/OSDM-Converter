@@ -160,6 +160,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relations" upperBound="-1"
         eType="#//StationRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stationCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StationRelation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationType" eType="#//StationRelationType"/>

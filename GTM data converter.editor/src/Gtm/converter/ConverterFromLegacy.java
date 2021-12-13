@@ -189,7 +189,11 @@ public class ConverterFromLegacy {
 		for (Station station : tool.getCodeLists().getStations().getStations()) {
 			if (station.getCountry().getCode() == myCountry.getCode()) {
 				try {
-					localStations.put(Integer.parseInt(station.getCode()), station);
+					if (GtmUtils.isConvertable(station)) {
+						//add rail stations only
+						localStations.put(Integer.parseInt(station.getCode()), station);
+					}
+					
 				} catch (Exception e){
 					String message = "Wrong StationCode: " +station.getCode() + " " + station.getName();
 					GtmUtils.writeConsoleError(message, editor);
@@ -202,8 +206,8 @@ public class ConverterFromLegacy {
 			carriers.put(carrier.getCode(), carrier);
 		}
 
-		for (Legacy108Station station : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations()) {
-			legacyStations.put(station.getStationCode(), station);
+		for (Legacy108Station legacyStation : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations()) {
+			legacyStations.put(legacyStation.getStationCode(), legacyStation);
 		}
 		
 		if (tool.getConversionFromLegacy().getLegacy108().getLegacyBorderPoints() != null) {
@@ -1326,36 +1330,36 @@ public class ConverterFromLegacy {
 	 *
 	 * @param tool the tool
 	 * @param country the country
-	 * @param code the code
+	 * @param localCode the code
 	 * @param seriesNumber the series number
 	 * @return the via station
 	 * @throws ConverterException the converter exception
 	 */
-	private ViaStation getViaStation(GTMTool tool, Country country, int code,int seriesNumber) throws ConverterException {
+	private ViaStation getViaStation(GTMTool tool, Country country, int localCode,int seriesNumber) throws ConverterException {
 
 		
 		//priority is for Fare Station Set. In case it is not a fare station set use a station
 		Station station = null;
 		FareStationSetDefinition fareStationSet = null;
 		ServiceConstraint serviceConstraint = null;
-		fareStationSet = findFareStation(code);
+		fareStationSet = findFareStation(localCode);
 		if (fareStationSet == null) {
-			serviceConstraint = findServiceConstraintByLegacyCode(code);
+			serviceConstraint = findServiceConstraintByLegacyCode(localCode);
 			if (serviceConstraint == null) {
-				station = getStation(tool, country, code);
+				station = getStationByLocalCode(tool, country, localCode);
 			}
 		} 
 		
 		if (station == null && fareStationSet == null && serviceConstraint == null) {
-			if (isMappedStation(code)) {
+			if (isMappedStation(localCode)) {
 				return null;
 			}
-			Legacy108Station ls = legacyStations.get(code);
+			Legacy108Station ls = legacyStations.get(localCode);
 			StringBuilder sb = new StringBuilder();
 			sb.append(NationalLanguageSupport.ConverterFromLegacy_7);
 			sb.append(seriesNumber);
 			sb.append(NationalLanguageSupport.ConverterFromLegacy_8);
-			sb.append(code);
+			sb.append(localCode);
 			if (ls != null) {
 				sb.append("-").append(ls.getName());
 			}
@@ -1372,14 +1376,14 @@ public class ConverterFromLegacy {
 
 
 
-	private ServiceConstraint findServiceConstraintByLegacyCode(int code) {
+	private ServiceConstraint findServiceConstraintByLegacyCode(long localCode) {
 		
 		if (tool.getGeneralTariffModel().getFareStructure().getServiceConstraints() == null) {
 			return null;
 		}
 		
 		for (ServiceConstraint sc : tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints()) {
-			if (sc.getLegacy108Code() == code) {
+			if (sc.getLegacy108Code() == localCode) {
 				return sc;
 			}
 		}
@@ -1724,7 +1728,7 @@ public class ConverterFromLegacy {
 		fareStationSet = findFareStation(code);
 		if (fareStationSet == null) {
 			try {
-				station = getStation(tool, country, code);
+				station = getStationByLocalCode(tool, country, code);
 			} catch (ConverterException e) {
 				//
 			}	
@@ -1869,13 +1873,13 @@ public class ConverterFromLegacy {
 	 * @return the station
 	 * @throws ConverterException the converter exception in case the station is not found and not mapped to something else
 	 */
-	public Station getStation(GTMTool tool, Country country, int localCode) throws ConverterException {
+	public Station getStationByLocalCode(GTMTool tool, Country country, int localCode) throws ConverterException {
 		
 		Station station = null;
 		
 		//mapped station?
 		if (tool.getConversionFromLegacy().getParams().getLegacyStationMappings() != null) {
-			station = tool.getConversionFromLegacy().getParams().getLegacyStationMappings().findMappedStation(localCode);
+			station = findMappedStation(localCode);
 			if (station != null) {
 				return station;
 			}
@@ -1934,6 +1938,24 @@ public class ConverterFromLegacy {
 		return null;
 	}
 	
+	private Station findMappedStation(long localCode) {
+		
+		if (localCode == 0) return null;
+		
+		if (tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings() == null 
+			|| tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings().isEmpty()) {
+			return null;
+		}
+		
+		for (LegacyStationMap map: tool.getConversionFromLegacy().getParams().getLegacyStationMappings().getStationMappings()){
+			if (map.getLegacyCode() == localCode) return map.getStation();
+		}
+
+		return null;
+
+	}
+
+
 	/**
 	 * find the station to replace the virtual border point station.
 	 *
@@ -2942,7 +2964,7 @@ public class ConverterFromLegacy {
 
 					try {
 						//the fare station set might also be a real station (strange case)
-						Station station = getStation(tool, myCountry, legacyStation.getStationCode());
+						Station station = getStationByLocalCode(tool, myCountry, legacyStation.getStationCode());
 						if (station != null) {
 							def.getStations().add(station);
 						}
@@ -2954,7 +2976,7 @@ public class ConverterFromLegacy {
 				
 					Station station = null;
 					try {
-						station = getStation(tool, myCountry, legacyStation.getStationCode());
+						station = getStationByLocalCode(tool, myCountry, legacyStation.getStationCode());
 					} catch (ConverterException e) {
 						station = null;
 					}
@@ -3132,7 +3154,7 @@ public class ConverterFromLegacy {
 		
 		Station station = null;
 		try {
-			station = getStation(tool,myCountry,lStation.getStationCode());
+			station = getStationByLocalCode(tool,myCountry,lStation.getStationCode());
 			if (station != null) {
 				
 				if (Integer.parseInt(station.getCode()) == lStation.getStationCode() 
