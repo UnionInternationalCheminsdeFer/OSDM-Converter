@@ -1099,9 +1099,9 @@ public class 	ConverterToLegacy {
 						station.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
 						
 						Legacy108Station ls = convertStation(station);
-		
-						if (ls.getName() == null || ls.getName().length() == 0) {
-							String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
+						
+						if (ls == null || ls.getName() == null || ls.getName().length() == 0) {
+							String message = "Station name missing: code " + station.getStationCode();
 							GtmUtils.writeConsoleError(message, editor);
 						} else {
 							legacyStations.put(ls.getStationCode(),ls);
@@ -1703,7 +1703,7 @@ public class 	ConverterToLegacy {
 	 */
 	private Legacy108Station convertStation(Station sn)  {
 		
-		if (GtmUtils.isConvertable(sn)) {
+		if (!GtmUtils.isConvertable(sn)) {
 			return null;
 		}
 		

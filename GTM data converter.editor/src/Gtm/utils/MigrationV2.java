@@ -289,23 +289,23 @@ public class MigrationV2 {
 		if (tool.getCodeLists().getStations() != null &&
 			tool.getCodeLists().getStations().getStations() != null) {
 				
-				for (Station s : tool.getCodeLists().getStations().getStations()) {
+			for (Station s : tool.getCodeLists().getStations().getStations()) {
 		
-					if (s.getStationCode() == 0 && s.getCountry() != null) {
+				if (s.getStationCode() == 0 && s.getCountry() != null) {
 						
-						long code = s.getCountry().getCode() * 100000 + Long.parseLong(s.getCode());
+					long code = s.getCountry().getCode() * 100000 + Long.parseLong(s.getCode());
 						
-						com3.append(SetCommand.create(domain, s, GtmPackage.Literals.LEGACY108_STATION__STATION_CODE, code));
+					com3.append(SetCommand.create(domain, s, GtmPackage.Literals.STATION__STATION_CODE, Long.valueOf(code)));
 						
-					}
-
 				}
-
+				
 			}
+
+		}
 			
-			if (com3 != null && !com3.isEmpty() && com3.canExecute()) {
-				domain.getCommandStack().execute(com3);
-			}		
+		if (com3 != null && !com3.isEmpty() && com3.canExecute()) {
+			domain.getCommandStack().execute(com3);
+		}		
 			
 	}
 

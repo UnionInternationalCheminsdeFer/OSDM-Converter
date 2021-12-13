@@ -1044,14 +1044,15 @@ public class LegacyImporter {
 		
 		CompoundCommand command = new CompoundCommand();
 		
-		HashMap<Integer,Station> stations = GtmUtils.getStationMap(tool);
+		HashMap<Long,Station> stations = GtmUtils.getStationMap(tool);
 		
 		int countryBase = tool.getConversionFromLegacy().getParams().getCountry().getCode() * 100000;
 		
 				
 		for (Legacy108Station lStation : tool.getConversionFromLegacy().getLegacy108().getLegacyStations().getLegacyStations() ) {
 			
-			Station station = stations.get(Integer.valueOf(lStation.getStationCode() + countryBase));
+					
+			Station station = stations.get(Long.valueOf(lStation.getStationCode() + countryBase));
 			
 			if (station != null) {
 			

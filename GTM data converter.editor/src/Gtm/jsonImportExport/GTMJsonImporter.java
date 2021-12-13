@@ -86,7 +86,7 @@ import gtm.ZoneDefinitionDef;
 
 public class GTMJsonImporter {
 	
-	private HashMap<Integer,Station> stations = null;	
+	private HashMap<Long,Station> stations = null;	
 	private HashMap<String,Carrier> carriers = null;
 	private HashMap<String,Language> languages = null;
 	private HashMap<Integer,Country> countries = null;
@@ -125,7 +125,7 @@ public class GTMJsonImporter {
 	public GTMJsonImporter(GTMTool tool, EditingDomain domain, GtmEditor editor) {
 		this.tool = tool;
 		this.editor = editor;
-		stations = new HashMap<Integer,Station>();
+		stations = new HashMap<Long,Station>();
 		carriers = new HashMap<String,Carrier>();
 		languages = new HashMap<String,Language>();
 		countriesISO = new HashMap<String,Country>();
@@ -282,9 +282,7 @@ public class GTMJsonImporter {
 	private StationNames convertStationNames(List<StationNamesDef> jl) {
 		
 		StationNames n = GtmFactory.eINSTANCE.createStationNames();
-		
-		HashMap<Integer,Station> stationList = new HashMap<Integer,Station>();
-		
+			
 		HashSet<Station> set = new HashSet<Station>();
 		
 		if (jl == null || jl.isEmpty()) return n;
@@ -292,17 +290,11 @@ public class GTMJsonImporter {
 		//link the stations, names will be added later-on to the merits code table
 		for (StationNamesDef jn : jl) {
 			
+			
+			
 			Station s = getStation(jn.getCountry(), jn.getLocalCode());
 			if (s != null) {
-				
-				int code = GtmUtils.getNumericStationCode(s);
-				//is the station new=
-				Station st = stationList.get(code);
-				if (st == null) {			
-					set.add(s);
-					stationList.put(code, s);
-					n.getStationName().add(s);
-				} 
+				set.add(s);
 			}
 						
 		}
@@ -399,7 +391,7 @@ public class GTMJsonImporter {
 		ArrayList<Station> sl = new ArrayList<Station>();
 		if (jz == null) return sl;
 		for (StationDef sd: jz.getStations()) {
-			Station s = stations.get(Integer.parseInt(sd.getCode()));	
+			Station s = stations.get(Long.parseLong(sd.getCode()));	
 			if (s != null) {
 				sl.add(s);
 			}
@@ -1457,10 +1449,9 @@ public class GTMJsonImporter {
 		if (jl == null || jl.isEmpty()) return l;
 		for (StationDef s : jl) {
 			try {
-				int code = getNumericStationCode(s);
-				int uicCountry = code / 100000;
-				int localCode = code - (uicCountry * 100000);		
-				Station station = getStation(uicCountry,localCode);
+				
+				long code = getNumericStationCode(s);		
+				Station station = stations.get(code);
 				if (station != null) {
 					l.add(station);
 				}
@@ -1471,17 +1462,17 @@ public class GTMJsonImporter {
 		return l;
 	}
 
-	public int getNumericStationCode(StationDef s) {
+	public long getNumericStationCode(StationDef s) {
 		
 		if (s == null || s.getCode() == null || s.getCode().length() == 0) {
 			return 0;
 		}
 		
-		int i = 0;
+		long i = 0;
 		
 		try {
 		
-			i = Integer.parseInt(s.getCode());
+			i = Long.parseLong(s.getCode());
 		
 		} catch (Exception e) {
 			
@@ -1490,7 +1481,7 @@ public class GTMJsonImporter {
 			String[] parts = decoded.split(":");
 			
 			try {
-				i =  Integer.parseInt(parts[parts.length - 1]);
+				i =  Long.parseLong(parts[parts.length - 1]);
 			} catch (Exception e2) {
 				return 0;
 			}
@@ -2247,7 +2238,7 @@ public class GTMJsonImporter {
 
 	private Station getStation (StationDef station) {
 		try {
-			Integer icode = getNumericStationCode(station);
+			Long icode = getNumericStationCode(station);
 			Station s = stations.get(icode);
 			
 			if (s == null) {
@@ -2264,7 +2255,7 @@ public class GTMJsonImporter {
 	
 	private Station getStation (int country, int localCode) {
 		
-		Integer i = Integer.valueOf(country * 100000 + localCode);		
+		Long i = Long.valueOf(country * 100000 + localCode);		
 		Station s = stations.get(i);
 		
 		if (s == null) {
@@ -2351,7 +2342,7 @@ public class GTMJsonImporter {
 		return n;
 	}
 
-	public HashMap<Integer,Station> getStations() {
+	public HashMap<Long,Station> getStations() {
 		return stations;
 	}
 

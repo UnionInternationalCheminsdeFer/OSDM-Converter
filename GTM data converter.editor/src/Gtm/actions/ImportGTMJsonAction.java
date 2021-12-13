@@ -323,18 +323,27 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 		}
 
 
-		private void updateMERITSStations(EditingDomain domain, HashMap<Integer,Station> stations, List<StationNamesDef> list, GtmEditor editor) {
+		private void updateMERITSStations(EditingDomain domain, HashMap<Long, Station> stations, List<StationNamesDef> list, GtmEditor editor) {
 
 			//correcting merits data using OSDM data			
 			CompoundCommand command = new CompoundCommand();
 			
-			HashMap<Integer,StationNamesDef> uniqueNameList = new HashMap<Integer,StationNamesDef>();
+			HashMap<Long,StationNamesDef> uniqueNameList = new HashMap<Long,StationNamesDef>();
 							
 			for (StationNamesDef lStation : list ) {
 				
-				int code = lStation.getCountry() * 100000 + lStation.getLocalCode();
+				long code = 0;
+				try {
+					code = Long.parseLong(lStation.getCode());
+				} catch (Exception e) {
+					//
+				}
+				if (code == 0) {
+					//compatibility to version 1.2
+					code = lStation.getCountry() * 100000 + lStation.getLocalCode();
+				}
 				
-				Station station = stations.get(lStation.getCountry() * 100000 + lStation.getLocalCode());
+				Station station = stations.get(code);
 				
 				StationNamesDef sn = uniqueNameList.get(code);
 			

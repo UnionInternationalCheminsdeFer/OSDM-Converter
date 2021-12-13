@@ -15,10 +15,10 @@ import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
 import Gtm.converter.tests.mocks.MockedEditingDomain;
 import Gtm.converter.tests.mocks.MockedProgressMonitor;
-import Gtm.jsonImportExport.GTMJsonImporter;
-import Gtm.jsonImportExport.GtmJsonExporter;
+import Gtm.jsonImportExport.GTMJsonImporterV14;
+import Gtm.jsonImportExport.GtmJsonExporterV14;
 import Gtm.utils.GtmUtils;
-import gtm.FareDelivery;
+import gtmV14.FareDelivery;
 
                      
 public class BasicImportTest {
@@ -62,10 +62,10 @@ public class BasicImportTest {
 		tool.getGeneralTariffModel().setDelivery(GtmFactory.eINSTANCE.createDelivery());
 		tool.getGeneralTariffModel().getDelivery().setProvider(tool.getConversionFromLegacy().getLegacy108().getCarrier());
 		
-		GtmJsonExporter exporter = new GtmJsonExporter();
+		GtmJsonExporterV14 exporter = new GtmJsonExporterV14();
 		FareDelivery fd = exporter.convertToJson(tool.getGeneralTariffModel(), new MockedProgressMonitor());
 		
-		GTMJsonImporter importer = new GTMJsonImporter(tool, null, null);
+		GTMJsonImporterV14 importer = new GTMJsonImporterV14(tool, null, null);
 
 		GeneralTariffModel gtm = importer.convertFromJson(fd);
 		
