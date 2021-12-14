@@ -168,7 +168,7 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 		 */
 		
 	
-		String[] strings = GtmUtils.splitCsv(st);
+		String[] strings = splitCsv(st);
 		
 		if (strings.length < 9) return null;
 		

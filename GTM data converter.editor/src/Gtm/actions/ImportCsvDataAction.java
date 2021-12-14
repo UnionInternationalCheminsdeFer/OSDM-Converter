@@ -112,6 +112,24 @@ public abstract class ImportCsvDataAction extends BasicGtmAction {
 			
 		}
 		
+		/**
+		 * Split csv.
+		 *
+		 * @param string the string
+		 * @return the string[] splitted by ; or ,
+		 */
+		public static String[] splitCsv(String string) {
+		
+			String[] st1 = string.split(";"); //$NON-NLS-1$
+			String[] st2 = string.split(","); //$NON-NLS-1$
+			
+			if (st1.length < st2.length) {
+				return st2;
+			}
+			
+			return 	st1;
+		}
+		
 		
 
 	

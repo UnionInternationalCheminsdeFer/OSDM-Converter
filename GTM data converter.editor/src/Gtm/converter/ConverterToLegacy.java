@@ -74,6 +74,7 @@ import Gtm.TravelerType;
 import Gtm.ViaStation;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.ConversionCleaner;
 import Gtm.utils.GtmUtils;
 import Gtm.utils.GtmValidator;
 import Gtm.utils.InvolvedTcoFinder; 
@@ -162,8 +163,7 @@ public class 	ConverterToLegacy {
 			}
 		}
 		
-		
-		GtmUtils.resetBorderPointCodes(domain,tool);
+		ConversionCleaner.resetBorderPointCodes(domain, tool);
 		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
 		if (carrier == null) {

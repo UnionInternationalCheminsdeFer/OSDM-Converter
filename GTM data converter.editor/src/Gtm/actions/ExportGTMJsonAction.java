@@ -23,6 +23,7 @@ import Gtm.GTMTool;
 import Gtm.SchemaVersion;
 import Gtm.jsonImportExport.GtmJsonExporter;
 import Gtm.jsonImportExport.GtmJsonExporterV14;
+import Gtm.jsonImportExport.ObjectIdCreator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
@@ -206,7 +207,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 			
 			GtmUtils.clearCommandStack(domain);
 			
-			CompoundCommand command =  GtmUtils.setIds(tool,domain);
+			CompoundCommand command =  ObjectIdCreator.setIds(tool,domain);
 			
 			if (command != null && !command.isEmpty()) {
        	
@@ -222,7 +223,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 				GtmUtils.clearCommandStack(domain);
 	        }
 			
-			command =  GtmUtils.setFareIds(tool,domain);
+			command =  ObjectIdCreator.setFareIds(tool,domain);
 			
 			if (command != null && !command.isEmpty()) {
 	        	

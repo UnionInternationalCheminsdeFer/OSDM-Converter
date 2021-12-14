@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -46,44 +45,14 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
-import Gtm.AfterSalesRule;
-import Gtm.Calendar;
 import Gtm.Carrier;
-import Gtm.CarrierConstraint;
 import Gtm.CharacterSet;
-import Gtm.CodeLists;
-import Gtm.CombinationConstraint;
-import Gtm.ConnectionPoint;
-import Gtm.Countries;
 import Gtm.Country;
-import Gtm.Currencies;
-import Gtm.Currency;
-import Gtm.FareConstraintBundle;
-import Gtm.FareElement;
-import Gtm.FareStationSetDefinition;
-import Gtm.FareStructure;
-import Gtm.FulfillmentConstraint;
 import Gtm.GTMTool;
 import Gtm.GenericReductionCards;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
-import Gtm.Language;
-import Gtm.Languages;
-import Gtm.PassengerConstraint;
-import Gtm.PersonalDataConstraint;
-import Gtm.Price;
-import Gtm.ReductionCard;
-import Gtm.ReductionConstraint;
-import Gtm.RegionalConstraint;
-import Gtm.ReservationParameter;
-import Gtm.SalesAvailabilityConstraint;
-import Gtm.ServiceBrands;
-import Gtm.ServiceConstraint;
-import Gtm.ServiceLevel;
 import Gtm.Station;
-import Gtm.Text;
-import Gtm.TotalPassengerCombinationConstraint;
-import Gtm.TravelValidityConstraint;
 import Gtm.WorkflowHistory;
 import Gtm.WorkflowStep;
 import Gtm.console.ConsoleUtil;
@@ -100,7 +69,7 @@ import com.ibm.icu.text.Transliterator;
 /**
  * The Class GtmUtils.
  * 
- * utilities to handle commands, messages message boxes
+ * utilities to handle commands, messages message boxes,...
  * 
  */
 public class GtmUtils {
@@ -108,6 +77,7 @@ public class GtmUtils {
 	/** The one hundred. */
 	private static 	BigDecimal oneHundred = new BigDecimal("100.0");
 	
+	/** The date format. */
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
 	
 	
@@ -190,6 +160,7 @@ public class GtmUtils {
 	 *
 	 * @param command the command
 	 * @param domain the domain
+	 * @param editor the editor
 	 */
 	public static void executeAndFlush(Command command, EditingDomain domain, GtmEditor editor) {
 		
@@ -249,6 +220,12 @@ public class GtmUtils {
 
 	
 
+	/**
+	 * Checks if is standard text id.
+	 *
+	 * @param id the id
+	 * @return true, if is standard text id
+	 */
 	public static boolean isStandardTextId(String id) {
 		
 		if (id == null || id.length() == 0) return true;
@@ -263,8 +240,6 @@ public class GtmUtils {
 		
 		return false;
 	}
-
-
 
 
 	/**
@@ -288,305 +263,6 @@ public class GtmUtils {
 		return null;
 	}
 
-
-	
-	/**
-	 * Sets the fare ids.
-	 *
-	 * @param tool the tool
-	 * @param domain the domain
-	 * @return the compound command
-	 */
-	public static CompoundCommand setFareIds(GTMTool tool, EditingDomain domain) {
-		
-		if (tool == null || domain == null) return null;
-		
-		CompoundCommand command =  new CompoundCommand();
-
-		FareStructure fareStructure = tool.getGeneralTariffModel().getFareStructure();
-		
-		for (FareElement object : fareStructure.getFareElements().getFareElements()) {
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.FARE_ELEMENT__ID, command);
-			}
-		}		
-		       
-        return command;
-
-	}
-
-	/**
-	 * Sets the unique ids of contraints and fares.
-	 *
-	 * @param tool the tool
-	 * @param domain the domain
-	 * @return the compound command
-	 */
-	public static CompoundCommand setIds(GTMTool tool, EditingDomain domain) {
-		
-		if (tool == null || domain == null) return null;
-		
-		CompoundCommand command =  new CompoundCommand();
-		
-		FareStructure fareStructure = tool.getGeneralTariffModel().getFareStructure();
-		
-		String baseName = tool.getGeneralTariffModel().getDelivery().getProvider().getCode();
-		baseName = baseName +"_"+ tool.getGeneralTariffModel().getDelivery().getId()+"_"; //$NON-NLS-1$ //$NON-NLS-2$
-		
-		String listName = baseName;
-				
-		listName = baseName + "A_"; //$NON-NLS-1$
-		int i = 0;
-		for (AfterSalesRule object : fareStructure.getAfterSalesRules().getAfterSalesRules()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.AFTER_SALES_RULE__ID, command, listName,i);
-			}
-		}
-		
-		listName = baseName + "B_"; //$NON-NLS-1$
-		i = 0;
-		for (Calendar object : fareStructure.getCalendars().getCalendars()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.CALENDAR__ID, command, listName,i);
-			}
-		}
-
-		listName = baseName + "C_"; //$NON-NLS-1$
-		i = 0;
-		for (CarrierConstraint object : fareStructure.getCarrierConstraints().getCarrierConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.CARRIER_CONSTRAINT__ID, command, listName,i);
-			}
-		}
-		
-		listName = baseName + "D_"; //$NON-NLS-1$
-		i = 0;		
-		for (CombinationConstraint object : fareStructure.getCombinationConstraints().getCombinationConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.COMBINATION_CONSTRAINT__ID, command, listName,i);
-			}
-		}
-		
-		listName = baseName + "E_"; //$NON-NLS-1$
-		i = 0;
-		for (ConnectionPoint object : fareStructure.getConnectionPoints().getConnectionPoints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.CONNECTION_POINT__ID, command, listName,i);
-			}
-		}
-		
-		for (FulfillmentConstraint object : fareStructure.getFulfillmentConstraints().getFulfillmentConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.FULFILLMENT_CONSTRAINT__ID, command, listName,i);
-			}
-		}
-		
-		listName = baseName + "G_"; //$NON-NLS-1$
-		i = 0;
-		for (PassengerConstraint object : fareStructure.getPassengerConstraints().getPassengerConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.PASSENGER_CONSTRAINT__ID, command, listName,i);
-			}
-		}		
-		
-		listName = baseName + "H_"; //$NON-NLS-1$
-		i = 0;
-		for (PersonalDataConstraint object : fareStructure.getPersonalDataConstraints().getPersonalDataConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.PERSONAL_DATA_CONSTRAINT__ID, command, listName,i);
-			}
-		}		
-		
-		listName = baseName + "I_"; //$NON-NLS-1$
-		i = 0;
-		for (Price object : fareStructure.getPrices().getPrices()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.PRICE__ID, command, listName,i);
-			}
-		}		
-		
-		String issuer = tool.getGeneralTariffModel().getDelivery().getProvider().getCode();
-		i = 0;
-		for (ReductionCard card : fareStructure.getReductionCards().getReductionCards()) {
-			i++;
-			String issuerR = issuer;
-			if (card.getCardIssuer() != null) {
-				issuerR = card.getCardIssuer().getCode();
-			}
-			String oldId = card.getId();
-			if (card.getId() == null || !card.getId().startsWith("UIC_")) {
-				//non UIC standard card definition
-				if (card.getId() == null || card.getId().isEmpty()) {
-					setId(domain, card,GtmPackage.Literals.PERSONAL_DATA_CONSTRAINT__ID, command, issuerR + "_",i);
-					GtmUtils.writeConsoleWarning("Reduction Card Id was missing. Set to: " + card.getId(), null);
-				} else {
-					if (card.getId() != null && !card.getId().startsWith(issuerR)) {
-						StringBuilder sb = new StringBuilder();
-						sb.append(issuerR).append("_");
-						sb.append(card.getId().replace(' ','_'));
-						SetCommand cmd = new SetCommand(domain, card,GtmPackage.Literals.REDUCTION_CARD__ID, sb.toString()); 
-						if (cmd.canExecute()) {
-							command.append(cmd);
-						}
-					} else {
-						StringBuilder sb = new StringBuilder();
-						sb.append(card.getId().replace(' ','_'));
-						SetCommand cmd = new SetCommand(domain, card,GtmPackage.Literals.REDUCTION_CARD__ID, sb.toString()); 
-						if (cmd.canExecute()) {
-							command.append(cmd);
-						}
-					}
-					if (!card.getId().equals(oldId)) {
-						GtmUtils.writeConsoleWarning("Reduction Card Id was corrected. Set to: " + card.getId(), null);
-					}
-				}
-			}
-		}		
-		
-		listName = baseName + "K_"; //$NON-NLS-1$
-		i = 0;
-		for (ReductionConstraint object : fareStructure.getReductionConstraints().getReductionConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.REDUCTION_CONSTRAINT__ID, command, listName,i);
-			}
-		}		
-		
-		for (RegionalConstraint object : fareStructure.getRegionalConstraints().getRegionalConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.REGIONAL_CONSTRAINT__ID, command, listName,i);
-			}
-		}	
-		
-		listName = baseName + "L_"; //$NON-NLS-1$
-		i = 0;
-		for (ReservationParameter object : fareStructure.getReservationParameters().getReservationParameters()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.RESERVATION_PARAMETER__ID, command, listName,i);
-			}
-		}			
-		
-		listName = baseName + "M_"; //$NON-NLS-1$
-		i = 0;
-		for (SalesAvailabilityConstraint object : fareStructure.getSalesAvailabilityConstraints().getSalesAvailabilityConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.SALES_AVAILABILITY_CONSTRAINT__ID, command, listName,i);
-			}
-		}	
-		
-		
-		listName = baseName + "N_"; //$NON-NLS-1$
-		i = 0;
-		for (ServiceConstraint object : fareStructure.getServiceConstraints().getServiceConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.SERVICE_CONSTRAINT__ID, command, listName,i);
-			}
-		}	
-		
-		listName = baseName + "O_"; //$NON-NLS-1$
-		i = 0;
-		for (ServiceLevel object : fareStructure.getServiceLevelDefinitions().getServiceLevelDefinition()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.SERVICE_LEVEL__ID, command, listName,i);
-			}
-		}	
-		
-		listName = baseName + "P_"; //$NON-NLS-1$
-		i = 0;
-		for (Text object : fareStructure.getTexts().getTexts()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.TEXT__ID, command, listName,i);
-			}
-		}	
-		
-		listName = baseName + "Q_"; //$NON-NLS-1$
-		i = 0;
-		for (TravelValidityConstraint object : fareStructure.getTravelValidityConstraints().getTravelValidityConstraints()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__ID, command, listName,i);
-			}
-		}		
-		
-		listName = baseName + "R_"; //$NON-NLS-1$
-		i = 0;
-		for (FareStationSetDefinition object : fareStructure.getFareStationSetDefinitions().getFareStationSetDefinitions()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.FARE_STATION_SET_DEFINITION__ID, command, listName,i);
-			}
-		}						
-
-		listName = baseName + "S_"; //$NON-NLS-1$
-		i = 0;
-		for (FareConstraintBundle object : fareStructure.getFareConstraintBundles().getFareConstraintBundles()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__ID, command, listName,i);
-			}
-		}
-		
-		listName = baseName + "T_"; //$NON-NLS-1$
-		i = 0;
-		for (TotalPassengerCombinationConstraint object : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
-			i++;
-			if (object.getId() == null || object.getId().isEmpty()) {
-				setId(domain, object,GtmPackage.Literals.TOTAL_PASSENGER_COMBINATION_CONSTRAINT__ID, command, listName,i);
-			}
-		}
-		
-        return command;
-		
-	}
-
-	
-	/**
-	 * Sets the id.
-	 *
-	 * @param domain the domain
-	 * @param object the object
-	 * @param feature the feature
-	 * @param command the command
-	 * @param listName the list name
-	 * @param index the index
-	 */
-	private static void setId(EditingDomain domain, EObject object, EStructuralFeature feature, CompoundCommand command, String listName, int index) {
-		SetCommand cmd = new SetCommand(domain, object,feature, listName+"_"+Integer.toString(index)); //$NON-NLS-1$
-		if (cmd.canExecute()) {
-			command.append(cmd);
-		}
-	}
-
-	/**
-	 * Sets the id.
-	 *
-	 * @param domain the domain
-	 * @param object the object
-	 * @param feature the feature
-	 * @param command the command
-	 */
-	private static void setId(EditingDomain domain, EObject object, EStructuralFeature feature, CompoundCommand command) {
-		SetCommand cmd = new SetCommand(domain, object,feature, EcoreUtil.generateUUID());
-		if (cmd.canExecute()) {
-			command.append(cmd);
-		}
-	}
-	
 	
 	/**
 	 * Returns an image descriptor for the image file at the given
@@ -635,8 +311,6 @@ public class GtmUtils {
 			GtmUtils.getActiveDomain().getCommandStack().execute(new DirtyCommand());
 		}
 	}
-	
-	
 
 
 	/**
@@ -691,7 +365,7 @@ public class GtmUtils {
 	/**
 	 * Import station.
 	 *
-	 * @param filter the filter
+	 * @param filter the import filter in the preferences
 	 * @param country the country
 	 * @return true, if successful
 	 */
@@ -735,6 +409,12 @@ public class GtmUtils {
 		return stations;
 	}
 	
+	/**
+	 * Gets the numeric station code.
+	 *
+	 * @param station the station
+	 * @return the numeric station code
+	 */
 	public static long getNumericStationCode(Station station) {
 		long i = 0;
 		if (station.getStationCode() > 0) {
@@ -984,13 +664,25 @@ public class GtmUtils {
 		return amount.floatValue();
 	}
 	
-	 public static String getStackTrace(Throwable aThrowable) {
+	 /**
+ 	 * Gets the stack trace.
+ 	 *
+ 	 * @param aThrowable the a throwable
+ 	 * @return the stack trace
+ 	 */
+ 	public static String getStackTrace(Throwable aThrowable) {
 		    final Writer result = new StringWriter();
 		    final PrintWriter printWriter = new PrintWriter(result);
 		    aThrowable.printStackTrace(printWriter);
 		    return result.toString();
 	 }
 	
+	/**
+	 * Write console stack trace.
+	 *
+	 * @param e the e
+	 * @param editor the editor
+	 */
 	public static void writeConsoleStackTrace(Exception e, GtmEditor editor){
 		if (e == null) return;
 		
@@ -999,6 +691,15 @@ public class GtmUtils {
 		
 	}
 	
+	/**
+	 * Round.
+	 *
+	 * @param amount the amount
+	 * @param scale the scale
+	 * @param mode the mode
+	 * @param radix the radix
+	 * @return the big decimal
+	 */
 	public static BigDecimal round(float amount, int scale, RoundingMode mode, int radix) {
 		
 		String amountS = Float.toString(amount);
@@ -1015,6 +716,13 @@ public class GtmUtils {
 		}
 	}
 	
+	/**
+	 * Gets the supported charset.
+	 *
+	 * @param set the set
+	 * @param editor the editor
+	 * @return the supported charset
+	 */
 	public static Charset getSupportedCharset(CharacterSet set, GtmEditor editor) {
 		
 		if (set == null) {
@@ -1054,6 +762,13 @@ public class GtmUtils {
 		return StandardCharsets.ISO_8859_1;
 	}
 
+	/**
+	 * Gets the char set.
+	 *
+	 * @param charset the charset
+	 * @param editor the editor
+	 * @return the char set
+	 */
 	private static Charset getCharSet(String charset,GtmEditor editor) {
 		
 		Charset set = null;
@@ -1071,6 +786,13 @@ public class GtmUtils {
 		}
 	}
 	
+	/**
+	 * Convert utf 8 to char set.
+	 *
+	 * @param s the s
+	 * @param set the set
+	 * @return the string
+	 */
 	public static String convertUtf8ToCharSet(String s, Charset set) {
 		try {
 			byte[] original = s.getBytes("UTF-8");
@@ -1080,6 +802,12 @@ public class GtmUtils {
 		}
 	}
 
+	/**
+	 * Gets the recommended country.
+	 *
+	 * @param tool the tool
+	 * @return the recommended country
+	 */
 	/*
 	 * find the country that occurs most often in the station list
 	 */
@@ -1122,6 +850,12 @@ public class GtmUtils {
 	}
 	
 	
+	/**
+	 * Utf 2 ascii.
+	 *
+	 * @param s the s
+	 * @return the string
+	 */
 	public synchronized static String utf2ascii(String s){
 		
 		if (s == null || s.length() == 0) return null;
@@ -1133,6 +867,12 @@ public class GtmUtils {
 	}
 	
 	
+	/**
+	 * Delete orphaned objects.
+	 *
+	 * @param domain the domain
+	 * @param tool the tool
+	 */
 	public static void deleteOrphanedObjects(EditingDomain domain, GTMTool tool) {
 		
 		if (tool == null || domain == null) return;
@@ -1148,6 +888,12 @@ public class GtmUtils {
 
 	}
 
+	/**
+	 * Adds the workflow step.
+	 *
+	 * @param description the description of the workflow step
+	 * @param editor the editor
+	 */
 	public static void addWorkflowStep(String description, GtmEditor editor) {
 		
 		WorkflowStep step = GtmFactory.eINSTANCE.createWorkflowStep();
@@ -1186,13 +932,16 @@ public class GtmUtils {
 			if (com != null && com.canExecute()) {
 				editor.getEditingDomain().getCommandStack().execute(com);
 			}
-		}
-		
-
-				
+		}	
 	}
 	
 	
+	/**
+	 * Sets the to 2359 UTC.
+	 *
+	 * @param date the date
+	 * @return the date
+	 */
 	public static Date setTo2359UTC(Date date) {
 		
 		java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -1205,6 +954,12 @@ public class GtmUtils {
 		return date2;
 	}
 	
+	/**
+	 * Sets the to 0000 UTC.
+	 *
+	 * @param date the date
+	 * @return the date
+	 */
 	public static Date setTo0000UTC(Date date) {
 		
 		java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -1216,6 +971,13 @@ public class GtmUtils {
 		return cal.getTime();
 	}
 	
+	/**
+	 * Check date only equal.
+	 *
+	 * @param date1 the date 1
+	 * @param date2 the date 2
+	 * @return true, if successful
+	 */
 	public static boolean checkDateOnlyEqual(Date date1, Date date2) {
 		
 		String d1 = dateFormat.format(date1);
@@ -1225,43 +987,17 @@ public class GtmUtils {
 
 	}
 
-	/*
-	 * remove border point codes from previous conversions
+
+
+
+
+	/**
+	 * Standardize reduction card id.
+	 *
+	 * @param cardIssuer the card issuer
+	 * @param id the reduction card id
+	 * @return the standardized reduction card id
 	 */
-	public static void resetBorderPointCodes(EditingDomain domain, GTMTool tool) {
-
-		CompoundCommand command = new CompoundCommand();
-			
-		for (Station s : tool.getCodeLists().getStations().getStations()) {
-				
-			if (s.getLegacyBorderPointCode() > 0) {
-					
-				command.append(SetCommand.create(domain, s, GtmPackage.Literals.STATION__LEGACY_BORDER_POINT_CODE, 0));
-					
-			}
-				
-		}
-			
-		if (command != null && !command.isEmpty() && command.canExecute()) {
-			domain.getCommandStack().execute(command);
-		}
-
-			
-		
-	}
-
-	public static String[] splitCsv(String st) {
-	
-		String[] st1 = st.split(";"); //$NON-NLS-1$
-		String[] st2 = st.split(","); //$NON-NLS-1$
-		
-		if (st1.length < st2.length) {
-			return st2;
-		}
-		
-		return 	st1;
-	}
-
 	public static String standardizeId(Carrier cardIssuer, String id) {
 		
 		//standard UIC ids
@@ -1284,19 +1020,31 @@ public class GtmUtils {
 		return newId;
 	}
 
-	public static boolean isConvertable(Station sn) {
+	/**
+	 * Checks if a station is convertable.
+	 *
+	 * @param station the station
+	 * @return true, if the station is convertable to 108 data
+	 */
+	public static boolean isConvertable(Station station) {
 		
-		if (sn.getStationCode() > 0L && sn.getStationCode() < 10000000L) {
+		if (station.getStationCode() > 0L && station.getStationCode() < 10000000L) {
 			return true;
 		}
 		
 		return false;
 	}
 
-	public static long getStationCode(String s) {
+	/**
+	 * Gets the station code.
+	 *
+	 * @param stationCode the station code
+	 * @return the numeric station code
+	 */
+	public static long getStationCode(String stationCode) {
 		
 		//pure station code
-		if (s == null || s.length() == 0) {
+		if (stationCode == null || stationCode.length() == 0) {
 			return 0;
 		}
 		
@@ -1304,16 +1052,16 @@ public class GtmUtils {
 		
 		try {
 		
-			i = Long.parseLong(s);
+			i = Long.parseLong(stationCode);
 		
 		} catch (Exception e) {
 			
 			//maybe its URN format
-			String decoded = URI.decode(s);
+			String decoded = URI.decode(stationCode);
 			String[] parts = decoded.split(":");
 			
 			try {
-				i =  Integer.parseInt(parts[parts.length - 1]);
+				i =  Long.parseLong(parts[parts.length - 1]);
 			} catch (Exception e2) {
 				return 0;
 			}
@@ -1324,9 +1072,15 @@ public class GtmUtils {
 
 	}
 
-	public static int getCountryOfStation(String s) {
+	/**
+	 * Gets the country code of station from the station code.
+	 *
+	 * @param stationCode the station code
+	 * @return the country of station
+	 */
+	public static int getCountryOfStation(String stationCode) {
 		
-		Long codeNum = GtmUtils.getStationCode(s);
+		Long codeNum = GtmUtils.getStationCode(stationCode);
 		
 		if (codeNum < 1000000) return 0;
 		
@@ -1345,9 +1099,15 @@ public class GtmUtils {
 
 	}
 
-	public static long getlocalStationCode(String s) {
+	/**
+	 * Gets the local station code from a unique station code.
+	 *
+	 * @param stationCode the station code
+	 * @return the local station code
+	 */
+	public static long getlocalStationCode(String stationCode) {
 		
-		Long codeNum = GtmUtils.getStationCode(s);
+		Long codeNum = GtmUtils.getStationCode(stationCode);
 		
 		if (codeNum < 1000000) return 0;
 		
