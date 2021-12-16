@@ -88,11 +88,13 @@ import Gtm.utils.InvolvedTcoFinder;
 import Gtm.utils.StationSelector;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConverterFromLegacy.
  */
 public class ConverterFromLegacy {
 	
+	/** The date format. */
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
 	
 	/** The local stations in the legacy data country. */
@@ -133,14 +135,23 @@ public class ConverterFromLegacy {
 	private HashMap<FareConstraintBundle,HashSet<FareConstraintBundle>> convertedBundles = new HashMap<FareConstraintBundle,HashSet<FareConstraintBundle>>();
 
 	
+	/** The price list. */
 	private ArrayList<Price> priceList = new ArrayList<Price>();
+	
+	/** The after sales rules. */
 	private ArrayList<AfterSalesRule> afterSalesRules = new ArrayList<AfterSalesRule>();
+	
+	/** The regions. */
 	private ArrayList<RegionalConstraint> regions = new ArrayList<RegionalConstraint>();
+	
+	/** The fares. */
 	private ArrayList<FareElement> fares = new ArrayList<FareElement>();
+	
+	/** The price validity ranges. */
 	private ArrayList<DateRange> priceValidityRanges = new ArrayList<DateRange>();
 
 	
-	/** The country */
+	/**  The country. */
 	private Country myCountry = null;
 	
 	/** The tool. */
@@ -358,6 +369,9 @@ public class ConverterFromLegacy {
 	
 
 
+	/**
+	 * Inits the conversion.
+	 */
 	private void initConversion() {
 		priceList = new ArrayList<Price>();
 		afterSalesRules = new ArrayList<AfterSalesRule>();
@@ -368,6 +382,9 @@ public class ConverterFromLegacy {
 		checkFareTemplates();
 	}
 	
+	/**
+	 * Clean conversion.
+	 */
 	private void cleanConversion() {
 		localStations.clear();
 		carriers.clear();
@@ -453,6 +470,11 @@ public class ConverterFromLegacy {
 		return faresConverted;
 	}
 
+	/**
+	 * Convert carrier constraints.
+	 *
+	 * @param tool2 the tool 2
+	 */
 	private void convertCarrierConstraints(GTMTool tool2) {
 		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			try {
@@ -477,6 +499,17 @@ public class ConverterFromLegacy {
 		}
 	}
 	
+	/**
+	 * Convert series.
+	 *
+	 * @param monitor the monitor
+	 * @param priceValidityRanges the price validity ranges
+	 * @param regions the regions
+	 * @param priceList the price list
+	 * @param fares the fares
+	 * @param afterSalesRules the after sales rules
+	 * @return the int
+	 */
 	private int convertSeries(IProgressMonitor monitor, ArrayList<DateRange> priceValidityRanges, ArrayList<RegionalConstraint> regions, ArrayList<Price> priceList, ArrayList<FareElement> fares, ArrayList<AfterSalesRule> afterSalesRules) {
 		
 		priceValidityRanges = findAllPriceValidityRanges(tool.getConversionFromLegacy().getLegacy108());
@@ -524,22 +557,7 @@ public class ConverterFromLegacy {
 					}
 					
 					//check the carrier filter
-					if (fareTemplate.getCarrierFilter() != null && !fareTemplate.getCarrierFilter().isEmpty()) {
-							
-						if (series.getCarrierCode() == null) {
-							convert = false;
-						} else {
-							boolean included = false;
-							for (Carrier c : fareTemplate.getCarrierFilter()) {
-								if (series.getCarrierCode().equals(c.getCode())) {
-									included = true;	
-								}
-							}
-							if (!included) {
-								convert = false;
-							}
-						}
-					}
+					convert = checkCarrierFilter(fareTemplate, series);
 					
 					//check basic features
 					if (fareTemplate.getServiceClass() == null) {					
@@ -586,7 +604,62 @@ public class ConverterFromLegacy {
 		return faresConverted;
 	}	
 
+	/**
+	 * Check carrier filter. If a carrier filter is defined all involved carriers must be listed in the filter.
+	 *
+	 * @param regionalConstraint the regional constraint
+	 * @param fareTemplate the fare template
+	 * @return true, if the carriers listed are ok according to the filter
+	 */
+	private boolean checkCarrierFilter(RegionalConstraint regionalConstraint, FareTemplate fareTemplate) {
+			
+		if (fareTemplate.getCarrierFilter() == null || fareTemplate.getCarrierFilter().isEmpty()) return true;
 
+		Set<Carrier> carriers = InvolvedTcoFinder.getInvolvedCarriers(regionalConstraint);
+		
+		if (fareTemplate.getCarrierFilter().containsAll(carriers)) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Check carrier filter.
+	 *
+	 * @param fareTemplate the fare template
+	 * @param series the series
+	 * @return true, if successful
+	 */
+	private boolean checkCarrierFilter(FareTemplate fareTemplate, LegacySeries series) {
+		
+		boolean convert = true;
+		
+		if (fareTemplate.getCarrierFilter() == null || fareTemplate.getCarrierFilter().isEmpty()) return true;
+			
+		if (series.getCarrierCode() == null) {
+			convert = false;
+		} else {
+			boolean included = false;
+			for (Carrier c : fareTemplate.getCarrierFilter()) {
+				if (series.getCarrierCode().equals(c.getCode())) {
+					included = true;	
+				}
+			}
+			if (!included) {
+				convert = false;
+			}
+		}
+		return convert;
+	}
+
+
+	/**
+	 * Checks if is usable sales availability.
+	 *
+	 * @param s the s
+	 * @return true, if is usable sales availability
+	 */
 	/*
 	 * check whether the sales availability can be used or needs to be created by conversion
 	 */
@@ -608,6 +681,12 @@ public class ConverterFromLegacy {
 	}
 
 
+	/**
+	 * Find all price validity ranges.
+	 *
+	 * @param legacy108 the legacy 108
+	 * @return the array list
+	 */
 	private ArrayList<DateRange> findAllPriceValidityRanges(Legacy108 legacy108) {
 		
 		HashMap<String,DateRange> dateSet = new HashMap<String,DateRange>();
@@ -630,6 +709,12 @@ public class ConverterFromLegacy {
 		//return DateRange.getIntervalls(dateSet);
 	}
 
+	/**
+	 * Gets the date range.
+	 *
+	 * @param s the s
+	 * @return the date range
+	 */
 	private DateRange getDateRange(SalesAvailabilityConstraint s) {
 		
 		Date startDate = null;
@@ -661,6 +746,9 @@ public class ConverterFromLegacy {
 		return new DateRange(startDate, endDate);
 	}
 
+	/**
+	 * Check fare templates.
+	 */
 	private void checkFareTemplates() {
 		
 		
@@ -841,6 +929,13 @@ public class ConverterFromLegacy {
 
 	}
 
+	/**
+	 * Round.
+	 *
+	 * @param amountF the amount F
+	 * @param roundingMode the rounding mode
+	 * @return the float
+	 */
 	private float round(float amountF, RoundingType roundingMode) {
 		String amountS = Float.toString(amountF);
 		float amount = 0;
@@ -1302,6 +1397,13 @@ public class ConverterFromLegacy {
 		return constraint;
 	}
 	
+	/**
+	 * Find simple carrier constraint.
+	 *
+	 * @param tool the tool
+	 * @param carrierCode the carrier code
+	 * @return the carrier constraint
+	 */
 	private CarrierConstraint findSimpleCarrierConstraint(GTMTool tool, String carrierCode) {
 		
 		Carrier c = carriers.get(carrierCode);
@@ -1376,6 +1478,12 @@ public class ConverterFromLegacy {
 
 
 
+	/**
+	 * Find service constraint by legacy code.
+	 *
+	 * @param localCode the local code
+	 * @return the service constraint
+	 */
 	private ServiceConstraint findServiceConstraintByLegacyCode(long localCode) {
 		
 		if (tool.getGeneralTariffModel().getFareStructure().getServiceConstraints() == null) {
@@ -1415,9 +1523,9 @@ public class ConverterFromLegacy {
 	 * Sets the connection points.
 	 *
 	 * @param series the series
-	 * @param lsd 
+	 * @param lsd the lsd
 	 * @param departureStation the departure station
-	 * @param lsa 
+	 * @param lsa the lsa
 	 * @param arrivalStation the arrival station
 	 * @param constraint the constraint
 	 * @throws ConverterException the converter exception
@@ -1636,6 +1744,12 @@ public class ConverterFromLegacy {
 	}
 	
 
+	/**
+	 * Gets the border side via station.
+	 *
+	 * @param ls the ls
+	 * @return the border side via station
+	 */
 	private ViaStation getBorderSideViaStation(Legacy108Station ls) {
 		
 		int borderPointCode = ls.getBorderPointCode();
@@ -1938,6 +2052,12 @@ public class ConverterFromLegacy {
 		return null;
 	}
 	
+	/**
+	 * Find mapped station.
+	 *
+	 * @param localCode the local code
+	 * @return the station
+	 */
 	private Station findMappedStation(long localCode) {
 		
 		if (localCode == 0) return null;
@@ -2193,6 +2313,16 @@ public class ConverterFromLegacy {
 	
 
 
+	/**
+	 * Calculate distance price.
+	 *
+	 * @param tool the tool
+	 * @param travelClass the travel class
+	 * @param distance the distance
+	 * @param fareTableNumber the fare table number
+	 * @param dateRange the date range
+	 * @return the integer
+	 */
 	private static Integer calculateDistancePrice(GTMTool tool, int travelClass, int distance, int fareTableNumber, DateRange dateRange) {
 		//get the lowest price where the distance is ok
 		int price = 0;
@@ -2224,6 +2354,13 @@ public class ConverterFromLegacy {
 	}
 
 
+	/**
+	 * Check date equal.
+	 *
+	 * @param date1 the date 1
+	 * @param date2 the date 2
+	 * @return true, if successful
+	 */
 	private static boolean checkDateEqual(Date date1, Date date2) {
 		
 		String d1 = dateFormat.format(date1);
@@ -2391,8 +2528,7 @@ public class ConverterFromLegacy {
 		
 		mapConstraintsAndDescriptions(fare, series);
 		if (price != null && fare != null) {
-			fare.setAfterSalesRule(convertAfterSalesRules(price, fareTemplate, afterSalesRules, priceList));
-			fares.add(fare);			
+			fare.setAfterSalesRule(convertAfterSalesRules(price, fareTemplate, afterSalesRules, priceList));	
 		}
 		
 	
@@ -2401,9 +2537,28 @@ public class ConverterFromLegacy {
 
 		//add carriers
 		AddCarrierRuleEngine.addCarriers(tool,fare.getRegionalConstraint());
+		
+		//check carrier filter to include the additional carriers from the mappings
+		if (!checkCarrierFilter(regionalConstraint, fareTemplate)){
+			fare = null;
+		}
+		
+		if (fare != null) {
+			fares.add(fare);	
+		}
 	}
 
 	
+
+
+
+	/**
+	 * Find carrier contraint.
+	 *
+	 * @param tool the tool
+	 * @param involvedCarriers the involved carriers
+	 * @return the carrier constraint
+	 */
 	private CarrierConstraint findCarrierContraint(GTMTool tool, Set<Carrier> involvedCarriers) {
 		
 		if (involvedCarriers == null || involvedCarriers.isEmpty()) {
@@ -2436,6 +2591,13 @@ public class ConverterFromLegacy {
 	}
 
 
+	/**
+	 * Find bundle.
+	 *
+	 * @param bundle the bundle
+	 * @param dateRange the date range
+	 * @return the fare constraint bundle
+	 */
 	private FareConstraintBundle findBundle(FareConstraintBundle bundle, DateRange dateRange) {
 		
 		if (dateRange == null || dateRange.getStartDate() == null || dateRange.getEndDate() == null) {
@@ -2467,6 +2629,12 @@ public class ConverterFromLegacy {
 
 	}
 
+	/**
+	 * Sets the detail description.
+	 *
+	 * @param fare the fare
+	 * @param memoNumber the memo number
+	 */
 	private void setDetailDescription(FareElement fare, int memoNumber) {
 		
 		// search memo
@@ -2484,6 +2652,12 @@ public class ConverterFromLegacy {
 		
 	}
 
+	/**
+	 * Search text.
+	 *
+	 * @param memo the memo
+	 * @return the text
+	 */
 	private Text searchText(Legacy108Memo memo) {
 		
 		Text text = memoTexts.get(Integer.valueOf(memo.getNumber()));
@@ -2527,6 +2701,11 @@ public class ConverterFromLegacy {
 		return text;
 	}
 
+	/**
+	 * Gets the german.
+	 *
+	 * @return the german
+	 */
 	private Language getGerman() {
 		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
 			if (l.getCode().equals("de")) {
@@ -2536,6 +2715,11 @@ public class ConverterFromLegacy {
 		return null;
 	}
 
+	/**
+	 * Gets the french.
+	 *
+	 * @return the french
+	 */
 	private Language getFrench() {
 		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
 			if (l.getCode().equals("fr")) {
@@ -2545,6 +2729,11 @@ public class ConverterFromLegacy {
 		return null;
 	}
 
+	/**
+	 * Gets the english.
+	 *
+	 * @return the english
+	 */
 	private Language getEnglish() {
 		for (Language l : tool.getCodeLists().getLanguages().getLanguages()) {
 			if (l.getCode() != null && l.getCode().equals("en")) {
@@ -2554,6 +2743,12 @@ public class ConverterFromLegacy {
 		return null;
 	}
 
+	/**
+	 * Gets the legacy memo.
+	 *
+	 * @param memoNumber the memo number
+	 * @return the legacy memo
+	 */
 	private Legacy108Memo getLegacyMemo(int memoNumber) {
 		if (tool.getConversionFromLegacy().getLegacy108().getLegacyMemos() == null) {
 			return null;
@@ -2667,6 +2862,12 @@ public class ConverterFromLegacy {
 		return connectionPoints;
 	}
 
+	/**
+	 * Gets the involved carriers.
+	 *
+	 * @param tool the tool
+	 * @return the involved carriers
+	 */
 	private HashSet<Carrier> getInvolvedCarriers(GTMTool tool) {
 		
     	HashSet<Carrier> involvedCarriers = new HashSet<Carrier>();
@@ -2709,7 +2910,7 @@ public class ConverterFromLegacy {
 	 * Convert imported border point.
 	 *
 	 * @param lBorder the l border
-	 * @param involvedCarriers 
+	 * @param involvedCarriers the involved carriers
 	 * @return the connection point
 	 */
 	private ConnectionPoint convertImportedBorderPoint(LegacyBorderPoint lBorder, HashSet<Carrier> involvedCarriers) {
@@ -3197,7 +3398,6 @@ public class ConverterFromLegacy {
 	 * Merges legacy 108 station into a real station.
 	 * character set errors in the legacy station names are corrected
 	 *
-	 * @param tool the tool
 	 * @param lStation the l station
 	 * @param station the station
 	 * @return the station
@@ -3214,7 +3414,6 @@ public class ConverterFromLegacy {
 	 * Merges legacy 108 station into a real station.
 	 * character set errors in the legacy station names are corrected
 	 *
-	 * @param tool the tool
 	 * @param lStation the l station
 	 * @param station the station
 	 * @return the station
