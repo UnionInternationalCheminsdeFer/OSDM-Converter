@@ -34,6 +34,7 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.IncludedFreePassengerLimit;
+import Gtm.PassengerCombinationConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.ReductionCard;
 import Gtm.RegionalConstraint;
@@ -205,17 +206,35 @@ public class MigrationV2 {
 							
 							pcr = findSimplePassengerConstraint(tool, domain, ip.getPassengerType(),newPassengerConstraints);						
 							if (pcr != null) {
-								com.append(SetCommand.create(domain, ip, GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT, pcr));
-							} else {
 								pcr = createUniqueSimplePassengerConstraint(tool, domain, ip.getPassengerType(), newPassengerConstraints);						
-								if (pcr != null) {
-								   com.append(SetCommand.create(domain, ip, GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT, pcr));
-								   com.append(SetCommand.create(domain, ip, GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE, null));
-								}
+							} 
+							if (pcr != null) {
+							   com.append(SetCommand.create(domain, ip, GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT, pcr));
+							   com.append(SetCommand.create(domain, ip, GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE, null));
 							}
 						}
 					}
 				}
+				
+				if (pc.getExcludedPassengerCombinations() != null && !pc.getExcludedPassengerCombinations().isEmpty()) {
+					
+					for (PassengerCombinationConstraint pcc : pc.getExcludedPassengerCombinations()) {
+						
+						PassengerConstraint pcr = pcc.getPassengerConstraint();
+						
+						if (pcr == null && pcc.getPassengerType() != null) {
+							
+							pcr = findPassengerConstraint(tool, domain, pcc.getPassengerType(),newPassengerConstraints);						
+							if (pcr == null) {
+								pcr = createUniqueSimplePassengerConstraint(tool, domain, pcc.getPassengerType(), newPassengerConstraints);						
+							}
+							if (pcr != null) {
+								com.append(SetCommand.create(domain, pcc, GtmPackage.Literals.PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_CONSTRAINT, pcr));
+								com.append(SetCommand.create(domain, pcc, GtmPackage.Literals.PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE, null));
+							} 
+						}							
+					}
+				}				
 			}
 		}
 		
@@ -289,14 +308,22 @@ public class MigrationV2 {
 		if (tool.getCodeLists().getStations() != null &&
 			tool.getCodeLists().getStations().getStations() != null) {
 				
+			int changes = 0;
+			
 			for (Station s : tool.getCodeLists().getStations().getStations()) {
 		
 				if (s.getStationCode() == 0 && s.getCountry() != null) {
 						
 					long code = s.getCountry().getCode() * 100000 + Long.parseLong(s.getCode());
-						
+					changes++;	
 					com3.append(SetCommand.create(domain, s, GtmPackage.Literals.STATION__STATION_CODE, Long.valueOf(code)));
 						
+					if (changes > 200) {
+						if (com3 != null && !com3.isEmpty() && com3.canExecute()) {
+							domain.getCommandStack().execute(com3);
+							com3 = new CompoundCommand();
+						}
+					}
 				}
 				
 			}
@@ -307,6 +334,8 @@ public class MigrationV2 {
 			domain.getCommandStack().execute(com3);
 		}		
 			
+		GtmUtils.flushCommandStack(domain);
+		
 	}
 
 
@@ -428,6 +457,34 @@ public class MigrationV2 {
 		return null;
 	}
 
+	private static PassengerConstraint findPassengerConstraint(GTMTool tool, EditingDomain domain, TravelerType passengerType, Set<PassengerConstraint> newPassengerConstraints) {
+		
+		if (newPassengerConstraints != null && !newPassengerConstraints.isEmpty()) {
+			
+			for (PassengerConstraint pc : newPassengerConstraints) {
+				
+				if (pc.getTravelerType().equals(passengerType) ) {
+					return pc;
+				}	
+				
+			}
+			
+		}
+		
+		if (tool.getGeneralTariffModel() != null &&
+			tool.getGeneralTariffModel().getFareStructure() != null &&
+			tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints() != null) {
+		
+			for (PassengerConstraint pc : tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
+		
+				if (pc.getTravelerType().equals(passengerType)  ) {
+					return pc;
+				}
+				
+			}
+		}
+		return null;
+	}
 
 	private static PassengerConstraint createUniqueSimplePassengerConstraint(GTMTool tool, EditingDomain domain, TravelerType passengerType, Set<PassengerConstraint> newPassengerConstraints) {
 

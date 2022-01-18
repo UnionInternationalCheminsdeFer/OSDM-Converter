@@ -174,14 +174,31 @@ public class GtmUtils {
 		
 		if (command.canExecute()) {
 			domain.getCommandStack().execute(command);
-			domain.getCommandStack().flush();
-			domain.getCommandStack().execute(new DirtyCommand());
+			flushCommandStack(domain);
 		} else {
 			String message = NationalLanguageSupport.ConverterFromLegacy_52 + command.getDescription();
 			GtmUtils.writeConsoleError(message, editor);
 		}
 		
 		System.gc();
+		
+	}
+	
+	
+	/**
+	 * flush a command mark the model as dirty and ask for the garbage collector.
+	 *
+	 * @param command the command
+	 * @param domain the domain
+	 */
+	public static void flushCommandStack(EditingDomain domain) {
+	
+		if (domain.getCommandStack().getMostRecentCommand() == null 
+				|| domain.getCommandStack().getMostRecentCommand() instanceof DirtyCommand) {
+			return;
+		}
+		
+		flushCommandStack(domain);
 		
 	}
 	
@@ -195,8 +212,7 @@ public class GtmUtils {
 		
 		if (command != null && domain != null && !command.isEmpty() && command.canExecute()) {
 			domain.getCommandStack().execute(command);
-			domain.getCommandStack().flush();
-			domain.getCommandStack().execute(new DirtyCommand());
+			flushCommandStack(domain);
 		} else {
 			String message = "could not change data: " + command.getDescription();
 			GtmUtils.writeConsoleError(message,null);
@@ -278,40 +294,6 @@ public class GtmUtils {
 		return ImageDescriptor.createFromURL(fileURL);
 	}
 	
-	/**
-	 * Clear command stack and mark it as dirty.
-	 *
-	 * @param domain the domain
-	 */
-	public static void clearCommandStack(EditingDomain domain) {
-		//clears the command stack to reduce the memory footprint
-		boolean isDirty = false;
-		if (domain.getCommandStack().getMostRecentCommand() != null) {
-			isDirty = true;
-		}
-		domain.getCommandStack().flush();
-		System.gc();
-		if (isDirty) {
-			domain.getCommandStack().execute(new DirtyCommand());
-		}
-	}
-	
-	/**
-	 * Clear command stack and mark it as dirty.
-	 */
-	public static void clearCommandStack() {
-		//clears the command stack to reduce the memory footprint
-		boolean isDirty = false;
-		if (GtmUtils.getActiveDomain().getCommandStack().getMostRecentCommand() != null) {
-			isDirty = true;
-		}
-		GtmUtils.getActiveDomain().getCommandStack().flush();
-		System.gc();
-		if (isDirty) {
-			GtmUtils.getActiveDomain().getCommandStack().execute(new DirtyCommand());
-		}
-	}
-
 
 	/**
 	 * To printable asc II.

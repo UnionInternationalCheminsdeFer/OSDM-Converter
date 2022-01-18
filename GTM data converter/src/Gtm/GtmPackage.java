@@ -4465,13 +4465,22 @@ public interface GtmPackage extends EPackage {
 	int PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Passenger Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_CONSTRAINT = 3;
+
+	/**
 	 * The number of structural features of the '<em>Passenger Combination Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PASSENGER_COMBINATION_CONSTRAINT_FEATURE_COUNT = 3;
+	int PASSENGER_COMBINATION_CONSTRAINT_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Passenger Combination Constraint</em>' class.
@@ -14107,6 +14116,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getPassengerCombinationConstraint_PassengerType();
 
 	/**
+	 * Returns the meta object for the reference '{@link Gtm.PassengerCombinationConstraint#getPassengerConstraint <em>Passenger Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Passenger Constraint</em>'.
+	 * @see Gtm.PassengerCombinationConstraint#getPassengerConstraint()
+	 * @see #getPassengerCombinationConstraint()
+	 * @generated
+	 */
+	EReference getPassengerCombinationConstraint_PassengerConstraint();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.IncludedFreePassengerLimit <em>Included Free Passenger Limit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -22512,6 +22532,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE = eINSTANCE.getPassengerCombinationConstraint_PassengerType();
+
+		/**
+		 * The meta object literal for the '<em><b>Passenger Constraint</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_CONSTRAINT = eINSTANCE.getPassengerCombinationConstraint_PassengerConstraint();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.IncludedFreePassengerLimitImpl <em>Included Free Passenger Limit</em>}' class.

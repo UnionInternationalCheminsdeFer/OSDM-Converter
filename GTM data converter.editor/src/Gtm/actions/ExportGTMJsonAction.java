@@ -205,7 +205,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
   
 		private void insertIds(GTMTool tool,EditingDomain domain, GtmEditor editor) {
 			
-			GtmUtils.clearCommandStack(domain);
+			GtmUtils.flushCommandStack(domain);
 			
 			CompoundCommand command =  ObjectIdCreator.setIds(tool,domain);
 			

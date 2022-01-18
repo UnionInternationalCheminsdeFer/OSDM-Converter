@@ -24,6 +24,7 @@ import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
+import Gtm.SchemaVersion;
 import Gtm.Station;
 import Gtm.jsonImportExport.GTMJsonImporterV14;
 import Gtm.jsonImportExport.StationNameMergerV14;
@@ -269,7 +270,9 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 
 						GtmUtils.deleteOrphanedObjects(domain, tool);
 							
-						MigrationV2.migrateV2(domain, editor);
+						if (!tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V14)) {
+							MigrationV2.migrateV2(domain, editor);
+						}
 					
 						monitor.worked(1);
 						

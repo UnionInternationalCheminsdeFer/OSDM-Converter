@@ -7368,7 +7368,9 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validatePassengerCombinationConstraint_TRAVELLER_TYPE_MUST(PassengerCombinationConstraint passengerCombinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 
-		if (passengerCombinationConstraint.getPassengerType() == null) {
+		
+		
+		if (passengerCombinationConstraint.getPassengerConstraint() == null || passengerCombinationConstraint.getPassengerConstraint().getTravelerType() == null) {
 			if (diagnostics != null) {
 				diagnostics.add
 					(createSimpleDiagnostic

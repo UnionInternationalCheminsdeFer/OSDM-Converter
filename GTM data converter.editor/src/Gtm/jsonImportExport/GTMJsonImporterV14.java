@@ -1254,7 +1254,8 @@ public class GTMJsonImporterV14 {
 		for (gtmV14.CombinationConstraint jc : jl) {
 			PassengerCombinationConstraint o = GtmFactory.eINSTANCE.createPassengerCombinationConstraint();
 			o.setMaxNumber(jc.getMaxNumber());
-			o.setPassengerType(TravelerType.getByName(jc.getPassengerTypeRef()));
+			o.setPassengerConstraint(findPassengerConstraint(jc.getPassengerConstraintRef()));
+			
 			l.add(o);
 		}
 
@@ -1269,7 +1270,8 @@ public class GTMJsonImporterV14 {
 		for (IncludedFreePassenger jc : jl) {
 			IncludedFreePassengerLimit o = GtmFactory.eINSTANCE.createIncludedFreePassengerLimit();
 			o.setNumber(jc.getNumber());
-			o.setPassengerType(TravelerType.getByName(jc.getPassengerTypeRef()));
+			o.setPassengerConstraint(findPassengerConstraint(jc.getPassengerConstraintRef()));
+			
 			l.add(o);
 		}
 

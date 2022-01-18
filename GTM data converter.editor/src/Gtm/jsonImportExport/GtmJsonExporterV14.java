@@ -1588,9 +1588,8 @@ public class GtmJsonExporterV14 {
 				IncludedFreePassenger freeJ = new IncludedFreePassenger();
 				
 				freeJ.setNumber(freeP.getNumber());
-				if (freeP.getPassengerType() != null) {
-					freeJ.setPassengerTypeRef(freeP.getPassengerType().getName());
-				}
+								
+				freeJ.setPassengerConstraintRef(freeP.getPassengerConstraint().getId());
 				
 				listJ.add(freeJ);
 			}
@@ -1601,16 +1600,14 @@ public class GtmJsonExporterV14 {
 		if (pass.getExcludedPassengerCombinations() != null && !pass.getExcludedPassengerCombinations().isEmpty()) {
 			ArrayList<CombinationConstraint> listJ = new ArrayList<CombinationConstraint>();
 			
-			for (PassengerCombinationConstraint freeP : pass.getExcludedPassengerCombinations()) {
+			for (PassengerCombinationConstraint passengerCombinationConstraint : pass.getExcludedPassengerCombinations()) {
 				
 				CombinationConstraint freeJ = new CombinationConstraint();
 				
-				freeJ.setMaxNumber(freeP.getMaxNumber());
-				freeJ.setMinNumber(freeP.getMinNumber());
+				freeJ.setMaxNumber(passengerCombinationConstraint.getMaxNumber());
+				freeJ.setMinNumber(passengerCombinationConstraint.getMinNumber());
 				
-				if (freeP.getPassengerType() != null) {
-					freeJ.setPassengerTypeRef(freeP.getPassengerType().getName());
-				}
+				freeJ.setPassengerConstraintRef(passengerCombinationConstraint.getPassengerConstraint().getId());				
 				
 				listJ.add(freeJ);
 			}
