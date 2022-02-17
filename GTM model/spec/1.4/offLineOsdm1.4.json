@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "http://uic.org//schemas/passenger/eticket/v2/offlineOSDM.json",
   "title": "OSDM Offline Fare Delivery",
   "description": "OSDM extract of offline fare delivery",
@@ -449,12 +449,128 @@
             "scope"
           ],
           "additionalProperties": false
+        },
+        "validityType": {
+          "description": "type of usage, eigther as single trip or multiple trips. Unrestricted fares might be combined into single trips when appropriate",
+          "type": "string",
+          "default": "SINGLE_TRIP",
+          "x-extensible-enum": [
+            "SINGLE_TRIP",
+            "MULTIPLE_TRIPS",
+            "UNRESTRICTED"
+          ]
+        },
+        "tripAllocationConstraint": {
+          "$ref": "#/definitions/TripAllocationConstraintDef"
+        },
+        "tripInterruptionConstraint": {
+          "$ref": "#/definitions/TripInterruptionConstraintDef"
         }
       },
       "required": [
         "validityRange"
       ],
       "additionalProperties": false
+    },
+    "TripInterruptionProcess": {
+      "description": "MANUAL: passenger needs manual confirmation of train or station staff to interrupt the trip. ACTIVATION: Passenger needs to deactivate the ticket during the interruption (via an app).",
+      "type": "string",
+      "x-extensible-enum": [
+        "NONE",
+        "MANUAL",
+        "ACTIVATION"
+      ]
+    },
+    "TripAllocationProcess": {
+      "description": "NONE: Individual trips don't need to be allocated. MANUAL: The passenger has to allocate a trip manually (This should not be used as it is by design non-interoperable). ACTIVATION: Individual trips can be allocatted by activation of the ticket. FULFILLMENT A new fulfillment needs to be created to allocate a trip",
+      "type": "string",
+      "x-extensible-enum": [
+        "NONE",
+        "MANUAL",
+        "ACTIVATION",
+        "FULFILLMENT"
+      ]
+    },
+    "TripAllocationUnit": {
+      "description": "NONE: Individual trips don't need to be allocated. TRIP: allocation per individual trip. DAY: The allocation is per travel day DURATION: the allocation is per duration",
+      "type": "string",
+      "x-extensible-enum": [
+        "NONE",
+        "TRIP",
+        "DAY",
+        "DURATION"
+      ]
+    },
+    "TripAllocationConstraintDef": {
+      "description": "constraint on the use of a multiple trip ticket",
+      "type": "object",
+      "properties": {
+        "allocationUnit": {
+          "$ref": "#/definitions/TripAllocationUnit"
+        },
+        "maxUnits": {
+          "description": "maximum number of allowed units to be allocated",
+          "type": "integer",
+          "format": "int32"
+        },
+        "durationUnit": {
+          "description": "multiples of this duration can be allocated",
+          "type": "string",
+          "format": "duration",
+          "examples": [
+            "PT30M"
+          ]
+        },
+        "requiredProcesses": {
+          "description": "one of the listed processes is required for the allocation of a single trip.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TripAllocationProcess"
+          }
+        }
+      },
+      "required": [
+        "allocationUnit",
+        "requiredProcesses"
+      ]
+    },
+    "TripInterruptionConstraintDef": {
+      "description": "rules on allowed trip interruptions. Interruptions due to a train change  indicated by a trip search must not be included here.",
+      "type": "object",
+      "properties": {
+        "maxInterruptions": {
+          "description": "maximum number of interruptions",
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxDuration": {
+          "description": "maximum duration of one interruption",
+          "type": "string",
+          "format": "duration",
+          "examples": [
+            "PT30M"
+          ]
+        },
+        "totalMaxDuration": {
+          "description": "maximum duration of all interruptions on the route",
+          "type": "string",
+          "format": "duration",
+          "examples": [
+            "PT30M"
+          ]
+        },
+        "requiredProcesses": {
+          "description": "one of the listed processes is required for the interruption of the trip.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TripInterruptionProcess"
+          }
+        }
+      },
+      "required": [
+        "maxInterruptions",
+        "requiredProcesses"
+      ]
     },
     "TravelerTypeDef": {
       "description": "Subset of the values from the traveler type code list IRS 90918-10 ",
@@ -1686,9 +1802,9 @@
                 "default": 999
               },
               "passengerTypeRef": {
+                "$ref": "#/definitions/TravelerTypeDef",
                 "description": "Deprecated with v.1.4.",
-                "deprecated": "true",
-                "$ref": "#/definitions/TravelerTypeDef"
+                "deprecated": true
               },
               "passengerConstraintRef": {
                 "description": "Reference to a passenger constraint defining the passengers to be included for free. The referenced passenger constraint must not itself contain included free passengers",
@@ -1717,7 +1833,7 @@
               },
               "passengerConstraintRef": {
                 "type": "string"
-              }  
+              }
             },
             "additionalProperties": false
           }
@@ -1889,8 +2005,8 @@
       },
       "required": [
         "issuer",
-        "nameRef",
-        "id"
+        "id",
+        "nameRef"
       ],
       "additionalProperties": false
     },
@@ -2081,10 +2197,10 @@
         "code": {
           "description": "code ",
           "type": "string"
-        },        
+        },
         "localCode": {
           "description": "local code deprecated with version 1.4",
-          "deprecated" : true,
+          "deprecated": true,
           "type": "integer"
         },
         "name": {

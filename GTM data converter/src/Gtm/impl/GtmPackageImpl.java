@@ -745,6 +745,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass tripAllocationConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tripInterruptionConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass viaStationEClass = null;
 
 	/**
@@ -1432,6 +1446,34 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum travelerTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tripAllocationProcessEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tripAllocationUnitEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tripInterruptionProcessEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum travelValidityTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4470,6 +4512,33 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTravelValidityConstraint_ValidityType() {
+		return (EAttribute)travelValidityConstraintEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTravelValidityConstraint_TripInterruptionConstraint() {
+		return (EReference)travelValidityConstraintEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTravelValidityConstraint_TripAllocationConstraint() {
+		return (EReference)travelValidityConstraintEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTrainValidity() {
 		return trainValidityEClass;
 	}
@@ -5930,6 +5999,96 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getReturnValidityConstraint_EarliestReturn() {
 		return (EAttribute)returnValidityConstraintEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTripAllocationConstraint() {
+		return tripAllocationConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripAllocationConstraint_AllocationUnit() {
+		return (EAttribute)tripAllocationConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripAllocationConstraint_MaxUnits() {
+		return (EAttribute)tripAllocationConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripAllocationConstraint_DurationUnit() {
+		return (EAttribute)tripAllocationConstraintEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripAllocationConstraint_RequiredProcesses() {
+		return (EAttribute)tripAllocationConstraintEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTripInterruptionConstraint() {
+		return tripInterruptionConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripInterruptionConstraint_MaxInterruptions() {
+		return (EAttribute)tripInterruptionConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripInterruptionConstraint_MaxDuration() {
+		return (EAttribute)tripInterruptionConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripInterruptionConstraint_TotalMaxDuration() {
+		return (EAttribute)tripInterruptionConstraintEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripInterruptionConstraint_RequiredProcesses() {
+		return (EAttribute)tripInterruptionConstraintEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -9123,6 +9282,42 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getTripAllocationProcess() {
+		return tripAllocationProcessEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTripAllocationUnit() {
+		return tripAllocationUnitEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTripInterruptionProcess() {
+		return tripInterruptionProcessEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTravelValidityType() {
+		return travelValidityTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWeekDay() {
 		return weekDayEEnum;
 	}
@@ -9622,6 +9817,9 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__RETURN_CONSTRAINT);
 		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE);
 		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY);
+		createEAttribute(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE);
+		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT);
+		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT);
 
 		trainValidityEClass = createEClass(TRAIN_VALIDITY);
 		createEReference(trainValidityEClass, TRAIN_VALIDITY__CARRIER_CONSTRAINT);
@@ -9811,6 +10009,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(returnValidityConstraintEClass, RETURN_VALIDITY_CONSTRAINT__EXCLUDED_WEEKDAYS);
 		createEAttribute(returnValidityConstraintEClass, RETURN_VALIDITY_CONSTRAINT__LATEST_RETURN);
 		createEAttribute(returnValidityConstraintEClass, RETURN_VALIDITY_CONSTRAINT__EARLIEST_RETURN);
+
+		tripAllocationConstraintEClass = createEClass(TRIP_ALLOCATION_CONSTRAINT);
+		createEAttribute(tripAllocationConstraintEClass, TRIP_ALLOCATION_CONSTRAINT__ALLOCATION_UNIT);
+		createEAttribute(tripAllocationConstraintEClass, TRIP_ALLOCATION_CONSTRAINT__MAX_UNITS);
+		createEAttribute(tripAllocationConstraintEClass, TRIP_ALLOCATION_CONSTRAINT__DURATION_UNIT);
+		createEAttribute(tripAllocationConstraintEClass, TRIP_ALLOCATION_CONSTRAINT__REQUIRED_PROCESSES);
+
+		tripInterruptionConstraintEClass = createEClass(TRIP_INTERRUPTION_CONSTRAINT);
+		createEAttribute(tripInterruptionConstraintEClass, TRIP_INTERRUPTION_CONSTRAINT__MAX_INTERRUPTIONS);
+		createEAttribute(tripInterruptionConstraintEClass, TRIP_INTERRUPTION_CONSTRAINT__MAX_DURATION);
+		createEAttribute(tripInterruptionConstraintEClass, TRIP_INTERRUPTION_CONSTRAINT__TOTAL_MAX_DURATION);
+		createEAttribute(tripInterruptionConstraintEClass, TRIP_INTERRUPTION_CONSTRAINT__REQUIRED_PROCESSES);
 
 		viaStationEClass = createEClass(VIA_STATION);
 		createEReference(viaStationEClass, VIA_STATION__STATION);
@@ -10242,6 +10452,10 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		timeRangeScopeEEnum = createEEnum(TIME_RANGE_SCOPE);
 		timeUnitEEnum = createEEnum(TIME_UNIT);
 		travelerTypeEEnum = createEEnum(TRAVELER_TYPE);
+		tripAllocationProcessEEnum = createEEnum(TRIP_ALLOCATION_PROCESS);
+		tripAllocationUnitEEnum = createEEnum(TRIP_ALLOCATION_UNIT);
+		tripInterruptionProcessEEnum = createEEnum(TRIP_INTERRUPTION_PROCESS);
+		travelValidityTypeEEnum = createEEnum(TRAVEL_VALIDITY_TYPE);
 		weekDayEEnum = createEEnum(WEEK_DAY);
 
 		// Create data types
@@ -10691,6 +10905,9 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getTravelValidityConstraint_ReturnConstraint(), this.getReturnValidityConstraint(), null, "returnConstraint", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTravelValidityConstraint_ExcludedTimeRange(), this.getExcludedTimeRange(), null, "excludedTimeRange", null, 0, -1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTravelValidityConstraint_TrainValidity(), this.getTrainValidity(), null, "trainValidity", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTravelValidityConstraint_ValidityType(), this.getTravelValidityType(), "validityType", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTravelValidityConstraint_TripInterruptionConstraint(), this.getTripInterruptionConstraint(), null, "tripInterruptionConstraint", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTravelValidityConstraint_TripAllocationConstraint(), this.getTripAllocationConstraint(), null, "tripAllocationConstraint", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(trainValidityEClass, TrainValidity.class, "TrainValidity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTrainValidity_CarrierConstraint(), this.getCarrierConstraint(), null, "carrierConstraint", null, 0, 1, TrainValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10880,6 +11097,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getReturnValidityConstraint_ExcludedWeekdays(), this.getWeekDay(), "excludedWeekdays", null, 0, -1, ReturnValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReturnValidityConstraint_LatestReturn(), ecorePackage.getEInt(), "latestReturn", null, 0, 1, ReturnValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReturnValidityConstraint_EarliestReturn(), ecorePackage.getEInt(), "earliestReturn", null, 0, 1, ReturnValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tripAllocationConstraintEClass, TripAllocationConstraint.class, "TripAllocationConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTripAllocationConstraint_AllocationUnit(), this.getTripAllocationUnit(), "allocationUnit", null, 0, 1, TripAllocationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripAllocationConstraint_MaxUnits(), ecorePackage.getEInt(), "maxUnits", null, 0, 1, TripAllocationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripAllocationConstraint_DurationUnit(), theXMLTypePackage.getString(), "durationUnit", null, 0, 1, TripAllocationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripAllocationConstraint_RequiredProcesses(), this.getTripAllocationProcess(), "requiredProcesses", null, 0, -1, TripAllocationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tripInterruptionConstraintEClass, TripInterruptionConstraint.class, "TripInterruptionConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTripInterruptionConstraint_MaxInterruptions(), ecorePackage.getEInt(), "maxInterruptions", null, 0, 1, TripInterruptionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripInterruptionConstraint_MaxDuration(), ecorePackage.getEString(), "maxDuration", null, 0, 1, TripInterruptionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripInterruptionConstraint_TotalMaxDuration(), theXMLTypePackage.getString(), "totalMaxDuration", null, 0, 1, TripInterruptionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripInterruptionConstraint_RequiredProcesses(), this.getTripInterruptionProcess(), "requiredProcesses", null, 0, -1, TripInterruptionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(viaStationEClass, ViaStation.class, "ViaStation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getViaStation_Station(), this.getStation(), null, "station", null, 0, 1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11626,8 +11855,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		initEEnum(schemaVersionEEnum, SchemaVersion.class, "SchemaVersion");
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V12);
-		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V10);
-		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V00);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V14);
 
 		initEEnum(serviceModeEEnum, ServiceMode.class, "ServiceMode");
@@ -11696,6 +11923,28 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.MOTOCYCLE);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.TRAILER);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.GRAPHICAL_RES);
+
+		initEEnum(tripAllocationProcessEEnum, TripAllocationProcess.class, "TripAllocationProcess");
+		addEEnumLiteral(tripAllocationProcessEEnum, TripAllocationProcess.NONE);
+		addEEnumLiteral(tripAllocationProcessEEnum, TripAllocationProcess.MANUAL);
+		addEEnumLiteral(tripAllocationProcessEEnum, TripAllocationProcess.ACTIVATION);
+		addEEnumLiteral(tripAllocationProcessEEnum, TripAllocationProcess.FULFILLMENT);
+
+		initEEnum(tripAllocationUnitEEnum, TripAllocationUnit.class, "TripAllocationUnit");
+		addEEnumLiteral(tripAllocationUnitEEnum, TripAllocationUnit.NONE);
+		addEEnumLiteral(tripAllocationUnitEEnum, TripAllocationUnit.DAY);
+		addEEnumLiteral(tripAllocationUnitEEnum, TripAllocationUnit.TRIP);
+		addEEnumLiteral(tripAllocationUnitEEnum, TripAllocationUnit.DURATION);
+
+		initEEnum(tripInterruptionProcessEEnum, TripInterruptionProcess.class, "TripInterruptionProcess");
+		addEEnumLiteral(tripInterruptionProcessEEnum, TripInterruptionProcess.NONE);
+		addEEnumLiteral(tripInterruptionProcessEEnum, TripInterruptionProcess.MANUAL);
+		addEEnumLiteral(tripInterruptionProcessEEnum, TripInterruptionProcess.ACTIVATION);
+
+		initEEnum(travelValidityTypeEEnum, TravelValidityType.class, "TravelValidityType");
+		addEEnumLiteral(travelValidityTypeEEnum, TravelValidityType.SINGLE_TRIP);
+		addEEnumLiteral(travelValidityTypeEEnum, TravelValidityType.MULTIPLE_TRIPS);
+		addEEnumLiteral(travelValidityTypeEEnum, TravelValidityType.UNRESTRICTED);
 
 		initEEnum(weekDayEEnum, WeekDay.class, "WeekDay");
 		addEEnumLiteral(weekDayEEnum, WeekDay.MONDAY);
@@ -11918,7 +12167,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (travelValidityConstraintEClass,
 		   source,
 		   new String[] {
-			   "constraints", "TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED"
+			   "constraints", "TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED TRAVEL_VALIDITY_TYPE_CONSTRAINT"
 		   });
 		addAnnotation
 		  (trainValidityEClass,
@@ -12057,6 +12306,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		   source,
 		   new String[] {
 			   "constraints", "EARLIEST_LAST_RETURN_ORDER"
+		   });
+		addAnnotation
+		  (tripAllocationConstraintEClass,
+		   source,
+		   new String[] {
+			   "constraints", "DURATION_FORMAT"
+		   });
+		addAnnotation
+		  (tripInterruptionConstraintEClass,
+		   source,
+		   new String[] {
+			   "constraints", "DURATION_FORMAT"
 		   });
 		addAnnotation
 		  (viaStationEClass,

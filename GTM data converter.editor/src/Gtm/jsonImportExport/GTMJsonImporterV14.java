@@ -80,6 +80,8 @@ import gtmV14.TrainResourceLocationDef;
 import gtmV14.Transfer;
 import gtmV14.TranslationDef;
 import gtmV14.TravelValidityConstraintDef;
+import gtmV14.TripAllocationConstraintDef;
+import gtmV14.TripInterruptionConstraintDef;
 import gtmV14.ValidityRange.TimeUnitDef;
 import gtmV14.ViaStationsDef;
 import gtmV14.ZoneDef;
@@ -454,7 +456,63 @@ public class GTMJsonImporterV14 {
 		if (c != null) {
 			o.setValidDays(c);
 		}
+		
+		if (jc.getValidityType() != null && jc.getValidityType().length() > 0) {
+			o.setValidityType(TravelValidityType.get(jc.getValidityType()));
+		}
+		
+		if (jc.getTrainValidity() != null) {
+			o.setTrainValidity(convert(jc.getTrainValidity()));
+		}
+		
+		if (jc.getTripInterruptionConstraint() != null) {
+			o.setTripInterruptionConstraint(convert(jc.getTripInterruptionConstraint()));
+		}
+		
+		if (jc.getTripAllocationConstraint() != null) {
+			o.setTripAllocationConstraint(convert(jc.getTripAllocationConstraint()));
+		}
+		
 		return o;
+	}
+
+
+	private TripAllocationConstraint convert(TripAllocationConstraintDef jo) {
+
+		TripAllocationConstraint o = GtmFactory.eINSTANCE.createTripAllocationConstraint();
+		
+		o.setAllocationUnit(TripAllocationUnit.get(jo.getAllocationUnit()));
+		o.setDurationUnit(jo.getDurationUnit());
+		o.setMaxUnits(jo.getMaxUnits());
+		if (jo.getRequiredProcesses() != null && !jo.getRequiredProcesses().isEmpty()) {
+			for (String s : jo.getRequiredProcesses()) {
+				o.getRequiredProcesses().add(TripAllocationProcess.get(s));
+			}			
+		}
+		return o;
+	}
+
+
+	private TripInterruptionConstraint convert(TripInterruptionConstraintDef jo) {
+		
+		TripInterruptionConstraint o = GtmFactory.eINSTANCE.createTripInterruptionConstraint();
+		
+		o.setMaxDuration(jo.getMaxDuration());
+		o.setMaxInterruptions(jo.getMaxInterruptions());
+		o.setTotalMaxDuration(jo.getTotalMaxDuration());
+		
+		if (jo.getRequiredProcesses() != null && !jo.getRequiredProcesses().isEmpty()) {
+			for (String s : jo.getRequiredProcesses()) {
+				o.getRequiredProcesses().add(TripInterruptionProcess.get(s));
+			}			
+		}
+		return o;
+	}
+
+
+	private TrainValidity convert(gtmV14.TrainValidity trainValidity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

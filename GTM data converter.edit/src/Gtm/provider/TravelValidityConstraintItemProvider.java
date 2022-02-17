@@ -68,6 +68,7 @@ public class TravelValidityConstraintItemProvider
 			addDataDescriptionPropertyDescriptor(object);
 			addValidDaysPropertyDescriptor(object);
 			addTravelDaysPropertyDescriptor(object);
+			addValidityTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -161,6 +162,28 @@ public class TravelValidityConstraintItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Validity Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValidityTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TravelValidityConstraint_validityType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TravelValidityConstraint_validityType_feature", "_UI_TravelValidityConstraint_type"),
+				 GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -176,6 +199,8 @@ public class TravelValidityConstraintItemProvider
 			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__RETURN_CONSTRAINT);
 			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE);
 			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY);
+			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT);
+			childrenFeatures.add(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT);
 		}
 		return childrenFeatures;
 	}
@@ -241,12 +266,15 @@ public class TravelValidityConstraintItemProvider
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__ID:
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__DATA_DESCRIPTION:
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAVEL_DAYS:
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__RANGE:
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__RETURN_CONSTRAINT:
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE:
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT:
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -283,6 +311,16 @@ public class TravelValidityConstraintItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY,
 				 GtmFactory.eINSTANCE.createTrainValidity()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT,
+				 GtmFactory.eINSTANCE.createTripInterruptionConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT,
+				 GtmFactory.eINSTANCE.createTripAllocationConstraint()));
 	}
 
 	/**

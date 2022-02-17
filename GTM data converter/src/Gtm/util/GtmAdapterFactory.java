@@ -468,6 +468,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createReturnValidityConstraintAdapter();
 			}
 			@Override
+			public Adapter caseTripAllocationConstraint(TripAllocationConstraint object) {
+				return createTripAllocationConstraintAdapter();
+			}
+			@Override
+			public Adapter caseTripInterruptionConstraint(TripInterruptionConstraint object) {
+				return createTripInterruptionConstraintAdapter();
+			}
+			@Override
 			public Adapter caseViaStation(ViaStation object) {
 				return createViaStationAdapter();
 			}
@@ -2152,6 +2160,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createReturnValidityConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.TripAllocationConstraint <em>Trip Allocation Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.TripAllocationConstraint
+	 * @generated
+	 */
+	public Adapter createTripAllocationConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.TripInterruptionConstraint <em>Trip Interruption Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.TripInterruptionConstraint
+	 * @generated
+	 */
+	public Adapter createTripInterruptionConstraintAdapter() {
 		return null;
 	}
 

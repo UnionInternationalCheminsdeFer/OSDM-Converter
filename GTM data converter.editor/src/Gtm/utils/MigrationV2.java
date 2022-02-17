@@ -431,8 +431,8 @@ public class MigrationV2 {
 			
 			for (PassengerConstraint pc : newPassengerConstraints) {
 				
-				if (pc.getTravelerType().equals(passengerType) 
-						&& ( pc.getIncludedFreePassengers() == null || pc.getIncludedFreePassengers().isEmpty()) ) {
+				if (pc.getTravelerType().equals(passengerType)) {
+						// && ( pc.getIncludedFreePassengers() == null || pc.getIncludedFreePassengers().isEmpty()) ) {
 						return pc;
 				}	
 				
@@ -447,8 +447,8 @@ public class MigrationV2 {
 		
 			for (PassengerConstraint pc : tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
 		
-				if (pc.getTravelerType().equals(passengerType) 
-					&& ( pc.getIncludedFreePassengers() == null || pc.getIncludedFreePassengers().isEmpty()) ) {
+				if (pc.getTravelerType().equals(passengerType)) { 
+					// && ( pc.getIncludedFreePassengers() == null || pc.getIncludedFreePassengers().isEmpty()) ) {
 					return pc;
 				}
 				

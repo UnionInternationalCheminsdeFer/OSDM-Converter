@@ -940,6 +940,24 @@ public interface GtmFactory extends EFactory {
 	ReturnValidityConstraint createReturnValidityConstraint();
 
 	/**
+	 * Returns a new object of class '<em>Trip Allocation Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Trip Allocation Constraint</em>'.
+	 * @generated
+	 */
+	TripAllocationConstraint createTripAllocationConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Trip Interruption Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Trip Interruption Constraint</em>'.
+	 * @generated
+	 */
+	TripInterruptionConstraint createTripInterruptionConstraint();
+
+	/**
 	 * Returns a new object of class '<em>Via Station</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

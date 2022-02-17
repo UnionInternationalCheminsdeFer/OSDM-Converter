@@ -27,24 +27,6 @@ public enum SchemaVersion implements Enumerator {
 	 * @ordered
 	 */
 	V12(0, "V_1_2", "1.2"), /**
-	 * The '<em><b>V10</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #V10_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	V10(1, "V_1_0", "1.0"),
-
-	/**
-	 * The '<em><b>V00</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #V00_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	V00(2, "V_0_0", "0.0"), /**
 	 * The '<em><b>V14</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,28 +48,6 @@ public enum SchemaVersion implements Enumerator {
 	public static final int V12_VALUE = 0;
 
 	/**
-	 * The '<em><b>V10</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #V10
-	 * @model name="V_1_0" literal="1.0"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int V10_VALUE = 1;
-
-	/**
-	 * The '<em><b>V00</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #V00
-	 * @model name="V_0_0" literal="0.0"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int V00_VALUE = 2;
-
-	/**
 	 * The '<em><b>V14</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,8 +67,6 @@ public enum SchemaVersion implements Enumerator {
 	private static final SchemaVersion[] VALUES_ARRAY =
 		new SchemaVersion[] {
 			V12,
-			V10,
-			V00,
 			V14,
 		};
 
@@ -167,8 +125,6 @@ public enum SchemaVersion implements Enumerator {
 	public static SchemaVersion get(int value) {
 		switch (value) {
 			case V12_VALUE: return V12;
-			case V10_VALUE: return V10;
-			case V00_VALUE: return V00;
 			case V14_VALUE: return V14;
 		}
 		return null;

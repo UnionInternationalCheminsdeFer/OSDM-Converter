@@ -635,7 +635,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TravelValidityConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED"/>
+      <details key="constraints" value="TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED TRAVEL_VALIDITY_TYPE_CONSTRAINT"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -649,6 +649,11 @@
         eType="#//ExcludedTimeRange" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trainValidity" eType="#//TrainValidity"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validityType" eType="#//TravelValidityType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tripInterruptionConstraint"
+        eType="#//TripInterruptionConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tripAllocationConstraint"
+        eType="#//TripAllocationConstraint" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TrainValidity">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -944,6 +949,26 @@
         eType="#//WeekDay"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="latestReturn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="earliestReturn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TripAllocationConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="DURATION_FORMAT"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allocationUnit" eType="#//TripAllocationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxUnits" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="durationUnit" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredProcesses" upperBound="-1"
+        eType="#//TripAllocationProcess"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TripInterruptionConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="DURATION_FORMAT"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxInterruptions" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxDuration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalMaxDuration" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredProcesses" upperBound="-1"
+        eType="#//TripInterruptionProcess"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ViaStation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -1862,8 +1887,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
     <eLiterals name="V_1_2" literal="1.2"/>
-    <eLiterals name="V_1_0" value="1" literal="1.0"/>
-    <eLiterals name="V_0_0" value="2" literal="0.0"/>
     <eLiterals name="V_1_4" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
@@ -1932,6 +1955,28 @@
     <eLiterals name="MOTOCYCLE" value="32"/>
     <eLiterals name="TRAILER" value="33"/>
     <eLiterals name="GRAPHICAL_RES" value="40"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TripAllocationProcess">
+    <eLiterals name="NONE"/>
+    <eLiterals name="MANUAL" value="1"/>
+    <eLiterals name="ACTIVATION" value="2"/>
+    <eLiterals name="FULFILLMENT" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TripAllocationUnit">
+    <eLiterals name="NONE"/>
+    <eLiterals name="DAY" value="1"/>
+    <eLiterals name="TRIP" value="2"/>
+    <eLiterals name="DURATION" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TripInterruptionProcess">
+    <eLiterals name="NONE"/>
+    <eLiterals name="MANUAL" value="1"/>
+    <eLiterals name="ACTIVATION" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TravelValidityType">
+    <eLiterals name="SINGLE_TRIP"/>
+    <eLiterals name="MULTIPLE_TRIPS" value="1"/>
+    <eLiterals name="UNRESTRICTED" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="WeekDay">
     <eLiterals name="MONDAY" value="1"/>

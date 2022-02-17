@@ -8,6 +8,9 @@ import Gtm.GtmPackage;
 import Gtm.ReturnValidityConstraint;
 import Gtm.TrainValidity;
 import Gtm.TravelValidityConstraint;
+import Gtm.TravelValidityType;
+import Gtm.TripAllocationConstraint;
+import Gtm.TripInterruptionConstraint;
 import Gtm.ValidityRange;
 
 import java.util.Collection;
@@ -39,6 +42,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getReturnConstraint <em>Return Constraint</em>}</li>
  *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getExcludedTimeRange <em>Excluded Time Range</em>}</li>
  *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getTrainValidity <em>Train Validity</em>}</li>
+ *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getValidityType <em>Validity Type</em>}</li>
+ *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getTripInterruptionConstraint <em>Trip Interruption Constraint</em>}</li>
+ *   <li>{@link Gtm.impl.TravelValidityConstraintImpl#getTripAllocationConstraint <em>Trip Allocation Constraint</em>}</li>
  * </ul>
  *
  * @generated
@@ -153,6 +159,46 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 	 * @ordered
 	 */
 	protected TrainValidity trainValidity;
+
+	/**
+	 * The default value of the '{@link #getValidityType() <em>Validity Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidityType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final TravelValidityType VALIDITY_TYPE_EDEFAULT = TravelValidityType.SINGLE_TRIP;
+
+	/**
+	 * The cached value of the '{@link #getValidityType() <em>Validity Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidityType()
+	 * @generated
+	 * @ordered
+	 */
+	protected TravelValidityType validityType = VALIDITY_TYPE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getTripInterruptionConstraint() <em>Trip Interruption Constraint</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTripInterruptionConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected TripInterruptionConstraint tripInterruptionConstraint;
+
+	/**
+	 * The cached value of the '{@link #getTripAllocationConstraint() <em>Trip Allocation Constraint</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTripAllocationConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected TripAllocationConstraint tripAllocationConstraint;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -313,6 +359,113 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TravelValidityType getValidityType() {
+		return validityType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidityType(TravelValidityType newValidityType) {
+		TravelValidityType oldValidityType = validityType;
+		validityType = newValidityType == null ? VALIDITY_TYPE_EDEFAULT : newValidityType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE, oldValidityType, validityType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TripInterruptionConstraint getTripInterruptionConstraint() {
+		return tripInterruptionConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTripInterruptionConstraint(TripInterruptionConstraint newTripInterruptionConstraint, NotificationChain msgs) {
+		TripInterruptionConstraint oldTripInterruptionConstraint = tripInterruptionConstraint;
+		tripInterruptionConstraint = newTripInterruptionConstraint;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT, oldTripInterruptionConstraint, newTripInterruptionConstraint);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTripInterruptionConstraint(TripInterruptionConstraint newTripInterruptionConstraint) {
+		if (newTripInterruptionConstraint != tripInterruptionConstraint) {
+			NotificationChain msgs = null;
+			if (tripInterruptionConstraint != null)
+				msgs = ((InternalEObject)tripInterruptionConstraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT, null, msgs);
+			if (newTripInterruptionConstraint != null)
+				msgs = ((InternalEObject)newTripInterruptionConstraint).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT, null, msgs);
+			msgs = basicSetTripInterruptionConstraint(newTripInterruptionConstraint, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT, newTripInterruptionConstraint, newTripInterruptionConstraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TripAllocationConstraint getTripAllocationConstraint() {
+		return tripAllocationConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTripAllocationConstraint(TripAllocationConstraint newTripAllocationConstraint, NotificationChain msgs) {
+		TripAllocationConstraint oldTripAllocationConstraint = tripAllocationConstraint;
+		tripAllocationConstraint = newTripAllocationConstraint;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT, oldTripAllocationConstraint, newTripAllocationConstraint);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTripAllocationConstraint(TripAllocationConstraint newTripAllocationConstraint) {
+		if (newTripAllocationConstraint != tripAllocationConstraint) {
+			NotificationChain msgs = null;
+			if (tripAllocationConstraint != null)
+				msgs = ((InternalEObject)tripAllocationConstraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT, null, msgs);
+			if (newTripAllocationConstraint != null)
+				msgs = ((InternalEObject)newTripAllocationConstraint).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT, null, msgs);
+			msgs = basicSetTripAllocationConstraint(newTripAllocationConstraint, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT, newTripAllocationConstraint, newTripAllocationConstraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public int getTravelDays() {
 		return travelDays;
 	}
@@ -431,6 +584,10 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 				return ((InternalEList<?>)getExcludedTimeRange()).basicRemove(otherEnd, msgs);
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
 				return basicSetTrainValidity(null, msgs);
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT:
+				return basicSetTripInterruptionConstraint(null, msgs);
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT:
+				return basicSetTripAllocationConstraint(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -460,6 +617,12 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 				return getExcludedTimeRange();
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
 				return getTrainValidity();
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE:
+				return getValidityType();
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT:
+				return getTripInterruptionConstraint();
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT:
+				return getTripAllocationConstraint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -498,6 +661,15 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
 				setTrainValidity((TrainValidity)newValue);
 				return;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE:
+				setValidityType((TravelValidityType)newValue);
+				return;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT:
+				setTripInterruptionConstraint((TripInterruptionConstraint)newValue);
+				return;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT:
+				setTripAllocationConstraint((TripAllocationConstraint)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -534,6 +706,15 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
 				setTrainValidity((TrainValidity)null);
 				return;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE:
+				setValidityType(VALIDITY_TYPE_EDEFAULT);
+				return;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT:
+				setTripInterruptionConstraint((TripInterruptionConstraint)null);
+				return;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT:
+				setTripAllocationConstraint((TripAllocationConstraint)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -562,6 +743,12 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 				return excludedTimeRange != null && !excludedTimeRange.isEmpty();
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY:
 				return trainValidity != null;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE:
+				return validityType != VALIDITY_TYPE_EDEFAULT;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT:
+				return tripInterruptionConstraint != null;
+			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT:
+				return tripAllocationConstraint != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -582,6 +769,8 @@ public class TravelValidityConstraintImpl extends MinimalEObjectImpl.Container i
 		result.append(dataDescription);
 		result.append(", travelDays: ");
 		result.append(travelDays);
+		result.append(", validityType: ");
+		result.append(validityType);
 		result.append(')');
 		return result.toString();
 	}

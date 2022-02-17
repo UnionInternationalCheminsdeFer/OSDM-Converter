@@ -362,8 +362,6 @@
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//SchemaVersion">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_2"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_0"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_0_0"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_4"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ServiceMode">
@@ -432,6 +430,28 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/MOTOCYCLE"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/TRAILER"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/GRAPHICAL_RES"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//TripAllocationProcess">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripAllocationProcess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripAllocationProcess/MANUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripAllocationProcess/ACTIVATION"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripAllocationProcess/FULFILLMENT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//TripAllocationUnit">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripAllocationUnit/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripAllocationUnit/DAY"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripAllocationUnit/TRIP"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripAllocationUnit/DURATION"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//TripInterruptionProcess">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripInterruptionProcess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripInterruptionProcess/MANUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TripInterruptionProcess/ACTIVATION"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//TravelValidityType">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelValidityType/SINGLE_TRIP"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelValidityType/MULTIPLE_TRIPS"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelValidityType/UNRESTRICTED"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//WeekDay">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//WeekDay/MONDAY"/>
@@ -861,6 +881,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/returnConstraint"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/excludedTimeRange"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/trainValidity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TravelValidityConstraint/validityType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/tripInterruptionConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//TravelValidityConstraint/tripAllocationConstraint"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//TrainValidity">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//TrainValidity/carrierConstraint"/>
@@ -1053,6 +1076,18 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReturnValidityConstraint/excludedWeekdays"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReturnValidityConstraint/latestReturn"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReturnValidityConstraint/earliestReturn"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//TripAllocationConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TripAllocationConstraint/allocationUnit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TripAllocationConstraint/maxUnits"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TripAllocationConstraint/durationUnit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TripAllocationConstraint/requiredProcesses"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//TripInterruptionConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TripInterruptionConstraint/maxInterruptions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TripInterruptionConstraint/maxDuration"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TripInterruptionConstraint/totalMaxDuration"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//TripInterruptionConstraint/requiredProcesses"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ViaStation">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/station"/>

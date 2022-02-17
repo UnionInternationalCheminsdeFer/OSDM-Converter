@@ -4,6 +4,7 @@ package Gtm.util;
 
 import Gtm.*;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -291,6 +292,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateRelativeTime((RelativeTime)value, diagnostics, context);
 			case GtmPackage.RETURN_VALIDITY_CONSTRAINT:
 				return validateReturnValidityConstraint((ReturnValidityConstraint)value, diagnostics, context);
+			case GtmPackage.TRIP_ALLOCATION_CONSTRAINT:
+				return validateTripAllocationConstraint((TripAllocationConstraint)value, diagnostics, context);
+			case GtmPackage.TRIP_INTERRUPTION_CONSTRAINT:
+				return validateTripInterruptionConstraint((TripInterruptionConstraint)value, diagnostics, context);
 			case GtmPackage.VIA_STATION:
 				return validateViaStation((ViaStation)value, diagnostics, context);
 			case GtmPackage.ALTERNATIVE_ROUTE:
@@ -507,6 +512,14 @@ public class GtmValidator extends EObjectValidator {
 				return validateTimeUnit((TimeUnit)value, diagnostics, context);
 			case GtmPackage.TRAVELER_TYPE:
 				return validateTravelerType((TravelerType)value, diagnostics, context);
+			case GtmPackage.TRIP_ALLOCATION_PROCESS:
+				return validateTripAllocationProcess((TripAllocationProcess)value, diagnostics, context);
+			case GtmPackage.TRIP_ALLOCATION_UNIT:
+				return validateTripAllocationUnit((TripAllocationUnit)value, diagnostics, context);
+			case GtmPackage.TRIP_INTERRUPTION_PROCESS:
+				return validateTripInterruptionProcess((TripInterruptionProcess)value, diagnostics, context);
+			case GtmPackage.TRAVEL_VALIDITY_TYPE:
+				return validateTravelValidityType((TravelValidityType)value, diagnostics, context);
 			case GtmPackage.WEEK_DAY:
 				return validateWeekDay((WeekDay)value, diagnostics, context);
 			case GtmPackage.DATE_AS_DATE:
@@ -4569,6 +4582,7 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateTravelValidityConstraint_TRAVEL_DAYS_NOT_NULL(travelValidityConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateTravelValidityConstraint_WARNING_TRAVEL_DAYS_TOO_LONG(travelValidityConstraint, diagnostics, context);
 		if (result || diagnostics != null) result &= validateTravelValidityConstraint_NOT_REFERENCED(travelValidityConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTravelValidityConstraint_TRAVEL_VALIDITY_TYPE_CONSTRAINT(travelValidityConstraint, diagnostics, context);
 		return result;
 	}
 
@@ -4652,6 +4666,33 @@ public class GtmValidator extends EObjectValidator {
 		}
 		return true;
 
+	}
+
+	/**
+	 * Validates the TRAVEL_VALIDITY_TYPE_CONSTRAINT constraint of '<em>Travel Validity Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * allocation constraints are not allowed for single trip fares
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateTravelValidityConstraint_TRAVEL_VALIDITY_TYPE_CONSTRAINT(TravelValidityConstraint travelValidityConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (travelValidityConstraint.getValidityType() == TravelValidityType.SINGLE_TRIP &&
+				travelValidityConstraint.getTripAllocationConstraint() != null	) {
+			if (diagnostics != null) {
+				diagnostics.add
+				(createSimpleDiagnostic
+						(Diagnostic.WARNING,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Single-Trip Fares must not define a trip allocation constraint: " + getObjectLabel(travelValidityConstraint, context),
+						 new Object[] { "TRAVEL_VALIDITY_TYPE_CONSTRAINT", getObjectLabel(travelValidityConstraint, context) }, //$NON-NLS-1$
+						 new Object[] {  travelValidityConstraint },
+						 context));					
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -6513,6 +6554,157 @@ public class GtmValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateTripAllocationConstraint(TripAllocationConstraint tripAllocationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(tripAllocationConstraint, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(tripAllocationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(tripAllocationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(tripAllocationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(tripAllocationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(tripAllocationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(tripAllocationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(tripAllocationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(tripAllocationConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTripAllocationConstraint_DURATION_FORMAT(tripAllocationConstraint, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the DURATION_FORMAT constraint of '<em>Trip Allocation Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateTripAllocationConstraint_DURATION_FORMAT(TripAllocationConstraint o, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (o.getDurationUnit() == null || o.getDurationUnit().length() == 0) return true;
+		
+		boolean ok = false;
+		
+		Duration d = null;
+		
+		try {
+			d = Duration.parse(o.getDurationUnit());
+			if (d != null) ok = true;
+		} catch (Exception e ) {
+			ok = false;
+		}
+		
+		if (!ok) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Duration format " + o.getDurationUnit() + " not ISO compliant in " +  getObjectLabel(o, context), 
+						 new Object[] { "DURATION_FORMAT", getObjectLabel(o, context) }, //$NON-NLS-1$
+						 new Object[] { o },
+						 context));
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTripInterruptionConstraint(TripInterruptionConstraint tripInterruptionConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(tripInterruptionConstraint, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(tripInterruptionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(tripInterruptionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(tripInterruptionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(tripInterruptionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(tripInterruptionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(tripInterruptionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(tripInterruptionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(tripInterruptionConstraint, diagnostics, context);
+		if (result || diagnostics != null) result &= validateTripInterruptionConstraint_DURATION_FORMAT(tripInterruptionConstraint, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the DURATION_FORMAT constraint of '<em>Trip Interruption Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateTripInterruptionConstraint_DURATION_FORMAT(TripInterruptionConstraint o, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		boolean failed = false;
+		
+		if (o.getMaxDuration() != null &&
+			o.getMaxDuration().length() > 0)  {
+		
+			boolean ok = false;
+		
+			Duration d = null;
+		
+			try {
+				d = Duration.parse(o.getMaxDuration());
+				if (d != null) ok = true;
+			} catch (Exception e ) {
+				ok = false;
+			}
+		
+			if (!ok) {
+				if (diagnostics != null) {
+					diagnostics.add
+						(createSimpleDiagnostic
+								(Diagnostic.ERROR,
+										DIAGNOSTIC_SOURCE,
+										0,
+										"Duration format " + o.getMaxDuration() + " of maximal duration not ISO compliant in " +  getObjectLabel(o, context), 
+										new Object[] { "DURATION_FORMAT", getObjectLabel(o, context) }, //$NON-NLS-1$
+										new Object[] { o },
+										context));
+								}
+			        failed = true;
+			}
+		}
+		
+		if (o.getTotalMaxDuration() != null &&
+			o.getTotalMaxDuration().length() > 0)  {
+			
+				boolean ok = false;
+			
+				Duration d = null;
+			
+				try {
+					d = Duration.parse(o.getTotalMaxDuration());
+					if (d != null) ok = true;
+				} catch (Exception e ) {
+					ok = false;
+				}
+			
+				if (!ok) {
+					if (diagnostics != null) {
+						diagnostics.add
+							(createSimpleDiagnostic
+									(Diagnostic.ERROR,
+											DIAGNOSTIC_SOURCE,
+											0,
+											"Duration format " + o.getTotalMaxDuration() + " of total duration not ISO compliant in " +  getObjectLabel(o, context), 
+											new Object[] { "DURATION_FORMAT", getObjectLabel(o, context) }, //$NON-NLS-1$
+											new Object[] { o },
+											context));
+									}
+				        failed = true;
+				}
+			}
+		
+		
+		
+		return !failed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateFareCombinationModel(FareCombinationModel fareCombinationModel, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(fareCombinationModel, diagnostics, context)) return false;
 		boolean result = validate_EveryMultiplicityConforms(fareCombinationModel, diagnostics, context);
@@ -7297,6 +7489,7 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateIncludedFreePassengerLimit_SIMPLE_PASSENGER_CONSTRAINT_ONLY(IncludedFreePassengerLimit includedFreePassengerLimit, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		// a referenced passenger constraint must not include free passengers
+		/*
 		if (includedFreePassengerLimit.getPassengerConstraint() != null && 
 			includedFreePassengerLimit.getPassengerConstraint().getIncludedFreePassengers() != null && 
 			includedFreePassengerLimit.getPassengerConstraint().getIncludedFreePassengers().size() > 0) {
@@ -7312,6 +7505,7 @@ public class GtmValidator extends EObjectValidator {
 			}
 			return false;
 		}
+		*/
 		return true;
 	}
 
@@ -8677,6 +8871,42 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateTravelerType(TravelerType travelerType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTripAllocationProcess(TripAllocationProcess tripAllocationProcess, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTripAllocationUnit(TripAllocationUnit tripAllocationUnit, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTripInterruptionProcess(TripInterruptionProcess tripInterruptionProcess, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTravelValidityType(TravelValidityType travelValidityType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

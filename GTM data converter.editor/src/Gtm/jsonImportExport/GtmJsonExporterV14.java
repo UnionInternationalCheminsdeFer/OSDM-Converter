@@ -1,5 +1,6 @@
 package Gtm.jsonImportExport;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -80,6 +81,8 @@ import gtmV14.TrainResourceLocationDef;
 import gtmV14.Transfer;
 import gtmV14.TranslationDef;
 import gtmV14.TravelValidityConstraintDef;
+import gtmV14.TripAllocationConstraintDef;
+import gtmV14.TripInterruptionConstraintDef;
 import gtmV14.ValidityRange.TimeUnitDef;
 import gtmV14.VatDetailDef;
 import gtmV14.VatDetailDef.VatScopeDef;
@@ -557,11 +560,88 @@ public class GtmJsonExporterV14 {
 			}
 			tvJ.setExcludedTimeRange(listJ);
 		}
+		
+		tvJ.setValidityType(convert(tv.getValidityType()));
+		
+		if (tv.getTripAllocationConstraint() != null) {
+			tvJ.setTripAllocationConstraint(convert(tv.getTripAllocationConstraint()));
+		}
+		
+		if (tv.getTripInterruptionConstraint() != null) {
+			tvJ.setTripInterruptionConstraint(convert(tv.getTripInterruptionConstraint()));
+		}
+		
+		
 		return tvJ;
 	}
 
+	private TripInterruptionConstraintDef convert(TripInterruptionConstraint o) {
+		
+		TripInterruptionConstraintDef jo = new TripInterruptionConstraintDef();
+		
+		jo.setMaxDuration(validateDuration(o.getMaxDuration()));
+		jo.setMaxInterruptions(o.getMaxInterruptions());
+		jo.setTotalMaxDuration(validateDuration(o.getTotalMaxDuration()));
+		jo.setRequiredProcesses(convertInterruptionProcess(o.getRequiredProcesses()));
+		
+		return jo;
+	}
 
+	private String validateDuration(String s) {
+		
+		if (s == null || s.length() == 0) return null;
+		
+		Duration d = null;
+		
+		try {
+			d = Duration.parse(s);
+		} catch (Exception e ) {
+			StringBuffer sb = new StringBuffer();
+			sb.append("Duration value ").append(s);
+			sb.append(" not ISO compliant. Value was not exported, please use validation to correct the error");
+			GtmUtils.writeConsoleInfo(sb.toString(),null);
+			return null;
+		}
+		
+		return d.toString();
+		
+	}
+	
+	private List<String> convertInterruptionProcess(EList<TripInterruptionProcess> l) {
+		
+		ArrayList<String> jl = new ArrayList<String>();
+		
+		for (TripInterruptionProcess p : l) {
+			jl.add(p.getLiteral());
+		}
+		return jl;
+	}
+	
+	private TripAllocationConstraintDef convert(TripAllocationConstraint o) {
+		
+		TripAllocationConstraintDef jo = new TripAllocationConstraintDef();
+		
+		jo.setAllocationUnit(o.getAllocationUnit().getLiteral());
+		jo.setDurationUnit(validateDuration(o.getDurationUnit()));
+		jo.setMaxUnits(o.getMaxUnits());
+		jo.setRequiredProcesses(convertAllocationProcess(o.getRequiredProcesses()));
+		
+		return jo;
+	}
 
+	private  List<String> convertAllocationProcess(EList<TripAllocationProcess> l) {
+				
+		ArrayList<String> jl = new ArrayList<String>();
+		
+		for (TripAllocationProcess p : l) {
+			jl.add(p.getLiteral());
+		}
+		return jl;
+	}
+
+	private String convert(TravelValidityType validityType) {	
+		return validityType.getLiteral();
+	}
 
 	private gtmV14.ValidityRange convertToJson(ValidityRange r) {
 		if (r == null) return null;

@@ -11,6 +11,7 @@ public class StringFormatValidator {
    private static Pattern stationUTFForbiddenPattern = Pattern.compile("\\*");
    private static Pattern stationASCPattern = Pattern.compile("[\\x20-\\x7E]+");
    private static Pattern ASCPattern = Pattern.compile("[\\x20-\\x7E]+");
+     
 	
 	public static boolean isASCII(String s) {
 		if (s == null) return false;

@@ -2036,6 +2036,18 @@ public class 	ConverterToLegacy {
 		}
 
 		series.setType(getType(regionalConstraint));
+		
+		//exclude fares with more than one carrier
+		if (fare.getCarrierConstraint() != null ||
+			fare.getCarrierConstraint().getIncludedCarriers() != null  || 
+		    fare.getCarrierConstraint().getIncludedCarriers().size() > 1 ) {
+			
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not convertable - more than one carrier: " + route;
+			GtmUtils.writeConsoleError(message, editor);
+			return null;
+			
+		}
 			
 		if (fare.getCarrierConstraint() != null && 
 			fare.getCarrierConstraint().getIncludedCarriers() != null && 
