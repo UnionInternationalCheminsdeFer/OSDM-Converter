@@ -136,9 +136,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						gtm.FareDelivery faresV12 = null;
 						gtmV14.FareDelivery faresV14 = null;
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_7);		
-						if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V12)
-						|| tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V00)
-						|| tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V10)) {
+						if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V12)) {
 							faresV12 = jsonModelExporterV12.convertToJson(tool.getGeneralTariffModel(), monitor);
 							GtmUtils.writeConsoleInfo("Export to OSDM version 1.2", editor);
 						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V14)){
@@ -220,7 +218,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 	        	
 	        	domain.getCommandStack().execute(command);
 	        	
-				GtmUtils.clearCommandStack(domain);
+				GtmUtils.flushCommandStack(domain);
 	        }
 			
 			command =  ObjectIdCreator.setFareIds(tool,domain);
@@ -236,7 +234,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 	        	
 	        	domain.getCommandStack().execute(command);
 	        	
-				GtmUtils.clearCommandStack(domain);
+				GtmUtils.flushCommandStack(domain);
 	        }
 
 		}
