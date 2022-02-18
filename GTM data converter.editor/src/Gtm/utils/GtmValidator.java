@@ -17,6 +17,7 @@ import Gtm.RegionalConstraint;
 import Gtm.RegionalValidity;
 import Gtm.ServiceConstraint;
 import Gtm.Station;
+import Gtm.TravelValidityType;
 import Gtm.TravelerType;
 import Gtm.ViaStation;
 
@@ -36,6 +37,15 @@ public class GtmValidator {
 
 		//only ADULT
 		if (fare.getPassengerConstraint().getTravelerType() != TravelerType.ADULT)  return null;
+		
+		//multi-yourney fares are not convertable
+		if (fare.getTravelValidity() != null && 
+			fare.getTravelValidity().getValidityType() != null &&
+			(fare.getTravelValidity().getValidityType().equals(TravelValidityType.MULTIPLE_TRIPS) || 
+			 fare.getTravelValidity().getValidityType().equals(TravelValidityType.UNRESTRICTED)		)
+				) {
+			return null;
+		}
 
 		//only FULL_FLEX combination
 		if (!isFullFlexCombi(fare, carrier))  return null;
