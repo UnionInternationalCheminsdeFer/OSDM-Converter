@@ -48,7 +48,7 @@ import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.provider.GtmEditPlugin;
-import Gtm.utils.GtmUtils;
+import Gtm.utils.ModelInitializer;
 
 import java.io.File;
 
@@ -182,7 +182,7 @@ public class GtmModelWizard extends Wizard implements INewWizard {
 		EObject rootObject = gtmFactory.create(eClass);
 		
 		if (rootObject instanceof GTMTool) {
-			GtmUtils.populateInitialModel((GTMTool) rootObject);
+			ModelInitializer.populateInitialModel((GTMTool) rootObject);
 		}
 		
 		return rootObject;

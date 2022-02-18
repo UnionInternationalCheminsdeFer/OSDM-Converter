@@ -1,4 +1,4 @@
-package Gtm.converter;
+package Gtm.jsonImportExport;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
@@ -10,9 +10,9 @@ import Gtm.Station;
 import Gtm.presentation.GtmEditor;
 import Gtm.util.StringFormatValidator;
 import Gtm.utils.GtmUtils;
-import gtm.StationNamesDef;
+import gtmV14.StationNamesDef;
 
-public class StationNameMerger {
+public class StationNameMergerV14 {
 	
 	public static CompoundCommand createMergeStationNamesCommand(EditingDomain domain, StationNamesDef lStation, Station station, GtmEditor editor) {
 		

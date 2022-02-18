@@ -586,6 +586,8 @@ public class LegacyDataFactory {
 		Station station = GtmFactory.eINSTANCE.createStation();
 		station.setCode(code);
 		station.setCountry(country);
+		long local = Long.parseLong(code);
+		station.setStationCode(Long.valueOf(local + country.getCode() * 100000));
 		station.setName(name + "-TOWN");
 		station.setNameCaseASCII(name + "-Town");
 		station.setNameCaseASCII(name + "-Town");
@@ -598,6 +600,8 @@ public class LegacyDataFactory {
 		Station station = GtmFactory.eINSTANCE.createStation();
 		station.setCode(code);
 		station.setCountry(country);
+		long local = Long.parseLong(code);
+		station.setStationCode(Long.valueOf(local + country.getCode() * 100000));
 		station.setName(name + "-TOWN");
 		tool.getCodeLists().getStations().getStations().add(station);
 		return station;

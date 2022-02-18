@@ -65,6 +65,7 @@ public class PassengerCombinationConstraintItemProvider
 			addMaxNumberPropertyDescriptor(object);
 			addMinNumberPropertyDescriptor(object);
 			addPassengerTypePropertyDescriptor(object);
+			addPassengerConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -131,6 +132,28 @@ public class PassengerCombinationConstraintItemProvider
 				 false,
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Passenger Constraint feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPassengerConstraintPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PassengerCombinationConstraint_passengerConstraint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PassengerCombinationConstraint_passengerConstraint_feature", "_UI_PassengerCombinationConstraint_type"),
+				 GtmPackage.Literals.PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_CONSTRAINT,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

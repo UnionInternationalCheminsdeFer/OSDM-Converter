@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Station#getShortNameCaseUTF8 <em>Short Name Case UTF8</em>}</li>
  *   <li>{@link Gtm.Station#getLegacyBorderPointCode <em>Legacy Border Point Code</em>}</li>
  *   <li>{@link Gtm.Station#getRelations <em>Relations</em>}</li>
+ *   <li>{@link Gtm.Station#getStationCode <em>Station Code</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getStation()
@@ -309,5 +310,27 @@ public interface Station extends EObject {
 	 * @generated
 	 */
 	EList<StationRelation> getRelations();
+
+	/**
+	 * Returns the value of the '<em><b>Station Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Station Code</em>' attribute.
+	 * @see #setStationCode(long)
+	 * @see Gtm.GtmPackage#getStation_StationCode()
+	 * @model
+	 * @generated
+	 */
+	long getStationCode();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Station#getStationCode <em>Station Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Station Code</em>' attribute.
+	 * @see #getStationCode()
+	 * @generated
+	 */
+	void setStationCode(long value);
 
 } // Station

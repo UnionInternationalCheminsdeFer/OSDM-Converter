@@ -324,6 +324,10 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createTravelValidityConstraintAdapter();
 			}
 			@Override
+			public Adapter caseTrainValidity(TrainValidity object) {
+				return createTrainValidityAdapter();
+			}
+			@Override
 			public Adapter caseSalesAvailabilityConstraints(SalesAvailabilityConstraints object) {
 				return createSalesAvailabilityConstraintsAdapter();
 			}
@@ -464,6 +468,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createReturnValidityConstraintAdapter();
 			}
 			@Override
+			public Adapter caseTripAllocationConstraint(TripAllocationConstraint object) {
+				return createTripAllocationConstraintAdapter();
+			}
+			@Override
+			public Adapter caseTripInterruptionConstraint(TripInterruptionConstraint object) {
+				return createTripInterruptionConstraintAdapter();
+			}
+			@Override
 			public Adapter caseViaStation(ViaStation object) {
 				return createViaStationAdapter();
 			}
@@ -534,6 +546,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseConversionParams(ConversionParams object) {
 				return createConversionParamsAdapter();
+			}
+			@Override
+			public Adapter caseAddCarrierRules(AddCarrierRules object) {
+				return createAddCarrierRulesAdapter();
+			}
+			@Override
+			public Adapter caseAddCarrierRule(AddCarrierRule object) {
+				return createAddCarrierRuleAdapter();
 			}
 			@Override
 			public Adapter caseVatTemplates(VatTemplates object) {
@@ -1612,6 +1632,20 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.TrainValidity <em>Train Validity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.TrainValidity
+	 * @generated
+	 */
+	public Adapter createTrainValidityAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link Gtm.SalesAvailabilityConstraints <em>Sales Availability Constraints</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2130,6 +2164,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.TripAllocationConstraint <em>Trip Allocation Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.TripAllocationConstraint
+	 * @generated
+	 */
+	public Adapter createTripAllocationConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.TripInterruptionConstraint <em>Trip Interruption Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.TripInterruptionConstraint
+	 * @generated
+	 */
+	public Adapter createTripInterruptionConstraintAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link Gtm.ViaStation <em>Via Station</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2350,6 +2412,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConversionParamsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.AddCarrierRules <em>Add Carrier Rules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.AddCarrierRules
+	 * @generated
+	 */
+	public Adapter createAddCarrierRulesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.AddCarrierRule <em>Add Carrier Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.AddCarrierRule
+	 * @generated
+	 */
+	public Adapter createAddCarrierRuleAdapter() {
 		return null;
 	}
 

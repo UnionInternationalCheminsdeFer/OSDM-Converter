@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>What's new with OSDM 1.4</title>
+</head>
+
+<body>
+<h1>What's new with OSDM 1.4</h1>
+
+<h2>Import and Export of OSDM data</h2>
+<p>
+<ul>
+<p>The Export of data to the OSDM format supports the version 1.2 and 1.4. 
+The version can be selected in the Delivery data.</p>
+<p>The import of OSDM data supports the versions 1.2 and 1.4. The internal representations is aligned to OSDM version 1.4.</p>
+
+</ul>
+<p>
+
+
+<h2>Carrier Constraint in Regional Validity and Route (ViaStation)</h2>
+
+<p>
+<ul>
+<p>The Regional Validity and the Route (ViaStation Data) has been changed from a 
+single carrier to a carrier constraint allowing multiple carriers to be provided. When OSDM data of version 1.2 are 
+imported or legacy 108 data are converted a carrier constraint is created containing the single carrier in the list of included carriers.</p>
+
+<p>In the export to the old OSDM version 1.2 only the first carrier of the list will be included in the OSDM data of version 1.2</p>
+
+<p>Additional carriers might be added in the conversion from 108 via a new add carrier rules that can be defined 
+in the conversion parameters. For a set of stations a carrier can be added to the main route in case two 
+stations of the station list in the rule are part of the regional validity.</p>
+
+<p><img src="../images/addCarrier.png" alt="add carrier rule"/>Add Carrier to a Route.<br/></p>
+
+
+</ul>
+</p>
+
+
+<h2>Involved TCOs in the Fare</h2>
+
+<p>
+<ul>
+<p>The list of involved TCOs (Ticket Controlling Organizations) can be added to a fare. </p>
+
+<p>In the export to the old OSDM version 1.2 the list of TCOs will not be included</p>
+
+<p>When data are imported without involved TCOs all carriers included in the Regional Constraint will be added to the list on involved TCOs.
+Additional TCOs might be added via a new add carrier rules that can be defined 
+in the conversion parameters. For a set of stations a TCO can be added to the fare in case two 
+stations of the station list in the rule are part of the regional validity.</p>
+
+<p><img src="../images/addCarrier.png" alt="add carrier rule"/>Add TCO to a Route.<br/></p>
+
+
+</ul>
+</p>
+
+</body>
+</html>

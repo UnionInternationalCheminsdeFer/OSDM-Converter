@@ -479,6 +479,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass trainValidityEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass salesAvailabilityConstraintsEClass = null;
 
 	/**
@@ -738,6 +745,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass tripAllocationConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tripInterruptionConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass viaStationEClass = null;
 
 	/**
@@ -844,6 +865,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EClass conversionParamsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass addCarrierRulesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass addCarrierRuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1117,6 +1152,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EClass legacyViastationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum boardingOrArrivalEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum addCarrierScopeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1397,6 +1446,34 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum travelerTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tripAllocationProcessEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tripAllocationUnitEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tripInterruptionProcessEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum travelValidityTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2169,6 +2246,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getStation_Relations() {
 		return (EReference)stationEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStation_StationCode() {
+		return (EAttribute)stationEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -3517,6 +3603,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFareElement_InvolvedTcos() {
+		return (EReference)fareElementEClass.getEStructuralFeatures().get(26);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTotalPassengerCombinationConstraints() {
 		return totalPassengerCombinationConstraintsEClass;
 	}
@@ -4174,6 +4269,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPassengerConstraint_DataSource() {
+		return (EAttribute)passengerConstraintEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPassengerCombinationConstraint() {
 		return passengerCombinationConstraintEClass;
 	}
@@ -4210,6 +4314,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPassengerCombinationConstraint_PassengerConstraint() {
+		return (EReference)passengerCombinationConstraintEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getIncludedFreePassengerLimit() {
 		return includedFreePassengerLimitEClass;
 	}
@@ -4230,6 +4343,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getIncludedFreePassengerLimit_PassengerType() {
 		return (EAttribute)includedFreePassengerLimitEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIncludedFreePassengerLimit_PassengerConstraint() {
+		return (EReference)includedFreePassengerLimitEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4374,6 +4496,78 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getTravelValidityConstraint_ExcludedTimeRange() {
 		return (EReference)travelValidityConstraintEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTravelValidityConstraint_TrainValidity() {
+		return (EReference)travelValidityConstraintEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTravelValidityConstraint_ValidityType() {
+		return (EAttribute)travelValidityConstraintEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTravelValidityConstraint_TripInterruptionConstraint() {
+		return (EReference)travelValidityConstraintEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTravelValidityConstraint_TripAllocationConstraint() {
+		return (EReference)travelValidityConstraintEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTrainValidity() {
+		return trainValidityEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTrainValidity_CarrierConstraint() {
+		return (EReference)trainValidityEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTrainValidity_SerrviceConstraint() {
+		return (EReference)trainValidityEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTrainValidity_Scope() {
+		return (EAttribute)trainValidityEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4894,8 +5088,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRegionalValidity_ServiceConstraint() {
+	public EReference getRegionalValidity_CarrierConstraint() {
 		return (EReference)regionalValidityEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRegionalValidity_ServiceConstraint() {
+		return (EReference)regionalValidityEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -5803,6 +6006,96 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTripAllocationConstraint() {
+		return tripAllocationConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripAllocationConstraint_AllocationUnit() {
+		return (EAttribute)tripAllocationConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripAllocationConstraint_MaxUnits() {
+		return (EAttribute)tripAllocationConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripAllocationConstraint_DurationUnit() {
+		return (EAttribute)tripAllocationConstraintEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripAllocationConstraint_RequiredProcesses() {
+		return (EAttribute)tripAllocationConstraintEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTripInterruptionConstraint() {
+		return tripInterruptionConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripInterruptionConstraint_MaxInterruptions() {
+		return (EAttribute)tripInterruptionConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripInterruptionConstraint_MaxDuration() {
+		return (EAttribute)tripInterruptionConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripInterruptionConstraint_TotalMaxDuration() {
+		return (EAttribute)tripInterruptionConstraintEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTripInterruptionConstraint_RequiredProcesses() {
+		return (EAttribute)tripInterruptionConstraintEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getViaStation() {
 		return viaStationEClass;
 	}
@@ -5821,7 +6114,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getViaStation_Carrier() {
+	public EReference getViaStation_CarrierConstraint() {
 		return (EReference)viaStationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -5830,7 +6123,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getViaStation_Route() {
+	public EReference getViaStation_Carrier() {
 		return (EReference)viaStationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -5839,7 +6132,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getViaStation_AlternativeRoutes() {
+	public EReference getViaStation_Route() {
 		return (EReference)viaStationEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -5848,8 +6141,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getViaStation_AlternativeRoutes() {
+		return (EReference)viaStationEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getViaStation_DataDescription() {
-		return (EAttribute)viaStationEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)viaStationEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -5858,7 +6160,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EReference getViaStation_FareStationSet() {
-		return (EReference)viaStationEClass.getEStructuralFeatures().get(5);
+		return (EReference)viaStationEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -5867,7 +6169,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EReference getViaStation_ServiceConstraint() {
-		return (EReference)viaStationEClass.getEStructuralFeatures().get(6);
+		return (EReference)viaStationEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -6615,6 +6917,69 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getConversionParams_RemoveUnusedLegacyStations() {
 		return (EAttribute)conversionParamsEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConversionParams_AddCarrierRules() {
+		return (EReference)conversionParamsEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAddCarrierRules() {
+		return addCarrierRulesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAddCarrierRules_AddCarrierRule() {
+		return (EReference)addCarrierRulesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAddCarrierRule() {
+		return addCarrierRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAddCarrierRule_Carrier() {
+		return (EReference)addCarrierRuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddCarrierRule_Scope() {
+		return (EAttribute)addCarrierRuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAddCarrierRule_Stations() {
+		return (EReference)addCarrierRuleEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -8530,6 +8895,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getBoardingOrArrival() {
+		return boardingOrArrivalEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getAddCarrierScope() {
+		return addCarrierScopeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getTransportMode() {
 		return transportModeEEnum;
 	}
@@ -8899,6 +9282,42 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getTripAllocationProcess() {
+		return tripAllocationProcessEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTripAllocationUnit() {
+		return tripAllocationUnitEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTripInterruptionProcess() {
+		return tripInterruptionProcessEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTravelValidityType() {
+		return travelValidityTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWeekDay() {
 		return weekDayEEnum;
 	}
@@ -9097,6 +9516,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(stationEClass, STATION__SHORT_NAME_CASE_UTF8);
 		createEAttribute(stationEClass, STATION__LEGACY_BORDER_POINT_CODE);
 		createEReference(stationEClass, STATION__RELATIONS);
+		createEAttribute(stationEClass, STATION__STATION_CODE);
 
 		stationRelationEClass = createEClass(STATION_RELATION);
 		createEAttribute(stationRelationEClass, STATION_RELATION__RELATION_TYPE);
@@ -9279,6 +9699,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareElementEClass, FARE_ELEMENT__LEGACY_ACCOUNTING_IDENTIFIER);
 		createEAttribute(fareElementEClass, FARE_ELEMENT__LEGACY_CONVERSION);
 		createEAttribute(fareElementEClass, FARE_ELEMENT__INDIVIDUAL_CONTRACTS);
+		createEReference(fareElementEClass, FARE_ELEMENT__INVOLVED_TCOS);
 
 		totalPassengerCombinationConstraintsEClass = createEClass(TOTAL_PASSENGER_COMBINATION_CONSTRAINTS);
 		createEReference(totalPassengerCombinationConstraintsEClass, TOTAL_PASSENGER_COMBINATION_CONSTRAINTS__TOTAL_PASSENGER_COMBINATION_CONSTRAINT);
@@ -9363,15 +9784,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(passengerConstraintEClass, PASSENGER_CONSTRAINT__INCLUDED_FREE_PASSENGERS);
 		createEReference(passengerConstraintEClass, PASSENGER_CONSTRAINT__EXCLUDED_PASSENGER_COMBINATIONS);
 		createEAttribute(passengerConstraintEClass, PASSENGER_CONSTRAINT__DATA_DESCRIPTION);
+		createEAttribute(passengerConstraintEClass, PASSENGER_CONSTRAINT__DATA_SOURCE);
 
 		passengerCombinationConstraintEClass = createEClass(PASSENGER_COMBINATION_CONSTRAINT);
 		createEAttribute(passengerCombinationConstraintEClass, PASSENGER_COMBINATION_CONSTRAINT__MAX_NUMBER);
 		createEAttribute(passengerCombinationConstraintEClass, PASSENGER_COMBINATION_CONSTRAINT__MIN_NUMBER);
 		createEAttribute(passengerCombinationConstraintEClass, PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE);
+		createEReference(passengerCombinationConstraintEClass, PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_CONSTRAINT);
 
 		includedFreePassengerLimitEClass = createEClass(INCLUDED_FREE_PASSENGER_LIMIT);
 		createEAttribute(includedFreePassengerLimitEClass, INCLUDED_FREE_PASSENGER_LIMIT__NUMBER);
 		createEAttribute(includedFreePassengerLimitEClass, INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE);
+		createEReference(includedFreePassengerLimitEClass, INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_CONSTRAINT);
 
 		combinationConstraintsEClass = createEClass(COMBINATION_CONSTRAINTS);
 		createEReference(combinationConstraintsEClass, COMBINATION_CONSTRAINTS__COMBINATION_CONSTRAINTS);
@@ -9392,6 +9816,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__RANGE);
 		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__RETURN_CONSTRAINT);
 		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__EXCLUDED_TIME_RANGE);
+		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__TRAIN_VALIDITY);
+		createEAttribute(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__VALIDITY_TYPE);
+		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__TRIP_INTERRUPTION_CONSTRAINT);
+		createEReference(travelValidityConstraintEClass, TRAVEL_VALIDITY_CONSTRAINT__TRIP_ALLOCATION_CONSTRAINT);
+
+		trainValidityEClass = createEClass(TRAIN_VALIDITY);
+		createEReference(trainValidityEClass, TRAIN_VALIDITY__CARRIER_CONSTRAINT);
+		createEReference(trainValidityEClass, TRAIN_VALIDITY__SERRVICE_CONSTRAINT);
+		createEAttribute(trainValidityEClass, TRAIN_VALIDITY__SCOPE);
 
 		salesAvailabilityConstraintsEClass = createEClass(SALES_AVAILABILITY_CONSTRAINTS);
 		createEReference(salesAvailabilityConstraintsEClass, SALES_AVAILABILITY_CONSTRAINTS__SALES_AVAILABILITY_CONSTRAINTS);
@@ -9451,6 +9884,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__ZONE);
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__LINE);
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__POLYGONE);
+		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__CARRIER_CONSTRAINT);
 		createEReference(regionalValidityEClass, REGIONAL_VALIDITY__SERVICE_CONSTRAINT);
 
 		serviceLevelDefinitionsEClass = createEClass(SERVICE_LEVEL_DEFINITIONS);
@@ -9576,8 +10010,21 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(returnValidityConstraintEClass, RETURN_VALIDITY_CONSTRAINT__LATEST_RETURN);
 		createEAttribute(returnValidityConstraintEClass, RETURN_VALIDITY_CONSTRAINT__EARLIEST_RETURN);
 
+		tripAllocationConstraintEClass = createEClass(TRIP_ALLOCATION_CONSTRAINT);
+		createEAttribute(tripAllocationConstraintEClass, TRIP_ALLOCATION_CONSTRAINT__ALLOCATION_UNIT);
+		createEAttribute(tripAllocationConstraintEClass, TRIP_ALLOCATION_CONSTRAINT__MAX_UNITS);
+		createEAttribute(tripAllocationConstraintEClass, TRIP_ALLOCATION_CONSTRAINT__DURATION_UNIT);
+		createEAttribute(tripAllocationConstraintEClass, TRIP_ALLOCATION_CONSTRAINT__REQUIRED_PROCESSES);
+
+		tripInterruptionConstraintEClass = createEClass(TRIP_INTERRUPTION_CONSTRAINT);
+		createEAttribute(tripInterruptionConstraintEClass, TRIP_INTERRUPTION_CONSTRAINT__MAX_INTERRUPTIONS);
+		createEAttribute(tripInterruptionConstraintEClass, TRIP_INTERRUPTION_CONSTRAINT__MAX_DURATION);
+		createEAttribute(tripInterruptionConstraintEClass, TRIP_INTERRUPTION_CONSTRAINT__TOTAL_MAX_DURATION);
+		createEAttribute(tripInterruptionConstraintEClass, TRIP_INTERRUPTION_CONSTRAINT__REQUIRED_PROCESSES);
+
 		viaStationEClass = createEClass(VIA_STATION);
 		createEReference(viaStationEClass, VIA_STATION__STATION);
+		createEReference(viaStationEClass, VIA_STATION__CARRIER_CONSTRAINT);
 		createEReference(viaStationEClass, VIA_STATION__CARRIER);
 		createEReference(viaStationEClass, VIA_STATION__ROUTE);
 		createEReference(viaStationEClass, VIA_STATION__ALTERNATIVE_ROUTES);
@@ -9692,6 +10139,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(conversionParamsEClass, CONVERSION_PARAMS__BUS_FERRY_MAPPING);
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__LEGACY_BORDER_INDICATION);
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS);
+		createEReference(conversionParamsEClass, CONVERSION_PARAMS__ADD_CARRIER_RULES);
+
+		addCarrierRulesEClass = createEClass(ADD_CARRIER_RULES);
+		createEReference(addCarrierRulesEClass, ADD_CARRIER_RULES__ADD_CARRIER_RULE);
+
+		addCarrierRuleEClass = createEClass(ADD_CARRIER_RULE);
+		createEReference(addCarrierRuleEClass, ADD_CARRIER_RULE__CARRIER);
+		createEAttribute(addCarrierRuleEClass, ADD_CARRIER_RULE__SCOPE);
+		createEReference(addCarrierRuleEClass, ADD_CARRIER_RULE__STATIONS);
 
 		vatTemplatesEClass = createEClass(VAT_TEMPLATES);
 		createEReference(vatTemplatesEClass, VAT_TEMPLATES__VAT_TEMPLATES);
@@ -9948,6 +10404,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(legacyViastationEClass, LEGACY_VIASTATION__OPTIONAL);
 
 		// Create enums
+		boardingOrArrivalEEnum = createEEnum(BOARDING_OR_ARRIVAL);
+		addCarrierScopeEEnum = createEEnum(ADD_CARRIER_SCOPE);
 		transportModeEEnum = createEEnum(TRANSPORT_MODE);
 		stationRelationTypeEEnum = createEEnum(STATION_RELATION_TYPE);
 		stationFareDetailTypeEEnum = createEEnum(STATION_FARE_DETAIL_TYPE);
@@ -9994,6 +10452,10 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		timeRangeScopeEEnum = createEEnum(TIME_RANGE_SCOPE);
 		timeUnitEEnum = createEEnum(TIME_UNIT);
 		travelerTypeEEnum = createEEnum(TRAVELER_TYPE);
+		tripAllocationProcessEEnum = createEEnum(TRIP_ALLOCATION_PROCESS);
+		tripAllocationUnitEEnum = createEEnum(TRIP_ALLOCATION_UNIT);
+		tripInterruptionProcessEEnum = createEEnum(TRIP_INTERRUPTION_PROCESS);
+		travelValidityTypeEEnum = createEEnum(TRAVEL_VALIDITY_TYPE);
 		weekDayEEnum = createEEnum(WEEK_DAY);
 
 		// Create data types
@@ -10135,6 +10597,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getStation_ShortNameCaseUTF8(), ecorePackage.getEString(), "shortNameCaseUTF8", null, 0, 1, Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStation_LegacyBorderPointCode(), ecorePackage.getEInt(), "legacyBorderPointCode", null, 0, 1, Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getStation_Relations(), this.getStationRelation(), null, "relations", null, 0, -1, Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStation_StationCode(), ecorePackage.getELong(), "stationCode", null, 0, 1, Station.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stationRelationEClass, StationRelation.class, "StationRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStationRelation_RelationType(), this.getStationRelationType(), "relationType", null, 0, 1, StationRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10321,6 +10784,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareElement_LegacyAccountingIdentifier(), this.getLegacyAccountingIdentifier(), null, "legacyAccountingIdentifier", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareElement_LegacyConversion(), this.getLegacyConversionType(), "legacyConversion", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareElement_IndividualContracts(), ecorePackage.getEBoolean(), "individualContracts", "false", 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareElement_InvolvedTcos(), this.getCarrier(), null, "involvedTcos", null, 0, -1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(totalPassengerCombinationConstraintsEClass, TotalPassengerCombinationConstraints.class, "TotalPassengerCombinationConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTotalPassengerCombinationConstraints_TotalPassengerCombinationConstraint(), this.getTotalPassengerCombinationConstraint(), null, "totalPassengerCombinationConstraint", null, 0, -1, TotalPassengerCombinationConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10408,15 +10872,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getPassengerConstraint_IncludedFreePassengers(), this.getIncludedFreePassengerLimit(), null, "includedFreePassengers", null, 0, -1, PassengerConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPassengerConstraint_ExcludedPassengerCombinations(), this.getPassengerCombinationConstraint(), null, "excludedPassengerCombinations", null, 0, -1, PassengerConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPassengerConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, PassengerConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPassengerConstraint_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, PassengerConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(passengerCombinationConstraintEClass, PassengerCombinationConstraint.class, "PassengerCombinationConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPassengerCombinationConstraint_MaxNumber(), ecorePackage.getEInt(), "maxNumber", null, 0, 1, PassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPassengerCombinationConstraint_MinNumber(), ecorePackage.getEInt(), "minNumber", null, 0, 1, PassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPassengerCombinationConstraint_PassengerType(), this.getTravelerType(), "passengerType", null, 0, 1, PassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPassengerCombinationConstraint_PassengerConstraint(), this.getPassengerConstraint(), null, "passengerConstraint", null, 0, 1, PassengerCombinationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(includedFreePassengerLimitEClass, IncludedFreePassengerLimit.class, "IncludedFreePassengerLimit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIncludedFreePassengerLimit_Number(), ecorePackage.getEInt(), "number", null, 0, 1, IncludedFreePassengerLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIncludedFreePassengerLimit_PassengerType(), this.getTravelerType(), "passengerType", null, 0, 1, IncludedFreePassengerLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIncludedFreePassengerLimit_PassengerConstraint(), this.getPassengerConstraint(), null, "passengerConstraint", null, 0, 1, IncludedFreePassengerLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(combinationConstraintsEClass, CombinationConstraints.class, "CombinationConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCombinationConstraints_CombinationConstraints(), this.getCombinationConstraint(), null, "combinationConstraints", null, 0, -1, CombinationConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10437,6 +10904,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getTravelValidityConstraint_Range(), this.getValidityRange(), null, "range", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTravelValidityConstraint_ReturnConstraint(), this.getReturnValidityConstraint(), null, "returnConstraint", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTravelValidityConstraint_ExcludedTimeRange(), this.getExcludedTimeRange(), null, "excludedTimeRange", null, 0, -1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTravelValidityConstraint_TrainValidity(), this.getTrainValidity(), null, "trainValidity", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTravelValidityConstraint_ValidityType(), this.getTravelValidityType(), "validityType", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTravelValidityConstraint_TripInterruptionConstraint(), this.getTripInterruptionConstraint(), null, "tripInterruptionConstraint", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTravelValidityConstraint_TripAllocationConstraint(), this.getTripAllocationConstraint(), null, "tripAllocationConstraint", null, 0, 1, TravelValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(trainValidityEClass, TrainValidity.class, "TrainValidity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTrainValidity_CarrierConstraint(), this.getCarrierConstraint(), null, "carrierConstraint", null, 0, 1, TrainValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTrainValidity_SerrviceConstraint(), this.getServiceConstraint(), null, "serrviceConstraint", null, 0, 1, TrainValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTrainValidity_Scope(), this.getBoardingOrArrival(), "scope", null, 0, 1, TrainValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(salesAvailabilityConstraintsEClass, SalesAvailabilityConstraints.class, "SalesAvailabilityConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSalesAvailabilityConstraints_SalesAvailabilityConstraints(), this.getSalesAvailabilityConstraint(), null, "salesAvailabilityConstraints", null, 0, -1, SalesAvailabilityConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10496,6 +10972,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getRegionalValidity_Zone(), this.getZone(), null, "zone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_Line(), this.getLine(), null, "line", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_Polygone(), this.getPolygone(), null, "polygone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRegionalValidity_CarrierConstraint(), this.getCarrierConstraint(), null, "carrierConstraint", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_ServiceConstraint(), this.getServiceConstraint(), null, "serviceConstraint", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceLevelDefinitionsEClass, ServiceLevelDefinitions.class, "ServiceLevelDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -10621,8 +11098,21 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getReturnValidityConstraint_LatestReturn(), ecorePackage.getEInt(), "latestReturn", null, 0, 1, ReturnValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReturnValidityConstraint_EarliestReturn(), ecorePackage.getEInt(), "earliestReturn", null, 0, 1, ReturnValidityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(tripAllocationConstraintEClass, TripAllocationConstraint.class, "TripAllocationConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTripAllocationConstraint_AllocationUnit(), this.getTripAllocationUnit(), "allocationUnit", null, 0, 1, TripAllocationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripAllocationConstraint_MaxUnits(), ecorePackage.getEInt(), "maxUnits", null, 0, 1, TripAllocationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripAllocationConstraint_DurationUnit(), theXMLTypePackage.getString(), "durationUnit", null, 0, 1, TripAllocationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripAllocationConstraint_RequiredProcesses(), this.getTripAllocationProcess(), "requiredProcesses", null, 0, -1, TripAllocationConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tripInterruptionConstraintEClass, TripInterruptionConstraint.class, "TripInterruptionConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTripInterruptionConstraint_MaxInterruptions(), ecorePackage.getEInt(), "maxInterruptions", null, 0, 1, TripInterruptionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripInterruptionConstraint_MaxDuration(), ecorePackage.getEString(), "maxDuration", null, 0, 1, TripInterruptionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripInterruptionConstraint_TotalMaxDuration(), theXMLTypePackage.getString(), "totalMaxDuration", null, 0, 1, TripInterruptionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTripInterruptionConstraint_RequiredProcesses(), this.getTripInterruptionProcess(), "requiredProcesses", null, 0, -1, TripInterruptionConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(viaStationEClass, ViaStation.class, "ViaStation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getViaStation_Station(), this.getStation(), null, "station", null, 0, 1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getViaStation_CarrierConstraint(), this.getCarrierConstraint(), null, "carrierConstraint", null, 0, 1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getViaStation_Carrier(), this.getCarrier(), null, "carrier", null, 0, 1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getViaStation_Route(), this.getRoute(), null, "route", null, 0, 1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getViaStation_AlternativeRoutes(), this.getAlternativeRoute(), null, "alternativeRoutes", null, 0, -1, ViaStation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10738,6 +11228,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getConversionParams_BusFerryMapping(), this.getLegacyBusFerryMapping(), null, "busFerryMapping", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConversionParams_LegacyBorderIndication(), ecorePackage.getEString(), "legacyBorderIndication", "(GR)", 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConversionParams_RemoveUnusedLegacyStations(), ecorePackage.getEBoolean(), "removeUnusedLegacyStations", "true", 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConversionParams_AddCarrierRules(), this.getAddCarrierRules(), null, "addCarrierRules", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(addCarrierRulesEClass, AddCarrierRules.class, "AddCarrierRules", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAddCarrierRules_AddCarrierRule(), this.getAddCarrierRule(), null, "addCarrierRule", null, 0, -1, AddCarrierRules.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(addCarrierRuleEClass, AddCarrierRule.class, "AddCarrierRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAddCarrierRule_Carrier(), this.getCarrier(), null, "carrier", null, 0, 1, AddCarrierRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAddCarrierRule_Scope(), this.getAddCarrierScope(), "scope", null, 0, 1, AddCarrierRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAddCarrierRule_Stations(), this.getStation(), null, "stations", null, 0, -1, AddCarrierRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(vatTemplatesEClass, VatTemplates.class, "VatTemplates", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVatTemplates_VatTemplates(), this.getVatTemplate(), null, "vatTemplates", null, 0, -1, VatTemplates.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11004,6 +11503,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLegacyViastation_Optional(), ecorePackage.getEBoolean(), "optional", "false", 0, 1, LegacyViastation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
+		initEEnum(boardingOrArrivalEEnum, BoardingOrArrival.class, "BoardingOrArrival");
+		addEEnumLiteral(boardingOrArrivalEEnum, BoardingOrArrival.BOARDING);
+		addEEnumLiteral(boardingOrArrivalEEnum, BoardingOrArrival.ARRIVAL);
+
+		initEEnum(addCarrierScopeEEnum, AddCarrierScope.class, "AddCarrierScope");
+		addEEnumLiteral(addCarrierScopeEEnum, AddCarrierScope.CARRIER);
+		addEEnumLiteral(addCarrierScopeEEnum, AddCarrierScope.TCO);
+		addEEnumLiteral(addCarrierScopeEEnum, AddCarrierScope.TCO_AND_CARRIER);
+
 		initEEnum(transportModeEEnum, TransportMode.class, "TransportMode");
 		addEEnumLiteral(transportModeEEnum, TransportMode.TRAIN);
 		addEEnumLiteral(transportModeEEnum, TransportMode.SHIP);
@@ -11347,8 +11855,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		initEEnum(schemaVersionEEnum, SchemaVersion.class, "SchemaVersion");
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V12);
-		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V10);
-		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V00);
+		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V14);
 
 		initEEnum(serviceModeEEnum, ServiceMode.class, "ServiceMode");
 		addEEnumLiteral(serviceModeEEnum, ServiceMode.HIGH_SPEED_TRAIN);
@@ -11416,6 +11923,28 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.MOTOCYCLE);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.TRAILER);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.GRAPHICAL_RES);
+
+		initEEnum(tripAllocationProcessEEnum, TripAllocationProcess.class, "TripAllocationProcess");
+		addEEnumLiteral(tripAllocationProcessEEnum, TripAllocationProcess.NONE);
+		addEEnumLiteral(tripAllocationProcessEEnum, TripAllocationProcess.MANUAL);
+		addEEnumLiteral(tripAllocationProcessEEnum, TripAllocationProcess.ACTIVATION);
+		addEEnumLiteral(tripAllocationProcessEEnum, TripAllocationProcess.FULFILLMENT);
+
+		initEEnum(tripAllocationUnitEEnum, TripAllocationUnit.class, "TripAllocationUnit");
+		addEEnumLiteral(tripAllocationUnitEEnum, TripAllocationUnit.NONE);
+		addEEnumLiteral(tripAllocationUnitEEnum, TripAllocationUnit.DAY);
+		addEEnumLiteral(tripAllocationUnitEEnum, TripAllocationUnit.TRIP);
+		addEEnumLiteral(tripAllocationUnitEEnum, TripAllocationUnit.DURATION);
+
+		initEEnum(tripInterruptionProcessEEnum, TripInterruptionProcess.class, "TripInterruptionProcess");
+		addEEnumLiteral(tripInterruptionProcessEEnum, TripInterruptionProcess.NONE);
+		addEEnumLiteral(tripInterruptionProcessEEnum, TripInterruptionProcess.MANUAL);
+		addEEnumLiteral(tripInterruptionProcessEEnum, TripInterruptionProcess.ACTIVATION);
+
+		initEEnum(travelValidityTypeEEnum, TravelValidityType.class, "TravelValidityType");
+		addEEnumLiteral(travelValidityTypeEEnum, TravelValidityType.SINGLE_TRIP);
+		addEEnumLiteral(travelValidityTypeEEnum, TravelValidityType.MULTIPLE_TRIPS);
+		addEEnumLiteral(travelValidityTypeEEnum, TravelValidityType.UNRESTRICTED);
 
 		initEEnum(weekDayEEnum, WeekDay.class, "WeekDay");
 		addEEnumLiteral(weekDayEEnum, WeekDay.MONDAY);
@@ -11626,7 +12155,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (includedFreePassengerLimitEClass,
 		   source,
 		   new String[] {
-			   "constraints", "NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST"
+			   "constraints", "NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST SIMPLE_PASSENGER_CONSTRAINT_ONLY"
 		   });
 		addAnnotation
 		  (combinationConstraintEClass,
@@ -11638,7 +12167,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		  (travelValidityConstraintEClass,
 		   source,
 		   new String[] {
-			   "constraints", "TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED"
+			   "constraints", "TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED TRAVEL_VALIDITY_TYPE_CONSTRAINT"
+		   });
+		addAnnotation
+		  (trainValidityEClass,
+		   source,
+		   new String[] {
+			   "constraints", "TRAIN_VALIDITY_REQUIRED_CONTENT"
 		   });
 		addAnnotation
 		  (salesAvailabilityConstraintsEClass,
@@ -11771,6 +12306,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		   source,
 		   new String[] {
 			   "constraints", "EARLIEST_LAST_RETURN_ORDER"
+		   });
+		addAnnotation
+		  (tripAllocationConstraintEClass,
+		   source,
+		   new String[] {
+			   "constraints", "DURATION_FORMAT"
+		   });
+		addAnnotation
+		  (tripInterruptionConstraintEClass,
+		   source,
+		   new String[] {
+			   "constraints", "DURATION_FORMAT"
 		   });
 		addAnnotation
 		  (viaStationEClass,

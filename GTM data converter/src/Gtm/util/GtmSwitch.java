@@ -451,6 +451,12 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.TRAIN_VALIDITY: {
+				TrainValidity trainValidity = (TrainValidity)theEObject;
+				T result = caseTrainValidity(trainValidity);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.SALES_AVAILABILITY_CONSTRAINTS: {
 				SalesAvailabilityConstraints salesAvailabilityConstraints = (SalesAvailabilityConstraints)theEObject;
 				T result = caseSalesAvailabilityConstraints(salesAvailabilityConstraints);
@@ -664,6 +670,18 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.TRIP_ALLOCATION_CONSTRAINT: {
+				TripAllocationConstraint tripAllocationConstraint = (TripAllocationConstraint)theEObject;
+				T result = caseTripAllocationConstraint(tripAllocationConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.TRIP_INTERRUPTION_CONSTRAINT: {
+				TripInterruptionConstraint tripInterruptionConstraint = (TripInterruptionConstraint)theEObject;
+				T result = caseTripInterruptionConstraint(tripInterruptionConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.VIA_STATION: {
 				ViaStation viaStation = (ViaStation)theEObject;
 				T result = caseViaStation(viaStation);
@@ -769,6 +787,18 @@ public class GtmSwitch<T> extends Switch<T> {
 			case GtmPackage.CONVERSION_PARAMS: {
 				ConversionParams conversionParams = (ConversionParams)theEObject;
 				T result = caseConversionParams(conversionParams);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.ADD_CARRIER_RULES: {
+				AddCarrierRules addCarrierRules = (AddCarrierRules)theEObject;
+				T result = caseAddCarrierRules(addCarrierRules);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.ADD_CARRIER_RULE: {
+				AddCarrierRule addCarrierRule = (AddCarrierRule)theEObject;
+				T result = caseAddCarrierRule(addCarrierRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1977,6 +2007,21 @@ public class GtmSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Train Validity</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Train Validity</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTrainValidity(TrainValidity object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Sales Availability Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -2532,6 +2577,36 @@ public class GtmSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Trip Allocation Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Trip Allocation Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTripAllocationConstraint(TripAllocationConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Trip Interruption Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Trip Interruption Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTripInterruptionConstraint(TripInterruptionConstraint object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Via Station</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -2768,6 +2843,36 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConversionParams(ConversionParams object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Add Carrier Rules</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Add Carrier Rules</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAddCarrierRules(AddCarrierRules object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Add Carrier Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Add Carrier Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAddCarrierRule(AddCarrierRule object) {
 		return null;
 	}
 

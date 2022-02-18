@@ -3,6 +3,7 @@
 package Gtm.impl;
 
 import Gtm.AfterSalesRule;
+import Gtm.Carrier;
 import Gtm.CarrierConstraint;
 import Gtm.CombinationConstraint;
 import Gtm.DataSource;
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -73,6 +75,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link Gtm.impl.FareElementImpl#getLegacyAccountingIdentifier <em>Legacy Accounting Identifier</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#getLegacyConversion <em>Legacy Conversion</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#isIndividualContracts <em>Individual Contracts</em>}</li>
+ *   <li>{@link Gtm.impl.FareElementImpl#getInvolvedTcos <em>Involved Tcos</em>}</li>
  * </ul>
  *
  * @generated
@@ -397,6 +400,16 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 	 * @ordered
 	 */
 	protected boolean individualContracts = INDIVIDUAL_CONTRACTS_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getInvolvedTcos() <em>Involved Tcos</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInvolvedTcos()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Carrier> involvedTcos;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1287,6 +1300,18 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Carrier> getInvolvedTcos() {
+		if (involvedTcos == null) {
+			involvedTcos = new EObjectResolvingEList<Carrier>(Carrier.class, this, GtmPackage.FARE_ELEMENT__INVOLVED_TCOS);
+		}
+		return involvedTcos;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1374,6 +1399,8 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 				return getLegacyConversion();
 			case GtmPackage.FARE_ELEMENT__INDIVIDUAL_CONTRACTS:
 				return isIndividualContracts();
+			case GtmPackage.FARE_ELEMENT__INVOLVED_TCOS:
+				return getInvolvedTcos();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1466,6 +1493,10 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 			case GtmPackage.FARE_ELEMENT__INDIVIDUAL_CONTRACTS:
 				setIndividualContracts((Boolean)newValue);
 				return;
+			case GtmPackage.FARE_ELEMENT__INVOLVED_TCOS:
+				getInvolvedTcos().clear();
+				getInvolvedTcos().addAll((Collection<? extends Carrier>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1556,6 +1587,9 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 			case GtmPackage.FARE_ELEMENT__INDIVIDUAL_CONTRACTS:
 				setIndividualContracts(INDIVIDUAL_CONTRACTS_EDEFAULT);
 				return;
+			case GtmPackage.FARE_ELEMENT__INVOLVED_TCOS:
+				getInvolvedTcos().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1620,6 +1654,8 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 				return legacyConversion != LEGACY_CONVERSION_EDEFAULT;
 			case GtmPackage.FARE_ELEMENT__INDIVIDUAL_CONTRACTS:
 				return individualContracts != INDIVIDUAL_CONTRACTS_EDEFAULT;
+			case GtmPackage.FARE_ELEMENT__INVOLVED_TCOS:
+				return involvedTcos != null && !involvedTcos.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -20,14 +20,17 @@ import org.eclipse.swt.widgets.Shell;
 import org.osgi.service.prefs.BackingStoreException;
 
 import Gtm.GTMTool;
+import Gtm.SchemaVersion;
 import Gtm.jsonImportExport.GtmJsonExporter;
+import Gtm.jsonImportExport.GtmJsonExporterV14;
+import Gtm.jsonImportExport.ObjectIdCreator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.DirtyCommand;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
 import export.ExportFareDelivery;
-import gtm.FareDelivery;
+import export.ExportFareDeliveryV14;
 
 
 
@@ -107,8 +110,8 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 				return;
 			}
 			
-			GtmJsonExporter jsonModelExporter = new GtmJsonExporter();
-			
+			GtmJsonExporter jsonModelExporterV12 = new GtmJsonExporter();
+			GtmJsonExporterV14 jsonModelExporterV14 = new GtmJsonExporterV14();
 	
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
@@ -130,13 +133,24 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						insertIds(tool,domain,editor);
 						monitor.worked(1);
 							
-						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_7);						
-						FareDelivery fares= jsonModelExporter.convertToJson(tool.getGeneralTariffModel(), monitor);
-						monitor.worked(1);
-			 	
+						gtm.FareDelivery faresV12 = null;
+						gtmV14.FareDelivery faresV14 = null;
+						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_7);		
+						if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V12)) {
+							faresV12 = jsonModelExporterV12.convertToJson(tool.getGeneralTariffModel(), monitor);
+							GtmUtils.writeConsoleInfo("Export to OSDM version 1.2", editor);
+						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V14)){
+							faresV14 = jsonModelExporterV14.convertToJson(tool.getGeneralTariffModel(), monitor);						
+							GtmUtils.writeConsoleInfo("Export to OSDM version 1.4", editor);
+						}						
+						monitor.worked(1);	 	
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_8);
 						try {
-							ExportFareDelivery.exportFareDelivery(fares, file);
+							if (faresV12 != null) {
+								ExportFareDelivery.exportFareDelivery(faresV12, file);
+							} else if (faresV14 != null) {
+								ExportFareDeliveryV14.exportFareDelivery(faresV14, file);
+							}
 						} catch (IOException ioe){
 							GtmUtils.displayAsyncErrorMessage(ioe,"format error");
 						} catch (Exception e) {
@@ -147,7 +161,6 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						GtmUtils.addWorkflowStep("Export completed to OSDM file: " + name, editor);
 						
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						GtmUtils.addWorkflowStep("Export abandoned to OSDM file: " + name, editor);
 						GtmUtils.writeConsoleError("Export failed", editor);
 						GtmUtils.writeConsoleStackTrace(e, editor);
@@ -190,9 +203,9 @@ public class ExportGTMJsonAction extends BasicGtmAction {
   
 		private void insertIds(GTMTool tool,EditingDomain domain, GtmEditor editor) {
 			
-			GtmUtils.clearCommandStack(domain);
+			GtmUtils.flushCommandStack(domain);
 			
-			CompoundCommand command =  GtmUtils.setIds(tool,domain);
+			CompoundCommand command =  ObjectIdCreator.setIds(tool,domain);
 			
 			if (command != null && !command.isEmpty()) {
        	
@@ -205,10 +218,10 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 	        	
 	        	domain.getCommandStack().execute(command);
 	        	
-				GtmUtils.clearCommandStack(domain);
+				GtmUtils.flushCommandStack(domain);
 	        }
 			
-			command =  GtmUtils.setFareIds(tool,domain);
+			command =  ObjectIdCreator.setFareIds(tool,domain);
 			
 			if (command != null && !command.isEmpty()) {
 	        	
@@ -221,7 +234,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 	        	
 	        	domain.getCommandStack().execute(command);
 	        	
-				GtmUtils.clearCommandStack(domain);
+				GtmUtils.flushCommandStack(domain);
 	        }
 
 		}

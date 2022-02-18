@@ -2,6 +2,7 @@ package Gtm.converter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -73,8 +74,10 @@ import Gtm.TravelerType;
 import Gtm.ViaStation;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.ConversionCleaner;
 import Gtm.utils.GtmUtils;
-import Gtm.utils.GtmValidator; 
+import Gtm.utils.GtmValidator;
+import Gtm.utils.InvolvedTcoFinder; 
 
 /**
  * The Class ConverterToLegacy.
@@ -152,7 +155,15 @@ public class 	ConverterToLegacy {
 		//clean up the data
 		GtmUtils.deleteOrphanedObjects(domain,tool);
 		
-		GtmUtils.resetBorderPointCodes(domain,tool);
+		if (tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares() != null && 
+			!tool.getConversionFromLegacy().getLegacy108().getLegacyDistanceFares().getDistanceFare().isEmpty()) {
+			Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__LEGACY_DISTANCE_FARES, GtmFactory.eINSTANCE.createLegacyDistanceFares());
+			if (com != null && com.canExecute()) {
+				domain.getCommandStack().execute(com);
+			}
+		}
+		
+		ConversionCleaner.resetBorderPointCodes(domain, tool);
 		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
 		if (carrier == null) {
@@ -166,6 +177,8 @@ public class 	ConverterToLegacy {
 		Command com = SetCommand.create(domain, tool.getConversionFromLegacy().getLegacy108(), GtmPackage.Literals.LEGACY108__CARRIER, carrier);
 		if (com != null && com.canExecute()) {
 			domain.getCommandStack().execute(com);
+			
+			
 		}
 		
 		monitor.subTask(NationalLanguageSupport.ConverterToLegacy_0);	
@@ -553,6 +566,8 @@ public class 	ConverterToLegacy {
 		
 		return series.size();
 	}
+
+
 
 	private void addRouteNumbers(HashMap<Integer, LegacySeries> series, HashSet<LegacyRouteFare> routeFares) {
 		
@@ -1076,34 +1091,37 @@ public class 	ConverterToLegacy {
 			
 		for (Station station : tool.getGeneralTariffModel().getFareStructure().getStationNames().getStationName()) {
 			
-			try {
-				if (station.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
-					
-					Legacy108Station ls = convertStation(station);
-	
-					if (ls.getName() == null || ls.getName().length() == 0) {
-						String message = "Station name missing: code " + Integer.toString(ls.getStationCode());
-						GtmUtils.writeConsoleError(message, editor);
-					} else {
-						legacyStations.put(ls.getStationCode(),ls);
+				try {
+					if (
+						//exclude stations with more than 7 digits in the code
+						GtmUtils.isConvertable(station) 
+					   &&
+						station.getCountry() == tool.getConversionFromLegacy().getParams().getCountry()) {
+						
+						Legacy108Station ls = convertStation(station);
+						
+						if (ls == null || ls.getName() == null || ls.getName().length() == 0) {
+							String message = "Station name missing: code " + station.getStationCode();
+							GtmUtils.writeConsoleError(message, editor);
+						} else {
+							legacyStations.put(ls.getStationCode(),ls);
+						}
+						
+						if (ls.getBorderPointCode() > 0) {
+							legacyBorderStations.put(ls.getBorderPointCode(), ls);
+						}
+					} else {			
+						
+						addBorderPointMaping(station);
+						
+						addMappedLegacyStation(station);
 					}
-					
-					if (ls.getBorderPointCode() > 0) {
-						legacyBorderStations.put(ls.getBorderPointCode(), ls);
-					}
-				} else {			
-					
-					addBorderPointMaping(station);
-					
-					addMappedLegacyStation(station);
+				} catch (Exception e) {
+					StringBuilder sb = new StringBuilder();
+					sb.append("Unknown error! Station not converted: station - ").append(station.getCode()).append('\n');
+					sb.append(GtmUtils.getStackTrace(e));
+					GtmUtils.writeConsoleError(sb.toString(), editor);
 				}
-			} catch (Exception e) {
-				StringBuilder sb = new StringBuilder();
-				sb.append("Unknown error! Station not converted: station - ").append(station.getCode()).append('\n');
-				sb.append(GtmUtils.getStackTrace(e));
-				GtmUtils.writeConsoleError(sb.toString(), editor);
-			}
-				
 		}
 		
 		
@@ -1126,6 +1144,9 @@ public class 	ConverterToLegacy {
 			
 			
 			for (Station s : set.getStations()) {
+				
+				//exclude stations with more than 7 digit codes
+				if (GtmUtils.isConvertable(s)) {
 				
 				Legacy108Station ls = legacyStations.get(this.getLegacyStationCode(s));
 				
@@ -1153,7 +1174,7 @@ public class 	ConverterToLegacy {
 					};
 				
 				}
-							
+				}
 			}		
 			
 			if (!isSelfContained) {
@@ -1682,6 +1703,11 @@ public class 	ConverterToLegacy {
 	 */
 	private Legacy108Station convertStation(Station sn)  {
 		
+		if (!GtmUtils.isConvertable(sn)) {
+			return null;
+		}
+		
+		
 		Legacy108Station ls = GtmFactory.eINSTANCE.createLegacy108Station();
 		
 		ls.setName(sn.getNameCaseASCII());
@@ -1899,10 +1925,11 @@ public class 	ConverterToLegacy {
 		}
 				
 		ViaStation mainVia = regionalValidity.getViaStation();
-		if (mainVia.getCarrier() != null) {
-			series.setCarrierCode( mainVia.getCarrier().getCode());
-			addCarrier(mainVia.getCarrier());
+		Carrier carrier = getMainCarrier(regionalConstraint.getRegionalValidity().get(0));
+		if (carrier != null) {
+			series.setCarrierCode(carrier.getCode());
 		}
+
 		if (mainVia.getServiceConstraint() != null && mainVia.getServiceConstraint().getLegacy108Code() > 0) {
 			routeServiceConstraint = mainVia.getServiceConstraint();
 		}		
@@ -2009,14 +2036,35 @@ public class 	ConverterToLegacy {
 		}
 
 		series.setType(getType(regionalConstraint));
+		
+		//exclude fares with more than one carrier
+		if (fare.getCarrierConstraint() != null ||
+			fare.getCarrierConstraint().getIncludedCarriers() != null  || 
+		    fare.getCarrierConstraint().getIncludedCarriers().size() > 1 ) {
+			
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not convertable - more than one carrier: " + route;
+			GtmUtils.writeConsoleError(message, editor);
+			return null;
+			
+		}
 			
 		if (fare.getCarrierConstraint() != null && 
 			fare.getCarrierConstraint().getIncludedCarriers() != null && 
 		    series.getCarrierCode() == null &&
 			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
 			series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
-            addCarrier(fare.getCarrierConstraint().getIncludedCarriers().get(0));
 		} 	
+		
+		if (fare.getCarrierConstraint() != null && 
+			fare.getCarrierConstraint().getIncludedCarriers() != null && 
+			!fare.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+            addCarrier(fare.getCarrierConstraint().getIncludedCarriers());
+		}
+		if (fare.getRegionalConstraint() != null) {
+			addCarrier(InvolvedTcoFinder.getInvolvedCarriers(fare.getRegionalConstraint()));
+		}
+		
 		
 		series.setNumber(fare.getLegacyAccountingIdentifier().getSeriesId());
 		
@@ -2047,7 +2095,23 @@ public class 	ConverterToLegacy {
 	}
 	
 
-
+	private Carrier getMainCarrier(RegionalValidity regionalValidity) {
+		
+		if (regionalValidity == null) return null;
+		
+		if (regionalValidity.getCarrierConstraint() != null 
+			&& regionalValidity.getCarrierConstraint().getIncludedCarriers() != null
+			&& !regionalValidity.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+			return regionalValidity.getCarrierConstraint().getIncludedCarriers().get(0);
+		}
+		
+		if (regionalValidity.getViaStation() != null 
+			&& regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers() != null
+			&& !regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+			return regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers().get(0);
+		}
+		return null;
+	}
 
 	private DateRange getDateRange(HashSet<SalesAvailabilityConstraint> salesAvailabilities) {
 		
@@ -2587,7 +2651,31 @@ public class 	ConverterToLegacy {
 			}
 			
 		}
+		
+		if (viaStation.getStation() != null) {
+			if (!GtmUtils.isConvertable(viaStation.getStation())) {
+				return false;
+			}
+		}
+		
+		if (viaStation.getFareStationSet() != null && viaStation.getFareStationSet().getStations() != null) {
+			//a fare station set is ok if at least one convertable station is included
+			if (!includesConvertableStation(viaStation.getFareStationSet())) {
+				return false;
+			}
+		}
+		
 		return true;
+	}
+
+	private boolean includesConvertableStation(FareStationSetDefinition stations) {
+		
+		for (Station s : stations.getStations()) {
+			if (GtmUtils.isConvertable(s)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isConvertable(ServiceConstraint serviceConstraint) {
@@ -2731,8 +2819,12 @@ public class 	ConverterToLegacy {
 	private void addStations(ViaStation via, List<Station> stations, List<FareStationSetDefinition> fareStations) {
 		
 		if (via == null) return;
-		if (via.getStation() != null) stations.add(via.getStation());
-		if (via.getFareStationSet()!= null) fareStations.add(via.getFareStationSet());
+		if (via.getStation() != null && GtmUtils.isConvertable(via.getStation())) {
+			stations.add(via.getStation());
+		}
+		if (via.getFareStationSet()!= null) {
+			fareStations.add(via.getFareStationSet());
+		}
 		
 		if (via.getRoute() != null) {
 			for (ViaStation via2 :via.getRoute().getStations()) {
@@ -2776,8 +2868,6 @@ public class 	ConverterToLegacy {
 	
 	private void addCarrier(Carrier carrier) {
 		
-		if (carrier == null) return;
-		
 		LegacyCarrier lc = carriers.get(carrier.getCode());
 		
 		if (lc == null) {
@@ -2790,6 +2880,30 @@ public class 	ConverterToLegacy {
 			carriers.put(carrier.getCode(), lc);
 						
 		} 
+	}
+	
+	private void addCarrier(Collection<Carrier> carrierSet) {
+		
+		if (carrierSet == null || carrierSet.isEmpty()) return;
+		
+		for (Carrier carrier : carrierSet) {
+			
+			LegacyCarrier lc = carriers.get(carrier.getCode());
+			
+			if (lc == null) {
+				
+				lc = GtmFactory.eINSTANCE.createLegacyCarrier();
+				lc.setCarrierCode(carrier.getCode());
+				lc.setCarrierShortName(carrier.getShortName());
+				lc.setCarrierName(carrier.getName());
+							
+				carriers.put(carrier.getCode(), lc);
+							
+			} 
+			
+		}
+		
+
 		
 	}
 	

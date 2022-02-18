@@ -96,7 +96,7 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 					monitor.subTask(NationalLanguageSupport.ImportBorderPointsAction_0);
 					
 					
-					HashMap<Integer,Station> stationMap = GtmUtils.getStationMap(tool);
+					HashMap<Long,Station> stationMap = GtmUtils.getStationMap(tool);
 			    	
 			    	LegacyBorderPoints borderPoints = GtmFactory.eINSTANCE.createLegacyBorderPoints();
 
@@ -153,7 +153,7 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 	}
 
 
-	private LegacyBorderPoint decodeLine(String st, GTMTool tool, HashMap<Integer, Station> stationMap, GtmEditor editor) {
+	private LegacyBorderPoint decodeLine(String st, GTMTool tool, HashMap<Long, Station> stationMap, GtmEditor editor) {
 		
 		/*
 		 * column 0: border point code
@@ -168,7 +168,7 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 		 */
 		
 	
-		String[] strings = GtmUtils.splitCsv(st);
+		String[] strings = splitCsv(st);
 		
 		if (strings.length < 9) return null;
 		
@@ -334,7 +334,7 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 		
 	}
 	
-	private StationSet addStationSet(String s, HashMap<Integer, Station> stationMap, GtmEditor editor, String borderPointCode) {
+	private StationSet addStationSet(String s, HashMap<Long, Station> stationMap, GtmEditor editor, String borderPointCode) {
 		
 		if (s == null || s.length() == 0) return null;
 		
@@ -351,7 +351,7 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 				return null;
 			}
 			
-			Integer code = Integer.valueOf(codei);
+			Long code = Long.valueOf(codei);
 			
 			Station station = stationMap.get(code);
 			

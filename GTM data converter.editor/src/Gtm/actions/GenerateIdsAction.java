@@ -6,8 +6,9 @@ import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import Gtm.FareStructure;
 import Gtm.GTMTool;
+import Gtm.jsonImportExport.ObjectIdCreator;
 import Gtm.nls.NationalLanguageSupport;
-import Gtm.utils.GtmUtils;
+import Gtm.utils.ModelInitializer;
 
 
 
@@ -39,7 +40,7 @@ public class GenerateIdsAction extends BasicGtmAction {
 			
 			GTMTool tool = (GTMTool) editingDomainProvider.getEditingDomain().getRoot(o);
 			
-			CompoundCommand preparationCommand = GtmUtils.getPreparationCommand(tool, editingDomainProvider.getEditingDomain());
+			CompoundCommand preparationCommand = ModelInitializer.getPreparationCommand(tool, editingDomainProvider.getEditingDomain());
 			
 			if (preparationCommand != null && !preparationCommand.isEmpty()) {
 				editingDomainProvider.getEditingDomain().getCommandStack().execute(preparationCommand);
@@ -53,7 +54,7 @@ public class GenerateIdsAction extends BasicGtmAction {
 		protected void runAction(GTMTool tool) {
 			
 			
-			CompoundCommand command =  GtmUtils.setIds(tool,editingDomainProvider.getEditingDomain());
+			CompoundCommand command =  ObjectIdCreator.setIds(tool,editingDomainProvider.getEditingDomain());
 			
 	        if (command != null && !command.isEmpty()) {
 	        	editingDomainProvider.getEditingDomain().getCommandStack().execute(command);

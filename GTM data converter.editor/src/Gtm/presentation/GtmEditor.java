@@ -784,7 +784,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated 
+		 * @generated
 		 */
 		@Override
 		public Object [] getElements(Object object) {
@@ -817,7 +817,7 @@ public class GtmEditor
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated 
+		 * @generated
 		 */
 		@Override
 		public Object getParent(Object object) {
@@ -1013,9 +1013,7 @@ public class GtmEditor
 				viewerPane.createControl(getContainer());
 
 				selectionViewer = (TreeViewer)viewerPane.getViewer();
-				//selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-				selectionViewer.setContentProvider(getNewPartitionedContentProvider(adapterFactory)); 
-		
+				selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 				selectionViewer.setUseHashlookup(true);
 
 				selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
@@ -1051,9 +1049,7 @@ public class GtmEditor
 
 				parentViewer = (TreeViewer)viewerPane.getViewer();
 				parentViewer.setAutoExpandLevel(30);
-				
 				parentViewer.setContentProvider(new ReverseAdapterFactoryContentProvider(adapterFactory));
-				
 				parentViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
 				createContextMenuFor(parentViewer);
@@ -1103,9 +1099,7 @@ public class GtmEditor
 					};
 				viewerPane.createControl(getContainer());
 				treeViewer = (TreeViewer)viewerPane.getViewer();
-				//treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-				treeViewer.setContentProvider(getNewPartitionedContentProvider(adapterFactory)); 
-				
+				treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 				treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
 				new AdapterFactoryTreeEditor(treeViewer.getTree(), adapterFactory);
@@ -1443,10 +1437,7 @@ public class GtmEditor
 					// Set up the tree viewer.
 					//
 					contentOutlineViewer.setUseHashlookup(true);
-					//contentOutlineViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-					contentOutlineViewer.setContentProvider(getNewPartitionedContentProvider(adapterFactory)); 
-
-					
+					contentOutlineViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 					contentOutlineViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 					contentOutlineViewer.setInput(editingDomain.getResourceSet());
 
@@ -1460,8 +1451,6 @@ public class GtmEditor
 					  contentOutlineViewer.setSelection(new StructuredSelection(editingDomain.getResourceSet().getResources().get(0)), true);
 					}
 				}
-
-
 
 				@Override
 				public void makeContributions(IMenuManager menuManager, IToolBarManager toolBarManager, IStatusLineManager statusLineManager) {
@@ -1501,11 +1490,12 @@ public class GtmEditor
 	 */
 	public IPropertySheetPage getPropertySheetPage() {
 		PropertySheetPage propertySheetPage =
-			new GtmPropertySheetPage(editingDomain, ExtendedPropertySheetPage.Decoration.NONE, null, 0, false) {
+			new ExtendedPropertySheetPage(editingDomain, ExtendedPropertySheetPage.Decoration.NONE, null, 0, false) {
 				@Override
 				public void setSelectionToViewer(List<?> selection) {
 					GtmEditor.this.setSelectionToViewer(selection);
-					GtmEditor.this.setFocus();				}
+					GtmEditor.this.setFocus();
+				}
 
 				@Override
 				public void setActionBars(IActionBars actionBars) {
@@ -1514,7 +1504,6 @@ public class GtmEditor
 				}
 			};
 		propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory));
-		
 		propertySheetPages.add(propertySheetPage);
 
 		return propertySheetPage;

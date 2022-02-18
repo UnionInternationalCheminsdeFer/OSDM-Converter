@@ -598,6 +598,15 @@ public interface GtmFactory extends EFactory {
 	TravelValidityConstraint createTravelValidityConstraint();
 
 	/**
+	 * Returns a new object of class '<em>Train Validity</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Train Validity</em>'.
+	 * @generated
+	 */
+	TrainValidity createTrainValidity();
+
+	/**
 	 * Returns a new object of class '<em>Sales Availability Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -931,6 +940,24 @@ public interface GtmFactory extends EFactory {
 	ReturnValidityConstraint createReturnValidityConstraint();
 
 	/**
+	 * Returns a new object of class '<em>Trip Allocation Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Trip Allocation Constraint</em>'.
+	 * @generated
+	 */
+	TripAllocationConstraint createTripAllocationConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Trip Interruption Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Trip Interruption Constraint</em>'.
+	 * @generated
+	 */
+	TripInterruptionConstraint createTripInterruptionConstraint();
+
+	/**
 	 * Returns a new object of class '<em>Via Station</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1073,6 +1100,24 @@ public interface GtmFactory extends EFactory {
 	 * @generated
 	 */
 	ConversionParams createConversionParams();
+
+	/**
+	 * Returns a new object of class '<em>Add Carrier Rules</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Add Carrier Rules</em>'.
+	 * @generated
+	 */
+	AddCarrierRules createAddCarrierRules();
+
+	/**
+	 * Returns a new object of class '<em>Add Carrier Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Add Carrier Rule</em>'.
+	 * @generated
+	 */
+	AddCarrierRule createAddCarrierRule();
 
 	/**
 	 * Returns a new object of class '<em>Vat Templates</em>'.

@@ -75,6 +75,7 @@ public class StationItemProvider
 			addShortNameCaseASCIIPropertyDescriptor(object);
 			addShortNameCaseUTF8PropertyDescriptor(object);
 			addLegacyBorderPointCodePropertyDescriptor(object);
+			addStationCodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -344,6 +345,28 @@ public class StationItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Station Code feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStationCodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Station_stationCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Station_stationCode_feature", "_UI_Station_type"),
+				 GtmPackage.Literals.STATION__STATION_CODE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -398,17 +421,10 @@ public class StationItemProvider
 		sb.append("Station: ");
 		if (station.getNameCaseUTF8() != null) {
 			sb.append(station.getNameCaseUTF8()).append(" - ");
-		if (station.getCountry() != null) {
-			sb.append(station.getCountry().getCode());
-		}
-		sb.append(" ").append(station.getCode());
 		} else {
-			sb.append(station.getName());
-			if (station.getCountry() != null) {
-				sb.append(" - ").append(station.getCountry().getCode()).append(" ").append(station.getCode());
-			}
+			sb.append(station.getName()).append(" - ");
 		}
-		
+		sb.append(station.getStationCode());
 		return sb.toString();
 	}
 
@@ -436,6 +452,7 @@ public class StationItemProvider
 			case GtmPackage.STATION__SHORT_NAME_CASE_ASCII:
 			case GtmPackage.STATION__SHORT_NAME_CASE_UTF8:
 			case GtmPackage.STATION__LEGACY_BORDER_POINT_CODE:
+			case GtmPackage.STATION__STATION_CODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.STATION__RELATIONS:

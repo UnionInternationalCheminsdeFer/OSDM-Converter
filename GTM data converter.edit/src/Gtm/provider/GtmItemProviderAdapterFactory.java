@@ -1561,6 +1561,29 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.TrainValidity} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TrainValidityItemProvider trainValidityItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.TrainValidity}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTrainValidityAdapter() {
+		if (trainValidityItemProvider == null) {
+			trainValidityItemProvider = new TrainValidityItemProvider(this);
+		}
+
+		return trainValidityItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.SalesAvailabilityConstraints} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2412,6 +2435,52 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.TripAllocationConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TripAllocationConstraintItemProvider tripAllocationConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.TripAllocationConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTripAllocationConstraintAdapter() {
+		if (tripAllocationConstraintItemProvider == null) {
+			tripAllocationConstraintItemProvider = new TripAllocationConstraintItemProvider(this);
+		}
+
+		return tripAllocationConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.TripInterruptionConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TripInterruptionConstraintItemProvider tripInterruptionConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.TripInterruptionConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTripInterruptionConstraintAdapter() {
+		if (tripInterruptionConstraintItemProvider == null) {
+			tripInterruptionConstraintItemProvider = new TripInterruptionConstraintItemProvider(this);
+		}
+
+		return tripInterruptionConstraintItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.ViaStation} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2777,6 +2846,52 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		}
 
 		return conversionParamsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.AddCarrierRules} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AddCarrierRulesItemProvider addCarrierRulesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.AddCarrierRules}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAddCarrierRulesAdapter() {
+		if (addCarrierRulesItemProvider == null) {
+			addCarrierRulesItemProvider = new AddCarrierRulesItemProvider(this);
+		}
+
+		return addCarrierRulesItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.AddCarrierRule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AddCarrierRuleItemProvider addCarrierRuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.AddCarrierRule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAddCarrierRuleAdapter() {
+		if (addCarrierRuleItemProvider == null) {
+			addCarrierRuleItemProvider = new AddCarrierRuleItemProvider(this);
+		}
+
+		return addCarrierRuleItemProvider;
 	}
 
 	/**
@@ -3889,6 +4004,7 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (combinationConstraintItemProvider != null) combinationConstraintItemProvider.dispose();
 		if (travelValidityConstraintsItemProvider != null) travelValidityConstraintsItemProvider.dispose();
 		if (travelValidityConstraintItemProvider != null) travelValidityConstraintItemProvider.dispose();
+		if (trainValidityItemProvider != null) trainValidityItemProvider.dispose();
 		if (salesAvailabilityConstraintsItemProvider != null) salesAvailabilityConstraintsItemProvider.dispose();
 		if (salesAvailabilityConstraintItemProvider != null) salesAvailabilityConstraintItemProvider.dispose();
 		if (salesRestrictionItemProvider != null) salesRestrictionItemProvider.dispose();
@@ -3924,6 +4040,8 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (validityRangeItemProvider != null) validityRangeItemProvider.dispose();
 		if (relativeTimeItemProvider != null) relativeTimeItemProvider.dispose();
 		if (returnValidityConstraintItemProvider != null) returnValidityConstraintItemProvider.dispose();
+		if (tripAllocationConstraintItemProvider != null) tripAllocationConstraintItemProvider.dispose();
+		if (tripInterruptionConstraintItemProvider != null) tripInterruptionConstraintItemProvider.dispose();
 		if (viaStationItemProvider != null) viaStationItemProvider.dispose();
 		if (alternativeRouteItemProvider != null) alternativeRouteItemProvider.dispose();
 		if (routeItemProvider != null) routeItemProvider.dispose();
@@ -3942,6 +4060,8 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (requiredReductionCardItemProvider != null) requiredReductionCardItemProvider.dispose();
 		if (conversionFromLegacyItemProvider != null) conversionFromLegacyItemProvider.dispose();
 		if (conversionParamsItemProvider != null) conversionParamsItemProvider.dispose();
+		if (addCarrierRulesItemProvider != null) addCarrierRulesItemProvider.dispose();
+		if (addCarrierRuleItemProvider != null) addCarrierRuleItemProvider.dispose();
 		if (vatTemplatesItemProvider != null) vatTemplatesItemProvider.dispose();
 		if (vatTemplateItemProvider != null) vatTemplateItemProvider.dispose();
 		if (legacyFareTemplatesItemProvider != null) legacyFareTemplatesItemProvider.dispose();

@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ConversionParams#getBusFerryMapping <em>Bus Ferry Mapping</em>}</li>
  *   <li>{@link Gtm.ConversionParams#getLegacyBorderIndication <em>Legacy Border Indication</em>}</li>
  *   <li>{@link Gtm.ConversionParams#isRemoveUnusedLegacyStations <em>Remove Unused Legacy Stations</em>}</li>
+ *   <li>{@link Gtm.ConversionParams#getAddCarrierRules <em>Add Carrier Rules</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getConversionParams()
@@ -435,5 +436,27 @@ public interface ConversionParams extends EObject {
 	 * @generated
 	 */
 	void setRemoveUnusedLegacyStations(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Add Carrier Rules</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Add Carrier Rules</em>' containment reference.
+	 * @see #setAddCarrierRules(AddCarrierRules)
+	 * @see Gtm.GtmPackage#getConversionParams_AddCarrierRules()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AddCarrierRules getAddCarrierRules();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ConversionParams#getAddCarrierRules <em>Add Carrier Rules</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Add Carrier Rules</em>' containment reference.
+	 * @see #getAddCarrierRules()
+	 * @generated
+	 */
+	void setAddCarrierRules(AddCarrierRules value);
 
 } // ConversionParams

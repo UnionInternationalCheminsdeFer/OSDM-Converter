@@ -122,6 +122,7 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.COMBINATION_CONSTRAINT: return createCombinationConstraint();
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINTS: return createTravelValidityConstraints();
 			case GtmPackage.TRAVEL_VALIDITY_CONSTRAINT: return createTravelValidityConstraint();
+			case GtmPackage.TRAIN_VALIDITY: return createTrainValidity();
 			case GtmPackage.SALES_AVAILABILITY_CONSTRAINTS: return createSalesAvailabilityConstraints();
 			case GtmPackage.SALES_AVAILABILITY_CONSTRAINT: return createSalesAvailabilityConstraint();
 			case GtmPackage.SALES_RESTRICTION: return createSalesRestriction();
@@ -157,6 +158,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.VALIDITY_RANGE: return createValidityRange();
 			case GtmPackage.RELATIVE_TIME: return createRelativeTime();
 			case GtmPackage.RETURN_VALIDITY_CONSTRAINT: return createReturnValidityConstraint();
+			case GtmPackage.TRIP_ALLOCATION_CONSTRAINT: return createTripAllocationConstraint();
+			case GtmPackage.TRIP_INTERRUPTION_CONSTRAINT: return createTripInterruptionConstraint();
 			case GtmPackage.VIA_STATION: return createViaStation();
 			case GtmPackage.ALTERNATIVE_ROUTE: return createAlternativeRoute();
 			case GtmPackage.ROUTE: return createRoute();
@@ -175,6 +178,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.REQUIRED_REDUCTION_CARD: return createRequiredReductionCard();
 			case GtmPackage.CONVERSION_FROM_LEGACY: return createConversionFromLegacy();
 			case GtmPackage.CONVERSION_PARAMS: return createConversionParams();
+			case GtmPackage.ADD_CARRIER_RULES: return createAddCarrierRules();
+			case GtmPackage.ADD_CARRIER_RULE: return createAddCarrierRule();
 			case GtmPackage.VAT_TEMPLATES: return createVatTemplates();
 			case GtmPackage.VAT_TEMPLATE: return createVatTemplate();
 			case GtmPackage.LEGACY_FARE_TEMPLATES: return createLegacyFareTemplates();
@@ -228,6 +233,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case GtmPackage.BOARDING_OR_ARRIVAL:
+				return createBoardingOrArrivalFromString(eDataType, initialValue);
+			case GtmPackage.ADD_CARRIER_SCOPE:
+				return createAddCarrierScopeFromString(eDataType, initialValue);
 			case GtmPackage.TRANSPORT_MODE:
 				return createTransportModeFromString(eDataType, initialValue);
 			case GtmPackage.STATION_RELATION_TYPE:
@@ -320,6 +329,14 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createTimeUnitFromString(eDataType, initialValue);
 			case GtmPackage.TRAVELER_TYPE:
 				return createTravelerTypeFromString(eDataType, initialValue);
+			case GtmPackage.TRIP_ALLOCATION_PROCESS:
+				return createTripAllocationProcessFromString(eDataType, initialValue);
+			case GtmPackage.TRIP_ALLOCATION_UNIT:
+				return createTripAllocationUnitFromString(eDataType, initialValue);
+			case GtmPackage.TRIP_INTERRUPTION_PROCESS:
+				return createTripInterruptionProcessFromString(eDataType, initialValue);
+			case GtmPackage.TRAVEL_VALIDITY_TYPE:
+				return createTravelValidityTypeFromString(eDataType, initialValue);
 			case GtmPackage.WEEK_DAY:
 				return createWeekDayFromString(eDataType, initialValue);
 			case GtmPackage.DATE_AS_DATE:
@@ -339,6 +356,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GtmPackage.BOARDING_OR_ARRIVAL:
+				return convertBoardingOrArrivalToString(eDataType, instanceValue);
+			case GtmPackage.ADD_CARRIER_SCOPE:
+				return convertAddCarrierScopeToString(eDataType, instanceValue);
 			case GtmPackage.TRANSPORT_MODE:
 				return convertTransportModeToString(eDataType, instanceValue);
 			case GtmPackage.STATION_RELATION_TYPE:
@@ -431,6 +452,14 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertTimeUnitToString(eDataType, instanceValue);
 			case GtmPackage.TRAVELER_TYPE:
 				return convertTravelerTypeToString(eDataType, instanceValue);
+			case GtmPackage.TRIP_ALLOCATION_PROCESS:
+				return convertTripAllocationProcessToString(eDataType, instanceValue);
+			case GtmPackage.TRIP_ALLOCATION_UNIT:
+				return convertTripAllocationUnitToString(eDataType, instanceValue);
+			case GtmPackage.TRIP_INTERRUPTION_PROCESS:
+				return convertTripInterruptionProcessToString(eDataType, instanceValue);
+			case GtmPackage.TRAVEL_VALIDITY_TYPE:
+				return convertTravelValidityTypeToString(eDataType, instanceValue);
 			case GtmPackage.WEEK_DAY:
 				return convertWeekDayToString(eDataType, instanceValue);
 			case GtmPackage.DATE_AS_DATE:
@@ -1087,6 +1116,16 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TrainValidity createTrainValidity() {
+		TrainValidityImpl trainValidity = new TrainValidityImpl();
+		return trainValidity;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SalesAvailabilityConstraints createSalesAvailabilityConstraints() {
 		SalesAvailabilityConstraintsImpl salesAvailabilityConstraints = new SalesAvailabilityConstraintsImpl();
 		return salesAvailabilityConstraints;
@@ -1457,6 +1496,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TripAllocationConstraint createTripAllocationConstraint() {
+		TripAllocationConstraintImpl tripAllocationConstraint = new TripAllocationConstraintImpl();
+		return tripAllocationConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TripInterruptionConstraint createTripInterruptionConstraint() {
+		TripInterruptionConstraintImpl tripInterruptionConstraint = new TripInterruptionConstraintImpl();
+		return tripInterruptionConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ViaStation createViaStation() {
 		ViaStationImpl viaStation = new ViaStationImpl();
 		return viaStation;
@@ -1610,6 +1669,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public ConversionParams createConversionParams() {
 		ConversionParamsImpl conversionParams = new ConversionParamsImpl();
 		return conversionParams;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddCarrierRules createAddCarrierRules() {
+		AddCarrierRulesImpl addCarrierRules = new AddCarrierRulesImpl();
+		return addCarrierRules;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddCarrierRule createAddCarrierRule() {
+		AddCarrierRuleImpl addCarrierRule = new AddCarrierRuleImpl();
+		return addCarrierRule;
 	}
 
 	/**
@@ -2000,6 +2079,46 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public LegacyViastation createLegacyViastation() {
 		LegacyViastationImpl legacyViastation = new LegacyViastationImpl();
 		return legacyViastation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BoardingOrArrival createBoardingOrArrivalFromString(EDataType eDataType, String initialValue) {
+		BoardingOrArrival result = BoardingOrArrival.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertBoardingOrArrivalToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddCarrierScope createAddCarrierScopeFromString(EDataType eDataType, String initialValue) {
+		AddCarrierScope result = AddCarrierScope.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAddCarrierScopeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**
@@ -2789,6 +2908,86 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * @generated
 	 */
 	public String convertTravelerTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TripAllocationProcess createTripAllocationProcessFromString(EDataType eDataType, String initialValue) {
+		TripAllocationProcess result = TripAllocationProcess.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTripAllocationProcessToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TripAllocationUnit createTripAllocationUnitFromString(EDataType eDataType, String initialValue) {
+		TripAllocationUnit result = TripAllocationUnit.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTripAllocationUnitToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TripInterruptionProcess createTripInterruptionProcessFromString(EDataType eDataType, String initialValue) {
+		TripInterruptionProcess result = TripInterruptionProcess.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTripInterruptionProcessToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TravelValidityType createTravelValidityTypeFromString(EDataType eDataType, String initialValue) {
+		TravelValidityType result = TravelValidityType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTravelValidityTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

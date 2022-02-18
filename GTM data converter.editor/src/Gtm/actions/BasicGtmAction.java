@@ -9,6 +9,7 @@ import org.eclipse.ui.actions.BaseSelectionListenerAction;
 import Gtm.GTMTool;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.utils.GtmUtils;
+import Gtm.utils.ModelInitializer;
 
 public abstract class BasicGtmAction extends BaseSelectionListenerAction {
 	
@@ -37,7 +38,7 @@ public abstract class BasicGtmAction extends BaseSelectionListenerAction {
 				return;
 			}
 			
-			CompoundCommand preparationCommand = GtmUtils.getPreparationCommand(tool, domain);
+			CompoundCommand preparationCommand = ModelInitializer.getPreparationCommand(tool, domain);
 			
 			if (preparationCommand != null && !preparationCommand.isEmpty()) {
 				domain.getCommandStack().execute(preparationCommand);
@@ -55,7 +56,7 @@ public abstract class BasicGtmAction extends BaseSelectionListenerAction {
 			if (tool == null) return;
 			if (domain == null) return;
 			
-			CompoundCommand preparationCommand = GtmUtils.getPreparationCommand(tool, domain);
+			CompoundCommand preparationCommand = ModelInitializer.getPreparationCommand(tool, domain);
 			if (preparationCommand != null && !preparationCommand.isEmpty() && preparationCommand.canExecute()) {
 				domain.getCommandStack().execute(preparationCommand);
 			}
@@ -68,7 +69,7 @@ public abstract class BasicGtmAction extends BaseSelectionListenerAction {
 			EditingDomain domain = GtmUtils.getActiveDomain();
 			if (domain == null) return;
 			
-			CompoundCommand preparationCommand = GtmUtils.getPreparationCommand(tool, domain);
+			CompoundCommand preparationCommand = ModelInitializer.getPreparationCommand(tool, domain);
 			if (preparationCommand != null && !preparationCommand.isEmpty() && preparationCommand.canExecute()) {
 				domain.getCommandStack().execute(preparationCommand);
 			}

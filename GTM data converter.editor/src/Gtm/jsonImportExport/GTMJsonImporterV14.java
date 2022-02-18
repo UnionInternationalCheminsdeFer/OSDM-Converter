@@ -20,73 +20,76 @@ import Gtm.converter.StationComparator;
 import Gtm.preferences.PreferenceConstants;
 import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.GtmEditor;
+import Gtm.utils.CodeListInitializer;
 import Gtm.utils.GtmUtils;
-import gtm.AfterSalesConditionDef;
-import gtm.AfterSalesRuleDef;
-import gtm.AllowedChange;
-import gtm.BarCodeTypesDef;
-import gtm.CalendarDef;
-import gtm.CarrierConstraintDef;
-import gtm.CarrierResourceLocationDef;
-import gtm.ConnectionPointDef;
-import gtm.ControlSecurityTypeDef;
-import gtm.CrossBorderConditionDef;
-import gtm.CurrencyPriceDef;
-import gtm.FareCombinationConstraintDef;
-import gtm.FareCombinationModelDef;
-import gtm.FareConstraintBundle.FareTypeDef;
-import gtm.FareDataDef;
-import gtm.FareDef;
-import gtm.FareDelivery;
-import gtm.FareDeliveryDetailsDef;
-import gtm.FareDeliveryDetailsDef.Usage;
-import gtm.FareReferenceStationSetDef;
-import gtm.FareResourceLocationDef;
-import gtm.FulfillmentConstraintDef;
-import gtm.GeoCoordinate;
-import gtm.IncludedFreePassenger;
-import gtm.LegacyAccountingIdentifierDef;
-import gtm.LegacyReservationParameterDef;
-import gtm.LineDef;
-import gtm.OnlineResourceDef;
-import gtm.PassengerCombinationConstraintDef;
-import gtm.PassengerConstraintDef;
-import gtm.PersonalDataConstraintDef;
-import gtm.PolygonDef;
-import gtm.PriceDef;
-import gtm.ReductionCardDef;
-import gtm.ReductionCardReferenceDef;
-import gtm.ReductionConstraintDef;
-import gtm.RegionalConstraintDef;
-import gtm.RegionalValidityDef;
-import gtm.RegulatoryConditionsDef;
-import gtm.RelativeTimeDef;
-import gtm.RequiredDatum;
-import gtm.RequiredSi;
-import gtm.ReservationOptionGroupDef;
-import gtm.ReservationParameterDef;
-import gtm.ReturnConstraint;
-import gtm.SalesAvailabilityConstraintDef;
-import gtm.ServiceClassDefinitionDef;
-import gtm.ServiceClassDefinitionDef.ServiceClassIdDef;
-import gtm.ServiceConstraintDef;
-import gtm.ServiceLevelDef;
-import gtm.StationDef;
-import gtm.StationNamesDef;
-import gtm.StationResourceLocationDef;
-import gtm.TextDef;
-import gtm.TrainResourceLocationDef;
-import gtm.Transfer;
-import gtm.TranslationDef;
-import gtm.TravelValidityConstraintDef;
-import gtm.ValidityRange.TimeUnitDef;
-import gtm.ViaStationsDef;
-import gtm.ZoneDef;
-import gtm.ZoneDefinitionDef;
+import gtmV14.AfterSalesConditionDef;
+import gtmV14.AfterSalesRuleDef;
+import gtmV14.AllowedChange;
+import gtmV14.BarCodeTypesDef;
+import gtmV14.CalendarDef;
+import gtmV14.CarrierConstraintDef;
+import gtmV14.CarrierResourceLocationDef;
+import gtmV14.ConnectionPointDef;
+import gtmV14.ControlSecurityTypeDef;
+import gtmV14.CrossBorderConditionDef;
+import gtmV14.CurrencyPriceDef;
+import gtmV14.FareCombinationConstraintDef;
+import gtmV14.FareCombinationModelDef;
+import gtmV14.FareConstraintBundle.FareTypeDef;
+import gtmV14.FareDataDef;
+import gtmV14.FareDef;
+import gtmV14.FareDelivery;
+import gtmV14.FareDeliveryDetailsDef;
+import gtmV14.FareDeliveryDetailsDef.Usage;
+import gtmV14.FareReferenceStationSetDef;
+import gtmV14.FareResourceLocationDef;
+import gtmV14.FulfillmentConstraintDef;
+import gtmV14.GeoCoordinate;
+import gtmV14.IncludedFreePassenger;
+import gtmV14.LegacyAccountingIdentifierDef;
+import gtmV14.LegacyReservationParameterDef;
+import gtmV14.LineDef;
+import gtmV14.OnlineResourceDef;
+import gtmV14.PassengerCombinationConstraintDef;
+import gtmV14.PassengerConstraintDef;
+import gtmV14.PersonalDataConstraintDef;
+import gtmV14.PolygonDef;
+import gtmV14.PriceDef;
+import gtmV14.ReductionCardDef;
+import gtmV14.ReductionCardReferenceDef;
+import gtmV14.ReductionConstraintDef;
+import gtmV14.RegionalConstraintDef;
+import gtmV14.RegionalValidityDef;
+import gtmV14.RegulatoryConditionsDef;
+import gtmV14.RelativeTimeDef;
+import gtmV14.RequiredDatum;
+import gtmV14.RequiredSi;
+import gtmV14.ReservationOptionGroupDef;
+import gtmV14.ReservationParameterDef;
+import gtmV14.ReturnConstraint;
+import gtmV14.SalesAvailabilityConstraintDef;
+import gtmV14.ServiceClassDefinitionDef;
+import gtmV14.ServiceClassDefinitionDef.ServiceClassIdDef;
+import gtmV14.ServiceConstraintDef;
+import gtmV14.ServiceLevelDef;
+import gtmV14.StationDef;
+import gtmV14.StationNamesDef;
+import gtmV14.StationResourceLocationDef;
+import gtmV14.TextDef;
+import gtmV14.TrainResourceLocationDef;
+import gtmV14.Transfer;
+import gtmV14.TranslationDef;
+import gtmV14.TravelValidityConstraintDef;
+import gtmV14.TripAllocationConstraintDef;
+import gtmV14.TripInterruptionConstraintDef;
+import gtmV14.ValidityRange.TimeUnitDef;
+import gtmV14.ViaStationsDef;
+import gtmV14.ZoneDef;
+import gtmV14.ZoneDefinitionDef;
 
-public class GTMJsonImporter {
+public class GTMJsonImporterV14 {
 	
-	private HashMap<Integer,Station> stations = null;	
+	private HashMap<Long,Station> stations = null;	
 	private HashMap<String,Carrier> carriers = null;
 	private HashMap<String,Language> languages = null;
 	private HashMap<Integer,Country> countries = null;
@@ -122,10 +125,10 @@ public class GTMJsonImporter {
 	FareStructure fareStructure = null;
 
 	
-	public GTMJsonImporter(GTMTool tool, EditingDomain domain, GtmEditor editor) {
+	public GTMJsonImporterV14(GTMTool tool, EditingDomain domain, GtmEditor editor) {
 		this.tool = tool;
 		this.editor = editor;
-		stations = new HashMap<Integer,Station>();
+		stations = new HashMap<Long,Station>();
 		carriers = new HashMap<String,Carrier>();
 		languages = new HashMap<String,Language>();
 		countriesISO = new HashMap<String,Country>();
@@ -187,6 +190,8 @@ public class GTMJsonImporter {
 		
 		fareStructure.setTexts(convertTextList(fareDataDef.getTexts()));
 		
+		fareStructure.setPrices(convertPrices(fareDataDef.getPrices()));
+		
 		if (fareDataDef.getStationNames() != null && fareDataDef.getStationNames().size() > 0) {
 			fareStructure.setStationNames(convertStationNames(fareDataDef.getStationNames()));
 		}
@@ -213,14 +218,12 @@ public class GTMJsonImporter {
 		
 		fareStructure.setReductionCards(convertReductionCards(fareDataDef.getReductionCards()));
 		
-		GtmUtils.createGenericReductionCards(fareStructure,tool);
+		CodeListInitializer.createGenericReductionCards(fareStructure,tool);
 		
 		fareStructure.setPassengerConstraints(convertPassengerConstraints(fareDataDef.getPassengerConstraints()));
 		
 		fareStructure.setPersonalDataConstraints(convertPersonalDataConstraints(fareDataDef.getPersonalDataConstraints()));
-		
-		fareStructure.setPrices(convertPrices(fareDataDef.getPrices()));
-			
+				
 		fareStructure.setReductionConstraints(convertReductionConstraints(fareDataDef.getReductionConstraints()));
 			
 		fareStructure.setReservationParameters(convertReservationParameters(fareDataDef.getReservationParameters()));
@@ -251,11 +254,11 @@ public class GTMJsonImporter {
 	}
 	
 
-	private FareConstraintBundles convertFareConstraintBundles(List<gtm.FareConstraintBundle> fareConstraintBundles) {
+	private FareConstraintBundles convertFareConstraintBundles(List<gtmV14.FareConstraintBundle> fareConstraintBundles) {
 		
 		FareConstraintBundles bs = GtmFactory.eINSTANCE.createFareConstraintBundles();
 		if (fareConstraintBundles == null) return bs;
-		for (gtm.FareConstraintBundle bJ : fareConstraintBundles) {
+		for (gtmV14.FareConstraintBundle bJ : fareConstraintBundles) {
 			FareConstraintBundle b = convert(bJ);	
 			if (b != null) {					
 				bs.getFareConstraintBundles().add(b);
@@ -281,38 +284,36 @@ public class GTMJsonImporter {
 
 	private StationNames convertStationNames(List<StationNamesDef> jl) {
 		
-		StationNames n = GtmFactory.eINSTANCE.createStationNames();
+		StationNames stationNames = GtmFactory.eINSTANCE.createStationNames();
+			
+		HashSet<Station> stationSet = new HashSet<Station>();
 		
-		HashMap<Integer,Station> stationList = new HashMap<Integer,Station>();
-		
-		HashSet<Station> set = new HashSet<Station>();
-		
-		if (jl == null || jl.isEmpty()) return n;
+		if (jl == null || jl.isEmpty()) return stationNames;
 				
 		//link the stations, names will be added later-on to the merits code table
 		for (StationNamesDef jn : jl) {
-			
-			Station s = getStation(jn.getCountry(), jn.getLocalCode());
+						
+			Station s = null;
+			if (jn.getCode() != null && jn.getCode().length() > 0) {
+				s = getStation(jn.getCode());
+			} else {
+				//support old OSDM versions
+				s = stations.get(Long.valueOf(jn.getCountry() * 100000 + jn.getLocalCode()));
+			}
 			if (s != null) {
 				
-				int code = GtmUtils.getNumericStationCode(s);
-				//is the station new=
-				Station st = stationList.get(code);
-				if (st == null) {			
-					set.add(s);
-					stationList.put(code, s);
-					n.getStationName().add(s);
-				} 
+				stationSet.add(s);
+
 			}
 						
 		}
 		
 		ArrayList<Station> stations = 	new ArrayList<Station>();
-		stations.addAll(set);
+		stations.addAll(stationSet);
 		stations.sort(new StationComparator());
-		n.getStationName().addAll(stations);
+		stationNames.getStationName().addAll(stations);
 		
-		return n;
+		return stationNames;
 	}
 	
 	private ZoneDefinitions convertZoneDefinitions(List<ZoneDefinitionDef> jl) {
@@ -399,7 +400,7 @@ public class GTMJsonImporter {
 		ArrayList<Station> sl = new ArrayList<Station>();
 		if (jz == null) return sl;
 		for (StationDef sd: jz.getStations()) {
-			Station s = stations.get(Integer.parseInt(sd.getCode()));	
+			Station s = stations.get(Long.parseLong(sd.getCode()));	
 			if (s != null) {
 				sl.add(s);
 			}
@@ -455,7 +456,63 @@ public class GTMJsonImporter {
 		if (c != null) {
 			o.setValidDays(c);
 		}
+		
+		if (jc.getValidityType() != null && jc.getValidityType().length() > 0) {
+			o.setValidityType(TravelValidityType.get(jc.getValidityType()));
+		}
+		
+		if (jc.getTrainValidity() != null) {
+			o.setTrainValidity(convert(jc.getTrainValidity()));
+		}
+		
+		if (jc.getTripInterruptionConstraint() != null) {
+			o.setTripInterruptionConstraint(convert(jc.getTripInterruptionConstraint()));
+		}
+		
+		if (jc.getTripAllocationConstraint() != null) {
+			o.setTripAllocationConstraint(convert(jc.getTripAllocationConstraint()));
+		}
+		
 		return o;
+	}
+
+
+	private TripAllocationConstraint convert(TripAllocationConstraintDef jo) {
+
+		TripAllocationConstraint o = GtmFactory.eINSTANCE.createTripAllocationConstraint();
+		
+		o.setAllocationUnit(TripAllocationUnit.get(jo.getAllocationUnit()));
+		o.setDurationUnit(jo.getDurationUnit());
+		o.setMaxUnits(jo.getMaxUnits());
+		if (jo.getRequiredProcesses() != null && !jo.getRequiredProcesses().isEmpty()) {
+			for (String s : jo.getRequiredProcesses()) {
+				o.getRequiredProcesses().add(TripAllocationProcess.get(s));
+			}			
+		}
+		return o;
+	}
+
+
+	private TripInterruptionConstraint convert(TripInterruptionConstraintDef jo) {
+		
+		TripInterruptionConstraint o = GtmFactory.eINSTANCE.createTripInterruptionConstraint();
+		
+		o.setMaxDuration(jo.getMaxDuration());
+		o.setMaxInterruptions(jo.getMaxInterruptions());
+		o.setTotalMaxDuration(jo.getTotalMaxDuration());
+		
+		if (jo.getRequiredProcesses() != null && !jo.getRequiredProcesses().isEmpty()) {
+			for (String s : jo.getRequiredProcesses()) {
+				o.getRequiredProcesses().add(TripInterruptionProcess.get(s));
+			}			
+		}
+		return o;
+	}
+
+
+	private TrainValidity convert(gtmV14.TrainValidity trainValidity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
@@ -483,7 +540,7 @@ public class GTMJsonImporter {
 	}
 
 
-	private ValidityRange convert(gtm.ValidityRange jv) {
+	private ValidityRange convert(gtmV14.ValidityRange jv) {
 		if (jv == null) return null;
 		ValidityRange v = GtmFactory.eINSTANCE.createValidityRange();
 		if (jv.getHoursAfterMidnight() != null) {
@@ -678,12 +735,12 @@ public class GTMJsonImporter {
 	}
 
 
-	private Collection<? extends SalesRestriction> convertSalesRestrictions(List<gtm.SalesRestriction> jl) {
+	private Collection<? extends SalesRestriction> convertSalesRestrictions(List<gtmV14.SalesRestriction> jl) {
 
 		ArrayList<SalesRestriction> l = new ArrayList<SalesRestriction>();
 		if (jl == null || jl.isEmpty()) return l;
 		
-		for (gtm.SalesRestriction jr : jl) {
+		for (gtmV14.SalesRestriction jr : jl) {
 			SalesRestriction r = GtmFactory.eINSTANCE.createSalesRestriction();
 			r.setEndOfSale(convertEndDate(jr.getEndOfSale()));
 			r.setStartOfSale(convertStartDate(jr.getStartOfSale()));
@@ -802,7 +859,7 @@ public class GTMJsonImporter {
 	}
 
 
-	private ReservationOptions convert(gtm.ReservationOptions jr) {
+	private ReservationOptions convert(gtmV14.ReservationOptions jr) {
 		if (jr == null) return null;
 		ReservationOptions o = GtmFactory.eINSTANCE.createReservationOptions();
 		o.setGraphicalReservation(GraphicalReservationType.getByName(jr.getGraphicalReservation()));
@@ -872,6 +929,7 @@ public class GTMJsonImporter {
 			r.setZone(convert(jr.getZone()));
 			r.setLine(convert(jr.getLine()));
 			r.setServiceConstraint(findServiceConstraint(jr.getServiceConstraintRef()));
+			r.setCarrierConstraint(findCarrierConstraint(jr.getCarrierConstraintRef()));
 			
 			l.add(r);
 		}
@@ -944,6 +1002,8 @@ public class GTMJsonImporter {
 		}
 		
 		v.setServiceConstraint(findServiceConstraint(jv.getServiceConstraintRef()));
+		
+		v.setCarrierConstraint(findCarrierConstraint(jv.getCarrierConstraintRef()));
 		
 		return v;
 	}
@@ -1246,13 +1306,14 @@ public class GTMJsonImporter {
 	}
 
 
-	private Collection<? extends PassengerCombinationConstraint> convertPassengerCombinationList(List<gtm.CombinationConstraint> jl) {
+	private Collection<? extends PassengerCombinationConstraint> convertPassengerCombinationList(List<gtmV14.CombinationConstraint> jl) {
 		ArrayList<PassengerCombinationConstraint> l = new ArrayList<PassengerCombinationConstraint>();
 		if (jl == null || jl.isEmpty()) return l;
-		for (gtm.CombinationConstraint jc : jl) {
+		for (gtmV14.CombinationConstraint jc : jl) {
 			PassengerCombinationConstraint o = GtmFactory.eINSTANCE.createPassengerCombinationConstraint();
 			o.setMaxNumber(jc.getMaxNumber());
-			o.setPassengerType(TravelerType.getByName(jc.getPassengerTypeRef()));
+			o.setPassengerConstraint(findPassengerConstraint(jc.getPassengerConstraintRef()));
+			
 			l.add(o);
 		}
 
@@ -1267,11 +1328,21 @@ public class GTMJsonImporter {
 		for (IncludedFreePassenger jc : jl) {
 			IncludedFreePassengerLimit o = GtmFactory.eINSTANCE.createIncludedFreePassengerLimit();
 			o.setNumber(jc.getNumber());
-			o.setPassengerType(TravelerType.getByName(jc.getPassengerTypeRef()));
+			if (jc.getPassengerTypeRef() != null) {
+				o.setPassengerType(convertPassengerType(jc.getPassengerTypeRef()));	
+			}
+			if (jc.getPassengerConstraintRef() != null) {
+				o.setPassengerConstraint(findPassengerConstraint(jc.getPassengerConstraintRef()));
+			}
 			l.add(o);
 		}
 
 		return l;
+	}
+
+
+	private TravelerType convertPassengerType(String passengerTypeRef) {
+		return TravelerType.get(passengerTypeRef);
 	}
 
 
@@ -1457,10 +1528,8 @@ public class GTMJsonImporter {
 		if (jl == null || jl.isEmpty()) return l;
 		for (StationDef s : jl) {
 			try {
-				int code = getNumericStationCode(s);
-				int uicCountry = code / 100000;
-				int localCode = code - (uicCountry * 100000);		
-				Station station = getStation(uicCountry,localCode);
+								
+				Station station = getStation(s.getCode());
 				if (station != null) {
 					l.add(station);
 				}
@@ -1471,13 +1540,13 @@ public class GTMJsonImporter {
 		return l;
 	}
 
-	public int getNumericStationCode(StationDef s) {
+	public long getNumericStationCode(StationDef s) {
 		
 		if (s == null || s.getCode() == null || s.getCode().length() == 0) {
 			return 0;
 		}
 		
-		int i = 0;
+		long i = 0;
 		
 		try {
 		
@@ -1554,7 +1623,7 @@ public class GTMJsonImporter {
 	}
 
 	
-	private FareConstraintBundle convert(gtm.FareConstraintBundle jf) {
+	private FareConstraintBundle convert(gtmV14.FareConstraintBundle jf) {
 		
 		if (jf == null) return null;
 		
@@ -1641,6 +1710,10 @@ public class GTMJsonImporter {
 				}
 			}
 	    }
+		
+		if (jf.getInvolvedTCOs() != null && !jf.getInvolvedTCOs().isEmpty()) {
+			f.getInvolvedTcos().addAll(convertCarrierList(jf.getInvolvedTCOs()));
+		}
 
 		return f;
 	}
@@ -2164,8 +2237,7 @@ public class GTMJsonImporter {
 		if (jr == null) return null;
 		AfterSalesCondition c = GtmFactory.eINSTANCE.createAfterSalesCondition();
 		c.setApplicationTime(convert(jr.getApplicationTime()));
-		Price fee = convert(jr.getFee());
-		c.setFee(fee);
+		c.setFee(prices.get(jr.getFeeRef()));
 		c.setCarrierFee(!jr.getIsAllocatorFee());
 		c.setIndividualContracts(jr.getIndividualContracts());
 		c.setTransactionType(AfterSalesTransactionType.getByName(jr.getTransactionType()));
@@ -2229,16 +2301,13 @@ public class GTMJsonImporter {
 	private SchemaVersion getSchemaVersion(String version) {
 		if (version == null || version.length() == 0) return null;
 		
-		if (version.equals(SchemaVersion.V00.getLiteral()) || version.equals(SchemaVersion.V00.getName())) {
-			return SchemaVersion.V00;
-		}
-		if (version.equals(SchemaVersion.V10.getLiteral()) || version.equals(SchemaVersion.V10.getName())) {
-			return SchemaVersion.V10;
-		}
+
 		if (version.equals(SchemaVersion.V12.getLiteral()) || version.equals(SchemaVersion.V12.getName())) {
 			return SchemaVersion.V12;
 		}
-	
+		if (version.equals(SchemaVersion.V14.getLiteral()) || version.equals(SchemaVersion.V14.getName())) {
+			return SchemaVersion.V14;
+		}
 		GtmUtils.writeConsoleError("Schema Version not supported: " + version, editor);
 		
 		return null;
@@ -2248,7 +2317,7 @@ public class GTMJsonImporter {
 
 	private Station getStation (StationDef station) {
 		try {
-			Integer icode = getNumericStationCode(station);
+			Long icode = getNumericStationCode(station);
 			Station s = stations.get(icode);
 			
 			if (s == null) {
@@ -2263,16 +2332,17 @@ public class GTMJsonImporter {
 
 	}	
 	
-	private Station getStation (int country, int localCode) {
+	private Station getStation (String s) {
 		
-		Integer i = Integer.valueOf(country * 100000 + localCode);		
-		Station s = stations.get(i);
+		long codeNum = GtmUtils.getStationCode(s);
+				
+		Station station = stations.get(codeNum);
 		
-		if (s == null) {
-			GtmUtils.writeConsoleError("Station not found: " + i.toString(), editor);
+		if (station == null) {
+			GtmUtils.writeConsoleError("Station not found: " + Long.toString(codeNum), editor);
 		}		
 		
-		return s;
+		return station;
 	}
 
 
@@ -2352,7 +2422,7 @@ public class GTMJsonImporter {
 		return n;
 	}
 
-	public HashMap<Integer,Station> getStations() {
+	public HashMap<Long,Station> getStations() {
 		return stations;
 	}
 

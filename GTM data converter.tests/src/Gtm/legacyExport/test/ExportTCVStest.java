@@ -20,7 +20,7 @@ import Gtm.utils.GtmUtils;
 public class ExportTCVStest {
 	
 	String line = "9999123451201234500Munchen          05432100Destin"
-			+ "ation      01000000B0S0<1234>route description        "
+			+ "ation      010000 0B0S0<1234>route description        "
 			+ "                                 000012000011020111100"
 			+ "000011000000000001234410123431012342201234130123401002"
 			+ "01901010120990101";
@@ -48,7 +48,7 @@ public class ExportTCVStest {
 	}
 	
 	@Test 
-	public void testExportTCVL() {
+	public void testExportTCVS() {
 		
 		LegacySeries sc = GtmFactory.eINSTANCE.createLegacySeries();
 		sc.setBusCode("B");

@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.PassengerCombinationConstraint#getMaxNumber <em>Max Number</em>}</li>
  *   <li>{@link Gtm.PassengerCombinationConstraint#getMinNumber <em>Min Number</em>}</li>
  *   <li>{@link Gtm.PassengerCombinationConstraint#getPassengerType <em>Passenger Type</em>}</li>
+ *   <li>{@link Gtm.PassengerCombinationConstraint#getPassengerConstraint <em>Passenger Constraint</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getPassengerCombinationConstraint()
@@ -91,5 +92,27 @@ public interface PassengerCombinationConstraint extends EObject {
 	 * @generated
 	 */
 	void setPassengerType(TravelerType value);
+
+	/**
+	 * Returns the value of the '<em><b>Passenger Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Passenger Constraint</em>' reference.
+	 * @see #setPassengerConstraint(PassengerConstraint)
+	 * @see Gtm.GtmPackage#getPassengerCombinationConstraint_PassengerConstraint()
+	 * @model
+	 * @generated
+	 */
+	PassengerConstraint getPassengerConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.PassengerCombinationConstraint#getPassengerConstraint <em>Passenger Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Passenger Constraint</em>' reference.
+	 * @see #getPassengerConstraint()
+	 * @generated
+	 */
+	void setPassengerConstraint(PassengerConstraint value);
 
 } // PassengerCombinationConstraint

@@ -160,6 +160,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relations" upperBound="-1"
         eType="#//StationRelation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stationCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StationRelation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationType" eType="#//StationRelationType"/>
@@ -457,6 +458,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacyConversion" eType="#//LegacyConversionType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="individualContracts" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="involvedTcos" upperBound="-1"
+        eType="#//Carrier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TotalPassengerCombinationConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerCombinationConstraint"
@@ -594,6 +597,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludedPassengerCombinations"
         upperBound="-1" eType="#//PassengerCombinationConstraint" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PassengerCombinationConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -602,13 +606,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="passengerType" eType="#//TravelerType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="passengerConstraint" eType="#//PassengerConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IncludedFreePassengerLimit">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST"/>
+      <details key="constraints" value="NUMBER_AT_LEAST_ONE TRAVELLER_TYPE_MUST SIMPLE_PASSENGER_CONSTRAINT_ONLY"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="passengerType" eType="#//TravelerType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="passengerConstraint" eType="#//PassengerConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CombinationConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="combinationConstraints"
@@ -629,7 +635,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TravelValidityConstraint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED"/>
+      <details key="constraints" value="TRAVEL_DAYS_NOT_NULL WARNING_TRAVEL_DAYS_TOO_LONG NOT_REFERENCED TRAVEL_VALIDITY_TYPE_CONSTRAINT"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -641,6 +647,25 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludedTimeRange" upperBound="-1"
         eType="#//ExcludedTimeRange" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trainValidity" eType="#//TrainValidity"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validityType" eType="#//TravelValidityType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tripInterruptionConstraint"
+        eType="#//TripInterruptionConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tripAllocationConstraint"
+        eType="#//TripAllocationConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TrainValidity">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="TRAIN_VALIDITY_REQUIRED_CONTENT"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serrviceConstraint" eType="#//ServiceConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scope" eType="#//BoardingOrArrival"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BoardingOrArrival">
+    <eLiterals name="BOARDING"/>
+    <eLiterals name="ARRIVAL" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SalesAvailabilityConstraints">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -734,6 +759,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="line" eType="#//Line" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="polygone" eType="#//Polygone"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraint" eType="#//ServiceConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceLevelDefinitions">
@@ -924,12 +950,33 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="latestReturn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="earliestReturn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TripAllocationConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="DURATION_FORMAT"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allocationUnit" eType="#//TripAllocationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxUnits" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="durationUnit" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredProcesses" upperBound="-1"
+        eType="#//TripAllocationProcess"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TripInterruptionConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="DURATION_FORMAT"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxInterruptions" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxDuration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalMaxDuration" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredProcesses" upperBound="-1"
+        eType="#//TripInterruptionProcess"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ViaStation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="AT_LEAST_ONE_OBJECT_SET IF_ALTERNATIVE_ROUTES_AT_LEAST_TWO"/>
     </eAnnotations>
     <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="station" eType="#//Station"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrier" eType="#//Carrier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="route" eType="#//Route"
         containment="true"/>
@@ -1123,6 +1170,23 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="(GR)"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="removeUnusedLegacyStations"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="addCarrierRules" eType="#//AddCarrierRules"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AddCarrierRules">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="addCarrierRule" upperBound="-1"
+        eType="#//AddCarrierRule" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AddCarrierRule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrier" eType="#//Carrier"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scope" eType="#//AddCarrierScope"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stations" upperBound="-1"
+        eType="#//Station"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AddCarrierScope">
+    <eLiterals name="CARRIER"/>
+    <eLiterals name="TCO" value="1"/>
+    <eLiterals name="TCO_AND_CARRIER" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VatTemplates">
     <eStructuralFeatures xsi:type="ecore:EReference" name="vatTemplates" upperBound="-1"
@@ -1823,8 +1887,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
     <eLiterals name="V_1_2" literal="1.2"/>
-    <eLiterals name="V_1_0" value="1" literal="1.0"/>
-    <eLiterals name="V_0_0" value="2" literal="0.0"/>
+    <eLiterals name="V_1_4" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
     <eLiterals name="HIGH_SPEED_TRAIN" value="8"/>
@@ -1892,6 +1955,28 @@
     <eLiterals name="MOTOCYCLE" value="32"/>
     <eLiterals name="TRAILER" value="33"/>
     <eLiterals name="GRAPHICAL_RES" value="40"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TripAllocationProcess">
+    <eLiterals name="NONE"/>
+    <eLiterals name="MANUAL" value="1"/>
+    <eLiterals name="ACTIVATION" value="2"/>
+    <eLiterals name="FULFILLMENT" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TripAllocationUnit">
+    <eLiterals name="NONE"/>
+    <eLiterals name="DAY" value="1"/>
+    <eLiterals name="TRIP" value="2"/>
+    <eLiterals name="DURATION" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TripInterruptionProcess">
+    <eLiterals name="NONE"/>
+    <eLiterals name="MANUAL" value="1"/>
+    <eLiterals name="ACTIVATION" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TravelValidityType">
+    <eLiterals name="SINGLE_TRIP"/>
+    <eLiterals name="MULTIPLE_TRIPS" value="1"/>
+    <eLiterals name="UNRESTRICTED" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="WeekDay">
     <eLiterals name="MONDAY" value="1"/>

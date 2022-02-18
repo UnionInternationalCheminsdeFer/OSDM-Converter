@@ -14,6 +14,7 @@ import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
 import Gtm.converter.tests.mocks.MockedEditingDomain;
 import Gtm.converter.tests.mocks.MockedProgressMonitor;
+import Gtm.converter.tests.utils.TestUtils;
 import Gtm.jsonImportExport.GtmJsonExporter;
 import Gtm.utils.GtmUtils;
 import gtm.FareDelivery;
@@ -49,6 +50,8 @@ public class BasicExportTest {
 		
 		//convert
 		converterFromLegacy.convertToGtmTest(new MockedProgressMonitor());
+		
+		TestUtils.setIds(tool);
 			
 	}
 	

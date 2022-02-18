@@ -139,16 +139,12 @@ public class ImportStationsAction extends BasicGtmAction {
 						
 						
 						monitor.subTask(NationalLanguageSupport.ImportStationsAction_15);
-						HashMap<Integer,Station> oldStations = GtmUtils.getStationMap(tool);
+						HashMap<Long,Station> oldStations = GtmUtils.getStationMap(tool);
 						
 						for (Station newStation : importedStations) {
-							Station station = null;
-							try {
-								Integer code = Integer.valueOf(newStation.getCountry().getCode() * 100000 + Integer.parseInt(newStation.getCode()));
-								station = oldStations.get(code);
-							} catch (Exception e) {
-								//not important, might be proprietary code
-							}
+							
+							long code = GtmUtils.getNumericStationCode(newStation);
+							Station	station = oldStations.get(code);
 						
 							if (station == null) {
 								newStations.add(newStation);
@@ -156,11 +152,7 @@ public class ImportStationsAction extends BasicGtmAction {
 								updatedStations.add(newStation);
 							}
 						}
-						monitor.worked(1000);
-						
-						
-						
-									
+						monitor.worked(1000);				
 						
 						monitor.subTask(NationalLanguageSupport.ImportStationsAction_16);
 						final int addedStationsF = newStations.size();
@@ -175,7 +167,7 @@ public class ImportStationsAction extends BasicGtmAction {
 						final int updatedStationsF = updatedStations.size();
 						CompoundCommand command = new CompoundCommand();
 						for (Station newStation : updatedStations) {
-							Integer code = Integer.valueOf(newStation.getCountry().getCode() * 100000 + Integer.parseInt(newStation.getCode()));
+							long code = GtmUtils.getNumericStationCode(newStation);
 							Station station = oldStations.get(code);
 							
 							if (!station.getTimetableName().equals(newStation.getTimetableName())) {
@@ -188,9 +180,11 @@ public class ImportStationsAction extends BasicGtmAction {
 								command.append(SetCommand.create(domain, station,GtmPackage.Literals.STATION__LONGITUDE, newStation.getLongitude()));										
 							}					
 							if (newStation.isBorderStation() != station.isBorderStation() ) {
-								command.append(SetCommand.create(domain,station, GtmPackage.Literals.STATION__BORDER_STATION,station.isBorderStation()));										
+								command.append(SetCommand.create(domain,station, GtmPackage.Literals.STATION__BORDER_STATION,newStation.isBorderStation()));										
 							}								
-							
+							if (newStation.getStationCode() != station.getStationCode() ) {
+								command.append(SetCommand.create(domain,station, GtmPackage.Literals.STATION__STATION_CODE,newStation.getStationCode()));										
+							}
 							
 						}
 						if (command != null & !command.isEmpty() & command.canExecute()) {
@@ -264,9 +258,13 @@ public class ImportStationsAction extends BasicGtmAction {
 				 String[] stationElementSplit = section[2].split(":"); //$NON-NLS-1$
 				 
 				 String stationCode = stationElementSplit[0];
-				 int countryCodeUIC = Integer.parseInt(stationCode.substring(0, 4));
+				 
+				 //leading zeroes might become type of station 
+				 int countryCodeUIC = Integer.parseInt(stationCode.substring(2, 4));
 				 
 				 String  localCode = stationCode.substring(4, 9);
+				 
+				 long stationCodeNum = Long.parseLong(stationCode);
 				 	 
 				 String stationName = stationElementSplit[1];
 				 
@@ -308,7 +306,14 @@ public class ImportStationsAction extends BasicGtmAction {
 				 if (country != null) {
 					 Station station = GtmFactory.eINSTANCE.createStation();
 					 
-					 if (Integer.parseInt(functionCodeQualifier) == 17) {
+					 int functionCodeQualifierInt = 0;
+					 try {
+						 functionCodeQualifierInt = Integer.parseInt(functionCodeQualifier); 
+					 } catch (Exception e) {
+						 //do nothing
+					 }
+					 
+					 if (functionCodeQualifierInt == 17) {
 						 station.setBorderStation(true);
 					 } else {
 						 station.setBorderStation(false);
@@ -318,6 +323,7 @@ public class ImportStationsAction extends BasicGtmAction {
 					 station.setTimetableName(stationName);
 					 station.setName(stationName);				 
 					 station.setCode(localCode);
+					 station.setStationCode(stationCodeNum);
 					 station.setLatitude(latitude);
 					 station.setLongitude(longitude);
 					 return station;

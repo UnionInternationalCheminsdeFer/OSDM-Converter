@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: GTM_data_converter.edit;singleton:=true
 Automatic-Module-Name: GTM_data_converter.edit
-Bundle-Version: 2.1.27
+Bundle-Version: 2.2.0
 Bundle-ClassPath: .
 Bundle-Activator: Gtm.provider.GtmEditPlugin$Implementation$Activator
 Bundle-Vendor: %providerName

@@ -24,17 +24,20 @@ import Gtm.GTMTool;
 import Gtm.GeneralTariffModel;
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
+import Gtm.SchemaVersion;
 import Gtm.Station;
-import Gtm.converter.StationNameMerger;
-import Gtm.jsonImportExport.GTMJsonImporter;
+import Gtm.jsonImportExport.GTMJsonImporterV14;
+import Gtm.jsonImportExport.StationNameMergerV14;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
-import export.ImportFareDelivery;
-import gtm.FareDef;
-import gtm.FareDelivery;
-import gtm.StationNamesDef;
+import Gtm.utils.MigrationV2;
+import Gtm.utils.ModelInitializer;
+import export.ImportFareDeliveryV14;
+import gtmV14.FareDef;
+import gtmV14.FareDelivery;
+import gtmV14.StationNamesDef;
 
 
 public class ImportGTMJsonAction extends BasicGtmAction {
@@ -169,7 +172,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 			File file = getFile();
 			if (file == null) return;
 			
-			GTMJsonImporter importer = new GTMJsonImporter(tool, domain, editor);
+			GTMJsonImporterV14 importer = new GTMJsonImporterV14(tool, domain, editor);
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
@@ -191,7 +194,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_6);
 						FareDelivery fareDelivery;
 						try {
-							fareDelivery = ImportFareDelivery.importFareDelivery(file);
+							fareDelivery = ImportFareDeliveryV14.importFareDelivery(file);
 						} catch (IOException e) {
 							GtmUtils.displayAsyncErrorMessage(e,"file error");
 							monitor.done();
@@ -260,12 +263,16 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 							domain.getCommandStack().execute(command);
 						}	
 						
-						Command com = GtmUtils.getLinkReductionCardClassesCommand(tool.getGeneralTariffModel().getFareStructure(), editor.getEditingDomain());
+						Command com = ModelInitializer.getLinkReductionCardClassesCommand(tool.getGeneralTariffModel().getFareStructure(), editor.getEditingDomain());
 						if (com != null && com.canExecute()) {
 							editor.getEditingDomain().getCommandStack().execute(com);
 						}
 
 						GtmUtils.deleteOrphanedObjects(domain, tool);
+							
+						if (!tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V14)) {
+							MigrationV2.migrateV2(domain, editor);
+						}
 					
 						monitor.worked(1);
 						
@@ -319,18 +326,27 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 		}
 
 
-		private void updateMERITSStations(EditingDomain domain, HashMap<Integer,Station> stations, List<StationNamesDef> list, GtmEditor editor) {
+		private void updateMERITSStations(EditingDomain domain, HashMap<Long, Station> stations, List<StationNamesDef> list, GtmEditor editor) {
 
 			//correcting merits data using OSDM data			
 			CompoundCommand command = new CompoundCommand();
 			
-			HashMap<Integer,StationNamesDef> uniqueNameList = new HashMap<Integer,StationNamesDef>();
+			HashMap<Long,StationNamesDef> uniqueNameList = new HashMap<Long,StationNamesDef>();
 							
 			for (StationNamesDef lStation : list ) {
 				
-				int code = lStation.getCountry() * 100000 + lStation.getLocalCode();
+				long code = 0;
+				try {
+					code = Long.parseLong(lStation.getCode());
+				} catch (Exception e) {
+					//
+				}
+				if (code == 0) {
+					//compatibility to version 1.2
+					code = lStation.getCountry() * 100000 + lStation.getLocalCode();
+				}
 				
-				Station station = stations.get(lStation.getCountry() * 100000 + lStation.getLocalCode());
+				Station station = stations.get(code);
 				
 				StationNamesDef sn = uniqueNameList.get(code);
 			
@@ -356,7 +372,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 					
 					}
 					
-					CompoundCommand com = StationNameMerger.createMergeStationNamesCommand(domain,lStation,station, editor);
+					CompoundCommand com = StationNameMergerV14.createMergeStationNamesCommand(domain,lStation,station, editor);
 					if (!com.isEmpty() && com.canExecute()) {
 						command.append(com);					
 					}

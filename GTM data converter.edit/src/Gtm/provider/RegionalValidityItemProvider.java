@@ -65,6 +65,7 @@ public class RegionalValidityItemProvider
 			super.getPropertyDescriptors(object);
 
 			addSeqNbPropertyDescriptor(object);
+			addCarrierConstraintPropertyDescriptor(object);
 			addServiceConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -88,6 +89,28 @@ public class RegionalValidityItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Carrier Constraint feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCarrierConstraintPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RegionalValidity_carrierConstraint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RegionalValidity_carrierConstraint_feature", "_UI_RegionalValidity_type"),
+				 GtmPackage.Literals.REGIONAL_VALIDITY__CARRIER_CONSTRAINT,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

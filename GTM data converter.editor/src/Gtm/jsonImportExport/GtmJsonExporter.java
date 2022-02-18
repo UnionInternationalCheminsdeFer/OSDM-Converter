@@ -497,7 +497,7 @@ public class GtmJsonExporter {
 				
 				StationDef stationJ = new StationDef();
 				stationJ.setCountry(station.getCountry().getISOcode());
-				stationJ.setCode(GtmUtils.getStationCode(station));
+				stationJ.setCode(Long.toString(station.getStationCode()));
 				list.add(stationJ);
 			}
 			oJ.setStations(list);
@@ -1174,6 +1174,12 @@ public class GtmJsonExporter {
 		if (v.getCarrier()!= null) {
 			vJ.setCarrier(v.getCarrier().getCode());
 			isEmpty = false;
+		} else if (v.getCarrierConstraint() != null) {
+			//downward compatibility from 1.4
+			if (v.getCarrierConstraint().getIncludedCarriers() != null && 
+				!v.getCarrierConstraint().getIncludedCarriers().isEmpty()) {
+			   vJ.setCarrier(v.getCarrierConstraint().getIncludedCarriers().get(0).getCode());	
+			}
 		}
 		if (v.getFareStationSet() != null) {
 			FareReferenceStationSet fss = convertToRouteJson(v.getFareStationSet());
@@ -1576,9 +1582,12 @@ public class GtmJsonExporter {
 				IncludedFreePassenger freeJ = new IncludedFreePassenger();
 				
 				freeJ.setNumber(freeP.getNumber());
-				if (freeP.getPassengerType() != null) {
+				if (freeP.getPassengerConstraint() != null) {
+					freeJ.setPassengerTypeRef(freeP.getPassengerConstraint().getTravelerType().getName());
+				} else	if (freeP.getPassengerType() != null) {
+					//downward conversion from 1.4
 					freeJ.setPassengerTypeRef(freeP.getPassengerType().getName());
-				}
+				} 
 				
 				listJ.add(freeJ);
 			}
@@ -1596,9 +1605,11 @@ public class GtmJsonExporter {
 				freeJ.setMaxNumber(freeP.getMaxNumber());
 				freeJ.setMinNumber(freeP.getMinNumber());
 				
-				if (freeP.getPassengerType() != null) {
+				if (freeP.getPassengerConstraint() != null && freeP.getPassengerConstraint().getTravelerType() != null){
+					freeJ.setPassengerTypeRef(freeP.getPassengerConstraint().getTravelerType().getName());
+				} else if (freeP.getPassengerType() != null) {
 					freeJ.setPassengerTypeRef(freeP.getPassengerType().getName());
-				}
+				} 
 				
 				listJ.add(freeJ);
 			}
