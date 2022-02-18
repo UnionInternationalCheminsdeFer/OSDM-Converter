@@ -13,6 +13,8 @@ The **OSDM Converter** allows to convert old fare data according to **UIC IRS 10
 (TAP-TSI B.1) into the [OSDM Model](https://unioninternationalcheminsdefer.github.io/OSDM/)
 format released in **IRS-90918-10** and back.
 
+The supported OSDM versions are 1.2 and 1.4. Conversion from OSDM 1.4 to OSDM 1.2 is included.
+
 ## Documentation
 
 Here you find information on [Getting Started](html/gettingstarted/gettingstarted.html).
