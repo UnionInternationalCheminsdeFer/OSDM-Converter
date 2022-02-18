@@ -2292,16 +2292,13 @@ public class GTMJsonImporterV14 {
 	private SchemaVersion getSchemaVersion(String version) {
 		if (version == null || version.length() == 0) return null;
 		
-		if (version.equals(SchemaVersion.V00.getLiteral()) || version.equals(SchemaVersion.V00.getName())) {
-			return SchemaVersion.V00;
-		}
-		if (version.equals(SchemaVersion.V10.getLiteral()) || version.equals(SchemaVersion.V10.getName())) {
-			return SchemaVersion.V10;
-		}
+
 		if (version.equals(SchemaVersion.V12.getLiteral()) || version.equals(SchemaVersion.V12.getName())) {
 			return SchemaVersion.V12;
 		}
-	
+		if (version.equals(SchemaVersion.V14.getLiteral()) || version.equals(SchemaVersion.V14.getName())) {
+			return SchemaVersion.V14;
+		}
 		GtmUtils.writeConsoleError("Schema Version not supported: " + version, editor);
 		
 		return null;
