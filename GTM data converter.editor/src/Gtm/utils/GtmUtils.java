@@ -193,12 +193,15 @@ public class GtmUtils {
 	 */
 	public static void flushCommandStack(EditingDomain domain) {
 	
-		if (domain.getCommandStack().getMostRecentCommand() == null 
-				|| domain.getCommandStack().getMostRecentCommand() instanceof DirtyCommand) {
+		if (domain == null 
+			|| domain.getCommandStack() == null
+			|| domain.getCommandStack().getMostRecentCommand() == null 
+			|| domain.getCommandStack().getMostRecentCommand() instanceof DirtyCommand) {
 			return;
 		}
 		
-		flushCommandStack(domain);
+		domain.getCommandStack().flush();
+		domain.getCommandStack().execute(new DirtyCommand());
 		
 	}
 	

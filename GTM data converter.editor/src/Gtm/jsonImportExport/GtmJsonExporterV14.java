@@ -397,8 +397,6 @@ public class GtmJsonExporterV14 {
 			
 			try {
 				StationNamesDef js = new StationNamesDef();
-				js.setCountry(s.getCountry().getCode());
-				js.setLocalCode(Integer.parseInt(s.getCode()));
 				js.setCode(Long.toString(s.getStationCode()));
 				
 				js.setName(s.getNameCaseASCII());
@@ -499,18 +497,14 @@ public class GtmJsonExporterV14 {
 		
 			for (Station station: o.getStations()) {
 				
-				StationDef stationJ = new StationDef();
-				stationJ.setCountry(station.getCountry().getISOcode());
-				stationJ.setCode(Long.toString(station.getStationCode()));
+				StationDef stationJ = convert(station);
+				
 				list.add(stationJ);
 			}
 			oJ.setStations(list);
 		}
 		return oJ;
 	}
-
-
-
 
 	private List<TravelValidityConstraintDef> convertTravelValidityConstraints(TravelValidityConstraints list) {
 		if (list == null) return null;
@@ -1204,13 +1198,13 @@ public class GtmJsonExporterV14 {
 		}
 		zJ.setCity(z.getCity());
 		if (z.getEntryStation()!= null) {
-			zJ.setEntryStation(convertToJson(z.getEntryStation()));
+			zJ.setEntryStation(convert(z.getEntryStation()));
 		}
 		if (z.getNutsCode()!=null) {
 			zJ.setNutsCode(z.getNutsCode().getCode());
 		}
 		if (z.getTerminalStation()!= null) {
-			zJ.setTerminalStation(convertToJson(z.getTerminalStation()));
+			zJ.setTerminalStation(convert(z.getTerminalStation()));
 		}
 
 		return zJ;
@@ -1230,13 +1224,13 @@ public class GtmJsonExporterV14 {
 		}
 		zJ.setCity(z.getCity());
 		if (z.getEntryStation()!= null) {
-			zJ.setEntryStation(convertToJson(z.getEntryStation()));
+			zJ.setEntryStation(convert(z.getEntryStation()));
 		}
 		if (z.getNutsCode()!=null) {
 			zJ.setNutsCode(z.getNutsCode().getCode());
 		}
 		if (z.getTerminalStation()!= null) {
-			zJ.setTerminalStation(convertToJson(z.getTerminalStation()));
+			zJ.setTerminalStation(convert(z.getTerminalStation()));
 		}
 		if (z.getLineId()!= null && !z.getLineId().isEmpty()) {
 			
@@ -1312,7 +1306,7 @@ public class GtmJsonExporterV14 {
 			}
 		}
 		if (v.getStation() != null) {
-			StationDef s = convertToJson(v.getStation());
+			StationDef s = convert(v.getStation());
 			if (s != null) {
 				vJ.setStation(s);
 				isEmpty = false;
@@ -2112,13 +2106,13 @@ public class GtmJsonExporterV14 {
 		
 		ArrayList<StationDef> listJ = new ArrayList<StationDef>();
 		for (Station s :  set) {
-			listJ.add(convertToJson(s));
+			listJ.add(convert(s));
 		}
 		return listJ;
 	}
 
 
-	private static StationDef convertToJson(Station s) {
+	private static StationDef convert(Station s) {
 		if (s == null) return null;
 		StationDef sJ = new StationDef();
 		if (s.getCountry() == null) {
@@ -2126,7 +2120,7 @@ public class GtmJsonExporterV14 {
 		} else {
 			sJ.setCountry(s.getCountry().getISOcode());
 		}
-		sJ.setCode(s.getCode());
+		sJ.setCode(Long.toString(s.getStationCode()));
 		return sJ;
 	}
 

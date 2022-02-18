@@ -173,15 +173,11 @@ public class TripAllocationConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		TripAllocationUnit labelValue = ((TripAllocationConstraint)object).getAllocationUnit();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_TripAllocationConstraint_type") :
-			getString("_UI_TripAllocationConstraint_type") + " " + label;
+		return getString("_UI_TripAllocationConstraint_type");
 	}
 
 

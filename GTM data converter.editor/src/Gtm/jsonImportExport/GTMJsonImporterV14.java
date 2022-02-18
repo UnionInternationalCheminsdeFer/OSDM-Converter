@@ -1328,12 +1328,21 @@ public class GTMJsonImporterV14 {
 		for (IncludedFreePassenger jc : jl) {
 			IncludedFreePassengerLimit o = GtmFactory.eINSTANCE.createIncludedFreePassengerLimit();
 			o.setNumber(jc.getNumber());
-			o.setPassengerConstraint(findPassengerConstraint(jc.getPassengerConstraintRef()));
-			
+			if (jc.getPassengerTypeRef() != null) {
+				o.setPassengerType(convertPassengerType(jc.getPassengerTypeRef()));	
+			}
+			if (jc.getPassengerConstraintRef() != null) {
+				o.setPassengerConstraint(findPassengerConstraint(jc.getPassengerConstraintRef()));
+			}
 			l.add(o);
 		}
 
 		return l;
+	}
+
+
+	private TravelerType convertPassengerType(String passengerTypeRef) {
+		return TravelerType.get(passengerTypeRef);
 	}
 
 

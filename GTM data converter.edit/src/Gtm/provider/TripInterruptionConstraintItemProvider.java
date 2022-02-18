@@ -172,12 +172,15 @@ public class TripInterruptionConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		TripInterruptionConstraint tripInterruptionConstraint = (TripInterruptionConstraint)object;
-		return getString("_UI_TripInterruptionConstraint_type") + " " + tripInterruptionConstraint.getMaxInterruptions();
+		return getString("_UI_TripInterruptionConstraint_type") 
+				+ " " 
+				+ tripInterruptionConstraint.getMaxInterruptions()
+				+ " Interruptions";
 	}
 
 

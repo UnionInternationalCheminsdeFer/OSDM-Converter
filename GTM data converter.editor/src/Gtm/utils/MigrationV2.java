@@ -65,7 +65,11 @@ public class MigrationV2 {
 			
 		Resource resource = domain.getResourceSet().getResources().get(0);
 	   	
+		if (resource == null) return;
+		
 		TreeIterator<EObject> it = resource.getAllContents();
+		if (it == null) return;
+		
 		EObject object = it.next();
 		
 		if (object == null) return;
@@ -205,7 +209,7 @@ public class MigrationV2 {
 						if (pcr == null && ip.getPassengerType() != null) {
 							
 							pcr = findSimplePassengerConstraint(tool, domain, ip.getPassengerType(),newPassengerConstraints);						
-							if (pcr != null) {
+							if (pcr == null) {
 								pcr = createUniqueSimplePassengerConstraint(tool, domain, ip.getPassengerType(), newPassengerConstraints);						
 							} 
 							if (pcr != null) {
