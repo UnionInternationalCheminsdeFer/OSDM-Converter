@@ -5,8 +5,6 @@ package Gtm.provider;
 
 import Gtm.GtmPackage;
 import Gtm.TripAllocationConstraint;
-import Gtm.TripAllocationUnit;
-
 import java.util.Collection;
 import java.util.List;
 

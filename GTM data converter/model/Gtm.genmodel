@@ -852,12 +852,15 @@
     <genClasses ecoreClass="Gtm.ecore#//PassengerCombinationConstraint" labelFeature="#//Gtm/PassengerCombinationConstraint/passengerType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerCombinationConstraint/maxNumber"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerCombinationConstraint/minNumber"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerCombinationConstraint/passengerType"/>
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EAttribute Gtm.ecore#//PassengerCombinationConstraint/passengerType"
+          suppressedSetVisibility="false"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//PassengerCombinationConstraint/passengerConstraint"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//IncludedFreePassengerLimit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//IncludedFreePassengerLimit/number"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//IncludedFreePassengerLimit/passengerType"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//IncludedFreePassengerLimit/passengerType"
+          suppressedSetVisibility="false"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//IncludedFreePassengerLimit/passengerConstraint"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//CombinationConstraints">

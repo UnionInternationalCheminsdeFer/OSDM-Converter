@@ -4,9 +4,8 @@ package Gtm.provider;
 
 
 import Gtm.GtmPackage;
+import Gtm.LabelProvider;
 import Gtm.PassengerCombinationConstraint;
-
-import Gtm.TravelerType;
 import java.util.Collection;
 import java.util.List;
 
@@ -64,7 +63,6 @@ public class PassengerCombinationConstraintItemProvider
 
 			addMaxNumberPropertyDescriptor(object);
 			addMinNumberPropertyDescriptor(object);
-			addPassengerTypePropertyDescriptor(object);
 			addPassengerConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -115,28 +113,6 @@ public class PassengerCombinationConstraintItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Passenger Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPassengerTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PassengerCombinationConstraint_passengerType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PassengerCombinationConstraint_passengerType_feature", "_UI_PassengerCombinationConstraint_type"),
-				 GtmPackage.Literals.PASSENGER_COMBINATION_CONSTRAINT__PASSENGER_TYPE,
-				 true,
-				 false,
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Passenger Constraint feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -173,16 +149,25 @@ public class PassengerCombinationConstraintItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		TravelerType labelValue = ((PassengerCombinationConstraint)object).getPassengerType();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_PassengerCombinationConstraint_type") :
-			getString("_UI_PassengerCombinationConstraint_type") + " " + label;
-	}
+		
+		PassengerCombinationConstraint pcc = (PassengerCombinationConstraint)object;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(getString("_UI_PassengerCombinationConstraint_type")).append(" ");
+		if (pcc.getPassengerConstraint() != null) {
+			if (pcc.getPassengerConstraint().getTravelerType() != null) {
+				sb.append(LabelProvider.getEnumerationLabel(pcc.getPassengerConstraint().getTravelerType()));
+			} else {
+				sb.append( " unknown passenger type in passenger constraint");
+			}
+		}
+		
+		return sb.toString();
+	} 
 
 
 	/**

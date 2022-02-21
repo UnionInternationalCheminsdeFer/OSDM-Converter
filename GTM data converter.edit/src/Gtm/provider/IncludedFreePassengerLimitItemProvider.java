@@ -63,7 +63,6 @@ public class IncludedFreePassengerLimitItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNumberPropertyDescriptor(object);
-			addPassengerTypePropertyDescriptor(object);
 			addPassengerConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -87,28 +86,6 @@ public class IncludedFreePassengerLimitItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Passenger Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPassengerTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_IncludedFreePassengerLimit_passengerType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_IncludedFreePassengerLimit_passengerType_feature", "_UI_IncludedFreePassengerLimit_type"),
-				 GtmPackage.Literals.INCLUDED_FREE_PASSENGER_LIMIT__PASSENGER_TYPE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -159,7 +136,12 @@ public class IncludedFreePassengerLimitItemProvider
 		StringBuilder sb = new StringBuilder();
 		sb.append(getString("_UI_IncludedFreePassengerLimit_type"));
 		sb.append(": ").append(includedFreePassengerLimit.getNumber());
-		sb.append(" ").append(LabelProvider.getEnumerationLabel(includedFreePassengerLimit.getPassengerType()));
+		if (includedFreePassengerLimit.getPassengerConstraint() != null && 
+			includedFreePassengerLimit.getPassengerConstraint().getTravelerType() != null) {
+			sb.append(" ").append(LabelProvider.getEnumerationLabel(includedFreePassengerLimit.getPassengerConstraint().getTravelerType()));
+		} else {
+			sb.append(" unknown passenger type in passenger constraint");
+		}
 		
 		return sb.toString();
 
