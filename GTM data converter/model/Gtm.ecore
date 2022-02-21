@@ -579,8 +579,7 @@
       <details key="constraints" value="TRAVELLER_TYPE_MUST NAME_MUST NOT_REFERENCED"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="travelerType" eType="#//TravelerType"
-        unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="travelerType" eType="#//TravelerType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperAgeLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerAgeLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
