@@ -34,7 +34,7 @@ public enum SchemaVersion implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	V14(3, "V_1_4", "V_1_4");
+	V14(3, "V_1_4", "1.4");
 
 	/**
 	 * The '<em><b>V12</b></em>' literal value.
@@ -52,7 +52,7 @@ public enum SchemaVersion implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #V14
-	 * @model name="V_1_4"
+	 * @model name="V_1_4" literal="1.4"
 	 * @generated
 	 * @ordered
 	 */

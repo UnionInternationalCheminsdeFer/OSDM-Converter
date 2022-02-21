@@ -1887,7 +1887,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
     <eLiterals name="V_1_2" literal="1.2"/>
-    <eLiterals name="V_1_4" value="3"/>
+    <eLiterals name="V_1_4" value="3" literal="1.4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
     <eLiterals name="HIGH_SPEED_TRAIN" value="8"/>

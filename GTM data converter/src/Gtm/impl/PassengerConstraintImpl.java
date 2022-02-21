@@ -95,15 +95,6 @@ public class PassengerConstraintImpl extends MinimalEObjectImpl.Container implem
 	protected TravelerType travelerType = TRAVELER_TYPE_EDEFAULT;
 
 	/**
-	 * This is true if the Traveler Type attribute has been set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean travelerTypeESet;
-
-	/**
 	 * The cached value of the '{@link #getText() <em>Text</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -390,33 +381,8 @@ public class PassengerConstraintImpl extends MinimalEObjectImpl.Container implem
 	public void setTravelerType(TravelerType newTravelerType) {
 		TravelerType oldTravelerType = travelerType;
 		travelerType = newTravelerType == null ? TRAVELER_TYPE_EDEFAULT : newTravelerType;
-		boolean oldTravelerTypeESet = travelerTypeESet;
-		travelerTypeESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.PASSENGER_CONSTRAINT__TRAVELER_TYPE, oldTravelerType, travelerType, !oldTravelerTypeESet));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void unsetTravelerType() {
-		TravelerType oldTravelerType = travelerType;
-		boolean oldTravelerTypeESet = travelerTypeESet;
-		travelerType = TRAVELER_TYPE_EDEFAULT;
-		travelerTypeESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, GtmPackage.PASSENGER_CONSTRAINT__TRAVELER_TYPE, oldTravelerType, TRAVELER_TYPE_EDEFAULT, oldTravelerTypeESet));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSetTravelerType() {
-		return travelerTypeESet;
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.PASSENGER_CONSTRAINT__TRAVELER_TYPE, oldTravelerType, travelerType));
 	}
 
 	/**
@@ -822,7 +788,7 @@ public class PassengerConstraintImpl extends MinimalEObjectImpl.Container implem
 				setId(ID_EDEFAULT);
 				return;
 			case GtmPackage.PASSENGER_CONSTRAINT__TRAVELER_TYPE:
-				unsetTravelerType();
+				setTravelerType(TRAVELER_TYPE_EDEFAULT);
 				return;
 			case GtmPackage.PASSENGER_CONSTRAINT__TEXT:
 				setText((Text)null);
@@ -878,7 +844,7 @@ public class PassengerConstraintImpl extends MinimalEObjectImpl.Container implem
 			case GtmPackage.PASSENGER_CONSTRAINT__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case GtmPackage.PASSENGER_CONSTRAINT__TRAVELER_TYPE:
-				return isSetTravelerType();
+				return travelerType != TRAVELER_TYPE_EDEFAULT;
 			case GtmPackage.PASSENGER_CONSTRAINT__TEXT:
 				return text != null;
 			case GtmPackage.PASSENGER_CONSTRAINT__UPPER_AGE_LIMIT:
@@ -922,7 +888,7 @@ public class PassengerConstraintImpl extends MinimalEObjectImpl.Container implem
 		result.append(" (id: ");
 		result.append(id);
 		result.append(", travelerType: ");
-		if (travelerTypeESet) result.append(travelerType); else result.append("<unset>");
+		result.append(travelerType);
 		result.append(", upperAgeLimit: ");
 		result.append(upperAgeLimit);
 		result.append(", lowerAgeLimit: ");
