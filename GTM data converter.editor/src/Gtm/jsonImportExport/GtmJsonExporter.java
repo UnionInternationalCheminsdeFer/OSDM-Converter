@@ -1582,11 +1582,9 @@ public class GtmJsonExporter {
 				IncludedFreePassenger freeJ = new IncludedFreePassenger();
 				
 				freeJ.setNumber(freeP.getNumber());
-				if (freeP.getPassengerConstraint() != null) {
+				if (freeP.getPassengerConstraint() != null &&
+					freeP.getPassengerConstraint().getTravelerType() != null) {
 					freeJ.setPassengerTypeRef(freeP.getPassengerConstraint().getTravelerType().getName());
-				} else	if (freeP.getPassengerType() != null) {
-					//downward conversion from 1.4
-					freeJ.setPassengerTypeRef(freeP.getPassengerType().getName());
 				} 
 				
 				listJ.add(freeJ);
@@ -1605,10 +1603,9 @@ public class GtmJsonExporter {
 				freeJ.setMaxNumber(freeP.getMaxNumber());
 				freeJ.setMinNumber(freeP.getMinNumber());
 				
-				if (freeP.getPassengerConstraint() != null && freeP.getPassengerConstraint().getTravelerType() != null){
+				if (freeP.getPassengerConstraint() != null && 
+					freeP.getPassengerConstraint().getTravelerType() != null){
 					freeJ.setPassengerTypeRef(freeP.getPassengerConstraint().getTravelerType().getName());
-				} else if (freeP.getPassengerType() != null) {
-					freeJ.setPassengerTypeRef(freeP.getPassengerType().getName());
 				} 
 				
 				listJ.add(freeJ);
