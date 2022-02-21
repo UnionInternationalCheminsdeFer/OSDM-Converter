@@ -66,11 +66,9 @@ public interface PassengerConstraint extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Traveler Type</em>' attribute.
 	 * @see Gtm.TravelerType
-	 * @see #isSetTravelerType()
-	 * @see #unsetTravelerType()
 	 * @see #setTravelerType(TravelerType)
 	 * @see Gtm.GtmPackage#getPassengerConstraint_TravelerType()
-	 * @model unsettable="true"
+	 * @model
 	 * @generated
 	 */
 	TravelerType getTravelerType();
@@ -81,35 +79,10 @@ public interface PassengerConstraint extends EObject {
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Traveler Type</em>' attribute.
 	 * @see Gtm.TravelerType
-	 * @see #isSetTravelerType()
-	 * @see #unsetTravelerType()
 	 * @see #getTravelerType()
 	 * @generated
 	 */
 	void setTravelerType(TravelerType value);
-
-	/**
-	 * Unsets the value of the '{@link Gtm.PassengerConstraint#getTravelerType <em>Traveler Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetTravelerType()
-	 * @see #getTravelerType()
-	 * @see #setTravelerType(TravelerType)
-	 * @generated
-	 */
-	void unsetTravelerType();
-
-	/**
-	 * Returns whether the value of the '{@link Gtm.PassengerConstraint#getTravelerType <em>Traveler Type</em>}' attribute is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Traveler Type</em>' attribute is set.
-	 * @see #unsetTravelerType()
-	 * @see #getTravelerType()
-	 * @see #setTravelerType(TravelerType)
-	 * @generated
-	 */
-	boolean isSetTravelerType();
 
 	/**
 	 * Returns the value of the '<em><b>Text</b></em>' reference.
