@@ -2054,7 +2054,7 @@ public class 	ConverterToLegacy {
 			fare.getFareConstraintBundle().getCarrierConstraint().getIncludedCarriers().size() > 1 ) {
 				
 			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
-			String message = "Route not convertable - more than one carrier: " + route;
+			String message = "Route not convertable - more than one carrier indicated in fare constraint bundle: " + route;
 			GtmUtils.writeConsoleError(message, editor);
 			return null;
 		}
