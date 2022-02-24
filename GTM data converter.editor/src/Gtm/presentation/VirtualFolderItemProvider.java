@@ -1,5 +1,6 @@
 package Gtm.presentation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -40,6 +41,14 @@ public class VirtualFolderItemProvider extends ItemProviderAdapter implements IS
             }
 
             return false;
+        }
+        
+        public Collection<Object> getFolderContent() {
+        	Collection<Object> content = new ArrayList<Object>();
+            for (int i = startIndex; i < endIndex; i++) {
+                content.add(originalChildElements[i]);
+            }
+            return content;
         }
 
         Object[] createPartitionedArray() {

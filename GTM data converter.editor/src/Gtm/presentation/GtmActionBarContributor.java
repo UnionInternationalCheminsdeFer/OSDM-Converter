@@ -53,6 +53,7 @@ import Gtm.actions.ConvertGtm2LegacyAction;
 import Gtm.actions.ConvertLegacy2GtmAction;
 import Gtm.actions.ExportGTMJsonAction;
 import Gtm.actions.ExportLegacyAction;
+import Gtm.actions.GtmDeleteFolderAction;
 import Gtm.actions.GtmValidateAction;
 import Gtm.actions.ImportBorderPointsAction;
 import Gtm.actions.ImportCarriersAction;
@@ -234,9 +235,10 @@ public class GtmActionBarContributor
 		loadResourceAction = new LoadResourceAction();
 		validateAction = new GtmValidateAction();
 		controlAction = new ControlAction();
+		deleteAction = new GtmDeleteFolderAction();
 		
 		if (deleteAction == null) {
-			deleteAction = new DeleteAction();
+			deleteAction = new GtmDeleteFolderAction();
 		} 
 		if (cutAction == null) {
 			cutAction = new CutAction();
@@ -300,6 +302,10 @@ public class GtmActionBarContributor
 			exportLegacyAction = new ExportLegacyAction(this);
 		}
 		
+		if (deleteAction == null) {
+			deleteAction = new GtmDeleteFolderAction();
+		}
+		
 		if (gtmActions == null) {
 			gtmActions = new ArrayList<BaseSelectionListenerAction>();
 		}
@@ -318,6 +324,19 @@ public class GtmActionBarContributor
 		}
 
 		
+	}
+	
+	
+	/**
+	  * Returns the action used to implement delete.
+	  * @see #deleteAction
+	  * @since 2.6
+	  * @generated NOT
+	  * 
+	  */
+	protected DeleteAction createDeleteAction()
+	{
+	    return new GtmDeleteFolderAction(removeAllReferencesOnDelete());
 	}
 
 
@@ -493,7 +512,7 @@ public class GtmActionBarContributor
 			if (object instanceof VirtualFolderItemProvider) {
 				if (copyAction != null) {
 					copyAction.setEnabled(false);
-				}
+				}			
 				VirtualFolderItemProvider pcp = (VirtualFolderItemProvider) object;
 				newChildDescriptors = domain.getNewChildDescriptors(pcp.getParent(object), null);
 				createChildActions = generateCreateChildActions(newChildDescriptors, new StructuredSelection(pcp.getParent(object)));	
@@ -525,7 +544,8 @@ public class GtmActionBarContributor
 			createSiblingMenuManager.update(true);
 		}
 		
-		//additional actions
+		deleteAction.updateSelection((IStructuredSelection) selection);
+				//additional actions
 		/*
 		for (BaseSelectionListenerAction action : gtmActions) {
 			action.selectionChanged(event);			
@@ -642,6 +662,7 @@ public class GtmActionBarContributor
 		submenuManager = new MenuManager(GtmEditorPlugin.INSTANCE.getString("_UI_CreateSibling_menu_item"));
 		populateManager(submenuManager, createSiblingActions, null);
 		menuManager.insertBefore("edit", submenuManager);
+				
 	}
 
 	/**
