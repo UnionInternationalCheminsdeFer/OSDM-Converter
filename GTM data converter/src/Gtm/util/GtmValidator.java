@@ -7589,8 +7589,11 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validatePassengerConstraint_NOT_REFERENCED(PassengerConstraint passengerConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		FareStructure fareData = GtmUtils.getFareStructure(passengerConstraint);
-		if ( (fareData == null) ||
-			 ! (   GtmUtils.isReferenced(passengerConstraint,fareData.getFareElements()) )  ) {
+		if ( fareData == null ||
+			 ! (    GtmUtils.isReferenced(passengerConstraint,fareData.getFareElements())
+				 || GtmUtils.isReferenced(passengerConstraint,fareData.getPassengerConstraints())
+			   )
+		   ) {
 			if (diagnostics != null) {
 				diagnostics.add
 		        (createSimpleDiagnostic

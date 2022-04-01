@@ -506,11 +506,11 @@ public class MigrationV2 {
 			pc.setReservationAgeLimit(pcr.getReservationAgeLimit());
 			pc.setTravelAloneAgeLimit(pcr.getTravelAloneAgeLimit());
 			pc.setPassengerWeight(pcr.getPassengerWeight());
-			pc.setDataDescription("used in included free passengers, created for migration to OSDM 1.4");
+			pc.setDataDescription("used in included free passengers, created for migration to OSDM 1.4 " + passengerType.getName());
 			pc.setMaxTotalPassengerWeight(pcr.getMaxTotalPassengerWeight());
 			pc.setMinTotalPassengerWeight(pcr.getMinTotalPassengerWeight());
 		} else {
-			pc.setDataDescription("incomplete data, used in included free passengers, created for migration to OSDM 1.4");
+			pc.setDataDescription("incomplete data, used in included free passengers, created for migration to OSDM 1.4 " + passengerType.getName());
 		}
 		
 		newPassengerConstraints.add(pc);

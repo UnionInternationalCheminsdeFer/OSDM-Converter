@@ -1681,8 +1681,14 @@ public class GtmJsonExporterV14 {
 				freeJ.setMaxNumber(passengerCombinationConstraint.getMaxNumber());
 				freeJ.setMinNumber(passengerCombinationConstraint.getMinNumber());
 				
-				freeJ.setPassengerConstraintRef(passengerCombinationConstraint.getPassengerConstraint().getId());				
-				
+				if (passengerCombinationConstraint.getPassengerConstraint() == null) {
+					
+					StringBuilder sb = new StringBuilder();
+					sb.append(GtmUtils.getLabelText(pass)).append(" is imcomplete.");
+					GtmUtils.writeConsoleError(sb.toString(),null);
+				} else {
+					freeJ.setPassengerConstraintRef(passengerCombinationConstraint.getPassengerConstraint().getId());				
+				}
 				listJ.add(freeJ);
 			}
 			

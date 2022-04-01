@@ -106,6 +106,18 @@ public class LegacyExporter {
 			this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
 			
 			if (fromDate == null || untilDate == null) {
+				
+				if (tool.getConversionFromLegacy().getLegacy108() != null &&
+					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares()!= null &&
+					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare() != null &&	
+					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0) != null) {
+					fromDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidFrom();
+					untilDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidUntil();			
+				}				
+			}
+			
+			
+			if (fromDate == null || untilDate == null) {
 				String message = "From / Until Date in Legacy Parameters is missing";
 				GtmUtils.writeConsoleError(message, editor);
 				return;
