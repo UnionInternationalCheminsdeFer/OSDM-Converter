@@ -2863,7 +2863,9 @@ public class 	ConverterToLegacy {
 			
 			//must allow clustering in full flex
 			if (model.getModel() == CombinationModel.CLUSTERING &&
-				model.getReferenceCluster() == Clusters.FULLFLEX) {
+				(model.getReferenceCluster() == Clusters.FULLFLEX || model.getReferenceCluster() == Clusters.BUSINESS)) {
+				return true;
+				/*
 				if (model.getCombinableCarriers().isEmpty() || 
 					model.getCombinableCarriers().contains(tool.getConversionFromLegacy().getLegacy108().getCarrier())) {
 					if (model.getAllowedAllocators().isEmpty() || 
@@ -2871,6 +2873,7 @@ public class 	ConverterToLegacy {
 						return true;
 					}
 				}
+				*/
 			}
 		}
 		return false;
