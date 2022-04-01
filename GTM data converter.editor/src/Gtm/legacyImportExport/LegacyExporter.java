@@ -78,8 +78,6 @@ public class LegacyExporter {
 	
 	public void init() {
 		this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
-		this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
-		this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
 	}
 	
 	
@@ -93,27 +91,25 @@ public class LegacyExporter {
 					||tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() == null
 					||tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().isEmpty()) {
 					
-					String message = "no converted 108 data available for export";
+					String message = "no converted 108 series available for export";
 					GtmUtils.writeConsoleWarning(message, editor);
 					
 					return;
-				}
+			}
 			
 			
 			this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
 			
-			this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
-			this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
-			
-			if (fromDate == null || untilDate == null) {
-				
-				if (tool.getConversionFromLegacy().getLegacy108() != null &&
-					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares()!= null &&
-					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare() != null &&	
-					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0) != null) {
-					fromDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidFrom();
-					untilDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidUntil();			
-				}				
+			if (tool.getConversionFromLegacy().getLegacy108() != null &&
+				tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares()!= null &&
+				tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare() != null &&	
+				tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0) != null) {
+				fromDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidFrom();
+				untilDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidUntil();			
+			} else {
+				String message = "Legacy fares are missing";
+				GtmUtils.writeConsoleError(message, editor);
+				return;
 			}
 			
 			
