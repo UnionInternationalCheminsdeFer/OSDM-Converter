@@ -221,6 +221,9 @@ public class GTMJsonImporterV14 {
 		CodeListInitializer.createGenericReductionCards(fareStructure,tool);
 		
 		fareStructure.setPassengerConstraints(convertPassengerConstraints(fareDataDef.getPassengerConstraints()));
+		populatePassengerConstraints(fareDataDef.getPassengerConstraints());
+
+		
 		
 		fareStructure.setPersonalDataConstraints(convertPersonalDataConstraints(fareDataDef.getPersonalDataConstraints()));
 				
@@ -391,10 +394,70 @@ public class GTMJsonImporterV14 {
 		if (jz.getStations() != null && !jz.getStations().isEmpty()) {
 			z.getStations().addAll(convertStationRefList(jz));
 		}
+		
+		//fixing data errors
+		
+		if (z.getName() == null || z.getName().isEmpty()) {
+			fixFareStationSetName(z);			
+		}
+		if (z.getNameUtf8() == null || z.getNameUtf8().isEmpty()) {
+			fixFareStationSetNameUtf8(z);			
+		}
+		
 		return z;
 	}
 
 
+	private void fixFareStationSetName(FareStationSetDefinition z) {
+		if (z.getNameUtf8() != null && !z.getNameUtf8().isEmpty()) {
+			z.setName(GtmUtils.utf2ascii(z.getNameUtf8()));
+			return;
+		}
+		
+		if (z.getStations() != null && z.getStations().size() == 1) {
+			if (z.getStations().get(0).getName() != null && 
+					!z.getStations().get(0).getName().isEmpty()) {
+				z.setName(z.getStations().get(0).getName());
+				GtmUtils.writeConsoleWarning("Name missing in fare station set " + z.getCode() + " replaced by " + z.getName(), editor);
+				return;
+			}
+		}
+		
+		if (z.getStations() != null && z.getStations().size() > 0) {
+			if (z.getStations().get(0).getName() != null && 
+					!z.getStations().get(0).getName().isEmpty()) {
+				z.setName(z.getStations().get(0).getName());
+				GtmUtils.writeConsoleError("Name missing in fare station set " + z.getCode() + " replaced by first station " + z.getName(), editor);
+				return;
+			}
+		}
+		
+		
+		z.setName("xxx");
+		GtmUtils.writeConsoleError("Name missing in fare station set " + z.getCode() + " replaced by " + z.getName(), editor);
+			
+	}
+
+	private void fixFareStationSetNameUtf8(FareStationSetDefinition z) {
+		if (z.getName() != null && !z.getName().isEmpty()) {
+			z.setNameUtf8(z.getName());
+			return;
+		}
+		
+		if (z.getStations() != null && z.getStations().size() == 1) {
+			if (z.getStations().get(0).getName() != null && 
+					!z.getStations().get(0).getName().isEmpty()) {
+				z.setNameUtf8(z.getStations().get(0).getName());
+				GtmUtils.writeConsoleWarning("Name missing in fare station set " + z.getCode() + " replaced by " + z.getName(), editor);
+				return;
+			}
+		}
+		
+		z.setNameUtf8("xxx");
+		GtmUtils.writeConsoleError("Name UTF8 missing in fare station set " + z.getCode() + " replaced by " + z.getName(), editor);
+			
+	}
+	
 	private Collection<? extends Station> convertStationRefList(FareReferenceStationSetDef jz) {
 		
 		ArrayList<Station> sl = new ArrayList<Station>();
@@ -849,11 +912,31 @@ public class GTMJsonImporterV14 {
 		if (jr == null) return null;
 		ReservationParams9181 o = GtmFactory.eINSTANCE.createReservationParams9181();
 		o.setBerthType(ReservationBerthType.getByName(jr.getBerthType()));
-		o.setCoachType(Integer.parseInt(jr.getCoachTypeCode(),0));
-		o.setCompartmentType(Integer.parseInt(jr.getCompartmentTypeCode(), 0));
+		if (jr.getCoachTypeCode() != null && !jr.getCoachTypeCode().isEmpty()) {
+			try {
+				o.setCoachType(Integer.parseInt(jr.getCoachTypeCode()));	
+			} catch (Exception e) {
+				GtmUtils.writeConsoleError("Wrong Legacy Code for Coach Type in Reservation Parameters for 918-1: " + jr.getCompartmentTypeCode() + " Code will be ignored", editor);
+			}
+		}
+		
+		if (jr.getCoachTypeCode() != null && !jr.getCompartmentTypeCode().isEmpty()) {
+			try {
+				o.setCompartmentType(Integer.parseInt(jr.getCompartmentTypeCode()));
+			} catch (Exception e) {
+				GtmUtils.writeConsoleError("Wrong Legacy Code for Compartment Type in Reservation Parameters for 918-1: " + jr.getCompartmentTypeCode() + " Code will be ignored", editor);
+			}
+		}
+		
 		o.setService(ReservationService.getByName(jr.getServiceCode()));
 		o.setServiceLevel(ReservationServiceLevel.getByName(jr.getServiceLevelCode()));
-		o.setTariff(Integer.parseInt(jr.getTariff(),0));
+		if (jr.getTariff() != null && !jr.getTariff().isEmpty()) {
+			try {
+				o.setTariff(Integer.parseInt(jr.getTariff()));
+			} catch (Exception e) {
+				GtmUtils.writeConsoleError("Wrong Legacy Code for Tariff in Reservation Parameters for 918-1: " + jr.getTariff() + " Code will be ignored", editor);
+			}
+		}
 		o.setTravelClass(ReservationTravelClass.getByName(jr.getTravelClass()));
 		return o;
 	}
@@ -1267,15 +1350,27 @@ public class GTMJsonImporterV14 {
 	private PassengerConstraints convertPassengerConstraints(List<PassengerConstraintDef> jl) {
 		PassengerConstraints o = GtmFactory.eINSTANCE.createPassengerConstraints();
 		if (jl == null || jl.isEmpty()) return o;
+		
+		//create empty passenger constraints
 		for (PassengerConstraintDef jp : jl ) {
-			PassengerConstraint p = convert(jp);
+			PassengerConstraint p = GtmFactory.eINSTANCE.createPassengerConstraint();
+			p.setId(jp.getId());
 			if (p != null) {
 				o.getPassengerConstraints().add(p);
 			}
 		}
+
 		return o;
 	}
 
+	private void populatePassengerConstraints(List<PassengerConstraintDef> jl) {
+		if (jl == null || jl.isEmpty()) return;			
+		
+		//populate passenger constraints
+		for (PassengerConstraintDef jp : jl ) {
+			convert(jp);
+		}
+	}
 	
 	
 	
@@ -1290,18 +1385,18 @@ public class GTMJsonImporterV14 {
 
 	private PassengerConstraint convert(PassengerConstraintDef jp) {
 		if (jp == null) return null;
-		PassengerConstraint p = GtmFactory.eINSTANCE.createPassengerConstraint();
-		p.setId(jp.getId());
-		p.getIncludedFreePassengers().addAll(convertIncludedFreePassengers(jp.getIncludedFreePassenger()));
-		p.setIsAncilliary(jp.getIsAncillaryItem());
-		p.setLowerAgeLimit(jp.getLowerAgeLimit());
-		p.setUpperAgeLimit(jp.getUpperAgeLimit());
-		p.getExcludedPassengerCombinations().addAll(convertPassengerCombinationList(jp.getCombinationConstraint()));
-		p.setPassengerWeight(jp.getPassengerWeight());
-		p.setReservationAgeLimit(jp.getAgeLimitForReservation());
-		p.setText(findText(jp.getNameRef()));
-		p.setTravelerType(TravelerType.getByName(jp.getPassengerType()));
-
+		PassengerConstraint p = findPassengerConstraint(jp.getId());
+		if (p != null) {
+			p.getIncludedFreePassengers().addAll(convertIncludedFreePassengers(jp.getIncludedFreePassenger()));
+			p.setIsAncilliary(jp.getIsAncillaryItem());
+			p.setLowerAgeLimit(jp.getLowerAgeLimit());
+			p.setUpperAgeLimit(jp.getUpperAgeLimit());
+			p.getExcludedPassengerCombinations().addAll(convertPassengerCombinationList(jp.getCombinationConstraint()));
+			p.setPassengerWeight(jp.getPassengerWeight());
+			p.setReservationAgeLimit(jp.getAgeLimitForReservation());
+			p.setText(findText(jp.getNameRef()));
+			p.setTravelerType(TravelerType.getByName(jp.getPassengerType()));
+		}
 		return p;
 	}
 

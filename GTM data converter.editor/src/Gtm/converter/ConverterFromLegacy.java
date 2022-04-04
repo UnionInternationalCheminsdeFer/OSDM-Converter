@@ -3226,6 +3226,14 @@ public class ConverterFromLegacy {
 				sb.append("Fare station set with one station only: ").append(def.getName()).append("-").append(def.getCode());
 				GtmUtils.writeConsoleWarning(sb.toString(), editor);
 			}
+			
+			if (def.getName() == null || def.getName().isEmpty()) {
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append("Fare station set has no name: ").append(def.getCode()).append(" please add a name to your data");
+				GtmUtils.writeConsoleError(sb.toString(), editor);
+				
+			}
 		}
 		
 		//add fare station sets from border points

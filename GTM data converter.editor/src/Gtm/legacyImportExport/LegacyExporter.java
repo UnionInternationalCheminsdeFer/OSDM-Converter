@@ -78,6 +78,8 @@ public class LegacyExporter {
 	
 	public void init() {
 		this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
+		this.fromDate = tool.getConversionFromLegacy().getLegacy108().getStartDate();
+		this.untilDate = tool.getConversionFromLegacy().getLegacy108().getEndDate();
 	}
 	
 	
@@ -99,17 +101,19 @@ public class LegacyExporter {
 			
 			
 			this.provider = tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode();
-			
-			if (tool.getConversionFromLegacy().getLegacy108() != null &&
-				tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares()!= null &&
-				tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare() != null &&	
-				tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0) != null) {
-				fromDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidFrom();
-				untilDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidUntil();			
-			} else {
-				String message = "Legacy fares are missing";
-				GtmUtils.writeConsoleError(message, editor);
-				return;
+	
+			if (fromDate == null || untilDate == null) {
+				if (tool.getConversionFromLegacy().getLegacy108() != null &&
+					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares()!= null &&
+					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare() != null &&	
+					tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0) != null) {
+					fromDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidFrom();
+					untilDate = tool.getConversionFromLegacy().getLegacy108().getLegacyRouteFares().getRouteFare().get(0).getValidUntil();			
+				} else {
+					String message = "Legacy fares are missing";
+					GtmUtils.writeConsoleError(message, editor);
+					return;
+				}
 			}
 			
 			
@@ -169,13 +173,13 @@ public class LegacyExporter {
 			exportTCVCfile();
 			monitor.worked(1);
 			
-			
-			for (Legacy108FareDescription fare : tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares()) {
-						
-				monitor.subTask(NationalLanguageSupport.LegacyExporter_6);
-				exportFareFile(fare.getTableId());
-				monitor.worked(1);
-			
+			if (tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions() != null &&
+				tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares() != null) {
+				for (Legacy108FareDescription fare : tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares()) {
+					monitor.subTask(NationalLanguageSupport.LegacyExporter_6);
+					exportFareFile(fare.getTableId());
+					monitor.worked(1);
+				}
 			}
 			
 			if (tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions() == null || tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().isEmpty()  ) {
