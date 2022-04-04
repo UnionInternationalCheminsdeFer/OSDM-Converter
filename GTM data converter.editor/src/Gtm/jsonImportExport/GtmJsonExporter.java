@@ -939,6 +939,7 @@ public class GtmJsonExporter {
 		LegacyReservationParameterDef pJ = new LegacyReservationParameterDef();
 		
 		pJ.setBerthType(p.getBerthType().getName());
+		
 		pJ.setCoachTypeCode(Integer.toString(p.getCoachType()));
 		
 		pJ.setCompartmentTypeCode(Integer.toString(p.getCompartmentType()));
