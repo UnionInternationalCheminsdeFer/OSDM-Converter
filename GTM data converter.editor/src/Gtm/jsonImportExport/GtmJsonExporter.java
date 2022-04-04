@@ -940,9 +940,9 @@ public class GtmJsonExporter {
 		
 		pJ.setBerthType(p.getBerthType().getName());
 		pJ.setCoachTypeCode(Integer.toString(p.getCoachType()));
-		if (p.getBerthType()!=null) {
-			pJ.setCompartmentTypeCode(p.getBerthType().getName());
-		}
+		
+		pJ.setCompartmentTypeCode(Integer.toString(p.getCompartmentType()));
+		
 		if (p.getService()!=null) {
 			pJ.setServiceCode(p.getService().getName());
 		}
