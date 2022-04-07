@@ -5935,6 +5935,24 @@ public class GtmValidator extends EObjectValidator {
 	 */
 	public boolean validateFareStationSetDefinition_NAME_FORMAT(FareStationSetDefinition fareStationSetDefinition, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		
+		boolean result = true;
+		
+		if (fareStationSetDefinition.getName() == null || fareStationSetDefinition.getName().isEmpty()) {
+			if (diagnostics != null) {
+				diagnostics.add
+					(createSimpleDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						 0,
+						 "Name is missing in " +  getObjectLabel(fareStationSetDefinition, context), 
+						 new Object[] { "NAME_FORMAT", getObjectLabel(fareStationSetDefinition, context) }, //$NON-NLS-1$
+						 new Object[] { fareStationSetDefinition },
+						 context));
+			}
+			result = false;
+		}
+		
+		
 		if (fareStationSetDefinition.getName() != null && !StringFormatValidator.isStationASCII(fareStationSetDefinition.getName())) {
 			if (diagnostics != null) {
 				diagnostics.add
@@ -5947,10 +5965,10 @@ public class GtmValidator extends EObjectValidator {
 						 new Object[] { fareStationSetDefinition },
 						 context));
 			}
-			return false;
+			result = false;
 		}
 		
-		return true;
+		return result;
 	}
 
 	/**
