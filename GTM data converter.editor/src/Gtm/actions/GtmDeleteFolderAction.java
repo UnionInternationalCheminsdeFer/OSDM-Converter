@@ -62,7 +62,7 @@ public class GtmDeleteFolderAction extends DeleteAction implements ISelectionCha
   			return true;
   		} else {
   			folderSelection = null;
-  		   	super.updateSelection(selection);
+  		   	setEnabled(super.updateSelection(selection));
   			return super.isEnabled();
   		}
     }	
@@ -71,7 +71,7 @@ public class GtmDeleteFolderAction extends DeleteAction implements ISelectionCha
 				
 			if (GtmUtils.getGtmTool() == null) return false;
 			
-			if (selection.isEmpty()) return false;
+			if (selection == null || selection.isEmpty()) return false;
 						
 			Iterator<?> it = selection.iterator();
 			
