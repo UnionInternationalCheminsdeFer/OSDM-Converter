@@ -1255,6 +1255,7 @@ public class GtmEditor
 						public Viewer createViewer(Composite composite) {
 							Tree tree = new Tree(composite, SWT.MULTI);
 							TreeViewer newTreeViewer = new TreeViewer(tree);
+							newTreeViewer.addFilter(new GtmViewerFilter());
 							return newTreeViewer;
 						}
 						@Override
