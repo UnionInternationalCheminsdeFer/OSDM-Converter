@@ -1,7 +1,5 @@
 package Gtm.presentation;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -11,9 +9,17 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 
+import Gtm.ConnectionPoint;
+import Gtm.FareElement;
 import Gtm.FareStationSetDefinition;
-import Gtm.RegionalValidity;
+import Gtm.PassengerConstraint;
+import Gtm.ReductionCard;
+import Gtm.ReductionConstraint;
+import Gtm.RegionalConstraint;
+import Gtm.ServiceBrand;
+import Gtm.ServiceConstraint;
 import Gtm.Station;
+import Gtm.StationNames;
 import Gtm.Text;
 
 public class GtmViewerFilter extends ViewerFilter {
@@ -77,6 +83,10 @@ public class GtmViewerFilter extends ViewerFilter {
 	
 	private boolean isIncluded(String pattern , EObject eo) {
 		
+		if (eo instanceof StationNames) {
+			return true;
+		}
+		
 		EClass cls = eo.eClass();
 		EList<EAttribute> attributes = cls.getEAttributes();
 		for (EAttribute attr : attributes) {
@@ -99,18 +109,28 @@ public class GtmViewerFilter extends ViewerFilter {
 			if (eoo instanceof Text ||
 				eoo instanceof Station ||
 				eoo instanceof FareStationSetDefinition ||
-				eoo instanceof RegionalValidity) {
-			
+				eoo instanceof ConnectionPoint || 
+				eoo instanceof ServiceBrand || 
+				eoo instanceof ServiceConstraint ||
+				eoo instanceof ReductionConstraint || 
+				eoo instanceof ReductionCard ||
+				eoo instanceof RegionalConstraint ) {
 				if (isIncluded(pattern, eoo)) {
 					return true;
 				}
+			}
 				
-				if (eoo instanceof VirtualFolderItemProvider) {
-					for (Object o: ((VirtualFolderItemProvider) eoo).getFolderContent() ) {
-						if (o instanceof EObject){
-							if (isIncluded(pattern, (EObject) o)) {
-								return true;
-							}
+			//avoid loops as passenger constraint can reference passenger constraints
+			if (eoo instanceof PassengerConstraint && eo.eContainer() instanceof FareElement) {
+				if (isIncluded(pattern, eoo)) {
+					return true;
+				}
+			}	
+			if (eoo instanceof VirtualFolderItemProvider) {
+				for (Object o: ((VirtualFolderItemProvider) eoo).getFolderContent() ) {
+					if (o instanceof EObject){
+						if (isIncluded(pattern, (EObject) o)) {
+							return true;
 						}
 					}
 				}
