@@ -113,8 +113,7 @@ public class GtmViewerFilter extends ViewerFilter {
 				eoo instanceof ServiceBrand || 
 				eoo instanceof ServiceConstraint ||
 				eoo instanceof ReductionConstraint || 
-				eoo instanceof ReductionCard ||
-				eoo instanceof RegionalConstraint ) {
+				eoo instanceof ReductionCard ) {
 				if (isIncluded(pattern, eoo)) {
 					return true;
 				}
@@ -126,15 +125,6 @@ public class GtmViewerFilter extends ViewerFilter {
 					return true;
 				}
 			}	
-			if (eoo instanceof VirtualFolderItemProvider) {
-				for (Object o: ((VirtualFolderItemProvider) eoo).getFolderContent() ) {
-					if (o instanceof EObject){
-						if (isIncluded(pattern, (EObject) o)) {
-							return true;
-						}
-					}
-				}
-			}
 		}
 	
 		
