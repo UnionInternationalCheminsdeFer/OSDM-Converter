@@ -15,7 +15,6 @@ import Gtm.FareStationSetDefinition;
 import Gtm.PassengerConstraint;
 import Gtm.ReductionCard;
 import Gtm.ReductionConstraint;
-import Gtm.RegionalConstraint;
 import Gtm.ServiceBrand;
 import Gtm.ServiceConstraint;
 import Gtm.Station;

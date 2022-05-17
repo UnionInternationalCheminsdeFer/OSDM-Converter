@@ -63,7 +63,7 @@ public class SearchControlContribution extends ControlContribution {
 	}
 	
 	public String getPattern() {
-		if (pattern != null) {
+		if (pattern != null && !pattern.isDisposed()) {
 			return pattern.getText();
 		} else {
 			return null;
@@ -72,9 +72,16 @@ public class SearchControlContribution extends ControlContribution {
 
 	public void addModifyListener(ModifyListener listener) {
 		listeners.add(listener);
-		if (pattern != null) {
+		if (pattern != null && !pattern.isDisposed()) {
 			pattern.addModifyListener(listener);
 		}
+	}
+	
+	public void dispose() {
+		listeners.clear();
+		me = null;
+		pattern = null;
+		super.dispose();
 	}
 	
 }
