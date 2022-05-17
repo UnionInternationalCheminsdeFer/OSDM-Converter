@@ -44,7 +44,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 
 import org.eclipse.jface.wizard.WizardDialog;
-
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
@@ -224,6 +225,8 @@ public class GtmActionBarContributor
 	protected ConvertLegacy2GtmAction convertLegacy2GtmAction = null;
 	protected ConvertGtm2LegacyAction convertGtm2LegacyAction = null;
 	
+	protected SearchControlContribution filter = SearchControlContribution.getInstance();
+	
 	/**
 	 * This creates an instance of the contributor.
 	 * <!-- begin-user-doc -->
@@ -375,6 +378,9 @@ public class GtmActionBarContributor
 		toolBarManager.insertAfter("gtm-convert-g-2-l",exportLegacyAction);	
 		toolBarManager.insertAfter("gtm-convert-g-2-l",convertGtm2LegacyAction);
 		toolBarManager.insertAfter("gtm-convert-g-2-l",importGTMJsonAction);	
+		
+		toolBarManager.add(new Separator("filter"));
+		toolBarManager.insertAfter("filter",filter);
 
 	}
 	

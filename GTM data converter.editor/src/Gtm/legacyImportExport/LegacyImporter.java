@@ -762,9 +762,9 @@ public class LegacyImporter {
 	
 			String nameUTF8     = st.substring(15, 50).trim();
 		
-			String nameASCII 	= st.substring(51,68).trim();	
+			String nameASCII 	=  GtmUtils.utf2ascii(st.substring(51,68).trim());	
 	
-			String shortNameASCII 	= st.substring(69,86).trim();	
+			String shortNameASCII 	=  GtmUtils.utf2ascii(st.substring(69,86).trim());	
 			
 			int code = Integer.parseInt(st.substring(4, 9));		
 
