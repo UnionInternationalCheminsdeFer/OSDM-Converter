@@ -66,6 +66,9 @@ public class RegionalConstraintItemProvider
 
 			addIdPropertyDescriptor(object);
 			addDistancePropertyDescriptor(object);
+			addEntryConnectionPointPropertyDescriptor(object);
+			addExitConnectionPointPropertyDescriptor(object);
+			addRegionalValidityPropertyDescriptor(object);
 			addDataSourcePropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
 			addLinkedFaresPropertyDescriptor(object);
@@ -113,6 +116,72 @@ public class RegionalConstraintItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Entry Connection Point feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEntryConnectionPointPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RegionalConstraint_entryConnectionPoint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RegionalConstraint_entryConnectionPoint_feature", "_UI_RegionalConstraint_type"),
+				 GtmPackage.Literals.REGIONAL_CONSTRAINT__ENTRY_CONNECTION_POINT,
+				 true,
+				 false,
+				 false,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Exit Connection Point feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExitConnectionPointPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RegionalConstraint_exitConnectionPoint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RegionalConstraint_exitConnectionPoint_feature", "_UI_RegionalConstraint_type"),
+				 GtmPackage.Literals.REGIONAL_CONSTRAINT__EXIT_CONNECTION_POINT,
+				 true,
+				 false,
+				 false,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Regional Validity feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRegionalValidityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RegionalConstraint_regionalValidity_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RegionalConstraint_regionalValidity_feature", "_UI_RegionalConstraint_type"),
+				 GtmPackage.Literals.REGIONAL_CONSTRAINT__REGIONAL_VALIDITY,
+				 true,
+				 false,
+				 false,
+				 null,
 				 null,
 				 null));
 	}

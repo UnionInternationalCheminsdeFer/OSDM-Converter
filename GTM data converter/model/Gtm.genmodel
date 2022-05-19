@@ -939,9 +939,9 @@
     <genClasses ecoreClass="Gtm.ecore#//RegionalConstraint" labelFeature="#//Gtm/RegionalConstraint/dataDescription">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalConstraint/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalConstraint/distance"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/entryConnectionPoint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/exitConnectionPoint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/regionalValidity"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/entryConnectionPoint"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/exitConnectionPoint"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//RegionalConstraint/regionalValidity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalConstraint/dataSource"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//RegionalConstraint/dataDescription"/>
       <genFeatures notify="false" children="true" createChild="false" propertySortChoices="true"
@@ -1107,7 +1107,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//AlternativeRoute/stations"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Route">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Route/stations"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Route/stations"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Zone">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Zone/binaryZoneId"/>
@@ -1128,7 +1128,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Line/city"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Polygone">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Polygone/edge"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Polygone/edge"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Edge">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Edge/system"/>
