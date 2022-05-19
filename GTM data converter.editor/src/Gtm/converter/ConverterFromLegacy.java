@@ -3343,11 +3343,16 @@ public class ConverterFromLegacy {
 						&&	!lBorder.getOnBorderStations().getStations().getStations().isEmpty()) {
 						
 						for (Station s : lBorder.getOnBorderStations().getStations().getStations()) {
-							if (!stationNames.getStationName().contains(s) ) {
-								stationNames.getStationName().add(s);
-								if (s.getNameCaseASCII() == null || 
-									s.getNameCaseASCII().length() == 0){
-									mergeStationNames(legacyStations.get(side.getLegacyStationCode()), s);
+							if (s != null) {
+								if (!stationNames.getStationName().contains(s) ) {
+									stationNames.getStationName().add(s);
+									if (s.getNameCaseASCII() == null || 
+										s.getNameCaseASCII().length() == 0){
+										 Legacy108Station ls = legacyStations.get(side.getLegacyStationCode());
+										 if (ls != null) {
+											 mergeStationNames(ls, s);
+										 }
+									}
 								}
 							}
 						}
@@ -3411,6 +3416,10 @@ public class ConverterFromLegacy {
 	 * @return the station
 	 */
 	public void mergeStationNames(Legacy108Station lStation, Station station) {
+		
+		if (lStation == null || station == null) {
+			return;
+		}
 
 		 mergeStationNamesOnly(lStation, station);
 		 
