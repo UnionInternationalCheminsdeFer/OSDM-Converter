@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareConstraintBundle#getDefaultRegulatoryConditions <em>Default Regulatory Conditions</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getConvertedBundles <em>Converted Bundles</em>}</li>
+ *   <li>{@link Gtm.FareConstraintBundle#getLuggageConstraint <em>Luggage Constraint</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareConstraintBundle()
@@ -308,5 +309,27 @@ public interface FareConstraintBundle extends EObject {
 	 * @generated
 	 */
 	EList<FareConstraintBundle> getConvertedBundles();
+
+	/**
+	 * Returns the value of the '<em><b>Luggage Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Luggage Constraint</em>' reference.
+	 * @see #setLuggageConstraint(LuggageConstraint)
+	 * @see Gtm.GtmPackage#getFareConstraintBundle_LuggageConstraint()
+	 * @model
+	 * @generated
+	 */
+	LuggageConstraint getLuggageConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareConstraintBundle#getLuggageConstraint <em>Luggage Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Luggage Constraint</em>' reference.
+	 * @see #getLuggageConstraint()
+	 * @generated
+	 */
+	void setLuggageConstraint(LuggageConstraint value);
 
 } // FareConstraintBundle

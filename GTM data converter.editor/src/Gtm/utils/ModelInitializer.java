@@ -227,6 +227,10 @@ public class ModelInitializer {
 				if (fare.getZoneDefinitions() == null) {
 					command.append(new SetCommand(domain, fare, GtmPackage.Literals.FARE_STRUCTURE__ZONE_DEFINITIONS, GtmFactory.eINSTANCE.createZoneDefinitions()));
 				}	
+				
+				if (fare.getLuggageConstraints() == null) {
+					command.append(new SetCommand(domain, fare, GtmPackage.Literals.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS, GtmFactory.eINSTANCE.createLuggageConstraints()));
+				}	
 			}
 		}
 		return command;
@@ -267,6 +271,7 @@ public class ModelInitializer {
 		fareStructure.setZoneDefinitions(GtmFactory.eINSTANCE.createZoneDefinitions());
 		fareStructure.setFareConstraintBundles(GtmFactory.eINSTANCE.createFareConstraintBundles());
 		fareStructure.setTotalPassengerCombinationConstraints(GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraints());	
+		fareStructure.setLuggageConstraints(GtmFactory.eINSTANCE.createLuggageConstraints());
 		return fareStructure;
 	}
 

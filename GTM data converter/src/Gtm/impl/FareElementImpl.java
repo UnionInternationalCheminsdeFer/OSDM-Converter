@@ -14,6 +14,7 @@ import Gtm.FulfillmentConstraint;
 import Gtm.GtmPackage;
 import Gtm.LegacyAccountingIdentifier;
 import Gtm.LegacyConversionType;
+import Gtm.LuggageConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.PersonalDataConstraint;
 import Gtm.Price;
@@ -76,6 +77,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link Gtm.impl.FareElementImpl#getLegacyConversion <em>Legacy Conversion</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#isIndividualContracts <em>Individual Contracts</em>}</li>
  *   <li>{@link Gtm.impl.FareElementImpl#getInvolvedTcos <em>Involved Tcos</em>}</li>
+ *   <li>{@link Gtm.impl.FareElementImpl#getLuggageConstraint <em>Luggage Constraint</em>}</li>
  * </ul>
  *
  * @generated
@@ -410,6 +412,16 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 	 * @ordered
 	 */
 	protected EList<Carrier> involvedTcos;
+
+	/**
+	 * The cached value of the '{@link #getLuggageConstraint() <em>Luggage Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLuggageConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected LuggageConstraint luggageConstraint;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1312,6 +1324,44 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LuggageConstraint getLuggageConstraint() {
+		if (luggageConstraint != null && luggageConstraint.eIsProxy()) {
+			InternalEObject oldLuggageConstraint = (InternalEObject)luggageConstraint;
+			luggageConstraint = (LuggageConstraint)eResolveProxy(oldLuggageConstraint);
+			if (luggageConstraint != oldLuggageConstraint) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.FARE_ELEMENT__LUGGAGE_CONSTRAINT, oldLuggageConstraint, luggageConstraint));
+			}
+		}
+		return luggageConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LuggageConstraint basicGetLuggageConstraint() {
+		return luggageConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLuggageConstraint(LuggageConstraint newLuggageConstraint) {
+		LuggageConstraint oldLuggageConstraint = luggageConstraint;
+		luggageConstraint = newLuggageConstraint;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_ELEMENT__LUGGAGE_CONSTRAINT, oldLuggageConstraint, luggageConstraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1401,6 +1451,9 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 				return isIndividualContracts();
 			case GtmPackage.FARE_ELEMENT__INVOLVED_TCOS:
 				return getInvolvedTcos();
+			case GtmPackage.FARE_ELEMENT__LUGGAGE_CONSTRAINT:
+				if (resolve) return getLuggageConstraint();
+				return basicGetLuggageConstraint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1497,6 +1550,9 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 				getInvolvedTcos().clear();
 				getInvolvedTcos().addAll((Collection<? extends Carrier>)newValue);
 				return;
+			case GtmPackage.FARE_ELEMENT__LUGGAGE_CONSTRAINT:
+				setLuggageConstraint((LuggageConstraint)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1590,6 +1646,9 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 			case GtmPackage.FARE_ELEMENT__INVOLVED_TCOS:
 				getInvolvedTcos().clear();
 				return;
+			case GtmPackage.FARE_ELEMENT__LUGGAGE_CONSTRAINT:
+				setLuggageConstraint((LuggageConstraint)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1656,6 +1715,8 @@ public class FareElementImpl extends MinimalEObjectImpl.Container implements Far
 				return individualContracts != INDIVIDUAL_CONTRACTS_EDEFAULT;
 			case GtmPackage.FARE_ELEMENT__INVOLVED_TCOS:
 				return involvedTcos != null && !involvedTcos.isEmpty();
+			case GtmPackage.FARE_ELEMENT__LUGGAGE_CONSTRAINT:
+				return luggageConstraint != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -1084,6 +1084,42 @@ public interface GtmFactory extends EFactory {
 	RequiredReductionCard createRequiredReductionCard();
 
 	/**
+	 * Returns a new object of class '<em>Luggage Constraints</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Luggage Constraints</em>'.
+	 * @generated
+	 */
+	LuggageConstraints createLuggageConstraints();
+
+	/**
+	 * Returns a new object of class '<em>Luggage Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Luggage Constraint</em>'.
+	 * @generated
+	 */
+	LuggageConstraint createLuggageConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Luggage Items Restriction</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Luggage Items Restriction</em>'.
+	 * @generated
+	 */
+	LuggageItemsRestriction createLuggageItemsRestriction();
+
+	/**
+	 * Returns a new object of class '<em>Luggage Dimension</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Luggage Dimension</em>'.
+	 * @generated
+	 */
+	LuggageDimension createLuggageDimension();
+
+	/**
 	 * Returns a new object of class '<em>Conversion From Legacy</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

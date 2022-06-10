@@ -540,6 +540,22 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createRequiredReductionCardAdapter();
 			}
 			@Override
+			public Adapter caseLuggageConstraints(LuggageConstraints object) {
+				return createLuggageConstraintsAdapter();
+			}
+			@Override
+			public Adapter caseLuggageConstraint(LuggageConstraint object) {
+				return createLuggageConstraintAdapter();
+			}
+			@Override
+			public Adapter caseLuggageItemsRestriction(LuggageItemsRestriction object) {
+				return createLuggageItemsRestrictionAdapter();
+			}
+			@Override
+			public Adapter caseLuggageDimension(LuggageDimension object) {
+				return createLuggageDimensionAdapter();
+			}
+			@Override
 			public Adapter caseConversionFromLegacy(ConversionFromLegacy object) {
 				return createConversionFromLegacyAdapter();
 			}
@@ -2384,6 +2400,62 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRequiredReductionCardAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.LuggageConstraints <em>Luggage Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.LuggageConstraints
+	 * @generated
+	 */
+	public Adapter createLuggageConstraintsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.LuggageConstraint <em>Luggage Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.LuggageConstraint
+	 * @generated
+	 */
+	public Adapter createLuggageConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.LuggageItemsRestriction <em>Luggage Items Restriction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.LuggageItemsRestriction
+	 * @generated
+	 */
+	public Adapter createLuggageItemsRestrictionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.LuggageDimension <em>Luggage Dimension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.LuggageDimension
+	 * @generated
+	 */
+	public Adapter createLuggageDimensionAdapter() {
 		return null;
 	}
 

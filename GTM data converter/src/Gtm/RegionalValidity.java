@@ -72,22 +72,22 @@ public interface RegionalValidity extends EObject {
 	void setViaStation(ViaStation value);
 
 	/**
-	 * Returns the value of the '<em><b>Zone</b></em>' reference.
+	 * Returns the value of the '<em><b>Zone</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Zone</em>' reference.
+	 * @return the value of the '<em>Zone</em>' containment reference.
 	 * @see #setZone(Zone)
 	 * @see Gtm.GtmPackage#getRegionalValidity_Zone()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Zone getZone();
 
 	/**
-	 * Sets the value of the '{@link Gtm.RegionalValidity#getZone <em>Zone</em>}' reference.
+	 * Sets the value of the '{@link Gtm.RegionalValidity#getZone <em>Zone</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Zone</em>' reference.
+	 * @param value the new value of the '<em>Zone</em>' containment reference.
 	 * @see #getZone()
 	 * @generated
 	 */

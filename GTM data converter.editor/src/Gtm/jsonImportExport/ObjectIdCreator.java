@@ -19,6 +19,7 @@ import Gtm.FareStructure;
 import Gtm.FulfillmentConstraint;
 import Gtm.GTMTool;
 import Gtm.GtmPackage;
+import Gtm.LuggageConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.PersonalDataConstraint;
 import Gtm.Price;
@@ -230,6 +231,13 @@ public class ObjectIdCreator {
 		for (TotalPassengerCombinationConstraint object : fareStructure.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
 			i++;
 			setId(domain, object,GtmPackage.Literals.TOTAL_PASSENGER_COMBINATION_CONSTRAINT__ID, command, listName,i);
+		}
+		
+		listName = baseName + "U_"; //$NON-NLS-1$
+		i = 0;
+		for (LuggageConstraint object : fareStructure.getLuggageConstraints().getConstraints()) {
+			i++;
+			setId(domain, object,GtmPackage.Literals.LUGGAGE_CONSTRAINT__ID, command, listName,i);
 		}
 		
         return command;

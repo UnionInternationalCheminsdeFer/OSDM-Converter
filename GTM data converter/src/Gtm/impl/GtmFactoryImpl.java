@@ -176,6 +176,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.REDUCTION_CARDS: return createReductionCards();
 			case GtmPackage.REDUCTION_CARD: return createReductionCard();
 			case GtmPackage.REQUIRED_REDUCTION_CARD: return createRequiredReductionCard();
+			case GtmPackage.LUGGAGE_CONSTRAINTS: return createLuggageConstraints();
+			case GtmPackage.LUGGAGE_CONSTRAINT: return createLuggageConstraint();
+			case GtmPackage.LUGGAGE_ITEMS_RESTRICTION: return createLuggageItemsRestriction();
+			case GtmPackage.LUGGAGE_DIMENSION: return createLuggageDimension();
 			case GtmPackage.CONVERSION_FROM_LEGACY: return createConversionFromLegacy();
 			case GtmPackage.CONVERSION_PARAMS: return createConversionParams();
 			case GtmPackage.ADD_CARRIER_RULES: return createAddCarrierRules();
@@ -235,6 +239,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 		switch (eDataType.getClassifierID()) {
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return createBoardingOrArrivalFromString(eDataType, initialValue);
+			case GtmPackage.LUGGAGE_RULE:
+				return createLuggageRuleFromString(eDataType, initialValue);
+			case GtmPackage.DIMENSION:
+				return createDimensionFromString(eDataType, initialValue);
 			case GtmPackage.ADD_CARRIER_SCOPE:
 				return createAddCarrierScopeFromString(eDataType, initialValue);
 			case GtmPackage.TRANSPORT_MODE:
@@ -358,6 +366,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 		switch (eDataType.getClassifierID()) {
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return convertBoardingOrArrivalToString(eDataType, instanceValue);
+			case GtmPackage.LUGGAGE_RULE:
+				return convertLuggageRuleToString(eDataType, instanceValue);
+			case GtmPackage.DIMENSION:
+				return convertDimensionToString(eDataType, instanceValue);
 			case GtmPackage.ADD_CARRIER_SCOPE:
 				return convertAddCarrierScopeToString(eDataType, instanceValue);
 			case GtmPackage.TRANSPORT_MODE:
@@ -1656,6 +1668,46 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LuggageConstraints createLuggageConstraints() {
+		LuggageConstraintsImpl luggageConstraints = new LuggageConstraintsImpl();
+		return luggageConstraints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LuggageConstraint createLuggageConstraint() {
+		LuggageConstraintImpl luggageConstraint = new LuggageConstraintImpl();
+		return luggageConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LuggageItemsRestriction createLuggageItemsRestriction() {
+		LuggageItemsRestrictionImpl luggageItemsRestriction = new LuggageItemsRestrictionImpl();
+		return luggageItemsRestriction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LuggageDimension createLuggageDimension() {
+		LuggageDimensionImpl luggageDimension = new LuggageDimensionImpl();
+		return luggageDimension;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConversionFromLegacy createConversionFromLegacy() {
 		ConversionFromLegacyImpl conversionFromLegacy = new ConversionFromLegacyImpl();
 		return conversionFromLegacy;
@@ -2098,6 +2150,46 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * @generated
 	 */
 	public String convertBoardingOrArrivalToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LuggageRule createLuggageRuleFromString(EDataType eDataType, String initialValue) {
+		LuggageRule result = LuggageRule.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLuggageRuleToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Dimension createDimensionFromString(EDataType eDataType, String initialValue) {
+		Dimension result = Dimension.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDimensionToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

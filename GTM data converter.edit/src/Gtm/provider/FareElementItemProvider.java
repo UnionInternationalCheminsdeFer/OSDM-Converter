@@ -85,6 +85,7 @@ public class FareElementItemProvider
 			addLegacyConversionPropertyDescriptor(object);
 			addIndividualContractsPropertyDescriptor(object);
 			addInvolvedTcosPropertyDescriptor(object);
+			addLuggageConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -545,6 +546,28 @@ public class FareElementItemProvider
 				 getString("_UI_FareElement_involvedTcos_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_involvedTcos_feature", "_UI_FareElement_type"),
 				 GtmPackage.Literals.FARE_ELEMENT__INVOLVED_TCOS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Luggage Constraint feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLuggageConstraintPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareElement_luggageConstraint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareElement_luggageConstraint_feature", "_UI_FareElement_type"),
+				 GtmPackage.Literals.FARE_ELEMENT__LUGGAGE_CONSTRAINT,
 				 true,
 				 false,
 				 true,

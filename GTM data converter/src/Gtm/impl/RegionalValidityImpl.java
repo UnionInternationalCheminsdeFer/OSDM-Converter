@@ -69,7 +69,7 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	protected ViaStation viaStation;
 
 	/**
-	 * The cached value of the '{@link #getZone() <em>Zone</em>}' reference.
+	 * The cached value of the '{@link #getZone() <em>Zone</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getZone()
@@ -207,14 +207,6 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 */
 	public Zone getZone() {
-		if (zone != null && zone.eIsProxy()) {
-			InternalEObject oldZone = (InternalEObject)zone;
-			zone = (Zone)eResolveProxy(oldZone);
-			if (zone != oldZone) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.REGIONAL_VALIDITY__ZONE, oldZone, zone));
-			}
-		}
 		return zone;
 	}
 
@@ -223,8 +215,14 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Zone basicGetZone() {
-		return zone;
+	public NotificationChain basicSetZone(Zone newZone, NotificationChain msgs) {
+		Zone oldZone = zone;
+		zone = newZone;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.REGIONAL_VALIDITY__ZONE, oldZone, newZone);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -233,10 +231,17 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 */
 	public void setZone(Zone newZone) {
-		Zone oldZone = zone;
-		zone = newZone;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.REGIONAL_VALIDITY__ZONE, oldZone, zone));
+		if (newZone != zone) {
+			NotificationChain msgs = null;
+			if (zone != null)
+				msgs = ((InternalEObject)zone).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.REGIONAL_VALIDITY__ZONE, null, msgs);
+			if (newZone != null)
+				msgs = ((InternalEObject)newZone).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.REGIONAL_VALIDITY__ZONE, null, msgs);
+			msgs = basicSetZone(newZone, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.REGIONAL_VALIDITY__ZONE, newZone, newZone));
 	}
 
 	/**
@@ -411,6 +416,8 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 		switch (featureID) {
 			case GtmPackage.REGIONAL_VALIDITY__VIA_STATION:
 				return basicSetViaStation(null, msgs);
+			case GtmPackage.REGIONAL_VALIDITY__ZONE:
+				return basicSetZone(null, msgs);
 			case GtmPackage.REGIONAL_VALIDITY__LINE:
 				return basicSetLine(null, msgs);
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:
@@ -432,8 +439,7 @@ public class RegionalValidityImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.REGIONAL_VALIDITY__VIA_STATION:
 				return getViaStation();
 			case GtmPackage.REGIONAL_VALIDITY__ZONE:
-				if (resolve) return getZone();
-				return basicGetZone();
+				return getZone();
 			case GtmPackage.REGIONAL_VALIDITY__LINE:
 				return getLine();
 			case GtmPackage.REGIONAL_VALIDITY__POLYGONE:

@@ -2,6 +2,229 @@
  */
 package Gtm.impl;
 
+import Gtm.AcceptedBarcodes;
+import Gtm.AddCarrierRule;
+import Gtm.AddCarrierRules;
+import Gtm.AddCarrierScope;
+import Gtm.AfterSalesCondition;
+import Gtm.AfterSalesRule;
+import Gtm.AfterSalesRules;
+import Gtm.AfterSalesTemplate;
+import Gtm.AfterSalesTransactionType;
+import Gtm.AllowedPersonalDataChanges;
+import Gtm.AlternativeRoute;
+import Gtm.ApplicationTime;
+import Gtm.BarcodeTypes;
+import Gtm.BasePriceClassType;
+import Gtm.BoardingOrArrival;
+import Gtm.Calendar;
+import Gtm.Calendars;
+import Gtm.Carrier;
+import Gtm.CarrierConstraint;
+import Gtm.CarrierConstraints;
+import Gtm.CarrierResourceLocation;
+import Gtm.CarrierResourceLocations;
+import Gtm.Carriers;
+import Gtm.CharacterSet;
+import Gtm.ClassId;
+import Gtm.ClassicClassType;
+import Gtm.Clusters;
+import Gtm.CodeLists;
+import Gtm.CombinationConstraint;
+import Gtm.CombinationConstraints;
+import Gtm.CombinationModel;
+import Gtm.ConnectionPoint;
+import Gtm.ConnectionPoints;
+import Gtm.ControlDataExchangeTypes;
+import Gtm.ConversionFromLegacy;
+import Gtm.ConversionParams;
+import Gtm.Countries;
+import Gtm.Country;
+import Gtm.CrossBorderCondition;
+import Gtm.Currencies;
+import Gtm.Currency;
+import Gtm.CurrencyPrice;
+import Gtm.DataSource;
+import Gtm.DataType;
+import Gtm.Delivery;
+import Gtm.Dimension;
+import Gtm.Edge;
+import Gtm.EndOfSale;
+import Gtm.ExcludedTimeRange;
+import Gtm.FareCombinationModel;
+import Gtm.FareConstraintBundle;
+import Gtm.FareConstraintBundles;
+import Gtm.FareElement;
+import Gtm.FareElements;
+import Gtm.FareResourceLocations;
+import Gtm.FareStationSetDefinition;
+import Gtm.FareStationSetDefinitions;
+import Gtm.FareStructure;
+import Gtm.FareTemplate;
+import Gtm.FareType;
+import Gtm.FulfillmentConstraint;
+import Gtm.FulfillmentConstraints;
+import Gtm.FulfillmentType;
+import Gtm.GTMTool;
+import Gtm.GeneralTariffModel;
+import Gtm.GenericReductionCards;
+import Gtm.GeoSystem;
+import Gtm.GeoUnit;
+import Gtm.GraphicalReservationType;
+import Gtm.GtmFactory;
+import Gtm.GtmPackage;
+import Gtm.HemisphereEW;
+import Gtm.HemisphereNS;
+import Gtm.IncludedFreePassengerLimit;
+import Gtm.InterfaceType;
+import Gtm.Language;
+import Gtm.Languages;
+import Gtm.Legacy108;
+import Gtm.Legacy108FareDescription;
+import Gtm.Legacy108FaresDescriptions;
+import Gtm.Legacy108Memo;
+import Gtm.Legacy108Memos;
+import Gtm.Legacy108Station;
+import Gtm.Legacy108Stations;
+import Gtm.LegacyAccountingIdentifier;
+import Gtm.LegacyBoderPointMappings;
+import Gtm.LegacyBorderPoint;
+import Gtm.LegacyBorderPointMapping;
+import Gtm.LegacyBorderPoints;
+import Gtm.LegacyBorderSide;
+import Gtm.LegacyBusFerryMapping;
+import Gtm.LegacyCalculationType;
+import Gtm.LegacyCarrier;
+import Gtm.LegacyCarriers;
+import Gtm.LegacyConversionType;
+import Gtm.LegacyDistanceFare;
+import Gtm.LegacyDistanceFares;
+import Gtm.LegacyFakeBorderStations;
+import Gtm.LegacyFareDetailMap;
+import Gtm.LegacyFareDetailMaps;
+import Gtm.LegacyFareStationSetMap;
+import Gtm.LegacyFareStationSetMappings;
+import Gtm.LegacyFareTemplates;
+import Gtm.LegacyPassengerType;
+import Gtm.LegacyRouteFare;
+import Gtm.LegacyRouteFares;
+import Gtm.LegacySeparateContractSeries;
+import Gtm.LegacySeparateContractSeriesList;
+import Gtm.LegacySeries;
+import Gtm.LegacySeriesList;
+import Gtm.LegacySeriesType;
+import Gtm.LegacyStation;
+import Gtm.LegacyStationMap;
+import Gtm.LegacyStationMappings;
+import Gtm.LegacyStationToServiceConstraintMapping;
+import Gtm.LegacyStationToServiceConstraintMappings;
+import Gtm.LegacyViastation;
+import Gtm.Line;
+import Gtm.LuggageConstraint;
+import Gtm.LuggageConstraints;
+import Gtm.LuggageDimension;
+import Gtm.LuggageItemsRestriction;
+import Gtm.LuggageRule;
+import Gtm.NUTSCodes;
+import Gtm.NutsCode;
+import Gtm.OfferRequestType;
+import Gtm.OnBorderStations;
+import Gtm.OnlineResource;
+import Gtm.OnlineServiceType;
+import Gtm.PassengerCombinationConstraint;
+import Gtm.PassengerConstraint;
+import Gtm.PassengerConstraints;
+import Gtm.PersonalDataChangeReason;
+import Gtm.PersonalDataConstraint;
+import Gtm.PersonalDataConstraints;
+import Gtm.PersonalDataItemsType;
+import Gtm.PersonalDataTransferType;
+import Gtm.Polygone;
+import Gtm.Price;
+import Gtm.Prices;
+import Gtm.ReductionCard;
+import Gtm.ReductionCards;
+import Gtm.ReductionConstraint;
+import Gtm.ReductionConstraints;
+import Gtm.RegionalConstraint;
+import Gtm.RegionalConstraints;
+import Gtm.RegionalValidity;
+import Gtm.RegulatoryCondition;
+import Gtm.RelativeTime;
+import Gtm.RequiredBarcodes;
+import Gtm.RequiredPersonalData;
+import Gtm.RequiredReductionCard;
+import Gtm.ReservationBerthType;
+import Gtm.ReservationOptions;
+import Gtm.ReservationParameter;
+import Gtm.ReservationParameters;
+import Gtm.ReservationParams9181;
+import Gtm.ReservationPreferenceGroup;
+import Gtm.ReservationService;
+import Gtm.ReservationServiceLevel;
+import Gtm.ReservationTravelClass;
+import Gtm.ReturnValidityConstraint;
+import Gtm.RoundingType;
+import Gtm.Route;
+import Gtm.SalesAvailabilityConstraint;
+import Gtm.SalesAvailabilityConstraints;
+import Gtm.SalesRestriction;
+import Gtm.SchemaVersion;
+import Gtm.ServiceBrand;
+import Gtm.ServiceBrands;
+import Gtm.ServiceClass;
+import Gtm.ServiceClassDefinitions;
+import Gtm.ServiceConstraint;
+import Gtm.ServiceConstraints;
+import Gtm.ServiceLevel;
+import Gtm.ServiceLevelDefinitions;
+import Gtm.ServiceMode;
+import Gtm.StartOfSale;
+import Gtm.Station;
+import Gtm.StationFareDetailType;
+import Gtm.StationNames;
+import Gtm.StationRelation;
+import Gtm.StationRelationType;
+import Gtm.StationResourceLocation;
+import Gtm.StationResourceLocations;
+import Gtm.StationSet;
+import Gtm.Stations;
+import Gtm.SupportedOnlineServices;
+import Gtm.TaxScope;
+import Gtm.Text;
+import Gtm.Texts;
+import Gtm.TimeRange;
+import Gtm.TimeRangeScope;
+import Gtm.TimeReferenceType;
+import Gtm.TimeUnit;
+import Gtm.TimeZone;
+import Gtm.TotalPassengerCombinationConstraint;
+import Gtm.TotalPassengerCombinationConstraints;
+import Gtm.TrainResourceLocation;
+import Gtm.TrainResourceLocations;
+import Gtm.TrainValidity;
+import Gtm.Translation;
+import Gtm.TransportMode;
+import Gtm.TravelValidityConstraint;
+import Gtm.TravelValidityConstraints;
+import Gtm.TravelValidityType;
+import Gtm.TravelerType;
+import Gtm.TripAllocationConstraint;
+import Gtm.TripAllocationProcess;
+import Gtm.TripAllocationUnit;
+import Gtm.TripInterruptionConstraint;
+import Gtm.TripInterruptionProcess;
+import Gtm.VATDetail;
+import Gtm.ValidityRange;
+import Gtm.VatTemplate;
+import Gtm.VatTemplates;
+import Gtm.ViaStation;
+import Gtm.WeekDay;
+import Gtm.WorkflowHistory;
+import Gtm.WorkflowStep;
+import Gtm.Zone;
+import Gtm.ZoneDefinition;
+import Gtm.ZoneDefinitions;
 import Gtm.*;
 import Gtm.util.GtmValidator;
 
@@ -857,6 +1080,34 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass luggageConstraintsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass luggageConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass luggageItemsRestrictionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass luggageDimensionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass conversionFromLegacyEClass = null;
 
 	/**
@@ -1159,6 +1410,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum boardingOrArrivalEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum luggageRuleEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum dimensionEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2847,6 +3112,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFareStructure_LuggageConstraints() {
+		return (EReference)fareStructureEClass.getEStructuralFeatures().get(27);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConnectionPoints() {
 		return connectionPointsEClass;
 	}
@@ -3612,6 +3886,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFareElement_LuggageConstraint() {
+		return (EReference)fareElementEClass.getEStructuralFeatures().get(27);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTotalPassengerCombinationConstraints() {
 		return totalPassengerCombinationConstraintsEClass;
 	}
@@ -3812,6 +4095,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getFareConstraintBundle_ConvertedBundles() {
 		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFareConstraintBundle_LuggageConstraint() {
+		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -6726,6 +7018,132 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLuggageConstraints() {
+		return luggageConstraintsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLuggageConstraints_Constraints() {
+		return (EReference)luggageConstraintsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLuggageConstraint() {
+		return luggageConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLuggageConstraint_Id() {
+		return (EAttribute)luggageConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLuggageConstraint_MaxHandLuggage() {
+		return (EAttribute)luggageConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLuggageConstraint_MaxLargeLuggage() {
+		return (EAttribute)luggageConstraintEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLuggageConstraint_RestrictedItems() {
+		return (EReference)luggageConstraintEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLuggageConstraint_Rules() {
+		return (EAttribute)luggageConstraintEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLuggageItemsRestriction() {
+		return luggageItemsRestrictionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLuggageItemsRestriction_NumberOfItems() {
+		return (EAttribute)luggageItemsRestrictionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLuggageItemsRestriction_Dimension() {
+		return (EReference)luggageItemsRestrictionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLuggageDimension() {
+		return luggageDimensionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLuggageDimension_Value() {
+		return (EAttribute)luggageDimensionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLuggageDimension_Dimension() {
+		return (EAttribute)luggageDimensionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConversionFromLegacy() {
 		return conversionFromLegacyEClass;
 	}
@@ -8904,6 +9322,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getLuggageRule() {
+		return luggageRuleEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getDimension() {
+		return dimensionEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getAddCarrierScope() {
 		return addCarrierScopeEEnum;
 	}
@@ -9593,6 +10029,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareStructureEClass, FARE_STRUCTURE__SUPPORTED_ONLINE_SERVICES);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__FARE_RESOURCE_LOCATIONS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__ZONE_DEFINITIONS);
+		createEReference(fareStructureEClass, FARE_STRUCTURE__LUGGAGE_CONSTRAINTS);
 
 		connectionPointsEClass = createEClass(CONNECTION_POINTS);
 		createEReference(connectionPointsEClass, CONNECTION_POINTS__CONNECTION_POINTS);
@@ -9700,6 +10137,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareElementEClass, FARE_ELEMENT__LEGACY_CONVERSION);
 		createEAttribute(fareElementEClass, FARE_ELEMENT__INDIVIDUAL_CONTRACTS);
 		createEReference(fareElementEClass, FARE_ELEMENT__INVOLVED_TCOS);
+		createEReference(fareElementEClass, FARE_ELEMENT__LUGGAGE_CONSTRAINT);
 
 		totalPassengerCombinationConstraintsEClass = createEClass(TOTAL_PASSENGER_COMBINATION_CONSTRAINTS);
 		createEReference(totalPassengerCombinationConstraintsEClass, TOTAL_PASSENGER_COMBINATION_CONSTRAINTS__TOTAL_PASSENGER_COMBINATION_CONSTRAINT);
@@ -9727,6 +10165,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__DEFAULT_REGULATORY_CONDITIONS);
 		createEAttribute(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__DATA_SOURCE);
 		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES);
+		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__LUGGAGE_CONSTRAINT);
 
 		fareStationSetDefinitionsEClass = createEClass(FARE_STATION_SET_DEFINITIONS);
 		createEReference(fareStationSetDefinitionsEClass, FARE_STATION_SET_DEFINITIONS__FARE_STATION_SET_DEFINITIONS);
@@ -10116,6 +10555,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(requiredReductionCardEClass, REQUIRED_REDUCTION_CARD__CARD);
 		createEAttribute(requiredReductionCardEClass, REQUIRED_REDUCTION_CARD__NAME);
 
+		luggageConstraintsEClass = createEClass(LUGGAGE_CONSTRAINTS);
+		createEReference(luggageConstraintsEClass, LUGGAGE_CONSTRAINTS__CONSTRAINTS);
+
+		luggageConstraintEClass = createEClass(LUGGAGE_CONSTRAINT);
+		createEAttribute(luggageConstraintEClass, LUGGAGE_CONSTRAINT__ID);
+		createEAttribute(luggageConstraintEClass, LUGGAGE_CONSTRAINT__MAX_HAND_LUGGAGE);
+		createEAttribute(luggageConstraintEClass, LUGGAGE_CONSTRAINT__MAX_LARGE_LUGGAGE);
+		createEReference(luggageConstraintEClass, LUGGAGE_CONSTRAINT__RESTRICTED_ITEMS);
+		createEAttribute(luggageConstraintEClass, LUGGAGE_CONSTRAINT__RULES);
+
+		luggageItemsRestrictionEClass = createEClass(LUGGAGE_ITEMS_RESTRICTION);
+		createEAttribute(luggageItemsRestrictionEClass, LUGGAGE_ITEMS_RESTRICTION__NUMBER_OF_ITEMS);
+		createEReference(luggageItemsRestrictionEClass, LUGGAGE_ITEMS_RESTRICTION__DIMENSION);
+
+		luggageDimensionEClass = createEClass(LUGGAGE_DIMENSION);
+		createEAttribute(luggageDimensionEClass, LUGGAGE_DIMENSION__VALUE);
+		createEAttribute(luggageDimensionEClass, LUGGAGE_DIMENSION__DIMENSION);
+
 		conversionFromLegacyEClass = createEClass(CONVERSION_FROM_LEGACY);
 		createEReference(conversionFromLegacyEClass, CONVERSION_FROM_LEGACY__LEGACY108);
 		createEReference(conversionFromLegacyEClass, CONVERSION_FROM_LEGACY__PARAMS);
@@ -10405,6 +10862,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		// Create enums
 		boardingOrArrivalEEnum = createEEnum(BOARDING_OR_ARRIVAL);
+		luggageRuleEEnum = createEEnum(LUGGAGE_RULE);
+		dimensionEEnum = createEEnum(DIMENSION);
 		addCarrierScopeEEnum = createEEnum(ADD_CARRIER_SCOPE);
 		transportModeEEnum = createEEnum(TRANSPORT_MODE);
 		stationRelationTypeEEnum = createEEnum(STATION_RELATION_TYPE);
@@ -10676,6 +11135,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareStructure_SupportedOnlineServices(), this.getSupportedOnlineServices(), null, "supportedOnlineServices", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_FareResourceLocations(), this.getFareResourceLocations(), null, "fareResourceLocations", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_ZoneDefinitions(), this.getZoneDefinitions(), null, "zoneDefinitions", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareStructure_LuggageConstraints(), this.getLuggageConstraints(), null, "luggageConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionPointsEClass, ConnectionPoints.class, "ConnectionPoints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnectionPoints_ConnectionPoints(), this.getConnectionPoint(), null, "connectionPoints", null, 0, -1, ConnectionPoints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10785,6 +11245,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareElement_LegacyConversion(), this.getLegacyConversionType(), "legacyConversion", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareElement_IndividualContracts(), ecorePackage.getEBoolean(), "individualContracts", "false", 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareElement_InvolvedTcos(), this.getCarrier(), null, "involvedTcos", null, 0, -1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareElement_LuggageConstraint(), this.getLuggageConstraint(), null, "luggageConstraint", null, 0, 1, FareElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(totalPassengerCombinationConstraintsEClass, TotalPassengerCombinationConstraints.class, "TotalPassengerCombinationConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTotalPassengerCombinationConstraints_TotalPassengerCombinationConstraint(), this.getTotalPassengerCombinationConstraint(), null, "totalPassengerCombinationConstraint", null, 0, -1, TotalPassengerCombinationConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10812,6 +11273,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareConstraintBundle_DefaultRegulatoryConditions(), this.getRegulatoryCondition(), "defaultRegulatoryConditions", null, 0, -1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareConstraintBundle_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareConstraintBundle_ConvertedBundles(), this.getFareConstraintBundle(), null, "convertedBundles", null, 0, -1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareConstraintBundle_LuggageConstraint(), this.getLuggageConstraint(), null, "luggageConstraint", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fareStationSetDefinitionsEClass, FareStationSetDefinitions.class, "FareStationSetDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFareStationSetDefinitions_FareStationSetDefinitions(), this.getFareStationSetDefinition(), null, "fareStationSetDefinitions", null, 0, -1, FareStationSetDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -10969,7 +11431,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEClass(regionalValidityEClass, RegionalValidity.class, "RegionalValidity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRegionalValidity_SeqNb(), ecorePackage.getEInt(), "seqNb", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_ViaStation(), this.getViaStation(), null, "viaStation", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRegionalValidity_Zone(), this.getZone(), null, "zone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRegionalValidity_Zone(), this.getZone(), null, "zone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_Line(), this.getLine(), null, "line", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_Polygone(), this.getPolygone(), null, "polygone", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalValidity_CarrierConstraint(), this.getCarrierConstraint(), null, "carrierConstraint", null, 0, 1, RegionalValidity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11204,6 +11666,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getRequiredReductionCard_CardClass(), this.getServiceClass(), null, "cardClass", null, 0, 1, RequiredReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRequiredReductionCard_Card(), this.getReductionCard(), null, "card", null, 0, 1, RequiredReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRequiredReductionCard_Name(), ecorePackage.getEString(), "name", null, 0, 1, RequiredReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(luggageConstraintsEClass, LuggageConstraints.class, "LuggageConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLuggageConstraints_Constraints(), this.getLuggageConstraint(), null, "constraints", null, 0, -1, LuggageConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(luggageConstraintEClass, LuggageConstraint.class, "LuggageConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLuggageConstraint_Id(), ecorePackage.getEString(), "id", null, 0, 1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLuggageConstraint_MaxHandLuggage(), ecorePackage.getEInt(), "maxHandLuggage", null, 0, 1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLuggageConstraint_MaxLargeLuggage(), ecorePackage.getEInt(), "maxLargeLuggage", null, 0, 1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLuggageConstraint_RestrictedItems(), this.getLuggageItemsRestriction(), null, "restrictedItems", null, 0, -1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLuggageConstraint_Rules(), this.getLuggageRule(), "rules", null, 0, -1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(luggageItemsRestrictionEClass, LuggageItemsRestriction.class, "LuggageItemsRestriction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLuggageItemsRestriction_NumberOfItems(), ecorePackage.getEInt(), "numberOfItems", null, 0, 1, LuggageItemsRestriction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLuggageItemsRestriction_Dimension(), this.getLuggageDimension(), null, "dimension", null, 0, -1, LuggageItemsRestriction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(luggageDimensionEClass, LuggageDimension.class, "LuggageDimension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLuggageDimension_Value(), ecorePackage.getEInt(), "value", null, 0, 1, LuggageDimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLuggageDimension_Dimension(), this.getDimension(), "dimension", null, 0, 1, LuggageDimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(conversionFromLegacyEClass, ConversionFromLegacy.class, "ConversionFromLegacy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConversionFromLegacy_Legacy108(), this.getLegacy108(), null, "legacy108", null, 1, 1, ConversionFromLegacy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11507,6 +11987,19 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(boardingOrArrivalEEnum, BoardingOrArrival.BOARDING);
 		addEEnumLiteral(boardingOrArrivalEEnum, BoardingOrArrival.ARRIVAL);
 
+		initEEnum(luggageRuleEEnum, LuggageRule.class, "LuggageRule");
+		addEEnumLiteral(luggageRuleEEnum, LuggageRule.NONE);
+		addEEnumLiteral(luggageRuleEEnum, LuggageRule.CAN_CARRY);
+
+		initEEnum(dimensionEEnum, Dimension.class, "Dimension");
+		addEEnumLiteral(dimensionEEnum, Dimension.WEIGHT);
+		addEEnumLiteral(dimensionEEnum, Dimension.HEIGHT);
+		addEEnumLiteral(dimensionEEnum, Dimension.WIDTH);
+		addEEnumLiteral(dimensionEEnum, Dimension.LENGTH);
+		addEEnumLiteral(dimensionEEnum, Dimension.VOLUME);
+		addEEnumLiteral(dimensionEEnum, Dimension.WIDTH_HEIGHT);
+		addEEnumLiteral(dimensionEEnum, Dimension.WIDTH_LENGTH_HEIGHT);
+
 		initEEnum(addCarrierScopeEEnum, AddCarrierScope.class, "AddCarrierScope");
 		addEEnumLiteral(addCarrierScopeEEnum, AddCarrierScope.CARRIER);
 		addEEnumLiteral(addCarrierScopeEEnum, AddCarrierScope.TCO);
@@ -11545,6 +12038,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(regulatoryConditionEEnum, RegulatoryCondition.CIV);
 		addEEnumLiteral(regulatoryConditionEEnum, RegulatoryCondition.MC);
 		addEEnumLiteral(regulatoryConditionEEnum, RegulatoryCondition.EU_PRR);
+		addEEnumLiteral(regulatoryConditionEEnum, RegulatoryCondition.RESPLUS);
 
 		initEEnum(afterSalesTransactionTypeEEnum, AfterSalesTransactionType.class, "AfterSalesTransactionType");
 		addEEnumLiteral(afterSalesTransactionTypeEEnum, AfterSalesTransactionType.REFUND);
@@ -11856,6 +12350,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEEnum(schemaVersionEEnum, SchemaVersion.class, "SchemaVersion");
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V12);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V14);
+		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V20);
 
 		initEEnum(serviceModeEEnum, ServiceMode.class, "ServiceMode");
 		addEEnumLiteral(serviceModeEEnum, ServiceMode.HIGH_SPEED_TRAIN);

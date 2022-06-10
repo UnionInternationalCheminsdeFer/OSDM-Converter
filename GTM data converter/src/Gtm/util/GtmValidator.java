@@ -328,6 +328,14 @@ public class GtmValidator extends EObjectValidator {
 				return validateReductionCard((ReductionCard)value, diagnostics, context);
 			case GtmPackage.REQUIRED_REDUCTION_CARD:
 				return validateRequiredReductionCard((RequiredReductionCard)value, diagnostics, context);
+			case GtmPackage.LUGGAGE_CONSTRAINTS:
+				return validateLuggageConstraints((LuggageConstraints)value, diagnostics, context);
+			case GtmPackage.LUGGAGE_CONSTRAINT:
+				return validateLuggageConstraint((LuggageConstraint)value, diagnostics, context);
+			case GtmPackage.LUGGAGE_ITEMS_RESTRICTION:
+				return validateLuggageItemsRestriction((LuggageItemsRestriction)value, diagnostics, context);
+			case GtmPackage.LUGGAGE_DIMENSION:
+				return validateLuggageDimension((LuggageDimension)value, diagnostics, context);
 			case GtmPackage.CONVERSION_FROM_LEGACY:
 				return validateConversionFromLegacy((ConversionFromLegacy)value, diagnostics, context);
 			case GtmPackage.CONVERSION_PARAMS:
@@ -418,6 +426,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyViastation((LegacyViastation)value, diagnostics, context);
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return validateBoardingOrArrival((BoardingOrArrival)value, diagnostics, context);
+			case GtmPackage.LUGGAGE_RULE:
+				return validateLuggageRule((LuggageRule)value, diagnostics, context);
+			case GtmPackage.DIMENSION:
+				return validateDimension((Dimension)value, diagnostics, context);
 			case GtmPackage.ADD_CARRIER_SCOPE:
 				return validateAddCarrierScope((AddCarrierScope)value, diagnostics, context);
 			case GtmPackage.TRANSPORT_MODE:
@@ -2862,6 +2874,24 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBoardingOrArrival(BoardingOrArrival boardingOrArrival, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLuggageRule(LuggageRule luggageRule, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDimension(Dimension dimension, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -8269,6 +8299,42 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLuggageConstraints(LuggageConstraints luggageConstraints, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(luggageConstraints, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLuggageConstraint(LuggageConstraint luggageConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(luggageConstraint, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLuggageItemsRestriction(LuggageItemsRestriction luggageItemsRestriction, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(luggageItemsRestriction, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLuggageDimension(LuggageDimension luggageDimension, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(luggageDimension, diagnostics, context);
 	}
 
 	/**

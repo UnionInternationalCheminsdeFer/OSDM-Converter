@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareElement#getLegacyConversion <em>Legacy Conversion</em>}</li>
  *   <li>{@link Gtm.FareElement#isIndividualContracts <em>Individual Contracts</em>}</li>
  *   <li>{@link Gtm.FareElement#getInvolvedTcos <em>Involved Tcos</em>}</li>
+ *   <li>{@link Gtm.FareElement#getLuggageConstraint <em>Luggage Constraint</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareElement()
@@ -633,5 +634,27 @@ public interface FareElement extends EObject {
 	 * @generated
 	 */
 	EList<Carrier> getInvolvedTcos();
+
+	/**
+	 * Returns the value of the '<em><b>Luggage Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Luggage Constraint</em>' reference.
+	 * @see #setLuggageConstraint(LuggageConstraint)
+	 * @see Gtm.GtmPackage#getFareElement_LuggageConstraint()
+	 * @model
+	 * @generated
+	 */
+	LuggageConstraint getLuggageConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareElement#getLuggageConstraint <em>Luggage Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Luggage Constraint</em>' reference.
+	 * @see #getLuggageConstraint()
+	 * @generated
+	 */
+	void setLuggageConstraint(LuggageConstraint value);
 
 } // FareElement
