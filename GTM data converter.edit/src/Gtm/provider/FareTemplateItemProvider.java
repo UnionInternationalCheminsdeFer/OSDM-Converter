@@ -88,6 +88,7 @@ public class FareTemplateItemProvider
 			addSeriesFilterPropertyDescriptor(object);
 			addBasePriceClassPropertyDescriptor(object);
 			addCarrierFilterPropertyDescriptor(object);
+			addLuggageConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -613,6 +614,28 @@ public class FareTemplateItemProvider
 				 getString("_UI_FareTemplate_carrierFilter_feature"),
 				 getString("_UI_FareTemplate_carrierFilter_description"),
 				 GtmPackage.Literals.FARE_TEMPLATE__CARRIER_FILTER,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Luggage Constraint feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLuggageConstraintPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareTemplate_luggageConstraint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_luggageConstraint_feature", "_UI_FareTemplate_type"),
+				 GtmPackage.Literals.FARE_TEMPLATE__LUGGAGE_CONSTRAINT,
 				 true,
 				 false,
 				 true,

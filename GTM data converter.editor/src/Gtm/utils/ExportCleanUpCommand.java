@@ -13,6 +13,7 @@ import Gtm.ConnectionPoint;
 import Gtm.FareConstraintBundle;
 import Gtm.FareStructure;
 import Gtm.FulfillmentConstraint;
+import Gtm.LuggageConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.PersonalDataConstraint;
 import Gtm.Price;
@@ -118,6 +119,7 @@ public class ExportCleanUpCommand {
 		if (fareData.getCarrierConstraints()!=null) {
 		for (CarrierConstraint object: fareData.getCarrierConstraints().getCarrierConstraints()) {
 			if (   !GtmUtils.isReferenced(object,fareData.getFareElements()) 
+				&& !GtmUtils.isReferenced(object,fareData.getRegionalConstraints())
 				&& !GtmUtils.isReferenced(object,fareData.getFareConstraintBundles())) {
 						Command com = DeleteCommand.create(domain, object);
 						command.appendIfCanExecute(com);
@@ -258,13 +260,26 @@ public class ExportCleanUpCommand {
 		
 		if (fareData.getServiceConstraints() !=null) {
 		for (ServiceConstraint object: fareData.getServiceConstraints().getServiceConstraints()) {
-				if (   !GtmUtils.isReferenced(object,fareData.getFareElements())) {
+				if (   !GtmUtils.isReferenced(object,fareData.getFareElements())
+					&& !GtmUtils.isReferenced(object,fareData.getRegionalConstraints())
+					) {
 						Command com = DeleteCommand.create(domain, object);
 						command.appendIfCanExecute(com);
 				}
 			}
 		}	
 				
+		
+		if (fareData.getLuggageConstraints() !=null) {
+		for (LuggageConstraint object: fareData.getLuggageConstraints().getConstraints()) {
+				if (   !GtmUtils.isReferenced(object,fareData.getFareElements())
+					&& 	!GtmUtils.isReferenced(object,fareData.getFareConstraintBundles())
+					) {
+						Command com = DeleteCommand.create(domain, object);
+						command.appendIfCanExecute(com);
+				}
+			}
+		}	
 		
 		if (command.isEmpty() && command.canExecute()) {
 			return command;
@@ -312,6 +327,7 @@ public class ExportCleanUpCommand {
 		if (fareData.getCarrierConstraints()!=null) {
 		for (CarrierConstraint object: fareData.getCarrierConstraints().getCarrierConstraints()) {
 			if (   !GtmUtils.isReferenced(object,fareData.getFareElements()) 
+				&& !GtmUtils.isReferenced(object,fareData.getRegionalConstraints())
 				&& !GtmUtils.isReferenced(object,fareData.getFareConstraintBundles())) {
 						Command com = DeleteCommand.create(domain, object);
 						command.appendIfCanExecute(com);
@@ -461,7 +477,21 @@ public class ExportCleanUpCommand {
 		
 		if (fareData.getServiceConstraints() !=null) {
 		for (ServiceConstraint object: fareData.getServiceConstraints().getServiceConstraints()) {
-				if (   !GtmUtils.isReferenced(object,fareData.getFareElements())) {
+				if (   !GtmUtils.isReferenced(object,fareData.getFareElements()) 
+					 && !GtmUtils.isReferenced(object,fareData.getRegionalConstraints()) 	
+					) {
+						Command com = DeleteCommand.create(domain, object);
+						command.appendIfCanExecute(com);
+				}
+			}
+		}	
+		
+		if (fareData.getLuggageConstraints() !=null) {
+		for (LuggageConstraint object: fareData.getLuggageConstraints().getConstraints()) {
+				if (   !GtmUtils.isReferenced(object,fareData.getFareElements())
+					 && !GtmUtils.isReferenced(object,fareData.getFareConstraintBundles())
+
+					) {
 						Command com = DeleteCommand.create(domain, object);
 						command.appendIfCanExecute(com);
 				}

@@ -73,6 +73,7 @@ public class FareConstraintBundleItemProvider
 			addTotalPassengerConstraintPropertyDescriptor(object);
 			addDefaultRegulatoryConditionsPropertyDescriptor(object);
 			addDataSourcePropertyDescriptor(object);
+			addLuggageConstraintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -337,6 +338,28 @@ public class FareConstraintBundleItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Luggage Constraint feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLuggageConstraintPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareConstraintBundle_luggageConstraint_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_luggageConstraint_feature", "_UI_FareConstraintBundle_type"),
+				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__LUGGAGE_CONSTRAINT,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

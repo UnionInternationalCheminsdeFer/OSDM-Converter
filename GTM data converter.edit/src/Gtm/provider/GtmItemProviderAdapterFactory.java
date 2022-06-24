@@ -2803,6 +2803,98 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.LuggageConstraints} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LuggageConstraintsItemProvider luggageConstraintsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.LuggageConstraints}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLuggageConstraintsAdapter() {
+		if (luggageConstraintsItemProvider == null) {
+			luggageConstraintsItemProvider = new LuggageConstraintsItemProvider(this);
+		}
+
+		return luggageConstraintsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.LuggageConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LuggageConstraintItemProvider luggageConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.LuggageConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLuggageConstraintAdapter() {
+		if (luggageConstraintItemProvider == null) {
+			luggageConstraintItemProvider = new LuggageConstraintItemProvider(this);
+		}
+
+		return luggageConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.LuggageItemsRestriction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LuggageItemsRestrictionItemProvider luggageItemsRestrictionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.LuggageItemsRestriction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLuggageItemsRestrictionAdapter() {
+		if (luggageItemsRestrictionItemProvider == null) {
+			luggageItemsRestrictionItemProvider = new LuggageItemsRestrictionItemProvider(this);
+		}
+
+		return luggageItemsRestrictionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.LuggageDimension} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LuggageDimensionItemProvider luggageDimensionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.LuggageDimension}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLuggageDimensionAdapter() {
+		if (luggageDimensionItemProvider == null) {
+			luggageDimensionItemProvider = new LuggageDimensionItemProvider(this);
+		}
+
+		return luggageDimensionItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.ConversionFromLegacy} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4058,6 +4150,10 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (reductionCardsItemProvider != null) reductionCardsItemProvider.dispose();
 		if (reductionCardItemProvider != null) reductionCardItemProvider.dispose();
 		if (requiredReductionCardItemProvider != null) requiredReductionCardItemProvider.dispose();
+		if (luggageConstraintsItemProvider != null) luggageConstraintsItemProvider.dispose();
+		if (luggageConstraintItemProvider != null) luggageConstraintItemProvider.dispose();
+		if (luggageItemsRestrictionItemProvider != null) luggageItemsRestrictionItemProvider.dispose();
+		if (luggageDimensionItemProvider != null) luggageDimensionItemProvider.dispose();
 		if (conversionFromLegacyItemProvider != null) conversionFromLegacyItemProvider.dispose();
 		if (conversionParamsItemProvider != null) conversionParamsItemProvider.dispose();
 		if (addCarrierRulesItemProvider != null) addCarrierRulesItemProvider.dispose();

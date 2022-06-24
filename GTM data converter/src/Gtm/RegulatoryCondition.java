@@ -46,7 +46,15 @@ public enum RegulatoryCondition implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EU_PRR(2, "EU_PRR", "EU_PRR");
+	EU_PRR(2, "EU_PRR", "EU_PRR"), /**
+	 * The '<em><b>RESPLUS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RESPLUS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	RESPLUS(3, "RESPLUS", "RESPLUS");
 
 	/**
 	 * The '<em><b>CIV</b></em>' literal value.
@@ -82,6 +90,17 @@ public enum RegulatoryCondition implements Enumerator {
 	public static final int EU_PRR_VALUE = 2;
 
 	/**
+	 * The '<em><b>RESPLUS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RESPLUS
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RESPLUS_VALUE = 3;
+
+	/**
 	 * An array of all the '<em><b>Regulatory Condition</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -92,6 +111,7 @@ public enum RegulatoryCondition implements Enumerator {
 			CIV,
 			MC,
 			EU_PRR,
+			RESPLUS,
 		};
 
 	/**
@@ -151,6 +171,7 @@ public enum RegulatoryCondition implements Enumerator {
 			case CIV_VALUE: return CIV;
 			case MC_VALUE: return MC;
 			case EU_PRR_VALUE: return EU_PRR;
+			case RESPLUS_VALUE: return RESPLUS;
 		}
 		return null;
 	}

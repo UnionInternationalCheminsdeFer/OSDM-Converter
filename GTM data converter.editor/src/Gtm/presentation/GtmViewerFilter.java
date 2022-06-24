@@ -15,6 +15,7 @@ import Gtm.FareStationSetDefinition;
 import Gtm.PassengerConstraint;
 import Gtm.ReductionCard;
 import Gtm.ReductionConstraint;
+import Gtm.RegionalConstraint;
 import Gtm.ServiceBrand;
 import Gtm.ServiceConstraint;
 import Gtm.Station;
@@ -112,6 +113,7 @@ public class GtmViewerFilter extends ViewerFilter {
 				eoo instanceof ServiceBrand || 
 				eoo instanceof ServiceConstraint ||
 				eoo instanceof ReductionConstraint || 
+				//eoo instanceof RegionalConstraint || performance issue
 				eoo instanceof ReductionCard ) {
 				if (isIncluded(pattern, eoo)) {
 					return true;

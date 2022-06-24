@@ -134,7 +134,7 @@ public class RouteDescriptionBuilder {
 		
 		if (regionalValidity.getServiceConstraint() != null && via.getServiceConstraint() == null) {
 			label.append(getText(regionalValidity.getServiceConstraint()));
-		} else if (via.getServiceConstraint() != null) {
+		} else if (via != null && via.getServiceConstraint() != null) {
 			label.append(getText(via.getServiceConstraint()));
 		}
 		

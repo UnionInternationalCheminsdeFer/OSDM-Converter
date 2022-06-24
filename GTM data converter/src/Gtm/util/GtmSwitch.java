@@ -778,6 +778,30 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.LUGGAGE_CONSTRAINTS: {
+				LuggageConstraints luggageConstraints = (LuggageConstraints)theEObject;
+				T result = caseLuggageConstraints(luggageConstraints);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.LUGGAGE_CONSTRAINT: {
+				LuggageConstraint luggageConstraint = (LuggageConstraint)theEObject;
+				T result = caseLuggageConstraint(luggageConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.LUGGAGE_ITEMS_RESTRICTION: {
+				LuggageItemsRestriction luggageItemsRestriction = (LuggageItemsRestriction)theEObject;
+				T result = caseLuggageItemsRestriction(luggageItemsRestriction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.LUGGAGE_DIMENSION: {
+				LuggageDimension luggageDimension = (LuggageDimension)theEObject;
+				T result = caseLuggageDimension(luggageDimension);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.CONVERSION_FROM_LEGACY: {
 				ConversionFromLegacy conversionFromLegacy = (ConversionFromLegacy)theEObject;
 				T result = caseConversionFromLegacy(conversionFromLegacy);
@@ -2813,6 +2837,66 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRequiredReductionCard(RequiredReductionCard object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Luggage Constraints</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Luggage Constraints</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLuggageConstraints(LuggageConstraints object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Luggage Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Luggage Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLuggageConstraint(LuggageConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Luggage Items Restriction</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Luggage Items Restriction</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLuggageItemsRestriction(LuggageItemsRestriction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Luggage Dimension</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Luggage Dimension</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLuggageDimension(LuggageDimension object) {
 		return null;
 	}
 

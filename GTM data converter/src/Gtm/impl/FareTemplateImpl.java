@@ -15,6 +15,7 @@ import Gtm.GtmPackage;
 import Gtm.LegacyAccountingIdentifier;
 import Gtm.LegacyConversionType;
 import Gtm.LegacySeriesType;
+import Gtm.LuggageConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.PersonalDataConstraint;
 import Gtm.Price;
@@ -84,6 +85,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.FareTemplateImpl#getSeriesFilter <em>Series Filter</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getBasePriceClass <em>Base Price Class</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getCarrierFilter <em>Carrier Filter</em>}</li>
+ *   <li>{@link Gtm.impl.FareTemplateImpl#getLuggageConstraint <em>Luggage Constraint</em>}</li>
  * </ul>
  *
  * @generated
@@ -507,6 +509,16 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * @ordered
 	 */
 	protected EList<Carrier> carrierFilter;
+
+	/**
+	 * The cached value of the '{@link #getLuggageConstraint() <em>Luggage Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLuggageConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected LuggageConstraint luggageConstraint;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1521,6 +1533,44 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LuggageConstraint getLuggageConstraint() {
+		if (luggageConstraint != null && luggageConstraint.eIsProxy()) {
+			InternalEObject oldLuggageConstraint = (InternalEObject)luggageConstraint;
+			luggageConstraint = (LuggageConstraint)eResolveProxy(oldLuggageConstraint);
+			if (luggageConstraint != oldLuggageConstraint) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.FARE_TEMPLATE__LUGGAGE_CONSTRAINT, oldLuggageConstraint, luggageConstraint));
+			}
+		}
+		return luggageConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LuggageConstraint basicGetLuggageConstraint() {
+		return luggageConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLuggageConstraint(LuggageConstraint newLuggageConstraint) {
+		LuggageConstraint oldLuggageConstraint = luggageConstraint;
+		luggageConstraint = newLuggageConstraint;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__LUGGAGE_CONSTRAINT, oldLuggageConstraint, luggageConstraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1622,6 +1672,9 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return getBasePriceClass();
 			case GtmPackage.FARE_TEMPLATE__CARRIER_FILTER:
 				return getCarrierFilter();
+			case GtmPackage.FARE_TEMPLATE__LUGGAGE_CONSTRAINT:
+				if (resolve) return getLuggageConstraint();
+				return basicGetLuggageConstraint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1735,6 +1788,9 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				getCarrierFilter().clear();
 				getCarrierFilter().addAll((Collection<? extends Carrier>)newValue);
 				return;
+			case GtmPackage.FARE_TEMPLATE__LUGGAGE_CONSTRAINT:
+				setLuggageConstraint((LuggageConstraint)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1843,6 +1899,9 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__CARRIER_FILTER:
 				getCarrierFilter().clear();
 				return;
+			case GtmPackage.FARE_TEMPLATE__LUGGAGE_CONSTRAINT:
+				setLuggageConstraint((LuggageConstraint)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1919,6 +1978,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return basePriceClass != BASE_PRICE_CLASS_EDEFAULT;
 			case GtmPackage.FARE_TEMPLATE__CARRIER_FILTER:
 				return carrierFilter != null && !carrierFilter.isEmpty();
+			case GtmPackage.FARE_TEMPLATE__LUGGAGE_CONSTRAINT:
+				return luggageConstraint != null;
 		}
 		return super.eIsSet(featureID);
 	}

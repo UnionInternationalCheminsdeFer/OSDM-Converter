@@ -83,6 +83,7 @@ import gtmV14.TravelValidityConstraintDef;
 import gtmV14.TripAllocationConstraintDef;
 import gtmV14.TripInterruptionConstraintDef;
 import gtmV14.ValidityRange.TimeUnitDef;
+import gtmV14.TrainValidity.Scope;
 import gtmV14.ViaStationsDef;
 import gtmV14.ZoneDef;
 import gtmV14.ZoneDefinitionDef;
@@ -574,7 +575,30 @@ public class GTMJsonImporterV14 {
 
 
 	private TrainValidity convert(gtmV14.TrainValidity trainValidity) {
-		// TODO Auto-generated method stub
+		
+		if (trainValidity == null) return null;
+		
+		TrainValidity tv = GtmFactory.eINSTANCE.createTrainValidity();
+		
+		tv.setCarrierConstraint(findCarrierConstraint(trainValidity.getCarrierConstraintRef()));
+		
+		tv.setSerrviceConstraint(findServiceConstraint(trainValidity.getServiceConstraintRef()));
+		
+		tv.setScope(convertScope(trainValidity.getScope()));
+
+		return tv;
+	}
+
+	private BoardingOrArrival convertScope(Scope scope) {
+		
+		if (scope == null) return null;
+		
+		if (scope.equals(Scope.ARRIVAL)) {
+			return BoardingOrArrival.ARRIVAL;
+		} else if (scope.equals(Scope.BOARDING)) {
+			return BoardingOrArrival.BOARDING;
+		}
+
 		return null;
 	}
 
@@ -1024,7 +1048,9 @@ public class GTMJsonImporterV14 {
 	private Zone convert(ZoneDef jz) {
 		if (jz == null) return null;
 		Zone z = GtmFactory.eINSTANCE.createZone();
-		z.setBinaryZoneId(jz.getBinaryZoneId().getBytes());
+		if (jz.getBinaryZoneId() != null){
+			z.setBinaryZoneId(jz.getBinaryZoneId().getBytes());
+		}
 		z.setCarrier(getCarrier(jz.getCarrier()));
 		z.setCity(jz.getCity());
 		if (jz.getEntryStation()!= null) {

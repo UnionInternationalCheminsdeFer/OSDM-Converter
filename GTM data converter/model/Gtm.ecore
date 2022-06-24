@@ -296,6 +296,8 @@
         eType="#//FareResourceLocations" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="zoneDefinitions" eType="#//ZoneDefinitions"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraints" eType="#//LuggageConstraints"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionPoints">
     <eOperations name="findSimpleConnectionPoint" eType="#//ConnectionPoint">
@@ -460,6 +462,7 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="involvedTcos" upperBound="-1"
         eType="#//Carrier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraint" eType="#//LuggageConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TotalPassengerCombinationConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="totalPassengerCombinationConstraint"
@@ -504,6 +507,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="convertedBundles" upperBound="-1"
         eType="#//FareConstraintBundle"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraint" eType="#//LuggageConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareStationSetDefinitions">
     <eOperations name="findFareSet" eType="#//FareStationSetDefinition">
@@ -755,7 +759,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="seqNb" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viaStation" eType="#//ViaStation"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="zone" eType="#//Zone"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="zone" eType="#//Zone" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="line" eType="#//Line" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="polygone" eType="#//Polygone"
         containment="true"/>
@@ -1126,6 +1130,42 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="card" eType="#//ReductionCard"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LuggageConstraints">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" upperBound="-1"
+        eType="#//LuggageConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LuggageConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxHandLuggage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxLargeLuggage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="restrictedItems" upperBound="-1"
+        eType="#//LuggageItemsRestriction" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rules" upperBound="-1"
+        eType="#//LuggageRule"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LuggageItemsRestriction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfItems" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dimension" upperBound="-1"
+        eType="#//LuggageDimension" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LuggageDimension">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimension" eType="#//Dimension"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LuggageRule">
+    <eLiterals name="NONE"/>
+    <eLiterals name="CAN_CARRY" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Dimension">
+    <eLiterals name="WEIGHT"/>
+    <eLiterals name="HEIGHT" value="1"/>
+    <eLiterals name="WIDTH" value="2"/>
+    <eLiterals name="LENGTH" value="3"/>
+    <eLiterals name="VOLUME" value="4"/>
+    <eLiterals name="WIDTH_HEIGHT" value="6"/>
+    <eLiterals name="WIDTH_LENGTH_HEIGHT" value="7"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConversionFromLegacy">
     <eStructuralFeatures xsi:type="ecore:EReference" name="legacy108" lowerBound="1"
         eType="#//Legacy108" containment="true" resolveProxies="false"/>
@@ -1255,6 +1295,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="basePriceClass" eType="#//BasePriceClassType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierFilter" upperBound="-1"
         eType="#//Carrier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraint" eType="#//LuggageConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesTemplate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transactionType" eType="#//AfterSalesTransactionType"/>
@@ -1577,6 +1618,7 @@
     <eLiterals name="CIV"/>
     <eLiterals name="MC" value="1"/>
     <eLiterals name="EU_PRR" value="2"/>
+    <eLiterals name="RESPLUS" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="AfterSalesTransactionType">
     <eLiterals name="REFUND" value="1"/>
@@ -1888,6 +1930,7 @@
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
     <eLiterals name="V_1_2" literal="1.2"/>
     <eLiterals name="V_1_4" value="3" literal="1.4"/>
+    <eLiterals name="V_1_5" value="4" literal="1.5"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
     <eLiterals name="HIGH_SPEED_TRAIN" value="8"/>
