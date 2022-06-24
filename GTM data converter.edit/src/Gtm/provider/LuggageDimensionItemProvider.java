@@ -4,6 +4,7 @@ package Gtm.provider;
 
 
 import Gtm.GtmPackage;
+import Gtm.LabelProvider;
 import Gtm.LuggageDimension;
 
 import java.util.Collection;
@@ -11,7 +12,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
@@ -131,7 +131,16 @@ public class LuggageDimensionItemProvider
 	@Override
 	public String getText(Object object) {
 		LuggageDimension luggageDimension = (LuggageDimension)object;
-		return getString("_UI_LuggageDimension_type") + " " + luggageDimension.getValue();
+		StringBuilder label = new StringBuilder();
+		label.append(getString("_UI_LuggageDimension_type"));
+		label.append(" ");
+		if (luggageDimension.getDimension() != null) {
+			label.append(LabelProvider.getEnumerationLabel(luggageDimension.getDimension()));
+			label.append(" ");
+		}
+		label.append(luggageDimension.getValue());
+		
+		return label.toString();
 	}
 
 

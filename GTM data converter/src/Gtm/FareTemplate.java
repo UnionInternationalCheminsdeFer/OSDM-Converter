@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareTemplate#getSeriesFilter <em>Series Filter</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getBasePriceClass <em>Base Price Class</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getCarrierFilter <em>Carrier Filter</em>}</li>
+ *   <li>{@link Gtm.FareTemplate#getLuggageConstraint <em>Luggage Constraint</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareTemplate()
@@ -760,6 +761,28 @@ public interface FareTemplate extends EObject {
 	 * @generated
 	 */
 	EList<Carrier> getCarrierFilter();
+
+	/**
+	 * Returns the value of the '<em><b>Luggage Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Luggage Constraint</em>' reference.
+	 * @see #setLuggageConstraint(LuggageConstraint)
+	 * @see Gtm.GtmPackage#getFareTemplate_LuggageConstraint()
+	 * @model
+	 * @generated
+	 */
+	LuggageConstraint getLuggageConstraint();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareTemplate#getLuggageConstraint <em>Luggage Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Luggage Constraint</em>' reference.
+	 * @see #getLuggageConstraint()
+	 * @generated
+	 */
+	void setLuggageConstraint(LuggageConstraint value);
 
 
 } // FareTemplate

@@ -377,7 +377,7 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//SchemaVersion">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_2"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_4"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_2_0"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_5"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ServiceMode">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ServiceMode/HIGH_SPEED_TRAIN"/>
@@ -1211,6 +1211,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LuggageConstraint/maxLargeLuggage"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//LuggageConstraint/restrictedItems"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LuggageConstraint/rules"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LuggageConstraint/dataDescription"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//LuggageItemsRestriction">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//LuggageItemsRestriction/numberOfItems"/>
@@ -1307,6 +1308,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//FareTemplate/basePriceClass"/>
       <genFeatures notify="false" createChild="false" propertyDescription="filter on carrier"
           propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/carrierFilter"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareTemplate/luggageConstraint"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AfterSalesTemplate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//AfterSalesTemplate/transactionType"/>

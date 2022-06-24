@@ -7090,6 +7090,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getLuggageConstraint_DataDescription() {
+		return (EAttribute)luggageConstraintEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLuggageItemsRestriction() {
 		return luggageItemsRestrictionEClass;
 	}
@@ -7758,6 +7767,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getFareTemplate_CarrierFilter() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(31);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFareTemplate_LuggageConstraint() {
+		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(32);
 	}
 
 	/**
@@ -10564,6 +10582,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(luggageConstraintEClass, LUGGAGE_CONSTRAINT__MAX_LARGE_LUGGAGE);
 		createEReference(luggageConstraintEClass, LUGGAGE_CONSTRAINT__RESTRICTED_ITEMS);
 		createEAttribute(luggageConstraintEClass, LUGGAGE_CONSTRAINT__RULES);
+		createEAttribute(luggageConstraintEClass, LUGGAGE_CONSTRAINT__DATA_DESCRIPTION);
 
 		luggageItemsRestrictionEClass = createEClass(LUGGAGE_ITEMS_RESTRICTION);
 		createEAttribute(luggageItemsRestrictionEClass, LUGGAGE_ITEMS_RESTRICTION__NUMBER_OF_ITEMS);
@@ -10651,6 +10670,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__SERIES_FILTER);
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__BASE_PRICE_CLASS);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__CARRIER_FILTER);
+		createEReference(fareTemplateEClass, FARE_TEMPLATE__LUGGAGE_CONSTRAINT);
 
 		afterSalesTemplateEClass = createEClass(AFTER_SALES_TEMPLATE);
 		createEAttribute(afterSalesTemplateEClass, AFTER_SALES_TEMPLATE__TRANSACTION_TYPE);
@@ -11676,6 +11696,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getLuggageConstraint_MaxLargeLuggage(), ecorePackage.getEInt(), "maxLargeLuggage", null, 0, 1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLuggageConstraint_RestrictedItems(), this.getLuggageItemsRestriction(), null, "restrictedItems", null, 0, -1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLuggageConstraint_Rules(), this.getLuggageRule(), "rules", null, 0, -1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLuggageConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, LuggageConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(luggageItemsRestrictionEClass, LuggageItemsRestriction.class, "LuggageItemsRestriction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLuggageItemsRestriction_NumberOfItems(), ecorePackage.getEInt(), "numberOfItems", null, 0, 1, LuggageItemsRestriction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11763,6 +11784,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareTemplate_SeriesFilter(), this.getLegacySeriesType(), "seriesFilter", null, 0, -1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareTemplate_BasePriceClass(), this.getBasePriceClassType(), "basePriceClass", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_CarrierFilter(), this.getCarrier(), null, "carrierFilter", null, 0, -1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareTemplate_LuggageConstraint(), this.getLuggageConstraint(), null, "luggageConstraint", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(afterSalesTemplateEClass, AfterSalesTemplate.class, "AfterSalesTemplate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAfterSalesTemplate_TransactionType(), this.getAfterSalesTransactionType(), "transactionType", null, 0, 1, AfterSalesTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -12350,7 +12372,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEEnum(schemaVersionEEnum, SchemaVersion.class, "SchemaVersion");
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V12);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V14);
-		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V20);
+		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V15);
 
 		initEEnum(serviceModeEEnum, ServiceMode.class, "ServiceMode");
 		addEEnumLiteral(serviceModeEEnum, ServiceMode.HIGH_SPEED_TRAIN);

@@ -1142,6 +1142,7 @@
         eType="#//LuggageItemsRestriction" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rules" upperBound="-1"
         eType="#//LuggageRule"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LuggageItemsRestriction">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfItems" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -1294,6 +1295,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="basePriceClass" eType="#//BasePriceClassType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierFilter" upperBound="-1"
         eType="#//Carrier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraint" eType="#//LuggageConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesTemplate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transactionType" eType="#//AfterSalesTransactionType"/>
@@ -1928,7 +1930,7 @@
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
     <eLiterals name="V_1_2" literal="1.2"/>
     <eLiterals name="V_1_4" value="3" literal="1.4"/>
-    <eLiterals name="V_2_0" value="4"/>
+    <eLiterals name="V_1_5" value="4" literal="1.5"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
     <eLiterals name="HIGH_SPEED_TRAIN" value="8"/>

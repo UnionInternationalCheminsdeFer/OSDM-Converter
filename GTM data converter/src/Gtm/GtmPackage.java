@@ -7633,13 +7633,22 @@ public interface GtmPackage extends EPackage {
 	int LUGGAGE_CONSTRAINT__RULES = 4;
 
 	/**
+	 * The feature id for the '<em><b>Data Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LUGGAGE_CONSTRAINT__DATA_DESCRIPTION = 5;
+
+	/**
 	 * The number of structural features of the '<em>Luggage Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LUGGAGE_CONSTRAINT_FEATURE_COUNT = 5;
+	int LUGGAGE_CONSTRAINT_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Luggage Constraint</em>' class.
@@ -8826,13 +8835,22 @@ public interface GtmPackage extends EPackage {
 	int FARE_TEMPLATE__CARRIER_FILTER = 31;
 
 	/**
+	 * The feature id for the '<em><b>Luggage Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FARE_TEMPLATE__LUGGAGE_CONSTRAINT = 32;
+
+	/**
 	 * The number of structural features of the '<em>Fare Template</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FARE_TEMPLATE_FEATURE_COUNT = 32;
+	int FARE_TEMPLATE_FEATURE_COUNT = 33;
 
 	/**
 	 * The number of operations of the '<em>Fare Template</em>' class.
@@ -17567,6 +17585,17 @@ public interface GtmPackage extends EPackage {
 	EAttribute getLuggageConstraint_Rules();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.LuggageConstraint#getDataDescription <em>Data Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Description</em>'.
+	 * @see Gtm.LuggageConstraint#getDataDescription()
+	 * @see #getLuggageConstraint()
+	 * @generated
+	 */
+	EAttribute getLuggageConstraint_DataDescription();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.LuggageItemsRestriction <em>Luggage Items Restriction</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18381,6 +18410,17 @@ public interface GtmPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFareTemplate_CarrierFilter();
+
+	/**
+	 * Returns the meta object for the reference '{@link Gtm.FareTemplate#getLuggageConstraint <em>Luggage Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Luggage Constraint</em>'.
+	 * @see Gtm.FareTemplate#getLuggageConstraint()
+	 * @see #getFareTemplate()
+	 * @generated
+	 */
+	EReference getFareTemplate_LuggageConstraint();
 
 	/**
 	 * Returns the meta object for class '{@link Gtm.AfterSalesTemplate <em>After Sales Template</em>}'.
@@ -25716,6 +25756,14 @@ public interface GtmPackage extends EPackage {
 		EAttribute LUGGAGE_CONSTRAINT__RULES = eINSTANCE.getLuggageConstraint_Rules();
 
 		/**
+		 * The meta object literal for the '<em><b>Data Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LUGGAGE_CONSTRAINT__DATA_DESCRIPTION = eINSTANCE.getLuggageConstraint_DataDescription();
+
+		/**
 		 * The meta object literal for the '{@link Gtm.impl.LuggageItemsRestrictionImpl <em>Luggage Items Restriction</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -26332,6 +26380,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FARE_TEMPLATE__CARRIER_FILTER = eINSTANCE.getFareTemplate_CarrierFilter();
+
+		/**
+		 * The meta object literal for the '<em><b>Luggage Constraint</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FARE_TEMPLATE__LUGGAGE_CONSTRAINT = eINSTANCE.getFareTemplate_LuggageConstraint();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.AfterSalesTemplateImpl <em>After Sales Template</em>}' class.

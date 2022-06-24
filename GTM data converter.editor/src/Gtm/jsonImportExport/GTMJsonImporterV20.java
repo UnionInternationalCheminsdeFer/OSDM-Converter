@@ -2546,8 +2546,8 @@ public class GTMJsonImporterV20 {
 		if (version.equals(SchemaVersion.V14.getLiteral()) || version.equals(SchemaVersion.V14.getName())) {
 			return SchemaVersion.V14;
 		}
-		if (version.equals(SchemaVersion.V20.getLiteral()) || version.equals(SchemaVersion.V20.getName())) {
-			return SchemaVersion.V20;
+		if (version.equals(SchemaVersion.V15.getLiteral()) || version.equals(SchemaVersion.V15.getName())) {
+			return SchemaVersion.V15;
 		}		
 		
 		

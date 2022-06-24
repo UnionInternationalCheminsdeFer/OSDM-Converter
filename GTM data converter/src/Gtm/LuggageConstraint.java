@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.LuggageConstraint#getMaxLargeLuggage <em>Max Large Luggage</em>}</li>
  *   <li>{@link Gtm.LuggageConstraint#getRestrictedItems <em>Restricted Items</em>}</li>
  *   <li>{@link Gtm.LuggageConstraint#getRules <em>Rules</em>}</li>
+ *   <li>{@link Gtm.LuggageConstraint#getDataDescription <em>Data Description</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getLuggageConstraint()
@@ -118,5 +119,27 @@ public interface LuggageConstraint extends EObject {
 	 * @generated
 	 */
 	EList<LuggageRule> getRules();
+
+	/**
+	 * Returns the value of the '<em><b>Data Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Description</em>' attribute.
+	 * @see #setDataDescription(String)
+	 * @see Gtm.GtmPackage#getLuggageConstraint_DataDescription()
+	 * @model
+	 * @generated
+	 */
+	String getDataDescription();
+
+	/**
+	 * Sets the value of the '{@link Gtm.LuggageConstraint#getDataDescription <em>Data Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Description</em>' attribute.
+	 * @see #getDataDescription()
+	 * @generated
+	 */
+	void setDataDescription(String value);
 
 } // LuggageConstraint

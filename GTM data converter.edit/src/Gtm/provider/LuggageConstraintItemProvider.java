@@ -68,6 +68,7 @@ public class LuggageConstraintItemProvider
 			addMaxHandLuggagePropertyDescriptor(object);
 			addMaxLargeLuggagePropertyDescriptor(object);
 			addRulesPropertyDescriptor(object);
+			addDataDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -161,6 +162,28 @@ public class LuggageConstraintItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Data Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LuggageConstraint_dataDescription_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LuggageConstraint_dataDescription_feature", "_UI_LuggageConstraint_type"),
+				 GtmPackage.Literals.LUGGAGE_CONSTRAINT__DATA_DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -209,10 +232,19 @@ public class LuggageConstraintItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((LuggageConstraint)object).getId();
-		return label == null || label.length() == 0 ?
-			getString("_UI_LuggageConstraint_type") :
-			getString("_UI_LuggageConstraint_type") + " " + label;
+		LuggageConstraint constraint = (LuggageConstraint)object;
+		StringBuilder label = new StringBuilder();
+		label.append(getString("_UI_LuggageConstraint_type"));
+		label.append(" ");
+		if (constraint.getDataDescription() != null && constraint.getDataDescription().length() > 0) {
+			label.append(constraint.getDataDescription());
+		} else {
+			label.append(constraint.getMaxHandLuggage());
+			label.append(" / ");
+			label.append(constraint.getMaxLargeLuggage());
+		}
+		
+		return label.toString();
 	}
 
 
@@ -232,6 +264,7 @@ public class LuggageConstraintItemProvider
 			case GtmPackage.LUGGAGE_CONSTRAINT__MAX_HAND_LUGGAGE:
 			case GtmPackage.LUGGAGE_CONSTRAINT__MAX_LARGE_LUGGAGE:
 			case GtmPackage.LUGGAGE_CONSTRAINT__RULES:
+			case GtmPackage.LUGGAGE_CONSTRAINT__DATA_DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.LUGGAGE_CONSTRAINT__RESTRICTED_ITEMS:

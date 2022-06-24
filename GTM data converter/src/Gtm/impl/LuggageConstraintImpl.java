@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.LuggageConstraintImpl#getMaxLargeLuggage <em>Max Large Luggage</em>}</li>
  *   <li>{@link Gtm.impl.LuggageConstraintImpl#getRestrictedItems <em>Restricted Items</em>}</li>
  *   <li>{@link Gtm.impl.LuggageConstraintImpl#getRules <em>Rules</em>}</li>
+ *   <li>{@link Gtm.impl.LuggageConstraintImpl#getDataDescription <em>Data Description</em>}</li>
  * </ul>
  *
  * @generated
@@ -120,6 +121,26 @@ public class LuggageConstraintImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected EList<LuggageRule> rules;
+
+	/**
+	 * The default value of the '{@link #getDataDescription() <em>Data Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DATA_DESCRIPTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDataDescription() <em>Data Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String dataDescription = DATA_DESCRIPTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -232,6 +253,27 @@ public class LuggageConstraintImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDataDescription() {
+		return dataDescription;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataDescription(String newDataDescription) {
+		String oldDataDescription = dataDescription;
+		dataDescription = newDataDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.LUGGAGE_CONSTRAINT__DATA_DESCRIPTION, oldDataDescription, dataDescription));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -259,6 +301,8 @@ public class LuggageConstraintImpl extends MinimalEObjectImpl.Container implemen
 				return getRestrictedItems();
 			case GtmPackage.LUGGAGE_CONSTRAINT__RULES:
 				return getRules();
+			case GtmPackage.LUGGAGE_CONSTRAINT__DATA_DESCRIPTION:
+				return getDataDescription();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -289,6 +333,9 @@ public class LuggageConstraintImpl extends MinimalEObjectImpl.Container implemen
 				getRules().clear();
 				getRules().addAll((Collection<? extends LuggageRule>)newValue);
 				return;
+			case GtmPackage.LUGGAGE_CONSTRAINT__DATA_DESCRIPTION:
+				setDataDescription((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -316,6 +363,9 @@ public class LuggageConstraintImpl extends MinimalEObjectImpl.Container implemen
 			case GtmPackage.LUGGAGE_CONSTRAINT__RULES:
 				getRules().clear();
 				return;
+			case GtmPackage.LUGGAGE_CONSTRAINT__DATA_DESCRIPTION:
+				setDataDescription(DATA_DESCRIPTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -338,6 +388,8 @@ public class LuggageConstraintImpl extends MinimalEObjectImpl.Container implemen
 				return restrictedItems != null && !restrictedItems.isEmpty();
 			case GtmPackage.LUGGAGE_CONSTRAINT__RULES:
 				return rules != null && !rules.isEmpty();
+			case GtmPackage.LUGGAGE_CONSTRAINT__DATA_DESCRIPTION:
+				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -360,6 +412,8 @@ public class LuggageConstraintImpl extends MinimalEObjectImpl.Container implemen
 		result.append(maxLargeLuggage);
 		result.append(", rules: ");
 		result.append(rules);
+		result.append(", dataDescription: ");
+		result.append(dataDescription);
 		result.append(')');
 		return result.toString();
 	}

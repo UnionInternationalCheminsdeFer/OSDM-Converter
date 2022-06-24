@@ -146,9 +146,9 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V14)){
 							faresV14 = jsonModelExporterV14.convertToJson(tool.getGeneralTariffModel(), monitor);						
 							GtmUtils.writeConsoleInfo("Export to OSDM version 1.4", editor);
-						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V20)){
+						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V15)){
 							faresV20 = jsonModelExporterV20.convertToJson(tool.getGeneralTariffModel(), monitor);						
-							GtmUtils.writeConsoleInfo("Export to OSDM version 2.0", editor);
+							GtmUtils.writeConsoleInfo("Export to OSDM version 1.5", editor);
 						}							
 						monitor.worked(1);	 	
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_8);

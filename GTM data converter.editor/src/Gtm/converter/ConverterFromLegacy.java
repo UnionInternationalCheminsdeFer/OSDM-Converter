@@ -2781,6 +2781,7 @@ public class ConverterFromLegacy {
 		fare.setText(fareTemplate.getText());
 		fare.setType(fareTemplate.getType());
 		fare.setLegacyConversion(fareTemplate.getLegacyConversion());
+		fare.setLuggageConstraint(fareTemplate.getLuggageConstraint());
 		
 		if (fareTemplate.getRegulatoryConditions() != null && !fareTemplate.getRegulatoryConditions().isEmpty()) {
 			fare.getRegulatoryConditions().addAll(fareTemplate.getRegulatoryConditions());
