@@ -1923,11 +1923,35 @@ public class 	ConverterToLegacy {
 		if (regionalValidity.getServiceConstraint() != null && regionalValidity.getServiceConstraint().getLegacy108Code() > 0) {
 			routeServiceConstraint = regionalValidity.getServiceConstraint();
 		}
+		
+		//exclude fares with more than one carrier
+		if (fare.getCarrierConstraint() != null &&
+			fare.getCarrierConstraint().getIncludedCarriers() != null  && 
+		    fare.getCarrierConstraint().getIncludedCarriers().size() > 1 ) {
+			
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not convertable - more than one carrier: " + route;
+			GtmUtils.writeConsoleError(message, editor);
+			return null;
+		}
 				
 		ViaStation mainVia = regionalValidity.getViaStation();
 		Carrier carrier = getMainCarrier(regionalConstraint.getRegionalValidity().get(0));
 		if (carrier != null) {
 			series.setCarrierCode(carrier.getCode());
+		} else {
+			//exclude fares with more than one carrier
+			if (fare.getCarrierConstraint() != null &&
+				fare.getCarrierConstraint().getIncludedCarriers() != null  && 
+			    fare.getCarrierConstraint().getIncludedCarriers().size() == 1 ) {	
+				series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());
+			}
+		}
+			
+		if (series.getCarrierCode() == null) {	
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not covertable - carrier not included: " + route;
+			GtmUtils.writeConsoleError(message, editor);
 		}
 
 		if (mainVia.getServiceConstraint() != null && mainVia.getServiceConstraint().getLegacy108Code() > 0) {
@@ -2037,16 +2061,6 @@ public class 	ConverterToLegacy {
 
 		series.setType(getType(regionalConstraint));
 		
-		//exclude fares with more than one carrier
-		if (fare.getCarrierConstraint() != null &&
-			fare.getCarrierConstraint().getIncludedCarriers() != null  && 
-		    fare.getCarrierConstraint().getIncludedCarriers().size() > 1 ) {
-			
-			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
-			String message = "Route not convertable - more than one carrier: " + route;
-			GtmUtils.writeConsoleError(message, editor);
-			return null;
-		}
 		
 		if (fare.getFareConstraintBundle() != null &&
 			fare.getFareConstraintBundle().getCarrierConstraint() != null &&	
@@ -2116,6 +2130,7 @@ public class 	ConverterToLegacy {
 		}
 		
 		if (regionalValidity.getViaStation() != null 
+			&& regionalValidity.getViaStation().getCarrierConstraint() != null
 			&& regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers() != null
 			&& !regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers().isEmpty()) {
 			return regionalValidity.getViaStation().getCarrierConstraint().getIncludedCarriers().get(0);
