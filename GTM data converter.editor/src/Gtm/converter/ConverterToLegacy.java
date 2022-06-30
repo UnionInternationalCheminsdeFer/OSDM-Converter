@@ -2511,12 +2511,16 @@ public class 	ConverterToLegacy {
 		
 		ArrayList<FareElement> fares = new ArrayList<FareElement>();
 		
+		NonConvertableFaresCounter.reset();
+		
 		for (FareElement fare :  tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {		
 
 			try {
+				
 				if (isConvertable(fare)) {
-					fares.add(fare);
+						fares.add(fare);
 				}
+				
 			} catch (Exception e) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("Unknown error! Fare not converted: fareId - ").append(fare.getId()).append('\n');
@@ -2524,6 +2528,8 @@ public class 	ConverterToLegacy {
 				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
 		}
+		
+		NonConvertableFaresCounter.createConsoleEntry(editor);
 		
 		return fares;
 	}
@@ -2540,12 +2546,14 @@ public class 	ConverterToLegacy {
 		//service classes B and D are converted
 		
 		if (!fare.getType().equals(FareType.NRT)) {
+			NonConvertableFaresCounter.addNotConvertable();
 			return false;
 		}
 		
 		if (fare.getServiceClass() == null) {
 			String message = "Service class is missing! " + GtmUtils.getLabelText(fare) + " will not be converted";
-			GtmUtils.writeConsoleError(message, editor);						
+			GtmUtils.writeConsoleError(message, editor);	
+			NonConvertableFaresCounter.addClassNotConvertable();
 			return false;
 		}
 		
@@ -2555,8 +2563,14 @@ public class 	ConverterToLegacy {
 			GtmUtils.writeConsoleWarning(message, editor);		
 		}
 		
-		if (fare.getServiceClass().getId() == ClassId.A) return false;
-		if (fare.getServiceClass().getId() == ClassId.C) return false;
+		if (fare.getServiceClass().getId() == ClassId.A) {
+			NonConvertableFaresCounter.addClassNotConvertable();
+			return false;
+		}
+		if (fare.getServiceClass().getId() == ClassId.C) {
+			NonConvertableFaresCounter.addClassNotConvertable();
+			return false;
+		}
 		
 		
 		//classic classes not matching
@@ -2570,35 +2584,59 @@ public class 	ConverterToLegacy {
 		
 		
 		//fare excluded from conversion
-		if (fare.getLegacyConversion() == LegacyConversionType.NO) return false;
+		if (fare.getLegacyConversion() == LegacyConversionType.NO) {
+			NonConvertableFaresCounter.addNotConvertable();
+			return false;
+		}
 		
 		//only ADULT
 		if (fare.getPassengerConstraint() == null) {
 			String message = "Passenger constraint missing in: " + GtmUtils.getLabelText(fare) + " will not be converted";
-			GtmUtils.writeConsoleError(message, editor);			
+			GtmUtils.writeConsoleError(message, editor);	
+			NonConvertableFaresCounter.addNonAdult();
 			return false;
 		}
 		
 		if (fare.getPassengerConstraint().getTravelerType() != TravelerType.ADULT)  {
+			NonConvertableFaresCounter.addNonAdult();
 			return false;
 		}
 	
 		//only FULL_FLEX combination
-		if (!isFullFlexCombi(fare))  return false;
+		if (!isFullFlexCombi(fare)) {
+			NonConvertableFaresCounter.addNonFullFlex();
+			return false;
+		}
 		
 		//no reductions
-		if (fare.getReductionConstraint() != null)  return false;
+		if (fare.getReductionConstraint() != null) {
+			NonConvertableFaresCounter.addWithReduction();
+			return false;
+		}
 		
 		//must have one sales availability 
 		if (fare.getFareConstraintBundle() == null ||
-			fare.getFareConstraintBundle().getSalesAvailability() == null) return false;
-		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions() == null) return false;
-		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().isEmpty()) return false;
-		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().size() == 0) return false;
+			fare.getFareConstraintBundle().getSalesAvailability() == null) {
+			NonConvertableFaresCounter.addOtherReason();
+			return false;
+		}
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions() == null) {
+			NonConvertableFaresCounter.addOtherReason();
+			return false;
+		}
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().isEmpty()) {
+			NonConvertableFaresCounter.addOtherReason();
+			return false;
+		}
+		if (fare.getFareConstraintBundle().getSalesAvailability().getRestrictions().size() == 0) {
+			NonConvertableFaresCounter.addOtherReason();
+			return false;
+		}
 		
 
 		//must be convertible in legacy series
 		if (!hasSimpleRegionalValidity(fare)) {
+			NonConvertableFaresCounter.addRouteTooComplex();
 			return false;
 		}		
 		
@@ -2607,21 +2645,25 @@ public class 	ConverterToLegacy {
 			fare.getRegionalConstraint().getRegionalValidity()== null || 
 			fare.getRegionalConstraint().getRegionalValidity().isEmpty() || 
 			fare.getRegionalConstraint().getRegionalValidity().get(0).getViaStation() == null) {
+			NonConvertableFaresCounter.addOtherReason();
 			return false;
 		}
 		//use one direction only
 		if (isReversedSeries(fare.getRegionalConstraint())) {
+			NonConvertableFaresCounter.addReturnDirection();
 			return false;
 		}
 		
 		//regional service constraints can convert
 		if (!serviceConstraintConvertable(fare.getRegionalConstraint())) {
+			NonConvertableFaresCounter.addOtherReason();
 			return false;
 		}
 
 		//series can convert
 		LegacySeries s = convertToSeries(fare);
 		if (s == null) {
+			NonConvertableFaresCounter.addOtherReason();
 			return false; 
 		}
 
