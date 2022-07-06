@@ -165,6 +165,8 @@ public class 	ConverterToLegacy {
 		
 		ConversionCleaner.resetBorderPointCodes(domain, tool);
 		
+		NonConvertableFaresCounter.reset();
+		
 		Carrier carrier = tool.getGeneralTariffModel().getDelivery().getProvider();
 		if (carrier == null) {
 			String message = "No Carrier/Provider contained in the OSDM Delivery Data - Conversion aborted!";
@@ -195,6 +197,7 @@ public class 	ConverterToLegacy {
 		monitor.worked(1);
 		
 		if (convertableFares == null || convertableFares.isEmpty()) {
+			NonConvertableFaresCounter.createConsoleEntry(editor);
 			monitor.done();
 			return 0;
 		}
@@ -339,6 +342,8 @@ public class 	ConverterToLegacy {
 		}
 		
 		monitor.worked(1);		
+		
+		NonConvertableFaresCounter.createConsoleEntry(editor);
 			
 		return series.size();
 	}
@@ -2511,8 +2516,6 @@ public class 	ConverterToLegacy {
 		
 		ArrayList<FareElement> fares = new ArrayList<FareElement>();
 		
-		NonConvertableFaresCounter.reset();
-		
 		for (FareElement fare :  tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {		
 
 			try {
@@ -2528,9 +2531,7 @@ public class 	ConverterToLegacy {
 				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
 		}
-		
-		NonConvertableFaresCounter.createConsoleEntry(editor);
-		
+			
 		return fares;
 	}
 	
