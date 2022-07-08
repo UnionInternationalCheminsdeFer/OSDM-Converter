@@ -807,11 +807,11 @@ public class GtmJsonExporterV20 {
 		textJ.setText(text.getTextICAO());
 		textJ.setTextUtf8(text.getTextUTF8());
 		if ( (textJ.getText() == null || textJ.getText().length() == 0) &&
-			 (textJ.getTextUtf8() != null || textJ.getTextUtf8().length() > 0))	{		
+			 (textJ.getTextUtf8() != null && textJ.getTextUtf8().length() > 0))	{		
 			textJ.setText(GtmUtils.utf2ascii(textJ.getTextUtf8()));
 		}
 		if ( (textJ.getTextUtf8() == null || textJ.getTextUtf8().length() == 0) &&
-			 (textJ.getText() != null || textJ.getText().length() > 0))	{		
+			 (textJ.getText() != null && textJ.getText().length() > 0))	{		
 			textJ.setTextUtf8(textJ.getText());
 		}
 		
@@ -844,11 +844,11 @@ public class GtmJsonExporterV20 {
 				transJ.setTextUtf8(trans.getTextUTF8());	
 				
 				if ( (transJ.getText() == null || transJ.getText().length() == 0) &&
-					 (transJ.getTextUtf8() != null || transJ.getTextUtf8().length() > 0))	{
+					 (transJ.getTextUtf8() != null && transJ.getTextUtf8().length() > 0))	{
 					transJ.setText(GtmUtils.utf2ascii(transJ.getTextUtf8()));
 				}
 				if ( (transJ.getTextUtf8() == null || transJ.getTextUtf8().length() == 0) &&
-					 (transJ.getText() != null || transJ.getText().length() > 0))	{
+					 (transJ.getText() != null && transJ.getText().length() > 0))	{
 					transJ.setTextUtf8(transJ.getText());
 				}
 				

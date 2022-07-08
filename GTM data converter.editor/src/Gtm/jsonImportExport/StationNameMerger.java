@@ -10,9 +10,9 @@ import Gtm.Station;
 import Gtm.presentation.GtmEditor;
 import Gtm.util.StringFormatValidator;
 import Gtm.utils.GtmUtils;
-import gtmV14.StationNamesDef;
+import gtmV20.StationNamesDef;
 
-public class StationNameMergerV14 {
+public class StationNameMerger {
 	
 	public static CompoundCommand createMergeStationNamesCommand(EditingDomain domain, StationNamesDef lStation, Station station, GtmEditor editor) {
 		
