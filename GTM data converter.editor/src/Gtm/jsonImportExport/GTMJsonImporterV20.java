@@ -392,7 +392,7 @@ public class GTMJsonImporterV20 {
 			Station s = null;
 			if (jn.getCode() != null && jn.getCode().length() > 0) {
 				s = getStation(jn.getCode());
-			} else {
+			} else if (jn.getCountry() != null && jn.getLocalCode() != null ) {
 				//support old OSDM versions
 				s = stations.get(Long.valueOf(jn.getCountry() * 100000 + jn.getLocalCode()));
 			}

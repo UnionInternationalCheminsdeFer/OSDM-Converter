@@ -26,18 +26,18 @@ import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.SchemaVersion;
 import Gtm.Station;
-import Gtm.jsonImportExport.GTMJsonImporterV14;
-import Gtm.jsonImportExport.StationNameMergerV14;
+import Gtm.jsonImportExport.GTMJsonImporterV20;
+import Gtm.jsonImportExport.StationNameMerger;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
 import Gtm.utils.MigrationV2;
 import Gtm.utils.ModelInitializer;
-import export.ImportFareDeliveryV14;
-import gtmV14.FareDef;
-import gtmV14.FareDelivery;
-import gtmV14.StationNamesDef;
+import export.ImportFareDeliveryV20;
+import gtmV20.FareDef;
+import gtmV20.FareDelivery;
+import gtmV20.StationNamesDef;
 
 
 public class ImportGTMJsonAction extends BasicGtmAction {
@@ -172,7 +172,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 			File file = getFile();
 			if (file == null) return;
 			
-			GTMJsonImporterV14 importer = new GTMJsonImporterV14(tool, domain, editor);
+			GTMJsonImporterV20 importer = new GTMJsonImporterV20(tool, domain, editor);
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
@@ -194,7 +194,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_6);
 						FareDelivery fareDelivery;
 						try {
-							fareDelivery = ImportFareDeliveryV14.importFareDelivery(file);
+							fareDelivery = ImportFareDeliveryV20.importFareDelivery(file);
 						} catch (IOException e) {
 							GtmUtils.displayAsyncErrorMessage(e,"file error");
 							monitor.done();
@@ -341,7 +341,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 				} catch (Exception e) {
 					//
 				}
-				if (code == 0) {
+				if (code == 0 && lStation.getCountry() != null && lStation.getLocalCode() != null) {
 					//compatibility to version 1.2
 					code = lStation.getCountry() * 100000 + lStation.getLocalCode();
 				}
@@ -372,7 +372,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 					
 					}
 					
-					CompoundCommand com = StationNameMergerV14.createMergeStationNamesCommand(domain,lStation,station, editor);
+					CompoundCommand com = StationNameMerger.createMergeStationNamesCommand(domain,lStation,station, editor);
 					if (!com.isEmpty() && com.canExecute()) {
 						command.append(com);					
 					}
