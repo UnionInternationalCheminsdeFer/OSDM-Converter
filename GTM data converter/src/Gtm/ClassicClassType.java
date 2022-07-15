@@ -36,7 +36,15 @@ public enum ClassicClassType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SECOND(2, "SECOND", "SECOND");
+	SECOND(2, "SECOND", "SECOND"), /**
+	 * The '<em><b>ANY CLASS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ANY_CLASS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ANY_CLASS(0, "ANY_CLASS", "ANY_CLASS");
 
 	/**
 	 * The '<em><b>FIRST</b></em>' literal value.
@@ -61,6 +69,17 @@ public enum ClassicClassType implements Enumerator {
 	public static final int SECOND_VALUE = 2;
 
 	/**
+	 * The '<em><b>ANY CLASS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ANY_CLASS
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ANY_CLASS_VALUE = 0;
+
+	/**
 	 * An array of all the '<em><b>Classic Class Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -70,6 +89,7 @@ public enum ClassicClassType implements Enumerator {
 		new ClassicClassType[] {
 			FIRST,
 			SECOND,
+			ANY_CLASS,
 		};
 
 	/**
@@ -128,6 +148,7 @@ public enum ClassicClassType implements Enumerator {
 		switch (value) {
 			case FIRST_VALUE: return FIRST;
 			case SECOND_VALUE: return SECOND;
+			case ANY_CLASS_VALUE: return ANY_CLASS;
 		}
 		return null;
 	}

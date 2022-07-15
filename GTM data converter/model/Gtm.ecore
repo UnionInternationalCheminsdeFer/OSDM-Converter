@@ -1639,12 +1639,14 @@
   <eClassifiers xsi:type="ecore:EEnum" name="ClassicClassType">
     <eLiterals name="FIRST" value="1"/>
     <eLiterals name="SECOND" value="2"/>
+    <eLiterals name="ANY_CLASS"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ClassId">
     <eLiterals name="A" value="1"/>
     <eLiterals name="B" value="2"/>
     <eLiterals name="C" value="3"/>
     <eLiterals name="D" value="4"/>
+    <eLiterals name="ANY_CLASS"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CharacterSet">
     <eLiterals name="COUNTRY_DEFAULT"/>

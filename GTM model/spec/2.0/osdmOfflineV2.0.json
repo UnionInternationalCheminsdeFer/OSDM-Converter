@@ -1278,7 +1278,8 @@
         "BEST",
         "HIGH",
         "STANDARD",
-        "BASIC"
+        "BASIC",
+        "ANY_CLASS"
       ]
     },
     "ServiceLevelDef": {
@@ -2048,7 +2049,8 @@
           "$ref": "#/definitions/RegulatoryConditionsDef"
         },
         "serviceClassRef": {
-          "type": "string"
+          "type": "string",
+          "default": "ANY_CLASS"
         },
         "serviceLevelRef": {
           "type": "string"

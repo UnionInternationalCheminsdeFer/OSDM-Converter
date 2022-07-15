@@ -12081,12 +12081,14 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEEnum(classicClassTypeEEnum, ClassicClassType.class, "ClassicClassType");
 		addEEnumLiteral(classicClassTypeEEnum, ClassicClassType.FIRST);
 		addEEnumLiteral(classicClassTypeEEnum, ClassicClassType.SECOND);
+		addEEnumLiteral(classicClassTypeEEnum, ClassicClassType.ANY_CLASS);
 
 		initEEnum(classIdEEnum, ClassId.class, "ClassId");
 		addEEnumLiteral(classIdEEnum, ClassId.A);
 		addEEnumLiteral(classIdEEnum, ClassId.B);
 		addEEnumLiteral(classIdEEnum, ClassId.C);
 		addEEnumLiteral(classIdEEnum, ClassId.D);
+		addEEnumLiteral(classIdEEnum, ClassId.ANY_CLASS);
 
 		initEEnum(characterSetEEnum, CharacterSet.class, "CharacterSet");
 		addEEnumLiteral(characterSetEEnum, CharacterSet.COUNTRY_DEFAULT);

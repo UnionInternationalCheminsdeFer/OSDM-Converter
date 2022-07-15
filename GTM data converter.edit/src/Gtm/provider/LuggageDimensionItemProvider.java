@@ -4,7 +4,6 @@ package Gtm.provider;
 
 
 import Gtm.GtmPackage;
-import Gtm.LabelProvider;
 import Gtm.LuggageDimension;
 
 import java.util.Collection;
@@ -131,16 +130,7 @@ public class LuggageDimensionItemProvider
 	@Override
 	public String getText(Object object) {
 		LuggageDimension luggageDimension = (LuggageDimension)object;
-		StringBuilder label = new StringBuilder();
-		label.append(getString("_UI_LuggageDimension_type"));
-		label.append(" ");
-		if (luggageDimension.getDimension() != null) {
-			label.append(LabelProvider.getEnumerationLabel(luggageDimension.getDimension()));
-			label.append(" ");
-		}
-		label.append(luggageDimension.getValue());
-		
-		return label.toString();
+		return getString("_UI_LuggageDimension_type") + " " + luggageDimension.getValue();
 	}
 
 

@@ -86,12 +86,14 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ClassicClassType">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassicClassType/FIRST"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassicClassType/SECOND"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassicClassType/ANY_CLASS"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ClassId">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassId/A"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassId/B"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassId/C"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassId/D"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ClassId/ANY_CLASS"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//CharacterSet">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/COUNTRY_DEFAULT"/>

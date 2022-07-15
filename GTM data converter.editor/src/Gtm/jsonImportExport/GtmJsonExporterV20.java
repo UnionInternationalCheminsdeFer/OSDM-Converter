@@ -999,6 +999,8 @@ public class GtmJsonExporterV20 {
 				return ServiceClassIdDef.STANDARD;
 			} if (id.equals(ClassId.D)) {
 				return ServiceClassIdDef.BASIC;
+			} else {
+				return ServiceClassIdDef.ANY_CLASS;
 			}
 		}
 		return null;
@@ -1016,13 +1018,20 @@ public class GtmJsonExporterV20 {
 			scJ.setTextRef(sc.getText().getId());
 		}
 		if (sc.getClassicClass()!= null) {
-			scJ.setComfortClass(ComfortClassDef.fromValue(sc.getClassicClass().getName().toUpperCase()));
+			scJ.setComfortClass(convertComdortClass(sc.getClassicClass()));
 		}
 		return scJ;
 	}
 
-
-
+	private static ComfortClassDef convertComdortClass(ClassicClassType classicClass) {
+		if (classicClass == ClassicClassType.FIRST) {
+			return ComfortClassDef.FIRST;
+		} else if (classicClass == ClassicClassType.SECOND) {
+			return ComfortClassDef.SECOND;
+		} else {
+			return ComfortClassDef.ANY_CLASS;
+		} 
+	}
 
 	private static List<ReservationParameterDef> convertReservationParameters(ReservationParameters list) {
 		if (list == null) return null;

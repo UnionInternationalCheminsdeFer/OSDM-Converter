@@ -5,8 +5,6 @@ package Gtm.provider;
 
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
-import Gtm.LabelProvider;
-import Gtm.LuggageDimension;
 import Gtm.LuggageItemsRestriction;
 
 import java.util.Collection;
@@ -143,23 +141,7 @@ public class LuggageItemsRestrictionItemProvider
 	@Override
 	public String getText(Object object) {
 		LuggageItemsRestriction luggageItemsRestriction = (LuggageItemsRestriction)object;
-		StringBuilder label = new StringBuilder();
-		label.append( getString("_UI_LuggageItemsRestriction_type"));
-		label.append(" max. ");
-		label.append(luggageItemsRestriction.getNumberOfItems());
-		label.append(" items ");
-		if (luggageItemsRestriction.getDimension() != null && !luggageItemsRestriction.getDimension().isEmpty()) {
-			boolean first = true;
-			for (LuggageDimension dim : luggageItemsRestriction.getDimension()) {
-				if (!first) {
-					label.append(" / ");
-					first = false;
-				}
-				label.append(LabelProvider.getLabelText(dim));
-			}
-		}
-		
-		return label.toString();
+		return getString("_UI_LuggageItemsRestriction_type") + " " + luggageItemsRestriction.getNumberOfItems();
 	}
 
 
