@@ -9,6 +9,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
+import Gtm.PropertyAdapter;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditorPlugin;
 
@@ -71,7 +72,17 @@ public class PreferencePage
 							NationalLanguageSupport.PreferencePage_folder_size,
 							getFieldEditorParent()));
         
+        addField(
+					new BooleanFieldEditor(
+						PreferenceConstants.P_SUPRESS_STATION_LABEL,
+						NationalLanguageSupport.Preference_supress_station_label,
+						getFieldEditorParent()));
         
+        addField(
+					new BooleanFieldEditor(
+						PreferenceConstants.P_SUPRESS_COUNTRY_LABEL,
+						NationalLanguageSupport.Preference_supress_country_label,
+						getFieldEditorParent()));
     	
 	};
 
@@ -84,6 +95,8 @@ public class PreferencePage
 		// second parameter is typically the plug-in id
 	    setPreferenceStore(new ScopedPreferenceStore(InstanceScope.INSTANCE, "GTM_data_converter.editor")); //$NON-NLS-1$
 	    setDescription(NationalLanguageSupport.PreferencePage_4);
+	    //provide access to the edit module
+	    PropertyAdapter.getInstance().setStore(GtmEditorPlugin.getPreferenceStore());
 
 	}
 }
