@@ -179,7 +179,7 @@ public class CountryItemProvider
 	public String getText(Object object) {
 		StringBuilder sb = new StringBuilder();
 		if (!PropertyAdapter.getInstance().isSupressCountryLabel()) {
-			sb.append(getString("_UI_Country_type")).append(" ");
+			sb.append(getString("_UI_Country_type")).append(": ");
 		}
 		if (((Country)object).getName() != null) {
 			sb.append(((Country)object).getName());
