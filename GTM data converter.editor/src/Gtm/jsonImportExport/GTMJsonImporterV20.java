@@ -72,6 +72,7 @@ import gtmV20.ReservationParameterDef;
 import gtmV20.ReturnConstraint;
 import gtmV20.SalesAvailabilityConstraintDef;
 import gtmV20.ServiceClassDefinitionDef;
+import gtmV20.ServiceClassDefinitionDef.ComfortClassDef;
 import gtmV20.ServiceClassDefinitionDef.ServiceClassIdDef;
 import gtmV20.ServiceConstraintDef;
 import gtmV20.ServiceLevelDef;
@@ -869,10 +870,10 @@ public class GTMJsonImporterV20 {
 			return ClassId.C;
 		} else if (id.equals(ServiceClassIdDef.BASIC)) {
 			return ClassId.D;
-		} 
-		
-		return  null;
-		
+		} else {
+			return ClassId.ANY_CLASS;
+		}
+				
 	}
 
 	private ServiceClass convert(ServiceClassDefinitionDef js) {
@@ -882,10 +883,23 @@ public class GTMJsonImporterV20 {
 		s.setId(convertServiceClassId(js.getId()));
 		
 		s.setText(findText(js.getTextRef()));
-		if (js.getComfortClass() != null) {
-			s.setClassicClass(ClassicClassType.getByName(js.getComfortClass().name()));
-		}
+		
+		s.setClassicClass(convertClassicClass(js.getComfortClass()));
+		
 		return s;
+	}
+
+
+	private ClassicClassType convertClassicClass(ComfortClassDef comfortClass) {
+		
+		if (comfortClass == ComfortClassDef.FIRST) {
+			return ClassicClassType.FIRST;
+		} else if (comfortClass == ComfortClassDef.SECOND) {
+			return ClassicClassType.SECOND;
+		}else {
+			return ClassicClassType.ANY_CLASS;
+		}
+
 	}
 
 

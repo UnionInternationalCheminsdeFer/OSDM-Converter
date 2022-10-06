@@ -145,7 +145,8 @@ public class ServiceClassDefinitionDef {
     public enum ComfortClassDef {
 
         FIRST("FIRST"),
-        SECOND("SECOND");
+        SECOND("SECOND"),
+    	ANY_CLASS("ANY_CLASS");
         private final String value;
         private final static Map<String, ServiceClassDefinitionDef.ComfortClassDef> CONSTANTS = new HashMap<String, ServiceClassDefinitionDef.ComfortClassDef>();
 
@@ -186,7 +187,8 @@ public class ServiceClassDefinitionDef {
         BEST("BEST"),
         HIGH("HIGH"),
         STANDARD("STANDARD"),
-        BASIC("BASIC");
+        BASIC("BASIC"),
+    	ANY_CLASS("ANY_CLASS");
         private final String value;
         private final static Map<String, ServiceClassDefinitionDef.ServiceClassIdDef> CONSTANTS = new HashMap<String, ServiceClassDefinitionDef.ServiceClassIdDef>();
 

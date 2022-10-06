@@ -232,19 +232,10 @@ public class LuggageConstraintItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		LuggageConstraint constraint = (LuggageConstraint)object;
-		StringBuilder label = new StringBuilder();
-		label.append(getString("_UI_LuggageConstraint_type"));
-		label.append(" ");
-		if (constraint.getDataDescription() != null && constraint.getDataDescription().length() > 0) {
-			label.append(constraint.getDataDescription());
-		} else {
-			label.append(constraint.getMaxHandLuggage());
-			label.append(" / ");
-			label.append(constraint.getMaxLargeLuggage());
-		}
-		
-		return label.toString();
+		String label = ((LuggageConstraint)object).getId();
+		return label == null || label.length() == 0 ?
+			getString("_UI_LuggageConstraint_type") :
+			getString("_UI_LuggageConstraint_type") + " " + label;
 	}
 
 

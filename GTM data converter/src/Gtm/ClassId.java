@@ -56,7 +56,15 @@ public enum ClassId implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	D(4, "D", "D");
+	D(4, "D", "D"), /**
+	 * The '<em><b>ANY CLASS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ANY_CLASS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ANY_CLASS(0, "ANY_CLASS", "ANY_CLASS");
 
 	/**
 	 * The '<em><b>A</b></em>' literal value.
@@ -103,6 +111,17 @@ public enum ClassId implements Enumerator {
 	public static final int D_VALUE = 4;
 
 	/**
+	 * The '<em><b>ANY CLASS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ANY_CLASS
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ANY_CLASS_VALUE = 0;
+
+	/**
 	 * An array of all the '<em><b>Class Id</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -114,6 +133,7 @@ public enum ClassId implements Enumerator {
 			B,
 			C,
 			D,
+			ANY_CLASS,
 		};
 
 	/**
@@ -174,6 +194,7 @@ public enum ClassId implements Enumerator {
 			case B_VALUE: return B;
 			case C_VALUE: return C;
 			case D_VALUE: return D;
+			case ANY_CLASS_VALUE: return ANY_CLASS;
 		}
 		return null;
 	}
