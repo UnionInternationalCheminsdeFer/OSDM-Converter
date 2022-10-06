@@ -837,6 +837,11 @@ public class 	ConverterToLegacy {
 				addLimitedText(sbge,sbText,"de",30);				
 			}
 		}
+		
+		if (sbl.length() == 0) {
+			sbl.append(" ");
+		}
+		
 		desc.setDescriptionLocal(sbl.toString());
 		desc.setDescriptionFr(sbfr.toString());	
 		desc.setDescriptionGe(sbge.toString());	
