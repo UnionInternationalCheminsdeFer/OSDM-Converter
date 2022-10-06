@@ -66,7 +66,6 @@ public class ConversionParamsItemProvider
 
 			addCountryPropertyDescriptor(object);
 			addStationImportFilterPropertyDescriptor(object);
-			addConvertFareDescriptionsPropertyDescriptor(object);
 			addConvertServiceConstraintsPropertyDescriptor(object);
 			addLegacyBorderIndicationPropertyDescriptor(object);
 			addRemoveUnusedLegacyStationsPropertyDescriptor(object);
@@ -114,28 +113,6 @@ public class ConversionParamsItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Convert Fare Descriptions feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addConvertFareDescriptionsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ConversionParams_convertFareDescriptions_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConversionParams_convertFareDescriptions_feature", "_UI_ConversionParams_type"),
-				 GtmPackage.Literals.CONVERSION_PARAMS__CONVERT_FARE_DESCRIPTIONS,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}

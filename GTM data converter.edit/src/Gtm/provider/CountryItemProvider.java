@@ -5,6 +5,7 @@ package Gtm.provider;
 
 import Gtm.Country;
 import Gtm.GtmPackage;
+import Gtm.PropertyAdapter;
 
 import java.util.Collection;
 import java.util.List;
@@ -172,14 +173,18 @@ public class CountryItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Country)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Country_type") :
-			getString("_UI_Country_type") + " " + label;
+		StringBuilder sb = new StringBuilder();
+		if (!PropertyAdapter.getInstance().isSupressCountryLabel()) {
+			sb.append(getString("_UI_Country_type")).append(" ");
+		}
+		if (((Country)object).getName() != null) {
+			sb.append(((Country)object).getName());
+		}
+		return sb.toString();
 	}
 
 

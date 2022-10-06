@@ -5,6 +5,7 @@ package Gtm.provider;
 
 import Gtm.GtmFactory;
 import Gtm.GtmPackage;
+import Gtm.PropertyAdapter;
 import Gtm.Station;
 
 import java.util.Collection;
@@ -418,7 +419,9 @@ public class StationItemProvider
 		
 		Station station = (Station) object;
 		StringBuilder sb = new StringBuilder();
-		sb.append("Station: ");
+		if (!PropertyAdapter.getInstance().isSupressStationLabel()) {
+			sb.append("Station: ");
+		}
 		if (station.getNameCaseUTF8() != null) {
 			sb.append(station.getNameCaseUTF8()).append(" - ");
 		} else {

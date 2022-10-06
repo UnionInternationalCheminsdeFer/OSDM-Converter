@@ -7,8 +7,6 @@ public class NationalLanguageSupport extends NLS{
 
     private static final String BUNDLE_NAME = "plugin"; //$NON-NLS-1$
 
-
-
 	public static String GtmJsonExporter_6a;
 	public static String GtmJsonExporter_6b;
 
@@ -372,6 +370,9 @@ public class NationalLanguageSupport extends NLS{
 	public static String ConvertGtmMigartionV2;
 	public static String ConvertGtmMigartionV2_prepareBundles;
 	public static String ConvertGtmMigartionV2_addBundles;
+
+	public static String Preference_supress_station_label;
+	public static String Preference_supress_country_label;
 
 
 	

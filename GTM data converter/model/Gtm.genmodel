@@ -1241,7 +1241,7 @@
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/endOfSale"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/StartOfSale"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/stationImportFilter"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/convertFareDescriptions"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/convertFareDescriptions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/convertServiceConstraints"/>
       <genFeatures property="None" children="true" createChild="true" propertySortChoices="true"
           ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/vatTemplates"/>
