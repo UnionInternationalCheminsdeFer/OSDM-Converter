@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareConstraintBundle#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getConvertedBundles <em>Converted Bundles</em>}</li>
  *   <li>{@link Gtm.FareConstraintBundle#getLuggageConstraint <em>Luggage Constraint</em>}</li>
+ *   <li>{@link Gtm.FareConstraintBundle#getProducts <em>Products</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareConstraintBundle()
@@ -331,5 +332,17 @@ public interface FareConstraintBundle extends EObject {
 	 * @generated
 	 */
 	void setLuggageConstraint(LuggageConstraint value);
+
+	/**
+	 * Returns the value of the '<em><b>Products</b></em>' reference list.
+	 * The list contents are of type {@link Gtm.Product}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Products</em>' reference list.
+	 * @see Gtm.GtmPackage#getFareConstraintBundle_Products()
+	 * @model
+	 * @generated
+	 */
+	EList<Product> getProducts();
 
 } // FareConstraintBundle

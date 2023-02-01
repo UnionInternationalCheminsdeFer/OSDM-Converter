@@ -318,6 +318,12 @@ public class GtmValidator extends EObjectValidator {
 				return validateCrossBorderCondition((CrossBorderCondition)value, diagnostics, context);
 			case GtmPackage.FARE_COMBINATION_MODEL:
 				return validateFareCombinationModel((FareCombinationModel)value, diagnostics, context);
+			case GtmPackage.PRODUCTS:
+				return validateProducts((Products)value, diagnostics, context);
+			case GtmPackage.PRODUCT:
+				return validateProduct((Product)value, diagnostics, context);
+			case GtmPackage.CONDITION_TEXT:
+				return validateConditionText((ConditionText)value, diagnostics, context);
 			case GtmPackage.REDUCTION_CONSTRAINTS:
 				return validateReductionConstraints((ReductionConstraints)value, diagnostics, context);
 			case GtmPackage.REDUCTION_CONSTRAINT:
@@ -426,6 +432,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyViastation((LegacyViastation)value, diagnostics, context);
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return validateBoardingOrArrival((BoardingOrArrival)value, diagnostics, context);
+			case GtmPackage.CONDITION_TYPE:
+				return validateConditionType((ConditionType)value, diagnostics, context);
 			case GtmPackage.LUGGAGE_RULE:
 				return validateLuggageRule((LuggageRule)value, diagnostics, context);
 			case GtmPackage.DIMENSION:
@@ -2874,6 +2882,15 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBoardingOrArrival(BoardingOrArrival boardingOrArrival, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateConditionType(ConditionType conditionType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -6816,6 +6833,33 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateProducts(Products products, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(products, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateProduct(Product product, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(product, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateConditionText(ConditionText conditionText, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(conditionText, diagnostics, context);
 	}
 
 	/**

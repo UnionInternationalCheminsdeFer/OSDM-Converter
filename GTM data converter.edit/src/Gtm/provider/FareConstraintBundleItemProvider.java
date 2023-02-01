@@ -74,6 +74,7 @@ public class FareConstraintBundleItemProvider
 			addDefaultRegulatoryConditionsPropertyDescriptor(object);
 			addDataSourcePropertyDescriptor(object);
 			addLuggageConstraintPropertyDescriptor(object);
+			addProductsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -356,6 +357,28 @@ public class FareConstraintBundleItemProvider
 				 getString("_UI_FareConstraintBundle_luggageConstraint_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_luggageConstraint_feature", "_UI_FareConstraintBundle_type"),
 				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__LUGGAGE_CONSTRAINT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Products feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addProductsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareConstraintBundle_products_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareConstraintBundle_products_feature", "_UI_FareConstraintBundle_type"),
+				 GtmPackage.Literals.FARE_CONSTRAINT_BUNDLE__PRODUCTS,
 				 true,
 				 false,
 				 true,

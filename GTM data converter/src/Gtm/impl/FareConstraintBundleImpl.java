@@ -11,6 +11,7 @@ import Gtm.FulfillmentConstraint;
 import Gtm.GtmPackage;
 import Gtm.LuggageConstraint;
 import Gtm.PersonalDataConstraint;
+import Gtm.Product;
 import Gtm.RegulatoryCondition;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.TotalPassengerCombinationConstraint;
@@ -50,6 +51,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getConvertedBundles <em>Converted Bundles</em>}</li>
  *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getLuggageConstraint <em>Luggage Constraint</em>}</li>
+ *   <li>{@link Gtm.impl.FareConstraintBundleImpl#getProducts <em>Products</em>}</li>
  * </ul>
  *
  * @generated
@@ -234,6 +236,16 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * @ordered
 	 */
 	protected LuggageConstraint luggageConstraint;
+
+	/**
+	 * The cached value of the '{@link #getProducts() <em>Products</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProducts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Product> products;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -671,6 +683,18 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Product> getProducts() {
+		if (products == null) {
+			products = new EObjectResolvingEList<Product>(Product.class, this, GtmPackage.FARE_CONSTRAINT_BUNDLE__PRODUCTS);
+		}
+		return products;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -710,6 +734,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__LUGGAGE_CONSTRAINT:
 				if (resolve) return getLuggageConstraint();
 				return basicGetLuggageConstraint();
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__PRODUCTS:
+				return getProducts();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -767,6 +793,10 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__LUGGAGE_CONSTRAINT:
 				setLuggageConstraint((LuggageConstraint)newValue);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__PRODUCTS:
+				getProducts().clear();
+				getProducts().addAll((Collection<? extends Product>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -821,6 +851,9 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__LUGGAGE_CONSTRAINT:
 				setLuggageConstraint((LuggageConstraint)null);
 				return;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__PRODUCTS:
+				getProducts().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -861,6 +894,8 @@ public class FareConstraintBundleImpl extends MinimalEObjectImpl.Container imple
 				return convertedBundles != null && !convertedBundles.isEmpty();
 			case GtmPackage.FARE_CONSTRAINT_BUNDLE__LUGGAGE_CONSTRAINT:
 				return luggageConstraint != null;
+			case GtmPackage.FARE_CONSTRAINT_BUNDLE__PRODUCTS:
+				return products != null && !products.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

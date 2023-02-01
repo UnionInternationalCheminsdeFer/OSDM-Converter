@@ -133,9 +133,9 @@ public class RouteDescriptionBuilder {
 		ViaStation via = regionalValidity.getViaStation();
 		
 		if (regionalValidity.getServiceConstraint() != null && via.getServiceConstraint() == null) {
-			label.append(getText(regionalValidity.getServiceConstraint()));
+			label.append(getText(regionalValidity.getServiceConstraint())).append(" ");
 		} else if (via != null && via.getServiceConstraint() != null) {
-			label.append(getText(via.getServiceConstraint()));
+			label.append(getText(via.getServiceConstraint())).append(" ");
 		}
 		
 
@@ -182,7 +182,7 @@ public class RouteDescriptionBuilder {
 		
 		StringBuilder label = new StringBuilder();
 		
-		if (via.getServiceConstraint() != null) {
+		if (via.getServiceConstraint() != null && via.getRoute() == null) {
 			label.append(getText(via.getServiceConstraint()));
 		}
 		
@@ -200,7 +200,7 @@ public class RouteDescriptionBuilder {
 		}
 		
 		if (via.getRoute()!= null && via.getRoute().getStations() != null && !via.getRoute().getStations().isEmpty() ) {
-			label.append(getRouteDescription(via.getRoute()));
+			label.append(getRouteDescription(via.getRoute(),via.getServiceConstraint()));
 			return label.toString();
 		}
 			
@@ -246,15 +246,22 @@ public class RouteDescriptionBuilder {
 	 * Gets the route description.
 	 *
 	 * @param route the route
+	 * @param serviceConstraint 
 	 * @return the route description
 	 */
-	public static String getRouteDescription(Route route) {
+	public static String getRouteDescription(Route route, ServiceConstraint serviceConstraint) {
 		
 		if (route.getStations()==null || route.getStations().isEmpty()) return "";
 		
 		StringBuilder  routeLable = new StringBuilder(); //$NON-NLS-1$
+		
+		int index = 0;
 			
 		for (ViaStation via2 :  route.getStations()) {
+			if (index == 1 && serviceConstraint != null) {
+				routeLable.append("*").append(getText(serviceConstraint));
+			}
+			index++;			
 			if (routeLable.length() == 0 || routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
 				routeLable.append(getRouteDescription(via2));
 			} else {

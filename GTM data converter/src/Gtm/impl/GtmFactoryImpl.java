@@ -171,6 +171,9 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.ZONE_DEFINITION: return createZoneDefinition();
 			case GtmPackage.CROSS_BORDER_CONDITION: return createCrossBorderCondition();
 			case GtmPackage.FARE_COMBINATION_MODEL: return createFareCombinationModel();
+			case GtmPackage.PRODUCTS: return createProducts();
+			case GtmPackage.PRODUCT: return createProduct();
+			case GtmPackage.CONDITION_TEXT: return createConditionText();
 			case GtmPackage.REDUCTION_CONSTRAINTS: return createReductionConstraints();
 			case GtmPackage.REDUCTION_CONSTRAINT: return createReductionConstraint();
 			case GtmPackage.REDUCTION_CARDS: return createReductionCards();
@@ -239,6 +242,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 		switch (eDataType.getClassifierID()) {
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return createBoardingOrArrivalFromString(eDataType, initialValue);
+			case GtmPackage.CONDITION_TYPE:
+				return createConditionTypeFromString(eDataType, initialValue);
 			case GtmPackage.LUGGAGE_RULE:
 				return createLuggageRuleFromString(eDataType, initialValue);
 			case GtmPackage.DIMENSION:
@@ -366,6 +371,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 		switch (eDataType.getClassifierID()) {
 			case GtmPackage.BOARDING_OR_ARRIVAL:
 				return convertBoardingOrArrivalToString(eDataType, instanceValue);
+			case GtmPackage.CONDITION_TYPE:
+				return convertConditionTypeToString(eDataType, instanceValue);
 			case GtmPackage.LUGGAGE_RULE:
 				return convertLuggageRuleToString(eDataType, instanceValue);
 			case GtmPackage.DIMENSION:
@@ -1648,6 +1655,36 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Products createProducts() {
+		ProductsImpl products = new ProductsImpl();
+		return products;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Product createProduct() {
+		ProductImpl product = new ProductImpl();
+		return product;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConditionText createConditionText() {
+		ConditionTextImpl conditionText = new ConditionTextImpl();
+		return conditionText;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ReductionConstraint createReductionConstraint() {
 		ReductionConstraintImpl reductionConstraint = new ReductionConstraintImpl();
 		return reductionConstraint;
@@ -2150,6 +2187,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * @generated
 	 */
 	public String convertBoardingOrArrivalToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConditionType createConditionTypeFromString(EDataType eDataType, String initialValue) {
+		ConditionType result = ConditionType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertConditionTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

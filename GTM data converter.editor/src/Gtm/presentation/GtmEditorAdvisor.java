@@ -160,12 +160,12 @@ public final class GtmEditorAdvisor extends WorkbenchAdvisor {
 			layout.addPerspectiveShortcut(ID_PERSPECTIVE);
 
 			IFolderLayout right = layout.createFolder("right", IPageLayout.RIGHT, (float)0.66, layout.getEditorArea());
-			right.addView(IPageLayout.ID_OUTLINE);
+			//right.addView(IPageLayout.ID_OUTLINE);
 			right.addView(IPageLayout.ID_PROP_SHEET);
 			
 			
 			IFolderLayout bottomRight = layout.createFolder("bottonRight", IPageLayout.BOTTOM, (float)0.60, "right");
-			bottomRight.addView(IPageLayout.ID_PROP_SHEET);
+			//bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 			
 			bottomRight.addView(GtmProblemView.ID);
 			layout.addShowViewShortcut(GtmProblemView.ID);

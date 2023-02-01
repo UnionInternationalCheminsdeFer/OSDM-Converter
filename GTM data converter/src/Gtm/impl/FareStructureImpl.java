@@ -18,6 +18,7 @@ import Gtm.LuggageConstraints;
 import Gtm.PassengerConstraints;
 import Gtm.PersonalDataConstraints;
 import Gtm.Prices;
+import Gtm.Products;
 import Gtm.ReductionCards;
 import Gtm.ReductionConstraints;
 import Gtm.RegionalConstraints;
@@ -76,6 +77,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.FareStructureImpl#getFareResourceLocations <em>Fare Resource Locations</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getZoneDefinitions <em>Zone Definitions</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getLuggageConstraints <em>Luggage Constraints</em>}</li>
+ *   <li>{@link Gtm.impl.FareStructureImpl#getProducts <em>Products</em>}</li>
  * </ul>
  *
  * @generated
@@ -360,6 +362,16 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 	 * @ordered
 	 */
 	protected LuggageConstraints luggageConstraints;
+
+	/**
+	 * The cached value of the '{@link #getProducts() <em>Products</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProducts()
+	 * @generated
+	 * @ordered
+	 */
+	protected Products products;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1546,6 +1558,49 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Products getProducts() {
+		return products;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetProducts(Products newProducts, NotificationChain msgs) {
+		Products oldProducts = products;
+		products = newProducts;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__PRODUCTS, oldProducts, newProducts);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setProducts(Products newProducts) {
+		if (newProducts != products) {
+			NotificationChain msgs = null;
+			if (products != null)
+				msgs = ((InternalEObject)products).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_STRUCTURE__PRODUCTS, null, msgs);
+			if (newProducts != null)
+				msgs = ((InternalEObject)newProducts).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_STRUCTURE__PRODUCTS, null, msgs);
+			msgs = basicSetProducts(newProducts, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__PRODUCTS, newProducts, newProducts));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConnectionPoints getConnectionPoints() {
 		return connectionPoints;
 	}
@@ -1648,6 +1703,8 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return basicSetZoneDefinitions(null, msgs);
 			case GtmPackage.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS:
 				return basicSetLuggageConstraints(null, msgs);
+			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
+				return basicSetProducts(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1716,6 +1773,8 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return getZoneDefinitions();
 			case GtmPackage.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS:
 				return getLuggageConstraints();
+			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
+				return getProducts();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1813,6 +1872,9 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 			case GtmPackage.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS:
 				setLuggageConstraints((LuggageConstraints)newValue);
 				return;
+			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
+				setProducts((Products)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1909,6 +1971,9 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 			case GtmPackage.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS:
 				setLuggageConstraints((LuggageConstraints)null);
 				return;
+			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
+				setProducts((Products)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1977,6 +2042,8 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return zoneDefinitions != null;
 			case GtmPackage.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS:
 				return luggageConstraints != null;
+			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
+				return products != null;
 		}
 		return super.eIsSet(featureID);
 	}

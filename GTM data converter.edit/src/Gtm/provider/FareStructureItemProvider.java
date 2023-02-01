@@ -105,6 +105,7 @@ public class FareStructureItemProvider
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__FARE_RESOURCE_LOCATIONS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__ZONE_DEFINITIONS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS);
+			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__PRODUCTS);
 		}
 		return childrenFeatures;
 	}
@@ -185,6 +186,7 @@ public class FareStructureItemProvider
 			case GtmPackage.FARE_STRUCTURE__FARE_RESOURCE_LOCATIONS:
 			case GtmPackage.FARE_STRUCTURE__ZONE_DEFINITIONS:
 			case GtmPackage.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS:
+			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -341,6 +343,11 @@ public class FareStructureItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS,
 				 GtmFactory.eINSTANCE.createLuggageConstraints()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.FARE_STRUCTURE__PRODUCTS,
+				 GtmFactory.eINSTANCE.createProducts()));
 	}
 
 	/**

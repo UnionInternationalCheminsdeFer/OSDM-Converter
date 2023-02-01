@@ -42,7 +42,15 @@ public enum SchemaVersion implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	V15(4, "V_1_5", "1.5");
+	V15(4, "V_1_5", "1.5"), /**
+	 * The '<em><b>V30</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #V30_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	V30(5, "V_3_0", "3.0");
 
 	/**
 	 * The '<em><b>V12</b></em>' literal value.
@@ -78,6 +86,17 @@ public enum SchemaVersion implements Enumerator {
 	public static final int V15_VALUE = 4;
 
 	/**
+	 * The '<em><b>V30</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #V30
+	 * @model name="V_3_0" literal="3.0"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int V30_VALUE = 5;
+
+	/**
 	 * An array of all the '<em><b>Schema Version</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -88,6 +107,7 @@ public enum SchemaVersion implements Enumerator {
 			V12,
 			V14,
 			V15,
+			V30,
 		};
 
 	/**
@@ -147,6 +167,7 @@ public enum SchemaVersion implements Enumerator {
 			case V12_VALUE: return V12;
 			case V14_VALUE: return V14;
 			case V15_VALUE: return V15;
+			case V30_VALUE: return V30;
 		}
 		return null;
 	}

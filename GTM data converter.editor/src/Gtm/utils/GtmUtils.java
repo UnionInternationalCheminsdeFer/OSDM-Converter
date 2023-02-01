@@ -990,6 +990,7 @@ public class GtmUtils {
 		
 		//issuer must be there
 		if (cardIssuer ==  null || cardIssuer.getCode() == null || cardIssuer.getCode().length() < 1) {
+			GtmUtils.writeConsoleError("Card issuer is missing in card with id: " + id, null);
 			return null;
 		}
 		

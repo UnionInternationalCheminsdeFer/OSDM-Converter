@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareStructure#getFareResourceLocations <em>Fare Resource Locations</em>}</li>
  *   <li>{@link Gtm.FareStructure#getZoneDefinitions <em>Zone Definitions</em>}</li>
  *   <li>{@link Gtm.FareStructure#getLuggageConstraints <em>Luggage Constraints</em>}</li>
+ *   <li>{@link Gtm.FareStructure#getProducts <em>Products</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareStructure()
@@ -663,5 +664,27 @@ public interface FareStructure extends EObject {
 	 * @generated
 	 */
 	void setLuggageConstraints(LuggageConstraints value);
+
+	/**
+	 * Returns the value of the '<em><b>Products</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Products</em>' containment reference.
+	 * @see #setProducts(Products)
+	 * @see Gtm.GtmPackage#getFareStructure_Products()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Products getProducts();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareStructure#getProducts <em>Products</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Products</em>' containment reference.
+	 * @see #getProducts()
+	 * @generated
+	 */
+	void setProducts(Products value);
 
 } // FareStructure

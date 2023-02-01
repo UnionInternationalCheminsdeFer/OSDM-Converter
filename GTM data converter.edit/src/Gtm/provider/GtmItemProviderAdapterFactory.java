@@ -2757,6 +2757,75 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.Products} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProductsItemProvider productsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.Products}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProductsAdapter() {
+		if (productsItemProvider == null) {
+			productsItemProvider = new ProductsItemProvider(this);
+		}
+
+		return productsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.Product} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProductItemProvider productItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.Product}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createProductAdapter() {
+		if (productItemProvider == null) {
+			productItemProvider = new ProductItemProvider(this);
+		}
+
+		return productItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.ConditionText} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ConditionTextItemProvider conditionTextItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.ConditionText}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createConditionTextAdapter() {
+		if (conditionTextItemProvider == null) {
+			conditionTextItemProvider = new ConditionTextItemProvider(this);
+		}
+
+		return conditionTextItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.ReductionConstraint} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4145,6 +4214,9 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (zoneDefinitionItemProvider != null) zoneDefinitionItemProvider.dispose();
 		if (crossBorderConditionItemProvider != null) crossBorderConditionItemProvider.dispose();
 		if (fareCombinationModelItemProvider != null) fareCombinationModelItemProvider.dispose();
+		if (productsItemProvider != null) productsItemProvider.dispose();
+		if (productItemProvider != null) productItemProvider.dispose();
+		if (conditionTextItemProvider != null) conditionTextItemProvider.dispose();
 		if (reductionConstraintsItemProvider != null) reductionConstraintsItemProvider.dispose();
 		if (reductionConstraintItemProvider != null) reductionConstraintItemProvider.dispose();
 		if (reductionCardsItemProvider != null) reductionCardsItemProvider.dispose();

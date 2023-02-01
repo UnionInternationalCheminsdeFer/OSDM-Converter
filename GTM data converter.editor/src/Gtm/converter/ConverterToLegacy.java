@@ -2018,8 +2018,7 @@ public class 	ConverterToLegacy {
 		
 		Route mainRoute = mainVia.getRoute();
 		int altRoute = 1;
-		boolean excludeStartEnd = true;
-		boolean success = addViaStations (series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint, excludeStartEnd);
+		boolean success = addMiddleViaStations(series.getViastations(), mainRoute.getStations(), altRoute, routeServiceConstraint);
 		if (!success) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Could not convert route: ").append(routeDescription);
@@ -2297,6 +2296,31 @@ public class 	ConverterToLegacy {
 		}
 		return null;
 	}
+	
+	/**
+	 * Adds the via stations.
+	 *
+	 * @param legacyViaStations the viastations
+	 * @param vias the vias
+	 * @param altRoute the alt route
+	 * @param routeServiceConstraint 
+	 * @return true, if successful
+	 */
+	private boolean addMiddleViaStations(EList<LegacyViastation> legacyViaStations, EList<ViaStation> vias, int altRoute, ServiceConstraint routeServiceConstraint) {
+		
+		boolean result = addViaStations(legacyViaStations, vias, altRoute, routeServiceConstraint, false);
+		
+		//remove first and last via
+		if (!legacyViaStations.isEmpty()) {
+			legacyViaStations.remove(0);
+			if (!legacyViaStations.isEmpty()) {
+				int endIndex = legacyViaStations.size() - 1;
+				legacyViaStations.remove(endIndex);
+			}
+		}
+		
+		return result;
+	}
 
 	/**
 	 * Adds the via stations.
@@ -2410,7 +2434,11 @@ public class 	ConverterToLegacy {
 	 */
 	private Legacy108Station getFirstLegacyStation(ViaStation viaStation, ConnectionPoint connectionPoint) {
 		ViaStation via = viaStation.getRoute().getStations().get(0);
-		return getLegacyStation(via, connectionPoint);		
+		if (via.getRoute() != null) {
+			return getFirstLegacyStation(via, connectionPoint);		
+		} else {
+			return getLegacyStation(via, connectionPoint);		
+		}
 	}
 
 	
@@ -2424,7 +2452,11 @@ public class 	ConverterToLegacy {
 	 */
 	private Legacy108Station getLastLegacyStation(ViaStation viaStation, ConnectionPoint connectionPoint) {
 		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
-		return getLegacyStation(via, connectionPoint);
+		if (via.getRoute() != null) {
+		  return getLastLegacyStation(via, connectionPoint);
+		} else {
+		  return getLegacyStation(via, connectionPoint);
+		}
 	}
 	
 	

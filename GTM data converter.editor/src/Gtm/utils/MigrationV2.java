@@ -550,7 +550,7 @@ public class MigrationV2 {
 			
 				String id = GtmUtils.standardizeId(card.getCardIssuer(), card.getId());
 
-				if (!id.equals(card.getId())) {
+				if (id != null && !id.equals(card.getId())) {
 					com.append(SetCommand.create(editor.getEditingDomain(), card, GtmPackage.Literals.REDUCTION_CARD__ID, id));
 				}
 			}	
