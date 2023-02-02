@@ -1983,35 +1983,60 @@ public class 	ConverterToLegacy {
 		}
 		
 		//from station
-		Legacy108Station ls = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
-		if (ls == null) {
+		Legacy108Station legacyFirstStation = getFirstLegacyStation(mainVia,regionalConstraint.getEntryConnectionPoint());
+		if (legacyFirstStation == null) {
 			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
 			String message = "Route not covertable - departure not found: " + route;
 			GtmUtils.writeConsoleError(message, editor);
 			return null;
 		}
-		if (ls.getName() == null) {
+		if (legacyFirstStation.getName() == null) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Station Name missing for: ");
-			sb.append(ls.getStationCode());
-			if (ls.getBorderPointCode() > 0) {
+			sb.append(legacyFirstStation.getStationCode());
+			if (legacyFirstStation.getBorderPointCode() > 0) {
 				sb.append(" border point: ");
-				sb.append(ls.getBorderPointCode());
+				sb.append(legacyFirstStation.getBorderPointCode());
 			}
 			GtmUtils.writeConsoleError(sb.toString(), editor);	
 			return null;
 		}
-		series.setFromStation(ls.getStationCode());
-		ViaStation via = mainVia.getRoute().getStations().get(0);
-		if (via.getFareStationSet() != null) {
-			series.setFromStationName(via.getFareStationSet().getName());
+		series.setFromStation(legacyFirstStation.getStationCode());
+		if (legacyFirstStation.getFareReferenceStationCode() > 0 && legacyFirstStation.getFareReferenceStationCode() == legacyFirstStation.getStationCode()) {
+			series.setFromStationName(legacyFirstStation.getShortName());
 		} else {	
-			series.setFromStationName(ls.getName());	
+			series.setFromStationName(legacyFirstStation.getName());	
 		}
 		
-		if (series.getFromStation() == 0) {
+		//to station
+		Legacy108Station legacyLastStation = getLastLegacyStation(mainVia,regionalConstraint.getExitConnectionPoint());
+		if (legacyLastStation == null) {
 			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
-			String message = "Route not convertable - departure code 0: " + route;
+			String message = "Route not covertable - arrival not found: " + route;
+			GtmUtils.writeConsoleError(message, editor);
+			return null;
+		}
+		if (legacyLastStation.getName() == null) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Station Name missing for: ");
+			sb.append(legacyLastStation.getStationCode());
+			if (legacyLastStation.getBorderPointCode() > 0) {
+				sb.append(" border point: ");
+				sb.append(legacyLastStation.getBorderPointCode());
+			}
+			GtmUtils.writeConsoleError(sb.toString(), editor);	
+			return null;
+		}
+		series.setToStation(legacyLastStation.getStationCode());
+		if (legacyLastStation.getFareReferenceStationCode() > 0 && legacyLastStation.getFareReferenceStationCode() == legacyFirstStation.getStationCode()) {
+			series.setToStationName(legacyLastStation.getShortName());
+		} else {	
+			series.setToStationName(legacyLastStation.getName());	
+		}
+		
+		if (series.getToStation() == 0) {
+			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
+			String message = "Route not convertable - arrival code 0: " + route;
 			GtmUtils.writeConsoleError(message, editor);
 			return null;
 		}
@@ -2035,38 +2060,6 @@ public class 	ConverterToLegacy {
 		
 		series.setSupplyingCarrierCode(tool.getGeneralTariffModel().getDelivery().getProvider().getCode());
 		
-		Legacy108Station lls = getLastLegacyStation(mainVia,regionalConstraint.getExitConnectionPoint());
-		if (lls == null) {
-			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
-			String message = "Route not convertable - arrival not found: " + route;
-			GtmUtils.writeConsoleError(message, editor);	
-			return null;
-		}
-		series.setToStation(lls.getStationCode());
-		if (lls.getName() == null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Station Name missing for: ");
-			sb.append(lls.getStationCode());
-			if (lls.getBorderPointCode() > 0) {
-				sb.append(" border point: ");
-				sb.append(lls.getBorderPointCode());
-			}
-			GtmUtils.writeConsoleError(sb.toString(), editor);	
-			return null;
-		}
-		ViaStation last = mainVia.getRoute().getStations().get(mainVia.getRoute().getStations().size() - 1);
-		if (last.getFareStationSet() != null) {
-			series.setToStationName(last.getFareStationSet().getName());
-		} else {			
-			series.setToStationName(lls.getName());	
-		}
-				
-		if (series.getToStation() == 0) {
-			String route = RouteDescriptionBuilder.getRouteDescription(regionalConstraint.getRegionalValidity());
-			String message = "Route not convertable - arrival code 0: " + route;
-			GtmUtils.writeConsoleError(message, editor);
-			return null;
-		}
 
 		series.setType(getType(regionalConstraint));
 		
@@ -2342,9 +2335,20 @@ public class 	ConverterToLegacy {
 		}
 		
 		for (int index = startIndex;index < endIndex; index++) {
+		
+			if (index == 1 && routeServiceConstraint != null) {
+				if (routeServiceConstraint.getLegacy108Code() > 0) {
+					LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
+					lvia.setPosition(altRoute);
+					lvia.setCode(routeServiceConstraint.getLegacy108Code());
+					viastations.add(lvia);
+				} else {
+					GtmUtils.writeConsoleWarning("Service constraint for route ignored - no legacy code provided: " + routeServiceConstraint.getDescription(), editor);
+				}
+			}
 			
 			ViaStation station = vias.get(index);
-			if (station.getServiceConstraint() != null) {
+			if (station.getServiceConstraint() != null && station.getRoute() == null) {
 				if(station.getServiceConstraint().getLegacy108Code() > 0) {
 					LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
 					lvia.setPosition(altRoute);
@@ -2352,15 +2356,6 @@ public class 	ConverterToLegacy {
 					viastations.add(lvia);
 				} else {
 					GtmUtils.writeConsoleWarning("Service constraint in route ignored - no legacy code provided: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
-				}
-			} else if (index == 1 && routeServiceConstraint != null) {
-				if (routeServiceConstraint.getLegacy108Code() > 0) {
-					LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
-					lvia.setPosition(altRoute);
-					lvia.setCode(routeServiceConstraint.getLegacy108Code());
-					viastations.add(lvia);
-				} else {
-					GtmUtils.writeConsoleWarning("Service constraint for route ignored - no legacy code provided: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
 				}
 			} else	if (station.getStation() != null) {
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
@@ -2390,7 +2385,7 @@ public class 	ConverterToLegacy {
 				altRoute = 1;
 			} 
 			if (station.getRoute()!= null) {
-				if (!addViaStations(viastations, station.getRoute().getStations(), altRoute,null, false)) {
+				if (!addViaStations(viastations, station.getRoute().getStations(), altRoute, station.getServiceConstraint(), false)) {
 					return false;
 				};
 			}
@@ -2441,6 +2436,7 @@ public class 	ConverterToLegacy {
 		}
 	}
 
+	
 	
 
 	/**
@@ -2851,9 +2847,6 @@ public class 	ConverterToLegacy {
 
 		int startBorder = 0;
 		int endBorder = 0;
-
-		ViaStation first = via.getRoute().getStations().get(0);
-		ViaStation last = via.getRoute().getStations().get(via.getRoute().getStations().size()-1);
 		
 		if (regionalConstraint.getEntryConnectionPoint() != null && 
 			regionalConstraint.getEntryConnectionPoint().getLegacyBorderPointCode() > 0) {
@@ -2863,40 +2856,19 @@ public class 	ConverterToLegacy {
 			regionalConstraint.getExitConnectionPoint().getLegacyBorderPointCode() > 0) {
 			endBorder = regionalConstraint.getExitConnectionPoint().getLegacyBorderPointCode();
 		}		
-	
-		try {
-			if (first.getStation()!= null){
-				startName = first.getStation().getNameCaseASCII();
-			} else if (first.getFareStationSet()!= null) { 
-				startName = first.getFareStationSet().getName();
-			} else if (first.getServiceConstraint()!= null 
-					&& first.getServiceConstraint().getDescription() != null 
-					&& first.getServiceConstraint().getDescription().getTextICAO() != null) { 
-				startName = first.getServiceConstraint().getDescription().getTextICAO();
-			}
-		} catch (Exception e) {
-			return true;
-		}
-		
-		try {
-			if (last.getStation()!= null){
-				endName = last.getStation().getNameCaseASCII();
-			} else if (last.getFareStationSet()!= null) { 
-				endName = last.getFareStationSet().getName();
-			} else if (last.getServiceConstraint()!= null 
-					&& last.getServiceConstraint().getDescription() != null 
-					&& last.getServiceConstraint().getDescription().getTextICAO() != null) { 
-				endName = last.getServiceConstraint().getDescription().getTextICAO();
-			}
-		} catch (Exception e) {
-			return true;
-		}
 		
 		if (startBorder > 0 && endBorder == 0) {
 			return false;
 		} else if (startBorder == 0 && endBorder > 0) {
 			return true;
 		}
+		
+		
+		Legacy108Station first = getFirstLegacyStation(via, regionalConstraint.getEntryConnectionPoint());
+		Legacy108Station last = getLastLegacyStation(via, regionalConstraint.getEntryConnectionPoint());
+		
+		startName = first.getName();
+		endName = last.getName();
 		
 		if (startName == null || endName == null) {
 			
@@ -2906,7 +2878,7 @@ public class 	ConverterToLegacy {
 			GtmUtils.writeConsoleError(sb.toString(), editor);
 			
 			return false;
-		}		
+		}
 		
 		if (startName.compareToIgnoreCase(endName) > 0) return true;
 

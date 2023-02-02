@@ -8,7 +8,6 @@ import Gtm.Station;
 import Gtm.ViaStation;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class RouteDescriptionBuilder.
  */
@@ -122,9 +121,22 @@ public class RouteDescriptionBuilder {
 	 */
 	public static String getViaDescription(EList<RegionalValidity> regionalValidities) {
 		
-		if (regionalValidities == null || regionalValidities.isEmpty()) {
+		if (regionalValidities == null || regionalValidities.isEmpty() || regionalValidities.get(0).getViaStation() == null) {
 			return "missing route";
 		}
+		
+		String s = getRouteDescription(regionalValidities.get(0).getViaStation());
+		int firstStar = s.indexOf("*");
+		int lastStar = s.lastIndexOf("*");
+		
+		if (firstStar < lastStar) {
+			String via = s.substring(firstStar + 1, lastStar);
+			return via;
+		} else {
+			return "";
+		}
+		
+		/*
 		
 		StringBuilder label = new StringBuilder();
 		label.append("");
@@ -169,7 +181,7 @@ public class RouteDescriptionBuilder {
 			e.printStackTrace();
 			return " ";
 		}
-
+		 */
 	}
 
 	/**
