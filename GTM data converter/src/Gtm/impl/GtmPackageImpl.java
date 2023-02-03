@@ -2,229 +2,6 @@
  */
 package Gtm.impl;
 
-import Gtm.AcceptedBarcodes;
-import Gtm.AddCarrierRule;
-import Gtm.AddCarrierRules;
-import Gtm.AddCarrierScope;
-import Gtm.AfterSalesCondition;
-import Gtm.AfterSalesRule;
-import Gtm.AfterSalesRules;
-import Gtm.AfterSalesTemplate;
-import Gtm.AfterSalesTransactionType;
-import Gtm.AllowedPersonalDataChanges;
-import Gtm.AlternativeRoute;
-import Gtm.ApplicationTime;
-import Gtm.BarcodeTypes;
-import Gtm.BasePriceClassType;
-import Gtm.BoardingOrArrival;
-import Gtm.Calendar;
-import Gtm.Calendars;
-import Gtm.Carrier;
-import Gtm.CarrierConstraint;
-import Gtm.CarrierConstraints;
-import Gtm.CarrierResourceLocation;
-import Gtm.CarrierResourceLocations;
-import Gtm.Carriers;
-import Gtm.CharacterSet;
-import Gtm.ClassId;
-import Gtm.ClassicClassType;
-import Gtm.Clusters;
-import Gtm.CodeLists;
-import Gtm.CombinationConstraint;
-import Gtm.CombinationConstraints;
-import Gtm.CombinationModel;
-import Gtm.ConnectionPoint;
-import Gtm.ConnectionPoints;
-import Gtm.ControlDataExchangeTypes;
-import Gtm.ConversionFromLegacy;
-import Gtm.ConversionParams;
-import Gtm.Countries;
-import Gtm.Country;
-import Gtm.CrossBorderCondition;
-import Gtm.Currencies;
-import Gtm.Currency;
-import Gtm.CurrencyPrice;
-import Gtm.DataSource;
-import Gtm.DataType;
-import Gtm.Delivery;
-import Gtm.Dimension;
-import Gtm.Edge;
-import Gtm.EndOfSale;
-import Gtm.ExcludedTimeRange;
-import Gtm.FareCombinationModel;
-import Gtm.FareConstraintBundle;
-import Gtm.FareConstraintBundles;
-import Gtm.FareElement;
-import Gtm.FareElements;
-import Gtm.FareResourceLocations;
-import Gtm.FareStationSetDefinition;
-import Gtm.FareStationSetDefinitions;
-import Gtm.FareStructure;
-import Gtm.FareTemplate;
-import Gtm.FareType;
-import Gtm.FulfillmentConstraint;
-import Gtm.FulfillmentConstraints;
-import Gtm.FulfillmentType;
-import Gtm.GTMTool;
-import Gtm.GeneralTariffModel;
-import Gtm.GenericReductionCards;
-import Gtm.GeoSystem;
-import Gtm.GeoUnit;
-import Gtm.GraphicalReservationType;
-import Gtm.GtmFactory;
-import Gtm.GtmPackage;
-import Gtm.HemisphereEW;
-import Gtm.HemisphereNS;
-import Gtm.IncludedFreePassengerLimit;
-import Gtm.InterfaceType;
-import Gtm.Language;
-import Gtm.Languages;
-import Gtm.Legacy108;
-import Gtm.Legacy108FareDescription;
-import Gtm.Legacy108FaresDescriptions;
-import Gtm.Legacy108Memo;
-import Gtm.Legacy108Memos;
-import Gtm.Legacy108Station;
-import Gtm.Legacy108Stations;
-import Gtm.LegacyAccountingIdentifier;
-import Gtm.LegacyBoderPointMappings;
-import Gtm.LegacyBorderPoint;
-import Gtm.LegacyBorderPointMapping;
-import Gtm.LegacyBorderPoints;
-import Gtm.LegacyBorderSide;
-import Gtm.LegacyBusFerryMapping;
-import Gtm.LegacyCalculationType;
-import Gtm.LegacyCarrier;
-import Gtm.LegacyCarriers;
-import Gtm.LegacyConversionType;
-import Gtm.LegacyDistanceFare;
-import Gtm.LegacyDistanceFares;
-import Gtm.LegacyFakeBorderStations;
-import Gtm.LegacyFareDetailMap;
-import Gtm.LegacyFareDetailMaps;
-import Gtm.LegacyFareStationSetMap;
-import Gtm.LegacyFareStationSetMappings;
-import Gtm.LegacyFareTemplates;
-import Gtm.LegacyPassengerType;
-import Gtm.LegacyRouteFare;
-import Gtm.LegacyRouteFares;
-import Gtm.LegacySeparateContractSeries;
-import Gtm.LegacySeparateContractSeriesList;
-import Gtm.LegacySeries;
-import Gtm.LegacySeriesList;
-import Gtm.LegacySeriesType;
-import Gtm.LegacyStation;
-import Gtm.LegacyStationMap;
-import Gtm.LegacyStationMappings;
-import Gtm.LegacyStationToServiceConstraintMapping;
-import Gtm.LegacyStationToServiceConstraintMappings;
-import Gtm.LegacyViastation;
-import Gtm.Line;
-import Gtm.LuggageConstraint;
-import Gtm.LuggageConstraints;
-import Gtm.LuggageDimension;
-import Gtm.LuggageItemsRestriction;
-import Gtm.LuggageRule;
-import Gtm.NUTSCodes;
-import Gtm.NutsCode;
-import Gtm.OfferRequestType;
-import Gtm.OnBorderStations;
-import Gtm.OnlineResource;
-import Gtm.OnlineServiceType;
-import Gtm.PassengerCombinationConstraint;
-import Gtm.PassengerConstraint;
-import Gtm.PassengerConstraints;
-import Gtm.PersonalDataChangeReason;
-import Gtm.PersonalDataConstraint;
-import Gtm.PersonalDataConstraints;
-import Gtm.PersonalDataItemsType;
-import Gtm.PersonalDataTransferType;
-import Gtm.Polygone;
-import Gtm.Price;
-import Gtm.Prices;
-import Gtm.ReductionCard;
-import Gtm.ReductionCards;
-import Gtm.ReductionConstraint;
-import Gtm.ReductionConstraints;
-import Gtm.RegionalConstraint;
-import Gtm.RegionalConstraints;
-import Gtm.RegionalValidity;
-import Gtm.RegulatoryCondition;
-import Gtm.RelativeTime;
-import Gtm.RequiredBarcodes;
-import Gtm.RequiredPersonalData;
-import Gtm.RequiredReductionCard;
-import Gtm.ReservationBerthType;
-import Gtm.ReservationOptions;
-import Gtm.ReservationParameter;
-import Gtm.ReservationParameters;
-import Gtm.ReservationParams9181;
-import Gtm.ReservationPreferenceGroup;
-import Gtm.ReservationService;
-import Gtm.ReservationServiceLevel;
-import Gtm.ReservationTravelClass;
-import Gtm.ReturnValidityConstraint;
-import Gtm.RoundingType;
-import Gtm.Route;
-import Gtm.SalesAvailabilityConstraint;
-import Gtm.SalesAvailabilityConstraints;
-import Gtm.SalesRestriction;
-import Gtm.SchemaVersion;
-import Gtm.ServiceBrand;
-import Gtm.ServiceBrands;
-import Gtm.ServiceClass;
-import Gtm.ServiceClassDefinitions;
-import Gtm.ServiceConstraint;
-import Gtm.ServiceConstraints;
-import Gtm.ServiceLevel;
-import Gtm.ServiceLevelDefinitions;
-import Gtm.ServiceMode;
-import Gtm.StartOfSale;
-import Gtm.Station;
-import Gtm.StationFareDetailType;
-import Gtm.StationNames;
-import Gtm.StationRelation;
-import Gtm.StationRelationType;
-import Gtm.StationResourceLocation;
-import Gtm.StationResourceLocations;
-import Gtm.StationSet;
-import Gtm.Stations;
-import Gtm.SupportedOnlineServices;
-import Gtm.TaxScope;
-import Gtm.Text;
-import Gtm.Texts;
-import Gtm.TimeRange;
-import Gtm.TimeRangeScope;
-import Gtm.TimeReferenceType;
-import Gtm.TimeUnit;
-import Gtm.TimeZone;
-import Gtm.TotalPassengerCombinationConstraint;
-import Gtm.TotalPassengerCombinationConstraints;
-import Gtm.TrainResourceLocation;
-import Gtm.TrainResourceLocations;
-import Gtm.TrainValidity;
-import Gtm.Translation;
-import Gtm.TransportMode;
-import Gtm.TravelValidityConstraint;
-import Gtm.TravelValidityConstraints;
-import Gtm.TravelValidityType;
-import Gtm.TravelerType;
-import Gtm.TripAllocationConstraint;
-import Gtm.TripAllocationProcess;
-import Gtm.TripAllocationUnit;
-import Gtm.TripInterruptionConstraint;
-import Gtm.TripInterruptionProcess;
-import Gtm.VATDetail;
-import Gtm.ValidityRange;
-import Gtm.VatTemplate;
-import Gtm.VatTemplates;
-import Gtm.ViaStation;
-import Gtm.WeekDay;
-import Gtm.WorkflowHistory;
-import Gtm.WorkflowStep;
-import Gtm.Zone;
-import Gtm.ZoneDefinition;
-import Gtm.ZoneDefinitions;
 import Gtm.*;
 import Gtm.util.GtmValidator;
 
@@ -1066,6 +843,27 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass productsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass productEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass conditionTextEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass reductionConstraintEClass = null;
 
 	/**
@@ -1410,6 +1208,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum boardingOrArrivalEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum conditionTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3121,6 +2926,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFareStructure_Products() {
+		return (EReference)fareStructureEClass.getEStructuralFeatures().get(28);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConnectionPoints() {
 		return connectionPointsEClass;
 	}
@@ -4104,6 +3918,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getFareConstraintBundle_LuggageConstraint() {
 		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFareConstraintBundle_Products() {
+		return (EReference)fareConstraintBundleEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -6955,6 +6778,195 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getProducts() {
+		return productsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProducts_Products() {
+		return (EReference)productsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getProduct() {
+		return productEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_Id() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_Code() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProduct_Name() {
+		return (EReference)productEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProduct_Summary() {
+		return (EReference)productEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProduct_Description() {
+		return (EReference)productEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_TravelClass() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProduct_ServiceConstraintText() {
+		return (EReference)productEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProduct_CarrierConstraintText() {
+		return (EReference)productEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProduct_ConditionTexts() {
+		return (EReference)productEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_ReturnProduct() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_TrainBound() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_RefundableAfterValidity() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_RefundableBeforeValidity() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_ExchangeableAfterValidity() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_ExchangeableBeforeValidity() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConditionText() {
+		return conditionTextEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConditionText_Text() {
+		return (EReference)conditionTextEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConditionText_Type() {
+		return (EAttribute)conditionTextEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getReductionConstraint() {
 		return reductionConstraintEClass;
 	}
@@ -9340,6 +9352,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getConditionType() {
+		return conditionTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getLuggageRule() {
 		return luggageRuleEEnum;
 	}
@@ -10048,6 +10069,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareStructureEClass, FARE_STRUCTURE__FARE_RESOURCE_LOCATIONS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__ZONE_DEFINITIONS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__LUGGAGE_CONSTRAINTS);
+		createEReference(fareStructureEClass, FARE_STRUCTURE__PRODUCTS);
 
 		connectionPointsEClass = createEClass(CONNECTION_POINTS);
 		createEReference(connectionPointsEClass, CONNECTION_POINTS__CONNECTION_POINTS);
@@ -10184,6 +10206,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__DATA_SOURCE);
 		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__CONVERTED_BUNDLES);
 		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__LUGGAGE_CONSTRAINT);
+		createEReference(fareConstraintBundleEClass, FARE_CONSTRAINT_BUNDLE__PRODUCTS);
 
 		fareStationSetDefinitionsEClass = createEClass(FARE_STATION_SET_DEFINITIONS);
 		createEReference(fareStationSetDefinitionsEClass, FARE_STATION_SET_DEFINITIONS__FARE_STATION_SET_DEFINITIONS);
@@ -10549,6 +10572,30 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareCombinationModelEClass, FARE_COMBINATION_MODEL__ALLOWED_CLUSTERS);
 		createEReference(fareCombinationModelEClass, FARE_COMBINATION_MODEL__ALLOWED_COMMON_CONTRACTS);
 
+		productsEClass = createEClass(PRODUCTS);
+		createEReference(productsEClass, PRODUCTS__PRODUCTS);
+
+		productEClass = createEClass(PRODUCT);
+		createEAttribute(productEClass, PRODUCT__ID);
+		createEAttribute(productEClass, PRODUCT__CODE);
+		createEReference(productEClass, PRODUCT__NAME);
+		createEReference(productEClass, PRODUCT__SUMMARY);
+		createEReference(productEClass, PRODUCT__DESCRIPTION);
+		createEAttribute(productEClass, PRODUCT__TRAVEL_CLASS);
+		createEReference(productEClass, PRODUCT__SERVICE_CONSTRAINT_TEXT);
+		createEReference(productEClass, PRODUCT__CARRIER_CONSTRAINT_TEXT);
+		createEReference(productEClass, PRODUCT__CONDITION_TEXTS);
+		createEAttribute(productEClass, PRODUCT__RETURN_PRODUCT);
+		createEAttribute(productEClass, PRODUCT__TRAIN_BOUND);
+		createEAttribute(productEClass, PRODUCT__REFUNDABLE_AFTER_VALIDITY);
+		createEAttribute(productEClass, PRODUCT__REFUNDABLE_BEFORE_VALIDITY);
+		createEAttribute(productEClass, PRODUCT__EXCHANGEABLE_AFTER_VALIDITY);
+		createEAttribute(productEClass, PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY);
+
+		conditionTextEClass = createEClass(CONDITION_TEXT);
+		createEReference(conditionTextEClass, CONDITION_TEXT__TEXT);
+		createEAttribute(conditionTextEClass, CONDITION_TEXT__TYPE);
+
 		reductionConstraintsEClass = createEClass(REDUCTION_CONSTRAINTS);
 		createEReference(reductionConstraintsEClass, REDUCTION_CONSTRAINTS__REDUCTION_CONSTRAINTS);
 
@@ -10882,6 +10929,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		// Create enums
 		boardingOrArrivalEEnum = createEEnum(BOARDING_OR_ARRIVAL);
+		conditionTypeEEnum = createEEnum(CONDITION_TYPE);
 		luggageRuleEEnum = createEEnum(LUGGAGE_RULE);
 		dimensionEEnum = createEEnum(DIMENSION);
 		addCarrierScopeEEnum = createEEnum(ADD_CARRIER_SCOPE);
@@ -11156,6 +11204,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareStructure_FareResourceLocations(), this.getFareResourceLocations(), null, "fareResourceLocations", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_ZoneDefinitions(), this.getZoneDefinitions(), null, "zoneDefinitions", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_LuggageConstraints(), this.getLuggageConstraints(), null, "luggageConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareStructure_Products(), this.getProducts(), null, "products", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionPointsEClass, ConnectionPoints.class, "ConnectionPoints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnectionPoints_ConnectionPoints(), this.getConnectionPoint(), null, "connectionPoints", null, 0, -1, ConnectionPoints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11294,6 +11343,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareConstraintBundle_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareConstraintBundle_ConvertedBundles(), this.getFareConstraintBundle(), null, "convertedBundles", null, 0, -1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareConstraintBundle_LuggageConstraint(), this.getLuggageConstraint(), null, "luggageConstraint", null, 0, 1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareConstraintBundle_Products(), this.getProduct(), null, "products", null, 0, -1, FareConstraintBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fareStationSetDefinitionsEClass, FareStationSetDefinitions.class, "FareStationSetDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFareStationSetDefinitions_FareStationSetDefinitions(), this.getFareStationSetDefinition(), null, "fareStationSetDefinitions", null, 0, -1, FareStationSetDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11663,6 +11713,30 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareCombinationModel_AllowedClusters(), this.getClusters(), "allowedClusters", null, 0, -1, FareCombinationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareCombinationModel_AllowedCommonContracts(), this.getCarrier(), null, "allowedCommonContracts", null, 0, -1, FareCombinationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(productsEClass, Products.class, "Products", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getProducts_Products(), this.getProduct(), null, "products", null, 0, -1, Products.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(productEClass, Product.class, "Product", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getProduct_Id(), ecorePackage.getEString(), "id", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_Code(), ecorePackage.getEString(), "code", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProduct_Name(), this.getText(), null, "name", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProduct_Summary(), this.getText(), null, "summary", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProduct_Description(), this.getText(), null, "description", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_TravelClass(), this.getClassicClassType(), "travelClass", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProduct_ServiceConstraintText(), this.getText(), null, "serviceConstraintText", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProduct_CarrierConstraintText(), this.getText(), null, "carrierConstraintText", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProduct_ConditionTexts(), this.getConditionText(), null, "conditionTexts", null, 0, -1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_ReturnProduct(), theXMLTypePackage.getBooleanObject(), "returnProduct", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_TrainBound(), theXMLTypePackage.getBooleanObject(), "trainBound", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_RefundableAfterValidity(), theXMLTypePackage.getBooleanObject(), "refundableAfterValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_RefundableBeforeValidity(), theXMLTypePackage.getBooleanObject(), "refundableBeforeValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_ExchangeableAfterValidity(), theXMLTypePackage.getBooleanObject(), "exchangeableAfterValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_ExchangeableBeforeValidity(), theXMLTypePackage.getBooleanObject(), "exchangeableBeforeValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(conditionTextEClass, ConditionText.class, "ConditionText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConditionText_Text(), this.getText(), null, "text", null, 1, 1, ConditionText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConditionText_Type(), this.getConditionType(), "type", null, 1, 1, ConditionText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(reductionConstraintsEClass, ReductionConstraints.class, "ReductionConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReductionConstraints_ReductionConstraints(), this.getReductionConstraint(), null, "reductionConstraints", null, 0, -1, ReductionConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -12008,6 +12082,14 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEEnum(boardingOrArrivalEEnum, BoardingOrArrival.class, "BoardingOrArrival");
 		addEEnumLiteral(boardingOrArrivalEEnum, BoardingOrArrival.BOARDING);
 		addEEnumLiteral(boardingOrArrivalEEnum, BoardingOrArrival.ARRIVAL);
+
+		initEEnum(conditionTypeEEnum, ConditionType.class, "ConditionType");
+		addEEnumLiteral(conditionTypeEEnum, ConditionType.SALE);
+		addEEnumLiteral(conditionTypeEEnum, ConditionType.PLACE_CHANGE);
+		addEEnumLiteral(conditionTypeEEnum, ConditionType.FULFILLMENT);
+		addEEnumLiteral(conditionTypeEEnum, ConditionType.TRAVEL);
+		addEEnumLiteral(conditionTypeEEnum, ConditionType.REFUND);
+		addEEnumLiteral(conditionTypeEEnum, ConditionType.EXCHANGE);
 
 		initEEnum(luggageRuleEEnum, LuggageRule.class, "LuggageRule");
 		addEEnumLiteral(luggageRuleEEnum, LuggageRule.NONE);
@@ -12375,6 +12457,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V12);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V14);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V15);
+		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V30);
 
 		initEEnum(serviceModeEEnum, ServiceMode.class, "ServiceMode");
 		addEEnumLiteral(serviceModeEEnum, ServiceMode.HIGH_SPEED_TRAIN);

@@ -24,6 +24,7 @@ import Gtm.SchemaVersion;
 import Gtm.jsonImportExport.GtmJsonExporter;
 import Gtm.jsonImportExport.GtmJsonExporterV14;
 import Gtm.jsonImportExport.GtmJsonExporterV20;
+import Gtm.jsonImportExport.GtmJsonExporterV30;
 import Gtm.jsonImportExport.ObjectIdCreator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.DirtyCommand;
@@ -33,6 +34,7 @@ import Gtm.utils.GtmUtils;
 import export.ExportFareDelivery;
 import export.ExportFareDeliveryV14;
 import export.ExportFareDeliveryV20;
+import export.ExportFareDeliveryV30;
 
 
 
@@ -115,6 +117,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 			GtmJsonExporter jsonModelExporterV12 = new GtmJsonExporter();
 			GtmJsonExporterV14 jsonModelExporterV14 = new GtmJsonExporterV14();
 			GtmJsonExporterV20 jsonModelExporterV20 = new GtmJsonExporterV20();
+			GtmJsonExporterV30 jsonModelExporterV30 = new GtmJsonExporterV30();
 	
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
@@ -139,6 +142,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						gtm.FareDelivery faresV12 = null;
 						gtmV14.FareDelivery faresV14 = null;
 						gtmV20.FareDelivery faresV20 = null;
+						gtmV30.FareDelivery faresV30 = null;
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_7);		
 						if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V12)) {
 							faresV12 = jsonModelExporterV12.convertToJson(tool.getGeneralTariffModel(), monitor);
@@ -149,7 +153,10 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V15)){
 							faresV20 = jsonModelExporterV20.convertToJson(tool.getGeneralTariffModel(), monitor);						
 							GtmUtils.writeConsoleInfo("Export to OSDM version 1.5", editor);
-						}							
+						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V30)){
+							faresV30 = jsonModelExporterV30.convertToJson(tool.getGeneralTariffModel(), monitor);						
+							GtmUtils.writeConsoleInfo("Export to OSDM version 3.0", editor);		
+						}
 						monitor.worked(1);	 	
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_8);
 						try {
@@ -159,6 +166,8 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 								ExportFareDeliveryV14.exportFareDelivery(faresV14, file);
 							} else if (faresV20 != null) {
 								ExportFareDeliveryV20.exportFareDelivery(faresV20, file);
+							} else if (faresV30 != null) {
+								ExportFareDeliveryV30.exportFareDelivery(faresV30, file);
 							}
 						} catch (IOException ioe){
 							GtmUtils.displayAsyncErrorMessage(ioe,"format error");

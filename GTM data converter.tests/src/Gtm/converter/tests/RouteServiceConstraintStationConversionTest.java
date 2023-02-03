@@ -13,6 +13,7 @@ import Gtm.Legacy108Station;
 import Gtm.LegacySeries;
 import Gtm.RegionalConstraint;
 import Gtm.ServiceConstraint;
+import Gtm.ViaStation;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
@@ -78,6 +79,7 @@ public class RouteServiceConstraintStationConversionTest {
 		
 		tool.getConversionFromLegacy().getParams().setConvertServiceConstraints(true);
 		
+		
 		tool.getGeneralTariffModel().getFareStructure().setServiceConstraints(GtmFactory.eINSTANCE.createServiceConstraints());
 		ServiceConstraint sc = GtmFactory.eINSTANCE.createServiceConstraint();
 		tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints().add(sc);
@@ -87,6 +89,8 @@ public class RouteServiceConstraintStationConversionTest {
 		
 		for (RegionalConstraint r : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
 			r.getRegionalValidity().get(0).setServiceConstraint(sc);
+			//remove one via to have space for the service constraint via
+			r.getRegionalValidity().get(0).getViaStation().getRoute().getStations().remove(4);
 		}
 		
 		
@@ -109,8 +113,9 @@ public class RouteServiceConstraintStationConversionTest {
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null);
 									
 	    LegacySeries s = TestUtils.getLegacySeries(tool,1);
-		assert(s.getRouteDescription().equals("ship B*C*D*E*F"));
-		assert(s.getFromStationName().equals("A-Town"));
+		assert(s.getRouteDescription().equals("ship*B*C*D*F"));
+		assert(s.getFromStationName().equals("A-Town"));		
+		assert(s.getToStationName().equals("G-Town"));
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().get(0) != null);		
 		

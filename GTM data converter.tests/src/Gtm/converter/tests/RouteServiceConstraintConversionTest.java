@@ -85,6 +85,8 @@ public class RouteServiceConstraintConversionTest {
 		
 		for (RegionalConstraint r : tool.getGeneralTariffModel().getFareStructure().getRegionalConstraints().getRegionalConstraints()) {
 			r.getRegionalValidity().get(0).setServiceConstraint(sc);
+			//remove one via to have space for the service constraint via
+			r.getRegionalValidity().get(0).getViaStation().getRoute().getStations().remove(4);			
 		}
 		
 		
@@ -107,7 +109,7 @@ public class RouteServiceConstraintConversionTest {
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null);
 									
 	    LegacySeries s = TestUtils.getLegacySeries(tool,1);
-		assert(s.getRouteDescription().equals("ship B*C*D*E*F"));
+		assert(s.getRouteDescription().equals("ship*B*C*D*F"));
 		assert(s.getFromStationName().equals("A-Town"));
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyFareDescriptions().getLegacyFares().get(0) != null);		

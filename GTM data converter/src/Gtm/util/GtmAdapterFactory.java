@@ -520,6 +520,18 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createFareCombinationModelAdapter();
 			}
 			@Override
+			public Adapter caseProducts(Products object) {
+				return createProductsAdapter();
+			}
+			@Override
+			public Adapter caseProduct(Product object) {
+				return createProductAdapter();
+			}
+			@Override
+			public Adapter caseConditionText(ConditionText object) {
+				return createConditionTextAdapter();
+			}
+			@Override
 			public Adapter caseReductionConstraints(ReductionConstraints object) {
 				return createReductionConstraintsAdapter();
 			}
@@ -2372,6 +2384,48 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFareCombinationModelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.Products <em>Products</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.Products
+	 * @generated
+	 */
+	public Adapter createProductsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.Product <em>Product</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.Product
+	 * @generated
+	 */
+	public Adapter createProductAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.ConditionText <em>Condition Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.ConditionText
+	 * @generated
+	 */
+	public Adapter createConditionTextAdapter() {
 		return null;
 	}
 

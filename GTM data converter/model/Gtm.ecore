@@ -298,6 +298,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraints" eType="#//LuggageConstraints"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="products" eType="#//Products"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionPoints">
     <eOperations name="findSimpleConnectionPoint" eType="#//ConnectionPoint">
@@ -508,6 +510,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="convertedBundles" upperBound="-1"
         eType="#//FareConstraintBundle"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraint" eType="#//LuggageConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="products" upperBound="-1"
+        eType="#//Product"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FareStationSetDefinitions">
     <eOperations name="findFareSet" eType="#//FareStationSetDefinition">
@@ -666,10 +670,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraint" eType="#//CarrierConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serrviceConstraint" eType="#//ServiceConstraint"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scope" eType="#//BoardingOrArrival"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="BoardingOrArrival">
-    <eLiterals name="BOARDING"/>
-    <eLiterals name="ARRIVAL" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SalesAvailabilityConstraints">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -1090,6 +1090,38 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="allowedCommonContracts"
         upperBound="-1" eType="#//Carrier"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Products">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="products" upperBound="-1"
+        eType="#//Product" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Product">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="summary" eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="travelClass" eType="#//ClassicClassType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraintText"
+        eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraintText"
+        eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conditionTexts" upperBound="-1"
+        eType="#//ConditionText" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="returnProduct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trainBound" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="refundableAfterValidity"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="refundableBeforeValidity"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="exchangeableAfterValidity"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="exchangeableBeforeValidity"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConditionText">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="text" lowerBound="1" eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//ConditionType"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReductionConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reductionConstraints" upperBound="-1"
         eType="#//ReductionConstraint" containment="true"/>
@@ -1153,19 +1185,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimension" eType="#//Dimension"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="LuggageRule">
-    <eLiterals name="NONE"/>
-    <eLiterals name="CAN_CARRY" value="1"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Dimension">
-    <eLiterals name="WEIGHT"/>
-    <eLiterals name="HEIGHT" value="1"/>
-    <eLiterals name="WIDTH" value="2"/>
-    <eLiterals name="LENGTH" value="3"/>
-    <eLiterals name="VOLUME" value="4"/>
-    <eLiterals name="WIDTH_HEIGHT" value="6"/>
-    <eLiterals name="WIDTH_LENGTH_HEIGHT" value="7"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConversionFromLegacy">
     <eStructuralFeatures xsi:type="ecore:EReference" name="legacy108" lowerBound="1"
         eType="#//Legacy108" containment="true" resolveProxies="false"/>
@@ -1222,11 +1241,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scope" eType="#//AddCarrierScope"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stations" upperBound="-1"
         eType="#//Station"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="AddCarrierScope">
-    <eLiterals name="CARRIER"/>
-    <eLiterals name="TCO" value="1"/>
-    <eLiterals name="TCO_AND_CARRIER" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VatTemplates">
     <eStructuralFeatures xsi:type="ecore:EReference" name="vatTemplates" upperBound="-1"
@@ -1585,6 +1599,36 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AddCarrierScope">
+    <eLiterals name="CARRIER"/>
+    <eLiterals name="TCO" value="1"/>
+    <eLiterals name="TCO_AND_CARRIER" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LuggageRule">
+    <eLiterals name="NONE"/>
+    <eLiterals name="CAN_CARRY" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Dimension">
+    <eLiterals name="WEIGHT"/>
+    <eLiterals name="HEIGHT" value="1"/>
+    <eLiterals name="WIDTH" value="2"/>
+    <eLiterals name="LENGTH" value="3"/>
+    <eLiterals name="VOLUME" value="4"/>
+    <eLiterals name="WIDTH_HEIGHT" value="6"/>
+    <eLiterals name="WIDTH_LENGTH_HEIGHT" value="7"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BoardingOrArrival">
+    <eLiterals name="BOARDING"/>
+    <eLiterals name="ARRIVAL" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ConditionType">
+    <eLiterals name="SALE"/>
+    <eLiterals name="PLACE_CHANGE" value="1"/>
+    <eLiterals name="FULFILLMENT" value="2"/>
+    <eLiterals name="TRAVEL" value="3"/>
+    <eLiterals name="REFUND" value="4"/>
+    <eLiterals name="EXCHANGE" value="5"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TransportMode">
     <eLiterals name="train" value="37"/>
     <eLiterals name="ship" value="33"/>
@@ -1603,16 +1647,6 @@
     <eLiterals name="sharedTaxi" value="34"/>
     <eLiterals name="tram" value="35"/>
     <eLiterals name="underGround" value="36"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="StationRelationType">
-    <eLiterals name="SAME_STATION" value="1"/>
-    <eLiterals name="PATH_CONNECTED_STATION" value="2"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="StationFareDetailType">
-    <eLiterals name="NO_DESCRIPTION"/>
-    <eLiterals name="ON_ARRIVAL" value="1"/>
-    <eLiterals name="ON_DEPARTURE" value="2"/>
-    <eLiterals name="ON_ARRIVAL_ON__DEPARTURE" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RegulatoryCondition">
     <eLiterals name="CIV"/>
@@ -1929,10 +1963,21 @@
     <eLiterals name="UP20CENT" value="9" literal="UP20CENT"/>
     <eLiterals name="DOWN20CENT" value="10" literal="DOWN20CENT"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StationRelationType">
+    <eLiterals name="SAME_STATION" value="1"/>
+    <eLiterals name="PATH_CONNECTED_STATION" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StationFareDetailType">
+    <eLiterals name="NO_DESCRIPTION"/>
+    <eLiterals name="ON_ARRIVAL" value="1"/>
+    <eLiterals name="ON_DEPARTURE" value="2"/>
+    <eLiterals name="ON_ARRIVAL_ON__DEPARTURE" value="3"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
     <eLiterals name="V_1_2" literal="1.2"/>
     <eLiterals name="V_1_4" value="3" literal="1.4"/>
     <eLiterals name="V_1_5" value="4" literal="1.5"/>
+    <eLiterals name="V_3_0" value="5" literal="3.0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
     <eLiterals name="HIGH_SPEED_TRAIN" value="8"/>

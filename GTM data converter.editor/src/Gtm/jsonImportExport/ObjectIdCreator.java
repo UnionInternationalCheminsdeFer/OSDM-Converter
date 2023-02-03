@@ -23,6 +23,7 @@ import Gtm.LuggageConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.PersonalDataConstraint;
 import Gtm.Price;
+import Gtm.Product;
 import Gtm.ReductionCard;
 import Gtm.ReductionConstraint;
 import Gtm.RegionalConstraint;
@@ -235,9 +236,20 @@ public class ObjectIdCreator {
 		
 		listName = baseName + "U_"; //$NON-NLS-1$
 		i = 0;
-		for (LuggageConstraint object : fareStructure.getLuggageConstraints().getConstraints()) {
-			i++;
-			setId(domain, object,GtmPackage.Literals.LUGGAGE_CONSTRAINT__ID, command, listName,i);
+		if (fareStructure.getLuggageConstraints() != null) {
+			for (LuggageConstraint object : fareStructure.getLuggageConstraints().getConstraints()) {
+				i++;
+				setId(domain, object,GtmPackage.Literals.LUGGAGE_CONSTRAINT__ID, command, listName,i);
+			}
+		}
+
+		listName = baseName + "V_"; //$NON-NLS-1$
+		i = 0;
+		if (fareStructure.getProducts() != null) {
+			for (Product object : fareStructure.getProducts().getProducts()) {
+				i++;
+				setId(domain, object,GtmPackage.Literals.PRODUCT__ID, command, listName,i);
+			}
 		}
 		
         return command;

@@ -1066,6 +1066,33 @@ public interface GtmFactory extends EFactory {
 	FareCombinationModel createFareCombinationModel();
 
 	/**
+	 * Returns a new object of class '<em>Products</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Products</em>'.
+	 * @generated
+	 */
+	Products createProducts();
+
+	/**
+	 * Returns a new object of class '<em>Product</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Product</em>'.
+	 * @generated
+	 */
+	Product createProduct();
+
+	/**
+	 * Returns a new object of class '<em>Condition Text</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Condition Text</em>'.
+	 * @generated
+	 */
+	ConditionText createConditionText();
+
+	/**
 	 * Returns a new object of class '<em>Reduction Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

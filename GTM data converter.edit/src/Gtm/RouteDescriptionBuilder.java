@@ -8,7 +8,6 @@ import Gtm.Station;
 import Gtm.ViaStation;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class RouteDescriptionBuilder.
  */
@@ -122,9 +121,25 @@ public class RouteDescriptionBuilder {
 	 */
 	public static String getViaDescription(EList<RegionalValidity> regionalValidities) {
 		
-		if (regionalValidities == null || regionalValidities.isEmpty()) {
+		if (regionalValidities == null || regionalValidities.isEmpty() || regionalValidities.get(0).getViaStation() == null) {
 			return "missing route";
 		}
+		
+		RegionalValidity rv = regionalValidities.get(0);
+		
+		
+		String s = getRouteDescription(rv.getViaStation(), rv.getServiceConstraint());
+		int firstStar = s.indexOf("*");
+		int lastStar = s.lastIndexOf("*");
+		
+		if (firstStar < lastStar) {
+			String via = s.substring(firstStar + 1, lastStar);
+			return via;
+		} else {
+			return "";
+		}
+		
+		/*
 		
 		StringBuilder label = new StringBuilder();
 		label.append("");
@@ -133,9 +148,9 @@ public class RouteDescriptionBuilder {
 		ViaStation via = regionalValidity.getViaStation();
 		
 		if (regionalValidity.getServiceConstraint() != null && via.getServiceConstraint() == null) {
-			label.append(getText(regionalValidity.getServiceConstraint()));
+			label.append(getText(regionalValidity.getServiceConstraint())).append(" ");
 		} else if (via != null && via.getServiceConstraint() != null) {
-			label.append(getText(via.getServiceConstraint()));
+			label.append(getText(via.getServiceConstraint())).append(" ");
 		}
 		
 
@@ -169,20 +184,21 @@ public class RouteDescriptionBuilder {
 			e.printStackTrace();
 			return " ";
 		}
-
+		 */
 	}
-
+	
 	/**
 	 * Gets the route description 
 	 *
 	 * @param via the via
+	 * @param a service constraint
 	 * @return the route description
 	 */
-	public static String getRouteDescription(ViaStation via) {
+	public static String getRouteDescription(ViaStation via, ServiceConstraint sc) {
 		
 		StringBuilder label = new StringBuilder();
-		
-		if (via.getServiceConstraint() != null) {
+			
+		if (via.getServiceConstraint() != null && via.getRoute() == null) {
 			label.append(getText(via.getServiceConstraint()));
 		}
 		
@@ -200,7 +216,58 @@ public class RouteDescriptionBuilder {
 		}
 		
 		if (via.getRoute()!= null && via.getRoute().getStations() != null && !via.getRoute().getStations().isEmpty() ) {
-			label.append(getRouteDescription(via.getRoute()));
+            ServiceConstraint scr = sc;
+            if (via.getServiceConstraint() != null){
+            	scr = via.getServiceConstraint();
+            }
+			label.append(getRouteDescription(via.getRoute(),scr));
+			return label.toString();
+		}
+			
+		if (via.getAlternativeRoutes()!= null && !via.getAlternativeRoutes().isEmpty()) {
+			label.append("(");
+			for (AlternativeRoute route : via.getAlternativeRoutes() ) {
+				if (label.length() > 1) {
+					label.append("/"); //$NON-NLS-1$
+				}
+				label.append(getRouteDescription(route));
+			}		
+			label.append(")");
+		}
+			
+		return label.toString();
+
+	}
+
+	/**
+	 * Gets the route description 
+	 *
+	 * @param via the via
+	 * @return the route description
+	 */
+	public static String getRouteDescription(ViaStation via) {
+		
+		StringBuilder label = new StringBuilder();
+		
+		if (via.getServiceConstraint() != null && via.getRoute() == null) {
+			label.append(getText(via.getServiceConstraint()));
+		}
+		
+		if (via.getStation()!= null) {
+			if (label.length() > 0) {
+				label.append("*");
+			}
+			label.append(getShortNameCaseASCII(via.getStation()));
+		} 
+		if (via.getFareStationSet() != null) {
+			if (label.length() > 0) {
+				label.append("*");
+			}
+			label.append(via.getFareStationSet().getName());
+		}
+		
+		if (via.getRoute()!= null && via.getRoute().getStations() != null && !via.getRoute().getStations().isEmpty() ) {
+			label.append(getRouteDescription(via.getRoute(),via.getServiceConstraint()));
 			return label.toString();
 		}
 			
@@ -246,15 +313,22 @@ public class RouteDescriptionBuilder {
 	 * Gets the route description.
 	 *
 	 * @param route the route
+	 * @param serviceConstraint 
 	 * @return the route description
 	 */
-	public static String getRouteDescription(Route route) {
+	public static String getRouteDescription(Route route, ServiceConstraint serviceConstraint) {
 		
 		if (route.getStations()==null || route.getStations().isEmpty()) return "";
 		
 		StringBuilder  routeLable = new StringBuilder(); //$NON-NLS-1$
+		
+		int index = 0;
 			
 		for (ViaStation via2 :  route.getStations()) {
+			if (index == 1 && serviceConstraint != null) {
+				routeLable.append("*").append(getText(serviceConstraint));
+			}
+			index++;			
 			if (routeLable.length() == 0 || routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
 				routeLable.append(getRouteDescription(via2));
 			} else {
