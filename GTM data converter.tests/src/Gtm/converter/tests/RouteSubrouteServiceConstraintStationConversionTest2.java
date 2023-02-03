@@ -27,7 +27,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class RouteSubrouteServiceConstraintStationConversionTest {
+public class RouteSubrouteServiceConstraintStationConversionTest2 {
 	
 	
 	GTMTool tool = null;
@@ -69,31 +69,35 @@ public class RouteSubrouteServiceConstraintStationConversionTest {
 		ViaStation main = GtmFactory.eINSTANCE.createViaStation();
 		
 		main.setCarrierConstraint(cc);
-		
+
 		ViaStation v1 = GtmFactory.eINSTANCE.createViaStation();
-		v1.setStation(tool.getCodeLists().getStations().getStations().get(0));
+		Route subroute = GtmFactory.eINSTANCE.createRoute();
+		v1.setRoute(subroute);
+		v1.setServiceConstraint(sc);
 		
 		ViaStation v2 = GtmFactory.eINSTANCE.createViaStation();
-		v2.setStation(tool.getCodeLists().getStations().getStations().get(1));
-				
-		ViaStation v3 = GtmFactory.eINSTANCE.createViaStation();
+		v2.setStation(tool.getCodeLists().getStations().getStations().get(0));
+		subroute.getStations().add(v2);
 		
-		Route subroute = GtmFactory.eINSTANCE.createRoute();
-		v3.setRoute(subroute);
-		v3.setServiceConstraint(sc);
+		ViaStation v3 = GtmFactory.eINSTANCE.createViaStation();
+		v3.setStation(tool.getCodeLists().getStations().getStations().get(1));
+		subroute.getStations().add(v3);
+		
+		
+		
 		
 		ViaStation v4 = GtmFactory.eINSTANCE.createViaStation();
 		v4.setStation(tool.getCodeLists().getStations().getStations().get(2));
-		subroute.getStations().add(v4);
-		
+						
 		ViaStation v5 = GtmFactory.eINSTANCE.createViaStation();
-		v5.setStation(tool.getCodeLists().getStations().getStations().get(5));
-		subroute.getStations().add(v5);
+		v5.setStation(tool.getCodeLists().getStations().getStations().get(3));
+	
+
 		
 		Route mainroute = GtmFactory.eINSTANCE.createRoute();
 		mainroute.getStations().add(v1);
-		mainroute.getStations().add(v2);
-		mainroute.getStations().add(v3);
+		mainroute.getStations().add(v4);
+		mainroute.getStations().add(v5);
 		main.setRoute(mainroute);
 		
 		rv.setViaStation(main);
@@ -130,23 +134,23 @@ public class RouteSubrouteServiceConstraintStationConversionTest {
 		
 		assert (ls != null);
 
-		assert (ls.getRouteDescription().equals("B-T*C-T*ship"));
+		assert (ls.getRouteDescription().equals("ship*B-T*C-T"));
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyStations() != null);
 		
 		assert (ls.getFromStation() == 1);
 		
-		assert (ls.getToStation() == 6);
+		assert (ls.getToStation() == 4);
 		
 		assert (ls.getViastations() != null);
 		
 		assert(ls.getViastations().size() == 3);
 		
-		assert(ls.getViastations().get(0).getCode() == 2);
+		assert(ls.getViastations().get(0).getCode() == tool.getGeneralTariffModel().getFareStructure().getServiceConstraints().getServiceConstraints().get(0).getLegacy108Code());
+			
+		assert(ls.getViastations().get(1).getCode() == 2);
 		
-		assert(ls.getViastations().get(1).getCode() == 3);
-		
-		assert(ls.getViastations().get(2).getCode() == 55555);
+		assert(ls.getViastations().get(2).getCode() == 3);
 		
 		boolean serviceConstraintStationNameProvided = false;
 		
@@ -159,6 +163,10 @@ public class RouteSubrouteServiceConstraintStationConversionTest {
 		}
 		
 		assert(serviceConstraintStationNameProvided);
+		
+		
+		
+		
 	}
 	
 

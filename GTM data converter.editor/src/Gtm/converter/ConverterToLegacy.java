@@ -2028,7 +2028,7 @@ public class 	ConverterToLegacy {
 			return null;
 		}
 		series.setToStation(legacyLastStation.getStationCode());
-		if (legacyLastStation.getFareReferenceStationCode() > 0 && legacyLastStation.getFareReferenceStationCode() == legacyFirstStation.getStationCode()) {
+		if (legacyLastStation.getFareReferenceStationCode() > 0 && legacyLastStation.getFareReferenceStationCode() == legacyLastStation.getStationCode()) {
 			series.setToStationName(legacyLastStation.getShortName());
 		} else {	
 			series.setToStationName(legacyLastStation.getName());	
@@ -2312,6 +2312,14 @@ public class 	ConverterToLegacy {
 			}
 		}
 		
+		for (LegacyViastation lvia : legacyViaStations) {
+			if (lvia.getCode() == 0) {
+				GtmUtils.writeConsoleError("Legacy via station not found", editor);
+				return false;
+			}
+		}
+		
+		
 		return result;
 	}
 
@@ -2361,11 +2369,7 @@ public class 	ConverterToLegacy {
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
 				lvia.setPosition(altRoute);
 				lvia.setCode(getLegacyStationCode(station.getStation()));
-				viastations.add(lvia);
-				if (lvia.getCode() == 0 && station.getStation().getCountry().getCode() != tool.getConversionFromLegacy().getParams().getCountry().getCode()) {
-					GtmUtils.writeConsoleError("Via station not mapped and not in country: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
-					return false;
-				}
+				viastations.add(lvia);			
 			} else if (station.getFareStationSet() != null){
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
 				lvia.setPosition(altRoute);

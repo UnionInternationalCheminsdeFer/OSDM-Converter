@@ -125,7 +125,10 @@ public class RouteDescriptionBuilder {
 			return "missing route";
 		}
 		
-		String s = getRouteDescription(regionalValidities.get(0).getViaStation());
+		RegionalValidity rv = regionalValidities.get(0);
+		
+		
+		String s = getRouteDescription(rv.getViaStation(), rv.getServiceConstraint());
 		int firstStar = s.indexOf("*");
 		int lastStar = s.lastIndexOf("*");
 		
@@ -182,6 +185,58 @@ public class RouteDescriptionBuilder {
 			return " ";
 		}
 		 */
+	}
+	
+	/**
+	 * Gets the route description 
+	 *
+	 * @param via the via
+	 * @param a service constraint
+	 * @return the route description
+	 */
+	public static String getRouteDescription(ViaStation via, ServiceConstraint sc) {
+		
+		StringBuilder label = new StringBuilder();
+			
+		if (via.getServiceConstraint() != null && via.getRoute() == null) {
+			label.append(getText(via.getServiceConstraint()));
+		}
+		
+		if (via.getStation()!= null) {
+			if (label.length() > 0) {
+				label.append("*");
+			}
+			label.append(getShortNameCaseASCII(via.getStation()));
+		} 
+		if (via.getFareStationSet() != null) {
+			if (label.length() > 0) {
+				label.append("*");
+			}
+			label.append(via.getFareStationSet().getName());
+		}
+		
+		if (via.getRoute()!= null && via.getRoute().getStations() != null && !via.getRoute().getStations().isEmpty() ) {
+            ServiceConstraint scr = sc;
+            if (via.getServiceConstraint() != null){
+            	scr = via.getServiceConstraint();
+            }
+			label.append(getRouteDescription(via.getRoute(),scr));
+			return label.toString();
+		}
+			
+		if (via.getAlternativeRoutes()!= null && !via.getAlternativeRoutes().isEmpty()) {
+			label.append("(");
+			for (AlternativeRoute route : via.getAlternativeRoutes() ) {
+				if (label.length() > 1) {
+					label.append("/"); //$NON-NLS-1$
+				}
+				label.append(getRouteDescription(route));
+			}		
+			label.append(")");
+		}
+			
+		return label.toString();
+
 	}
 
 	/**
