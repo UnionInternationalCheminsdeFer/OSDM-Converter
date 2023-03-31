@@ -1663,7 +1663,14 @@ public class GtmJsonExporterV14 {
 				
 				freeJ.setNumber(freeP.getNumber());
 								
-				freeJ.setPassengerConstraintRef(freeP.getPassengerConstraint().getId());
+				if (freeP.getPassengerConstraint() != null) {
+					freeJ.setPassengerConstraintRef(freeP.getPassengerConstraint().getId());
+				} else {
+					StringBuffer sb = new StringBuffer();
+					sb.append("Included free Passengers data in: ");
+					sb.append(GtmUtils.getLabelText(pass)).append(" has no passenger constraint assigned.");
+					GtmUtils.writeConsoleError(sb.toString(),null);
+				}
 				
 				listJ.add(freeJ);
 			}

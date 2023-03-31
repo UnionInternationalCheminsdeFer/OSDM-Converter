@@ -1978,8 +1978,16 @@ public class 	ConverterToLegacy {
 		String routeDescription = RouteDescriptionBuilder.getViaDescription(regionalConstraint.getRegionalValidity());
 		series.setRouteDescription(routeDescription);
 		if (routeDescription.length() > 58) {
-			String message = NationalLanguageSupport.ConverterToLegacy_28 + routeDescription;
-			GtmUtils.writeConsoleWarning(message, editor);
+			StringBuilder sb = new StringBuilder();
+			sb.append(NationalLanguageSupport.ConverterToLegacy_28);
+			sb.append(" ").append(routeDescription);
+			if (series.getNumber() > 0) {
+				sb.append(" legacy number: ").append(series.getNumber());
+			}
+			if (regionalConstraint.getId() != null && regionalConstraint.getId().length() > 0) {
+				sb.append(" id: ").append(regionalConstraint.getId());
+			}
+			GtmUtils.writeConsoleWarning(sb.toString(), editor);
 		}
 		
 		//from station
