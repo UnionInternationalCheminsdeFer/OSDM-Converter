@@ -1307,7 +1307,7 @@ public class GTMJsonImporterV20 {
 			
 			ReductionCard rc = findReductionCard(jr.getCardValue());
 			if (rc == null) {
-				GtmUtils.writeConsoleError("Reductiion card missing: " + jr.getCardName(),null);
+				GtmUtils.writeConsoleError("Reduction card missing: " + jr.getCardName(),null);
 			}
 			r.setCard(rc);
 			r.setName(jr.getCardName());		
@@ -1402,9 +1402,6 @@ public class GTMJsonImporterV20 {
 		p.getAllowedChanges().addAll(convertAllowedChangesList(jp.getAllowedChanges()));
 		return p;
 	}
-
-
-
 
 	private Collection<? extends AllowedPersonalDataChanges> convertAllowedChangesList(List<AllowedChange> jl) {
 
@@ -1510,8 +1507,27 @@ public class GTMJsonImporterV20 {
 	private TotalPassengerCombinationConstraint convert(PassengerCombinationConstraintDef jp) {
 		if (jp == null) return null;
 		TotalPassengerCombinationConstraint p = GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraint();
-		p.setMaxTotalPassengerWeight(jp.getMaxWeightedPassengers());
-		p.setMinTotalPassengerWeight(jp.getMinWeightedPassengers());
+		if (jp.getMaxWeightedPassengers() == null) {
+			p.setMaxTotalPassengerWeight(jp.getMaxWeightedPassengers());
+		} else {
+			p.setMaxTotalPassengerWeight(99.0F);
+			StringBuffer sb = new StringBuffer();
+			sb.append("Max Weighted Passengers is missing in Passenger Constraint: ");
+			sb.append(jp.getId());
+			sb.append(" assumed value 99.0 to continue");
+			GtmUtils.writeConsoleError(sb.toString(), editor);
+		}
+		if (jp.getMinWeightedPassengers() == null) {
+			p.setMinTotalPassengerWeight(jp.getMinWeightedPassengers());
+		} else {
+			p.setMaxTotalPassengerWeight(0.0F);
+			StringBuffer sb = new StringBuffer();
+			sb.append("Min Weighted Passengers is missing in Passenger Constraint: ");
+			sb.append(jp.getId());
+			sb.append(" assumed value 0.0 to continue");
+			GtmUtils.writeConsoleError(sb.toString(), editor);
+		}
+		
 	    p.setId(jp.getId());
 		return p;
 	}
@@ -1525,7 +1541,16 @@ public class GTMJsonImporterV20 {
 			p.setLowerAgeLimit(jp.getLowerAgeLimit());
 			p.setUpperAgeLimit(jp.getUpperAgeLimit());
 			p.getExcludedPassengerCombinations().addAll(convertPassengerCombinationList(jp.getCombinationConstraint()));
-			p.setPassengerWeight(jp.getPassengerWeight());
+			if (jp.getPassengerWeight() != null) {			
+				p.setPassengerWeight(jp.getPassengerWeight());
+			} else {
+				p.setPassengerWeight(1.0F);
+				StringBuffer sb = new StringBuffer();
+				sb.append("Passenger Weight is missing in Passenger Constraint: ");
+				sb.append(jp.getId());
+				sb.append(" assumed value 1.0 to continue");
+				GtmUtils.writeConsoleError(sb.toString(), editor);
+			}
 			p.setReservationAgeLimit(jp.getAgeLimitForReservation());
 			p.setText(findText(jp.getNameRef()));
 			p.setTravelerType(TravelerType.getByName(jp.getPassengerType()));
