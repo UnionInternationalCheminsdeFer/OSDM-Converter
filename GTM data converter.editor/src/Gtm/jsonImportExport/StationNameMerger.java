@@ -57,8 +57,7 @@ public class StationNameMerger {
 		}
 		
 		//set station name long ASCII
-		if (longA != null && longA.length() > 1 &&
-			(station.getNameCaseASCII() == null || station.getNameCaseASCII().length() == 0 )) {
+		if (longA != null && longA.length() > 1) {
 			Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_ASCII, longA);
 			if (com.canExecute()) {
 				command.append(com);
@@ -66,8 +65,7 @@ public class StationNameMerger {
 		}
 		
 		//set station name long UTF8
-		if (longU != null && longU.length() > 1 &&
-			(station.getNameCaseUTF8() == null || station.getNameCaseUTF8().length() == 0 )) {
+		if (longU != null && longU.length() > 1) {
 			Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__NAME_CASE_UTF8, longU);
 			if (com.canExecute()) {
 				command.append(com);					
@@ -75,8 +73,7 @@ public class StationNameMerger {
 		}
 
 		//set station name short ASCII
-		if (shortA != null && shortA.length() > 1 &&
-			(station.getShortNameCaseASCII() == null || station.getShortNameCaseASCII().length() == 0 )) {
+		if (shortA != null && shortA.length() > 1) {
 			Command com = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_ASCII, shortA);
 			if (com.canExecute()) {
 				command.append(com);					
@@ -84,8 +81,7 @@ public class StationNameMerger {
 		}
 			
 		//set station name short UTF8
-		if (shortU != null && shortU.length() > 1 &&
-			(station.getShortNameCaseUTF8() == null || station.getShortNameCaseUTF8().length() == 0 )) {
+		if (shortU != null && shortU.length() > 1) {
 			Command com2 = SetCommand.create(domain, station, GtmPackage.Literals.STATION__SHORT_NAME_CASE_UTF8, shortU);
 			if (com2.canExecute()) {
 				command.append(com2);					
