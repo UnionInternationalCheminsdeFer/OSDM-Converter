@@ -205,7 +205,7 @@ public class BorderPointInMeritsTest {
 			
 			assert(r.getRegionalValidity().get(0).getViaStation().getRoute() != null);
 			
-			String description = RouteDescriptionBuilder.getRouteDescription( r.getRegionalValidity().get(0).getViaStation());
+			String description = RouteDescriptionBuilder.getRouteDescription( r.getRegionalValidity().get(0).getViaStation(),null);
 			boolean isReturnRoute = TestUtils.isReturnRoute(r);		
 							
 			if (isReturnRoute) {

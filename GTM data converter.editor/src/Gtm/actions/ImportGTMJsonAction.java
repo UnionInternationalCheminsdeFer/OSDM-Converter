@@ -26,7 +26,7 @@ import Gtm.GtmFactory;
 import Gtm.GtmPackage;
 import Gtm.SchemaVersion;
 import Gtm.Station;
-import Gtm.jsonImportExport.GTMJsonImporterV20;
+import Gtm.jsonImportExport.GTMJsonImporterGeneric;
 import Gtm.jsonImportExport.StationNameMerger;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
@@ -34,10 +34,10 @@ import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
 import Gtm.utils.MigrationV2;
 import Gtm.utils.ModelInitializer;
-import export.ImportFareDeliveryV20;
-import gtmV20.FareDef;
-import gtmV20.FareDelivery;
-import gtmV20.StationNamesDef;
+import export.ImportFareDeliveryGeneric;
+import gtmV31.FareDef;
+import gtmV31.FareDelivery;
+import gtmV31.StationNamesDef;
 
 
 public class ImportGTMJsonAction extends BasicGtmAction {
@@ -172,7 +172,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 			File file = getFile();
 			if (file == null) return;
 			
-			GTMJsonImporterV20 importer = new GTMJsonImporterV20(tool, domain, editor);
+			GTMJsonImporterGeneric importer = new GTMJsonImporterGeneric(tool, domain, editor);
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
@@ -194,7 +194,7 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 						monitor.subTask(NationalLanguageSupport.ImportGTMJsonAction_6);
 						FareDelivery fareDelivery;
 						try {
-							fareDelivery = ImportFareDeliveryV20.importFareDelivery(file);
+							fareDelivery = ImportFareDeliveryGeneric.importFareDelivery(file);
 						} catch (IOException e) {
 							GtmUtils.displayAsyncErrorMessage(e,"file error");
 							monitor.done();

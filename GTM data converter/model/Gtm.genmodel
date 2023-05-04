@@ -387,8 +387,8 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//SchemaVersion">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_2"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_4"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_5"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_3_0"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_3_1"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ServiceMode">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ServiceMode/HIGH_SPEED_TRAIN"/>
@@ -1130,6 +1130,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ViaStation/dataDescription"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/fareStationSet"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/serviceConstraint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ViaStation/technicalViaOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ViaStation/realStop"/>
       <genOperations ecoreOperation="Gtm.ecore#//ViaStation/getDescription"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AlternativeRoute">

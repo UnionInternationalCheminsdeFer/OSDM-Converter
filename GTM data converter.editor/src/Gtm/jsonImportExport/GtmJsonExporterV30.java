@@ -1446,11 +1446,15 @@ public class GtmJsonExporterV30 {
 			vJ.setCarrierConstraintRef(v.getCarrierConstraint().getId());
 		}
 		
+		vJ.setStop(v.isRealStop());
+		
 		if (isEmpty) {
 			return null;
 		} else {
 		  return vJ;
 		}
+		
+
 	}
 
 

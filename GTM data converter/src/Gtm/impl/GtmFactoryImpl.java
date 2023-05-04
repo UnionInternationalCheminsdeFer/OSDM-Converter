@@ -240,22 +240,18 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case GtmPackage.BOARDING_OR_ARRIVAL:
-				return createBoardingOrArrivalFromString(eDataType, initialValue);
-			case GtmPackage.CONDITION_TYPE:
-				return createConditionTypeFromString(eDataType, initialValue);
+			case GtmPackage.ADD_CARRIER_SCOPE:
+				return createAddCarrierScopeFromString(eDataType, initialValue);
 			case GtmPackage.LUGGAGE_RULE:
 				return createLuggageRuleFromString(eDataType, initialValue);
 			case GtmPackage.DIMENSION:
 				return createDimensionFromString(eDataType, initialValue);
-			case GtmPackage.ADD_CARRIER_SCOPE:
-				return createAddCarrierScopeFromString(eDataType, initialValue);
+			case GtmPackage.BOARDING_OR_ARRIVAL:
+				return createBoardingOrArrivalFromString(eDataType, initialValue);
+			case GtmPackage.CONDITION_TYPE:
+				return createConditionTypeFromString(eDataType, initialValue);
 			case GtmPackage.TRANSPORT_MODE:
 				return createTransportModeFromString(eDataType, initialValue);
-			case GtmPackage.STATION_RELATION_TYPE:
-				return createStationRelationTypeFromString(eDataType, initialValue);
-			case GtmPackage.STATION_FARE_DETAIL_TYPE:
-				return createStationFareDetailTypeFromString(eDataType, initialValue);
 			case GtmPackage.REGULATORY_CONDITION:
 				return createRegulatoryConditionFromString(eDataType, initialValue);
 			case GtmPackage.AFTER_SALES_TRANSACTION_TYPE:
@@ -326,6 +322,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createReservationBerthTypeFromString(eDataType, initialValue);
 			case GtmPackage.ROUNDING_TYPE:
 				return createRoundingTypeFromString(eDataType, initialValue);
+			case GtmPackage.STATION_RELATION_TYPE:
+				return createStationRelationTypeFromString(eDataType, initialValue);
+			case GtmPackage.STATION_FARE_DETAIL_TYPE:
+				return createStationFareDetailTypeFromString(eDataType, initialValue);
 			case GtmPackage.SCHEMA_VERSION:
 				return createSchemaVersionFromString(eDataType, initialValue);
 			case GtmPackage.SERVICE_MODE:
@@ -369,22 +369,18 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case GtmPackage.BOARDING_OR_ARRIVAL:
-				return convertBoardingOrArrivalToString(eDataType, instanceValue);
-			case GtmPackage.CONDITION_TYPE:
-				return convertConditionTypeToString(eDataType, instanceValue);
+			case GtmPackage.ADD_CARRIER_SCOPE:
+				return convertAddCarrierScopeToString(eDataType, instanceValue);
 			case GtmPackage.LUGGAGE_RULE:
 				return convertLuggageRuleToString(eDataType, instanceValue);
 			case GtmPackage.DIMENSION:
 				return convertDimensionToString(eDataType, instanceValue);
-			case GtmPackage.ADD_CARRIER_SCOPE:
-				return convertAddCarrierScopeToString(eDataType, instanceValue);
+			case GtmPackage.BOARDING_OR_ARRIVAL:
+				return convertBoardingOrArrivalToString(eDataType, instanceValue);
+			case GtmPackage.CONDITION_TYPE:
+				return convertConditionTypeToString(eDataType, instanceValue);
 			case GtmPackage.TRANSPORT_MODE:
 				return convertTransportModeToString(eDataType, instanceValue);
-			case GtmPackage.STATION_RELATION_TYPE:
-				return convertStationRelationTypeToString(eDataType, instanceValue);
-			case GtmPackage.STATION_FARE_DETAIL_TYPE:
-				return convertStationFareDetailTypeToString(eDataType, instanceValue);
 			case GtmPackage.REGULATORY_CONDITION:
 				return convertRegulatoryConditionToString(eDataType, instanceValue);
 			case GtmPackage.AFTER_SALES_TRANSACTION_TYPE:
@@ -455,6 +451,10 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertReservationBerthTypeToString(eDataType, instanceValue);
 			case GtmPackage.ROUNDING_TYPE:
 				return convertRoundingTypeToString(eDataType, instanceValue);
+			case GtmPackage.STATION_RELATION_TYPE:
+				return convertStationRelationTypeToString(eDataType, instanceValue);
+			case GtmPackage.STATION_FARE_DETAIL_TYPE:
+				return convertStationFareDetailTypeToString(eDataType, instanceValue);
 			case GtmPackage.SCHEMA_VERSION:
 				return convertSchemaVersionToString(eDataType, instanceValue);
 			case GtmPackage.SERVICE_MODE:

@@ -10,3 +10,5 @@ D:\Software\jsonschemajava\jsonschema2pojo-1.0.1\bin\jsonschema2pojo.bat -s "D:\
 3.0:
 D:\Software\jsonschemajava\jsonschema2pojo-1.0.1\bin\jsonschema2pojo.bat -s "D:\git\OSDM-Converter\GTM model\spec\3.0" -t "D:\git\UIC-New-Tariff-Model\GTM model\src4" -p gtmV30 -R -f -dp "yyyy-MM-dd'T'HH:mm:ssZZZ" -dtp "yyyy-MM-dd'T'HH:mm:ssZZZ" 
 
+3.1:
+D:\Software\jsonschemajava\jsonschema2pojo-1.0.1\bin\jsonschema2pojo.bat -s "D:\git\OSDM-Converter\GTM model\spec\3.1" -t "D:\git\UIC-New-Tariff-Model\GTM model\src5" -p gtmV31 -R -f -dp "yyyy-MM-dd'T'HH:mm:ssZZZ" -dtp "yyyy-MM-dd'T'HH:mm:ssZZZ" 

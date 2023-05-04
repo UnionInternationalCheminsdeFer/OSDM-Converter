@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  *
  * @see Gtm.GtmPackage#getRegionalConstraints()
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='DESCRIPTION_UNIQUE'"
  * @generated
  */
 public interface RegionalConstraints extends EObject {

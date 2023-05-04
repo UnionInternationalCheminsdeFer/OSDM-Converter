@@ -139,52 +139,6 @@ public class RouteDescriptionBuilder {
 			return "";
 		}
 		
-		/*
-		
-		StringBuilder label = new StringBuilder();
-		label.append("");
-
-		RegionalValidity regionalValidity = regionalValidities.get(0);
-		ViaStation via = regionalValidity.getViaStation();
-		
-		if (regionalValidity.getServiceConstraint() != null && via.getServiceConstraint() == null) {
-			label.append(getText(regionalValidity.getServiceConstraint())).append(" ");
-		} else if (via != null && via.getServiceConstraint() != null) {
-			label.append(getText(via.getServiceConstraint())).append(" ");
-		}
-		
-
-		if (via == null ||
-			via.getRoute() == null || 
-			via.getRoute().getStations() == null ||
-			via.getRoute().getStations().isEmpty() ) {
-				return label.toString(); //$NON-NLS-1$
-		}
-		
-		Route route = via.getRoute();
-		
-		if (via.getRoute().getStations().size() < 3) {
-			return label.toString();
-		}
-		
-		if (label.length() > 0) label.append(" ");
-		
-		int first = 1;
-		int last = route.getStations().size() - 1;
-		
-		try {
-			for (int i = first; i < last; i++) {
-				if (i > first) {
-					label.append("*");
-				}
-				label.append(getRouteDescription(route.getStations().get(i)));			
-			}
-			return label.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return " ";
-		}
-		 */
 	}
 	
 	/**
@@ -195,6 +149,10 @@ public class RouteDescriptionBuilder {
 	 * @return the route description
 	 */
 	public static String getRouteDescription(ViaStation via, ServiceConstraint sc) {
+				
+		if (via == null || via.isTechnicalViaOnly()) {
+			return "";
+		}
 		
 		StringBuilder label = new StringBuilder();
 			
@@ -225,14 +183,21 @@ public class RouteDescriptionBuilder {
 		}
 			
 		if (via.getAlternativeRoutes()!= null && !via.getAlternativeRoutes().isEmpty()) {
-			label.append("(");
+			StringBuilder altRoutesDescription = new StringBuilder();
 			for (AlternativeRoute route : via.getAlternativeRoutes() ) {
-				if (label.length() > 1) {
-					label.append("/"); //$NON-NLS-1$
+				String altDescription = getRouteDescription(route);
+				if (altDescription != null && altDescription.length() > 0) {
+					if (altRoutesDescription.length() > 1) {
+						altRoutesDescription.append("/"); //$NON-NLS-1$
+					}
+					altRoutesDescription.append(altDescription);
 				}
-				label.append(getRouteDescription(route));
 			}		
-			label.append(")");
+			if (altRoutesDescription.length() > 0) {
+				label.append("(");
+				label.append(altRoutesDescription);
+				label.append(")");
+			}
 		}
 			
 		return label.toString();
@@ -247,43 +212,8 @@ public class RouteDescriptionBuilder {
 	 */
 	public static String getRouteDescription(ViaStation via) {
 		
-		StringBuilder label = new StringBuilder();
+		return getRouteDescription(via, null);
 		
-		if (via.getServiceConstraint() != null && via.getRoute() == null) {
-			label.append(getText(via.getServiceConstraint()));
-		}
-		
-		if (via.getStation()!= null) {
-			if (label.length() > 0) {
-				label.append("*");
-			}
-			label.append(getShortNameCaseASCII(via.getStation()));
-		} 
-		if (via.getFareStationSet() != null) {
-			if (label.length() > 0) {
-				label.append("*");
-			}
-			label.append(via.getFareStationSet().getName());
-		}
-		
-		if (via.getRoute()!= null && via.getRoute().getStations() != null && !via.getRoute().getStations().isEmpty() ) {
-			label.append(getRouteDescription(via.getRoute(),via.getServiceConstraint()));
-			return label.toString();
-		}
-			
-		if (via.getAlternativeRoutes()!= null && !via.getAlternativeRoutes().isEmpty()) {
-			label.append("(");
-			for (AlternativeRoute route : via.getAlternativeRoutes() ) {
-				if (label.length() > 1) {
-					label.append("/"); //$NON-NLS-1$
-				}
-				label.append(getRouteDescription(route));
-			}		
-			label.append(")");
-		}
-			
-		return label.toString();
-
 	}
 	
 	/**
@@ -299,10 +229,14 @@ public class RouteDescriptionBuilder {
 			StringBuilder  routeLable = new StringBuilder(); //$NON-NLS-1$
 					
 			for (ViaStation via2 :  route.getStations()) {
-				if (routeLable.length() < 1 || routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
-					routeLable.append(getRouteDescription(via2));
-				} else {
-					routeLable.append("*").append(getRouteDescription(via2)); //$NON-NLS-1$
+				String viaDescription = getRouteDescription(via2);
+				if (viaDescription != null && viaDescription.length() > 0) {
+					if (routeLable.length() < 1 || 
+						routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
+						routeLable.append(viaDescription);
+					} else {
+						routeLable.append("*").append(viaDescription); //$NON-NLS-1$
+					}
 				}
 			}
 			
@@ -329,10 +263,14 @@ public class RouteDescriptionBuilder {
 				routeLable.append("*").append(getText(serviceConstraint));
 			}
 			index++;			
-			if (routeLable.length() == 0 || routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
-				routeLable.append(getRouteDescription(via2));
-			} else {
-				routeLable.append("*").append(getRouteDescription(via2)); //$NON-NLS-1$
+			
+			String viaDescription = getRouteDescription(via2);
+			if (viaDescription != null && viaDescription.length() > 0) {
+				if (routeLable.length() < 1 || routeLable.substring(routeLable.length()-1,routeLable.length()).equals("*")) { //$NON-NLS-1$
+					routeLable.append(viaDescription);
+				} else {
+					routeLable.append("*").append(viaDescription); //$NON-NLS-1$
+				}
 			}
 		}
 		
