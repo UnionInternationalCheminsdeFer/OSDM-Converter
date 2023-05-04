@@ -2610,10 +2610,12 @@ public class GTMJsonImporterGeneric {
 		if (version.equals(SchemaVersion.V14.getLiteral()) || version.equals(SchemaVersion.V14.getName())) {
 			return SchemaVersion.V14;
 		}
-		if (version.equals(SchemaVersion.V15.getLiteral()) || version.equals(SchemaVersion.V15.getName())) {
-			return SchemaVersion.V15;
+		if (version.equals(SchemaVersion.V30.getLiteral()) || version.equals(SchemaVersion.V30.getName())) {
+			return SchemaVersion.V30;
+		}
+		if (version.equals(SchemaVersion.V31.getLiteral()) || version.equals(SchemaVersion.V31.getName())) {
+			return SchemaVersion.V31;
 		}		
-		
 		
 		GtmUtils.writeConsoleError("Schema Version not supported: " + version, editor);
 		

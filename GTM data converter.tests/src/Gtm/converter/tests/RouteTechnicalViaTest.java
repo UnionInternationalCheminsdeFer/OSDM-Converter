@@ -3,7 +3,6 @@ package Gtm.converter.tests;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.TimeZone;
 
 import org.junit.Before;
@@ -13,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import Gtm.AlternativeRoute;
 import Gtm.Calendar;
 import Gtm.FareElement;
 import Gtm.GTMTool;
@@ -24,7 +22,6 @@ import Gtm.LegacySeries;
 import Gtm.LegacySeriesType;
 import Gtm.RegionalConstraint;
 import Gtm.RouteDescriptionBuilder;
-import Gtm.ViaStation;
 import Gtm.converter.ConverterFromLegacy;
 import Gtm.converter.ConverterToLegacy;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
@@ -34,7 +31,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class BasicConversionTest {
+public class RouteTechnicalViaTest {
 	
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd:HHmm"); //$NON-NLS-1$
 	
@@ -56,57 +53,6 @@ public class BasicConversionTest {
 				
 		tool = LegacyDataFactory.createBasicData();
 		
-		
-		
-		/*
-		 *  mark vias as technical
-		 * 	seriesId == 1
-		 * 	"G*F*[E]*D*C*B*A"
-			"A*B*C*D*[E]*F*G"
-		 */
-		setTechnicalVia(tool, 1,"E");
-		
-		/*
-			seriesId == 2) {   
-			"G*F*E*D*(C/[B])*A"
-			"A*([B]/C)*D*E*F*G"
-				
-		 */
-		setTechnicalVia(tool, 2,"B");
-		
-		/*			
-				
-			seriesId == 3
-			"G*F*([E]*D/C)*B*A" 
-			"A*B*(C/D*[E])*F*G" 
-		 */
-
-		setTechnicalVia(tool, 3,"E");
-		
-		/*
-            seriesId == 4 
-            "G*F*(E/[D]*C)*B*A";
-            "A*B*(C*[D]/E)*F*G";
-		 */
-		setTechnicalVia(tool, 4,"D");
-		setTechnicalVia(tool, 4,"D");
-		
-		/*
-           seriesId == 5
-           "G*(F/E)*D*[(C/B)]*A"
-           "A*[(B/C)]*D*(E/F)*G"
-        */
-		setTechnicalVia(tool, 5,"B");
-		setTechnicalVia(tool, 5,"C");
-		
-		/*
-		   seriesId == 6
-		   "G*F*([E]/D)*(C/B)*A"
-           "A*(B/C)*(D/[E])*F*G";
-		 */
-		setTechnicalVia(tool, 6,"E");	
-		
-		
 		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
 		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
@@ -119,72 +65,6 @@ public class BasicConversionTest {
 			
 	}
 	
-	private void setTechnicalVia(GTMTool tool, int seriesId, String station) {
-		
-		HashSet<ViaStation> mainRoutes = getRegionalConstarints(tool, seriesId);
-		
-		Iterator<ViaStation> it = mainRoutes.iterator();
-		
-      while (mainRoutes.iterator().hasNext()) {
-    	  
-    	  ViaStation main = it.next();
-    	     	  
-    	  ViaStation via = getViaStation(main,station);
-    	  
-    	  via.setTechnicalViaOnly(true);
-    	  
-      }
-	}
-
-	private ViaStation getViaStation(ViaStation via, String stationName) {
-		
-		if (via.getStation() != null && via.getStation().getName().equals(stationName)) {
-			return via;
-		}
-		
-		if (via.getFareStationSet() != null && via.getFareStationSet().getName().equals(stationName)) {
-			return via;
-		}
-		
-		if (via.getRoute() != null) {
-			
-			for (ViaStation via2 : via.getRoute().getStations()) {
-				ViaStation via3 = getViaStation(via2, stationName);
-				if (via3 != null) {
-					return via3;
-				}
-			}
-		}
-		
-		if (via.getAlternativeRoutes() != null) {
-			for (AlternativeRoute ar : via.getAlternativeRoutes()) {
-				
-				for (ViaStation via2 : ar.getStations()) {
-					ViaStation via3 = getViaStation(via2, stationName);
-					if (via3 != null) {
-						return via3;
-					}
-				}
-				
-			}
-		}
-		
-		return null;
-	}
-
-	private HashSet<ViaStation> getRegionalConstarints(GTMTool tool, int seriesId) {
-		
-		HashSet<ViaStation> mainRoutes = new HashSet<ViaStation>();
-		
-		for (FareElement f : tool.getGeneralTariffModel().getFareStructure().getFareElements().getFareElements()) {
-			if (f.getLegacyAccountingIdentifier().getSeriesId() == seriesId) {
-				mainRoutes.add(f.getRegionalConstraint().getRegionalValidity().get(0).getViaStation());
-			}
-		}
-		
-		return mainRoutes;
-	}
-
 	@Test 
 	public void testBasicConversion() {
 		
@@ -264,39 +144,39 @@ public class BasicConversionTest {
 				
 			if (seriesId == 1) {
 				if (isReturnRoute) {
-					assert(description.equals("G*F*D*C*B*A"));
+					assert(description.equals("G*F*E*D*C*B*A"));
 				} else {
-					assert(description.equals("A*B*C*D*F*G"));
+					assert(description.equals("A*B*C*D*E*F*G"));
 				}
 			} else if (seriesId == 2) {   
 				if (isReturnRoute) {
-					assert(description.equals("G*F*E*D*C*A"));
+					assert(description.equals("G*F*E*D*(C/B)*A"));
 				} else {
-					assert(description.equals("A*C*D*E*F*G"));
+					assert(description.equals("A*(B/C)*D*E*F*G"));
 				}
 			} else if (seriesId == 3) {
 				if (isReturnRoute) {
-					assert(description.equals("G*F*(D/C)*B*A")); 
+					assert(description.equals("G*F*(E*D/C)*B*A")); 
 				} else {
-					assert(description.equals("A*B*(C/D)*F*G")); 
+					assert(description.equals("A*B*(C/D*E)*F*G")); 
 				}
 			} else if (seriesId == 4) {
 				if (isReturnRoute) {
-					assert(description.equals("G*F*(E/C)*B*A"));
+					assert(description.equals("G*F*(E/D*C)*B*A"));
 				} else {
-					assert(description.equals("A*B*(C/E)*F*G"));
+					assert(description.equals("A*B*(C*D/E)*F*G"));
 				}
 			} else if (seriesId == 5) {
 				if (isReturnRoute) {
-					assert(description.equals("G*(F/E)*D*A"));
+					assert(description.equals("G*(F/E)*D*(C/B)*A"));
 				} else {
-					assert(description.equals("A*D*(E/F)*G"));
+					assert(description.equals("A*(B/C)*D*(E/F)*G"));
 				}
 			} else if (seriesId == 6) {
 				if (isReturnRoute) {
-					assert(description.equals("G*D*(C/B)*A"));
+					assert(description.equals("G*F*(E/D)*(C/B)*A"));
 				} else {
-					assert(description.equals("A*(B/C)*D*G"));
+					assert(description.equals("A*(B/C)*(D/E)*F*G"));
 				}
 			} 
 		}

@@ -183,20 +183,24 @@ public class RouteDescriptionBuilder {
 		}
 			
 		if (via.getAlternativeRoutes()!= null && !via.getAlternativeRoutes().isEmpty()) {
+			int numberOfRoutes = 0;
 			StringBuilder altRoutesDescription = new StringBuilder();
 			for (AlternativeRoute route : via.getAlternativeRoutes() ) {
 				String altDescription = getRouteDescription(route);
 				if (altDescription != null && altDescription.length() > 0) {
-					if (altRoutesDescription.length() > 1) {
+					if (altRoutesDescription.length() > 0) {
+						numberOfRoutes++;
 						altRoutesDescription.append("/"); //$NON-NLS-1$
 					}
 					altRoutesDescription.append(altDescription);
 				}
 			}		
-			if (altRoutesDescription.length() > 0) {
+			if (altRoutesDescription.length() > 0 && numberOfRoutes > 1) {
 				label.append("(");
 				label.append(altRoutesDescription);
 				label.append(")");
+			} else  if (altRoutesDescription.length() > 0 && numberOfRoutes == 1) {
+				label.append(altRoutesDescription);
 			}
 		}
 			
