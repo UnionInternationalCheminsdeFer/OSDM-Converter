@@ -1170,6 +1170,9 @@ public class GTMJsonImporterGeneric {
 	private Zone convert(ZoneDef jz) {
 		if (jz == null) return null;
 		Zone z = GtmFactory.eINSTANCE.createZone();
+		
+		z.setName(jz.getName());
+		
 		if (jz.getBinaryZoneId() != null){
 			z.setBinaryZoneId(jz.getBinaryZoneId().getBytes());
 		}

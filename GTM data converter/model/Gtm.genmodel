@@ -1148,6 +1148,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Zone/entryStation"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Zone/terminalStation"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Zone/nutsCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Zone/name"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Line">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Line/binaryZoneId"/>

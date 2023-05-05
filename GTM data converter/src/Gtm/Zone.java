@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Zone#getEntryStation <em>Entry Station</em>}</li>
  *   <li>{@link Gtm.Zone#getTerminalStation <em>Terminal Station</em>}</li>
  *   <li>{@link Gtm.Zone#getNutsCode <em>Nuts Code</em>}</li>
+ *   <li>{@link Gtm.Zone#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getZone()
@@ -150,6 +151,28 @@ public interface Zone extends EObject {
 	 * @generated
 	 */
 	void setNutsCode(NutsCode value);
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see Gtm.GtmPackage#getZone_Name()
+	 * @model
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Zone#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>City</b></em>' attribute.

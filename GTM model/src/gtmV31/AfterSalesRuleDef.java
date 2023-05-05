@@ -42,11 +42,11 @@ public class AfterSalesRuleDef {
     @JsonPropertyDescription("indicates that the fee belongs to the allocator")
     private Boolean isCarrierFee = false;
     /**
-     * indicates that the fee belongs to the allocator
+     * indicates that the fee belongs to the allocator --> replaced by isCarrierFee
      * 
      */
     @JsonProperty("isAllocatorFee")
-    @JsonPropertyDescription("indicates that the fee belongs to the allocator")
+    @JsonPropertyDescription("indicates that the fee belongs to the allocator --> replaced by isCarrierFee")
     private Boolean isAllocatorFee = false;
     /**
      * indicates that the after sales of this fare can be treated independently per person.
@@ -123,7 +123,7 @@ public class AfterSalesRuleDef {
     }
 
     /**
-     * indicates that the fee belongs to the allocator
+     * indicates that the fee belongs to the allocator --> replaced by isCarrierFee
      * 
      */
     @JsonProperty("isAllocatorFee")
@@ -132,7 +132,7 @@ public class AfterSalesRuleDef {
     }
 
     /**
-     * indicates that the fee belongs to the allocator
+     * indicates that the fee belongs to the allocator --> replaced by isCarrierFee
      * 
      */
     @JsonProperty("isAllocatorFee")

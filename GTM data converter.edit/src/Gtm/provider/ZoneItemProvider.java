@@ -68,6 +68,7 @@ public class ZoneItemProvider
 			addEntryStationPropertyDescriptor(object);
 			addTerminalStationPropertyDescriptor(object);
 			addNutsCodePropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -205,6 +206,28 @@ public class ZoneItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Zone_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Zone_name_feature", "_UI_Zone_type"),
+				 GtmPackage.Literals.ZONE__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the City feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -245,8 +268,7 @@ public class ZoneItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		byte[] labelValue = ((Zone)object).getBinaryZoneId();
-		String label = labelValue == null ? null : labelValue.toString();
+		String label = ((Zone)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Zone_type") :
 			getString("_UI_Zone_type") + " " + label;
@@ -268,6 +290,7 @@ public class ZoneItemProvider
 			case GtmPackage.ZONE__BINARY_ZONE_ID:
 			case GtmPackage.ZONE__ZONE_ID:
 			case GtmPackage.ZONE__CITY:
+			case GtmPackage.ZONE__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

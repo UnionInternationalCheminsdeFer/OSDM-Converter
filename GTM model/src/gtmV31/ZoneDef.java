@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "name",
     "binaryZoneId",
     "carrier",
     "city",
@@ -25,6 +26,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class ZoneDef {
 
+    /**
+     * Name of the zone to be used in descriptions for the regional validity.
+     * 
+     */
+    @JsonProperty("name")
+    @JsonPropertyDescription("Name of the zone to be used in descriptions for the regional validity.")
+    private String name;
     /**
      * Id to support local traffic standards (e.g. VDV,...)
      * 
@@ -70,6 +78,24 @@ public class ZoneDef {
     @JsonProperty("nutsCode")
     @JsonPropertyDescription("Nomenclature des units territoriales statistiques COMMISSION REGULATION (EU) No 31/2011")
     private String nutsCode;
+
+    /**
+     * Name of the zone to be used in descriptions for the regional validity.
+     * 
+     */
+    @JsonProperty("name")
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Name of the zone to be used in descriptions for the regional validity.
+     * 
+     */
+    @JsonProperty("name")
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Id to support local traffic standards (e.g. VDV,...)
@@ -195,6 +221,10 @@ public class ZoneDef {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(ZoneDef.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append("name");
+        sb.append('=');
+        sb.append(((this.name == null)?"<null>":this.name));
+        sb.append(',');
         sb.append("binaryZoneId");
         sb.append('=');
         sb.append(((this.binaryZoneId == null)?"<null>":this.binaryZoneId));
@@ -238,6 +268,7 @@ public class ZoneDef {
         result = ((result* 31)+((this.nutsCode == null)? 0 :this.nutsCode.hashCode()));
         result = ((result* 31)+((this.zoneIds == null)? 0 :this.zoneIds.hashCode()));
         result = ((result* 31)+((this.city == null)? 0 :this.city.hashCode()));
+        result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
         result = ((result* 31)+((this.entryStation == null)? 0 :this.entryStation.hashCode()));
         result = ((result* 31)+((this.terminalStation == null)? 0 :this.terminalStation.hashCode()));
         result = ((result* 31)+((this.binaryZoneId == null)? 0 :this.binaryZoneId.hashCode()));
@@ -253,7 +284,7 @@ public class ZoneDef {
             return false;
         }
         ZoneDef rhs = ((ZoneDef) other);
-        return ((((((((this.carrier == rhs.carrier)||((this.carrier!= null)&&this.carrier.equals(rhs.carrier)))&&((this.nutsCode == rhs.nutsCode)||((this.nutsCode!= null)&&this.nutsCode.equals(rhs.nutsCode))))&&((this.zoneIds == rhs.zoneIds)||((this.zoneIds!= null)&&this.zoneIds.equals(rhs.zoneIds))))&&((this.city == rhs.city)||((this.city!= null)&&this.city.equals(rhs.city))))&&((this.entryStation == rhs.entryStation)||((this.entryStation!= null)&&this.entryStation.equals(rhs.entryStation))))&&((this.terminalStation == rhs.terminalStation)||((this.terminalStation!= null)&&this.terminalStation.equals(rhs.terminalStation))))&&((this.binaryZoneId == rhs.binaryZoneId)||((this.binaryZoneId!= null)&&this.binaryZoneId.equals(rhs.binaryZoneId))));
+        return (((((((((this.carrier == rhs.carrier)||((this.carrier!= null)&&this.carrier.equals(rhs.carrier)))&&((this.nutsCode == rhs.nutsCode)||((this.nutsCode!= null)&&this.nutsCode.equals(rhs.nutsCode))))&&((this.zoneIds == rhs.zoneIds)||((this.zoneIds!= null)&&this.zoneIds.equals(rhs.zoneIds))))&&((this.city == rhs.city)||((this.city!= null)&&this.city.equals(rhs.city))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.entryStation == rhs.entryStation)||((this.entryStation!= null)&&this.entryStation.equals(rhs.entryStation))))&&((this.terminalStation == rhs.terminalStation)||((this.terminalStation!= null)&&this.terminalStation.equals(rhs.terminalStation))))&&((this.binaryZoneId == rhs.binaryZoneId)||((this.binaryZoneId!= null)&&this.binaryZoneId.equals(rhs.binaryZoneId))));
     }
 
 }

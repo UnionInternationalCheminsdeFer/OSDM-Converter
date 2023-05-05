@@ -6907,13 +6907,22 @@ public interface GtmPackage extends EPackage {
 	int ZONE__NUTS_CODE = 6;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ZONE__NAME = 7;
+
+	/**
 	 * The number of structural features of the '<em>Zone</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ZONE_FEATURE_COUNT = 7;
+	int ZONE_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Zone</em>' class.
@@ -17317,6 +17326,17 @@ public interface GtmPackage extends EPackage {
 	EReference getZone_NutsCode();
 
 	/**
+	 * Returns the meta object for the attribute '{@link Gtm.Zone#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see Gtm.Zone#getName()
+	 * @see #getZone()
+	 * @generated
+	 */
+	EAttribute getZone_Name();
+
+	/**
 	 * Returns the meta object for class '{@link Gtm.Line <em>Line</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -25888,6 +25908,14 @@ public interface GtmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ZONE__NUTS_CODE = eINSTANCE.getZone_NutsCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ZONE__NAME = eINSTANCE.getZone_Name();
 
 		/**
 		 * The meta object literal for the '{@link Gtm.impl.LineImpl <em>Line</em>}' class.

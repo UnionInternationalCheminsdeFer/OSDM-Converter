@@ -1313,6 +1313,9 @@ public class GtmJsonExporterV31 {
 	private static ZoneDef convertToJson(Zone z) {
 		if (z == null) return null;
 		ZoneDef zJ = new ZoneDef();
+		
+		zJ.setName(z.getName());
+		
 		if (z.getBinaryZoneId()!= null && z.getBinaryZoneId().length > 0) {
 			zJ.setBinaryZoneId(Base64.encode(z.getBinaryZoneId()));
 		}

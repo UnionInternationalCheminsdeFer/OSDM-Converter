@@ -264,7 +264,11 @@ public class RouteDescriptionBuilder {
 
 
 	private static Object getZoneDescription(Zone zone) {
-	
+		
+		if (zone.getName() != null && zone.getName().length() > 0) {
+			return zone.getName();
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		
 		if (zone.getCarrier() != null) {
