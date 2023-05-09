@@ -360,8 +360,8 @@ public class RouteDescriptionBuilder {
 			for (AlternativeRoute route : via.getAlternativeRoutes() ) {
 				String altDescription = getRouteDescription(route);
 				if (altDescription != null && altDescription.length() > 0) {
+					numberOfRoutes++;
 					if (altRoutesDescription.length() > 0) {
-						numberOfRoutes++;
 						altRoutesDescription.append("/"); //$NON-NLS-1$
 					}
 					altRoutesDescription.append(altDescription);

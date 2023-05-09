@@ -34,7 +34,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class BasicConversionTest {
+public class RouteTechnicalEntriesBasicConversionTest {
 	
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd:HHmm"); //$NON-NLS-1$
 	
@@ -55,6 +55,17 @@ public class BasicConversionTest {
 		MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
+		
+		
+		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+		
+		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
+		
+		//prepare codelists
+		converterFromLegacy.initializeConverter();
+		
+		//convert
+		converterFromLegacy.convertToGtmTest(new MockedProgressMonitor());
 		
 		
 		
@@ -105,17 +116,6 @@ public class BasicConversionTest {
            "A*(B/C)*(D/[E])*F*G";
 		 */
 		setTechnicalVia(tool, 6,"E");	
-		
-		
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
-		
-		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
-		
-		//prepare codelists
-		converterFromLegacy.initializeConverter();
-		
-		//convert
-		converterFromLegacy.convertToGtmTest(new MockedProgressMonitor());
 			
 	}
 	
@@ -125,7 +125,7 @@ public class BasicConversionTest {
 		
 		Iterator<ViaStation> it = mainRoutes.iterator();
 		
-      while (mainRoutes.iterator().hasNext()) {
+      while (it.hasNext()) {
     	  
     	  ViaStation main = it.next();
     	     	  
@@ -138,11 +138,11 @@ public class BasicConversionTest {
 
 	private ViaStation getViaStation(ViaStation via, String stationName) {
 		
-		if (via.getStation() != null && via.getStation().getName().equals(stationName)) {
+		if (via.getStation() != null && via.getStation().getName().startsWith(stationName)) {
 			return via;
 		}
 		
-		if (via.getFareStationSet() != null && via.getFareStationSet().getName().equals(stationName)) {
+		if (via.getFareStationSet() != null && via.getFareStationSet().getName().startsWith(stationName)) {
 			return via;
 		}
 		
@@ -294,9 +294,9 @@ public class BasicConversionTest {
 				}
 			} else if (seriesId == 6) {
 				if (isReturnRoute) {
-					assert(description.equals("G*D*(C/B)*A"));
+					assert(description.equals("G*F*D*(C/B)*A"));
 				} else {
-					assert(description.equals("A*(B/C)*D*G"));
+					assert(description.equals("A*(B/C)*D*F*G"));
 				}
 			} 
 		}
@@ -332,7 +332,7 @@ public class BasicConversionTest {
 			String description = s.getRouteDescription();
 			if (seriesId == 1) {
 				assert(s.getFromStationName().equals("A-Town"));
-				assert(description.equals("B*C*D*E*F"));
+				assert(description.equals("B*C*D*F"));
 				assert(s.getToStationName().equals("G-Town"));
 				assert(s.getDistance1() == 10);
 				assert(s.getDistance2() == 10);
@@ -348,23 +348,23 @@ public class BasicConversionTest {
 				routeNumbers.add(s.getRouteNumber());
 				
 			} else if (seriesId == 2) {   
-				assert(description.equals("(B/C)*D*E*F"));
+				assert(description.equals("C*D*E*F"));
 				assert(!routeNumbers.contains(s.getRouteNumber()));
 				routeNumbers.add(s.getRouteNumber());
 			} else if (seriesId == 3) {
-				assert(description.equals("B*(C/D*E)*F")); 
+				assert(description.equals("B*(C/D)*F")); 
 				assert(!routeNumbers.contains(s.getRouteNumber()));
 				routeNumbers.add(s.getRouteNumber());
 			} else if (seriesId == 4) {
-				assert(description.equals("B*(C*D/E)*F"));
+				assert(description.equals("B*(C/E)*F"));
 				assert(!routeNumbers.contains(s.getRouteNumber()));
 				routeNumbers.add(s.getRouteNumber());
 			} else if (seriesId == 5) {
-				assert(description.equals("(B/C)*D*(E/F)"));
+				assert(description.equals("D*(E/F)"));
 				assert(!routeNumbers.contains(s.getRouteNumber()));
 				routeNumbers.add(s.getRouteNumber());
 			} else if (seriesId == 6) {
-				assert(description.equals("(B/C)*(D/E)*F"));
+				assert(description.equals("(B/C)*D*F"));
 				assert(!routeNumbers.contains(s.getRouteNumber()));
 				routeNumbers.add(s.getRouteNumber());
 			} 	

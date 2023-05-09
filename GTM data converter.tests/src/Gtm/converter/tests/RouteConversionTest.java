@@ -21,7 +21,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class RouteTechnicalViaConversionTest {
+public class RouteConversionTest {
 	
 	
 	GTMTool tool = null;
