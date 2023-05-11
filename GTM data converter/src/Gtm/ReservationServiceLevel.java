@@ -546,7 +546,103 @@ public enum ReservationServiceLevel implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	Z(52, "Z", "Z");
+	Z(52, "Z", "Z"), /**
+	 * The '<em><b>AC</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #AC_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	AC(100, "AC", "AC"), /**
+	 * The '<em><b>BW</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BW_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	BW(101, "BW", "BW"), /**
+	 * The '<em><b>DC</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DC_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DC(102, "DC", "DC"), /**
+	 * The '<em><b>DD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DD_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DD(103, "DD", "DD"), /**
+	 * The '<em><b>DE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DE(104, "DE", "DE"), /**
+	 * The '<em><b>DF</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DF_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DF(105, "DF", "DF"), /**
+	 * The '<em><b>DG</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DG_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DG(106, "DG", "DG"), /**
+	 * The '<em><b>DP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DP(107, "DP", "DP"), /**
+	 * The '<em><b>F4</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #F4_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	F4(108, "F4", "F4"), /**
+	 * The '<em><b>F6</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #F6_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	F6(109, "F6", "F6"), /**
+	 * The '<em><b>MS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	MS(110, "MS", "MS"), /**
+	 * The '<em><b>BP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	BP(110, "BP", "BP");
 
 	/**
 	 * The '<em><b>A</b></em>' literal value.
@@ -1132,6 +1228,138 @@ public enum ReservationServiceLevel implements Enumerator {
 	public static final int Z_VALUE = 52;
 
 	/**
+	 * The '<em><b>AC</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #AC
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int AC_VALUE = 100;
+
+	/**
+	 * The '<em><b>BW</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BW
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int BW_VALUE = 101;
+
+	/**
+	 * The '<em><b>DC</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DC
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DC_VALUE = 102;
+
+	/**
+	 * The '<em><b>DD</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DD
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DD_VALUE = 103;
+
+	/**
+	 * The '<em><b>DE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DE_VALUE = 104;
+
+	/**
+	 * The '<em><b>DF</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DF
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DF_VALUE = 105;
+
+	/**
+	 * The '<em><b>DG</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DG
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DG_VALUE = 106;
+
+	/**
+	 * The '<em><b>DP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DP
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DP_VALUE = 107;
+
+	/**
+	 * The '<em><b>F4</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #F4
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int F4_VALUE = 108;
+
+	/**
+	 * The '<em><b>F6</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #F6
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int F6_VALUE = 109;
+
+	/**
+	 * The '<em><b>MS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MS
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int MS_VALUE = 110;
+
+	/**
+	 * The '<em><b>BP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BP
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int BP_VALUE = 110;
+
+	/**
 	 * An array of all the '<em><b>Reservation Service Level</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1192,6 +1420,18 @@ public enum ReservationServiceLevel implements Enumerator {
 			X,
 			Y,
 			Z,
+			AC,
+			BW,
+			DC,
+			DD,
+			DE,
+			DF,
+			DG,
+			DP,
+			F4,
+			F6,
+			MS,
+			BP,
 		};
 
 	/**
@@ -1301,6 +1541,17 @@ public enum ReservationServiceLevel implements Enumerator {
 			case X_VALUE: return X;
 			case Y_VALUE: return Y;
 			case Z_VALUE: return Z;
+			case AC_VALUE: return AC;
+			case BW_VALUE: return BW;
+			case DC_VALUE: return DC;
+			case DD_VALUE: return DD;
+			case DE_VALUE: return DE;
+			case DF_VALUE: return DF;
+			case DG_VALUE: return DG;
+			case DP_VALUE: return DP;
+			case F4_VALUE: return F4;
+			case F6_VALUE: return F6;
+			case MS_VALUE: return MS;
 		}
 		return null;
 	}

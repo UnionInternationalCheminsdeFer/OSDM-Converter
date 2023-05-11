@@ -1938,6 +1938,18 @@
     <eLiterals name="X" value="50"/>
     <eLiterals name="Y" value="51"/>
     <eLiterals name="Z" value="52"/>
+    <eLiterals name="AC" value="100" literal="AC"/>
+    <eLiterals name="BW" value="101"/>
+    <eLiterals name="DC" value="102"/>
+    <eLiterals name="DD" value="103" literal="DD"/>
+    <eLiterals name="DE" value="104"/>
+    <eLiterals name="DF" value="105"/>
+    <eLiterals name="DG" value="106"/>
+    <eLiterals name="DP" value="107"/>
+    <eLiterals name="F4" value="108"/>
+    <eLiterals name="F6" value="109"/>
+    <eLiterals name="MS" value="110"/>
+    <eLiterals name="BP" value="110"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ReservationService">
     <eLiterals name="SEAT" value="1"/>
