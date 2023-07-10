@@ -12,7 +12,8 @@ Export-Package: export,
  gtm,
  gtmV14,
  gtmV20,
- gtmV30
+ gtmV30,
+ gtmV31
 Import-Package: Gtm.util
 Require-Bundle: org.eclipse.swt;bundle-version="3.113.0",
  fasterxml;bundle-version="1.0.0"

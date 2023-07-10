@@ -45,6 +45,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.ViaStationImpl#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.impl.ViaStationImpl#getFareStationSet <em>Fare Station Set</em>}</li>
  *   <li>{@link Gtm.impl.ViaStationImpl#getServiceConstraint <em>Service Constraint</em>}</li>
+ *   <li>{@link Gtm.impl.ViaStationImpl#isTechnicalViaOnly <em>Technical Via Only</em>}</li>
+ *   <li>{@link Gtm.impl.ViaStationImpl#isRealStop <em>Real Stop</em>}</li>
  * </ul>
  *
  * @generated
@@ -139,6 +141,46 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 	 * @ordered
 	 */
 	protected ServiceConstraint serviceConstraint;
+
+	/**
+	 * The default value of the '{@link #isTechnicalViaOnly() <em>Technical Via Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isTechnicalViaOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean TECHNICAL_VIA_ONLY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isTechnicalViaOnly() <em>Technical Via Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isTechnicalViaOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean technicalViaOnly = TECHNICAL_VIA_ONLY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isRealStop() <em>Real Stop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRealStop()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean REAL_STOP_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isRealStop() <em>Real Stop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRealStop()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean realStop = REAL_STOP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -392,6 +434,48 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isTechnicalViaOnly() {
+		return technicalViaOnly;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTechnicalViaOnly(boolean newTechnicalViaOnly) {
+		boolean oldTechnicalViaOnly = technicalViaOnly;
+		technicalViaOnly = newTechnicalViaOnly;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.VIA_STATION__TECHNICAL_VIA_ONLY, oldTechnicalViaOnly, technicalViaOnly));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isRealStop() {
+		return realStop;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRealStop(boolean newRealStop) {
+		boolean oldRealStop = realStop;
+		realStop = newRealStop;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.VIA_STATION__REAL_STOP, oldRealStop, realStop));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Carrier getCarrier() {
 		if (carrier != null && carrier.eIsProxy()) {
 			InternalEObject oldCarrier = (InternalEObject)carrier;
@@ -519,6 +603,10 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 			case GtmPackage.VIA_STATION__SERVICE_CONSTRAINT:
 				if (resolve) return getServiceConstraint();
 				return basicGetServiceConstraint();
+			case GtmPackage.VIA_STATION__TECHNICAL_VIA_ONLY:
+				return isTechnicalViaOnly();
+			case GtmPackage.VIA_STATION__REAL_STOP:
+				return isRealStop();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -557,6 +645,12 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 			case GtmPackage.VIA_STATION__SERVICE_CONSTRAINT:
 				setServiceConstraint((ServiceConstraint)newValue);
 				return;
+			case GtmPackage.VIA_STATION__TECHNICAL_VIA_ONLY:
+				setTechnicalViaOnly((Boolean)newValue);
+				return;
+			case GtmPackage.VIA_STATION__REAL_STOP:
+				setRealStop((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -593,6 +687,12 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 			case GtmPackage.VIA_STATION__SERVICE_CONSTRAINT:
 				setServiceConstraint((ServiceConstraint)null);
 				return;
+			case GtmPackage.VIA_STATION__TECHNICAL_VIA_ONLY:
+				setTechnicalViaOnly(TECHNICAL_VIA_ONLY_EDEFAULT);
+				return;
+			case GtmPackage.VIA_STATION__REAL_STOP:
+				setRealStop(REAL_STOP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -621,6 +721,10 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 				return fareStationSet != null;
 			case GtmPackage.VIA_STATION__SERVICE_CONSTRAINT:
 				return serviceConstraint != null;
+			case GtmPackage.VIA_STATION__TECHNICAL_VIA_ONLY:
+				return technicalViaOnly != TECHNICAL_VIA_ONLY_EDEFAULT;
+			case GtmPackage.VIA_STATION__REAL_STOP:
+				return realStop != REAL_STOP_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -651,6 +755,10 @@ public class ViaStationImpl extends MinimalEObjectImpl.Container implements ViaS
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (dataDescription: ");
 		result.append(dataDescription);
+		result.append(", technicalViaOnly: ");
+		result.append(technicalViaOnly);
+		result.append(", realStop: ");
+		result.append(realStop);
 		result.append(')');
 		return result.toString();
 	}

@@ -2307,7 +2307,9 @@ public class 	ConverterToLegacy {
 	 * @param routeServiceConstraint 
 	 * @return true, if successful
 	 */
-	private boolean addMiddleViaStations(EList<LegacyViastation> legacyViaStations, EList<ViaStation> vias, int altRoute, ServiceConstraint routeServiceConstraint) {
+	private boolean addMiddleViaStations(EList<LegacyViastation> legacyViaStations, EList<ViaStation> allVias, int altRoute, ServiceConstraint routeServiceConstraint) {
+		
+		ArrayList<ViaStation> vias = getNonTechnicalVias(allVias);
 		
 		boolean result = addViaStations(legacyViaStations, vias, altRoute, routeServiceConstraint, false);
 		
@@ -2331,6 +2333,20 @@ public class 	ConverterToLegacy {
 		return result;
 	}
 
+	private ArrayList<ViaStation> getNonTechnicalVias(EList<ViaStation> allVias) {
+		
+		ArrayList<ViaStation> vias = new ArrayList<ViaStation>();
+		
+		for (ViaStation via: allVias) {
+			if (!via.isTechnicalViaOnly()) {
+				vias.add(via);
+				
+			}
+		}
+		
+		return vias;
+	}
+
 	/**
 	 * Adds the via stations.
 	 *
@@ -2341,7 +2357,7 @@ public class 	ConverterToLegacy {
 	 * @param excludeStartEnd 
 	 * @return true, if successful
 	 */
-	private boolean addViaStations(EList<LegacyViastation> viastations, EList<ViaStation> vias, int altRoute, ServiceConstraint routeServiceConstraint, boolean excludeStartEnd) {
+	private boolean addViaStations(EList<LegacyViastation> viastations, ArrayList<ViaStation> vias, int altRoute, ServiceConstraint routeServiceConstraint, boolean excludeStartEnd) {
 		
 		int startIndex = 0;
 		int endIndex = vias.size();
@@ -2371,7 +2387,7 @@ public class 	ConverterToLegacy {
 					lvia.setCode(station.getServiceConstraint().getLegacy108Code());
 					viastations.add(lvia);
 				} else {
-					GtmUtils.writeConsoleWarning("Service constraint in route ignored - no legacy code provided: " + RouteDescriptionBuilder.getRouteDescription(station), editor);
+					GtmUtils.writeConsoleWarning("Service constraint in route ignored - no legacy code provided: " + RouteDescriptionBuilder.getRouteDescription(station, null), editor);
 				}
 			} else	if (station.getStation() != null) {
 				LegacyViastation lvia = GtmFactory.eINSTANCE.createLegacyViastation();
@@ -2390,14 +2406,14 @@ public class 	ConverterToLegacy {
 				}						
 				for (AlternativeRoute altr : station.getAlternativeRoutes()) {
 					altRoute++;
-					if (!addViaStations(viastations, altr.getStations(), altRoute,null, false)) {
+					if (!addViaStations(viastations, getNonTechnicalVias(altr.getStations()), altRoute,null, false)) {
 						return false;
 					};
 				}
 				altRoute = 1;
 			} 
 			if (station.getRoute()!= null) {
-				if (!addViaStations(viastations, station.getRoute().getStations(), altRoute, station.getServiceConstraint(), false)) {
+				if (!addViaStations(viastations, getNonTechnicalVias(station.getRoute().getStations()), altRoute, station.getServiceConstraint(), false)) {
 					return false;
 				};
 			}
@@ -2441,6 +2457,12 @@ public class 	ConverterToLegacy {
 	 */
 	private Legacy108Station getFirstLegacyStation(ViaStation viaStation, ConnectionPoint connectionPoint) {
 		ViaStation via = viaStation.getRoute().getStations().get(0);
+		
+		if (via.isTechnicalViaOnly()) {
+			String message = "First station must not be a technical via station: " +  GtmUtils.getLabelText(via.getStation());					
+			GtmUtils.writeConsoleWarning(message, editor);
+		}
+		
 		if (via.getRoute() != null) {
 			return getFirstLegacyStation(via, connectionPoint);		
 		} else {
@@ -2460,6 +2482,12 @@ public class 	ConverterToLegacy {
 	 */
 	private Legacy108Station getLastLegacyStation(ViaStation viaStation, ConnectionPoint connectionPoint) {
 		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
+		
+		if (via.isTechnicalViaOnly()) {
+			String message = "Last station must not be a technical via station: " +  GtmUtils.getLabelText(via.getStation());					
+			GtmUtils.writeConsoleWarning(message, editor);
+		}
+		
 		if (via.getRoute() != null) {
 		  return getLastLegacyStation(via, connectionPoint);
 		} else {
@@ -2526,7 +2554,7 @@ public class 	ConverterToLegacy {
 					} else {
 						StringBuilder sb = new StringBuilder(); 
 						sb.append("No local code for station: ");
-						sb.append(RouteDescriptionBuilder.getRouteDescription(via));					
+						sb.append(RouteDescriptionBuilder.getRouteDescription(via, null));					
    					    sb.append(" found: regional validity will not be converted");
 						GtmUtils.writeConsoleWarning(sb.toString(),editor);
 					}
@@ -2739,6 +2767,11 @@ public class 	ConverterToLegacy {
 
 	private boolean isConvertable(ViaStation viaStation) {
 		
+		if (viaStation.isTechnicalViaOnly()) {
+			//technical stations will not be converted
+			return true;
+		}
+		
 		if (viaStation.getServiceConstraint() != null) {
 			if (!isConvertable(viaStation.getServiceConstraint())) {
 				return false;
@@ -2885,7 +2918,7 @@ public class 	ConverterToLegacy {
 		if (startName == null || endName == null) {
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append("Start of End Name missing. Route ").append(RouteDescriptionBuilder.getRouteDescription(via)).append(" not convertable");
+			sb.append("Start of End Name missing. Route ").append(RouteDescriptionBuilder.getRouteDescription(via, null)).append(" not convertable");
 			 
 			GtmUtils.writeConsoleError(sb.toString(), editor);
 			
@@ -2907,7 +2940,7 @@ public class 	ConverterToLegacy {
 	 */
 	private void addStations(ViaStation via, List<Station> stations, List<FareStationSetDefinition> fareStations) {
 		
-		if (via == null) return;
+		if (via == null || via.isTechnicalViaOnly()) return;
 		if (via.getStation() != null && GtmUtils.isConvertable(via.getStation())) {
 			stations.add(via.getStation());
 		}

@@ -7,11 +7,13 @@ import Gtm.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EPackage;
@@ -430,22 +432,18 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyDistanceFare((LegacyDistanceFare)value, diagnostics, context);
 			case GtmPackage.LEGACY_VIASTATION:
 				return validateLegacyViastation((LegacyViastation)value, diagnostics, context);
-			case GtmPackage.BOARDING_OR_ARRIVAL:
-				return validateBoardingOrArrival((BoardingOrArrival)value, diagnostics, context);
-			case GtmPackage.CONDITION_TYPE:
-				return validateConditionType((ConditionType)value, diagnostics, context);
+			case GtmPackage.ADD_CARRIER_SCOPE:
+				return validateAddCarrierScope((AddCarrierScope)value, diagnostics, context);
 			case GtmPackage.LUGGAGE_RULE:
 				return validateLuggageRule((LuggageRule)value, diagnostics, context);
 			case GtmPackage.DIMENSION:
 				return validateDimension((Dimension)value, diagnostics, context);
-			case GtmPackage.ADD_CARRIER_SCOPE:
-				return validateAddCarrierScope((AddCarrierScope)value, diagnostics, context);
+			case GtmPackage.BOARDING_OR_ARRIVAL:
+				return validateBoardingOrArrival((BoardingOrArrival)value, diagnostics, context);
+			case GtmPackage.CONDITION_TYPE:
+				return validateConditionType((ConditionType)value, diagnostics, context);
 			case GtmPackage.TRANSPORT_MODE:
 				return validateTransportMode((TransportMode)value, diagnostics, context);
-			case GtmPackage.STATION_RELATION_TYPE:
-				return validateStationRelationType((StationRelationType)value, diagnostics, context);
-			case GtmPackage.STATION_FARE_DETAIL_TYPE:
-				return validateStationFareDetailType((StationFareDetailType)value, diagnostics, context);
 			case GtmPackage.REGULATORY_CONDITION:
 				return validateRegulatoryCondition((RegulatoryCondition)value, diagnostics, context);
 			case GtmPackage.AFTER_SALES_TRANSACTION_TYPE:
@@ -516,6 +514,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateReservationBerthType((ReservationBerthType)value, diagnostics, context);
 			case GtmPackage.ROUNDING_TYPE:
 				return validateRoundingType((RoundingType)value, diagnostics, context);
+			case GtmPackage.STATION_RELATION_TYPE:
+				return validateStationRelationType((StationRelationType)value, diagnostics, context);
+			case GtmPackage.STATION_FARE_DETAIL_TYPE:
+				return validateStationFareDetailType((StationFareDetailType)value, diagnostics, context);
 			case GtmPackage.SCHEMA_VERSION:
 				return validateSchemaVersion((SchemaVersion)value, diagnostics, context);
 			case GtmPackage.SERVICE_MODE:
@@ -1857,7 +1859,145 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRegionalConstraints(RegionalConstraints regionalConstraints, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(regionalConstraints, diagnostics, context);
+		if (!validate_NoCircularContainment(regionalConstraints, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(regionalConstraints, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(regionalConstraints, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(regionalConstraints, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(regionalConstraints, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(regionalConstraints, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(regionalConstraints, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(regionalConstraints, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(regionalConstraints, diagnostics, context);
+		if (result || diagnostics != null) result &= validateRegionalConstraints_DESCRIPTION_UNIQUE(regionalConstraints, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the DESCRIPTION_UNIQUE constraint of '<em>Regional Constraints</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validateRegionalConstraints_DESCRIPTION_UNIQUE(RegionalConstraints regionalConstraints, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		// Regional constraints are allowed only in case the fares are different
+
+		boolean result = true;
+		
+		HashMap<Object, String> descriptions = new HashMap<Object, String>();
+		
+		for (RegionalConstraint r1 : regionalConstraints.getRegionalConstraints()) {
+			
+			descriptions.put(r1, RouteDescriptionBuilder.getRouteDescription(r1));
+			
+		}
+		
+		
+		for (RegionalConstraint r1 : regionalConstraints.getRegionalConstraints()) {
+			
+			for (RegionalConstraint r2 : regionalConstraints.getRegionalConstraints()) {
+				
+				if (r1 != r2) {
+					
+					String route1 = descriptions.get(r1);
+					String route2 = descriptions.get(r2);
+					
+					if (route1.equals(route2)) {
+						
+						if (!checkForCommonFares(r1.getLinkedFares(),r2.getLinkedFares())) {
+												
+							if (diagnostics != null) {
+								diagnostics.add
+									(createSimpleDiagnostic
+										(Diagnostic.ERROR,
+										 DIAGNOSTIC_SOURCE,
+										 0,
+										 "Regional constraint with identical Description found",
+										 new Object[] { "DESCRIPTION_UNIQUE", getObjectLabel(r1, context) }, //$NON-NLS-1$
+										 new Object[] { r1, r2 },
+										 context));
+							}
+						}
+						
+						
+						
+					}
+				}
+			}
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	/**
+	 * Check for common equivalent fares
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	private boolean checkForCommonFares(EList<FareElement> fares1, EList<FareElement> fares2) {
+		
+		for (FareElement f1 : fares1 ) {
+			
+			for (FareElement f2 : fares2 ) {
+				
+				if (equivalentFares(f1,f2)) {
+                   return true;
+				}
+			}			
+		}
+	
+		return false;
+	}
+
+	/**
+	 * Compare two fares
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	private boolean equivalentFares(FareElement f1, FareElement f2) {
+		if (   f1.getPassengerConstraint() != f2.getPassengerConstraint()
+				|| f1.getReductionConstraint() != f2.getReductionConstraint()
+				|| f1.getAfterSalesRule() != f2.getAfterSalesRule()
+				|| f1.getCarrierConstraint() != f2.getCarrierConstraint() 
+				|| f1.getCombinationConstraint() != f2.getCombinationConstraint() 
+				|| f1.getFareConstraintBundle() != f2.getFareConstraintBundle()
+				|| f1.getFulfillmentConstraint() != f2.getFulfillmentConstraint()
+				|| f1.getFareDetailDescription() != f2.getFareDetailDescription()
+				|| (
+						f1.getLegacyConversion() != f2.getLegacyConversion()
+					  &&
+					    !(f1.getLegacyConversion() != null 
+					      && 
+					       f1.getLegacyConversion()!= LegacyConversionType.ONLY 
+					      &&
+					       f2.getLegacyConversion() != null
+					      && 
+					       f2.getLegacyConversion()!= LegacyConversionType.YES )
+					  &&   
+					    !(f1.getLegacyConversion()!= null 
+					      && 
+					       f1.getLegacyConversion()!= LegacyConversionType.YES 
+					      &&
+						   f2.getLegacyConversion() != null					       
+				          && 
+				           f2.getLegacyConversion()!= LegacyConversionType.ONLY )
+					)
+				|| f1.getLuggageConstraint() != f2.getLuggageConstraint()
+				|| f1.getSalesAvailability() != f2.getSalesAvailability()
+				|| f1.getServiceClass() !=f2.getServiceClass()
+				|| f1.getServiceConstraint() != f2.getServiceConstraint()
+				|| f1.getServiceLevel() != f2.getServiceLevel()
+				|| f1.getTravelValidity() != f2.getTravelValidity() 
+				|| f1.getCombinationConstraint() != f2.getCombinationConstraint()
+			) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	/**

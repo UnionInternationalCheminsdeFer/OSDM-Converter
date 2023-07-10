@@ -734,6 +734,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="#//Text"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RegionalConstraints">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="DESCRIPTION_UNIQUE"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="regionalConstraints" upperBound="-1"
         eType="#//RegionalConstraint" containment="true"/>
   </eClassifiers>
@@ -989,6 +992,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fareStationSet" eType="#//FareStationSetDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraint" eType="#//ServiceConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="technicalViaOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="realStop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AlternativeRoute">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -1016,6 +1023,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="entryStation" eType="#//Station"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="terminalStation" eType="#//Station"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nutsCode" eType="#//NutsCode"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Line">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -1930,6 +1938,18 @@
     <eLiterals name="X" value="50"/>
     <eLiterals name="Y" value="51"/>
     <eLiterals name="Z" value="52"/>
+    <eLiterals name="AC" value="100" literal="AC"/>
+    <eLiterals name="BW" value="101"/>
+    <eLiterals name="DC" value="102"/>
+    <eLiterals name="DD" value="103" literal="DD"/>
+    <eLiterals name="DE" value="104"/>
+    <eLiterals name="DF" value="105"/>
+    <eLiterals name="DG" value="106"/>
+    <eLiterals name="DP" value="107"/>
+    <eLiterals name="F4" value="108"/>
+    <eLiterals name="F6" value="109"/>
+    <eLiterals name="MS" value="110"/>
+    <eLiterals name="BP" value="110"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ReservationService">
     <eLiterals name="SEAT" value="1"/>
@@ -1976,8 +1996,8 @@
   <eClassifiers xsi:type="ecore:EEnum" name="SchemaVersion">
     <eLiterals name="V_1_2" literal="1.2"/>
     <eLiterals name="V_1_4" value="3" literal="1.4"/>
-    <eLiterals name="V_1_5" value="4" literal="1.5"/>
     <eLiterals name="V_3_0" value="5" literal="3.0"/>
+    <eLiterals name="V_3_1" value="6" literal="3.1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
     <eLiterals name="HIGH_SPEED_TRAIN" value="8"/>

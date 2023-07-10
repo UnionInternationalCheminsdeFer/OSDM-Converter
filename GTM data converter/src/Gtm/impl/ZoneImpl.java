@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link Gtm.impl.ZoneImpl#getEntryStation <em>Entry Station</em>}</li>
  *   <li>{@link Gtm.impl.ZoneImpl#getTerminalStation <em>Terminal Station</em>}</li>
  *   <li>{@link Gtm.impl.ZoneImpl#getNutsCode <em>Nuts Code</em>}</li>
+ *   <li>{@link Gtm.impl.ZoneImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -129,6 +130,26 @@ public class ZoneImpl extends MinimalEObjectImpl.Container implements Zone {
 	 * @ordered
 	 */
 	protected NutsCode nutsCode;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -339,6 +360,27 @@ public class ZoneImpl extends MinimalEObjectImpl.Container implements Zone {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.ZONE__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public int getCity() {
 		return city;
 	}
@@ -381,6 +423,8 @@ public class ZoneImpl extends MinimalEObjectImpl.Container implements Zone {
 			case GtmPackage.ZONE__NUTS_CODE:
 				if (resolve) return getNutsCode();
 				return basicGetNutsCode();
+			case GtmPackage.ZONE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -416,6 +460,9 @@ public class ZoneImpl extends MinimalEObjectImpl.Container implements Zone {
 			case GtmPackage.ZONE__NUTS_CODE:
 				setNutsCode((NutsCode)newValue);
 				return;
+			case GtmPackage.ZONE__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -449,6 +496,9 @@ public class ZoneImpl extends MinimalEObjectImpl.Container implements Zone {
 			case GtmPackage.ZONE__NUTS_CODE:
 				setNutsCode((NutsCode)null);
 				return;
+			case GtmPackage.ZONE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -475,6 +525,8 @@ public class ZoneImpl extends MinimalEObjectImpl.Container implements Zone {
 				return terminalStation != null;
 			case GtmPackage.ZONE__NUTS_CODE:
 				return nutsCode != null;
+			case GtmPackage.ZONE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -495,6 +547,8 @@ public class ZoneImpl extends MinimalEObjectImpl.Container implements Zone {
 		result.append(zoneId);
 		result.append(", city: ");
 		result.append(city);
+		result.append(", name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}

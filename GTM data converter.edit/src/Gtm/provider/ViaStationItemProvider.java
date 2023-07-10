@@ -71,6 +71,8 @@ public class ViaStationItemProvider
 			addDataDescriptionPropertyDescriptor(object);
 			addFareStationSetPropertyDescriptor(object);
 			addServiceConstraintPropertyDescriptor(object);
+			addTechnicalViaOnlyPropertyDescriptor(object);
+			addRealStopPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -208,6 +210,50 @@ public class ViaStationItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Technical Via Only feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTechnicalViaOnlyPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ViaStation_technicalViaOnly_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ViaStation_technicalViaOnly_feature", "_UI_ViaStation_type"),
+				 GtmPackage.Literals.VIA_STATION__TECHNICAL_VIA_ONLY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Real Stop feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRealStopPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ViaStation_realStop_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ViaStation_realStop_feature", "_UI_ViaStation_type"),
+				 GtmPackage.Literals.VIA_STATION__REAL_STOP,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -257,7 +303,7 @@ public class ViaStationItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return RouteDescriptionBuilder.getRouteDescription((ViaStation) object);
+		return RouteDescriptionBuilder.getRouteDescription((ViaStation) object, null);
 	}
 
 
@@ -274,6 +320,8 @@ public class ViaStationItemProvider
 
 		switch (notification.getFeatureID(ViaStation.class)) {
 			case GtmPackage.VIA_STATION__DATA_DESCRIPTION:
+			case GtmPackage.VIA_STATION__TECHNICAL_VIA_ONLY:
+			case GtmPackage.VIA_STATION__REAL_STOP:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.VIA_STATION__ROUTE:

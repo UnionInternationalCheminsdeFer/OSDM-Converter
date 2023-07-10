@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
-import gtmV20.FareDelivery;
+import gtmV31.FareDelivery;
 
-public class ImportFareDeliveryV20 {
+public class ImportFareDeliveryGeneric {
 	
 	
 	public static FareDelivery importFareDelivery(File file) throws Exception, IOException {

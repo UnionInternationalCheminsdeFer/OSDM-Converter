@@ -341,6 +341,18 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/X"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/Y"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/Z"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/AC"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/BW"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/DC"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/DD"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/DE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/DF"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/DG"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/DP"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/F4"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/F6"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/MS"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationServiceLevel/BP"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ReservationService">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationService/SEAT"/>
@@ -387,8 +399,8 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//SchemaVersion">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_2"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_4"/>
-      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_5"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_3_0"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_3_1"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ServiceMode">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ServiceMode/HIGH_SPEED_TRAIN"/>
@@ -1130,6 +1142,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ViaStation/dataDescription"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/fareStationSet"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ViaStation/serviceConstraint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ViaStation/technicalViaOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ViaStation/realStop"/>
       <genOperations ecoreOperation="Gtm.ecore#//ViaStation/getDescription"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AlternativeRoute">
@@ -1146,6 +1160,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Zone/entryStation"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Zone/terminalStation"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Zone/nutsCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Zone/name"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Line">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Line/binaryZoneId"/>

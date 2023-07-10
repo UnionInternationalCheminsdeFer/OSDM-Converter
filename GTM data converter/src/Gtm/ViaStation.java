@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ViaStation#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.ViaStation#getFareStationSet <em>Fare Station Set</em>}</li>
  *   <li>{@link Gtm.ViaStation#getServiceConstraint <em>Service Constraint</em>}</li>
+ *   <li>{@link Gtm.ViaStation#isTechnicalViaOnly <em>Technical Via Only</em>}</li>
+ *   <li>{@link Gtm.ViaStation#isRealStop <em>Real Stop</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getViaStation()
@@ -195,6 +197,52 @@ public interface ViaStation extends EObject {
 	 * @generated
 	 */
 	void setServiceConstraint(ServiceConstraint value);
+
+	/**
+	 * Returns the value of the '<em><b>Technical Via Only</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Technical Via Only</em>' attribute.
+	 * @see #setTechnicalViaOnly(boolean)
+	 * @see Gtm.GtmPackage#getViaStation_TechnicalViaOnly()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isTechnicalViaOnly();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ViaStation#isTechnicalViaOnly <em>Technical Via Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Technical Via Only</em>' attribute.
+	 * @see #isTechnicalViaOnly()
+	 * @generated
+	 */
+	void setTechnicalViaOnly(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Real Stop</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Real Stop</em>' attribute.
+	 * @see #setRealStop(boolean)
+	 * @see Gtm.GtmPackage#getViaStation_RealStop()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isRealStop();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ViaStation#isRealStop <em>Real Stop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Real Stop</em>' attribute.
+	 * @see #isRealStop()
+	 * @generated
+	 */
+	void setRealStop(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->

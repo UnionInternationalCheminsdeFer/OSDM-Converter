@@ -9,9 +9,9 @@ import java.io.OutputStreamWriter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import gtmV20.FareDelivery;
+import gtmV31.FareDelivery;
 
-public class ExportFareDeliveryV20 {
+public class ExportFareDeliveryV31 {
 	
 	public static void exportFareDelivery (FareDelivery fares, File file) throws IOException, Exception {
 		

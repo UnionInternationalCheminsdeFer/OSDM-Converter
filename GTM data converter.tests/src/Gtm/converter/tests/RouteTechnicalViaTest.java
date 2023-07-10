@@ -31,7 +31,7 @@ import Gtm.converter.tests.utils.TestUtils;
 import Gtm.utils.GtmUtils;
 
                      
-public class BasicConversionTest {
+public class RouteTechnicalViaTest {
 	
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd:HHmm"); //$NON-NLS-1$
 	
@@ -138,7 +138,7 @@ public class BasicConversionTest {
 			
 			assert(r.getRegionalValidity().get(0).getViaStation().getRoute() != null);
 			
-			String description = RouteDescriptionBuilder.getRouteDescription( r.getRegionalValidity().get(0).getViaStation());
+			String description = RouteDescriptionBuilder.getRouteDescription( r.getRegionalValidity().get(0).getViaStation(),null);
 			boolean isReturnRoute = TestUtils.isReturnRoute(r);		
 			int seriesId = TestUtils.getSeriesId(tool, r);
 				
