@@ -1527,7 +1527,7 @@ public class GTMJsonImporterGeneric {
 	private TotalPassengerCombinationConstraint convert(PassengerCombinationConstraintDef jp) {
 		if (jp == null) return null;
 		TotalPassengerCombinationConstraint p = GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraint();
-		if (jp.getMaxWeightedPassengers() == null) {
+		if (jp.getMaxWeightedPassengers() != null) {
 			p.setMaxTotalPassengerWeight(jp.getMaxWeightedPassengers());
 		} else {
 			p.setMaxTotalPassengerWeight(99.0F);
@@ -1537,7 +1537,7 @@ public class GTMJsonImporterGeneric {
 			sb.append(" assumed value 99.0 to continue");
 			GtmUtils.writeConsoleError(sb.toString(), editor);
 		}
-		if (jp.getMinWeightedPassengers() == null) {
+		if (jp.getMinWeightedPassengers() != null) {
 			p.setMinTotalPassengerWeight(jp.getMinWeightedPassengers());
 		} else {
 			p.setMaxTotalPassengerWeight(0.0F);
