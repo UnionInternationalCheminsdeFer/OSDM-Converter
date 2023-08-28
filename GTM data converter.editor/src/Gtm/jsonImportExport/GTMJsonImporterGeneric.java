@@ -1241,6 +1241,11 @@ public class GTMJsonImporterGeneric {
 		
 		v.setRealStop(jv.getStop());
 		
+		if (jv.getTechnicalViaOnly() != null) {
+			v.setTechnicalViaOnly(jv.getTechnicalViaOnly());
+		} else {
+			v.setTechnicalViaOnly(true);
+		}
 		return v;
 	}
 
