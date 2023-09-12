@@ -1903,7 +1903,7 @@ public class GtmValidator extends EObjectValidator {
 					
 					if (route1.equals(route2)) {
 						
-						if (!checkForCommonFares(r1.getLinkedFares(),r2.getLinkedFares())) {
+						if (hasCommonFares(r1.getLinkedFares(),r2.getLinkedFares())) {
 												
 							if (diagnostics != null) {
 								diagnostics.add
@@ -1911,7 +1911,7 @@ public class GtmValidator extends EObjectValidator {
 										(Diagnostic.ERROR,
 										 DIAGNOSTIC_SOURCE,
 										 0,
-										 "Regional constraint with identical Description found",
+										 "Regional constraints with identical route description and equal fares found",
 										 new Object[] { "DESCRIPTION_UNIQUE", getObjectLabel(r1, context) }, //$NON-NLS-1$
 										 new Object[] { r1, r2 },
 										 context));
@@ -1937,7 +1937,7 @@ public class GtmValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	private boolean checkForCommonFares(EList<FareElement> fares1, EList<FareElement> fares2) {
+	private boolean hasCommonFares(EList<FareElement> fares1, EList<FareElement> fares2) {
 		
 		for (FareElement f1 : fares1 ) {
 			
