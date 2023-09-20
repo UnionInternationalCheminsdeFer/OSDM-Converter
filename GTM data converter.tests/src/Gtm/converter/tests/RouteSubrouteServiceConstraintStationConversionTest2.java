@@ -2,10 +2,10 @@ package Gtm.converter.tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 
 import Gtm.CarrierConstraint;
 import Gtm.FareElement;
@@ -32,19 +32,19 @@ public class RouteSubrouteServiceConstraintStationConversionTest2 {
 	
 	GTMTool tool = null;
 	
-	@Mock
+//	@Mock
 	GtmUtils gtmUtilsMock;
 	
-	@InjectMocks 
-	ConverterFromLegacy converterFromLegacy;	
+//	@InjectMocks 
+	ConverterFromLegacy converter2osdm;	
 	
-	@InjectMocks 
-	ConverterToLegacy converterToLegacy;	
-	
-	@Before 
-	public void initialize() {
+//	@InjectMocks 
+	ConverterToLegacy converter2legacy;	
+
+	@Before
+	public void setUp() throws Exception {
 		
-		MockitoAnnotations.initMocks(this);
+//		MockitoAnnotations.initMocks(this);
 				
 		tool = OsdmDataFactory.createBasicData();
 		
@@ -57,7 +57,7 @@ public class RouteSubrouteServiceConstraintStationConversionTest2 {
 		}
 		
 		
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+		//gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 	
 			
 	}
@@ -123,10 +123,10 @@ public class RouteSubrouteServiceConstraintStationConversionTest2 {
 		tool.getGeneralTariffModel().getDelivery().setProvider(tool.getCodeLists().getCarriers().getCarriers().get(0));
 		
 
-		converterToLegacy = new ConverterToLegacy(tool, null, new MockedEditingDomain());
+		converter2legacy = new ConverterToLegacy(tool, null, new MockedEditingDomain());
 			
 		//convert
-		converterToLegacy.convertTest(new MockedProgressMonitor());
+		converter2legacy.convertTest(new MockedProgressMonitor());
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getCarrier().getCode().equals("9999"));
 		

@@ -2,8 +2,7 @@ package Gtm.legacyExport.test;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+
 
 import Gtm.GTMTool;
 import Gtm.converter.tests.dataFactories.LegacyDataFactory;
@@ -18,7 +17,7 @@ public class ExportTCVtest {
 			+ "000000000000000000000000000000000000000000000000000000000000000000000000"
 			+ "00000000201901010120990101"; 
 	
-	@Mock
+	//@Mock
 	GtmUtils gtmUtilsMock;
 	
 	GTMTool tool = null;
@@ -29,7 +28,7 @@ public class ExportTCVtest {
 	@Before 
 	public void initialize() {
 		
-		MockitoAnnotations.initMocks(this);
+		//MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 	

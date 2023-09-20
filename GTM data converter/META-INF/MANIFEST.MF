@@ -7,7 +7,7 @@ Bundle-Version: 2.2.0
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: Gtm,
  Gtm.impl,
  Gtm.util

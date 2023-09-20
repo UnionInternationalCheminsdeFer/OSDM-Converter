@@ -7,10 +7,10 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 
 import Gtm.GTMTool;
 import Gtm.TimeZone;
@@ -26,19 +26,18 @@ public class TimeZoneConversionTest {
 	
 	GTMTool tool = null;
 	
-	@Mock
+//	@Mock
 	GtmUtils gtmUtilsMock;
 	
-	@InjectMocks 
-	ConverterFromLegacy converterFromLegacy;	
+//	@InjectMocks 
+	ConverterFromLegacy converter2osdm;	
 	
-	@InjectMocks 
-	ConverterToLegacy converterToLegacy;	
-	
-	@Before 
-	public void initialize() {
-		
-		MockitoAnnotations.initMocks(this);
+//	@InjectMocks 
+	ConverterToLegacy converter2legacy;	
+
+	@Before
+	public void setUp() throws Exception {
+//		MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();	
 			
@@ -46,15 +45,15 @@ public class TimeZoneConversionTest {
 		tool.getConversionFromLegacy().getLegacy108().setTimeZone(TimeZone.EET);
 		
 		
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+//		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
-		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
+		converter2osdm = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 		
 		//prepare codelists
-		converterFromLegacy.initializeConverter();
+		converter2osdm.initializeConverter();
 		
 		//convert
-		converterFromLegacy.convertToGtmTest(new MockedProgressMonitor());
+		converter2osdm.convertToGtmTest(new MockedProgressMonitor());
 			
 	}
 	

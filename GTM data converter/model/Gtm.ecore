@@ -1274,6 +1274,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="priceFactor" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Float"
         unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="price" eType="#//Price"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="minimalPrice" eType="#//MinimalPrice"
+        containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="roundingMode" eType="#//RoundingType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//FareType"/>
@@ -1319,6 +1321,7 @@
         eType="#//Carrier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraint" eType="#//LuggageConstraint"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MinimalPrice" eSuperTypes="#//Price"/>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesTemplate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transactionType" eType="#//AfterSalesTransactionType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="carrierFee" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"

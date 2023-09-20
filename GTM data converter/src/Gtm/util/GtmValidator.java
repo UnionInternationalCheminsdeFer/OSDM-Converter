@@ -360,6 +360,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyFareTemplates((LegacyFareTemplates)value, diagnostics, context);
 			case GtmPackage.FARE_TEMPLATE:
 				return validateFareTemplate((FareTemplate)value, diagnostics, context);
+			case GtmPackage.MINIMAL_PRICE:
+				return validateMinimalPrice((MinimalPrice)value, diagnostics, context);
 			case GtmPackage.AFTER_SALES_TEMPLATE:
 				return validateAfterSalesTemplate((AfterSalesTemplate)value, diagnostics, context);
 			case GtmPackage.ON_BORDER_STATIONS:
@@ -1636,6 +1638,25 @@ public class GtmValidator extends EObjectValidator {
 
 		}
 		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateMinimalPrice(MinimalPrice minimalPrice, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(minimalPrice, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(minimalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(minimalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(minimalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(minimalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(minimalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(minimalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(minimalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(minimalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validatePrice_AT_LEAST_ONE_PRICE(minimalPrice, diagnostics, context);
+		return result;
 	}
 
 	/**

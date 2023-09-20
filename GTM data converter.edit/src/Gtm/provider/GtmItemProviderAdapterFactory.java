@@ -3125,6 +3125,29 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.MinimalPrice} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MinimalPriceItemProvider minimalPriceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.MinimalPrice}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMinimalPriceAdapter() {
+		if (minimalPriceItemProvider == null) {
+			minimalPriceItemProvider = new MinimalPriceItemProvider(this);
+		}
+
+		return minimalPriceItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.AfterSalesTemplate} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4234,6 +4257,7 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (vatTemplateItemProvider != null) vatTemplateItemProvider.dispose();
 		if (legacyFareTemplatesItemProvider != null) legacyFareTemplatesItemProvider.dispose();
 		if (fareTemplateItemProvider != null) fareTemplateItemProvider.dispose();
+		if (minimalPriceItemProvider != null) minimalPriceItemProvider.dispose();
 		if (afterSalesTemplateItemProvider != null) afterSalesTemplateItemProvider.dispose();
 		if (onBorderStationsItemProvider != null) onBorderStationsItemProvider.dispose();
 		if (legacyStationToServiceConstraintMappingsItemProvider != null) legacyStationToServiceConstraintMappingsItemProvider.dispose();

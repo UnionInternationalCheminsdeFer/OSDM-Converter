@@ -2,11 +2,10 @@ package Gtm.converter.tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
 import Gtm.LegacyBorderPoint;
@@ -26,13 +25,13 @@ public class StationSetStartBorderEndConversionTest {
 
 	GTMTool tool = null;
 
-	@Mock
+//	@Mock
 	GtmUtils gtmUtilsMock;
 
-	@InjectMocks 
+//	@InjectMocks 
 	ConverterFromLegacy converterFromLegacy;	
 
-	@InjectMocks 
+//	@InjectMocks 
 	ConverterToLegacy converterToLegacy;	
 	
 	int borderPointCode;
@@ -41,7 +40,7 @@ public class StationSetStartBorderEndConversionTest {
 	@Before 
 	public void initialize() {
 
-		MockitoAnnotations.initMocks(this);
+//		MockitoAnnotations.initMocks(this);
 
 		tool = LegacyDataFactory.createBasicData();
 		
@@ -83,7 +82,7 @@ public class StationSetStartBorderEndConversionTest {
 		LegacyDataFactory.addRouteBasedSeries(tool,1,1,100,900);	
 			
 
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+//		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 
 		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 

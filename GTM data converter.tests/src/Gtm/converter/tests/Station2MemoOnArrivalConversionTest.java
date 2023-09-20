@@ -4,10 +4,10 @@ import java.util.HashSet;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
@@ -31,19 +31,19 @@ public class Station2MemoOnArrivalConversionTest {
 	
 	GTMTool tool = null;
 	
-	@Mock
+//	@Mock
 	GtmUtils gtmUtilsMock;
 	
-	@InjectMocks 
-	ConverterFromLegacy converterFromLegacy;	
+//	@InjectMocks 
+	ConverterFromLegacy converter2osdm;	
 	
-	@InjectMocks 
-	ConverterToLegacy converterToLegacy;	
-	
-	@Before 
-	public void initialize() {
+//	@InjectMocks 
+	ConverterToLegacy converter2legacy;	
+
+	@Before
+	public void setUp() throws Exception {
 		
-		MockitoAnnotations.initMocks(this);
+//		MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 		
@@ -84,15 +84,15 @@ public class Station2MemoOnArrivalConversionTest {
 		LegacyDataFactory.addRouteBasedSeries(tool, 4, 100, 2, 4);
 		LegacyDataFactory.addRouteBasedSeries(tool, 5, 100, 2, 5);
 		
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+		//gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
-		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
+		converter2osdm = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 		
 		//prepare codelists
-		converterFromLegacy.initializeConverter();
+		converter2osdm.initializeConverter();
 		
 		//convert
-		converterFromLegacy.convertToGtmTest(new MockedProgressMonitor());
+		converter2osdm.convertToGtmTest(new MockedProgressMonitor());
 			
 	}
 	
@@ -139,10 +139,10 @@ public class Station2MemoOnArrivalConversionTest {
 		tool.getGeneralTariffModel().getDelivery().setProvider(TestUtils.findCarrier(tool, "9999"));
 		
 
-		converterToLegacy = new ConverterToLegacy(tool, null, new MockedEditingDomain());
+		converter2legacy = new ConverterToLegacy(tool, null, new MockedEditingDomain());
 			
 		//convert
-		converterToLegacy.convertTest(new MockedProgressMonitor());
+		converter2legacy.convertTest(new MockedProgressMonitor());
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyStations() != null);
 		

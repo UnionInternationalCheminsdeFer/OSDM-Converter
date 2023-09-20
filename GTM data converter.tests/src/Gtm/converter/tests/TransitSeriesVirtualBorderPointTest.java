@@ -2,10 +2,10 @@ package Gtm.converter.tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 
 import Gtm.ConnectionPoint;
 import Gtm.GTMTool;
@@ -35,19 +35,18 @@ public class TransitSeriesVirtualBorderPointTest {
 	int legacyNonBorderStationCodeA = 1; //A-Town
 	int legacyNonBorderStationCodeG = 7; //G-Town
 	
-	@Mock
+//	@Mock
 	GtmUtils gtmUtilsMock;
 	
-	@InjectMocks 
+//	@InjectMocks 
 	ConverterFromLegacy converter2osdm;	
 	
-	@InjectMocks 
+//	@InjectMocks 
 	ConverterToLegacy converter2legacy;	
 
 	@Before
 	public void setUp() throws Exception {
-		
-		MockitoAnnotations.initMocks(this);
+//		MockitoAnnotations.initMocks(this);
 		
 		tool = LegacyDataFactory.createBasicData();
 			
@@ -91,7 +90,7 @@ public class TransitSeriesVirtualBorderPointTest {
 		s.setValidUntil(TestUtils.getUntilDate());	
 		tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries().add(s);
 		
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+//		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
 		converter2osdm = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 		
