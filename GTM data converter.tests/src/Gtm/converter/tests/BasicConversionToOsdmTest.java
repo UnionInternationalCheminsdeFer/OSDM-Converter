@@ -4,10 +4,10 @@ import java.util.HashSet;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 
 import Gtm.FareElement;
 import Gtm.GTMTool;
@@ -29,20 +29,20 @@ public class BasicConversionToOsdmTest {
 	
 	GTMTool tool = null;
 	
-	@Mock
+	//@Mock
 	GtmUtils gtmUtilsMock;
 	
-	@InjectMocks 
+	//@InjectMocks 
 	ConverterFromLegacy converter;	
 	
 	@Before 
 	public void initialize() {
 		
-		MockitoAnnotations.initMocks(this);
+		//MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 		
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+		//gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
 		converter = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 		

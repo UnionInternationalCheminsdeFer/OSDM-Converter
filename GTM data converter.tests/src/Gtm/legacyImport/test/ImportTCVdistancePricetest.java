@@ -2,8 +2,7 @@ package Gtm.legacyImport.test;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+
 
 import Gtm.GTMTool;
 import Gtm.LegacyDistanceFare;
@@ -17,7 +16,7 @@ public class ImportTCVdistancePricetest {
 	
 	String line = "1153100100030000005600000088000001120000017600202012130120251213"; 
 	
-	@Mock
+	//@Mock
 	GtmUtils gtmUtilsMock;
 	
 	GTMTool tool = null;
@@ -28,7 +27,7 @@ public class ImportTCVdistancePricetest {
 	@Before 
 	public void initialize() {
 		
-		MockitoAnnotations.initMocks(this);
+		//MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 		

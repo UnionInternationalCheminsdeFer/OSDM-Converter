@@ -2,8 +2,7 @@ package Gtm.legacyImport.test;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+
 
 import Gtm.GTMTool;
 import Gtm.Legacy108Station;
@@ -20,7 +19,7 @@ public class ImportTCVGtest {
 			+ '\r' 
 			+ '\n'; 
 	
-	@Mock
+	//@Mock
 	GtmUtils gtmUtilsMock;
 	
 	GTMTool tool = null;
@@ -31,7 +30,7 @@ public class ImportTCVGtest {
 	@Before 
 	public void initialize() {
 		
-		MockitoAnnotations.initMocks(this);
+		//MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 		

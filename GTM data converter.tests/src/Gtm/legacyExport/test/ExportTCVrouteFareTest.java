@@ -2,8 +2,7 @@ package Gtm.legacyExport.test;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+
 
 import Gtm.GTMTool;
 import Gtm.GtmFactory;
@@ -21,7 +20,7 @@ public class ExportTCVrouteFareTest {
 			+ "oute                                                     0000123400012"
 			+ "34500023456000345670201901010120990101";
 
-	@Mock
+	//@Mock
 	GtmUtils gtmUtilsMock;
 	
 	GTMTool tool = null;
@@ -32,7 +31,7 @@ public class ExportTCVrouteFareTest {
 	@Before 
 	public void initialize() {
 		
-		MockitoAnnotations.initMocks(this);
+		//MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 	

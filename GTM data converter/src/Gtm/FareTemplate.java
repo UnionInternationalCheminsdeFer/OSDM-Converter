@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link Gtm.FareTemplate#getPriceFactor <em>Price Factor</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getPrice <em>Price</em>}</li>
+ *   <li>{@link Gtm.FareTemplate#getMinimalPrice <em>Minimal Price</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getRoundingMode <em>Rounding Mode</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getId <em>Id</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getType <em>Type</em>}</li>
@@ -124,6 +125,28 @@ public interface FareTemplate extends EObject {
 	 * @generated
 	 */
 	void setPrice(Price value);
+
+	/**
+	 * Returns the value of the '<em><b>Minimal Price</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Minimal Price</em>' containment reference.
+	 * @see #setMinimalPrice(MinimalPrice)
+	 * @see Gtm.GtmPackage#getFareTemplate_MinimalPrice()
+	 * @model containment="true"
+	 * @generated
+	 */
+	MinimalPrice getMinimalPrice();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareTemplate#getMinimalPrice <em>Minimal Price</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Minimal Price</em>' containment reference.
+	 * @see #getMinimalPrice()
+	 * @generated
+	 */
+	void setMinimalPrice(MinimalPrice value);
 
 	/**
 	 * Returns the value of the '<em><b>Rounding Mode</b></em>' attribute.

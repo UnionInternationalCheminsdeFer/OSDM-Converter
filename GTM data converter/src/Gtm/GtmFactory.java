@@ -1210,6 +1210,15 @@ public interface GtmFactory extends EFactory {
 	FareTemplate createFareTemplate();
 
 	/**
+	 * Returns a new object of class '<em>Minimal Price</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Minimal Price</em>'.
+	 * @generated
+	 */
+	MinimalPrice createMinimalPrice();
+
+	/**
 	 * Returns a new object of class '<em>After Sales Template</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

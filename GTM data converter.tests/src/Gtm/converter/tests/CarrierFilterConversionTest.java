@@ -2,10 +2,10 @@ package Gtm.converter.tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 
 import Gtm.ClassId;
 import Gtm.FareElement;
@@ -32,19 +32,19 @@ public class CarrierFilterConversionTest {
 	int expectedFaresC9999 = 0;
 	int expectedFaresC9998 = 0;
 	
-	@Mock
+	//@Mock
 	GtmUtils gtmUtilsMock;
 	
-	@InjectMocks 
+	//@InjectMocks 
 	ConverterFromLegacy converterFromLegacy;	
 	
-	@InjectMocks 
+	//@InjectMocks 
 	ConverterToLegacy converterToLegacy;	
 	
 	@Before 
 	public void initialize() {
 		
-		MockitoAnnotations.initMocks(this);
+		//MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 		
@@ -96,7 +96,7 @@ public class CarrierFilterConversionTest {
 		expectedFaresC9998 = expectedFaresC9998 * 4;
 		expectedFaresC9999 = expectedFaresC9999 * 4;
 		
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+		//gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
 		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 		

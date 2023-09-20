@@ -33,6 +33,7 @@ import Gtm.CarrierConstraints;
 import Gtm.ClassicClassType;
 import Gtm.ConnectionPoint;
 import Gtm.Country;
+import Gtm.Currency;
 import Gtm.CurrencyPrice;
 import Gtm.DataSource;
 import Gtm.FareConstraintBundle;
@@ -88,7 +89,6 @@ import Gtm.utils.InvolvedTcoFinder;
 import Gtm.utils.StationSelector;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ConverterFromLegacy.
  */
@@ -2123,12 +2123,10 @@ public class ConverterFromLegacy {
 	 * @throws ConverterException the converter exception
 	 */
 	public Price convertSeriesToPrice(GTMTool tool, LegacySeries series, FareTemplate fareTemplate, DateRange dateRange, ArrayList<Price> priceList, RegionalConstraint regionalConstraint) throws ConverterException{
-		
-	    
+			    
 		if (fareTemplate.getPrice() != null) {
 			return fareTemplate.getPrice();
 		}
-
 	
 		Price price = null;
 			
@@ -2157,6 +2155,19 @@ public class ConverterFromLegacy {
 			
 		    price = createPrice(amount,regionalConstraint);
 		    
+		    
+		    Price minimalPrice = fareTemplate.getMinimalPrice();	  
+		    
+		    if (minimalPrice != null && minimalPrice.getCurrencies() != null && !minimalPrice.getCurrencies().isEmpty()) {
+		    	
+		    	Float minimalAmount = getEuroAmount(minimalPrice);
+		    			
+		    	if (minimalAmount != null && amount < minimalAmount) {
+		    		price = clonePrice(minimalPrice);
+		    	}
+		    	
+		    }
+		    
 			if (price != null) {
 				price = findPrice(price, priceList);
 			}
@@ -2171,6 +2182,88 @@ public class ConverterFromLegacy {
 		}
 	}
 	
+	private Float getEuroAmount(Price price) {
+		
+		if (price == null || 
+			price.getCurrencies() == null ||
+			price.getCurrencies().isEmpty()){
+			return null;
+		}
+				for (CurrencyPrice cp : price.getCurrencies()) {
+			if (cp.getCurrency() != null && cp.getCurrency().getIsoCode().equals("EUR")) {
+				return cp.getAmount();
+			}
+		}
+		for (CurrencyPrice cp : price.getCurrencies()) {
+			if (cp.getCurrency() == null) {
+				return cp.getAmount();
+			}
+		}
+		return null;
+	}
+
+
+	private Price clonePrice(Price price) {
+		
+		if (price == null) return null;
+		
+		Price clone = GtmFactory.eINSTANCE.createPrice();
+		price.setDataSource(DataSource.CONVERTED);
+		
+		if (price.getCurrencies() == null || price.getCurrencies().isEmpty()) {
+			return null;
+		}
+		
+		for (CurrencyPrice cp : price.getCurrencies()) {
+			CurrencyPrice curPrice = GtmFactory.eINSTANCE.createCurrencyPrice();
+			curPrice.setAmount(cp.getAmount());
+			if (cp.getCurrency() != null) {
+				curPrice.setCurrency(cp.getCurrency());
+			} else {
+				curPrice.setCurrency(findCurrency("EUR"));
+			}
+			
+			if (cp.getVATdetails()!= null && !cp.getVATdetails().isEmpty()) {
+				
+				for (VATDetail vat: cp.getVATdetails()) {
+				
+					VATDetail vatDetail = GtmFactory.eINSTANCE.createVATDetail();
+					vatDetail.setPercentage(vat.getPercentage());
+					vatDetail.setCountry(vat.getCountry());
+					vatDetail.setTaxId(vat.getTaxId());
+					vatDetail.setScope(vat.getScope());
+					vatDetail.setAmount(vat.getAmount());
+					curPrice.getVATdetails().add(vatDetail);
+
+				}
+
+			}
+
+			clone.getCurrencies().add(curPrice);
+		}
+		
+		return clone;
+	}
+
+
+	private Currency findCurrency(String string) {
+		
+		if (tool == null || tool.getCodeLists() == null || 
+			tool.getCodeLists().getCurrencies() == null ||
+			tool.getCodeLists().getCurrencies().getCurrencies() == null||
+			tool.getCodeLists().getCurrencies().getCurrencies().isEmpty()) {
+			return null;
+		}
+		for (Currency c : tool.getCodeLists().getCurrencies().getCurrencies()) {
+			if (c.getIsoCode().equalsIgnoreCase("EUR")) {
+				return c;
+			}
+		}
+
+		return null;
+	}
+
+
 	/**
 	 * Creates the price.
 	 *

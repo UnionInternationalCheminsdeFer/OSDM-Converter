@@ -868,6 +868,13 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.MINIMAL_PRICE: {
+				MinimalPrice minimalPrice = (MinimalPrice)theEObject;
+				T result = caseMinimalPrice(minimalPrice);
+				if (result == null) result = casePrice(minimalPrice);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.AFTER_SALES_TEMPLATE: {
 				AfterSalesTemplate afterSalesTemplate = (AfterSalesTemplate)theEObject;
 				T result = caseAfterSalesTemplate(afterSalesTemplate);
@@ -3065,6 +3072,21 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFareTemplate(FareTemplate object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Minimal Price</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Minimal Price</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMinimalPrice(MinimalPrice object) {
 		return null;
 	}
 

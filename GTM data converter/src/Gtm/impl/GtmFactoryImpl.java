@@ -191,6 +191,7 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.VAT_TEMPLATE: return createVatTemplate();
 			case GtmPackage.LEGACY_FARE_TEMPLATES: return createLegacyFareTemplates();
 			case GtmPackage.FARE_TEMPLATE: return createFareTemplate();
+			case GtmPackage.MINIMAL_PRICE: return createMinimalPrice();
 			case GtmPackage.AFTER_SALES_TEMPLATE: return createAfterSalesTemplate();
 			case GtmPackage.ON_BORDER_STATIONS: return createOnBorderStations();
 			case GtmPackage.LEGACY_STATION_TO_SERVICE_CONSTRAINT_MAPPINGS: return createLegacyStationToServiceConstraintMappings();
@@ -1808,6 +1809,16 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public FareTemplate createFareTemplate() {
 		FareTemplateImpl fareTemplate = new FareTemplateImpl();
 		return fareTemplate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MinimalPrice createMinimalPrice() {
+		MinimalPriceImpl minimalPrice = new MinimalPriceImpl();
+		return minimalPrice;
 	}
 
 	/**

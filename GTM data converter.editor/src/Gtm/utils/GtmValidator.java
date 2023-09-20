@@ -159,6 +159,7 @@ public class GtmValidator {
 	private static void checkAddStations(ViaStation via, List<Station> stations, List<FareStationSetDefinition> fareStations) {
 		
 		if (via == null) return;
+		if (via.isTechnicalViaOnly()) return;
 		if (via.getStation() != null) stations.add(via.getStation());
 		if (via.getFareStationSet()!= null) fareStations.add(via.getFareStationSet());
 		

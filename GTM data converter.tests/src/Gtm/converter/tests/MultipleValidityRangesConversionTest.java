@@ -4,10 +4,10 @@ import java.util.HashSet;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 
 import Gtm.DataSource;
 import Gtm.FareConstraintBundle;
@@ -30,19 +30,19 @@ public class MultipleValidityRangesConversionTest {
 	
 	GTMTool tool = null;
 	
-	@Mock
+	//@Mock
 	GtmUtils gtmUtilsMock;
 	
-	@InjectMocks 
+	//@InjectMocks 
 	ConverterFromLegacy converterFromLegacy;	
 	
-	@InjectMocks 
+	//@InjectMocks 
 	ConverterToLegacy converterToLegacy;	
 	
 	@Before 
 	public void initialize() {
 		
-		MockitoAnnotations.initMocks(this);
+		//MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 		
@@ -61,7 +61,7 @@ public class MultipleValidityRangesConversionTest {
 		}
 		
 			
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+		//gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
 		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 		

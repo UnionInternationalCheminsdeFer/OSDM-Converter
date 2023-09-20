@@ -16,6 +16,7 @@ import Gtm.LegacyAccountingIdentifier;
 import Gtm.LegacyConversionType;
 import Gtm.LegacySeriesType;
 import Gtm.LuggageConstraint;
+import Gtm.MinimalPrice;
 import Gtm.PassengerConstraint;
 import Gtm.PersonalDataConstraint;
 import Gtm.Price;
@@ -55,6 +56,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getPriceFactor <em>Price Factor</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getPrice <em>Price</em>}</li>
+ *   <li>{@link Gtm.impl.FareTemplateImpl#getMinimalPrice <em>Minimal Price</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getRoundingMode <em>Rounding Mode</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getId <em>Id</em>}</li>
  *   <li>{@link Gtm.impl.FareTemplateImpl#getType <em>Type</em>}</li>
@@ -129,6 +131,16 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	 * @ordered
 	 */
 	protected Price price;
+
+	/**
+	 * The cached value of the '{@link #getMinimalPrice() <em>Minimal Price</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMinimalPrice()
+	 * @generated
+	 * @ordered
+	 */
+	protected MinimalPrice minimalPrice;
 
 	/**
 	 * The default value of the '{@link #getRoundingMode() <em>Rounding Mode</em>}' attribute.
@@ -621,6 +633,49 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 		price = newPrice;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__PRICE, oldPrice, price));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MinimalPrice getMinimalPrice() {
+		return minimalPrice;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMinimalPrice(MinimalPrice newMinimalPrice, NotificationChain msgs) {
+		MinimalPrice oldMinimalPrice = minimalPrice;
+		minimalPrice = newMinimalPrice;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE, oldMinimalPrice, newMinimalPrice);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMinimalPrice(MinimalPrice newMinimalPrice) {
+		if (newMinimalPrice != minimalPrice) {
+			NotificationChain msgs = null;
+			if (minimalPrice != null)
+				msgs = ((InternalEObject)minimalPrice).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE, null, msgs);
+			if (newMinimalPrice != null)
+				msgs = ((InternalEObject)newMinimalPrice).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE, null, msgs);
+			msgs = basicSetMinimalPrice(newMinimalPrice, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE, newMinimalPrice, newMinimalPrice));
 	}
 
 	/**
@@ -1574,6 +1629,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE:
+				return basicSetMinimalPrice(null, msgs);
 			case GtmPackage.FARE_TEMPLATE__AFTER_SALES_TEMPLATE:
 				return ((InternalEList<?>)getAfterSalesTemplate()).basicRemove(otherEnd, msgs);
 			case GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_IDENTIFIER:
@@ -1595,6 +1652,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__PRICE:
 				if (resolve) return getPrice();
 				return basicGetPrice();
+			case GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE:
+				return getMinimalPrice();
 			case GtmPackage.FARE_TEMPLATE__ROUNDING_MODE:
 				return getRoundingMode();
 			case GtmPackage.FARE_TEMPLATE__ID:
@@ -1693,6 +1752,9 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return;
 			case GtmPackage.FARE_TEMPLATE__PRICE:
 				setPrice((Price)newValue);
+				return;
+			case GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE:
+				setMinimalPrice((MinimalPrice)newValue);
 				return;
 			case GtmPackage.FARE_TEMPLATE__ROUNDING_MODE:
 				setRoundingMode((RoundingType)newValue);
@@ -1809,6 +1871,9 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 			case GtmPackage.FARE_TEMPLATE__PRICE:
 				setPrice((Price)null);
 				return;
+			case GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE:
+				setMinimalPrice((MinimalPrice)null);
+				return;
 			case GtmPackage.FARE_TEMPLATE__ROUNDING_MODE:
 				setRoundingMode(ROUNDING_MODE_EDEFAULT);
 				return;
@@ -1918,6 +1983,8 @@ public class FareTemplateImpl extends MinimalEObjectImpl.Container implements Fa
 				return isSetPriceFactor();
 			case GtmPackage.FARE_TEMPLATE__PRICE:
 				return price != null;
+			case GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE:
+				return minimalPrice != null;
 			case GtmPackage.FARE_TEMPLATE__ROUNDING_MODE:
 				return roundingMode != ROUNDING_MODE_EDEFAULT;
 			case GtmPackage.FARE_TEMPLATE__ID:

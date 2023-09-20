@@ -8,10 +8,10 @@ import java.util.TimeZone;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
 
 import Gtm.AlternativeRoute;
 import Gtm.Calendar;
@@ -40,32 +40,32 @@ public class RouteTechnicalEntriesBasicConversionTest {
 	
 	GTMTool tool = null;
 	
-	@Mock
+//	@Mock
 	GtmUtils gtmUtilsMock;
 	
-	@InjectMocks 
-	ConverterFromLegacy converterFromLegacy;	
+//	@InjectMocks 
+	ConverterFromLegacy converter2osdm;	
 	
-	@InjectMocks 
-	ConverterToLegacy converterToLegacy;	
-	
-	@Before 
-	public void initialize() {
+//	@InjectMocks 
+	ConverterToLegacy converter2legacy;	
+
+	@Before
+	public void setUp() throws Exception {
 		
-		MockitoAnnotations.initMocks(this);
+//		MockitoAnnotations.initMocks(this);
 				
 		tool = LegacyDataFactory.createBasicData();
 		
 		
-		gtmUtilsMock = Mockito.mock(GtmUtils.class);				
+		//gtmUtilsMock = Mockito.mock(GtmUtils.class);				
 		
-		converterFromLegacy = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
+		converter2osdm = new ConverterFromLegacy(tool, new MockedEditingDomain(), null);
 		
 		//prepare codelists
-		converterFromLegacy.initializeConverter();
+		converter2osdm.initializeConverter();
 		
 		//convert
-		converterFromLegacy.convertToGtmTest(new MockedProgressMonitor());
+		converter2osdm.convertToGtmTest(new MockedProgressMonitor());
 		
 		
 		
@@ -301,10 +301,10 @@ public class RouteTechnicalEntriesBasicConversionTest {
 			} 
 		}
 		
-		converterToLegacy = new ConverterToLegacy(tool, null, new MockedEditingDomain());
+		converter2legacy = new ConverterToLegacy(tool, null, new MockedEditingDomain());
 			
 		//convert
-		converterToLegacy.convertTest(new MockedProgressMonitor());
+		converter2legacy.convertTest(new MockedProgressMonitor());
 		
 		assert(tool.getConversionFromLegacy().getLegacy108().getLegacyStations() != null);
 		

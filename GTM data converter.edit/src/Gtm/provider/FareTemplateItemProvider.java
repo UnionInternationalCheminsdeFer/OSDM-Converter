@@ -66,6 +66,7 @@ public class FareTemplateItemProvider
 
 			addPriceFactorPropertyDescriptor(object);
 			addPricePropertyDescriptor(object);
+			addMinimalPricePropertyDescriptor(object);
 			addRoundingModePropertyDescriptor(object);
 			addIdPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
@@ -129,6 +130,28 @@ public class FareTemplateItemProvider
 				 getString("_UI_FareTemplate_price_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_price_feature", "_UI_FareTemplate_type"),
 				 GtmPackage.Literals.FARE_TEMPLATE__PRICE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Minimal Price feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMinimalPricePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FareTemplate_minimalPrice_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FareTemplate_minimalPrice_feature", "_UI_FareTemplate_type"),
+				 GtmPackage.Literals.FARE_TEMPLATE__MINIMAL_PRICE,
 				 true,
 				 false,
 				 true,
@@ -656,6 +679,7 @@ public class FareTemplateItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GtmPackage.Literals.FARE_TEMPLATE__MINIMAL_PRICE);
 			childrenFeatures.add(GtmPackage.Literals.FARE_TEMPLATE__AFTER_SALES_TEMPLATE);
 			childrenFeatures.add(GtmPackage.Literals.FARE_TEMPLATE__LEGACY_ACCOUNTING_IDENTIFIER);
 		}
@@ -726,6 +750,7 @@ public class FareTemplateItemProvider
 			case GtmPackage.FARE_TEMPLATE__BASE_PRICE_CLASS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE:
 			case GtmPackage.FARE_TEMPLATE__AFTER_SALES_TEMPLATE:
 			case GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_IDENTIFIER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -744,6 +769,11 @@ public class FareTemplateItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.FARE_TEMPLATE__MINIMAL_PRICE,
+				 GtmFactory.eINSTANCE.createMinimalPrice()));
 
 		newChildDescriptors.add
 			(createChildParameter
