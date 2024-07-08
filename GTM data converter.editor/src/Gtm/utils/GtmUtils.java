@@ -813,10 +813,10 @@ public class GtmUtils {
 			
 				Integer i = countryCounter.get(s.getCountry());
 				if (i == null) {
-					countryCounter.put(s.getCountry() , new Integer(1));
+					countryCounter.put(s.getCountry() , Integer.valueOf(1));
 				} else {
 					i++;
-					countryCounter.put(s.getCountry() , new Integer(i));
+					countryCounter.put(s.getCountry() , Integer.valueOf(i));
 				}
 			}
 		}

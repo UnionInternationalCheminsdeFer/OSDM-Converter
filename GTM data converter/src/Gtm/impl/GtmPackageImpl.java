@@ -12747,6 +12747,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFEVEN10);
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.UP20CENT);
 		addEEnumLiteral(roundingTypeEEnum, RoundingType.DOWN20CENT);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFEVEN20CENT);
+		addEEnumLiteral(roundingTypeEEnum, RoundingType.HALFEVEN5CENT);
 
 		initEEnum(stationRelationTypeEEnum, StationRelationType.class, "StationRelationType");
 		addEEnumLiteral(stationRelationTypeEEnum, StationRelationType.SAME_STATION);
