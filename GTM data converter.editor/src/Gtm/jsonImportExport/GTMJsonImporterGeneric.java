@@ -1587,7 +1587,6 @@ public class GTMJsonImporterGeneric {
 				sb.append(" assumed value 1.0 to continue");
 				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
-			p.setReservationAgeLimit(jp.getAgeLimitForReservation());
 			p.setText(findText(jp.getNameRef()));
 			p.setTravelerType(TravelerType.getByName(jp.getPassengerType()));
 		}
