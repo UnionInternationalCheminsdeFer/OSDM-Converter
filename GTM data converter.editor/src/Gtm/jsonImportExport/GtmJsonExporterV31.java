@@ -55,6 +55,7 @@ import gtmV31.PassengerConstraintDef;
 import gtmV31.PersonalDataConstraintDef;
 import gtmV31.PolygonDef;
 import gtmV31.PriceDef;
+import gtmV31.Product;
 import gtmV31.ReductionCardDef;
 import gtmV31.ReductionCardReferenceDef;
 import gtmV31.ReductionConstraintDef;
@@ -312,10 +313,48 @@ public class GtmJsonExporterV31 {
 			fares.setLuggageConstraints(convertLuggageConstraints(gtm.getFareStructure().getLuggageConstraints()));
 		}
 		monitor.worked(1);
+
+		monitor.subTask("Export Products");
+		if (gtm.getFareStructure().getProducts() != null && !gtm.getFareStructure().getProducts().getProducts().isEmpty()) {
+			fares.setProducts(convertProducts(gtm.getFareStructure().getProducts()));
+		}
+		monitor.worked(1);
 		
 		return export;
 	}
 
+
+
+
+	private List<Product> convertProducts(Products products) {
+		
+		List<Product> pl = new ArrayList<Product>();
+		
+		for (Gtm.Product pm : products.getProducts()) {
+			
+			Product p = new Product();
+			
+			p.setCarrierConstraintText(convertToJson(pm.getCarrierConstraintText()));
+			p.setCode(pm.getCode());
+			p.setDescription(convertToJson(pm.getDescription()));
+			p.setIsExchangeableAfterValidity(pm.getExchangeableAfterValidity());
+			p.setIsExchangeablebeforeValidity(pm.getExchangeableBeforeValidity());
+			p.setIsRefundableAfterValidity(pm.getRefundableAfterValidity());
+			p.setIsRefundableBeforeValidity(pm.getRefundableBeforeValidity());
+			p.setIsReturnProduct(pm.getReturnProduct());
+			p.setIsTrainBound(pm.getTrainBound());
+			p.setName(convertToJson(pm.getName()));
+			p.setServiceConstraintText(convertToJson(pm.getServiceConstraintText()));
+			p.setTravelClass(convertTravelClass(pm.getTravelClass()));
+			p.setType(pm.getType().getLiteral());
+			
+			pl.add(p);
+	
+		}
+		
+
+		return pl;
+	}
 
 
 
