@@ -1565,6 +1565,17 @@ public class GTMJsonImporterGeneric {
 			p.setIsAncilliary(jp.getIsAncillaryItem());
 			p.setLowerAgeLimit(jp.getLowerAgeLimit());
 			p.setUpperAgeLimit(jp.getUpperAgeLimit());
+			
+			if (jp.getAgeLimitToTravelAlone() != null) {
+				p.setTravelAloneAgeLimit(jp.getAgeLimitToTravelAlone());
+			} else {
+				p.setTravelAloneAgeLimit(0);
+			}
+			if (jp.getAgeLimitForReservation() != null) {
+				p.setReservationAgeLimit(jp.getAgeLimitForReservation());	
+			} else {
+				p.setReservationAgeLimit(0);	
+			}
 			p.getExcludedPassengerCombinations().addAll(convertPassengerCombinationList(jp.getCombinationConstraint()));
 			if (jp.getPassengerWeight() != null) {			
 				p.setPassengerWeight(jp.getPassengerWeight());
