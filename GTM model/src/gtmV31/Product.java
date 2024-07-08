@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "code",
     "name",
     "summary",
+    "type",
     "description",
     "travelClass",
     "isTrainBound",
@@ -63,6 +64,13 @@ public class Product {
      */
     @JsonProperty("summary")
     private TextDef summary;
+    /**
+     * General product types harmonized across fare providers. (More to be added, use null for types not listed yet.)
+     * 
+     */
+    @JsonProperty("type")
+    @JsonPropertyDescription("General product types harmonized across fare providers. (More to be added, use null for types not listed yet.)")
+    private String type;
     @JsonProperty("description")
     private TextDef description;
     /**
@@ -184,6 +192,24 @@ public class Product {
     @JsonProperty("summary")
     public void setSummary(TextDef summary) {
         this.summary = summary;
+    }
+
+    /**
+     * General product types harmonized across fare providers. (More to be added, use null for types not listed yet.)
+     * 
+     */
+    @JsonProperty("type")
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * General product types harmonized across fare providers. (More to be added, use null for types not listed yet.)
+     * 
+     */
+    @JsonProperty("type")
+    public void setType(String type) {
+        this.type = type;
     }
 
     @JsonProperty("description")
@@ -348,6 +374,10 @@ public class Product {
         sb.append('=');
         sb.append(((this.summary == null)?"<null>":this.summary));
         sb.append(',');
+        sb.append("type");
+        sb.append('=');
+        sb.append(((this.type == null)?"<null>":this.type));
+        sb.append(',');
         sb.append("description");
         sb.append('=');
         sb.append(((this.description == null)?"<null>":this.description));
@@ -408,6 +438,7 @@ public class Product {
         result = ((result* 31)+((this.code == null)? 0 :this.code.hashCode()));
         result = ((result* 31)+((this.carrierConstraintText == null)? 0 :this.carrierConstraintText.hashCode()));
         result = ((result* 31)+((this.description == null)? 0 :this.description.hashCode()));
+        result = ((result* 31)+((this.type == null)? 0 :this.type.hashCode()));
         result = ((result* 31)+((this.isRefundableBeforeValidity == null)? 0 :this.isRefundableBeforeValidity.hashCode()));
         result = ((result* 31)+((this.travelClass == null)? 0 :this.travelClass.hashCode()));
         result = ((result* 31)+((this.isReturnProduct == null)? 0 :this.isReturnProduct.hashCode()));
@@ -430,7 +461,7 @@ public class Product {
             return false;
         }
         Product rhs = ((Product) other);
-        return ((((((((((((((((this.summary == rhs.summary)||((this.summary!= null)&&this.summary.equals(rhs.summary)))&&((this.isExchangeableAfterValidity == rhs.isExchangeableAfterValidity)||((this.isExchangeableAfterValidity!= null)&&this.isExchangeableAfterValidity.equals(rhs.isExchangeableAfterValidity))))&&((this.code == rhs.code)||((this.code!= null)&&this.code.equals(rhs.code))))&&((this.carrierConstraintText == rhs.carrierConstraintText)||((this.carrierConstraintText!= null)&&this.carrierConstraintText.equals(rhs.carrierConstraintText))))&&((this.description == rhs.description)||((this.description!= null)&&this.description.equals(rhs.description))))&&((this.isRefundableBeforeValidity == rhs.isRefundableBeforeValidity)||((this.isRefundableBeforeValidity!= null)&&this.isRefundableBeforeValidity.equals(rhs.isRefundableBeforeValidity))))&&((this.travelClass == rhs.travelClass)||((this.travelClass!= null)&&this.travelClass.equals(rhs.travelClass))))&&((this.isReturnProduct == rhs.isReturnProduct)||((this.isReturnProduct!= null)&&this.isReturnProduct.equals(rhs.isReturnProduct))))&&((this.isTrainBound == rhs.isTrainBound)||((this.isTrainBound!= null)&&this.isTrainBound.equals(rhs.isTrainBound))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.isExchangeablebeforeValidity == rhs.isExchangeablebeforeValidity)||((this.isExchangeablebeforeValidity!= null)&&this.isExchangeablebeforeValidity.equals(rhs.isExchangeablebeforeValidity))))&&((this.conditions == rhs.conditions)||((this.conditions!= null)&&this.conditions.equals(rhs.conditions))))&&((this.serviceConstraintText == rhs.serviceConstraintText)||((this.serviceConstraintText!= null)&&this.serviceConstraintText.equals(rhs.serviceConstraintText))))&&((this.isRefundableAfterValidity == rhs.isRefundableAfterValidity)||((this.isRefundableAfterValidity!= null)&&this.isRefundableAfterValidity.equals(rhs.isRefundableAfterValidity))));
+        return (((((((((((((((((this.summary == rhs.summary)||((this.summary!= null)&&this.summary.equals(rhs.summary)))&&((this.isExchangeableAfterValidity == rhs.isExchangeableAfterValidity)||((this.isExchangeableAfterValidity!= null)&&this.isExchangeableAfterValidity.equals(rhs.isExchangeableAfterValidity))))&&((this.code == rhs.code)||((this.code!= null)&&this.code.equals(rhs.code))))&&((this.carrierConstraintText == rhs.carrierConstraintText)||((this.carrierConstraintText!= null)&&this.carrierConstraintText.equals(rhs.carrierConstraintText))))&&((this.description == rhs.description)||((this.description!= null)&&this.description.equals(rhs.description))))&&((this.type == rhs.type)||((this.type!= null)&&this.type.equals(rhs.type))))&&((this.isRefundableBeforeValidity == rhs.isRefundableBeforeValidity)||((this.isRefundableBeforeValidity!= null)&&this.isRefundableBeforeValidity.equals(rhs.isRefundableBeforeValidity))))&&((this.travelClass == rhs.travelClass)||((this.travelClass!= null)&&this.travelClass.equals(rhs.travelClass))))&&((this.isReturnProduct == rhs.isReturnProduct)||((this.isReturnProduct!= null)&&this.isReturnProduct.equals(rhs.isReturnProduct))))&&((this.isTrainBound == rhs.isTrainBound)||((this.isTrainBound!= null)&&this.isTrainBound.equals(rhs.isTrainBound))))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.isExchangeablebeforeValidity == rhs.isExchangeablebeforeValidity)||((this.isExchangeablebeforeValidity!= null)&&this.isExchangeablebeforeValidity.equals(rhs.isExchangeablebeforeValidity))))&&((this.conditions == rhs.conditions)||((this.conditions!= null)&&this.conditions.equals(rhs.conditions))))&&((this.serviceConstraintText == rhs.serviceConstraintText)||((this.serviceConstraintText!= null)&&this.serviceConstraintText.equals(rhs.serviceConstraintText))))&&((this.isRefundableAfterValidity == rhs.isRefundableAfterValidity)||((this.isRefundableAfterValidity!= null)&&this.isRefundableAfterValidity.equals(rhs.isRefundableAfterValidity))));
     }
 
 }

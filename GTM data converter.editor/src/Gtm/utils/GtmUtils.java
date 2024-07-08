@@ -431,13 +431,9 @@ public class GtmUtils {
 			if (editor == null) {
 				Display display = getDisplay();
 				if (display == null) return;
-				display.asyncExec(() -> {
-					ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53,"Error: " + message);
-				});	
+				ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53,"Error: " + message);
 			} else {
-				editor.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53,"Error: " +  message);
-				});
+				ConsoleUtil.printError(NationalLanguageSupport.ConverterFromLegacy_53,"Error: " +  message);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -463,7 +459,6 @@ public class GtmUtils {
 		
 			
 		if (shell != null) {
-			display.asyncExec(() -> {
 				MessageBox dialog =  new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 				dialog.setText(text);
 				if (e != null && e.getMessage() != null) {
@@ -473,8 +468,7 @@ public class GtmUtils {
 				e.printStackTrace();
 				GtmEditorPlugin.INSTANCE.log(e);
 				return;
-			});	
-		}
+		};	
 	}
 	
 	/**
@@ -491,14 +485,12 @@ public class GtmUtils {
 		final Shell shell1 =  editor.getSite().getShell();
 			
 		if (display != null) {
-			display.asyncExec(() -> {
-				MessageBox dialog =  new MessageBox(shell1, SWT.ICON_INFORMATION | SWT.OK);
-				dialog.setText(text);
-				dialog.setMessage(details);
-				GtmUtils.writeConsoleInfo(text + " - " + details, editor);
-				dialog.open(); 
-				return;
-			});	
+			MessageBox dialog =  new MessageBox(shell1, SWT.ICON_INFORMATION | SWT.OK);
+			dialog.setText(text);
+			dialog.setMessage(details);
+			GtmUtils.writeConsoleInfo(text + " - " + details, editor);
+			dialog.open(); 
+			return;
 		}
 	}
 
@@ -534,13 +526,9 @@ public class GtmUtils {
 			if (editor == null) {
 				Display display = getDisplay();
 				if (display == null) return;
-				display.asyncExec(() -> {
-					ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53,"Info: " + message);
-				});	
+				ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53,"Info: " + message);
 			} else {
-				editor.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53,"Info: " +  message);
-				});
+				ConsoleUtil.printInfo(NationalLanguageSupport.ConverterFromLegacy_53,"Info: " +  message);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -562,13 +550,9 @@ public class GtmUtils {
 			if (editor == null) {
 				Display display = getDisplay();
 				if (display == null) return;
-				display.asyncExec(() -> {
-					ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53,"Warning: " +  message);
-				});					
+				ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53,"Warning: " +  message);		
 			} else {
-				editor.getSite().getShell().getDisplay().asyncExec(() -> {
-					ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53,"Warning: " +  message);
-				});
+				ConsoleUtil.printWarning(NationalLanguageSupport.ConverterFromLegacy_53,"Warning: " +  message);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -813,10 +797,10 @@ public class GtmUtils {
 			
 				Integer i = countryCounter.get(s.getCountry());
 				if (i == null) {
-					countryCounter.put(s.getCountry() , new Integer(1));
+					countryCounter.put(s.getCountry() , Integer.valueOf(1));
 				} else {
 					i++;
-					countryCounter.put(s.getCountry() , new Integer(i));
+					countryCounter.put(s.getCountry() , Integer.valueOf(i));
 				}
 			}
 		}

@@ -78,6 +78,7 @@ public class ProductItemProvider
 			addRefundableBeforeValidityPropertyDescriptor(object);
 			addExchangeableAfterValidityPropertyDescriptor(object);
 			addExchangeableBeforeValidityPropertyDescriptor(object);
+			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -391,6 +392,28 @@ public class ProductItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Product_type_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Product_type_feature", "_UI_Product_type"),
+				 GtmPackage.Literals.PRODUCT__TYPE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -467,6 +490,7 @@ public class ProductItemProvider
 			case GtmPackage.PRODUCT__REFUNDABLE_BEFORE_VALIDITY:
 			case GtmPackage.PRODUCT__EXCHANGEABLE_AFTER_VALIDITY:
 			case GtmPackage.PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY:
+			case GtmPackage.PRODUCT__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.PRODUCT__CONDITION_TEXTS:

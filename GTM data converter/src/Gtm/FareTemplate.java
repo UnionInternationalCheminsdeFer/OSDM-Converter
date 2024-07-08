@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareTemplate#getPriceFactor <em>Price Factor</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getPrice <em>Price</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getMinimalPrice <em>Minimal Price</em>}</li>
+ *   <li>{@link Gtm.FareTemplate#getMaximalPrice <em>Maximal Price</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getRoundingMode <em>Rounding Mode</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getId <em>Id</em>}</li>
  *   <li>{@link Gtm.FareTemplate#getType <em>Type</em>}</li>
@@ -147,6 +148,28 @@ public interface FareTemplate extends EObject {
 	 * @generated
 	 */
 	void setMinimalPrice(MinimalPrice value);
+
+	/**
+	 * Returns the value of the '<em><b>Maximal Price</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Maximal Price</em>' containment reference.
+	 * @see #setMaximalPrice(MaximalPrice)
+	 * @see Gtm.GtmPackage#getFareTemplate_MaximalPrice()
+	 * @model containment="true"
+	 * @generated
+	 */
+	MaximalPrice getMaximalPrice();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareTemplate#getMaximalPrice <em>Maximal Price</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Maximal Price</em>' containment reference.
+	 * @see #getMaximalPrice()
+	 * @generated
+	 */
+	void setMaximalPrice(MaximalPrice value);
 
 	/**
 	 * Returns the value of the '<em><b>Rounding Mode</b></em>' attribute.

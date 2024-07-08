@@ -8,12 +8,12 @@ Bundle-ClassPath: .
 Bundle-Activator: Gtm.presentation.GtmEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: Gtm.converter,
  Gtm.jsonImportExport,
  Gtm.legacyImportExport,
- Gtm.presentation,
- Gtm.utils
+ Gtm.utils,
+ Gtm.presentation
 Require-Bundle: org.eclipse.core.runtime,
  GTM_data_converter.edit;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
@@ -25,15 +25,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.felix.scr;bundle-version="2.1.14",
  org.eclipse.equinox.http.jetty;bundle-version="3.7.300",
  org.eclipse.help.ui;bundle-version="4.1.700",
- org.eclipse.e4.ui.css.core;bundle-version="0.12.900",
  org.eclipse.equinox.event;bundle-version="1.5.300",
- org.eclipse.e4.ui.workbench.renderers.swt;bundle-version="0.14.900",
  GTM_data_converter,
- org.eclipse.ant.core;bundle-version="3.5.600",
  org.eclipse.nebula.widgets.cdatetime;bundle-version="1.5.0",
  com.ibm.icu;bundle-version="64.2.0",
- org.eclipse.jface,
- org.eclipse.e4.ui.dialogs;bundle-version="1.1.600"
+ org.eclipse.jface
 Bundle-ActivationPolicy: lazy
-Import-Package: org.apache.batik;version="1.11.0",
- org.eclipse.emf.ecore.provider
