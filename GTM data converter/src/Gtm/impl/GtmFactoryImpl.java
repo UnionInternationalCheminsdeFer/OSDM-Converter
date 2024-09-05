@@ -191,6 +191,7 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.VAT_TEMPLATE: return createVatTemplate();
 			case GtmPackage.LEGACY_FARE_TEMPLATES: return createLegacyFareTemplates();
 			case GtmPackage.FARE_TEMPLATE: return createFareTemplate();
+			case GtmPackage.MAXIMAL_PRICE: return createMaximalPrice();
 			case GtmPackage.MINIMAL_PRICE: return createMinimalPrice();
 			case GtmPackage.AFTER_SALES_TEMPLATE: return createAfterSalesTemplate();
 			case GtmPackage.ON_BORDER_STATIONS: return createOnBorderStations();
@@ -313,6 +314,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createPersonalDataTransferTypeFromString(eDataType, initialValue);
 			case GtmPackage.PERSONAL_DATA_CHANGE_REASON:
 				return createPersonalDataChangeReasonFromString(eDataType, initialValue);
+			case GtmPackage.PRODUCT_TYPE:
+				return createProductTypeFromString(eDataType, initialValue);
 			case GtmPackage.RESERVATION_TRAVEL_CLASS:
 				return createReservationTravelClassFromString(eDataType, initialValue);
 			case GtmPackage.RESERVATION_SERVICE_LEVEL:
@@ -442,6 +445,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertPersonalDataTransferTypeToString(eDataType, instanceValue);
 			case GtmPackage.PERSONAL_DATA_CHANGE_REASON:
 				return convertPersonalDataChangeReasonToString(eDataType, instanceValue);
+			case GtmPackage.PRODUCT_TYPE:
+				return convertProductTypeToString(eDataType, instanceValue);
 			case GtmPackage.RESERVATION_TRAVEL_CLASS:
 				return convertReservationTravelClassToString(eDataType, instanceValue);
 			case GtmPackage.RESERVATION_SERVICE_LEVEL:
@@ -1816,6 +1821,16 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MaximalPrice createMaximalPrice() {
+		MaximalPriceImpl maximalPrice = new MaximalPriceImpl();
+		return maximalPrice;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public MinimalPrice createMinimalPrice() {
 		MinimalPriceImpl minimalPrice = new MinimalPriceImpl();
 		return minimalPrice;
@@ -2848,6 +2863,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * @generated
 	 */
 	public String convertPersonalDataChangeReasonToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProductType createProductTypeFromString(EDataType eDataType, String initialValue) {
+		ProductType result = ProductType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertProductTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

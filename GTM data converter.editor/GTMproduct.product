@@ -70,6 +70,8 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="com.ibm.icu"/>
       <plugin id="com.sun.jna"/>
       <plugin id="com.sun.jna.platform"/>
+      <plugin id="fasterxml"/>
+      <plugin id="jakarta.servlet"/>
       <plugin id="jakarta.servlet-api"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.el-api"/>
@@ -84,6 +86,7 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.apache.commons.cli"/>
       <plugin id="org.apache.commons.commons-codec"/>
       <plugin id="org.apache.commons.commons-io"/>
+      <plugin id="org.apache.commons.io"/>
       <plugin id="org.apache.commons.jxpath"/>
       <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.felix.scr"/>
@@ -94,7 +97,6 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.apache.xerces"/>
       <plugin id="org.apache.xml.resolver"/>
       <plugin id="org.apache.xmlgraphics"/>
-      <plugin id="org.eclipse.ant.core"/>
       <plugin id="org.eclipse.compare.core"/>
       <plugin id="org.eclipse.core.commands"/>
       <plugin id="org.eclipse.core.contenttype"/>

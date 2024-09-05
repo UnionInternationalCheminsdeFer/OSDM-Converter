@@ -1125,6 +1125,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="exchangeableBeforeValidity"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ProductType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConditionText">
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" lowerBound="1" eType="#//Text"/>
@@ -1275,7 +1276,9 @@
         unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="price" eType="#//Price"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="minimalPrice" eType="#//MinimalPrice"
-        containment="true" resolveProxies="false"/>
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="maximalPrice" eType="#//MaximalPrice"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="roundingMode" eType="#//RoundingType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//FareType"/>
@@ -1321,6 +1324,7 @@
         eType="#//Carrier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="luggageConstraint" eType="#//LuggageConstraint"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MaximalPrice" eSuperTypes="#//Price"/>
   <eClassifiers xsi:type="ecore:EClass" name="MinimalPrice" eSuperTypes="#//Price"/>
   <eClassifiers xsi:type="ecore:EClass" name="AfterSalesTemplate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transactionType" eType="#//AfterSalesTransactionType"/>
@@ -1879,6 +1883,18 @@
     <eLiterals name="MARRIAGE" value="2"/>
     <eLiterals name="DOCUMENT_EXCHANGE" value="3"/>
     <eLiterals name="AGENT_ERROR" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ProductType">
+    <eLiterals name="ADMISSION_POINT2POINT"/>
+    <eLiterals name="ADMISSION_PASS" value="1"/>
+    <eLiterals name="ADMISSION_MULTI_RIDE" value="2"/>
+    <eLiterals name="UPGRADE_POINT2POINT" value="3"/>
+    <eLiterals name="UPGRADE_PASS" value="4"/>
+    <eLiterals name="UPGRADE_MULTI_RIDE" value="5"/>
+    <eLiterals name="RESERVATION" value="6"/>
+    <eLiterals name="ANCILLARY_SERVICE" value="7"/>
+    <eLiterals name="ANCILLARY_ITEM" value="8"/>
+    <eLiterals name="REDUCTION_CARD" value="9"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ReservationTravelClass">
     <eLiterals name="FIRST" value="1"/>

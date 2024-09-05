@@ -60,11 +60,11 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 		
 		protected void run (IStructuredSelection structuredSelection) {
 			
-			GTMTool tool = GtmUtils.getGtmTool();
+			final GTMTool tool = GtmUtils.getGtmTool();
 			
-			EditingDomain domain = GtmUtils.getActiveDomain();
+			final EditingDomain domain = GtmUtils.getActiveDomain();
 			
-			GtmEditor editor = GtmUtils.getActiveEditor();
+			final GtmEditor editor = GtmUtils.getActiveEditor();
 			
 			if (tool == null) {
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
@@ -107,17 +107,17 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 			}
 
 			
-			String name = tool.getGeneralTariffModel().getDelivery().getProvider().getCode().trim() 
+			final String name = tool.getGeneralTariffModel().getDelivery().getProvider().getCode().trim() 
 					+ "_" + tool.getGeneralTariffModel().getDelivery().getId().trim()+".gtm.json"; //$NON-NLS-1$ //$NON-NLS-2$
-            File file = getFile(name);
+            final File file = getFile(name);
 			if (file == null) {
 				return;
 			}
 			
-			GtmJsonExporter jsonModelExporterV12 = new GtmJsonExporter();
-			GtmJsonExporterV14 jsonModelExporterV14 = new GtmJsonExporterV14();
-			GtmJsonExporterV30 jsonModelExporterV30 = new GtmJsonExporterV30();
-			GtmJsonExporterV31 jsonModelExporterV31 = new GtmJsonExporterV31();
+			final GtmJsonExporter jsonModelExporterV12 = new GtmJsonExporter();
+			final GtmJsonExporterV14 jsonModelExporterV14 = new GtmJsonExporterV14();
+			final GtmJsonExporterV30 jsonModelExporterV30 = new GtmJsonExporterV30();
+			final GtmJsonExporterV31 jsonModelExporterV31 = new GtmJsonExporterV31();
 	
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.

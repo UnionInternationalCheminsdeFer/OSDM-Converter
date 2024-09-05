@@ -127,6 +127,7 @@ import Gtm.LuggageConstraints;
 import Gtm.LuggageDimension;
 import Gtm.LuggageItemsRestriction;
 import Gtm.LuggageRule;
+import Gtm.MaximalPrice;
 import Gtm.MinimalPrice;
 import Gtm.NUTSCodes;
 import Gtm.NutsCode;
@@ -146,6 +147,7 @@ import Gtm.Polygone;
 import Gtm.Price;
 import Gtm.Prices;
 import Gtm.Product;
+import Gtm.ProductType;
 import Gtm.Products;
 import Gtm.ReductionCard;
 import Gtm.ReductionCards;
@@ -1183,6 +1185,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass maximalPriceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass minimalPriceEClass = null;
 
 	/**
@@ -1674,6 +1683,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum personalDataChangeReasonEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum productTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -7202,6 +7218,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getProduct_Type() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConditionText() {
 		return conditionTextEClass;
 	}
@@ -7787,8 +7812,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_RoundingMode() {
-		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(3);
+	public EReference getFareTemplate_MaximalPrice() {
+		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -7796,7 +7821,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_Id() {
+	public EAttribute getFareTemplate_RoundingMode() {
 		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -7805,7 +7830,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_Type() {
+	public EAttribute getFareTemplate_Id() {
 		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -7814,8 +7839,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFareTemplate_Type() {
+		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getFareTemplate_AfterSalesTemplate() {
-		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(6);
+		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -7824,7 +7858,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getFareTemplate_DataDescription() {
-		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -7833,15 +7867,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EReference getFareTemplate_Text() {
-		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFareTemplate_FareConstraintBundle() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -7850,7 +7875,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_SeparateContractFareConstraintBundle() {
+	public EReference getFareTemplate_FareConstraintBundle() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -7859,7 +7884,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ServiceConstraint() {
+	public EReference getFareTemplate_SeparateContractFareConstraintBundle() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -7868,7 +7893,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_CarrierConstraint() {
+	public EReference getFareTemplate_ServiceConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -7877,7 +7902,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ServiceClass() {
+	public EReference getFareTemplate_CarrierConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -7886,7 +7911,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ServiceLevel() {
+	public EReference getFareTemplate_ServiceClass() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -7895,7 +7920,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_SalesAvailability() {
+	public EReference getFareTemplate_ServiceLevel() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -7904,7 +7929,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_TravelValidity() {
+	public EReference getFareTemplate_SalesAvailability() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -7913,7 +7938,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_CombinationConstraint() {
+	public EReference getFareTemplate_TravelValidity() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -7922,7 +7947,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_SeparateContractCombinationConstraint() {
+	public EReference getFareTemplate_CombinationConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -7931,7 +7956,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_FareDetailDescription() {
+	public EReference getFareTemplate_SeparateContractCombinationConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -7940,7 +7965,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_LegacyAccountingIdentifier() {
+	public EReference getFareTemplate_FareDetailDescription() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -7949,7 +7974,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_PersonalDataConstraint() {
+	public EReference getFareTemplate_LegacyAccountingIdentifier() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -7958,7 +7983,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ReservationParameter() {
+	public EReference getFareTemplate_PersonalDataConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -7967,7 +7992,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_ReductionConstraint() {
+	public EReference getFareTemplate_ReservationParameter() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(23);
 	}
 
@@ -7976,7 +8001,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_FulfillmentConstraint() {
+	public EReference getFareTemplate_ReductionConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(24);
 	}
 
@@ -7985,7 +8010,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFareTemplate_PassengerConstraint() {
+	public EReference getFareTemplate_FulfillmentConstraint() {
 		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(25);
 	}
 
@@ -7994,8 +8019,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_LegacyConversion() {
-		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(26);
+	public EReference getFareTemplate_PassengerConstraint() {
+		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(26);
 	}
 
 	/**
@@ -8003,7 +8028,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_IndividualContracts() {
+	public EAttribute getFareTemplate_LegacyConversion() {
 		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(27);
 	}
 
@@ -8012,7 +8037,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_RegulatoryConditions() {
+	public EAttribute getFareTemplate_IndividualContracts() {
 		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(28);
 	}
 
@@ -8021,7 +8046,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_LegacyAccountingTariffId() {
+	public EAttribute getFareTemplate_RegulatoryConditions() {
 		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(29);
 	}
 
@@ -8030,7 +8055,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_SeriesFilter() {
+	public EAttribute getFareTemplate_LegacyAccountingTariffId() {
 		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(30);
 	}
 
@@ -8039,7 +8064,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFareTemplate_BasePriceClass() {
+	public EAttribute getFareTemplate_SeriesFilter() {
 		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(31);
 	}
 
@@ -8048,8 +8073,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFareTemplate_BasePriceClass() {
+		return (EAttribute)fareTemplateEClass.getEStructuralFeatures().get(32);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getFareTemplate_CarrierFilter() {
-		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(32);
+		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(33);
 	}
 
 	/**
@@ -8058,7 +8092,16 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EReference getFareTemplate_LuggageConstraint() {
-		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(33);
+		return (EReference)fareTemplateEClass.getEStructuralFeatures().get(34);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMaximalPrice() {
+		return maximalPriceEClass;
 	}
 
 	/**
@@ -9938,6 +9981,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getProductType() {
+		return productTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getReservationTravelClass() {
 		return reservationTravelClassEEnum;
 	}
@@ -10874,6 +10926,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(productEClass, PRODUCT__REFUNDABLE_BEFORE_VALIDITY);
 		createEAttribute(productEClass, PRODUCT__EXCHANGEABLE_AFTER_VALIDITY);
 		createEAttribute(productEClass, PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY);
+		createEAttribute(productEClass, PRODUCT__TYPE);
 
 		conditionTextEClass = createEClass(CONDITION_TEXT);
 		createEReference(conditionTextEClass, CONDITION_TEXT__TEXT);
@@ -10971,6 +11024,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__PRICE_FACTOR);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__PRICE);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__MINIMAL_PRICE);
+		createEReference(fareTemplateEClass, FARE_TEMPLATE__MAXIMAL_PRICE);
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__ROUNDING_MODE);
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__ID);
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__TYPE);
@@ -11002,6 +11056,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(fareTemplateEClass, FARE_TEMPLATE__BASE_PRICE_CLASS);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__CARRIER_FILTER);
 		createEReference(fareTemplateEClass, FARE_TEMPLATE__LUGGAGE_CONSTRAINT);
+
+		maximalPriceEClass = createEClass(MAXIMAL_PRICE);
 
 		minimalPriceEClass = createEClass(MINIMAL_PRICE);
 
@@ -11250,6 +11306,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		personalDataItemsTypeEEnum = createEEnum(PERSONAL_DATA_ITEMS_TYPE);
 		personalDataTransferTypeEEnum = createEEnum(PERSONAL_DATA_TRANSFER_TYPE);
 		personalDataChangeReasonEEnum = createEEnum(PERSONAL_DATA_CHANGE_REASON);
+		productTypeEEnum = createEEnum(PRODUCT_TYPE);
 		reservationTravelClassEEnum = createEEnum(RESERVATION_TRAVEL_CLASS);
 		reservationServiceLevelEEnum = createEEnum(RESERVATION_SERVICE_LEVEL);
 		reservationServiceEEnum = createEEnum(RESERVATION_SERVICE);
@@ -11311,6 +11368,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		endOfSaleEClass.getESuperTypes().add(this.getRelativeTime());
 		startOfSaleEClass.getESuperTypes().add(this.getRelativeTime());
 		excludedTimeRangeEClass.getESuperTypes().add(this.getTimeRange());
+		maximalPriceEClass.getESuperTypes().add(this.getPrice());
 		minimalPriceEClass.getESuperTypes().add(this.getPrice());
 
 		// Initialize classes, features, and operations; add parameters
@@ -12022,6 +12080,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getProduct_RefundableBeforeValidity(), theXMLTypePackage.getBooleanObject(), "refundableBeforeValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProduct_ExchangeableAfterValidity(), theXMLTypePackage.getBooleanObject(), "exchangeableAfterValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProduct_ExchangeableBeforeValidity(), theXMLTypePackage.getBooleanObject(), "exchangeableBeforeValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_Type(), this.getProductType(), "type", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(conditionTextEClass, ConditionText.class, "ConditionText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConditionText_Text(), this.getText(), null, "text", null, 1, 1, ConditionText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -12119,6 +12178,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareTemplate_PriceFactor(), theXMLTypePackage.getFloat(), "priceFactor", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_Price(), this.getPrice(), null, "price", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_MinimalPrice(), this.getMinimalPrice(), null, "minimalPrice", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareTemplate_MaximalPrice(), this.getMaximalPrice(), null, "maximalPrice", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareTemplate_RoundingMode(), this.getRoundingType(), "roundingMode", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareTemplate_Id(), ecorePackage.getEString(), "id", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFareTemplate_Type(), this.getFareType(), "type", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -12150,6 +12210,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getFareTemplate_BasePriceClass(), this.getBasePriceClassType(), "basePriceClass", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_CarrierFilter(), this.getCarrier(), null, "carrierFilter", null, 0, -1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareTemplate_LuggageConstraint(), this.getLuggageConstraint(), null, "luggageConstraint", null, 0, 1, FareTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(maximalPriceEClass, MaximalPrice.class, "MaximalPrice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(minimalPriceEClass, MinimalPrice.class, "MinimalPrice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -12641,6 +12703,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(personalDataChangeReasonEEnum, PersonalDataChangeReason.MARRIAGE);
 		addEEnumLiteral(personalDataChangeReasonEEnum, PersonalDataChangeReason.DOCUMENT_EXCHANGE);
 		addEEnumLiteral(personalDataChangeReasonEEnum, PersonalDataChangeReason.AGENT_ERROR);
+
+		initEEnum(productTypeEEnum, ProductType.class, "ProductType");
+		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_POINT2POINT);
+		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_PASS);
+		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_MULTI_RIDE);
+		addEEnumLiteral(productTypeEEnum, ProductType.UPGRADE_POINT2POINT);
+		addEEnumLiteral(productTypeEEnum, ProductType.UPGRADE_PASS);
+		addEEnumLiteral(productTypeEEnum, ProductType.UPGRADE_MULTI_RIDE);
+		addEEnumLiteral(productTypeEEnum, ProductType.RESERVATION);
+		addEEnumLiteral(productTypeEEnum, ProductType.ANCILLARY_SERVICE);
+		addEEnumLiteral(productTypeEEnum, ProductType.ANCILLARY_ITEM);
+		addEEnumLiteral(productTypeEEnum, ProductType.REDUCTION_CARD);
 
 		initEEnum(reservationTravelClassEEnum, ReservationTravelClass.class, "ReservationTravelClass");
 		addEEnumLiteral(reservationTravelClassEEnum, ReservationTravelClass.FIRST);

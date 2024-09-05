@@ -2174,6 +2174,18 @@ public class ConverterFromLegacy {
 		    	
 		    }
 		    
+		    Price maximalPrice = fareTemplate.getMaximalPrice();	  
+		    
+		    if (maximalPrice != null && maximalPrice.getCurrencies() != null && !maximalPrice.getCurrencies().isEmpty()) {
+		    	
+		    	Float maximalAmount = getEuroAmount(maximalPrice);
+		    			
+		    	if (maximalAmount != null && amount > maximalAmount) {
+		    		price = clonePrice(maximalPrice);
+		    	}
+		    	
+		    }
+		    
 			if (price != null) {
 				price = findPrice(price, priceList);
 			}
