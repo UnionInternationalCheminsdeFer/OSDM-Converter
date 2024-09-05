@@ -2001,6 +2001,8 @@
     <eLiterals name="HALFEVEN10" value="13"/>
     <eLiterals name="UP20CENT" value="9" literal="UP20CENT"/>
     <eLiterals name="DOWN20CENT" value="10" literal="DOWN20CENT"/>
+    <eLiterals name="HALFEVEN20CENT" value="11" literal="HALFEVEN20CENT"/>
+    <eLiterals name="HALFEVEN5CENT" value="12" literal="HALFEVEN5CENT"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="StationRelationType">
     <eLiterals name="SAME_STATION" value="1"/>

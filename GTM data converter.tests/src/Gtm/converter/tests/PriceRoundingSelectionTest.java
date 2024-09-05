@@ -82,6 +82,8 @@ public class PriceRoundingSelectionTest {
 		cloneWithRounding(t1,t2,15,RoundingType.UP20CENT );
 		cloneWithRounding(t1,t2,16,RoundingType.UP5CENT );
 		cloneWithRounding(t1,t2,17,RoundingType.UP2CENT);
+		cloneWithRounding(t1,t2,18,RoundingType.HALFEVEN20CENT);
+		cloneWithRounding(t1,t2,19,RoundingType.HALFEVEN5CENT);
 	
 		
 		expectedFares = tool.getConversionFromLegacy().getParams().getLegacyFareTemplates().getFareTemplates().size() * 2;

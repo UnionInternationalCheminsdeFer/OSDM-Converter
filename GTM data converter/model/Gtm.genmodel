@@ -397,6 +397,8 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/HALFEVEN10"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/UP20CENT"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/DOWN20CENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/HALFEVEN20CENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//RoundingType/HALFEVEN5CENT"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//StationRelationType">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//StationRelationType/SAME_STATION"/>

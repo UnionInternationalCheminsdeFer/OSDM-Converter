@@ -1612,6 +1612,17 @@ public class GTMJsonImporterGeneric {
 			p.setIsAncilliary(jp.getIsAncillaryItem());
 			p.setLowerAgeLimit(jp.getLowerAgeLimit());
 			p.setUpperAgeLimit(jp.getUpperAgeLimit());
+			
+			if (jp.getAgeLimitToTravelAlone() != null) {
+				p.setTravelAloneAgeLimit(jp.getAgeLimitToTravelAlone());
+			} else {
+				p.setTravelAloneAgeLimit(0);
+			}
+			if (jp.getAgeLimitForReservation() != null) {
+				p.setReservationAgeLimit(jp.getAgeLimitForReservation());	
+			} else {
+				p.setReservationAgeLimit(0);	
+			}
 			p.getExcludedPassengerCombinations().addAll(convertPassengerCombinationList(jp.getCombinationConstraint()));
 			if (jp.getPassengerWeight() != null) {			
 				p.setPassengerWeight(jp.getPassengerWeight());
@@ -1623,7 +1634,6 @@ public class GTMJsonImporterGeneric {
 				sb.append(" assumed value 1.0 to continue");
 				GtmUtils.writeConsoleError(sb.toString(), editor);
 			}
-			p.setReservationAgeLimit(jp.getAgeLimitForReservation());
 			p.setText(findText(jp.getNameRef()));
 			p.setTravelerType(TravelerType.getByName(jp.getPassengerType()));
 		}

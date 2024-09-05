@@ -988,6 +988,12 @@ public class ConverterFromLegacy {
 		} else if (roundingMode == RoundingType.UP20CENT) {
 			bd =  GtmUtils.round(amountF,1,RoundingMode.UP, 5);
 			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.HALFEVEN20CENT) {
+			bd =  GtmUtils.round(amountF,1,RoundingMode.HALF_UP, 5);
+			amount = bd.floatValue();
+		} else if (roundingMode == RoundingType.HALFEVEN5CENT) {
+			bd =  GtmUtils.round(amountF,2,RoundingMode.HALF_UP, 2);
+			amount = bd.floatValue();
 		}
 		
 		return amount;
