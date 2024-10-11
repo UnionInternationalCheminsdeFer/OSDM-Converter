@@ -73,6 +73,9 @@ public class ModelInitializer {
 				if (tool.getConversionFromLegacy().getParams().getAddCarrierRules() == null) {
 					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__ADD_CARRIER_RULES,GtmFactory.eINSTANCE.createAddCarrierRules()));									
 				}
+				if (tool.getConversionFromLegacy().getParams().getNamedCarrierLists() == null) {
+					command.append(new SetCommand(domain,tool.getConversionFromLegacy().getParams(),GtmPackage.Literals.CONVERSION_PARAMS__NAMED_CARRIER_LISTS,GtmFactory.eINSTANCE.createNamedCarrierLists()));									
+				}
 			}
 		}
 		
@@ -495,6 +498,7 @@ public class ModelInitializer {
 		params.setLegacyStationToServiceBrandMappings(GtmFactory.eINSTANCE.createLegacyStationToServiceConstraintMappings());
 		params.setBusFerryMapping(GtmFactory.eINSTANCE.createLegacyBusFerryMapping());									
 		params.setAddCarrierRules(GtmFactory.eINSTANCE.createAddCarrierRules());
+		params.setNamedCarrierLists(GtmFactory.eINSTANCE.createNamedCarrierLists());
 		return params;
 	}
 

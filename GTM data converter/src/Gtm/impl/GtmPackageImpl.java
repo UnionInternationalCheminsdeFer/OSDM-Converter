@@ -2,6 +2,7 @@
  */
 package Gtm.impl;
 
+=======
 import Gtm.AcceptedBarcodes;
 import Gtm.AddCarrierRule;
 import Gtm.AddCarrierRules;
@@ -1144,6 +1145,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EClass conversionParamsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass namedCarrierListsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass namedCarrierListEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -7659,6 +7674,69 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getConversionParams_NamedCarrierLists() {
+		return (EReference)conversionParamsEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNamedCarrierLists() {
+		return namedCarrierListsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNamedCarrierLists_NamedCarrierList() {
+		return (EReference)namedCarrierListsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNamedCarrierList() {
+		return namedCarrierListEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNamedCarrierList_Name() {
+		return (EAttribute)namedCarrierListEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNamedCarrierList_Carriers() {
+		return (EReference)namedCarrierListEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNamedCarrierList_ReplacementCode() {
+		return (EAttribute)namedCarrierListEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAddCarrierRules() {
 		return addCarrierRulesEClass;
 	}
@@ -10999,6 +11077,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__LEGACY_BORDER_INDICATION);
 		createEAttribute(conversionParamsEClass, CONVERSION_PARAMS__REMOVE_UNUSED_LEGACY_STATIONS);
 		createEReference(conversionParamsEClass, CONVERSION_PARAMS__ADD_CARRIER_RULES);
+		createEReference(conversionParamsEClass, CONVERSION_PARAMS__NAMED_CARRIER_LISTS);
+
+		namedCarrierListsEClass = createEClass(NAMED_CARRIER_LISTS);
+		createEReference(namedCarrierListsEClass, NAMED_CARRIER_LISTS__NAMED_CARRIER_LIST);
+
+		namedCarrierListEClass = createEClass(NAMED_CARRIER_LIST);
+		createEAttribute(namedCarrierListEClass, NAMED_CARRIER_LIST__NAME);
+		createEReference(namedCarrierListEClass, NAMED_CARRIER_LIST__CARRIERS);
+		createEAttribute(namedCarrierListEClass, NAMED_CARRIER_LIST__REPLACEMENT_CODE);
 
 		addCarrierRulesEClass = createEClass(ADD_CARRIER_RULES);
 		createEReference(addCarrierRulesEClass, ADD_CARRIER_RULES__ADD_CARRIER_RULE);
@@ -12153,6 +12240,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getConversionParams_LegacyBorderIndication(), ecorePackage.getEString(), "legacyBorderIndication", "(GR)", 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConversionParams_RemoveUnusedLegacyStations(), ecorePackage.getEBoolean(), "removeUnusedLegacyStations", "true", 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConversionParams_AddCarrierRules(), this.getAddCarrierRules(), null, "addCarrierRules", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConversionParams_NamedCarrierLists(), this.getNamedCarrierLists(), null, "namedCarrierLists", null, 0, 1, ConversionParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(namedCarrierListsEClass, NamedCarrierLists.class, "NamedCarrierLists", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getNamedCarrierLists_NamedCarrierList(), this.getNamedCarrierList(), null, "namedCarrierList", null, 0, -1, NamedCarrierLists.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(namedCarrierListEClass, NamedCarrierList.class, "NamedCarrierList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNamedCarrierList_Name(), ecorePackage.getEString(), "Name", null, 0, 1, NamedCarrierList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNamedCarrierList_Carriers(), this.getCarrier(), null, "carriers", null, 0, -1, NamedCarrierList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNamedCarrierList_ReplacementCode(), ecorePackage.getEString(), "replacementCode", null, 0, 1, NamedCarrierList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(addCarrierRulesEClass, AddCarrierRules.class, "AddCarrierRules", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAddCarrierRules_AddCarrierRule(), this.getAddCarrierRule(), null, "addCarrierRule", null, 0, -1, AddCarrierRules.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -13391,6 +13487,12 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		   source,
 		   new String[] {
 			   "constraints", "COUNTRY_MUST AT_LEAST_ONE_LEGACY_FARE_TEMPLATE"
+		   });
+		addAnnotation
+		  (namedCarrierListEClass,
+		   source,
+		   new String[] {
+			   "constraints", "NOT_EMPTY"
 		   });
 		addAnnotation
 		  (legacyFareTemplatesEClass,

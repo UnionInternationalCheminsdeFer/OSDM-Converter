@@ -14,6 +14,7 @@ import Gtm.LegacyFareStationSetMappings;
 import Gtm.LegacyFareTemplates;
 import Gtm.LegacyStationMappings;
 import Gtm.LegacyStationToServiceConstraintMappings;
+import Gtm.NamedCarrierLists;
 import Gtm.VatTemplates;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -50,6 +51,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.ConversionParamsImpl#getLegacyBorderIndication <em>Legacy Border Indication</em>}</li>
  *   <li>{@link Gtm.impl.ConversionParamsImpl#isRemoveUnusedLegacyStations <em>Remove Unused Legacy Stations</em>}</li>
  *   <li>{@link Gtm.impl.ConversionParamsImpl#getAddCarrierRules <em>Add Carrier Rules</em>}</li>
+ *   <li>{@link Gtm.impl.ConversionParamsImpl#getNamedCarrierLists <em>Named Carrier Lists</em>}</li>
  * </ul>
  *
  * @generated
@@ -314,6 +316,16 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected AddCarrierRules addCarrierRules;
+
+	/**
+	 * The cached value of the '{@link #getNamedCarrierLists() <em>Named Carrier Lists</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNamedCarrierLists()
+	 * @generated
+	 * @ordered
+	 */
+	protected NamedCarrierLists namedCarrierLists;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -997,6 +1009,49 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NamedCarrierLists getNamedCarrierLists() {
+		return namedCarrierLists;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetNamedCarrierLists(NamedCarrierLists newNamedCarrierLists, NotificationChain msgs) {
+		NamedCarrierLists oldNamedCarrierLists = namedCarrierLists;
+		namedCarrierLists = newNamedCarrierLists;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS, oldNamedCarrierLists, newNamedCarrierLists);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNamedCarrierLists(NamedCarrierLists newNamedCarrierLists) {
+		if (newNamedCarrierLists != namedCarrierLists) {
+			NotificationChain msgs = null;
+			if (namedCarrierLists != null)
+				msgs = ((InternalEObject)namedCarrierLists).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS, null, msgs);
+			if (newNamedCarrierLists != null)
+				msgs = ((InternalEObject)newNamedCarrierLists).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS, null, msgs);
+			msgs = basicSetNamedCarrierLists(newNamedCarrierLists, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS, newNamedCarrierLists, newNamedCarrierLists));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1022,6 +1077,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return basicSetBusFerryMapping(null, msgs);
 			case GtmPackage.CONVERSION_PARAMS__ADD_CARRIER_RULES:
 				return basicSetAddCarrierRules(null, msgs);
+			case GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS:
+				return basicSetNamedCarrierLists(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1073,6 +1130,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return isRemoveUnusedLegacyStations();
 			case GtmPackage.CONVERSION_PARAMS__ADD_CARRIER_RULES:
 				return getAddCarrierRules();
+			case GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS:
+				return getNamedCarrierLists();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1143,6 +1202,9 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.CONVERSION_PARAMS__ADD_CARRIER_RULES:
 				setAddCarrierRules((AddCarrierRules)newValue);
 				return;
+			case GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS:
+				setNamedCarrierLists((NamedCarrierLists)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1212,6 +1274,9 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 			case GtmPackage.CONVERSION_PARAMS__ADD_CARRIER_RULES:
 				setAddCarrierRules((AddCarrierRules)null);
 				return;
+			case GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS:
+				setNamedCarrierLists((NamedCarrierLists)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1262,6 +1327,8 @@ public class ConversionParamsImpl extends MinimalEObjectImpl.Container implement
 				return removeUnusedLegacyStations != REMOVE_UNUSED_LEGACY_STATIONS_EDEFAULT;
 			case GtmPackage.CONVERSION_PARAMS__ADD_CARRIER_RULES:
 				return addCarrierRules != null;
+			case GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS:
+				return namedCarrierLists != null;
 		}
 		return super.eIsSet(featureID);
 	}

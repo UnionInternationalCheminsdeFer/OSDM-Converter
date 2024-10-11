@@ -832,6 +832,18 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.NAMED_CARRIER_LISTS: {
+				NamedCarrierLists namedCarrierLists = (NamedCarrierLists)theEObject;
+				T result = caseNamedCarrierLists(namedCarrierLists);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.NAMED_CARRIER_LIST: {
+				NamedCarrierList namedCarrierList = (NamedCarrierList)theEObject;
+				T result = caseNamedCarrierList(namedCarrierList);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.ADD_CARRIER_RULES: {
 				AddCarrierRules addCarrierRules = (AddCarrierRules)theEObject;
 				T result = caseAddCarrierRules(addCarrierRules);
@@ -3004,6 +3016,36 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConversionParams(ConversionParams object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Named Carrier Lists</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Named Carrier Lists</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNamedCarrierLists(NamedCarrierLists object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Named Carrier List</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Named Carrier List</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNamedCarrierList(NamedCarrierList object) {
 		return null;
 	}
 

@@ -576,6 +576,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createConversionParamsAdapter();
 			}
 			@Override
+			public Adapter caseNamedCarrierLists(NamedCarrierLists object) {
+				return createNamedCarrierListsAdapter();
+			}
+			@Override
+			public Adapter caseNamedCarrierList(NamedCarrierList object) {
+				return createNamedCarrierListAdapter();
+			}
+			@Override
 			public Adapter caseAddCarrierRules(AddCarrierRules object) {
 				return createAddCarrierRulesAdapter();
 			}
@@ -2546,6 +2554,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConversionParamsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.NamedCarrierLists <em>Named Carrier Lists</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.NamedCarrierLists
+	 * @generated
+	 */
+	public Adapter createNamedCarrierListsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.NamedCarrierList <em>Named Carrier List</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.NamedCarrierList
+	 * @generated
+	 */
+	public Adapter createNamedCarrierListAdapter() {
 		return null;
 	}
 
