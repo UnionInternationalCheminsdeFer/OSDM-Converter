@@ -77,11 +77,11 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 		
 		protected void run (IStructuredSelection structuredSelection) {
 			
-			GTMTool tool = GtmUtils.getGtmTool();
+			final GTMTool tool = GtmUtils.getGtmTool();
 			
-			GtmEditor editor = GtmUtils.getActiveEditor();
+			final GtmEditor editor = GtmUtils.getActiveEditor();
 			
-			EditingDomain domain = GtmUtils.getActiveDomain();
+			final EditingDomain domain = GtmUtils.getActiveDomain();
 			
 			if (tool == null) {
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
@@ -169,10 +169,10 @@ public class ImportGTMJsonAction extends BasicGtmAction {
 			
 			
 			
-			File file = getFile();
+			final File file = getFile();
 			if (file == null) return;
 			
-			GTMJsonImporterGeneric importer = new GTMJsonImporterGeneric(tool, domain, editor);
+			final GTMJsonImporterGeneric importer = new GTMJsonImporterGeneric(tool, domain, editor);
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.

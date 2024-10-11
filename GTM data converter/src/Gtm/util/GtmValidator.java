@@ -364,6 +364,8 @@ public class GtmValidator extends EObjectValidator {
 				return validateLegacyFareTemplates((LegacyFareTemplates)value, diagnostics, context);
 			case GtmPackage.FARE_TEMPLATE:
 				return validateFareTemplate((FareTemplate)value, diagnostics, context);
+			case GtmPackage.MAXIMAL_PRICE:
+				return validateMaximalPrice((MaximalPrice)value, diagnostics, context);
 			case GtmPackage.MINIMAL_PRICE:
 				return validateMinimalPrice((MinimalPrice)value, diagnostics, context);
 			case GtmPackage.AFTER_SALES_TEMPLATE:
@@ -510,6 +512,8 @@ public class GtmValidator extends EObjectValidator {
 				return validatePersonalDataTransferType((PersonalDataTransferType)value, diagnostics, context);
 			case GtmPackage.PERSONAL_DATA_CHANGE_REASON:
 				return validatePersonalDataChangeReason((PersonalDataChangeReason)value, diagnostics, context);
+			case GtmPackage.PRODUCT_TYPE:
+				return validateProductType((ProductType)value, diagnostics, context);
 			case GtmPackage.RESERVATION_TRAVEL_CLASS:
 				return validateReservationTravelClass((ReservationTravelClass)value, diagnostics, context);
 			case GtmPackage.RESERVATION_SERVICE_LEVEL:
@@ -1732,6 +1736,25 @@ public class GtmValidator extends EObjectValidator {
 
 		}
 		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateMaximalPrice(MaximalPrice maximalPrice, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(maximalPrice, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(maximalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(maximalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(maximalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(maximalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(maximalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(maximalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(maximalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(maximalPrice, diagnostics, context);
+		if (result || diagnostics != null) result &= validatePrice_AT_LEAST_ONE_PRICE(maximalPrice, diagnostics, context);
+		return result;
 	}
 
 	/**
@@ -9215,6 +9238,15 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePersonalDataChangeReason(PersonalDataChangeReason personalDataChangeReason, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateProductType(ProductType productType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
