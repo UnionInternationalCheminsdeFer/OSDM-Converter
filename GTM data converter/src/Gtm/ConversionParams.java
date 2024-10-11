@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.ConversionParams#getLegacyBorderIndication <em>Legacy Border Indication</em>}</li>
  *   <li>{@link Gtm.ConversionParams#isRemoveUnusedLegacyStations <em>Remove Unused Legacy Stations</em>}</li>
  *   <li>{@link Gtm.ConversionParams#getAddCarrierRules <em>Add Carrier Rules</em>}</li>
+ *   <li>{@link Gtm.ConversionParams#getNamedCarrierLists <em>Named Carrier Lists</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getConversionParams()
@@ -458,5 +459,27 @@ public interface ConversionParams extends EObject {
 	 * @generated
 	 */
 	void setAddCarrierRules(AddCarrierRules value);
+
+	/**
+	 * Returns the value of the '<em><b>Named Carrier Lists</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Named Carrier Lists</em>' containment reference.
+	 * @see #setNamedCarrierLists(NamedCarrierLists)
+	 * @see Gtm.GtmPackage#getConversionParams_NamedCarrierLists()
+	 * @model containment="true"
+	 * @generated
+	 */
+	NamedCarrierLists getNamedCarrierLists();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ConversionParams#getNamedCarrierLists <em>Named Carrier Lists</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Named Carrier Lists</em>' containment reference.
+	 * @see #getNamedCarrierLists()
+	 * @generated
+	 */
+	void setNamedCarrierLists(NamedCarrierLists value);
 
 } // ConversionParams

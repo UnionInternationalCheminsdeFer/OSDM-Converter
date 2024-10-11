@@ -348,6 +348,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateConversionFromLegacy((ConversionFromLegacy)value, diagnostics, context);
 			case GtmPackage.CONVERSION_PARAMS:
 				return validateConversionParams((ConversionParams)value, diagnostics, context);
+			case GtmPackage.NAMED_CARRIER_LISTS:
+				return validateNamedCarrierLists((NamedCarrierLists)value, diagnostics, context);
+			case GtmPackage.NAMED_CARRIER_LIST:
+				return validateNamedCarrierList((NamedCarrierList)value, diagnostics, context);
 			case GtmPackage.ADD_CARRIER_RULES:
 				return validateAddCarrierRules((AddCarrierRules)value, diagnostics, context);
 			case GtmPackage.ADD_CARRIER_RULE:
@@ -1163,6 +1167,96 @@ public class GtmValidator extends EObjectValidator {
 			}
 			return false;
 		}
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateNamedCarrierLists(NamedCarrierLists namedCarrierLists, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(namedCarrierLists, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateNamedCarrierList(NamedCarrierList namedCarrierList, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(namedCarrierList, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(namedCarrierList, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(namedCarrierList, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(namedCarrierList, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(namedCarrierList, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(namedCarrierList, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(namedCarrierList, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(namedCarrierList, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(namedCarrierList, diagnostics, context);
+		if (result || diagnostics != null) result &= validateNamedCarrierList_NOT_EMPTY(namedCarrierList, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the NOT_EMPTY constraint of '<em>Named Carrier List</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT 
+	 */
+	public boolean validateNamedCarrierList_NOT_EMPTY(NamedCarrierList namedCarrierList, DiagnosticChain diagnostics, Map<Object, Object> context) {
+
+		if (namedCarrierList.getName() == null || 
+			namedCarrierList.getName().length() < 1 ) {
+
+			if (diagnostics != null) {
+				diagnostics.add
+					(createGtmDiagnostic
+						(Diagnostic.ERROR,
+						 DIAGNOSTIC_SOURCE,
+						  0,
+						 "Named carrier List must have a name:" + " " + getObjectLabel(namedCarrierList, context),
+						 new Object[] { getObjectLabel(namedCarrierList, context) },
+						 new Object[] { namedCarrierList },
+						 context));
+			}
+			return false;
+		}
+		
+		if (namedCarrierList.getReplacementCode() == null || 
+			namedCarrierList.getReplacementCode().length() < 1 ) {
+
+				if (diagnostics != null) {
+					diagnostics.add
+						(createGtmDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							  0,
+							 "Named carrier List must have a replacement code:" + " " + getObjectLabel(namedCarrierList, context),
+							 new Object[] { getObjectLabel(namedCarrierList, context) },
+							 new Object[] { namedCarrierList },
+							 context));
+				}
+				return false;
+			}
+
+		if (namedCarrierList.getCarriers()== null || 
+			namedCarrierList.getCarriers().size() < 1 ) {
+
+				if (diagnostics != null) {
+					diagnostics.add
+						(createGtmDiagnostic
+							(Diagnostic.ERROR,
+							 DIAGNOSTIC_SOURCE,
+							  0,
+							 "Named carrier List must not be empty:" + " " + getObjectLabel(namedCarrierList, context),
+							 new Object[] { getObjectLabel(namedCarrierList, context) },
+							 new Object[] { namedCarrierList },
+							 context));
+				}
+				return false;
+			}
+		
 		return true;
 	}
 
@@ -3423,15 +3517,18 @@ public class GtmValidator extends EObjectValidator {
 			return false;
 		}
 		
-		if (   (carrierConstraint.getIncludedCarriers() == null || carrierConstraint.getIncludedCarriers().isEmpty())
-			&& (carrierConstraint.getExcludedCarriers() == null || carrierConstraint.getExcludedCarriers().isEmpty()) ) {
+	
+		
+		if (   (carrierConstraint.getIncludedCarriers() == null || carrierConstraint.getIncludedCarriers().isEmpty() )
+		    && (carrierConstraint.getExcludedCarriers() == null || carrierConstraint.getExcludedCarriers().isEmpty() )
+		    )  {
 			
 			if (diagnostics != null) {
 				diagnostics.add
 					(createGtmDiagnostic
 						(Diagnostic.ERROR,
 						 DIAGNOSTIC_SOURCE,
-						 0,
+						  0,
 						 "Either included and excluded carriers must be privided in:" + " " + getObjectLabel(carrierConstraint, context),
 						 new Object[] { getObjectLabel(carrierConstraint, context) },
 						 new Object[] { carrierConstraint },

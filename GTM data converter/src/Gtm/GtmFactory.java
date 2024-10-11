@@ -1165,6 +1165,24 @@ public interface GtmFactory extends EFactory {
 	ConversionParams createConversionParams();
 
 	/**
+	 * Returns a new object of class '<em>Named Carrier Lists</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Named Carrier Lists</em>'.
+	 * @generated
+	 */
+	NamedCarrierLists createNamedCarrierLists();
+
+	/**
+	 * Returns a new object of class '<em>Named Carrier List</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Named Carrier List</em>'.
+	 * @generated
+	 */
+	NamedCarrierList createNamedCarrierList();
+
+	/**
 	 * Returns a new object of class '<em>Add Carrier Rules</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

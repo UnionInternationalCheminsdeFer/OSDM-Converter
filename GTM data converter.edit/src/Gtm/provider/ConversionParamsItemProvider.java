@@ -202,6 +202,7 @@ public class ConversionParamsItemProvider
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__VAT_TEMPLATES);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__BUS_FERRY_MAPPING);
 			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__ADD_CARRIER_RULES);
+			childrenFeatures.add(GtmPackage.Literals.CONVERSION_PARAMS__NAMED_CARRIER_LISTS);
 		}
 		return childrenFeatures;
 	}
@@ -274,6 +275,7 @@ public class ConversionParamsItemProvider
 			case GtmPackage.CONVERSION_PARAMS__VAT_TEMPLATES:
 			case GtmPackage.CONVERSION_PARAMS__BUS_FERRY_MAPPING:
 			case GtmPackage.CONVERSION_PARAMS__ADD_CARRIER_RULES:
+			case GtmPackage.CONVERSION_PARAMS__NAMED_CARRIER_LISTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -325,6 +327,11 @@ public class ConversionParamsItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.CONVERSION_PARAMS__ADD_CARRIER_RULES,
 				 GtmFactory.eINSTANCE.createAddCarrierRules()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.CONVERSION_PARAMS__NAMED_CARRIER_LISTS,
+				 GtmFactory.eINSTANCE.createNamedCarrierLists()));
 	}
 
 	/**

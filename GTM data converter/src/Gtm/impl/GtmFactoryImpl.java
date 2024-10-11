@@ -185,6 +185,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.LUGGAGE_DIMENSION: return createLuggageDimension();
 			case GtmPackage.CONVERSION_FROM_LEGACY: return createConversionFromLegacy();
 			case GtmPackage.CONVERSION_PARAMS: return createConversionParams();
+			case GtmPackage.NAMED_CARRIER_LISTS: return createNamedCarrierLists();
+			case GtmPackage.NAMED_CARRIER_LIST: return createNamedCarrierList();
 			case GtmPackage.ADD_CARRIER_RULES: return createAddCarrierRules();
 			case GtmPackage.ADD_CARRIER_RULE: return createAddCarrierRule();
 			case GtmPackage.VAT_TEMPLATES: return createVatTemplates();
@@ -1759,6 +1761,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public ConversionParams createConversionParams() {
 		ConversionParamsImpl conversionParams = new ConversionParamsImpl();
 		return conversionParams;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NamedCarrierLists createNamedCarrierLists() {
+		NamedCarrierListsImpl namedCarrierLists = new NamedCarrierListsImpl();
+		return namedCarrierLists;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NamedCarrierList createNamedCarrierList() {
+		NamedCarrierListImpl namedCarrierList = new NamedCarrierListImpl();
+		return namedCarrierList;
 	}
 
 	/**

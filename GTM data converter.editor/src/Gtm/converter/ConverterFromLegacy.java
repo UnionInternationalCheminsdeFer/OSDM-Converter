@@ -62,6 +62,7 @@ import Gtm.LegacySeries;
 import Gtm.LegacyStationMap;
 import Gtm.LegacyStationToServiceConstraintMapping;
 import Gtm.LegacyViastation;
+import Gtm.NamedCarrierList;
 import Gtm.Price;
 import Gtm.RegionalConstraint;
 import Gtm.RegionalValidity;
@@ -378,6 +379,7 @@ public class ConverterFromLegacy {
 		regions = new ArrayList<RegionalConstraint>();
 		fares = new ArrayList<FareElement>();
 		priceValidityRanges = new ArrayList<DateRange>();	
+		carrierConstraints = new HashMap<String,CarrierConstraint>();
 		
 		checkFareTemplates();
 	}
@@ -479,15 +481,13 @@ public class ConverterFromLegacy {
 		for (LegacySeries series: tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
 			try {
 				if (carrierConstraints.get(series.getCarrierCode()) == null)  {
-					Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(series.getCarrierCode());
-					if (carrier != null) {
-						CarrierConstraint constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
-						constraint.setDataSource(DataSource.CONVERTED);
-						constraint.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_2 + carrier.getName());
-						constraint.getIncludedCarriers().add(carrier);
-						carrierConstraints.put(carrier.getCode(),constraint);
+					
+					CarrierConstraint constraint = createCarrierConstraint(tool,series.getCarrierCode());
+					
+					if (constraint != null) {
+						carrierConstraints.put(series.getCarrierCode(),constraint);
 					} else {
-						GtmUtils.writeConsoleWarning(String.format("Series witout known carrier code: %d carrier: %s", series.getNumber(),series.getCarrierCode() ) , editor);
+						GtmUtils.writeConsoleWarning(String.format("Series without known carrier code: %d carrier: %s", series.getNumber(),series.getCarrierCode() ) , editor);
 					}
 				}
 			} catch (Exception e) {
@@ -499,6 +499,61 @@ public class ConverterFromLegacy {
 		}
 	}
 	
+	private CarrierConstraint createCarrierConstraint(GTMTool tool, String carrierCode) {
+		
+		if (carrierCode == null || carrierCode.length() < 1) return null;
+		
+		CarrierConstraint constraint = null;
+	
+		if( tool.getConversionFromLegacy().getParams().getNamedCarrierLists() != null &&
+			!tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList().isEmpty() ){
+			//find carrier list
+					
+					
+			for (NamedCarrierList carrierList : tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList()) {
+				if (carrierCode.equals(carrierList.getReplacementCode()) ) {
+					constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
+					constraint.setDataSource(DataSource.CONVERTED);
+					constraint.setDataDescription(carrierList.getName());
+					constraint.getIncludedCarriers().addAll(carrierList.getCarriers());
+					return constraint;
+				}
+			}
+			
+			Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(carrierCode);
+			if (carrier != null) {
+				constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
+				constraint.setDataSource(DataSource.CONVERTED);
+				constraint.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_2 + carrier.getName());
+				constraint.getIncludedCarriers().add(carrier);
+				return constraint;
+			} 
+		}
+				
+		return constraint;
+	}
+
+
+	private HashSet<Carrier> findCarriers(GTMTool tool, String carrierCode) {
+		
+		HashSet<Carrier> carriers = new HashSet<Carrier>();
+		for (NamedCarrierList carrierList : tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList()) {
+			if (carrierCode.equals(carrierList.getReplacementCode()) ) {
+				carriers.addAll(carrierList.getCarriers());							
+			}
+			return carriers;
+		}
+		
+		Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(carrierCode);
+		if (carrier != null) {
+			carriers.add(carrier);
+			return carriers;
+		}
+		
+		return null;
+	}
+
+
 	/**
 	 * Convert series.
 	 *
@@ -1308,10 +1363,9 @@ public class ConverterFromLegacy {
 		
 		ViaStation mainViaStation = GtmFactory.eINSTANCE.createViaStation();
 		
-		CarrierConstraint cc = findSimpleCarrierConstraint(tool,series.getCarrierCode());
+		CarrierConstraint cc = carrierConstraints.get(series.getCarrierCode());
 		mainViaStation.setCarrierConstraint(cc);
-		//mainViaStation.setCarrier(carriers.get(series.getCarrierCode()));
-		
+	
 		
 		region.setViaStation(mainViaStation);
 		mainViaStation.setRoute(GtmFactory.eINSTANCE.createRoute());
@@ -1403,34 +1457,6 @@ public class ConverterFromLegacy {
 		return constraint;
 	}
 	
-	/**
-	 * Find simple carrier constraint.
-	 *
-	 * @param tool the tool
-	 * @param carrierCode the carrier code
-	 * @return the carrier constraint
-	 */
-	private CarrierConstraint findSimpleCarrierConstraint(GTMTool tool, String carrierCode) {
-		
-		Carrier c = carriers.get(carrierCode);
-		
-		if (c == null 
-			|| tool.getGeneralTariffModel().getFareStructure() == null
-		    || tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints() == null) {
-			return null;
-		}
-		
-		for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
-			
-           if (cc.getIncludedCarriers() != null 
-        	   && cc.getIncludedCarriers().size() == 1
-        	   && cc.getIncludedCarriers().contains(c)) {
-        	   return cc;
-           }
-			
-		}
-		return null;
-	}
 
 
 	/**
@@ -1650,9 +1676,8 @@ public class ConverterFromLegacy {
 		ViaStation mainViaStation = GtmFactory.eINSTANCE.createViaStation();
 		mainViaStation.setRoute(GtmFactory.eINSTANCE.createRoute());
 		
-		CarrierConstraint cc = findSimpleCarrierConstraint(tool, series.getCarrierCode());
+		CarrierConstraint cc = carrierConstraints.get(series.getCarrierCode());
 		mainViaStation.setCarrierConstraint(cc);
-		//mainViaStation.setCarrier(carriers.get(series.getCarrierCode()));
 		
 		RegionalValidity region = GtmFactory.eINSTANCE.createRegionalValidity();
 		region.setSeqNb(seqNb);
@@ -2658,18 +2683,13 @@ public class ConverterFromLegacy {
 	 * @param involvedCarriers the involved carriers
 	 * @return the carrier constraint
 	 */
-	private CarrierConstraint findCarrierContraint(GTMTool tool, Set<Carrier> involvedCarriers) {
+	private CarrierConstraint findCarrierContraint(GTMTool tool, Set<Carrier> carriers) {
 		
-		if (involvedCarriers == null || involvedCarriers.isEmpty()) {
+		if (carriers == null || carriers.isEmpty()) {
 			return null;
 		}
 		
-		if (involvedCarriers.size() == 1) {
-			return findSimpleCarrierConstraint(tool,involvedCarriers.iterator().next().getCode());
-		}
-		
-	
-		
+
 		if (tool.getGeneralTariffModel().getFareStructure() == null
 		    || tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints() == null) {
 			return null;
@@ -2678,8 +2698,8 @@ public class ConverterFromLegacy {
 		for (CarrierConstraint cc : tool.getGeneralTariffModel().getFareStructure().getCarrierConstraints().getCarrierConstraints()) {
 			
            if (cc.getIncludedCarriers() != null 
-        	   && cc.getIncludedCarriers().size() == involvedCarriers.size() 
-        	   && cc.getIncludedCarriers().containsAll(involvedCarriers)) {
+        	   && cc.getIncludedCarriers().size() == carriers.size() 
+        	   && cc.getIncludedCarriers().containsAll(carriers)) {
         	   return cc;
            }
 			
@@ -2982,9 +3002,9 @@ public class ConverterFromLegacy {
     		tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries() != null) {
     	
     		for (LegacySeries s : tool.getConversionFromLegacy().getLegacy108().getLegacySeriesList().getSeries()) {
-    		
-    			Carrier c = carriers.get(s.getCarrierCode());
-    			if (c != null) involvedCarriers.add(c);
+
+    			involvedCarriers.addAll(findCarriers(tool,s.getCarrierCode() ));
+   			
     		}
     	}
     	

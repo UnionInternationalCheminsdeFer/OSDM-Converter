@@ -1301,6 +1301,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/legacyBorderIndication"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ConversionParams/removeUnusedLegacyStations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/addCarrierRules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConversionParams/namedCarrierLists"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//NamedCarrierLists">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//NamedCarrierLists/namedCarrierList"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//NamedCarrierList">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//NamedCarrierList/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//NamedCarrierList/carriers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//NamedCarrierList/replacementCode"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AddCarrierRules">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//AddCarrierRules/addCarrierRule"/>

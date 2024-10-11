@@ -3010,6 +3010,52 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.NamedCarrierLists} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NamedCarrierListsItemProvider namedCarrierListsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.NamedCarrierLists}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNamedCarrierListsAdapter() {
+		if (namedCarrierListsItemProvider == null) {
+			namedCarrierListsItemProvider = new NamedCarrierListsItemProvider(this);
+		}
+
+		return namedCarrierListsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.NamedCarrierList} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NamedCarrierListItemProvider namedCarrierListItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.NamedCarrierList}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNamedCarrierListAdapter() {
+		if (namedCarrierListItemProvider == null) {
+			namedCarrierListItemProvider = new NamedCarrierListItemProvider(this);
+		}
+
+		return namedCarrierListItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.AddCarrierRules} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4251,6 +4297,8 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (luggageDimensionItemProvider != null) luggageDimensionItemProvider.dispose();
 		if (conversionFromLegacyItemProvider != null) conversionFromLegacyItemProvider.dispose();
 		if (conversionParamsItemProvider != null) conversionParamsItemProvider.dispose();
+		if (namedCarrierListsItemProvider != null) namedCarrierListsItemProvider.dispose();
+		if (namedCarrierListItemProvider != null) namedCarrierListItemProvider.dispose();
 		if (addCarrierRulesItemProvider != null) addCarrierRulesItemProvider.dispose();
 		if (addCarrierRuleItemProvider != null) addCarrierRuleItemProvider.dispose();
 		if (vatTemplatesItemProvider != null) vatTemplatesItemProvider.dispose();
