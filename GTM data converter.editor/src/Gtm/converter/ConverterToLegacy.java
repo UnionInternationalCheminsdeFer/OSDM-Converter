@@ -1935,6 +1935,7 @@ public class 	ConverterToLegacy {
 		}
 		
 		//exclude fares with more than one carrier
+		/*
 		if (fare.getCarrierConstraint() != null &&
 			fare.getCarrierConstraint().getIncludedCarriers() != null  && 
 		    fare.getCarrierConstraint().getIncludedCarriers().size() > 1 ) {
@@ -1944,16 +1945,17 @@ public class 	ConverterToLegacy {
 			GtmUtils.writeConsoleError(message, editor);
 			return null;
 		}
+		*/
 				
 		ViaStation mainVia = regionalValidity.getViaStation();
 		Carrier carrier = getMainCarrier(regionalConstraint.getRegionalValidity().get(0));
 		if (carrier != null) {
 			series.setCarrierCode(carrier.getCode());
 		} else {
-			//exclude fares with more than one carrier
+			//in case of multiple carriers use the first one
 			if (fare.getCarrierConstraint() != null &&
-				fare.getCarrierConstraint().getIncludedCarriers() != null  && 
-			    fare.getCarrierConstraint().getIncludedCarriers().size() == 1 ) {	
+				fare.getCarrierConstraint().getIncludedCarriers() != null  
+				&& fare.getCarrierConstraint().getIncludedCarriers().size() > 0 ) {	
 				series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());
 			}
 		}
