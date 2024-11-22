@@ -508,8 +508,7 @@ public class ConverterFromLegacy {
 		if( tool.getConversionFromLegacy().getParams().getNamedCarrierLists() != null &&
 			!tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList().isEmpty() ){
 			//find carrier list
-					
-					
+										
 			for (NamedCarrierList carrierList : tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList()) {
 				if (carrierCode.equals(carrierList.getReplacementCode()) ) {
 					constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
@@ -520,15 +519,16 @@ public class ConverterFromLegacy {
 				}
 			}
 			
-			Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(carrierCode);
-			if (carrier != null) {
-				constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
-				constraint.setDataSource(DataSource.CONVERTED);
-				constraint.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_2 + carrier.getName());
-				constraint.getIncludedCarriers().add(carrier);
-				return constraint;
-			} 
 		}
+			
+		Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(carrierCode);
+		if (carrier != null) {
+			constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
+			constraint.setDataSource(DataSource.CONVERTED);
+			constraint.setDataDescription(NationalLanguageSupport.ConverterFromLegacy_2 + carrier.getName());
+			constraint.getIncludedCarriers().add(carrier);
+			return constraint;
+		} 
 				
 		return constraint;
 	}
