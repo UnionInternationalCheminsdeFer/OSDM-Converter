@@ -10,7 +10,7 @@ import Gtm.Station;
 import Gtm.presentation.GtmEditor;
 import Gtm.util.StringFormatValidator;
 import Gtm.utils.GtmUtils;
-import gtmV31.StationNamesDef;
+import gtmV35.StationNamesDef;
 
 public class StationNameMerger {
 	

@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.FareStructure#getZoneDefinitions <em>Zone Definitions</em>}</li>
  *   <li>{@link Gtm.FareStructure#getLuggageConstraints <em>Luggage Constraints</em>}</li>
  *   <li>{@link Gtm.FareStructure#getProducts <em>Products</em>}</li>
+ *   <li>{@link Gtm.FareStructure#getCarrierGroups <em>Carrier Groups</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getFareStructure()
@@ -686,5 +687,27 @@ public interface FareStructure extends EObject {
 	 * @generated
 	 */
 	void setProducts(Products value);
+
+	/**
+	 * Returns the value of the '<em><b>Carrier Groups</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Carrier Groups</em>' containment reference.
+	 * @see #setCarrierGroups(CarrierGroups)
+	 * @see Gtm.GtmPackage#getFareStructure_CarrierGroups()
+	 * @model containment="true"
+	 * @generated
+	 */
+	CarrierGroups getCarrierGroups();
+
+	/**
+	 * Sets the value of the '{@link Gtm.FareStructure#getCarrierGroups <em>Carrier Groups</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Carrier Groups</em>' containment reference.
+	 * @see #getCarrierGroups()
+	 * @generated
+	 */
+	void setCarrierGroups(CarrierGroups value);
 
 } // FareStructure

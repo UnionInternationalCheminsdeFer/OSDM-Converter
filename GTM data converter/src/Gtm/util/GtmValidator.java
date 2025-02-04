@@ -234,6 +234,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateEndOfSale((EndOfSale)value, diagnostics, context);
 			case GtmPackage.START_OF_SALE:
 				return validateStartOfSale((StartOfSale)value, diagnostics, context);
+			case GtmPackage.CARRIER_GROUPS:
+				return validateCarrierGroups((CarrierGroups)value, diagnostics, context);
+			case GtmPackage.CARRIER_GROUP:
+				return validateCarrierGroup((CarrierGroup)value, diagnostics, context);
 			case GtmPackage.CARRIER_CONSTRAINTS:
 				return validateCarrierConstraints((CarrierConstraints)value, diagnostics, context);
 			case GtmPackage.CARRIER_CONSTRAINT:
@@ -510,6 +514,8 @@ public class GtmValidator extends EObjectValidator {
 				return validatePersonalDataTransferType((PersonalDataTransferType)value, diagnostics, context);
 			case GtmPackage.PERSONAL_DATA_CHANGE_REASON:
 				return validatePersonalDataChangeReason((PersonalDataChangeReason)value, diagnostics, context);
+			case GtmPackage.PRODUCT_TYPE:
+				return validateProductType((ProductType)value, diagnostics, context);
 			case GtmPackage.RESERVATION_TRAVEL_CLASS:
 				return validateReservationTravelClass((ReservationTravelClass)value, diagnostics, context);
 			case GtmPackage.RESERVATION_SERVICE_LEVEL:
@@ -6589,6 +6595,24 @@ public class GtmValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateCarrierGroup(CarrierGroup carrierGroup, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(carrierGroup, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCarrierGroups(CarrierGroups carrierGroups, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(carrierGroups, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateCombinationConstraint(CombinationConstraint combinationConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(combinationConstraint, diagnostics, context)) return false;
 		boolean result = validate_EveryMultiplicityConforms(combinationConstraint, diagnostics, context);
@@ -9215,6 +9239,15 @@ public class GtmValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePersonalDataChangeReason(PersonalDataChangeReason personalDataChangeReason, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateProductType(ProductType productType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

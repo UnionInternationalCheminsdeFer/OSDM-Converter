@@ -5,6 +5,7 @@ package Gtm.impl;
 import Gtm.AfterSalesRules;
 import Gtm.Calendars;
 import Gtm.CarrierConstraints;
+import Gtm.CarrierGroups;
 import Gtm.CombinationConstraints;
 import Gtm.ConnectionPoints;
 import Gtm.FareConstraintBundles;
@@ -78,6 +79,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link Gtm.impl.FareStructureImpl#getZoneDefinitions <em>Zone Definitions</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getLuggageConstraints <em>Luggage Constraints</em>}</li>
  *   <li>{@link Gtm.impl.FareStructureImpl#getProducts <em>Products</em>}</li>
+ *   <li>{@link Gtm.impl.FareStructureImpl#getCarrierGroups <em>Carrier Groups</em>}</li>
  * </ul>
  *
  * @generated
@@ -372,6 +374,16 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 	 * @ordered
 	 */
 	protected Products products;
+
+	/**
+	 * The cached value of the '{@link #getCarrierGroups() <em>Carrier Groups</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCarrierGroups()
+	 * @generated
+	 * @ordered
+	 */
+	protected CarrierGroups carrierGroups;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1601,6 +1613,49 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CarrierGroups getCarrierGroups() {
+		return carrierGroups;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCarrierGroups(CarrierGroups newCarrierGroups, NotificationChain msgs) {
+		CarrierGroups oldCarrierGroups = carrierGroups;
+		carrierGroups = newCarrierGroups;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS, oldCarrierGroups, newCarrierGroups);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCarrierGroups(CarrierGroups newCarrierGroups) {
+		if (newCarrierGroups != carrierGroups) {
+			NotificationChain msgs = null;
+			if (carrierGroups != null)
+				msgs = ((InternalEObject)carrierGroups).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS, null, msgs);
+			if (newCarrierGroups != null)
+				msgs = ((InternalEObject)newCarrierGroups).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS, null, msgs);
+			msgs = basicSetCarrierGroups(newCarrierGroups, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS, newCarrierGroups, newCarrierGroups));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConnectionPoints getConnectionPoints() {
 		return connectionPoints;
 	}
@@ -1705,6 +1760,8 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return basicSetLuggageConstraints(null, msgs);
 			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
 				return basicSetProducts(null, msgs);
+			case GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS:
+				return basicSetCarrierGroups(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1775,6 +1832,8 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return getLuggageConstraints();
 			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
 				return getProducts();
+			case GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS:
+				return getCarrierGroups();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1875,6 +1934,9 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
 				setProducts((Products)newValue);
 				return;
+			case GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS:
+				setCarrierGroups((CarrierGroups)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1974,6 +2036,9 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
 				setProducts((Products)null);
 				return;
+			case GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS:
+				setCarrierGroups((CarrierGroups)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -2044,6 +2109,8 @@ public class FareStructureImpl extends MinimalEObjectImpl.Container implements F
 				return luggageConstraints != null;
 			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
 				return products != null;
+			case GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS:
+				return carrierGroups != null;
 		}
 		return super.eIsSet(featureID);
 	}

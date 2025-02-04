@@ -652,6 +652,24 @@ public interface GtmFactory extends EFactory {
 	StartOfSale createStartOfSale();
 
 	/**
+	 * Returns a new object of class '<em>Carrier Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Carrier Group</em>'.
+	 * @generated
+	 */
+	CarrierGroup createCarrierGroup();
+
+	/**
+	 * Returns a new object of class '<em>Carrier Groups</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Carrier Groups</em>'.
+	 * @generated
+	 */
+	CarrierGroups createCarrierGroups();
+
+	/**
 	 * Returns a new object of class '<em>Reduction Cards</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

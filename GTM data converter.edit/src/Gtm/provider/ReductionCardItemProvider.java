@@ -62,6 +62,7 @@ public class ReductionCardItemProvider
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
+			addShortCodePropertyDescriptor(object);
 			addCardIssuerPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addServiceClassesPropertyDescriptor(object);
@@ -85,6 +86,28 @@ public class ReductionCardItemProvider
 				 getString("_UI_ReductionCard_id_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ReductionCard_id_feature", "_UI_ReductionCard_type"),
 				 GtmPackage.Literals.REDUCTION_CARD__ID,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Short Code feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShortCodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReductionCard_shortCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ReductionCard_shortCode_feature", "_UI_ReductionCard_type"),
+				 GtmPackage.Literals.REDUCTION_CARD__SHORT_CODE,
 				 true,
 				 false,
 				 false,
@@ -249,6 +272,7 @@ public class ReductionCardItemProvider
 
 		switch (notification.getFeatureID(ReductionCard.class)) {
 			case GtmPackage.REDUCTION_CARD__ID:
+			case GtmPackage.REDUCTION_CARD__SHORT_CODE:
 			case GtmPackage.REDUCTION_CARD__ID_REQUIRED_FOR_BOOKING:
 			case GtmPackage.REDUCTION_CARD__UIC_CODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

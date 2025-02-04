@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link Gtm.ReductionCard#getId <em>Id</em>}</li>
+ *   <li>{@link Gtm.ReductionCard#getShortCode <em>Short Code</em>}</li>
  *   <li>{@link Gtm.ReductionCard#getCardIssuer <em>Card Issuer</em>}</li>
  *   <li>{@link Gtm.ReductionCard#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.ReductionCard#getServiceClasses <em>Service Classes</em>}</li>
@@ -50,6 +51,28 @@ public interface ReductionCard extends EObject {
 	 * @generated
 	 */
 	void setId(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Short Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Short Code</em>' attribute.
+	 * @see #setShortCode(String)
+	 * @see Gtm.GtmPackage#getReductionCard_ShortCode()
+	 * @model
+	 * @generated
+	 */
+	String getShortCode();
+
+	/**
+	 * Sets the value of the '{@link Gtm.ReductionCard#getShortCode <em>Short Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Short Code</em>' attribute.
+	 * @see #getShortCode()
+	 * @generated
+	 */
+	void setShortCode(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Card Issuer</b></em>' reference.

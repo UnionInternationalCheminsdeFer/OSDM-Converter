@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * </p>
  * <ul>
  *   <li>{@link Gtm.impl.ReductionCardImpl#getId <em>Id</em>}</li>
+ *   <li>{@link Gtm.impl.ReductionCardImpl#getShortCode <em>Short Code</em>}</li>
  *   <li>{@link Gtm.impl.ReductionCardImpl#getCardIssuer <em>Card Issuer</em>}</li>
  *   <li>{@link Gtm.impl.ReductionCardImpl#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.impl.ReductionCardImpl#getServiceClasses <em>Service Classes</em>}</li>
@@ -61,6 +62,26 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 	 * @ordered
 	 */
 	protected String id = ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getShortCode() <em>Short Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SHORT_CODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getShortCode() <em>Short Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected String shortCode = SHORT_CODE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getCardIssuer() <em>Card Issuer</em>}' reference.
@@ -180,6 +201,27 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 		id = newId;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.REDUCTION_CARD__ID, oldId, id));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getShortCode() {
+		return shortCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setShortCode(String newShortCode) {
+		String oldShortCode = shortCode;
+		shortCode = newShortCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.REDUCTION_CARD__SHORT_CODE, oldShortCode, shortCode));
 	}
 
 	/**
@@ -334,6 +376,8 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 		switch (featureID) {
 			case GtmPackage.REDUCTION_CARD__ID:
 				return getId();
+			case GtmPackage.REDUCTION_CARD__SHORT_CODE:
+				return getShortCode();
 			case GtmPackage.REDUCTION_CARD__CARD_ISSUER:
 				if (resolve) return getCardIssuer();
 				return basicGetCardIssuer();
@@ -363,6 +407,9 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 		switch (featureID) {
 			case GtmPackage.REDUCTION_CARD__ID:
 				setId((String)newValue);
+				return;
+			case GtmPackage.REDUCTION_CARD__SHORT_CODE:
+				setShortCode((String)newValue);
 				return;
 			case GtmPackage.REDUCTION_CARD__CARD_ISSUER:
 				setCardIssuer((Carrier)newValue);
@@ -399,6 +446,9 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 			case GtmPackage.REDUCTION_CARD__ID:
 				setId(ID_EDEFAULT);
 				return;
+			case GtmPackage.REDUCTION_CARD__SHORT_CODE:
+				setShortCode(SHORT_CODE_EDEFAULT);
+				return;
 			case GtmPackage.REDUCTION_CARD__CARD_ISSUER:
 				setCardIssuer((Carrier)null);
 				return;
@@ -431,6 +481,8 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 		switch (featureID) {
 			case GtmPackage.REDUCTION_CARD__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case GtmPackage.REDUCTION_CARD__SHORT_CODE:
+				return SHORT_CODE_EDEFAULT == null ? shortCode != null : !SHORT_CODE_EDEFAULT.equals(shortCode);
 			case GtmPackage.REDUCTION_CARD__CARD_ISSUER:
 				return cardIssuer != null;
 			case GtmPackage.REDUCTION_CARD__NAME:
@@ -459,6 +511,8 @@ public class ReductionCardImpl extends MinimalEObjectImpl.Container implements R
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (id: ");
 		result.append(id);
+		result.append(", shortCode: ");
+		result.append(shortCode);
 		result.append(", idRequiredForBooking: ");
 		result.append(idRequiredForBooking);
 		result.append(", uicCode: ");

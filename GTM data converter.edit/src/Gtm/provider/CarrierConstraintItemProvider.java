@@ -67,6 +67,7 @@ public class CarrierConstraintItemProvider
 			addExcludedCarriersPropertyDescriptor(object);
 			addDataDescriptionPropertyDescriptor(object);
 			addDataSourcePropertyDescriptor(object);
+			addIncludedCarrierGroupPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -177,6 +178,28 @@ public class CarrierConstraintItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Included Carrier Group feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIncludedCarrierGroupPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CarrierConstraint_includedCarrierGroup_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CarrierConstraint_includedCarrierGroup_feature", "_UI_CarrierConstraint_type"),
+				 GtmPackage.Literals.CARRIER_CONSTRAINT__INCLUDED_CARRIER_GROUP,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

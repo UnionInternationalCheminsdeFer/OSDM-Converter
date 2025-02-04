@@ -489,6 +489,18 @@ public class GtmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GtmPackage.CARRIER_GROUPS: {
+				CarrierGroups carrierGroups = (CarrierGroups)theEObject;
+				T result = caseCarrierGroups(carrierGroups);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GtmPackage.CARRIER_GROUP: {
+				CarrierGroup carrierGroup = (CarrierGroup)theEObject;
+				T result = caseCarrierGroup(carrierGroup);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GtmPackage.CARRIER_CONSTRAINTS: {
 				CarrierConstraints carrierConstraints = (CarrierConstraints)theEObject;
 				T result = caseCarrierConstraints(carrierConstraints);
@@ -2154,6 +2166,36 @@ public class GtmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseStartOfSale(StartOfSale object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Carrier Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Carrier Group</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCarrierGroup(CarrierGroup object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Carrier Groups</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Carrier Groups</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCarrierGroups(CarrierGroups object) {
 		return null;
 	}
 

@@ -511,10 +511,18 @@ public class ConverterFromLegacy {
 										
 			for (NamedCarrierList carrierList : tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList()) {
 				if (carrierCode.equals(carrierList.getReplacementCode()) ) {
+					
 					constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
 					constraint.setDataSource(DataSource.CONVERTED);
 					constraint.setDataDescription(carrierList.getName());
 					constraint.getIncludedCarriers().addAll(carrierList.getCarriers());
+					if (carrierList.getCarrierGroup() != null) {
+						constraint.setIncludedCarrierGroup(carrierList.getCarrierGroup());
+						if (constraint.getIncludedCarriers() == null || constraint.getIncludedCarriers().isEmpty()) {
+							constraint.getIncludedCarriers().addAll(carrierList.getCarrierGroup().getCompanies());
+						}
+					}
+					
 					return constraint;
 				}
 			}

@@ -64,6 +64,7 @@ public class NamedCarrierListItemProvider
 			addNamePropertyDescriptor(object);
 			addCarriersPropertyDescriptor(object);
 			addReplacementCodePropertyDescriptor(object);
+			addCarrierGroupPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -130,6 +131,28 @@ public class NamedCarrierListItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Carrier Group feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCarrierGroupPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_NamedCarrierList_carrierGroup_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NamedCarrierList_carrierGroup_feature", "_UI_NamedCarrierList_type"),
+				 GtmPackage.Literals.NAMED_CARRIER_LIST__CARRIER_GROUP,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

@@ -35,9 +35,9 @@ import Gtm.utils.GtmUtils;
 import Gtm.utils.MigrationV2;
 import Gtm.utils.ModelInitializer;
 import export.ImportFareDeliveryGeneric;
-import gtmV31.FareDef;
-import gtmV31.FareDelivery;
-import gtmV31.StationNamesDef;
+import gtmV35.FareDef;
+import gtmV35.FareDelivery;
+import gtmV35.StationNamesDef;
 
 
 public class ImportGTMJsonAction extends BasicGtmAction {

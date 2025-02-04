@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.CarrierConstraint#getExcludedCarriers <em>Excluded Carriers</em>}</li>
  *   <li>{@link Gtm.CarrierConstraint#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.CarrierConstraint#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link Gtm.CarrierConstraint#getIncludedCarrierGroup <em>Included Carrier Group</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getCarrierConstraint()
@@ -119,5 +120,27 @@ public interface CarrierConstraint extends EObject {
 	 * @generated
 	 */
 	void setDataSource(DataSource value);
+
+	/**
+	 * Returns the value of the '<em><b>Included Carrier Group</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Included Carrier Group</em>' reference.
+	 * @see #setIncludedCarrierGroup(CarrierGroup)
+	 * @see Gtm.GtmPackage#getCarrierConstraint_IncludedCarrierGroup()
+	 * @model
+	 * @generated
+	 */
+	CarrierGroup getIncludedCarrierGroup();
+
+	/**
+	 * Sets the value of the '{@link Gtm.CarrierConstraint#getIncludedCarrierGroup <em>Included Carrier Group</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Included Carrier Group</em>' reference.
+	 * @see #getIncludedCarrierGroup()
+	 * @generated
+	 */
+	void setIncludedCarrierGroup(CarrierGroup value);
 
 } // CarrierConstraint

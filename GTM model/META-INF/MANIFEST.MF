@@ -13,7 +13,8 @@ Export-Package: export,
  gtmV14,
  gtmV20,
  gtmV30,
- gtmV31
+ gtmV31,
+ gtmV35
 Import-Package: Gtm.util
 Require-Bundle: org.eclipse.swt;bundle-version="3.113.0",
  com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.15.2",

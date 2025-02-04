@@ -641,12 +641,12 @@ public class 	ConverterToLegacy {
 		
 		for (LegacyRouteFare fare: routeFares) {
 			
-			LegacyRouteFare fare2 = uniqueFares.get(getFareId(fare)); 
+			String fareId =  getFareId(fare);
+			
+			LegacyRouteFare fare2 = uniqueFares.get(fareId); 
 			
 			if (fare2 == null) {
-				uniqueFares.put(getFareId(fare), fare);	
-								
-				fare2 = fare;
+				uniqueFares.put(fareId, fare);	
 			} else {
 				
 				if (fare.isSetFare1st()) {
@@ -657,6 +657,7 @@ public class 	ConverterToLegacy {
 					fare2.setFare2nd(fare.getFare2nd());
 					fare2.setReturnFare2nd(fare.getFare2nd() + fare.getFare2nd());
 				}
+				
 			}
 			
 		}
@@ -1952,8 +1953,13 @@ public class 	ConverterToLegacy {
 		if (carrier != null) {
 			series.setCarrierCode(carrier.getCode());
 		} else {
-			//in case of multiple carriers use the first one
+			// use the code of a carrier group
 			if (fare.getCarrierConstraint() != null &&
+				fare.getCarrierConstraint().getIncludedCarrierGroup() != null &&
+				fare.getCarrierConstraint().getIncludedCarrierGroup().getLegacyCode() != null) {
+				series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarrierGroup().getLegacyCode());	
+			// use the first one
+			} else if (fare.getCarrierConstraint() != null &&
 				fare.getCarrierConstraint().getIncludedCarriers() != null  
 				&& fare.getCarrierConstraint().getIncludedCarriers().size() > 0 ) {	
 				series.setCarrierCode(fare.getCarrierConstraint().getIncludedCarriers().get(0).getCode());

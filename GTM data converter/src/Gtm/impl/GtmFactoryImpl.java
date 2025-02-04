@@ -128,6 +128,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.SALES_RESTRICTION: return createSalesRestriction();
 			case GtmPackage.END_OF_SALE: return createEndOfSale();
 			case GtmPackage.START_OF_SALE: return createStartOfSale();
+			case GtmPackage.CARRIER_GROUPS: return createCarrierGroups();
+			case GtmPackage.CARRIER_GROUP: return createCarrierGroup();
 			case GtmPackage.CARRIER_CONSTRAINTS: return createCarrierConstraints();
 			case GtmPackage.CARRIER_CONSTRAINT: return createCarrierConstraint();
 			case GtmPackage.SERVICE_CONSTRAINTS: return createServiceConstraints();
@@ -315,6 +317,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return createPersonalDataTransferTypeFromString(eDataType, initialValue);
 			case GtmPackage.PERSONAL_DATA_CHANGE_REASON:
 				return createPersonalDataChangeReasonFromString(eDataType, initialValue);
+			case GtmPackage.PRODUCT_TYPE:
+				return createProductTypeFromString(eDataType, initialValue);
 			case GtmPackage.RESERVATION_TRAVEL_CLASS:
 				return createReservationTravelClassFromString(eDataType, initialValue);
 			case GtmPackage.RESERVATION_SERVICE_LEVEL:
@@ -444,6 +448,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 				return convertPersonalDataTransferTypeToString(eDataType, instanceValue);
 			case GtmPackage.PERSONAL_DATA_CHANGE_REASON:
 				return convertPersonalDataChangeReasonToString(eDataType, instanceValue);
+			case GtmPackage.PRODUCT_TYPE:
+				return convertProductTypeToString(eDataType, instanceValue);
 			case GtmPackage.RESERVATION_TRAVEL_CLASS:
 				return convertReservationTravelClassToString(eDataType, instanceValue);
 			case GtmPackage.RESERVATION_SERVICE_LEVEL:
@@ -1191,6 +1197,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public StartOfSale createStartOfSale() {
 		StartOfSaleImpl startOfSale = new StartOfSaleImpl();
 		return startOfSale;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CarrierGroup createCarrierGroup() {
+		CarrierGroupImpl carrierGroup = new CarrierGroupImpl();
+		return carrierGroup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CarrierGroups createCarrierGroups() {
+		CarrierGroupsImpl carrierGroups = new CarrierGroupsImpl();
+		return carrierGroups;
 	}
 
 	/**
@@ -2870,6 +2896,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	 * @generated
 	 */
 	public String convertPersonalDataChangeReasonToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProductType createProductTypeFromString(EDataType eDataType, String initialValue) {
+		ProductType result = ProductType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertProductTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

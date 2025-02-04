@@ -300,6 +300,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="products" eType="#//Products"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierGroups" eType="#//CarrierGroups"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionPoints">
     <eOperations name="findSimpleConnectionPoint" eType="#//ConnectionPoint">
@@ -700,6 +702,20 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EndOfSale" eSuperTypes="#//RelativeTime"/>
   <eClassifiers xsi:type="ecore:EClass" name="StartOfSale" eSuperTypes="#//RelativeTime"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CarrierGroups">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierGroups" upperBound="-1"
+        eType="#//CarrierGroup" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CarrierGroup">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="legacyCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="companies" upperBound="-1"
+        eType="#//Carrier"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CarrierConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="carrierConstraints" upperBound="-1"
         eType="#//CarrierConstraint" containment="true"/>
@@ -715,6 +731,7 @@
         eType="#//Carrier"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="includedCarrierGroup" eType="#//CarrierGroup"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceConstraints">
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceConstraints" upperBound="-1"
@@ -1103,9 +1120,11 @@
         eType="#//Product" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Product">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSource" eType="#//DataSource"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//Text"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ProductType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="summary" eType="#//Text"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="#//Text"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="travelClass" eType="#//ClassicClassType"/>
@@ -1151,6 +1170,7 @@
       <details key="constraints" value="ISUER_MUST_FOR_NON_GENERIC NOT_REFERENCED CARD_ID_FORMAT"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cardIssuer" eType="#//Carrier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//Text"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceClasses" upperBound="-1"
@@ -1254,6 +1274,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="carriers" upperBound="-1"
         eType="#//Carrier"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="replacementCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="carrierGroup" eType="#//CarrierGroup"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AddCarrierRules">
     <eStructuralFeatures xsi:type="ecore:EReference" name="addCarrierRule" upperBound="-1"
@@ -1894,6 +1915,18 @@
     <eLiterals name="MARRIAGE" value="2"/>
     <eLiterals name="DOCUMENT_EXCHANGE" value="3"/>
     <eLiterals name="AGENT_ERROR" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ProductType">
+    <eLiterals name="ADMISSION_PASS" value="1"/>
+    <eLiterals name="ADMISSION_MULTI_RIDE" value="2"/>
+    <eLiterals name="ADMISSION_POINT2POINT" value="3"/>
+    <eLiterals name="UPGRADE_PASS" value="4"/>
+    <eLiterals name="UPGRADE_MULTI_RIDE" value="5"/>
+    <eLiterals name="UPGRADE_POINT2POINT" value="6"/>
+    <eLiterals name="RESERVATION" value="7"/>
+    <eLiterals name="ANCILLARY_SERVICE" value="8"/>
+    <eLiterals name="ANCILLARY_ITEM" value="9"/>
+    <eLiterals name="REDUCTION_CARD" value="10"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ReservationTravelClass">
     <eLiterals name="FIRST" value="1"/>

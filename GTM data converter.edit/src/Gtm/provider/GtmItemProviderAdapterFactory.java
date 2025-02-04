@@ -1699,6 +1699,52 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.CarrierGroup} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CarrierGroupItemProvider carrierGroupItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.CarrierGroup}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCarrierGroupAdapter() {
+		if (carrierGroupItemProvider == null) {
+			carrierGroupItemProvider = new CarrierGroupItemProvider(this);
+		}
+
+		return carrierGroupItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Gtm.CarrierGroups} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CarrierGroupsItemProvider carrierGroupsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Gtm.CarrierGroups}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCarrierGroupsAdapter() {
+		if (carrierGroupsItemProvider == null) {
+			carrierGroupsItemProvider = new CarrierGroupsItemProvider(this);
+		}
+
+		return carrierGroupsItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link Gtm.ReductionCards} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4240,6 +4286,8 @@ public class GtmItemProviderAdapterFactory extends GtmAdapterFactory implements 
 		if (salesRestrictionItemProvider != null) salesRestrictionItemProvider.dispose();
 		if (endOfSaleItemProvider != null) endOfSaleItemProvider.dispose();
 		if (startOfSaleItemProvider != null) startOfSaleItemProvider.dispose();
+		if (carrierGroupsItemProvider != null) carrierGroupsItemProvider.dispose();
+		if (carrierGroupItemProvider != null) carrierGroupItemProvider.dispose();
 		if (carrierConstraintsItemProvider != null) carrierConstraintsItemProvider.dispose();
 		if (carrierConstraintItemProvider != null) carrierConstraintItemProvider.dispose();
 		if (serviceConstraintsItemProvider != null) serviceConstraintsItemProvider.dispose();

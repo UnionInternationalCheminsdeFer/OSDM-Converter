@@ -280,6 +280,18 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//PersonalDataChangeReason/DOCUMENT_EXCHANGE"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//PersonalDataChangeReason/AGENT_ERROR"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ProductType">
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/ADMISSION_PASS"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/ADMISSION_MULTI_RIDE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/ADMISSION_POINT2POINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/UPGRADE_PASS"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/UPGRADE_MULTI_RIDE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/UPGRADE_POINT2POINT"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/RESERVATION"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/ANCILLARY_SERVICE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/ANCILLARY_ITEM"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ProductType/REDUCTION_CARD"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ReservationTravelClass">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationTravelClass/FIRST"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ReservationTravelClass/SECOND"/>
@@ -682,6 +694,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/zoneDefinitions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/luggageConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/products"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//FareStructure/carrierGroups"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ConnectionPoints">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConnectionPoints/connectionPoints"/>
@@ -957,6 +970,18 @@
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//EndOfSale"/>
     <genClasses ecoreClass="Gtm.ecore#//StartOfSale"/>
+    <genClasses ecoreClass="Gtm.ecore#//CarrierGroups">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierGroups/carrierGroups"/>
+    </genClasses>
+    <genClasses ecoreClass="Gtm.ecore#//CarrierGroup">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//CarrierGroup/dataSource"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//CarrierGroup/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//CarrierGroup/code"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//CarrierGroup/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierGroup/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//CarrierGroup/legacyCode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierGroup/companies"/>
+    </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//CarrierConstraints">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierConstraints/carrierConstraints"/>
     </genClasses>
@@ -966,6 +991,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierConstraint/excludedCarriers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//CarrierConstraint/dataDescription"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//CarrierConstraint/dataSource"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//CarrierConstraint/includedCarrierGroup"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ServiceConstraints">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//ServiceConstraints/serviceConstraints"/>
@@ -1212,9 +1238,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//Products/products"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//Product">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/dataSource"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/code"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Product/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/type"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Product/summary"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//Product/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/travelClass"/>
@@ -1244,6 +1272,7 @@
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ReductionCard">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReductionCard/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//ReductionCard/shortCode"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionCard/cardIssuer"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionCard/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ReductionCard/serviceClasses"/>
@@ -1310,6 +1339,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//NamedCarrierList/Name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//NamedCarrierList/carriers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//NamedCarrierList/replacementCode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//NamedCarrierList/carrierGroup"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//AddCarrierRules">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Gtm.ecore#//AddCarrierRules/addCarrierRule"/>
