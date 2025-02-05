@@ -241,9 +241,9 @@ public class CarrierGroupItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	@Override
+	@Override 
 	public String getText(Object object) {
 		String label = ((CarrierGroup)object).getName();
 		return label == null || label.length() == 0 ?

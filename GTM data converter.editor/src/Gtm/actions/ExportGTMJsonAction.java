@@ -25,6 +25,7 @@ import Gtm.jsonImportExport.GtmJsonExporter;
 import Gtm.jsonImportExport.GtmJsonExporterV14;
 import Gtm.jsonImportExport.GtmJsonExporterV30;
 import Gtm.jsonImportExport.GtmJsonExporterV31;
+import Gtm.jsonImportExport.GtmJsonExporterV35;
 import Gtm.jsonImportExport.ObjectIdCreator;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.DirtyCommand;
@@ -35,6 +36,7 @@ import export.ExportFareDelivery;
 import export.ExportFareDeliveryV14;
 import export.ExportFareDeliveryV30;
 import export.ExportFareDeliveryV31;
+import export.ExportFareDeliveryV35;
 
 
 
@@ -118,7 +120,8 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 			GtmJsonExporterV14 jsonModelExporterV14 = new GtmJsonExporterV14();
 			GtmJsonExporterV30 jsonModelExporterV30 = new GtmJsonExporterV30();
 			GtmJsonExporterV31 jsonModelExporterV31 = new GtmJsonExporterV31();
-	
+			GtmJsonExporterV35 jsonModelExporterV35 = new GtmJsonExporterV35();
+			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.
 
@@ -128,7 +131,7 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						
 						monitor.beginTask(NationalLanguageSupport.ExportGTMJsonAction_4, 31); 
 
-						GtmUtils.addWorkflowStep("Export started to OSDM file: " + name, editor);
+						GtmUtils.addWorkflowStep("Export started to OSDM file: " + file.getName(), editor);
 						
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_5);
 						GtmUtils.deleteOrphanedObjects(domain, tool);
@@ -143,19 +146,25 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						gtmV14.FareDelivery faresV14 = null;
 						gtmV30.FareDelivery faresV30 = null;
 						gtmV31.FareDelivery faresV31 = null;
+						gtmV35.FareDelivery faresV35 = null;						
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_7);		
 						if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V12)) {
 							faresV12 = jsonModelExporterV12.convertToJson(tool.getGeneralTariffModel(), monitor);
 							GtmUtils.writeConsoleInfo("Export to OSDM version 1.2", editor);
+							GtmUtils.writeConsoleWarning("Exported Schema Version 1.2 is deprecated", editor);
 						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V14)){
 							faresV14 = jsonModelExporterV14.convertToJson(tool.getGeneralTariffModel(), monitor);						
 							GtmUtils.writeConsoleInfo("Export to OSDM version 1.4", editor);
+							GtmUtils.writeConsoleWarning("Exported Schema Version 1.4 is deprecated", editor);
 						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V30)){
 							faresV30 = jsonModelExporterV30.convertToJson(tool.getGeneralTariffModel(), monitor);						
 							GtmUtils.writeConsoleInfo("Export to OSDM version 3.0", editor);		
 						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V31)){
 							faresV31 = jsonModelExporterV31.convertToJson(tool.getGeneralTariffModel(), monitor);						
 							GtmUtils.writeConsoleInfo("Export to OSDM version 3.1", editor);		
+						} else if (tool.getGeneralTariffModel().getDelivery().getSchemaVersion().equals(SchemaVersion.V35)){
+							faresV35 = jsonModelExporterV35.convertToJson(tool.getGeneralTariffModel(), monitor);						
+							GtmUtils.writeConsoleInfo("Export to OSDM version 3.5", editor);		
 						}
 						monitor.worked(1);	 	
 						monitor.subTask(NationalLanguageSupport.ExportGTMJsonAction_8);
@@ -168,6 +177,8 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 								ExportFareDeliveryV30.exportFareDelivery(faresV30, file);
 							} else if (faresV31 != null) {
 								ExportFareDeliveryV31.exportFareDelivery(faresV31, file);
+							} else if (faresV35 != null) {
+								ExportFareDeliveryV35.exportFareDelivery(faresV35, file);
 							}
 						} catch (IOException ioe){
 							GtmUtils.displayAsyncErrorMessage(ioe,"format error");
@@ -176,10 +187,10 @@ public class ExportGTMJsonAction extends BasicGtmAction {
 						}
 						monitor.worked(1);
 						
-						GtmUtils.addWorkflowStep("Export completed to OSDM file: " + name, editor);
+						GtmUtils.addWorkflowStep("Export completed to OSDM file: " + file.getName(), editor);
 						
 					} catch (Exception e) {
-						GtmUtils.addWorkflowStep("Export abandoned to OSDM file: " + name, editor);
+						GtmUtils.addWorkflowStep("Export abandoned to OSDM file: " + file.getName(), editor);
 						GtmUtils.writeConsoleError("Export failed", editor);
 						GtmUtils.writeConsoleStackTrace(e, editor);
 						

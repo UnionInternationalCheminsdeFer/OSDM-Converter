@@ -481,11 +481,23 @@ public class ProductItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Product)object).getId();
+		Product o = (Product)object;
+		String label = "";
+		if (o.getName() != null) {
+			if (o.getName().getShortTextUTF8() != null) {
+				label = o.getName().getShortTextUTF8();
+			} else if (o.getName().getShortTextICAO() != null) {
+				label = o.getName().getShortTextICAO();
+			} else if (o.getName().getTextUTF8() != null) {
+				label = o.getName().getTextUTF8();
+			} else if (o.getName().getShortTextICAO() != null) {
+				label = o.getName().getTextICAO();
+			} 
+		}
 		return label == null || label.length() == 0 ?
 			getString("_UI_Product_type") :
 			getString("_UI_Product_type") + " " + label;

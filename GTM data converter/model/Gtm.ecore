@@ -2051,6 +2051,7 @@
     <eLiterals name="V_1_4" value="3" literal="1.4"/>
     <eLiterals name="V_3_0" value="5" literal="3.0"/>
     <eLiterals name="V_3_1" value="6" literal="3.1"/>
+    <eLiterals name="V_3_5" value="7" literal="3.5"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ServiceMode">
     <eLiterals name="HIGH_SPEED_TRAIN" value="8"/>

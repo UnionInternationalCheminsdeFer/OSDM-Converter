@@ -664,8 +664,12 @@ public class GtmEditor
 					 getContainer().getDisplay().asyncExec
 						 (new Runnable() {
 							  public void run() {
-								  firePropertyChange(IEditorPart.PROP_DIRTY);
-
+								  try {
+									  firePropertyChange(IEditorPart.PROP_DIRTY);
+								  } catch (Exception e) {
+									  // fix index out of bound in case of empty command stack
+								  }
+								  
 								  // Try to select the affected objects.
 								  //
 								  Command mostRecentCommand = ((CommandStack)event.getSource()).getMostRecentCommand();

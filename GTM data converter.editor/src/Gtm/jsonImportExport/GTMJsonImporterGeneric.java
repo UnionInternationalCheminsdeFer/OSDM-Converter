@@ -2844,6 +2844,9 @@ public class GTMJsonImporterGeneric {
 		if (version.equals(SchemaVersion.V31.getLiteral()) || version.equals(SchemaVersion.V31.getName())) {
 			return SchemaVersion.V31;
 		}		
+		if (version.equals(SchemaVersion.V35.getLiteral()) || version.equals(SchemaVersion.V35.getName())) {
+			return SchemaVersion.V35;
+		}
 		
 		GtmUtils.writeConsoleError("Schema Version not supported: " + version, editor);
 		

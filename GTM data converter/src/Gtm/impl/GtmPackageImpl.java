@@ -12855,6 +12855,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V14);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V30);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V31);
+		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V35);
 
 		initEEnum(serviceModeEEnum, ServiceMode.class, "ServiceMode");
 		addEEnumLiteral(serviceModeEEnum, ServiceMode.HIGH_SPEED_TRAIN);

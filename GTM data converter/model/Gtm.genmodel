@@ -415,6 +415,7 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_1_4"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_3_0"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_3_1"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//SchemaVersion/V_3_5"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//ServiceMode">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//ServiceMode/HIGH_SPEED_TRAIN"/>
