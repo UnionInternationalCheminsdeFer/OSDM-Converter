@@ -301,33 +301,23 @@ public class GTMJsonImporterGeneric {
 		gtmProduct.setReturnProduct(p.getIsReturnProduct());
 		
 		if (p.getDescription() != null) {
-			Text t = convert(p.getDescription());
-			gtmProduct.setDescription(t);
-			fareStructure.getTexts().getTexts().add(t);
+			gtmProduct.setDescription(findOrAddText(p.getDescription()));
 		}
 
 		if (p.getName() != null) {
-			Text t = convert(p.getName());
-			gtmProduct.setName(t);
-			fareStructure.getTexts().getTexts().add(t);
+			gtmProduct.setName(findOrAddText(p.getName()));
 		}
 		
 		if (p.getSummary() != null) {
-			Text t = convert(p.getSummary());
-			gtmProduct.setSummary(t);
-			fareStructure.getTexts().getTexts().add(t);
+			gtmProduct.setSummary(findOrAddText(p.getSummary()));
 		}
 		
 		if (p.getServiceConstraintText() != null) {
-			Text t = convert(p.getServiceConstraintText());
-			gtmProduct.setServiceConstraintText(t);
-			fareStructure.getTexts().getTexts().add(t);
+			gtmProduct.setServiceConstraintText(findOrAddText(p.getServiceConstraintText()));
 		}
 		
 		if (p.getCarrierConstraintText() != null) {
-			Text t = convert(p.getCarrierConstraintText());
-			gtmProduct.setCarrierConstraintText(t);
-			fareStructure.getTexts().getTexts().add(t);
+			gtmProduct.setCarrierConstraintText(findOrAddText(p.getCarrierConstraintText()));
 		}
 		
 		if (p.getConditions() != null && !p.getConditions().isEmpty()) {
@@ -336,10 +326,8 @@ public class GTMJsonImporterGeneric {
 			
 				ConditionText gtmC = GtmFactory.eINSTANCE.createConditionText();
 			
-				Text t = convert(ct.getDescription());
-				gtmC.setText(t);
-				fareStructure.getTexts().getTexts().add(t);
-			
+				gtmC.setText(findOrAddText(ct.getDescription()));
+				
 				if (ct.getType() != null) {
 					gtmC.setType(ConditionType.getByName(ct.getType()));
 				}
@@ -411,14 +399,35 @@ public class GTMJsonImporterGeneric {
 		gtmC.setDataSource(DataSource.IMPORTED);
 		
 		if (c.getDescription() != null) {
-			Text t = convert(c.getDescription());
-			gtmC.setDescription(t);
-			fareStructure.getTexts().getTexts().add(t);
+			gtmC.setDescription(findOrAddText(c.getDescription()));
+		}
+		
+		if (c.getCompanies() != null && !c.getCompanies().isEmpty()) {
+			Collection<? extends Carrier> cl = convertCarrierList(c.getCompanies());
+			if (cl != null && !cl.isEmpty()) {
+				gtmC.getCompanies().addAll(cl);
+			}
 		}
 		
 		return gtmC;
 	}
 
+	private Text findOrAddText(TextDef t) {
+		
+		if (t == null) return null;
+		
+		Text to = null;
+		
+		if (t.getId() != null && t.getId().length() > 0) {
+			to = findText(t.getId());
+			if (to == null) {
+				to = convert(t);
+				fareStructure.getTexts().getTexts().add(to);
+			}
+		}
+		return to;
+		
+	}
 
 	private LuggageConstraints convertLuggageConstraints(List<LuggageConstraint> luggageConstraints) {
 		if (luggageConstraints == null || luggageConstraints.isEmpty()) {
