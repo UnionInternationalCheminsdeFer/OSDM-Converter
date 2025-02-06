@@ -7,7 +7,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: Gtm.converter.tests,
  Gtm.converter.tests.dataFactories,
  Gtm.converter.tests.mocks,
@@ -15,11 +15,15 @@ Export-Package: Gtm.converter.tests,
  Gtm.legacyExport.test,
  Gtm.legacyImport.test,
  Gtm.osdmExport.test
+Import-Package: gtm,
+ gtmV14,
+ gtmV20,
+ gtmV30,
+ gtmV31,
+ gtmV35
 Require-Bundle: org.eclipse.core.runtime,
- GTM_data_converter;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
- GTM_data_converter.editor;bundle-version="1.0.0",
- GTM_model;bundle-version="1.0.0",
  org.eclipse.emf.edit,
- org.junit;bundle-version="4.12.0";visibility:=reexport
+ org.junit;bundle-version="4.12.0";visibility:=reexport,
+ GTM_data_converter.editor;bundle-version="2.7.0"
 Bundle-ActivationPolicy: lazy
