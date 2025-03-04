@@ -68,12 +68,12 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 		 */
 		protected void run (IStructuredSelection structuredSelection) {
 			
-			EditingDomain domain = GtmUtils.getActiveDomain();
+			final EditingDomain domain = GtmUtils.getActiveDomain();
 			if (domain == null) return;
 			
-			GtmEditor editor = GtmUtils.getActiveEditor(); 
+			final GtmEditor editor = GtmUtils.getActiveEditor(); 
 			
-			GTMTool tool = GtmUtils.getGtmTool();
+			final GTMTool tool = GtmUtils.getGtmTool();
 			
 			if (tool == null) {
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
@@ -82,7 +82,7 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 				return;
 			}
 			
-			Country country = tool.getConversionFromLegacy().getParams().getCountry();
+			final Country country = tool.getConversionFromLegacy().getParams().getCountry();
 			if (country == null) {
 				String message = NationalLanguageSupport.ConvertGtm2LegacyAction_CountryMissing;
 				GtmUtils.writeConsoleError(message, editor);
@@ -122,7 +122,7 @@ public class ConvertLegacy2GtmAction extends BasicGtmAction {
 				GtmUtils.writeConsoleError(message, editor);
 			}
 			
-			ConverterFromLegacy converter = new ConverterFromLegacy(tool,domain,editor);
+			final ConverterFromLegacy converter = new ConverterFromLegacy(tool,domain,editor);
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {
 				// This is the method that gets invoked when the operation runs.

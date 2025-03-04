@@ -616,6 +616,10 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createFareTemplateAdapter();
 			}
 			@Override
+			public Adapter caseMaximalPrice(MaximalPrice object) {
+				return createMaximalPriceAdapter();
+			}
+			@Override
 			public Adapter caseMinimalPrice(MinimalPrice object) {
 				return createMinimalPriceAdapter();
 			}
@@ -2684,6 +2688,20 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFareTemplateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.MaximalPrice <em>Maximal Price</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.MaximalPrice
+	 * @generated
+	 */
+	public Adapter createMaximalPriceAdapter() {
 		return null;
 	}
 

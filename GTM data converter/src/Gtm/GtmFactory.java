@@ -1246,6 +1246,15 @@ public interface GtmFactory extends EFactory {
 	FareTemplate createFareTemplate();
 
 	/**
+	 * Returns a new object of class '<em>Maximal Price</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Maximal Price</em>'.
+	 * @generated
+	 */
+	MaximalPrice createMaximalPrice();
+
+	/**
 	 * Returns a new object of class '<em>Minimal Price</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
