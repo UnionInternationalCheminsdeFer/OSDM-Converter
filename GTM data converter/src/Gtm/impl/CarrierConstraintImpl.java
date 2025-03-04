@@ -4,6 +4,7 @@ package Gtm.impl;
 
 import Gtm.Carrier;
 import Gtm.CarrierConstraint;
+import Gtm.CarrierGroup;
 import Gtm.DataSource;
 import Gtm.GtmPackage;
 import java.util.Collection;
@@ -13,6 +14,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -31,6 +33,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link Gtm.impl.CarrierConstraintImpl#getExcludedCarriers <em>Excluded Carriers</em>}</li>
  *   <li>{@link Gtm.impl.CarrierConstraintImpl#getDataDescription <em>Data Description</em>}</li>
  *   <li>{@link Gtm.impl.CarrierConstraintImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link Gtm.impl.CarrierConstraintImpl#getIncludedCarrierGroup <em>Included Carrier Group</em>}</li>
  * </ul>
  *
  * @generated
@@ -115,6 +118,16 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected DataSource dataSource = DATA_SOURCE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getIncludedCarrierGroup() <em>Included Carrier Group</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIncludedCarrierGroup()
+	 * @generated
+	 * @ordered
+	 */
+	protected CarrierGroup includedCarrierGroup;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -227,6 +240,44 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CarrierGroup getIncludedCarrierGroup() {
+		if (includedCarrierGroup != null && includedCarrierGroup.eIsProxy()) {
+			InternalEObject oldIncludedCarrierGroup = (InternalEObject)includedCarrierGroup;
+			includedCarrierGroup = (CarrierGroup)eResolveProxy(oldIncludedCarrierGroup);
+			if (includedCarrierGroup != oldIncludedCarrierGroup) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GtmPackage.CARRIER_CONSTRAINT__INCLUDED_CARRIER_GROUP, oldIncludedCarrierGroup, includedCarrierGroup));
+			}
+		}
+		return includedCarrierGroup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CarrierGroup basicGetIncludedCarrierGroup() {
+		return includedCarrierGroup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIncludedCarrierGroup(CarrierGroup newIncludedCarrierGroup) {
+		CarrierGroup oldIncludedCarrierGroup = includedCarrierGroup;
+		includedCarrierGroup = newIncludedCarrierGroup;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.CARRIER_CONSTRAINT__INCLUDED_CARRIER_GROUP, oldIncludedCarrierGroup, includedCarrierGroup));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -240,6 +291,9 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 				return getDataDescription();
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
 				return getDataSource();
+			case GtmPackage.CARRIER_CONSTRAINT__INCLUDED_CARRIER_GROUP:
+				if (resolve) return getIncludedCarrierGroup();
+				return basicGetIncludedCarrierGroup();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -270,6 +324,9 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
 				setDataSource((DataSource)newValue);
 				return;
+			case GtmPackage.CARRIER_CONSTRAINT__INCLUDED_CARRIER_GROUP:
+				setIncludedCarrierGroup((CarrierGroup)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -297,6 +354,9 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
 				setDataSource(DATA_SOURCE_EDEFAULT);
 				return;
+			case GtmPackage.CARRIER_CONSTRAINT__INCLUDED_CARRIER_GROUP:
+				setIncludedCarrierGroup((CarrierGroup)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -319,6 +379,8 @@ public class CarrierConstraintImpl extends MinimalEObjectImpl.Container implemen
 				return DATA_DESCRIPTION_EDEFAULT == null ? dataDescription != null : !DATA_DESCRIPTION_EDEFAULT.equals(dataDescription);
 			case GtmPackage.CARRIER_CONSTRAINT__DATA_SOURCE:
 				return dataSource != DATA_SOURCE_EDEFAULT;
+			case GtmPackage.CARRIER_CONSTRAINT__INCLUDED_CARRIER_GROUP:
+				return includedCarrierGroup != null;
 		}
 		return super.eIsSet(featureID);
 	}

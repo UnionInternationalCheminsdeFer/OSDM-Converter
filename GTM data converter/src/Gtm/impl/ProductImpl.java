@@ -4,6 +4,7 @@ package Gtm.impl;
 
 import Gtm.ClassicClassType;
 import Gtm.ConditionText;
+import Gtm.DataSource;
 import Gtm.GtmPackage;
 import Gtm.Product;
 import Gtm.ProductType;
@@ -33,9 +34,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link Gtm.impl.ProductImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link Gtm.impl.ProductImpl#getId <em>Id</em>}</li>
  *   <li>{@link Gtm.impl.ProductImpl#getCode <em>Code</em>}</li>
  *   <li>{@link Gtm.impl.ProductImpl#getName <em>Name</em>}</li>
+ *   <li>{@link Gtm.impl.ProductImpl#getType <em>Type</em>}</li>
  *   <li>{@link Gtm.impl.ProductImpl#getSummary <em>Summary</em>}</li>
  *   <li>{@link Gtm.impl.ProductImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link Gtm.impl.ProductImpl#getTravelClass <em>Travel Class</em>}</li>
@@ -54,6 +57,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class ProductImpl extends MinimalEObjectImpl.Container implements Product {
+	/**
+	 * The default value of the '{@link #getDataSource() <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DataSource DATA_SOURCE_EDEFAULT = DataSource.MANUAL;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataSource dataSource = DATA_SOURCE_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -103,6 +126,26 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 	 * @ordered
 	 */
 	protected Text name;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProductType TYPE_EDEFAULT = ProductType.ADMISSION_PASS;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProductType type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getSummary() <em>Summary</em>}' reference.
@@ -338,6 +381,27 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataSource(DataSource newDataSource) {
+		DataSource oldDataSource = dataSource;
+		dataSource = newDataSource == null ? DATA_SOURCE_EDEFAULT : newDataSource;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.PRODUCT__DATA_SOURCE, oldDataSource, dataSource));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getId() {
 		return id;
 	}
@@ -411,6 +475,27 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 		name = newName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.PRODUCT__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProductType getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setType(ProductType newType) {
+		ProductType oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.PRODUCT__TYPE, oldType, type));
 	}
 
 	/**
@@ -767,6 +852,8 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GtmPackage.PRODUCT__DATA_SOURCE:
+				return getDataSource();
 			case GtmPackage.PRODUCT__ID:
 				return getId();
 			case GtmPackage.PRODUCT__CODE:
@@ -774,6 +861,8 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 			case GtmPackage.PRODUCT__NAME:
 				if (resolve) return getName();
 				return basicGetName();
+			case GtmPackage.PRODUCT__TYPE:
+				return getType();
 			case GtmPackage.PRODUCT__SUMMARY:
 				if (resolve) return getSummary();
 				return basicGetSummary();
@@ -817,6 +906,9 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GtmPackage.PRODUCT__DATA_SOURCE:
+				setDataSource((DataSource)newValue);
+				return;
 			case GtmPackage.PRODUCT__ID:
 				setId((String)newValue);
 				return;
@@ -825,6 +917,9 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 				return;
 			case GtmPackage.PRODUCT__NAME:
 				setName((Text)newValue);
+				return;
+			case GtmPackage.PRODUCT__TYPE:
+				setType((ProductType)newValue);
 				return;
 			case GtmPackage.PRODUCT__SUMMARY:
 				setSummary((Text)newValue);
@@ -878,6 +973,9 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GtmPackage.PRODUCT__DATA_SOURCE:
+				setDataSource(DATA_SOURCE_EDEFAULT);
+				return;
 			case GtmPackage.PRODUCT__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -886,6 +984,9 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 				return;
 			case GtmPackage.PRODUCT__NAME:
 				setName((Text)null);
+				return;
+			case GtmPackage.PRODUCT__TYPE:
+				setType(TYPE_EDEFAULT);
 				return;
 			case GtmPackage.PRODUCT__SUMMARY:
 				setSummary((Text)null);
@@ -938,12 +1039,16 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GtmPackage.PRODUCT__DATA_SOURCE:
+				return dataSource != DATA_SOURCE_EDEFAULT;
 			case GtmPackage.PRODUCT__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case GtmPackage.PRODUCT__CODE:
 				return CODE_EDEFAULT == null ? code != null : !CODE_EDEFAULT.equals(code);
 			case GtmPackage.PRODUCT__NAME:
 				return name != null;
+			case GtmPackage.PRODUCT__TYPE:
+				return type != TYPE_EDEFAULT;
 			case GtmPackage.PRODUCT__SUMMARY:
 				return summary != null;
 			case GtmPackage.PRODUCT__DESCRIPTION:
@@ -984,10 +1089,14 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (id: ");
+		result.append(" (dataSource: ");
+		result.append(dataSource);
+		result.append(", id: ");
 		result.append(id);
 		result.append(", code: ");
 		result.append(code);
+		result.append(", type: ");
+		result.append(type);
 		result.append(", travelClass: ");
 		result.append(travelClass);
 		result.append(", returnProduct: ");

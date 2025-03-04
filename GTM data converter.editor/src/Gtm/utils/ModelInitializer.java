@@ -238,6 +238,10 @@ public class ModelInitializer {
 				if (fare.getProducts() == null) {
 					command.append(new SetCommand(domain, fare, GtmPackage.Literals.FARE_STRUCTURE__PRODUCTS, GtmFactory.eINSTANCE.createProducts()));
 				}
+				
+				if (fare.getCarrierGroups() == null) {
+					command.append(new SetCommand(domain, fare, GtmPackage.Literals.FARE_STRUCTURE__CARRIER_GROUPS, GtmFactory.eINSTANCE.createCarrierGroups()));
+				}				
 			}
 		}
 		return command;
@@ -280,6 +284,7 @@ public class ModelInitializer {
 		fareStructure.setTotalPassengerCombinationConstraints(GtmFactory.eINSTANCE.createTotalPassengerCombinationConstraints());	
 		fareStructure.setLuggageConstraints(GtmFactory.eINSTANCE.createLuggageConstraints());
 		fareStructure.setProducts(GtmFactory.eINSTANCE.createProducts());
+		fareStructure.setCarrierGroups(GtmFactory.eINSTANCE.createCarrierGroups());		
 		return fareStructure;
 	}
 

@@ -106,6 +106,7 @@ public class FareStructureItemProvider
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__ZONE_DEFINITIONS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS);
 			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__PRODUCTS);
+			childrenFeatures.add(GtmPackage.Literals.FARE_STRUCTURE__CARRIER_GROUPS);
 		}
 		return childrenFeatures;
 	}
@@ -187,6 +188,7 @@ public class FareStructureItemProvider
 			case GtmPackage.FARE_STRUCTURE__ZONE_DEFINITIONS:
 			case GtmPackage.FARE_STRUCTURE__LUGGAGE_CONSTRAINTS:
 			case GtmPackage.FARE_STRUCTURE__PRODUCTS:
+			case GtmPackage.FARE_STRUCTURE__CARRIER_GROUPS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -348,6 +350,11 @@ public class FareStructureItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.FARE_STRUCTURE__PRODUCTS,
 				 GtmFactory.eINSTANCE.createProducts()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.FARE_STRUCTURE__CARRIER_GROUPS,
+				 GtmFactory.eINSTANCE.createCarrierGroups()));
 	}
 
 	/**

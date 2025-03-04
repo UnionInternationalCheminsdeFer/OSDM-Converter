@@ -19,16 +19,6 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum ProductType implements Enumerator {
 	/**
-	 * The '<em><b>ADMISSION POINT2POINT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ADMISSION_POINT2POINT_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	ADMISSION_POINT2POINT(0, "ADMISSION_POINT2POINT", "ADMISSION_POINT2POINT"),
-
-	/**
 	 * The '<em><b>ADMISSION PASS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -49,14 +39,14 @@ public enum ProductType implements Enumerator {
 	ADMISSION_MULTI_RIDE(2, "ADMISSION_MULTI_RIDE", "ADMISSION_MULTI_RIDE"),
 
 	/**
-	 * The '<em><b>UPGRADE POINT2POINT</b></em>' literal object.
+	 * The '<em><b>ADMISSION POINT2POINT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #UPGRADE_POINT2POINT_VALUE
+	 * @see #ADMISSION_POINT2POINT_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	UPGRADE_POINT2POINT(3, "UPGRADE_POINT2POINT", "UPGRADE_POINT2POINT"),
+	ADMISSION_POINT2POINT(3, "ADMISSION_POINT2POINT", "ADMISSION_POINT2POINT"),
 
 	/**
 	 * The '<em><b>UPGRADE PASS</b></em>' literal object.
@@ -79,6 +69,16 @@ public enum ProductType implements Enumerator {
 	UPGRADE_MULTI_RIDE(5, "UPGRADE_MULTI_RIDE", "UPGRADE_MULTI_RIDE"),
 
 	/**
+	 * The '<em><b>UPGRADE POINT2POINT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UPGRADE_POINT2POINT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UPGRADE_POINT2POINT(6, "UPGRADE_POINT2POINT", "UPGRADE_POINT2POINT"),
+
+	/**
 	 * The '<em><b>RESERVATION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -86,7 +86,7 @@ public enum ProductType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RESERVATION(6, "RESERVATION", "RESERVATION"),
+	RESERVATION(7, "RESERVATION", "RESERVATION"),
 
 	/**
 	 * The '<em><b>ANCILLARY SERVICE</b></em>' literal object.
@@ -96,7 +96,7 @@ public enum ProductType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ANCILLARY_SERVICE(7, "ANCILLARY_SERVICE", "ANCILLARY_SERVICE"),
+	ANCILLARY_SERVICE(8, "ANCILLARY_SERVICE", "ANCILLARY_SERVICE"),
 
 	/**
 	 * The '<em><b>ANCILLARY ITEM</b></em>' literal object.
@@ -106,7 +106,7 @@ public enum ProductType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ANCILLARY_ITEM(8, "ANCILLARY_ITEM", "ANCILLARY_ITEM"),
+	ANCILLARY_ITEM(9, "ANCILLARY_ITEM", "ANCILLARY_ITEM"),
 
 	/**
 	 * The '<em><b>REDUCTION CARD</b></em>' literal object.
@@ -116,18 +116,7 @@ public enum ProductType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REDUCTION_CARD(9, "REDUCTION_CARD", "REDUCTION_CARD");
-
-	/**
-	 * The '<em><b>ADMISSION POINT2POINT</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ADMISSION_POINT2POINT
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ADMISSION_POINT2POINT_VALUE = 0;
+	REDUCTION_CARD(10, "REDUCTION_CARD", "REDUCTION_CARD");
 
 	/**
 	 * The '<em><b>ADMISSION PASS</b></em>' literal value.
@@ -152,15 +141,15 @@ public enum ProductType implements Enumerator {
 	public static final int ADMISSION_MULTI_RIDE_VALUE = 2;
 
 	/**
-	 * The '<em><b>UPGRADE POINT2POINT</b></em>' literal value.
+	 * The '<em><b>ADMISSION POINT2POINT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #UPGRADE_POINT2POINT
+	 * @see #ADMISSION_POINT2POINT
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int UPGRADE_POINT2POINT_VALUE = 3;
+	public static final int ADMISSION_POINT2POINT_VALUE = 3;
 
 	/**
 	 * The '<em><b>UPGRADE PASS</b></em>' literal value.
@@ -185,6 +174,17 @@ public enum ProductType implements Enumerator {
 	public static final int UPGRADE_MULTI_RIDE_VALUE = 5;
 
 	/**
+	 * The '<em><b>UPGRADE POINT2POINT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UPGRADE_POINT2POINT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UPGRADE_POINT2POINT_VALUE = 6;
+
+	/**
 	 * The '<em><b>RESERVATION</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -193,7 +193,7 @@ public enum ProductType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int RESERVATION_VALUE = 6;
+	public static final int RESERVATION_VALUE = 7;
 
 	/**
 	 * The '<em><b>ANCILLARY SERVICE</b></em>' literal value.
@@ -204,7 +204,7 @@ public enum ProductType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ANCILLARY_SERVICE_VALUE = 7;
+	public static final int ANCILLARY_SERVICE_VALUE = 8;
 
 	/**
 	 * The '<em><b>ANCILLARY ITEM</b></em>' literal value.
@@ -215,7 +215,7 @@ public enum ProductType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ANCILLARY_ITEM_VALUE = 8;
+	public static final int ANCILLARY_ITEM_VALUE = 9;
 
 	/**
 	 * The '<em><b>REDUCTION CARD</b></em>' literal value.
@@ -226,7 +226,7 @@ public enum ProductType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int REDUCTION_CARD_VALUE = 9;
+	public static final int REDUCTION_CARD_VALUE = 10;
 
 	/**
 	 * An array of all the '<em><b>Product Type</b></em>' enumerators.
@@ -236,12 +236,12 @@ public enum ProductType implements Enumerator {
 	 */
 	private static final ProductType[] VALUES_ARRAY =
 		new ProductType[] {
-			ADMISSION_POINT2POINT,
 			ADMISSION_PASS,
 			ADMISSION_MULTI_RIDE,
-			UPGRADE_POINT2POINT,
+			ADMISSION_POINT2POINT,
 			UPGRADE_PASS,
 			UPGRADE_MULTI_RIDE,
+			UPGRADE_POINT2POINT,
 			RESERVATION,
 			ANCILLARY_SERVICE,
 			ANCILLARY_ITEM,
@@ -302,12 +302,12 @@ public enum ProductType implements Enumerator {
 	 */
 	public static ProductType get(int value) {
 		switch (value) {
-			case ADMISSION_POINT2POINT_VALUE: return ADMISSION_POINT2POINT;
 			case ADMISSION_PASS_VALUE: return ADMISSION_PASS;
 			case ADMISSION_MULTI_RIDE_VALUE: return ADMISSION_MULTI_RIDE;
-			case UPGRADE_POINT2POINT_VALUE: return UPGRADE_POINT2POINT;
+			case ADMISSION_POINT2POINT_VALUE: return ADMISSION_POINT2POINT;
 			case UPGRADE_PASS_VALUE: return UPGRADE_PASS;
 			case UPGRADE_MULTI_RIDE_VALUE: return UPGRADE_MULTI_RIDE;
+			case UPGRADE_POINT2POINT_VALUE: return UPGRADE_POINT2POINT;
 			case RESERVATION_VALUE: return RESERVATION;
 			case ANCILLARY_SERVICE_VALUE: return ANCILLARY_SERVICE;
 			case ANCILLARY_ITEM_VALUE: return ANCILLARY_ITEM;

@@ -10,6 +10,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import Gtm.AfterSalesRule;
 import Gtm.Calendar;
 import Gtm.CarrierConstraint;
+import Gtm.CarrierGroup;
 import Gtm.CombinationConstraint;
 import Gtm.ConnectionPoint;
 import Gtm.FareConstraintBundle;
@@ -251,6 +252,15 @@ public class ObjectIdCreator {
 				setId(domain, object,GtmPackage.Literals.PRODUCT__ID, command, listName,i);
 			}
 		}
+		
+		listName = baseName + "W_"; //$NON-NLS-1$
+		i = 0;
+		if (fareStructure.getCarrierGroups() != null) {
+			for (CarrierGroup object : fareStructure.getCarrierGroups().getCarrierGroups()) {
+				i++;
+				setId(domain, object,GtmPackage.Literals.CARRIER_GROUP__ID, command, listName,i);
+			}
+		}		
 		
         return command;
 		

@@ -234,6 +234,10 @@ public class GtmValidator extends EObjectValidator {
 				return validateEndOfSale((EndOfSale)value, diagnostics, context);
 			case GtmPackage.START_OF_SALE:
 				return validateStartOfSale((StartOfSale)value, diagnostics, context);
+			case GtmPackage.CARRIER_GROUPS:
+				return validateCarrierGroups((CarrierGroups)value, diagnostics, context);
+			case GtmPackage.CARRIER_GROUP:
+				return validateCarrierGroup((CarrierGroup)value, diagnostics, context);
 			case GtmPackage.CARRIER_CONSTRAINTS:
 				return validateCarrierConstraints((CarrierConstraints)value, diagnostics, context);
 			case GtmPackage.CARRIER_CONSTRAINT:
@@ -6605,6 +6609,24 @@ public class GtmValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validateRelativeTime_WARNING_TOO_LONG(startOfSale, diagnostics, context);
 		if (result || diagnostics != null) result &= validateRelativeTime_WARNING_TOO_SHORT(startOfSale, diagnostics, context);
 		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCarrierGroup(CarrierGroup carrierGroup, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(carrierGroup, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCarrierGroups(CarrierGroups carrierGroups, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(carrierGroups, diagnostics, context);
 	}
 
 	/**

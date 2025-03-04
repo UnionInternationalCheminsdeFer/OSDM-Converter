@@ -15,9 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link Gtm.Product#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link Gtm.Product#getId <em>Id</em>}</li>
  *   <li>{@link Gtm.Product#getCode <em>Code</em>}</li>
  *   <li>{@link Gtm.Product#getName <em>Name</em>}</li>
+ *   <li>{@link Gtm.Product#getType <em>Type</em>}</li>
  *   <li>{@link Gtm.Product#getSummary <em>Summary</em>}</li>
  *   <li>{@link Gtm.Product#getDescription <em>Description</em>}</li>
  *   <li>{@link Gtm.Product#getTravelClass <em>Travel Class</em>}</li>
@@ -38,6 +40,31 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Product extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Data Source</b></em>' attribute.
+	 * The literals are from the enumeration {@link Gtm.DataSource}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Source</em>' attribute.
+	 * @see Gtm.DataSource
+	 * @see #setDataSource(DataSource)
+	 * @see Gtm.GtmPackage#getProduct_DataSource()
+	 * @model
+	 * @generated
+	 */
+	DataSource getDataSource();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Product#getDataSource <em>Data Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Source</em>' attribute.
+	 * @see Gtm.DataSource
+	 * @see #getDataSource()
+	 * @generated
+	 */
+	void setDataSource(DataSource value);
+
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -103,6 +130,31 @@ public interface Product extends EObject {
 	 * @generated
 	 */
 	void setName(Text value);
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link Gtm.ProductType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see Gtm.ProductType
+	 * @see #setType(ProductType)
+	 * @see Gtm.GtmPackage#getProduct_Type()
+	 * @model
+	 * @generated
+	 */
+	ProductType getType();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Product#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see Gtm.ProductType
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(ProductType value);
 
 	/**
 	 * Returns the value of the '<em><b>Summary</b></em>' reference.

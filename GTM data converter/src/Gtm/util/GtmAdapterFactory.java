@@ -348,6 +348,14 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 				return createStartOfSaleAdapter();
 			}
 			@Override
+			public Adapter caseCarrierGroups(CarrierGroups object) {
+				return createCarrierGroupsAdapter();
+			}
+			@Override
+			public Adapter caseCarrierGroup(CarrierGroup object) {
+				return createCarrierGroupAdapter();
+			}
+			@Override
 			public Adapter caseCarrierConstraints(CarrierConstraints object) {
 				return createCarrierConstraintsAdapter();
 			}
@@ -1756,6 +1764,34 @@ public class GtmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createStartOfSaleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.CarrierGroup <em>Carrier Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.CarrierGroup
+	 * @generated
+	 */
+	public Adapter createCarrierGroupAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Gtm.CarrierGroups <em>Carrier Groups</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Gtm.CarrierGroups
+	 * @generated
+	 */
+	public Adapter createCarrierGroupsAdapter() {
 		return null;
 	}
 

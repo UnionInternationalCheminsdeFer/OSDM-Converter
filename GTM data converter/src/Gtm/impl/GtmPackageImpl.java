@@ -752,6 +752,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass carrierGroupEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass carrierGroupsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass reductionCardsEClass = null;
 
 	/**
@@ -3201,6 +3215,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFareStructure_CarrierGroups() {
+		return (EReference)fareStructureEClass.getEStructuralFeatures().get(29);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConnectionPoints() {
 		return connectionPointsEClass;
 	}
@@ -5073,6 +5096,96 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCarrierGroup() {
+		return carrierGroupEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCarrierGroup_DataSource() {
+		return (EAttribute)carrierGroupEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCarrierGroup_Id() {
+		return (EAttribute)carrierGroupEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCarrierGroup_Code() {
+		return (EAttribute)carrierGroupEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCarrierGroup_Name() {
+		return (EAttribute)carrierGroupEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCarrierGroup_Description() {
+		return (EReference)carrierGroupEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCarrierGroup_LegacyCode() {
+		return (EAttribute)carrierGroupEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCarrierGroup_Companies() {
+		return (EReference)carrierGroupEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCarrierGroups() {
+		return carrierGroupsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCarrierGroups_CarrierGroups() {
+		return (EReference)carrierGroupsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getReductionCards() {
 		return reductionCardsEClass;
 	}
@@ -5109,8 +5222,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getReductionCard_CardIssuer() {
-		return (EReference)reductionCardEClass.getEStructuralFeatures().get(1);
+	public EAttribute getReductionCard_ShortCode() {
+		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5118,7 +5231,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getReductionCard_Name() {
+	public EReference getReductionCard_CardIssuer() {
 		return (EReference)reductionCardEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -5127,7 +5240,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getReductionCard_ServiceClasses() {
+	public EReference getReductionCard_Name() {
 		return (EReference)reductionCardEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -5136,8 +5249,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getReductionCard_ServiceClasses() {
+		return (EReference)reductionCardEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getReductionCard_IdRequiredForBooking() {
-		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -5146,7 +5268,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EReference getReductionCard_IncludedReductionCards() {
-		return (EReference)reductionCardEClass.getEStructuralFeatures().get(5);
+		return (EReference)reductionCardEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -5155,7 +5277,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	public EAttribute getReductionCard_UicCode() {
-		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -5228,6 +5350,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getCarrierConstraint_DataSource() {
 		return (EAttribute)carrierConstraintEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCarrierConstraint_IncludedCarrierGroup() {
+		return (EReference)carrierConstraintEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -7098,7 +7229,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProduct_Id() {
+	public EAttribute getProduct_DataSource() {
 		return (EAttribute)productEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -7107,7 +7238,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProduct_Code() {
+	public EAttribute getProduct_Id() {
 		return (EAttribute)productEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -7116,8 +7247,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getProduct_Name() {
-		return (EReference)productEClass.getEStructuralFeatures().get(2);
+	public EAttribute getProduct_Code() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -7125,7 +7256,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getProduct_Summary() {
+	public EReference getProduct_Name() {
 		return (EReference)productEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -7134,25 +7265,25 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getProduct_Type() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProduct_Summary() {
+		return (EReference)productEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getProduct_Description() {
-		return (EReference)productEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getProduct_TravelClass() {
-		return (EAttribute)productEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getProduct_ServiceConstraintText() {
 		return (EReference)productEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -7161,8 +7292,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getProduct_CarrierConstraintText() {
-		return (EReference)productEClass.getEStructuralFeatures().get(7);
+	public EAttribute getProduct_TravelClass() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -7170,7 +7301,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getProduct_ConditionTexts() {
+	public EReference getProduct_ServiceConstraintText() {
 		return (EReference)productEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -7179,25 +7310,25 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getProduct_CarrierConstraintText() {
+		return (EReference)productEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProduct_ConditionTexts() {
+		return (EReference)productEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getProduct_ReturnProduct() {
-		return (EAttribute)productEClass.getEStructuralFeatures().get(9);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getProduct_TrainBound() {
-		return (EAttribute)productEClass.getEStructuralFeatures().get(10);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getProduct_RefundableAfterValidity() {
 		return (EAttribute)productEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -7206,7 +7337,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProduct_RefundableBeforeValidity() {
+	public EAttribute getProduct_TrainBound() {
 		return (EAttribute)productEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -7215,7 +7346,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProduct_ExchangeableAfterValidity() {
+	public EAttribute getProduct_RefundableAfterValidity() {
 		return (EAttribute)productEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -7224,8 +7355,26 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProduct_ExchangeableBeforeValidity() {
+	public EAttribute getProduct_RefundableBeforeValidity() {
 		return (EAttribute)productEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_ExchangeableAfterValidity() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProduct_ExchangeableBeforeValidity() {
+		return (EAttribute)productEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -7730,6 +7879,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getNamedCarrierList_ReplacementCode() {
 		return (EAttribute)namedCarrierListEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNamedCarrierList_CarrierGroup() {
+		return (EReference)namedCarrierListEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -10480,6 +10638,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(fareStructureEClass, FARE_STRUCTURE__ZONE_DEFINITIONS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__LUGGAGE_CONSTRAINTS);
 		createEReference(fareStructureEClass, FARE_STRUCTURE__PRODUCTS);
+		createEReference(fareStructureEClass, FARE_STRUCTURE__CARRIER_GROUPS);
 
 		connectionPointsEClass = createEClass(CONNECTION_POINTS);
 		createEReference(connectionPointsEClass, CONNECTION_POINTS__CONNECTION_POINTS);
@@ -10734,6 +10893,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		startOfSaleEClass = createEClass(START_OF_SALE);
 
+		carrierGroupsEClass = createEClass(CARRIER_GROUPS);
+		createEReference(carrierGroupsEClass, CARRIER_GROUPS__CARRIER_GROUPS);
+
+		carrierGroupEClass = createEClass(CARRIER_GROUP);
+		createEAttribute(carrierGroupEClass, CARRIER_GROUP__DATA_SOURCE);
+		createEAttribute(carrierGroupEClass, CARRIER_GROUP__ID);
+		createEAttribute(carrierGroupEClass, CARRIER_GROUP__CODE);
+		createEAttribute(carrierGroupEClass, CARRIER_GROUP__NAME);
+		createEReference(carrierGroupEClass, CARRIER_GROUP__DESCRIPTION);
+		createEAttribute(carrierGroupEClass, CARRIER_GROUP__LEGACY_CODE);
+		createEReference(carrierGroupEClass, CARRIER_GROUP__COMPANIES);
+
 		carrierConstraintsEClass = createEClass(CARRIER_CONSTRAINTS);
 		createEReference(carrierConstraintsEClass, CARRIER_CONSTRAINTS__CARRIER_CONSTRAINTS);
 
@@ -10743,6 +10914,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(carrierConstraintEClass, CARRIER_CONSTRAINT__EXCLUDED_CARRIERS);
 		createEAttribute(carrierConstraintEClass, CARRIER_CONSTRAINT__DATA_DESCRIPTION);
 		createEAttribute(carrierConstraintEClass, CARRIER_CONSTRAINT__DATA_SOURCE);
+		createEReference(carrierConstraintEClass, CARRIER_CONSTRAINT__INCLUDED_CARRIER_GROUP);
 
 		serviceConstraintsEClass = createEClass(SERVICE_CONSTRAINTS);
 		createEReference(serviceConstraintsEClass, SERVICE_CONSTRAINTS__SERVICE_CONSTRAINTS);
@@ -10989,9 +11161,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEReference(productsEClass, PRODUCTS__PRODUCTS);
 
 		productEClass = createEClass(PRODUCT);
+		createEAttribute(productEClass, PRODUCT__DATA_SOURCE);
 		createEAttribute(productEClass, PRODUCT__ID);
 		createEAttribute(productEClass, PRODUCT__CODE);
 		createEReference(productEClass, PRODUCT__NAME);
+		createEAttribute(productEClass, PRODUCT__TYPE);
 		createEReference(productEClass, PRODUCT__SUMMARY);
 		createEReference(productEClass, PRODUCT__DESCRIPTION);
 		createEAttribute(productEClass, PRODUCT__TRAVEL_CLASS);
@@ -11022,6 +11196,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		reductionCardEClass = createEClass(REDUCTION_CARD);
 		createEAttribute(reductionCardEClass, REDUCTION_CARD__ID);
+		createEAttribute(reductionCardEClass, REDUCTION_CARD__SHORT_CODE);
 		createEReference(reductionCardEClass, REDUCTION_CARD__CARD_ISSUER);
 		createEReference(reductionCardEClass, REDUCTION_CARD__NAME);
 		createEReference(reductionCardEClass, REDUCTION_CARD__SERVICE_CLASSES);
@@ -11086,6 +11261,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(namedCarrierListEClass, NAMED_CARRIER_LIST__NAME);
 		createEReference(namedCarrierListEClass, NAMED_CARRIER_LIST__CARRIERS);
 		createEAttribute(namedCarrierListEClass, NAMED_CARRIER_LIST__REPLACEMENT_CODE);
+		createEReference(namedCarrierListEClass, NAMED_CARRIER_LIST__CARRIER_GROUP);
 
 		addCarrierRulesEClass = createEClass(ADD_CARRIER_RULES);
 		createEReference(addCarrierRulesEClass, ADD_CARRIER_RULES__ADD_CARRIER_RULE);
@@ -11637,6 +11813,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getFareStructure_ZoneDefinitions(), this.getZoneDefinitions(), null, "zoneDefinitions", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_LuggageConstraints(), this.getLuggageConstraints(), null, "luggageConstraints", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFareStructure_Products(), this.getProducts(), null, "products", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFareStructure_CarrierGroups(), this.getCarrierGroups(), null, "carrierGroups", null, 0, 1, FareStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionPointsEClass, ConnectionPoints.class, "ConnectionPoints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnectionPoints_ConnectionPoints(), this.getConnectionPoint(), null, "connectionPoints", null, 0, -1, ConnectionPoints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11896,6 +12073,18 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		initEClass(startOfSaleEClass, StartOfSale.class, "StartOfSale", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(carrierGroupsEClass, CarrierGroups.class, "CarrierGroups", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCarrierGroups_CarrierGroups(), this.getCarrierGroup(), null, "carrierGroups", null, 0, -1, CarrierGroups.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(carrierGroupEClass, CarrierGroup.class, "CarrierGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCarrierGroup_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, CarrierGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCarrierGroup_Id(), ecorePackage.getEString(), "id", null, 0, 1, CarrierGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCarrierGroup_Code(), ecorePackage.getEString(), "code", null, 0, 1, CarrierGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCarrierGroup_Name(), ecorePackage.getEString(), "name", null, 0, 1, CarrierGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCarrierGroup_Description(), this.getText(), null, "description", null, 0, 1, CarrierGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCarrierGroup_LegacyCode(), ecorePackage.getEString(), "legacyCode", null, 0, 1, CarrierGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCarrierGroup_Companies(), this.getCarrier(), null, "companies", null, 0, -1, CarrierGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(carrierConstraintsEClass, CarrierConstraints.class, "CarrierConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCarrierConstraints_CarrierConstraints(), this.getCarrierConstraint(), null, "carrierConstraints", null, 0, -1, CarrierConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -11905,6 +12094,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getCarrierConstraint_ExcludedCarriers(), this.getCarrier(), null, "excludedCarriers", null, 0, -1, CarrierConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCarrierConstraint_DataDescription(), ecorePackage.getEString(), "dataDescription", null, 0, 1, CarrierConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCarrierConstraint_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, CarrierConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCarrierConstraint_IncludedCarrierGroup(), this.getCarrierGroup(), null, "includedCarrierGroup", null, 0, 1, CarrierConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceConstraintsEClass, ServiceConstraints.class, "ServiceConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getServiceConstraints_ServiceConstraints(), this.getServiceConstraint(), null, "serviceConstraints", null, 0, -1, ServiceConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -12152,9 +12342,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEReference(getProducts_Products(), this.getProduct(), null, "products", null, 0, -1, Products.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(productEClass, Product.class, "Product", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getProduct_DataSource(), this.getDataSource(), "dataSource", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProduct_Id(), ecorePackage.getEString(), "id", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProduct_Code(), ecorePackage.getEString(), "code", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getProduct_Name(), this.getText(), null, "name", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProduct_Type(), this.getProductType(), "type", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getProduct_Summary(), this.getText(), null, "summary", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getProduct_Description(), this.getText(), null, "description", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProduct_TravelClass(), this.getClassicClassType(), "travelClass", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -12185,6 +12377,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 
 		initEClass(reductionCardEClass, ReductionCard.class, "ReductionCard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getReductionCard_Id(), ecorePackage.getEString(), "id", null, 0, 1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReductionCard_ShortCode(), ecorePackage.getEString(), "shortCode", null, 0, 1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getReductionCard_CardIssuer(), this.getCarrier(), null, "cardIssuer", null, 0, 1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getReductionCard_Name(), this.getText(), null, "name", null, 0, 1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getReductionCard_ServiceClasses(), this.getServiceClass(), null, "serviceClasses", null, 0, -1, ReductionCard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -12249,6 +12442,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getNamedCarrierList_Name(), ecorePackage.getEString(), "Name", null, 0, 1, NamedCarrierList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNamedCarrierList_Carriers(), this.getCarrier(), null, "carriers", null, 0, -1, NamedCarrierList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getNamedCarrierList_ReplacementCode(), ecorePackage.getEString(), "replacementCode", null, 0, 1, NamedCarrierList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNamedCarrierList_CarrierGroup(), this.getCarrierGroup(), null, "carrierGroup", null, 0, 1, NamedCarrierList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(addCarrierRulesEClass, AddCarrierRules.class, "AddCarrierRules", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAddCarrierRules_AddCarrierRule(), this.getAddCarrierRule(), null, "addCarrierRule", null, 0, -1, AddCarrierRules.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -12801,12 +12995,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(personalDataChangeReasonEEnum, PersonalDataChangeReason.AGENT_ERROR);
 
 		initEEnum(productTypeEEnum, ProductType.class, "ProductType");
-		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_POINT2POINT);
+
 		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_PASS);
 		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_MULTI_RIDE);
-		addEEnumLiteral(productTypeEEnum, ProductType.UPGRADE_POINT2POINT);
+		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_POINT2POINT);
 		addEEnumLiteral(productTypeEEnum, ProductType.UPGRADE_PASS);
 		addEEnumLiteral(productTypeEEnum, ProductType.UPGRADE_MULTI_RIDE);
+		addEEnumLiteral(productTypeEEnum, ProductType.UPGRADE_POINT2POINT);
 		addEEnumLiteral(productTypeEEnum, ProductType.RESERVATION);
 		addEEnumLiteral(productTypeEEnum, ProductType.ANCILLARY_SERVICE);
 		addEEnumLiteral(productTypeEEnum, ProductType.ANCILLARY_ITEM);
@@ -12935,6 +13130,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V14);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V30);
 		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V31);
+		addEEnumLiteral(schemaVersionEEnum, SchemaVersion.V35);
 
 		initEEnum(serviceModeEEnum, ServiceMode.class, "ServiceMode");
 		addEEnumLiteral(serviceModeEEnum, ServiceMode.HIGH_SPEED_TRAIN);

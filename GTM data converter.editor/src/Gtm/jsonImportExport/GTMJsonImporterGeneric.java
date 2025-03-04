@@ -22,76 +22,76 @@ import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.CodeListInitializer;
 import Gtm.utils.GtmUtils;
-import gtmV31.AfterSalesConditionDef;
-import gtmV31.AfterSalesRuleDef;
-import gtmV31.AllowedChange;
-import gtmV31.BarCodeTypesDef;
-import gtmV31.CalendarDef;
-import gtmV31.CarrierConstraintDef;
-import gtmV31.CarrierResourceLocationDef;
-import gtmV31.ConnectionPointDef;
-import gtmV31.ControlSecurityTypeDef;
-import gtmV31.CrossBorderConditionDef;
-import gtmV31.CurrencyPriceDef;
-import gtmV31.FareCombinationConstraintDef;
-import gtmV31.FareCombinationModelDef;
-import gtmV31.FareConstraintBundle.FareTypeDef;
-import gtmV31.FareDataDef;
-import gtmV31.FareDef;
-import gtmV31.FareDelivery;
-import gtmV31.FareDeliveryDetailsDef;
-import gtmV31.FareDeliveryDetailsDef.Usage;
-import gtmV31.FareReferenceStationSetDef;
-import gtmV31.FareResourceLocationDef;
-import gtmV31.FulfillmentConstraintDef;
-import gtmV31.GeoCoordinate;
-import gtmV31.IncludedFreePassenger;
-import gtmV31.LegacyAccountingIdentifierDef;
-import gtmV31.LegacyReservationParameterDef;
-import gtmV31.LineDef;
-import gtmV31.LuggageConstraint;
-import gtmV31.LuggageDimension;
-import gtmV31.LuggageDimension.Dimension;
-import gtmV31.OnlineResourceDef;
-import gtmV31.PassengerCombinationConstraintDef;
-import gtmV31.PassengerConstraintDef;
-import gtmV31.PersonalDataConstraintDef;
-import gtmV31.PolygonDef;
-import gtmV31.PriceDef;
-import gtmV31.Product;
-import gtmV31.ReductionCardDef;
-import gtmV31.ReductionCardReferenceDef;
-import gtmV31.ReductionConstraintDef;
-import gtmV31.RegionalConstraintDef;
-import gtmV31.RegionalValidityDef;
-import gtmV31.RelativeTimeDef;
-import gtmV31.RequiredDatum;
-import gtmV31.RequiredSi;
-import gtmV31.ReservationOptionGroupDef;
-import gtmV31.ReservationParameterDef;
-import gtmV31.ReturnConstraint;
-import gtmV31.SalesAvailabilityConstraintDef;
-import gtmV31.ServiceClassDefinitionDef;
-import gtmV31.ServiceClassDefinitionDef.ComfortClassDef;
-import gtmV31.ServiceClassDefinitionDef.ServiceClassIdDef;
-import gtmV31.ServiceClassDefinitionDef.TravelClassDef;
-import gtmV31.ServiceConstraintDef;
-import gtmV31.ServiceLevelDef;
-import gtmV31.StationDef;
-import gtmV31.StationNamesDef;
-import gtmV31.StationResourceLocationDef;
-import gtmV31.TextDef;
-import gtmV31.TrainResourceLocationDef;
-import gtmV31.TrainValidity.Scope;
-import gtmV31.Transfer;
-import gtmV31.TranslationDef;
-import gtmV31.TravelValidityConstraintDef;
-import gtmV31.TripAllocationConstraintDef;
-import gtmV31.TripInterruptionConstraintDef;
-import gtmV31.ValidityRange.TimeUnitDef;
-import gtmV31.ViaStationsDef;
-import gtmV31.ZoneDef;
-import gtmV31.ZoneDefinitionDef;
+import gtmV35.AfterSalesConditionDef;
+import gtmV35.AfterSalesRuleDef;
+import gtmV35.AllowedChange;
+import gtmV35.BarCodeTypesDef;
+import gtmV35.CalendarDef;
+import gtmV35.CarrierConstraintDef;
+import gtmV35.CarrierResourceLocationDef;
+import gtmV35.ConnectionPointDef;
+import gtmV35.ControlSecurityTypeDef;
+import gtmV35.CrossBorderConditionDef;
+import gtmV35.CurrencyPriceDef;
+import gtmV35.FareCombinationConstraintDef;
+import gtmV35.FareCombinationModelDef;
+import gtmV35.FareConstraintBundle.FareTypeDef;
+import gtmV35.FareDataDef;
+import gtmV35.FareDef;
+import gtmV35.FareDelivery;
+import gtmV35.FareDeliveryDetailsDef;
+import gtmV35.FareDeliveryDetailsDef.Usage;
+import gtmV35.FareReferenceStationSetDef;
+import gtmV35.FareResourceLocationDef;
+import gtmV35.FulfillmentConstraintDef;
+import gtmV35.GeoCoordinate;
+import gtmV35.IncludedFreePassenger;
+import gtmV35.LegacyAccountingIdentifierDef;
+import gtmV35.LegacyReservationParameterDef;
+import gtmV35.LineDef;
+import gtmV35.LuggageConstraint;
+import gtmV35.LuggageDimension;
+import gtmV35.LuggageDimension.Dimension;
+import gtmV35.OnlineResourceDef;
+import gtmV35.PassengerCombinationConstraintDef;
+import gtmV35.PassengerConstraintDef;
+import gtmV35.PersonalDataConstraintDef;
+import gtmV35.PolygonDef;
+import gtmV35.PriceDef;
+import gtmV35.ReductionCardDef;
+import gtmV35.ReductionCardReferenceDef;
+import gtmV35.ReductionConstraintDef;
+import gtmV35.RegionalConstraintDef;
+import gtmV35.RegionalValidityDef;
+import gtmV35.RelativeTimeDef;
+import gtmV35.RequiredDatum;
+import gtmV35.RequiredSi;
+import gtmV35.ReservationOptionGroupDef;
+import gtmV35.ReservationParameterDef;
+import gtmV35.ReturnConstraint;
+import gtmV35.SalesAvailabilityConstraintDef;
+import gtmV35.ServiceClassDefinitionDef;
+import gtmV35.ServiceClassDefinitionDef.ComfortClassDef;
+import gtmV35.ServiceClassDefinitionDef.ServiceClassIdDef;
+import gtmV35.ServiceClassDefinitionDef.TravelClassDef;
+import gtmV35.ServiceConstraintDef;
+import gtmV35.ServiceLevelDef;
+import gtmV35.StationDef;
+import gtmV35.StationNamesDef;
+import gtmV35.StationResourceLocationDef;
+import gtmV35.TextDef;
+import gtmV35.TrainResourceLocationDef;
+import gtmV35.TrainValidity.Scope;
+import gtmV35.Transfer;
+import gtmV35.TranslationDef;
+import gtmV35.TravelValidityConstraintDef;
+import gtmV35.TripAllocationConstraintDef;
+import gtmV35.TripInterruptionConstraintDef;
+import gtmV35.ValidityRange.TimeUnitDef;
+import gtmV35.ViaStationsDef;
+import gtmV35.ZoneDef;
+import gtmV35.ZoneDefinitionDef;
+
 
 public class GTMJsonImporterGeneric {
 	
@@ -206,6 +206,10 @@ public class GTMJsonImporterGeneric {
 
 		fareStructure.setServiceClassDefinitions(convertServiceClassDefinitions(fareDataDef.getServiceClassDefinitions()));
 		
+		fareStructure.setCarrierGroups(convertCarrierGroups(fareDataDef.getCarrierGroups()));
+		
+		fareStructure.setProducts(convertProductList(fareDataDef.getProducts()));
+		
 		fareStructure.setZoneDefinitions(convertZoneDefinitions(fareDataDef.getZoneDefinitions()));
 		
 		fareStructure.setAfterSalesRules(convertAfterSalesRulesList(fareDataDef.getAfterSalesConditions()));
@@ -228,7 +232,6 @@ public class GTMJsonImporterGeneric {
 		
 		fareStructure.setPassengerConstraints(convertPassengerConstraints(fareDataDef.getPassengerConstraints()));
 		populatePassengerConstraints(fareDataDef.getPassengerConstraints());
-
 		
 		
 		fareStructure.setPersonalDataConstraints(convertPersonalDataConstraints(fareDataDef.getPersonalDataConstraints()));
@@ -257,7 +260,9 @@ public class GTMJsonImporterGeneric {
 
 		fareStructure.setLuggageConstraints(convertLuggageConstraints(fareDataDef.getLuggageConstraints()));
 		
-		fareStructure.setFareElements(convertFareElementList(fareDataDef.getFares()));			
+		fareStructure.setFareElements(convertFareElementList(fareDataDef.getFares()));	
+			
+			
 		
 		prices.clear();
 		regionalConstraints.clear();
@@ -265,6 +270,166 @@ public class GTMJsonImporterGeneric {
 		return fareStructure;
 	}
 	
+	private Products convertProductList(List<gtmV35.Product> products) {
+		if (products == null || products.isEmpty()) {
+			return null;
+		}
+		
+		Products gtmProducts = GtmFactory.eINSTANCE.createProducts();
+		
+		for (gtmV35.Product l : products) {
+			gtmProducts.getProducts().add(convert(l));
+		}
+		
+		return gtmProducts;
+	}
+
+
+	private Product convert(gtmV35.Product p) {
+		
+		if (p == null) return null;
+		
+		Product gtmProduct = GtmFactory.eINSTANCE.createProduct();
+		
+		gtmProduct.setDataSource(DataSource.IMPORTED);
+
+		gtmProduct.setId(p.getId());
+		gtmProduct.setCode(p.getCode());
+		gtmProduct.setExchangeableAfterValidity(p.getIsExchangeableAfterValidity());
+		gtmProduct.setExchangeableBeforeValidity(p.getIsExchangeablebeforeValidity());
+		gtmProduct.setRefundableAfterValidity(p.getIsRefundableAfterValidity());
+		gtmProduct.setRefundableBeforeValidity(p.getIsRefundableBeforeValidity());
+		gtmProduct.setTrainBound(p.getIsTrainBound());
+		gtmProduct.setReturnProduct(p.getIsReturnProduct());
+		
+		if (p.getDescription() != null) {
+			gtmProduct.setDescription(findOrAddText(p.getDescription()));
+		}
+
+		if (p.getName() != null) {
+			gtmProduct.setName(findOrAddText(p.getName()));
+		}
+		
+		if (p.getSummary() != null) {
+			gtmProduct.setSummary(findOrAddText(p.getSummary()));
+		}
+		
+		if (p.getServiceConstraintText() != null) {
+			gtmProduct.setServiceConstraintText(findOrAddText(p.getServiceConstraintText()));
+		}
+		
+		if (p.getCarrierConstraintText() != null) {
+			gtmProduct.setCarrierConstraintText(findOrAddText(p.getCarrierConstraintText()));
+		}
+		
+		if (p.getConditions() != null && !p.getConditions().isEmpty()) {
+			
+			for (gtmV35.ConditionText ct  : p.getConditions()) {
+			
+				ConditionText gtmC = GtmFactory.eINSTANCE.createConditionText();
+			
+				gtmC.setText(findOrAddText(ct.getDescription()));
+				
+				if (ct.getType() != null) {
+					gtmC.setType(ConditionType.getByName(ct.getType()));
+				}
+				
+				gtmProduct.getConditionTexts().add(gtmC);
+			}
+		}
+		
+		
+		gtmProduct.setTravelClass( convertTravelClass(p.getTravelClass()));
+		
+		gtmProduct.setType(convertProductType(p.getType()));
+
+		return gtmProduct;
+	}
+
+
+	private ProductType convertProductType(String type) {
+		
+		if (type == null || type.length() == 0) return null;
+		
+		if ("ADMISSION_PASS".equals(type)){
+			return ProductType.ADMISSION_PASS;
+		} else if ("ADMISSION_MULTI_RIDE".equals(type)) {
+			return ProductType.ADMISSION_MULTI_RIDE;
+		} else if ("ADMISSION_POINT2POINT".equals(type)) {
+			return ProductType.ADMISSION_POINT2POINT;
+		}
+		if ("UPGRADE_PASS".equals(type)) return ProductType.UPGRADE_PASS;
+		if ("UPGRADE_MULTI_RIDE".equals(type)) return ProductType.UPGRADE_MULTI_RIDE;
+		if ("UPGRADE_POINT2POINT".equals(type)) return ProductType.UPGRADE_POINT2POINT;
+		if ("RESERVATION".equals(type)) return ProductType.RESERVATION;      
+		if ("ANCILLARY_SERVICE".equals(type)) return ProductType.ANCILLARY_SERVICE;
+		if ("ANCILLARY_ITEM".equals(type)) return ProductType.ANCILLARY_ITEM;
+		if ("REDUCTION_CARD".equals(type)) return ProductType.REDUCTION_CARD;
+
+		return null;
+	}
+
+
+	private CarrierGroups convertCarrierGroups(List<gtmV35.CarrierGroup> carrierGroups) {
+		if (carrierGroups == null || carrierGroups.isEmpty()) {
+			return null;
+		}
+		
+		CarrierGroups gtmCarrierGroups = GtmFactory.eINSTANCE.createCarrierGroups();
+		
+		for (gtmV35.CarrierGroup l : carrierGroups) {
+			gtmCarrierGroups.getCarrierGroups().add(convert(l));
+		}
+			
+		return gtmCarrierGroups;
+		
+	}
+
+
+	private CarrierGroup convert(gtmV35.CarrierGroup c) {
+		
+		if (c == null) return null;
+		
+		CarrierGroup gtmC = GtmFactory.eINSTANCE.createCarrierGroup();
+		
+		
+		gtmC.setCode(c.getCode());
+		gtmC.setId(c.getId());
+		gtmC.setLegacyCode(c.getLegacyCode());
+		gtmC.setName(c.getName());
+
+		gtmC.setDataSource(DataSource.IMPORTED);
+		
+		if (c.getDescription() != null) {
+			gtmC.setDescription(findOrAddText(c.getDescription()));
+		}
+		
+		if (c.getCompanies() != null && !c.getCompanies().isEmpty()) {
+			Collection<? extends Carrier> cl = convertCarrierList(c.getCompanies());
+			if (cl != null && !cl.isEmpty()) {
+				gtmC.getCompanies().addAll(cl);
+			}
+		}
+		
+		return gtmC;
+	}
+
+	private Text findOrAddText(TextDef t) {
+		
+		if (t == null) return null;
+		
+		Text to = null;
+		
+		if (t.getId() != null && t.getId().length() > 0) {
+			to = findText(t.getId());
+			if (to == null) {
+				to = convert(t);
+				fareStructure.getTexts().getTexts().add(to);
+			}
+		}
+		return to;
+		
+	}
 
 	private Products convertProducts(List<Product> products) {
 		
@@ -340,7 +505,7 @@ public class GTMJsonImporterGeneric {
 		}
 		
 		if (l.getRestrictedLuggageItems() != null && !l.getRestrictedLuggageItems().isEmpty()) {
-			for (gtmV31.LuggageRestriction ri : l.getRestrictedLuggageItems()) {
+			for (gtmV35.LuggageRestriction ri : l.getRestrictedLuggageItems()) {
 				
 				LuggageItemsRestriction lir = GtmFactory.eINSTANCE.createLuggageItemsRestriction();
 				
@@ -360,7 +525,6 @@ public class GTMJsonImporterGeneric {
 			
 		}
 
-		
 		return gtmO;
 	}
 
@@ -398,11 +562,11 @@ public class GTMJsonImporterGeneric {
 	}
 
 
-	private FareConstraintBundles convertFareConstraintBundles(List<gtmV31.FareConstraintBundle> fareConstraintBundles) {
+	private FareConstraintBundles convertFareConstraintBundles(List<gtmV35.FareConstraintBundle> fareConstraintBundles) {
 		
 		FareConstraintBundles bs = GtmFactory.eINSTANCE.createFareConstraintBundles();
 		if (fareConstraintBundles == null) return bs;
-		for (gtmV31.FareConstraintBundle bJ : fareConstraintBundles) {
+		for (gtmV35.FareConstraintBundle bJ : fareConstraintBundles) {
 			FareConstraintBundle b = convert(bJ);	
 			if (b != null) {					
 				bs.getFareConstraintBundles().add(b);
@@ -714,7 +878,7 @@ public class GTMJsonImporterGeneric {
 	}
 
 
-	private TrainValidity convert(gtmV31.TrainValidity trainValidity) {
+	private TrainValidity convert(gtmV35.TrainValidity trainValidity) {
 		
 		if (trainValidity == null) return null;
 		
@@ -768,7 +932,7 @@ public class GTMJsonImporterGeneric {
 	}
 
 
-	private ValidityRange convert(gtmV31.ValidityRange jv) {
+	private ValidityRange convert(gtmV35.ValidityRange jv) {
 		if (jv == null) return null;
 		ValidityRange v = GtmFactory.eINSTANCE.createValidityRange();
 		if (jv.getHoursAfterMidnight() != null) {
@@ -991,12 +1155,12 @@ public class GTMJsonImporterGeneric {
 	}
 
 
-	private Collection<? extends SalesRestriction> convertSalesRestrictions(List<gtmV31.SalesRestriction> jl) {
+	private Collection<? extends SalesRestriction> convertSalesRestrictions(List<gtmV35.SalesRestriction> jl) {
 
 		ArrayList<SalesRestriction> l = new ArrayList<SalesRestriction>();
 		if (jl == null || jl.isEmpty()) return l;
 		
-		for (gtmV31.SalesRestriction jr : jl) {
+		for (gtmV35.SalesRestriction jr : jl) {
 			SalesRestriction r = GtmFactory.eINSTANCE.createSalesRestriction();
 			r.setEndOfSale(convertEndDate(jr.getEndOfSale()));
 			r.setStartOfSale(convertStartDate(jr.getStartOfSale()));
@@ -1135,7 +1299,7 @@ public class GTMJsonImporterGeneric {
 	}
 
 
-	private ReservationOptions convert(gtmV31.ReservationOptions jr) {
+	private ReservationOptions convert(gtmV35.ReservationOptions jr) {
 		if (jr == null) return null;
 		ReservationOptions o = GtmFactory.eINSTANCE.createReservationOptions();
 		o.setGraphicalReservation(GraphicalReservationType.getByName(jr.getGraphicalReservation()));
@@ -1411,6 +1575,7 @@ public class GTMJsonImporterGeneric {
 		for (ReductionCardDef jr : jl) {
 			ReductionCard o = GtmFactory.eINSTANCE.createReductionCard();
 			o.setId(jr.getId());
+			o.setShortCode(jr.getShortCode());
 			o.setIdRequiredForBooking(jr.getCardIdRequired());
 			o.setCardIssuer(getCarrier(jr.getIssuer()));
 			o.setName(findText(jr.getNameRef()));
@@ -1641,10 +1806,10 @@ public class GTMJsonImporterGeneric {
 	}
 
 
-	private Collection<? extends PassengerCombinationConstraint> convertPassengerCombinationList(List<gtmV31.CombinationConstraint> jl) {
+	private Collection<? extends PassengerCombinationConstraint> convertPassengerCombinationList(List<gtmV35.CombinationConstraint> jl) {
 		ArrayList<PassengerCombinationConstraint> l = new ArrayList<PassengerCombinationConstraint>();
 		if (jl == null || jl.isEmpty()) return l;
-		for (gtmV31.CombinationConstraint jc : jl) {
+		for (gtmV35.CombinationConstraint jc : jl) {
 			PassengerCombinationConstraint o = GtmFactory.eINSTANCE.createPassengerCombinationConstraint();
 			o.setMaxNumber(jc.getMaxNumber());
 			o.setPassengerConstraint(findPassengerConstraint(jc.getPassengerConstraintRef()));
@@ -1958,7 +2123,7 @@ public class GTMJsonImporterGeneric {
 	}
 
 	
-	private FareConstraintBundle convert(gtmV31.FareConstraintBundle jf) {
+	private FareConstraintBundle convert(gtmV35.FareConstraintBundle jf) {
 		
 		if (jf == null) return null;
 		
@@ -1980,8 +2145,41 @@ public class GTMJsonImporterGeneric {
 		if (jf.getDefaultLuggageConstraintRef() != null && jf.getDefaultLuggageConstraintRef().length() > 0) {
 			f.setLuggageConstraint(findLuggageConstraint(jf.getDefaultLuggageConstraintRef()));
 		}
+		
+		if (jf.getProducts() != null && !jf.getProducts().isEmpty()) {
+			
+			for (String id :  jf.getProducts()) {
+				
+				Product p = findProduct(id);
+				if (p != null) {
+					f.getProducts().add(p);
+				}
+			}
+
+		}
+		
 		return f;
 	}
+	
+	
+
+	private Product findProduct(String id) {
+		
+		if (id == null || id.length() < 1) {
+			return null;
+		}
+	
+		if (fareStructure.getProducts() != null && fareStructure.getProducts().getProducts() != null) {
+			for (Product  o : fareStructure.getProducts().getProducts()) {
+				if (id.equals(o.getId())) return o;
+			}
+		}
+	
+		GtmUtils.writeConsoleError("Referenced Product not found: " + id, editor);		
+	
+		return null;
+	}
+
 
 	private Collection<? extends RegulatoryCondition> convertRegularyConditions(List<String> regulatoryConditions) {
 		
@@ -2493,7 +2691,27 @@ public class GTMJsonImporterGeneric {
 				o.getIncludedCarriers().addAll(cl);
 			}
 		}
+		
+		if (cc.getIncludedCarrierGroupRef() != null && cc.getIncludedCarrierGroupRef().length() > 0) {
+			
+			CarrierGroup cg = findCarrierGroup(cc.getIncludedCarrierGroupRef());
+			
+			if (cg != null) {
+				o.setIncludedCarrierGroup(cg);
+			}
+		}
+		
 		return o;
+	}
+
+
+	private CarrierGroup findCarrierGroup(String id) {
+		if (id == null || id.length() == 0) return null;
+		
+		for (CarrierGroup g : fareStructure.getCarrierGroups().getCarrierGroups()) {
+			if (id.equals(g.getId())) return g;
+		}
+		return null;
 	}
 
 
@@ -2681,6 +2899,9 @@ public class GTMJsonImporterGeneric {
 		if (version.equals(SchemaVersion.V31.getLiteral()) || version.equals(SchemaVersion.V31.getName())) {
 			return SchemaVersion.V31;
 		}		
+		if (version.equals(SchemaVersion.V35.getLiteral()) || version.equals(SchemaVersion.V35.getName())) {
+			return SchemaVersion.V35;
+		}
 		
 		GtmUtils.writeConsoleError("Schema Version not supported: " + version, editor);
 		

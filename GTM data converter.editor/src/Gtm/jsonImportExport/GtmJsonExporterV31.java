@@ -89,6 +89,8 @@ import gtmV31.TripInterruptionConstraintDef;
 import gtmV31.ValidityRange.TimeUnitDef;
 import gtmV31.VatDetailDef;
 import gtmV31.VatDetailDef.VatScopeDef;
+import gtmV31.ConditionText;
+import gtmV31.Product;
 import gtmV31.ViaStationsDef;
 import gtmV31.ZoneDef;
 import gtmV31.ZoneDefinitionDef;
@@ -320,6 +322,11 @@ public class GtmJsonExporterV31 {
 		}
 		monitor.worked(1);
 		
+		monitor.subTask("Export Products");
+		if (gtm.getFareStructure().getProducts() != null && !gtm.getFareStructure().getProducts().getProducts().isEmpty()) {
+			fares.setProducts(convertProducts(gtm.getFareStructure().getProducts()));
+		}				
+		
 		return export;
 	}
 
@@ -394,6 +401,73 @@ public class GtmJsonExporterV31 {
 		return jllc;
 	}
 
+	private List<Product> convertProducts(Gtm.Products list) {
+		
+		List<Product> jlst = new ArrayList<Product>();
+		
+		for (Gtm.Product gP : list.getProducts()) {
+			
+			Product p = new Product();
+			
+			p.setId(gP.getId());
+			p.setCode(gP.getCode());
+			p.setIsExchangeableAfterValidity(gP.getExchangeableAfterValidity());
+			p.setIsExchangeablebeforeValidity(gP.getExchangeableBeforeValidity());
+			p.setIsRefundableAfterValidity(gP.getRefundableAfterValidity());
+			p.setIsRefundableBeforeValidity(gP.getRefundableBeforeValidity());
+			p.setIsReturnProduct(gP.getReturnProduct());
+			p.setIsTrainBound(gP.getTrainBound());
+			
+			if (gP.getTravelClass() != null) {
+				p.setTravelClass(TravelClassDef.fromValue(gP.getTravelClass().getLiteral()));
+			}
+			
+			if (gP.getName() != null) {				
+				p.setName(convertToJson(gP.getName()));
+			}
+			
+			if (gP.getSummary() != null) {				
+				p.setSummary(convertToJson(gP.getSummary()));
+			}			
+			
+			if (gP.getDescription() != null) {				
+				p.setDescription(convertToJson(gP.getDescription()));
+			}
+			
+			if (gP.getCarrierConstraintText() != null) {				
+				p.setCarrierConstraintText(convertToJson(gP.getCarrierConstraintText()));
+			}
+
+			if (gP.getServiceConstraintText() != null) {				
+				p.setServiceConstraintText(convertToJson(gP.getServiceConstraintText()));
+			}
+			
+			if (gP.getConditionTexts() != null && !gP.getConditionTexts().isEmpty()) {
+				
+				List<ConditionText> ctl = new ArrayList<ConditionText>();
+				
+				for (Gtm.ConditionText gct : gP.getConditionTexts()) {
+					
+					ConditionText ct = new ConditionText();
+					
+					ct.setType(gct.getType().getLiteral());
+					
+					ct.setDescription(convertToJson(gct.getText()));
+
+					ctl.add(ct);
+				}
+				
+				p.setConditions(ctl);
+				
+			}
+			
+			
+			jlst.add(p);
+		}
+
+		return jlst;
+	}
+	
 	private LuggageRestriction convert(LuggageItemsRestriction lir) {
 		
 		LuggageRestriction jlr = new LuggageRestriction();

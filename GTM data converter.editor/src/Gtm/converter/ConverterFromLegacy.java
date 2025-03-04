@@ -511,10 +511,18 @@ public class ConverterFromLegacy {
 										
 			for (NamedCarrierList carrierList : tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList()) {
 				if (carrierCode.equals(carrierList.getReplacementCode()) ) {
+					
 					constraint = GtmFactory.eINSTANCE.createCarrierConstraint();
 					constraint.setDataSource(DataSource.CONVERTED);
 					constraint.setDataDescription(carrierList.getName());
 					constraint.getIncludedCarriers().addAll(carrierList.getCarriers());
+					if (carrierList.getCarrierGroup() != null) {
+						constraint.setIncludedCarrierGroup(carrierList.getCarrierGroup());
+						if (constraint.getIncludedCarriers() == null || constraint.getIncludedCarriers().isEmpty()) {
+							constraint.getIncludedCarriers().addAll(carrierList.getCarrierGroup().getCompanies());
+						}
+					}
+					
 					return constraint;
 				}
 			}
@@ -536,12 +544,19 @@ public class ConverterFromLegacy {
 
 	private HashSet<Carrier> findCarriers(GTMTool tool, String carrierCode) {
 		
+		
+		
 		HashSet<Carrier> carriers = new HashSet<Carrier>();
-		for (NamedCarrierList carrierList : tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList()) {
-			if (carrierCode.equals(carrierList.getReplacementCode()) ) {
-				carriers.addAll(carrierList.getCarriers());							
+		if (tool != null 
+			&& tool.getConversionFromLegacy() != null 
+			&& tool.getConversionFromLegacy().getParams() != null 
+			&& tool.getConversionFromLegacy().getParams().getNamedCarrierLists() != null ) {
+			for (NamedCarrierList carrierList : tool.getConversionFromLegacy().getParams().getNamedCarrierLists().getNamedCarrierList()) {
+				if (carrierCode.equals(carrierList.getReplacementCode()) ) {
+					carriers.addAll(carrierList.getCarriers());							
+				}
+				return carriers;
 			}
-			return carriers;
 		}
 		
 		Carrier carrier = tool.getCodeLists().getCarriers().findCarrier(carrierCode);

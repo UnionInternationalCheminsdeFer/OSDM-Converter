@@ -64,9 +64,11 @@ public class ProductItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addDataSourcePropertyDescriptor(object);
 			addIdPropertyDescriptor(object);
 			addCodePropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
+			addTypePropertyDescriptor(object);
 			addSummaryPropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
 			addTravelClassPropertyDescriptor(object);
@@ -81,6 +83,28 @@ public class ProductItemProvider
 			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Data Source feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataSourcePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Product_dataSource_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Product_dataSource_feature", "_UI_Product_type"),
+				 GtmPackage.Literals.PRODUCT__DATA_SOURCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -145,6 +169,28 @@ public class ProductItemProvider
 				 false,
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Product_type_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Product_type_feature", "_UI_Product_type"),
+				 GtmPackage.Literals.PRODUCT__TYPE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -458,11 +504,23 @@ public class ProductItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Product)object).getId();
+		Product o = (Product)object;
+		String label = "";
+		if (o.getName() != null) {
+			if (o.getName().getShortTextUTF8() != null) {
+				label = o.getName().getShortTextUTF8();
+			} else if (o.getName().getShortTextICAO() != null) {
+				label = o.getName().getShortTextICAO();
+			} else if (o.getName().getTextUTF8() != null) {
+				label = o.getName().getTextUTF8();
+			} else if (o.getName().getShortTextICAO() != null) {
+				label = o.getName().getTextICAO();
+			} 
+		}
 		return label == null || label.length() == 0 ?
 			getString("_UI_Product_type") :
 			getString("_UI_Product_type") + " " + label;
@@ -481,8 +539,10 @@ public class ProductItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Product.class)) {
+			case GtmPackage.PRODUCT__DATA_SOURCE:
 			case GtmPackage.PRODUCT__ID:
 			case GtmPackage.PRODUCT__CODE:
+			case GtmPackage.PRODUCT__TYPE:
 			case GtmPackage.PRODUCT__TRAVEL_CLASS:
 			case GtmPackage.PRODUCT__RETURN_PRODUCT:
 			case GtmPackage.PRODUCT__TRAIN_BOUND:

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.NamedCarrierList#getName <em>Name</em>}</li>
  *   <li>{@link Gtm.NamedCarrierList#getCarriers <em>Carriers</em>}</li>
  *   <li>{@link Gtm.NamedCarrierList#getReplacementCode <em>Replacement Code</em>}</li>
+ *   <li>{@link Gtm.NamedCarrierList#getCarrierGroup <em>Carrier Group</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getNamedCarrierList()
@@ -80,5 +81,27 @@ public interface NamedCarrierList extends EObject {
 	 * @generated
 	 */
 	void setReplacementCode(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Carrier Group</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Carrier Group</em>' reference.
+	 * @see #setCarrierGroup(CarrierGroup)
+	 * @see Gtm.GtmPackage#getNamedCarrierList_CarrierGroup()
+	 * @model
+	 * @generated
+	 */
+	CarrierGroup getCarrierGroup();
+
+	/**
+	 * Sets the value of the '{@link Gtm.NamedCarrierList#getCarrierGroup <em>Carrier Group</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Carrier Group</em>' reference.
+	 * @see #getCarrierGroup()
+	 * @generated
+	 */
+	void setCarrierGroup(CarrierGroup value);
 
 } // NamedCarrierList

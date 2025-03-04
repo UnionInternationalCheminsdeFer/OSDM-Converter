@@ -128,6 +128,8 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 			case GtmPackage.SALES_RESTRICTION: return createSalesRestriction();
 			case GtmPackage.END_OF_SALE: return createEndOfSale();
 			case GtmPackage.START_OF_SALE: return createStartOfSale();
+			case GtmPackage.CARRIER_GROUPS: return createCarrierGroups();
+			case GtmPackage.CARRIER_GROUP: return createCarrierGroup();
 			case GtmPackage.CARRIER_CONSTRAINTS: return createCarrierConstraints();
 			case GtmPackage.CARRIER_CONSTRAINT: return createCarrierConstraint();
 			case GtmPackage.SERVICE_CONSTRAINTS: return createServiceConstraints();
@@ -1196,6 +1198,26 @@ public class GtmFactoryImpl extends EFactoryImpl implements GtmFactory {
 	public StartOfSale createStartOfSale() {
 		StartOfSaleImpl startOfSale = new StartOfSaleImpl();
 		return startOfSale;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CarrierGroup createCarrierGroup() {
+		CarrierGroupImpl carrierGroup = new CarrierGroupImpl();
+		return carrierGroup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CarrierGroups createCarrierGroups() {
+		CarrierGroupsImpl carrierGroups = new CarrierGroupsImpl();
+		return carrierGroups;
 	}
 
 	/**
