@@ -16,7 +16,7 @@ favicon: favicon.png
 fixed_navbar: top
 
 # Build settings
-remote_theme: chrisrhymes/bulma-clean-theme
+remote_theme: chrisrhymes/bulma-clean-theme@v0.14.0
 
 # Don't publish files in the future
 future: false
