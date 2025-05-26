@@ -2,7 +2,6 @@
  */
 package Gtm.impl;
 
-=======
 import Gtm.AcceptedBarcodes;
 import Gtm.AddCarrierRule;
 import Gtm.AddCarrierRules;
@@ -23,6 +22,8 @@ import Gtm.Calendars;
 import Gtm.Carrier;
 import Gtm.CarrierConstraint;
 import Gtm.CarrierConstraints;
+import Gtm.CarrierGroup;
+import Gtm.CarrierGroups;
 import Gtm.CarrierResourceLocation;
 import Gtm.CarrierResourceLocations;
 import Gtm.Carriers;
@@ -128,6 +129,10 @@ import Gtm.LuggageConstraints;
 import Gtm.LuggageDimension;
 import Gtm.LuggageItemsRestriction;
 import Gtm.LuggageRule;
+import Gtm.MinimalPrice;
+import Gtm.NUTSCodes;
+import Gtm.NamedCarrierList;
+import Gtm.NamedCarrierLists;
 import Gtm.MaximalPrice;
 import Gtm.MinimalPrice;
 import Gtm.NUTSCodes;
@@ -12824,6 +12829,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(characterSetEEnum, CharacterSet.LATINARABIC_ISO88596);
 		addEEnumLiteral(characterSetEEnum, CharacterSet.LATINHEBREW_ISO88598);
 		addEEnumLiteral(characterSetEEnum, CharacterSet.LATIN10_ISO885916);
+		addEEnumLiteral(characterSetEEnum, CharacterSet.WINDOWS_1250);
 
 		initEEnum(clustersEEnum, Clusters.class, "Clusters");
 		addEEnumLiteral(clustersEEnum, Clusters.BUSINESS);

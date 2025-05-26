@@ -1750,6 +1750,7 @@
     <eLiterals name="LATINARABIC_ISO88596" value="13"/>
     <eLiterals name="LATINHEBREW_ISO88598" value="14"/>
     <eLiterals name="LATIN10_ISO885916" value="16" literal="LATIN10_ISO885916"/>
+    <eLiterals name="WINDOWS_1250" value="17" literal="WINDOWS_1250"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Clusters">
     <eLiterals name="BUSINESS"/>
