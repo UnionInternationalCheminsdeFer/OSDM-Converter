@@ -742,7 +742,9 @@ public class GtmUtils {
 			return getCharSet("KOI8_U", editor);
 		} else if (set.equals(CharacterSet.USASCII)) {
 			return StandardCharsets.US_ASCII;
-		} 
+		} else if (set.equals(CharacterSet.WINDOWS_1250)){
+			return getCharSet("windows-1250", editor);
+		}
 		
 		return StandardCharsets.ISO_8859_1;
 	}

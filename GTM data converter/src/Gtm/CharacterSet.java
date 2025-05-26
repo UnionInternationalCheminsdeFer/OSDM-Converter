@@ -164,7 +164,15 @@ public enum CharacterSet implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LATIN10_ISO885916(16, "LATIN10_ISO885916", "LATIN10_ISO885916");
+	LATIN10_ISO885916(16, "LATIN10_ISO885916", "LATIN10_ISO885916"), /**
+	 * The '<em><b>WINDOWS 1250</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WINDOWS_1250_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	WINDOWS_1250(17, "WINDOWS_1250", "WINDOWS_1250");
 
 	/**
 	 * The '<em><b>COUNTRY DEFAULT</b></em>' literal value.
@@ -343,6 +351,17 @@ public enum CharacterSet implements Enumerator {
 	public static final int LATIN10_ISO885916_VALUE = 16;
 
 	/**
+	 * The '<em><b>WINDOWS 1250</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WINDOWS_1250
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int WINDOWS_1250_VALUE = 17;
+
+	/**
 	 * An array of all the '<em><b>Character Set</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -366,6 +385,7 @@ public enum CharacterSet implements Enumerator {
 			LATINARABIC_ISO88596,
 			LATINHEBREW_ISO88598,
 			LATIN10_ISO885916,
+			WINDOWS_1250,
 		};
 
 	/**
@@ -438,6 +458,7 @@ public enum CharacterSet implements Enumerator {
 			case LATINARABIC_ISO88596_VALUE: return LATINARABIC_ISO88596;
 			case LATINHEBREW_ISO88598_VALUE: return LATINHEBREW_ISO88598;
 			case LATIN10_ISO885916_VALUE: return LATIN10_ISO885916;
+			case WINDOWS_1250_VALUE: return WINDOWS_1250;
 		}
 		return null;
 	}

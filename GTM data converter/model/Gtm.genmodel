@@ -110,6 +110,7 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATINARABIC_ISO88596"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATINHEBREW_ISO88598"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/LATIN10_ISO885916"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//CharacterSet/WINDOWS_1250"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//Clusters">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//Clusters/BUSINESS"/>
