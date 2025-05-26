@@ -157,6 +157,11 @@ public class PricesItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GtmPackage.Literals.PRICES__PRICES,
+				 GtmFactory.eINSTANCE.createMaximalPrice()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.PRICES__PRICES,
 				 GtmFactory.eINSTANCE.createMinimalPrice()));
 	}
 

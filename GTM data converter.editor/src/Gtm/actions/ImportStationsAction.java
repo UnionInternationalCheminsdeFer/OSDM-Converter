@@ -62,11 +62,11 @@ public class ImportStationsAction extends BasicGtmAction {
 
 		protected void run (IStructuredSelection structuredSelection) {
 			
-			GTMTool tool = GtmUtils.getGtmTool();
+			final GTMTool tool = GtmUtils.getGtmTool();
 			
-			GtmEditor editor = GtmUtils.getActiveEditor(); 
+			final GtmEditor editor = GtmUtils.getActiveEditor(); 
 			
-			EditingDomain domain = GtmUtils.getActiveDomain();
+			final EditingDomain domain = GtmUtils.getActiveDomain();
 			if (domain == null) return;
 			
 			if (tool == null) {
@@ -78,7 +78,7 @@ public class ImportStationsAction extends BasicGtmAction {
 			
 			
 			
-			BufferedReader reader = getReader(NationalLanguageSupport.ImportStationsAction_10);
+			final BufferedReader reader = getReader(NationalLanguageSupport.ImportStationsAction_10);
 			
 			if (reader == null) return;
 
@@ -128,10 +128,8 @@ public class ImportStationsAction extends BasicGtmAction {
 						
 						if (importedStations.isEmpty()) {
 							
-							String message = "No stations contained in import file - No changes made";
-							editor.getSite().getShell().getDisplay().asyncExec(() -> {
-								GtmUtils.writeConsoleError(message, editor);
-							});			
+							final String message = "No stations contained in import file - No changes made";
+							GtmUtils.writeConsoleError(message, editor);
 							GtmUtils.addWorkflowStep("Import of stations abandoned", editor);
 							monitor.done();
 							return;
@@ -201,10 +199,8 @@ public class ImportStationsAction extends BasicGtmAction {
 						monitor.worked(1000);
 						
 					} catch (IOException e) {
-						String message = NationalLanguageSupport.ImportStationsAction_22 + " - " + e.getMessage();
-						editor.getSite().getShell().getDisplay().asyncExec(() -> {
-							GtmUtils.writeConsoleError(message, editor);
-						});
+						final String message = NationalLanguageSupport.ImportStationsAction_22 + " - " + e.getMessage();
+						GtmUtils.writeConsoleError(message, editor);
 					} catch (Exception e) {
 						String message = NationalLanguageSupport.ImportStationsAction_23  + " - " + e.getMessage();
 						GtmUtils.writeConsoleError(message, editor);

@@ -86,7 +86,7 @@ public class MigrationV2 {
 	 * @param domain the domain
 	 * @param editor the editor
 	 */
-	private static void runMigration(EditingDomain domain, GtmEditor editor) {
+	private static void runMigration(final EditingDomain domain, GtmEditor editor) {
 		
 		Resource resource = domain.getResourceSet().getResources().get(0);
 	   	

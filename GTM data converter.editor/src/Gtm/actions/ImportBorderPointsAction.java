@@ -43,11 +43,11 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 
 	protected void run (IStructuredSelection structuredSelection) {
 		
-		GTMTool tool = GtmUtils.getGtmTool();
+		final GTMTool tool = GtmUtils.getGtmTool();
 		
-		GtmEditor editor = GtmUtils.getActiveEditor(); 
+		final GtmEditor editor = GtmUtils.getActiveEditor(); 
 		
-		EditingDomain domain = GtmUtils.getActiveDomain();
+		final EditingDomain domain = GtmUtils.getActiveDomain();
 		if (domain == null) return;
 		
 		if (tool == null) {
@@ -74,7 +74,7 @@ public class ImportBorderPointsAction extends ImportCsvDataAction {
 			return;
 		}		
 		
-		BufferedReader br = super.getReader(NationalLanguageSupport.ImportBorderPointsAction_4);
+		final BufferedReader br = super.getReader(NationalLanguageSupport.ImportBorderPointsAction_4);
 		
 		if (br == null) return;
 

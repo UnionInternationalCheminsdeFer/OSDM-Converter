@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link Gtm.impl.ProductImpl#getRefundableBeforeValidity <em>Refundable Before Validity</em>}</li>
  *   <li>{@link Gtm.impl.ProductImpl#getExchangeableAfterValidity <em>Exchangeable After Validity</em>}</li>
  *   <li>{@link Gtm.impl.ProductImpl#getExchangeableBeforeValidity <em>Exchangeable Before Validity</em>}</li>
+ *   <li>{@link Gtm.impl.ProductImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -335,6 +336,26 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 	 * @ordered
 	 */
 	protected Boolean exchangeableBeforeValidity = EXCHANGEABLE_BEFORE_VALIDITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProductType TYPE_EDEFAULT = ProductType.ADMISSION_POINT2POINT;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProductType type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -793,6 +814,27 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ProductType getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setType(ProductType newType) {
+		ProductType oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GtmPackage.PRODUCT__TYPE, oldType, type));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -849,6 +891,8 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 				return getExchangeableAfterValidity();
 			case GtmPackage.PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY:
 				return getExchangeableBeforeValidity();
+			case GtmPackage.PRODUCT__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -914,6 +958,9 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 			case GtmPackage.PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY:
 				setExchangeableBeforeValidity((Boolean)newValue);
 				return;
+			case GtmPackage.PRODUCT__TYPE:
+				setType((ProductType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -977,6 +1024,9 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 			case GtmPackage.PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY:
 				setExchangeableBeforeValidity(EXCHANGEABLE_BEFORE_VALIDITY_EDEFAULT);
 				return;
+			case GtmPackage.PRODUCT__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1023,6 +1073,8 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 				return EXCHANGEABLE_AFTER_VALIDITY_EDEFAULT == null ? exchangeableAfterValidity != null : !EXCHANGEABLE_AFTER_VALIDITY_EDEFAULT.equals(exchangeableAfterValidity);
 			case GtmPackage.PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY:
 				return EXCHANGEABLE_BEFORE_VALIDITY_EDEFAULT == null ? exchangeableBeforeValidity != null : !EXCHANGEABLE_BEFORE_VALIDITY_EDEFAULT.equals(exchangeableBeforeValidity);
+			case GtmPackage.PRODUCT__TYPE:
+				return type != TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1059,6 +1111,8 @@ public class ProductImpl extends MinimalEObjectImpl.Container implements Product
 		result.append(exchangeableAfterValidity);
 		result.append(", exchangeableBeforeValidity: ");
 		result.append(exchangeableBeforeValidity);
+		result.append(", type: ");
+		result.append(type);
 		result.append(')');
 		return result.toString();
 	}

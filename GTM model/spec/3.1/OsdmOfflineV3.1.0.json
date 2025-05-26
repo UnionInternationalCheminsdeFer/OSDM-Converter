@@ -1,6 +1,6 @@
 {
-	"$schema": "https://json-schema.org/draft/2019-09/hyper-schema",
-	"$id": "http://uic.org//schemas/passenger/eticket/v2/offlineOSDM.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "http://uic.org//schemas/passenger/eticket/v3/offlineOSDM.json",
 	"title": "OSDM Offline Fare Delivery",
 	"description": "OSDM extract of offline fare delivery",
 	"type": "object",
@@ -784,11 +784,6 @@
 					"type": "boolean",
 					"default": false
 				},
-				"isAllocatorFee": {
-					"description": "indicates that the fee belongs to the allocator --> replaced by isCarrierFee",
-					"type": "boolean",
-					"default": false
-				},				
 				"individualContracts": {
 					"description": "indicates that the after sales of this fare can be treated independently per person.",
 					"type": "boolean",
@@ -976,7 +971,8 @@
 					"required": [
 						"carrier",
 						"code"
-					]
+					],
+					"additionalProperties": false
 				},
 				"routeValidityType": {
 					"description": "Indiction of the type of validity for a route. In case of LINE validity (Default) the described lines are allowed for travel. In case of BUBBLE it is additionally allowed to travel on all routes inbetween the defined lines.",
@@ -992,20 +988,21 @@
 					"type": "boolean",
 					"default": false
 				},
-                "technicalViaOnly": {
-					"description": "indicates that the via station is included to support the alignment with time tables but is not part of the contractual route provided to the passenger.",
-					"type": "boolean",
-					"default": false
-				}
-			}
+        "technicalViaOnly": {
+          "description": "this via station is used to support the alignment with time tables but is not part of the contractual route provided to the passenger.",
+          "type": "boolean",
+          "default": false
+        }
+			},
+			"additionalProperties": false
 		},
 		"ZoneDef": {
 			"description": "carrier - carrier responsible for the transport. entryStation - Station to enter the zone in case the product requires to enter the zone via a specific station (e.g. local zone ticket to start from the main rail station). terminalStation - Terminal station in case the product requires a destination within the zone (e.g. local ticket to go to the main rail station).",
 			"type": "object",
 			"properties": {
 				"name": {
-				    "description": "Name of the zone to be used in descriptions for the regional validity.",
-				    "type": "string"				          
+				        "description": "Name of the zone to be used in descriptions for the regional validity.",
+				        "type": "string"				          
 				},
 				"binaryZoneId": {
 					"description": "Id to support local traffic standards (e.g. VDV,...)",
@@ -2526,6 +2523,9 @@
 					"description": "Summary of the product.",
 					"$ref": "#/definitions/TextDef"
 				},
+				"type": {
+      				       "$ref": "#/definitions/ProductType"
+      			},
 				"description": {
 					"description": "Detailed description of the product.",
 					"$ref": "#/definitions/TextDef"
@@ -2602,6 +2602,22 @@
 				"REFUND",
 				"TRAVEL"
 			]
-		}
+		},
+		"ProductType": {
+		      "description": "General product types harmonized across fare providers. (More to be added, use null for types not listed yet.)",
+		      "type": "string",
+		      "x-extensible-enum": [
+		        "ADMISSION_PASS",
+		        "ADMISSION_MULTI_RIDE",
+		        "ADMISSION_POINT2POINT",
+		        "UPGRADE_PASS",
+		        "UPGRADE_MULTI_RIDE",
+		        "UPGRADE_POINT2POINT",        
+		        "RESERVATION",      
+		        "ANCILLARY_SERVICE",   
+                "ANCILLARY_ITEM", 
+                "REDUCTION_CARD"
+                        ]
+                 }
 	}
 }

@@ -284,6 +284,11 @@ public class AfterSalesConditionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GtmPackage.Literals.AFTER_SALES_CONDITION__FEE,
+				 GtmFactory.eINSTANCE.createMaximalPrice()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.AFTER_SALES_CONDITION__FEE,
 				 GtmFactory.eINSTANCE.createMinimalPrice()));
 
 		newChildDescriptors.add

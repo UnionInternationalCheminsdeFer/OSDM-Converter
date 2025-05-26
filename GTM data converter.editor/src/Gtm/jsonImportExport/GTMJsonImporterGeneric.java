@@ -92,6 +92,7 @@ import gtmV35.ViaStationsDef;
 import gtmV35.ZoneDef;
 import gtmV35.ZoneDefinitionDef;
 
+
 public class GTMJsonImporterGeneric {
 	
 	private HashMap<Long,Station> stations = null;	
@@ -253,6 +254,8 @@ public class GTMJsonImporterGeneric {
 		
 		fareStructure.setTotalPassengerCombinationConstraints(convertTotalPassengerConstraints(fareDataDef.getPassengerCombinationConstraints()));
 		
+		fareStructure.setProducts(convertProducts(fareDataDef.getProducts()));
+				
 		fareStructure.setFareConstraintBundles(convertFareConstraintBundles(fareDataDef.getFareConstraintBundles()));
 
 		fareStructure.setLuggageConstraints(convertLuggageConstraints(fareDataDef.getLuggageConstraints()));
@@ -267,7 +270,6 @@ public class GTMJsonImporterGeneric {
 		return fareStructure;
 	}
 	
-
 	private Products convertProductList(List<gtmV35.Product> products) {
 		if (products == null || products.isEmpty()) {
 			return null;
@@ -428,6 +430,50 @@ public class GTMJsonImporterGeneric {
 		return to;
 		
 	}
+
+	private Products convertProducts(List<Product> products) {
+		
+		if (products == null || products.isEmpty()) return null;
+		
+		Products ps = GtmFactory.eINSTANCE.createProducts();
+		
+		for (Product p : products) {
+			
+			Gtm.Product gtmP = GtmFactory.eINSTANCE.createProduct();
+			
+			gtmP.setCarrierConstraintText(convertText(p.getCarrierConstraintText()));
+			gtmP.setCode(p.getCode());
+			gtmP.setDescription(convertText(p.getDescription()));
+			gtmP.setExchangeableAfterValidity(p.getIsExchangeableAfterValidity());
+			gtmP.setExchangeableBeforeValidity(p.getIsExchangeablebeforeValidity());
+			gtmP.setId(p.getId());
+			gtmP.setName(convertText(p.getName()));
+			gtmP.setRefundableAfterValidity(p.getIsRefundableAfterValidity());
+			gtmP.setRefundableBeforeValidity(p.getIsRefundableBeforeValidity());
+			gtmP.setReturnProduct(p.getIsReturnProduct());
+			gtmP.setServiceConstraintText(convertText(p.getServiceConstraintText()));
+			gtmP.setSummary(convertText(p.getSummary()));
+			gtmP.setTrainBound(p.getIsTrainBound());
+			gtmP.setTravelClass(convertTravelClass(p.getTravelClass()));
+			gtmP.setType(ProductType.get(p.getType()));		
+			
+			ps.getProducts().add(gtmP);
+			
+		}
+
+		return ps;
+	}
+
+
+	private Text convertText(TextDef carrierConstraintText) {
+		
+		Text newText = convert(carrierConstraintText);
+		
+		tool.getGeneralTariffModel().getFareStructure().getTexts().getTexts().add(newText);
+		
+		return newText;
+	}
+
 
 	private LuggageConstraints convertLuggageConstraints(List<LuggageConstraint> luggageConstraints) {
 		if (luggageConstraints == null || luggageConstraints.isEmpty()) {
@@ -2775,7 +2821,7 @@ public class GTMJsonImporterGeneric {
 		c.setFee(prices.get(jr.getFeeRef()));
 		c.setCarrierFee(jr.getIsCarrierFee());
 		//old formats use allocatorFee
-		if (!jr.getIsCarrierFee() && !jr.getIsAllocatorFee() ) {
+		if (!jr.getIsCarrierFee() ) {
 			c.setCarrierFee(true);
 		};
 		c.setIndividualContracts(jr.getIndividualContracts());

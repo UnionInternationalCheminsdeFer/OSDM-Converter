@@ -56,9 +56,9 @@ public class ExportLegacyAction extends BasicGtmAction {
 		
 		protected void run (IStructuredSelection structuredSelection) {
 			
-			GTMTool tool = GtmUtils.getGtmTool();
+			final GTMTool tool = GtmUtils.getGtmTool();
 			
-			GtmEditor editor = GtmUtils.getActiveEditor();
+			final GtmEditor editor = GtmUtils.getActiveEditor();
 			
 			if (tool == null) {
 				MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
@@ -77,7 +77,7 @@ public class ExportLegacyAction extends BasicGtmAction {
 			Path path =  getPath(NationalLanguageSupport.ExportLegacyAction_2);
 			if (path == null) return;
 			
-			LegacyExporter exporter = new LegacyExporter(tool, path, editor);
+			final LegacyExporter exporter = new LegacyExporter(tool, path, editor);
 
 			
 			IRunnableWithProgress operation =	new IRunnableWithProgress() {

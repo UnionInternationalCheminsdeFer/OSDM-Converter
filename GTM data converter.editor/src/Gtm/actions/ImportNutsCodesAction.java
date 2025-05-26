@@ -39,11 +39,11 @@ public class ImportNutsCodesAction extends ImportCsvDataAction {
 	
 	protected void run (IStructuredSelection structuredSelection) {
 		
-		GTMTool tool = GtmUtils.getGtmTool();
+		final GTMTool tool = GtmUtils.getGtmTool();
 		
-		GtmEditor editor = GtmUtils.getActiveEditor(); 
+		final GtmEditor editor = GtmUtils.getActiveEditor(); 
 		
-		EditingDomain domain = GtmUtils.getActiveDomain();
+		final EditingDomain domain = GtmUtils.getActiveDomain();
 		if (domain == null) return;
 		
 		if (tool == null) {
@@ -53,7 +53,7 @@ public class ImportNutsCodesAction extends ImportCsvDataAction {
 			return;
 		}
 		
-		BufferedReader br = super.getReader(NationalLanguageSupport.ImportNutsCodesAction_4);
+		final BufferedReader br = super.getReader(NationalLanguageSupport.ImportNutsCodesAction_4);
 		
 		if (br == null) return;
 

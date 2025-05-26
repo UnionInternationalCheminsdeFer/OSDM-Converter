@@ -98,11 +98,11 @@ public class ViaStationsDef {
     @JsonPropertyDescription("indicates that the station must be a real stop. In case a service passes the station but does not stop there the fare is not valid. Default is false. ")
     private Boolean stop = false;
     /**
-     * indicates that the via station is included to support the alignment with time tables but is not part of the contractual route provided to the passenger.
+     * this via station is used to support the alignment with time tables but is not part of the contractual route provided to the passenger.
      * 
      */
     @JsonProperty("technicalViaOnly")
-    @JsonPropertyDescription("indicates that the via station is included to support the alignment with time tables but is not part of the contractual route provided to the passenger.")
+    @JsonPropertyDescription("this via station is used to support the alignment with time tables but is not part of the contractual route provided to the passenger.")
     private Boolean technicalViaOnly = false;
 
     @JsonProperty("isBorder")
@@ -300,7 +300,7 @@ public class ViaStationsDef {
     }
 
     /**
-     * indicates that the via station is included to support the alignment with time tables but is not part of the contractual route provided to the passenger.
+     * this via station is used to support the alignment with time tables but is not part of the contractual route provided to the passenger.
      * 
      */
     @JsonProperty("technicalViaOnly")
@@ -309,7 +309,7 @@ public class ViaStationsDef {
     }
 
     /**
-     * indicates that the via station is included to support the alignment with time tables but is not part of the contractual route provided to the passenger.
+     * this via station is used to support the alignment with time tables but is not part of the contractual route provided to the passenger.
      * 
      */
     @JsonProperty("technicalViaOnly")

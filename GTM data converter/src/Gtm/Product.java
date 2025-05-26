@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link Gtm.Product#getRefundableBeforeValidity <em>Refundable Before Validity</em>}</li>
  *   <li>{@link Gtm.Product#getExchangeableAfterValidity <em>Exchangeable After Validity</em>}</li>
  *   <li>{@link Gtm.Product#getExchangeableBeforeValidity <em>Exchangeable Before Validity</em>}</li>
+ *   <li>{@link Gtm.Product#getType <em>Type</em>}</li>
  * </ul>
  *
  * @see Gtm.GtmPackage#getProduct()
@@ -411,5 +412,30 @@ public interface Product extends EObject {
 	 * @generated
 	 */
 	void setExchangeableBeforeValidity(Boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link Gtm.ProductType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see Gtm.ProductType
+	 * @see #setType(ProductType)
+	 * @see Gtm.GtmPackage#getProduct_Type()
+	 * @model
+	 * @generated
+	 */
+	ProductType getType();
+
+	/**
+	 * Sets the value of the '{@link Gtm.Product#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see Gtm.ProductType
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(ProductType value);
 
 } // Product

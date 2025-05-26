@@ -680,6 +680,7 @@ public class FareTemplateItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GtmPackage.Literals.FARE_TEMPLATE__MINIMAL_PRICE);
+			childrenFeatures.add(GtmPackage.Literals.FARE_TEMPLATE__MAXIMAL_PRICE);
 			childrenFeatures.add(GtmPackage.Literals.FARE_TEMPLATE__AFTER_SALES_TEMPLATE);
 			childrenFeatures.add(GtmPackage.Literals.FARE_TEMPLATE__LEGACY_ACCOUNTING_IDENTIFIER);
 		}
@@ -751,6 +752,7 @@ public class FareTemplateItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.FARE_TEMPLATE__MINIMAL_PRICE:
+			case GtmPackage.FARE_TEMPLATE__MAXIMAL_PRICE:
 			case GtmPackage.FARE_TEMPLATE__AFTER_SALES_TEMPLATE:
 			case GtmPackage.FARE_TEMPLATE__LEGACY_ACCOUNTING_IDENTIFIER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -774,6 +776,11 @@ public class FareTemplateItemProvider
 			(createChildParameter
 				(GtmPackage.Literals.FARE_TEMPLATE__MINIMAL_PRICE,
 				 GtmFactory.eINSTANCE.createMinimalPrice()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GtmPackage.Literals.FARE_TEMPLATE__MAXIMAL_PRICE,
+				 GtmFactory.eINSTANCE.createMaximalPrice()));
 
 		newChildDescriptors.add
 			(createChildParameter

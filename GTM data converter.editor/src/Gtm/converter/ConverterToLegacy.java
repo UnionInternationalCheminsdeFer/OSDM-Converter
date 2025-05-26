@@ -2730,6 +2730,11 @@ public class 	ConverterToLegacy {
 			NonConvertableFaresCounter.addOtherReason();
 			return false;
 		}
+		
+		if (fare.getRegionalConstraint() == null) {
+			return false;
+		}
+		
 		//use one direction only
 		if (isReversedSeries(fare.getRegionalConstraint())) {
 			NonConvertableFaresCounter.addReturnDirection();
@@ -2892,6 +2897,14 @@ public class 	ConverterToLegacy {
 	 * @return true, if is reversed series
 	 */
 	private boolean isReversedSeries(RegionalConstraint regionalConstraint) {
+		
+		if (regionalConstraint == null ||
+			regionalConstraint.getRegionalValidity() == null ||
+			regionalConstraint.getRegionalValidity().isEmpty() ||
+			regionalConstraint.getRegionalValidity().get(0).getViaStation() == null) {
+			return false;
+		}
+		
 
 		ViaStation via = regionalConstraint.getRegionalValidity().get(0).getViaStation();	
 		
@@ -2919,6 +2932,8 @@ public class 	ConverterToLegacy {
 		
 		Legacy108Station first = getFirstLegacyStation(via, regionalConstraint.getEntryConnectionPoint());
 		Legacy108Station last = getLastLegacyStation(via, regionalConstraint.getEntryConnectionPoint());
+		
+		if (first == null || last == null) return false;
 		
 		startName = first.getName();
 		endName = last.getName();

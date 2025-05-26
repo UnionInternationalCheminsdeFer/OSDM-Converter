@@ -42,7 +42,7 @@ public class ImportLegacy108Action extends BasicGtmAction {
 		
 		EditingDomain domain = GtmUtils.getActiveDomain();
 		
-		GtmEditor editor = GtmUtils.getActiveEditor(); 
+		final GtmEditor editor = GtmUtils.getActiveEditor(); 
 		
 		if (tool == null) {
 			MessageBox dialog =  new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR | SWT.OK);
@@ -70,10 +70,10 @@ public class ImportLegacy108Action extends BasicGtmAction {
         
         if (path == null || path.length() < 7 ) return;
         
-        File file = new File(path);
+        final File file = new File(path);
         
 		
-		LegacyImporter importer = new LegacyImporter(GtmUtils.getGtmTool(), file.toPath(), domain, editor);
+		final LegacyImporter importer = new LegacyImporter(GtmUtils.getGtmTool(), file.toPath(), domain, editor);
 		
 
 		IRunnableWithProgress operation =	new IRunnableWithProgress() {
