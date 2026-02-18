@@ -1144,7 +1144,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="exchangeableBeforeValidity"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//BooleanObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ProductType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConditionText">
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" lowerBound="1" eType="#//Text"/>

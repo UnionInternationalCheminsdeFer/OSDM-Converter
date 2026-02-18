@@ -129,13 +129,11 @@ import Gtm.LuggageConstraints;
 import Gtm.LuggageDimension;
 import Gtm.LuggageItemsRestriction;
 import Gtm.LuggageRule;
+import Gtm.MaximalPrice;
 import Gtm.MinimalPrice;
 import Gtm.NUTSCodes;
 import Gtm.NamedCarrierList;
 import Gtm.NamedCarrierLists;
-import Gtm.MaximalPrice;
-import Gtm.MinimalPrice;
-import Gtm.NUTSCodes;
 import Gtm.NutsCode;
 import Gtm.OfferRequestType;
 import Gtm.OnBorderStations;
@@ -238,10 +236,11 @@ import Gtm.WorkflowStep;
 import Gtm.Zone;
 import Gtm.ZoneDefinition;
 import Gtm.ZoneDefinitions;
-import Gtm.*;
+
 import Gtm.util.GtmValidator;
 
 import java.util.Date;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -512,6 +511,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass carrierResourceLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass onlineResourceEClass = null;
 
 	/**
@@ -618,13 +624,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EClass legacyAccountingIdentifierEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass reductionConstraintsEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -757,13 +756,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass carrierGroupEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass carrierGroupsEClass = null;
 
 	/**
@@ -771,14 +763,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass reductionCardsEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass reductionCardEClass = null;
+	private EClass carrierGroupEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1072,13 +1057,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass carrierResourceLocationEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass crossBorderConditionEClass = null;
 
 	/**
@@ -1114,7 +1092,28 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass reductionConstraintsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass reductionConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass reductionCardsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass reductionCardEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1212,6 +1211,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass legacyFareTemplatesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass fareTemplateEClass = null;
 
 	/**
@@ -1240,6 +1246,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass onBorderStationsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass legacyStationToServiceConstraintMappingsEClass = null;
 
 	/**
@@ -1248,13 +1261,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EClass legacyBorderPointEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass onBorderStationsEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1485,14 +1491,7 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum boardingOrArrivalEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum conditionTypeEEnum = null;
+	private EEnum addCarrierScopeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1513,7 +1512,14 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum addCarrierScopeEEnum = null;
+	private EEnum boardingOrArrivalEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum conditionTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1521,27 +1527,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum transportModeEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass legacyFareTemplatesEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum stationRelationTypeEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum stationFareDetailTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1569,7 +1554,21 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum basePriceClassTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum classicClassTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum classIdEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1598,6 +1597,20 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum controlDataExchangeTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum dataSourceEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum dataTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1633,6 +1646,13 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EEnum graphicalReservationTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum genericReductionCardsEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1758,7 +1778,35 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum roundingTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum stationRelationTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum stationFareDetailTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum schemaVersionEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum serviceModeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1842,13 +1890,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum basePriceClassTypeEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EDataType dateAsDateEDataType = null;
 
 	/**
@@ -1857,48 +1898,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * @generated
 	 */
 	private EDataType dateAsDateTimeEDataType = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum dataSourceEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum dataTypeEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum classIdEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum genericReductionCardsEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum serviceModeEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum roundingTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1918,7 +1917,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	private GtmPackageImpl() {
 		super(eNS_URI, GtmFactory.eINSTANCE);
 	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3490,6 +3488,42 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCarrierResourceLocation() {
+		return carrierResourceLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCarrierResourceLocation_Carrier() {
+		return (EReference)carrierResourceLocationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCarrierResourceLocation_ServiceBrand() {
+		return (EReference)carrierResourceLocationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCarrierResourceLocation_OnlineResources() {
+		return (EReference)carrierResourceLocationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOnlineResource() {
 		return onlineResourceEClass;
 	}
@@ -4372,24 +4406,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getReductionConstraints() {
-		return reductionConstraintsEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReductionConstraints_ReductionConstraints() {
-		return (EReference)reductionConstraintsEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getPersonalDataConstraints() {
 		return personalDataConstraintsEClass;
 	}
@@ -5101,6 +5117,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCarrierGroups() {
+		return carrierGroupsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCarrierGroups_CarrierGroups() {
+		return (EReference)carrierGroupsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCarrierGroup() {
 		return carrierGroupEClass;
 	}
@@ -5166,123 +5200,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getCarrierGroup_Companies() {
 		return (EReference)carrierGroupEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getCarrierGroups() {
-		return carrierGroupsEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCarrierGroups_CarrierGroups() {
-		return (EReference)carrierGroupsEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getReductionCards() {
-		return reductionCardsEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReductionCards_ReductionCards() {
-		return (EReference)reductionCardsEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getReductionCard() {
-		return reductionCardEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReductionCard_Id() {
-		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReductionCard_ShortCode() {
-		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReductionCard_CardIssuer() {
-		return (EReference)reductionCardEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReductionCard_Name() {
-		return (EReference)reductionCardEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReductionCard_ServiceClasses() {
-		return (EReference)reductionCardEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReductionCard_IdRequiredForBooking() {
-		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getReductionCard_IncludedReductionCards() {
-		return (EReference)reductionCardEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReductionCard_UicCode() {
-		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -7063,42 +6980,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCarrierResourceLocation() {
-		return carrierResourceLocationEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCarrierResourceLocation_Carrier() {
-		return (EReference)carrierResourceLocationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCarrierResourceLocation_ServiceBrand() {
-		return (EReference)carrierResourceLocationEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCarrierResourceLocation_OnlineResources() {
-		return (EReference)carrierResourceLocationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getCrossBorderCondition() {
 		return crossBorderConditionEClass;
 	}
@@ -7387,15 +7268,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProduct_Type() {
-		return (EAttribute)productEClass.getEStructuralFeatures().get(15);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getConditionText() {
 		return conditionTextEClass;
 	}
@@ -7423,6 +7295,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getReductionConstraints() {
+		return reductionConstraintsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReductionConstraints_ReductionConstraints() {
+		return (EReference)reductionConstraintsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getReductionConstraint() {
 		return reductionConstraintEClass;
 	}
@@ -7443,6 +7333,105 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EReference getReductionConstraint_RequiredReductionCards() {
 		return (EReference)reductionConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReductionCards() {
+		return reductionCardsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReductionCards_ReductionCards() {
+		return (EReference)reductionCardsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReductionCard() {
+		return reductionCardEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReductionCard_Id() {
+		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReductionCard_ShortCode() {
+		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReductionCard_CardIssuer() {
+		return (EReference)reductionCardEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReductionCard_Name() {
+		return (EReference)reductionCardEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReductionCard_ServiceClasses() {
+		return (EReference)reductionCardEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReductionCard_IdRequiredForBooking() {
+		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReductionCard_IncludedReductionCards() {
+		return (EReference)reductionCardEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReductionCard_UicCode() {
+		return (EAttribute)reductionCardEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -8017,6 +8006,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLegacyFareTemplates() {
+		return legacyFareTemplatesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLegacyFareTemplates_FareTemplates() {
+		return (EReference)legacyFareTemplatesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFareTemplate() {
 		return fareTemplateEClass;
 	}
@@ -8413,6 +8420,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getOnBorderStations() {
+		return onBorderStationsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOnBorderStations_Stations() {
+		return (EReference)onBorderStationsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLegacyStationToServiceConstraintMappings() {
 		return legacyStationToServiceConstraintMappingsEClass;
 	}
@@ -8496,24 +8521,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EAttribute getLegacyBorderPoint_DataDescription() {
 		return (EAttribute)legacyBorderPointEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getOnBorderStations() {
-		return onBorderStationsEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getOnBorderStations_Stations() {
-		return (EReference)onBorderStationsEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -9907,17 +9914,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getBoardingOrArrival() {
-		return boardingOrArrivalEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getConditionType() {
-		return conditionTypeEEnum;
+	public EEnum getAddCarrierScope() {
+		return addCarrierScopeEEnum;
 	}
 
 	/**
@@ -9943,8 +9941,17 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getAddCarrierScope() {
-		return addCarrierScopeEEnum;
+	public EEnum getBoardingOrArrival() {
+		return boardingOrArrivalEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getConditionType() {
+		return conditionTypeEEnum;
 	}
 
 	/**
@@ -9954,42 +9961,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EEnum getTransportMode() {
 		return transportModeEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getLegacyFareTemplates() {
-		return legacyFareTemplatesEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getLegacyFareTemplates_FareTemplates() {
-		return (EReference)legacyFareTemplatesEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getStationRelationType() {
-		return stationRelationTypeEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getStationFareDetailType() {
-		return stationFareDetailTypeEEnum;
 	}
 
 	/**
@@ -10024,8 +9995,26 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getBasePriceClassType() {
+		return basePriceClassTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getClassicClassType() {
 		return classicClassTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getClassId() {
+		return classIdEEnum;
 	}
 
 	/**
@@ -10062,6 +10051,24 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EEnum getControlDataExchangeTypes() {
 		return controlDataExchangeTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getDataSource() {
+		return dataSourceEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getDataType() {
+		return dataTypeEEnum;
 	}
 
 	/**
@@ -10107,6 +10114,15 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EEnum getGraphicalReservationType() {
 		return graphicalReservationTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getGenericReductionCards() {
+		return genericReductionCardsEEnum;
 	}
 
 	/**
@@ -10267,8 +10283,44 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getRoundingType() {
+		return roundingTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getStationRelationType() {
+		return stationRelationTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getStationFareDetailType() {
+		return stationFareDetailTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getSchemaVersion() {
 		return schemaVersionEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getServiceMode() {
+		return serviceModeEEnum;
 	}
 
 	/**
@@ -10375,15 +10427,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getBasePriceClassType() {
-		return basePriceClassTypeEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EDataType getDateAsDate() {
 		return dateAsDateEDataType;
 	}
@@ -10395,60 +10438,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 	 */
 	public EDataType getDateAsDateTime() {
 		return dateAsDateTimeEDataType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getDataSource() {
-		return dataSourceEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getDataType() {
-		return dataTypeEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getClassId() {
-		return classIdEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getGenericReductionCards() {
-		return genericReductionCardsEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getServiceMode() {
-		return serviceModeEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getRoundingType() {
-		return roundingTypeEEnum;
 	}
 
 	/**
@@ -11183,7 +11172,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		createEAttribute(productEClass, PRODUCT__REFUNDABLE_BEFORE_VALIDITY);
 		createEAttribute(productEClass, PRODUCT__EXCHANGEABLE_AFTER_VALIDITY);
 		createEAttribute(productEClass, PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY);
-		createEAttribute(productEClass, PRODUCT__TYPE);
 
 		conditionTextEClass = createEClass(CONDITION_TEXT);
 		createEReference(conditionTextEClass, CONDITION_TEXT__TEXT);
@@ -12364,7 +12352,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		initEAttribute(getProduct_RefundableBeforeValidity(), theXMLTypePackage.getBooleanObject(), "refundableBeforeValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProduct_ExchangeableAfterValidity(), theXMLTypePackage.getBooleanObject(), "exchangeableAfterValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProduct_ExchangeableBeforeValidity(), theXMLTypePackage.getBooleanObject(), "exchangeableBeforeValidity", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProduct_Type(), this.getProductType(), "type", null, 0, 1, Product.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(conditionTextEClass, ConditionText.class, "ConditionText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConditionText_Text(), this.getText(), null, "text", null, 1, 1, ConditionText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -13001,7 +12988,6 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(personalDataChangeReasonEEnum, PersonalDataChangeReason.AGENT_ERROR);
 
 		initEEnum(productTypeEEnum, ProductType.class, "ProductType");
-
 		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_PASS);
 		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_MULTI_RIDE);
 		addEEnumLiteral(productTypeEEnum, ProductType.ADMISSION_POINT2POINT);

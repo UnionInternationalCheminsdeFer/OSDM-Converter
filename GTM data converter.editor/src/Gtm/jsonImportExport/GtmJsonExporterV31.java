@@ -333,35 +333,7 @@ public class GtmJsonExporterV31 {
 
 
 
-	private List<Product> convertProducts(Products products) {
-		
-		List<Product> pl = new ArrayList<Product>();
-		
-		for (Gtm.Product pm : products.getProducts()) {
-			
-			Product p = new Product();
-			
-			p.setCarrierConstraintText(convertToJson(pm.getCarrierConstraintText()));
-			p.setCode(pm.getCode());
-			p.setDescription(convertToJson(pm.getDescription()));
-			p.setIsExchangeableAfterValidity(pm.getExchangeableAfterValidity());
-			p.setIsExchangeablebeforeValidity(pm.getExchangeableBeforeValidity());
-			p.setIsRefundableAfterValidity(pm.getRefundableAfterValidity());
-			p.setIsRefundableBeforeValidity(pm.getRefundableBeforeValidity());
-			p.setIsReturnProduct(pm.getReturnProduct());
-			p.setIsTrainBound(pm.getTrainBound());
-			p.setName(convertToJson(pm.getName()));
-			p.setServiceConstraintText(convertToJson(pm.getServiceConstraintText()));
-			p.setTravelClass(convertTravelClass(pm.getTravelClass()));
-			p.setType(pm.getType().getLiteral());
-			
-			pl.add(p);
-	
-		}
-		
 
-		return pl;
-	}
 
 
 

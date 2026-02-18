@@ -337,6 +337,15 @@ public interface GtmFactory extends EFactory {
 	StationResourceLocation createStationResourceLocation();
 
 	/**
+	 * Returns a new object of class '<em>Carrier Resource Location</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Carrier Resource Location</em>'.
+	 * @generated
+	 */
+	CarrierResourceLocation createCarrierResourceLocation();
+
+	/**
 	 * Returns a new object of class '<em>Online Resource</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -479,15 +488,6 @@ public interface GtmFactory extends EFactory {
 	 * @generated
 	 */
 	LegacyAccountingIdentifier createLegacyAccountingIdentifier();
-
-	/**
-	 * Returns a new object of class '<em>Reduction Constraints</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Reduction Constraints</em>'.
-	 * @generated
-	 */
-	ReductionConstraints createReductionConstraints();
 
 	/**
 	 * Returns a new object of class '<em>Personal Data Constraints</em>'.
@@ -652,15 +652,6 @@ public interface GtmFactory extends EFactory {
 	StartOfSale createStartOfSale();
 
 	/**
-	 * Returns a new object of class '<em>Carrier Group</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Carrier Group</em>'.
-	 * @generated
-	 */
-	CarrierGroup createCarrierGroup();
-
-	/**
 	 * Returns a new object of class '<em>Carrier Groups</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -670,22 +661,13 @@ public interface GtmFactory extends EFactory {
 	CarrierGroups createCarrierGroups();
 
 	/**
-	 * Returns a new object of class '<em>Reduction Cards</em>'.
+	 * Returns a new object of class '<em>Carrier Group</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Reduction Cards</em>'.
+	 * @return a new object of class '<em>Carrier Group</em>'.
 	 * @generated
 	 */
-	ReductionCards createReductionCards();
-
-	/**
-	 * Returns a new object of class '<em>Reduction Card</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Reduction Card</em>'.
-	 * @generated
-	 */
-	ReductionCard createReductionCard();
+	CarrierGroup createCarrierGroup();
 
 	/**
 	 * Returns a new object of class '<em>Carrier Constraints</em>'.
@@ -1057,15 +1039,6 @@ public interface GtmFactory extends EFactory {
 	ZoneDefinition createZoneDefinition();
 
 	/**
-	 * Returns a new object of class '<em>Carrier Resource Location</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Carrier Resource Location</em>'.
-	 * @generated
-	 */
-	CarrierResourceLocation createCarrierResourceLocation();
-
-	/**
 	 * Returns a new object of class '<em>Cross Border Condition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1111,6 +1084,15 @@ public interface GtmFactory extends EFactory {
 	ConditionText createConditionText();
 
 	/**
+	 * Returns a new object of class '<em>Reduction Constraints</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reduction Constraints</em>'.
+	 * @generated
+	 */
+	ReductionConstraints createReductionConstraints();
+
+	/**
 	 * Returns a new object of class '<em>Reduction Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1118,6 +1100,24 @@ public interface GtmFactory extends EFactory {
 	 * @generated
 	 */
 	ReductionConstraint createReductionConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Reduction Cards</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reduction Cards</em>'.
+	 * @generated
+	 */
+	ReductionCards createReductionCards();
+
+	/**
+	 * Returns a new object of class '<em>Reduction Card</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reduction Card</em>'.
+	 * @generated
+	 */
+	ReductionCard createReductionCard();
 
 	/**
 	 * Returns a new object of class '<em>Required Reduction Card</em>'.
@@ -1237,6 +1237,15 @@ public interface GtmFactory extends EFactory {
 	VatTemplate createVatTemplate();
 
 	/**
+	 * Returns a new object of class '<em>Legacy Fare Templates</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Legacy Fare Templates</em>'.
+	 * @generated
+	 */
+	LegacyFareTemplates createLegacyFareTemplates();
+
+	/**
 	 * Returns a new object of class '<em>Fare Template</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1273,6 +1282,15 @@ public interface GtmFactory extends EFactory {
 	AfterSalesTemplate createAfterSalesTemplate();
 
 	/**
+	 * Returns a new object of class '<em>On Border Stations</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>On Border Stations</em>'.
+	 * @generated
+	 */
+	OnBorderStations createOnBorderStations();
+
+	/**
 	 * Returns a new object of class '<em>Legacy Station To Service Constraint Mappings</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1289,15 +1307,6 @@ public interface GtmFactory extends EFactory {
 	 * @generated
 	 */
 	LegacyBorderPoint createLegacyBorderPoint();
-
-	/**
-	 * Returns a new object of class '<em>On Border Stations</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>On Border Stations</em>'.
-	 * @generated
-	 */
-	OnBorderStations createOnBorderStations();
 
 	/**
 	 * Returns a new object of class '<em>Legacy Fake Border Stations</em>'.
@@ -1586,15 +1595,6 @@ public interface GtmFactory extends EFactory {
 	 * @generated
 	 */
 	LegacyViastation createLegacyViastation();
-
-	/**
-	 * Returns a new object of class '<em>Legacy Fare Templates</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Legacy Fare Templates</em>'.
-	 * @generated
-	 */
-	LegacyFareTemplates createLegacyFareTemplates();
 
 	/**
 	 * Returns the package supported by this factory.

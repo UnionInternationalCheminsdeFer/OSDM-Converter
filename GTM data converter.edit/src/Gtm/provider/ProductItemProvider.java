@@ -80,7 +80,6 @@ public class ProductItemProvider
 			addRefundableBeforeValidityPropertyDescriptor(object);
 			addExchangeableAfterValidityPropertyDescriptor(object);
 			addExchangeableBeforeValidityPropertyDescriptor(object);
-			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -173,27 +172,7 @@ public class ProductItemProvider
 				 null));
 	}
 
-	/**
-	 * This adds a property descriptor for the Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Product_type_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Product_type_feature", "_UI_Product_type"),
-				 GtmPackage.Literals.PRODUCT__TYPE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
+
 
 	/**
 	 * This adds a property descriptor for the Summary feature.
@@ -550,7 +529,6 @@ public class ProductItemProvider
 			case GtmPackage.PRODUCT__REFUNDABLE_BEFORE_VALIDITY:
 			case GtmPackage.PRODUCT__EXCHANGEABLE_AFTER_VALIDITY:
 			case GtmPackage.PRODUCT__EXCHANGEABLE_BEFORE_VALIDITY:
-			case GtmPackage.PRODUCT__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GtmPackage.PRODUCT__CONDITION_TEXTS:
