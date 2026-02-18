@@ -1259,7 +1259,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/refundableBeforeValidity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/exchangeableAfterValidity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/exchangeableBeforeValidity"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Gtm.ecore#//Product/type"/>
     </genClasses>
     <genClasses ecoreClass="Gtm.ecore#//ConditionText">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Gtm.ecore#//ConditionText/text"/>

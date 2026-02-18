@@ -1,6 +1,3 @@
-/**
- * Copyright (c) 2010 DB Systel GmbH
- */
 package Gtm.presentation;
 
 import org.eclipse.core.commands.AbstractHandler;
