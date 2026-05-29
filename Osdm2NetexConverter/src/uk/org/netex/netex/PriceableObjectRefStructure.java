@@ -1,0 +1,66 @@
+//
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
+// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
+// Generiert: 2026.05.22 um 10:24:00 AM CEST 
+//
+
+
+package uk.org.netex.netex;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
+
+
+/**
+ * Type for Reference to a PRICEABLE ELEMENT.
+ * 
+ * <p>Java-Klasse f�r PriceableObjectRefStructure complex type.
+ * 
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * 
+ * <pre>
+ * &lt;complexType name="PriceableObjectRefStructure">
+ *   &lt;simpleContent>
+ *     &lt;restriction base="&lt;http://www.netex.org.uk/netex>VersionOfObjectRefStructure">
+ *       &lt;attGroup ref="{http://www.netex.org.uk/netex}ReferenceModificationDetailsGroup"/>
+ *       &lt;attribute name="ref" use="required" type="{http://www.netex.org.uk/netex}PriceableObjectIdType" />
+ *       &lt;attribute name="nameOfRefClass" type="{http://www.netex.org.uk/netex}NameOfClassPriceableObjectRefStructureType" />
+ *       &lt;attribute name="modification" type="{http://www.netex.org.uk/netex}ModificationEnumeration" />
+ *       &lt;attribute name="versionRef" type="{http://www.netex.org.uk/netex}VersionIdType" />
+ *       &lt;attribute name="uri" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
+ *     &lt;/restriction>
+ *   &lt;/simpleContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "PriceableObjectRefStructure")
+@XmlSeeAlso({
+    CustomerPurchasePackageRefStructure.class,
+    FareStructureElementRefStructure.class,
+    CustomerPurchasePackageElementRefStructure.class,
+    ValidableElementRefStructure.class,
+    FulfilmentMethodRefStructure.class,
+    FareStructureFactorRefStructure.class,
+    SalesOfferPackageRefStructure.class,
+    SalesOfferPackageElementRefStructure.class,
+    FareUnitRefStructure.class,
+    ServiceAccessRightRefStructure.class,
+    CappingRuleRefStructure.class,
+    UsageParameterRefStructure.class,
+    FareIntervalRefStructure.class,
+    ControllableElementRefStructure.class,
+    DistanceMatrixElementRefStructure.class,
+    SeriesConstraintRefStructureDummy.class
+})
+public class PriceableObjectRefStructure
+    extends VersionOfObjectRefStructure
+{
+
+
+}
