@@ -83,7 +83,21 @@ public class PreferencePage
 						PreferenceConstants.P_SUPRESS_COUNTRY_LABEL,
 						NationalLanguageSupport.Preference_supress_country_label,
 						getFieldEditorParent()));
-    	
+
+        addField(
+					new BooleanFieldEditor(
+						PreferenceConstants.P_SHOW_VALTIDATION_ISSUES_IN_CONSOLE,
+						NationalLanguageSupport.Preference_validation_issues_label,
+						getFieldEditorParent()));
+        
+        addField(
+					new BooleanFieldEditor(
+						PreferenceConstants.P_ACTIVATE_NETEX_EXPORT,
+						NationalLanguageSupport.Preference_netex_export_label,
+						getFieldEditorParent()));
+        
+
+        
 	};
 
 

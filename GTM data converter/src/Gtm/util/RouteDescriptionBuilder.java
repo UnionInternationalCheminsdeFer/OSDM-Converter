@@ -61,6 +61,114 @@ public class RouteDescriptionBuilder {
 		
 	}
 	
+
+	public static String getFullLastStationCode(EList<RegionalValidity> rvl) {
+		
+		ViaStation viaStation = getMainVia(rvl);
+		
+		if (viaStation == null) {
+			return "missing arrival";
+		}
+		if (viaStation.getRoute() == null || 
+			viaStation.getRoute().getStations().size() < 2) {
+			return "";
+		}
+		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
+		if (via.getStation() != null) {
+			return Long.toString(via.getStation().getStationCode());
+		} else if (via.getFareStationSet() != null) {
+			return via.getFareStationSet().getCarrier().getCode() + " " + via.getFareStationSet().getCode();
+		}
+		return "missing arrival";
+		
+	}
+	
+	public static String getFirstStationCode(EList<RegionalValidity> rvl) {
+		
+		return getFirstStationCode(getMainVia(rvl));
+
+		
+		
+	}
+
+	public static String getFullFirstStationCode(EList<RegionalValidity> rvl) {
+		
+		ViaStation viaStation = getMainVia(rvl);
+		
+		if (viaStation == null) {
+			return "missing departure";
+		}
+		if (viaStation.getRoute() == null || 
+			viaStation.getRoute().getStations().isEmpty()) {
+			return " - ";
+		}
+		ViaStation via = viaStation.getRoute().getStations().get(0);
+		if (via.getStation() != null) {
+			return Long.toString(via.getStation().getStationCode());
+		} else if (via.getFareStationSet() != null) {
+			return via.getFareStationSet().getCarrier().getCode() + " " + via.getFareStationSet().getCode();
+		}
+		return "missing departure";
+	
+		
+	}
+	
+	public static String getLastStationCode(EList<RegionalValidity> rvl) {
+		
+		return getLastStationCode(getMainVia(rvl));
+	
+		
+	}
+	
+	
+	/**
+	 * Gets the first station code name.
+	 *
+	 * @param viaStation the via station
+	 * @return the first station code name
+	 */
+	private static String getFirstStationCode(ViaStation viaStation) {
+		
+		if (viaStation == null) {
+			return "missing arrival";
+		}
+		if (viaStation.getRoute() == null || 
+			viaStation.getRoute().getStations().size() < 2) {
+			return "";
+		}
+		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
+		if (via.getStation() != null) {
+			return via.getStation().getCode();
+		} else if (via.getFareStationSet() != null) {
+			return via.getFareStationSet().getCode();
+		}
+		return null;
+	}
+	
+	/**
+	 * Gets the first station code name.
+	 *
+	 * @param viaStation the via station
+	 * @return the first station code name
+	 */
+	private static String getLastStationCode(ViaStation viaStation) {
+		
+		if (viaStation == null) {
+			return "missing departure";
+		}
+		if (viaStation.getRoute() == null || 
+			viaStation.getRoute().getStations().isEmpty()) {
+			return " - ";
+		}
+		ViaStation via = viaStation.getRoute().getStations().get(0);
+		if (via.getStation() != null) {
+			return via.getStation().getCode(); 
+		} else if (via.getFareStationSet() != null) {
+			return via.getFareStationSet().getCode();
+		}
+		return null;
+	}
+	
 	
 	/**
 	 * Gets the route description.
@@ -109,7 +217,7 @@ public class RouteDescriptionBuilder {
 	 * @param rvl the rvl
 	 * @return the main via
 	 */
-	private static ViaStation getMainVia(EList<RegionalValidity> rvl) {
+	public static ViaStation getMainVia(EList<RegionalValidity> rvl) {
 		
 		if (rvl == null || rvl.isEmpty()) {
 			return null;
@@ -492,7 +600,7 @@ public class RouteDescriptionBuilder {
 	 * @param viaStation the via station
 	 * @return the last station code name
 	 */
-	private static String getLastStationCodeName(ViaStation viaStation) {
+	public static String getLastStationCodeName(ViaStation viaStation) {
 		
 		if (viaStation == null) {
 			return "missing arrival";
@@ -516,7 +624,7 @@ public class RouteDescriptionBuilder {
 	 * @param viaStation the via station
 	 * @return the first station code name
 	 */
-	private static String getFirstStationCodeName(ViaStation viaStation) {
+	public static String getFirstStationCodeName(ViaStation viaStation) {
 		
 		if (viaStation == null) {
 			return "missing departure";

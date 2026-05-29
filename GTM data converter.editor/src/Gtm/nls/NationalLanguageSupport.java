@@ -374,6 +374,10 @@ public class NationalLanguageSupport extends NLS{
 	public static String Preference_supress_station_label;
 	public static String Preference_supress_country_label;
 
+	public static String Preference_validation_issues_label;
+	public static String Preference_netex_export_label;
+	
+
 
 	
     static {

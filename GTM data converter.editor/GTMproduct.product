@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSDM data converter" uid="GTMproduct" id="GTM_data_converter.editor.GTMproduct" application="GTM_data_converter.editor.GtmEditorAdvisorApplication" version="2.7.1" type="bundles" includeLaunchers="true" autoIncludeRequirements="true">
+<product name="OSDM data converter" uid="GTMproduct" id="GTM_data_converter.editor.GTMproduct" application="GTM_data_converter.editor.GtmEditorAdvisorApplication" version="2.8.0" type="bundles" includeLaunchers="true" includeJRE="true" autoIncludeRequirements="true">
 
    <aboutInfo>
       <image path="/GTM data converter.editor/icons/UIC GIF square_96.gif"/>
@@ -35,7 +35,7 @@ The tool provides conversion between fare data according to UIC standards 108.1 
    </launcher>
 
    <vm>
-      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21</windows>
    </vm>
 
    <license>
@@ -55,40 +55,39 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="GTM_data_converter.edit"/>
       <plugin id="GTM_data_converter.editor"/>
       <plugin id="GTM_model"/>
+      <plugin id="Osdm2NetexConverter"/>
       <plugin id="bcpg"/>
       <plugin id="bcprov"/>
-      <plugin id="ch.qos.logback.classic"/>
-      <plugin id="ch.qos.logback.core"/>
-      <plugin id="com.google.gson"/>
-      <plugin id="com.google.guava"/>
-      <plugin id="com.google.guava.failureaccess"/>
+      <plugin id="bcutil"/>
+      <plugin id="com.github.weisj.jsvg"/>
       <plugin id="com.ibm.icu"/>
+      <plugin id="com.sun.el.javax.el"/>
+      <plugin id="com.sun.istack.commons-runtime"/>
       <plugin id="com.sun.jna"/>
       <plugin id="com.sun.jna.platform"/>
-      <plugin id="jakarta.servlet-api"/>
-      <plugin id="javax.annotation"/>
-      <plugin id="javax.el-api"/>
-      <plugin id="javax.inject"/>
-      <plugin id="javax.servlet.jsp-api"/>
-      <plugin id="jaxen"/>
-      <plugin id="net.certiv.dsl.lib"/>
+      <plugin id="com.sun.xml.bind"/>
+      <plugin id="jakarta.activation-api"/>
+      <plugin id="jakarta.annotation-api"/>
+      <plugin id="jakarta.inject.jakarta.inject-api"/>
+      <plugin id="jakarta.xml.bind-api"/>
+      <plugin id="jakarta.xml.bind-api.source"/>
+      <plugin id="javax.activation"/>
       <plugin id="org.apache.aries.spifly.dynamic.bundle"/>
       <plugin id="org.apache.batik.constants"/>
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.i18n"/>
       <plugin id="org.apache.batik.util"/>
-      <plugin id="org.apache.commons.cli"/>
+      <plugin id="org.apache.commons.collections4"/>
       <plugin id="org.apache.commons.commons-codec"/>
       <plugin id="org.apache.commons.commons-io"/>
-      <plugin id="org.apache.commons.jxpath"/>
-      <plugin id="org.apache.commons.logging"/>
+      <plugin id="org.apache.commons.commons-logging"/>
+      <plugin id="org.apache.commons.math3"/>
       <plugin id="org.apache.felix.scr"/>
-      <plugin id="org.apache.jasper.glassfish"/>
       <plugin id="org.apache.lucene.analysis-common"/>
       <plugin id="org.apache.lucene.analysis-smartcn"/>
       <plugin id="org.apache.lucene.core"/>
-      <plugin id="org.apache.xerces"/>
-      <plugin id="org.apache.xml.resolver"/>
+      <plugin id="org.apache.poi"/>
+      <plugin id="org.apache.poi.ooxml"/>
       <plugin id="org.apache.xmlgraphics"/>
       <plugin id="org.eclipse.compare.core"/>
       <plugin id="org.eclipse.core.commands"/>
@@ -97,15 +96,11 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.eclipse.core.databinding.observable"/>
       <plugin id="org.eclipse.core.databinding.property"/>
       <plugin id="org.eclipse.core.expressions"/>
-      <plugin id="org.eclipse.core.filebuffers"/>
       <plugin id="org.eclipse.core.filesystem"/>
-      <plugin id="org.eclipse.core.filesystem.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.net"/>
-      <plugin id="org.eclipse.core.net.win32" fragment="true"/>
-      <plugin id="org.eclipse.core.net.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.core.resources"/>
-      <plugin id="org.eclipse.core.resources.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.core.resources.source"/>
       <plugin id="org.eclipse.core.runtime"/>
       <plugin id="org.eclipse.core.variables"/>
       <plugin id="org.eclipse.debug.core"/>
@@ -126,7 +121,7 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.eclipse.e4.ui.ide"/>
       <plugin id="org.eclipse.e4.ui.model.workbench"/>
       <plugin id="org.eclipse.e4.ui.services"/>
-      <plugin id="org.eclipse.e4.ui.swt.win32" fragment="true"/>
+      <plugin id="org.eclipse.e4.ui.swt.win32"/>
       <plugin id="org.eclipse.e4.ui.widgets"/>
       <plugin id="org.eclipse.e4.ui.workbench"/>
       <plugin id="org.eclipse.e4.ui.workbench.addons.swt"/>
@@ -147,6 +142,7 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.event"/>
       <plugin id="org.eclipse.equinox.http.jetty"/>
+      <plugin id="org.eclipse.equinox.http.service.api"/>
       <plugin id="org.eclipse.equinox.http.servlet"/>
       <plugin id="org.eclipse.equinox.jsp.jasper"/>
       <plugin id="org.eclipse.equinox.jsp.jasper.registry"/>
@@ -158,42 +154,41 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
       <plugin id="org.eclipse.equinox.p2.repository"/>
       <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.region"/>
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.security"/>
-      <plugin id="org.eclipse.equinox.security.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.equinox.security.win32"/>
+      <plugin id="org.eclipse.equinox.transforms.hook"/>
+      <plugin id="org.eclipse.equinox.weaving.hook"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.help.base"/>
       <plugin id="org.eclipse.help.ui"/>
       <plugin id="org.eclipse.help.webapp"/>
       <plugin id="org.eclipse.jdt.core.compiler.batch"/>
+      <plugin id="org.eclipse.jetty.ee8.security"/>
+      <plugin id="org.eclipse.jetty.ee8.server"/>
+      <plugin id="org.eclipse.jetty.ee8.servlet"/>
       <plugin id="org.eclipse.jetty.http"/>
       <plugin id="org.eclipse.jetty.io"/>
       <plugin id="org.eclipse.jetty.security"/>
       <plugin id="org.eclipse.jetty.server"/>
-      <plugin id="org.eclipse.jetty.servlet"/>
+      <plugin id="org.eclipse.jetty.servlet-api"/>
+      <plugin id="org.eclipse.jetty.session"/>
       <plugin id="org.eclipse.jetty.util"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.jface.notifications"/>
       <plugin id="org.eclipse.jface.text"/>
-      <plugin id="org.eclipse.ltk.core.refactoring"/>
-      <plugin id="org.eclipse.m2e.archetype.catalog" fragment="true"/>
-      <plugin id="org.eclipse.m2e.archetype.common"/>
-      <plugin id="org.eclipse.m2e.archetype.descriptor" fragment="true"/>
-      <plugin id="org.eclipse.m2e.archetype.maven-artifact-transfer" fragment="true"/>
-      <plugin id="org.eclipse.m2e.core"/>
-      <plugin id="org.eclipse.m2e.core.ui"/>
-      <plugin id="org.eclipse.m2e.logback" fragment="true"/>
-      <plugin id="org.eclipse.m2e.maven.runtime"/>
-      <plugin id="org.eclipse.m2e.model.edit"/>
-      <plugin id="org.eclipse.m2e.workspace.cli"/>
       <plugin id="org.eclipse.nebula.cwt"/>
       <plugin id="org.eclipse.nebula.widgets.cdatetime"/>
+      <plugin id="org.eclipse.orbit.xml-apis-ext"/>
       <plugin id="org.eclipse.osgi"/>
-      <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
-      <plugin id="org.eclipse.osgi.services"/>
-      <plugin id="org.eclipse.osgi.util"/>
+      <plugin id="org.eclipse.osgi.compatibility.state"/>
+      <plugin id="org.eclipse.persistence.core"/>
+      <plugin id="org.eclipse.persistence.moxy"/>
       <plugin id="org.eclipse.swt"/>
-      <plugin id="org.eclipse.swt.win32.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.swt.svg"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86_64"/>
       <plugin id="org.eclipse.text"/>
       <plugin id="org.eclipse.ui"/>
       <plugin id="org.eclipse.ui.console"/>
@@ -201,18 +196,15 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.eclipse.ui.ide"/>
       <plugin id="org.eclipse.ui.navigator"/>
       <plugin id="org.eclipse.ui.views"/>
-      <plugin id="org.eclipse.ui.win32" fragment="true"/>
+      <plugin id="org.eclipse.ui.win32"/>
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.eclipse.ui.workbench.texteditor"/>
       <plugin id="org.eclipse.urischeme"/>
-      <plugin id="org.eclipse.wst.common.core"/>
-      <plugin id="org.eclipse.wst.common.emf"/>
-      <plugin id="org.eclipse.wst.common.environment"/>
-      <plugin id="org.eclipse.wst.common.frameworks"/>
-      <plugin id="org.eclipse.wst.common.uriresolver"/>
-      <plugin id="org.eclipse.wst.sse.core"/>
-      <plugin id="org.eclipse.wst.xml.core"/>
-      <plugin id="org.jdom2"/>
+      <plugin id="org.glassfish.hk2.osgi-resource-locator"/>
+      <plugin id="org.glassfish.jaxb.core"/>
+      <plugin id="org.glassfish.jaxb.runtime"/>
+      <plugin id="org.mortbay.jasper.mortbay-apache-el"/>
+      <plugin id="org.mortbay.jasper.mortbay-apache-jsp"/>
       <plugin id="org.objectweb.asm"/>
       <plugin id="org.objectweb.asm.commons"/>
       <plugin id="org.objectweb.asm.tree"/>
@@ -220,25 +212,15 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.objectweb.asm.util"/>
       <plugin id="org.osgi.service.cm"/>
       <plugin id="org.osgi.service.component"/>
-      <plugin id="org.osgi.service.device"/>
       <plugin id="org.osgi.service.event"/>
-      <plugin id="org.osgi.service.metatype"/>
+      <plugin id="org.osgi.service.http.whiteboard"/>
       <plugin id="org.osgi.service.prefs"/>
-      <plugin id="org.osgi.service.provisioning"/>
-      <plugin id="org.osgi.service.upnp"/>
-      <plugin id="org.osgi.service.useradmin"/>
-      <plugin id="org.osgi.service.wireadmin"/>
       <plugin id="org.osgi.util.function"/>
-      <plugin id="org.osgi.util.measurement"/>
-      <plugin id="org.osgi.util.position"/>
       <plugin id="org.osgi.util.promise"/>
-      <plugin id="org.osgi.util.xml"/>
       <plugin id="org.tukaani.xz"/>
-      <plugin id="org.w3c.css.sac"/>
-      <plugin id="org.w3c.dom.events"/>
-      <plugin id="org.w3c.dom.smil"/>
-      <plugin id="org.w3c.dom.svg"/>
       <plugin id="slf4j.api"/>
+      <plugin id="slf4j.simple"/>
+      <plugin id="wrapped.org.glassfish.jaxb.txw2"/>
    </plugins>
 
    <configurations>

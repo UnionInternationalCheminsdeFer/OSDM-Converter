@@ -50,8 +50,10 @@ import org.eclipse.ui.actions.BaseSelectionListenerAction;
 
 import Gtm.actions.ConvertGtm2LegacyAction;
 import Gtm.actions.ConvertLegacy2GtmAction;
+import Gtm.actions.ExportExcelAction;
 import Gtm.actions.ExportGTMJsonAction;
 import Gtm.actions.ExportLegacyAction;
+import Gtm.actions.ExportNetexAction;
 import Gtm.actions.GtmDeleteFolderAction;
 import Gtm.actions.GtmValidateAction;
 import Gtm.actions.ImportBorderPointsAction;
@@ -220,6 +222,8 @@ public class GtmActionBarContributor
 	protected ImportGTMJsonAction importGTMJsonAction = null;	
 	protected ExportGTMJsonAction exportGTMJsonAction = null;	
 	protected ExportLegacyAction exportLegacyAction = null;	
+	protected ExportNetexAction exportNetexAction = null;		
+	protected ExportExcelAction exportExcelAction = null;	
 	protected ConvertLegacy2GtmAction convertLegacy2GtmAction = null;
 	protected ConvertGtm2LegacyAction convertGtm2LegacyAction = null;
 	
@@ -302,6 +306,14 @@ public class GtmActionBarContributor
 		if (exportLegacyAction == null) {			
 			exportLegacyAction = new ExportLegacyAction(this);
 		}
+
+		if (exportNetexAction == null) {			
+			exportNetexAction = new ExportNetexAction(this);
+		}
+
+		if (exportExcelAction == null) {			
+			exportExcelAction = new ExportExcelAction(this);
+		}
 		
 		if (deleteAction == null) {
 			deleteAction = new GtmDeleteFolderAction();
@@ -322,6 +334,8 @@ public class GtmActionBarContributor
 			gtmActions.add(importGTMJsonAction);	
 			gtmActions.add(convertGtm2LegacyAction);
 			gtmActions.add(exportLegacyAction);	
+			gtmActions.add(exportNetexAction);
+			gtmActions.add(exportExcelAction);
 		}
 
 		
@@ -376,6 +390,10 @@ public class GtmActionBarContributor
 		toolBarManager.insertAfter("gtm-convert-g-2-l",exportLegacyAction);	
 		toolBarManager.insertAfter("gtm-convert-g-2-l",convertGtm2LegacyAction);
 		toolBarManager.insertAfter("gtm-convert-g-2-l",importGTMJsonAction);	
+
+		toolBarManager.add(new Separator("gtm-export-experimental"));
+		toolBarManager.insertAfter("gtm-export-experimental",exportNetexAction);	
+		toolBarManager.insertAfter("gtm-export-experimental",exportExcelAction);	
 		
 		toolBarManager.add(new Separator("filter"));
 		toolBarManager.insertAfter("filter",filter);
