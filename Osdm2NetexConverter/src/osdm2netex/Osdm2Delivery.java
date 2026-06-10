@@ -224,7 +224,7 @@ public class Osdm2Delivery {
 				
 				PublicCodeStructure pcs = factory.createPublicCodeStructure();
 				pcs.setType("UIC");		
-				pcs.setValue(UrnUtils.getStationUri(s.getCode()));		
+				pcs.setValue(UrnUtils.getStationUri(s.getStationCode()));		
 				stop.setPublicCode(pcs);
 				
 				stop.setCentroid(factory.createSimplePointVersionStructure());

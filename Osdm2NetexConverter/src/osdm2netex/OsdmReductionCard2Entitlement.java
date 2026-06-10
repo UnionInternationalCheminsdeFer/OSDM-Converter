@@ -1,11 +1,16 @@
 package osdm2netex;
 
 import Gtm.FareStructure;
+import Gtm.ServiceClass;
 import uk.org.netex.netex.AlternativeName;
 import uk.org.netex.netex.AlternativeNamesRelStructure;
 import uk.org.netex.netex.EntitlementProduct;
 import uk.org.netex.netex.FareFrame;
+import uk.org.netex.netex.FareStructureElementRefStructure;
+import uk.org.netex.netex.NameTypeEnumeration;
 import uk.org.netex.netex.ObjectFactory;
+import uk.org.netex.netex.ValidableElementVersionStructure;
+import uk.org.netex.netex.ValidityConditionRefStructure;
 
 public class OsdmReductionCard2Entitlement {
 
@@ -18,8 +23,6 @@ public class OsdmReductionCard2Entitlement {
 		}
 		
 		for (Gtm.ReductionCard card : osdmFares.getReductionCards().getReductionCards()) {
-			
-			
 
 			//add issuer
 			String issuer = null;
@@ -35,10 +38,27 @@ public class OsdmReductionCard2Entitlement {
 			entitlement.setName(Osdm2MultiLanguageString.getMultiLanguageString(card.getName()));
 			AlternativeNamesRelStructure ans2 = factory.createAlternativeNamesRelStructure();
 			AlternativeName an2 = factory.createAlternativeName();
-			an2.setName(Osdm2MultiLanguageString.getMultiLanguageString(card.getShortCode()));
+			an2.setShortName(Osdm2MultiLanguageString.getMultiLanguageString(card.getShortCode()));
+			an2.setNameType(NameTypeEnumeration.OTHER);
+			ans2.getAlternativeName().add(an2);
 			entitlement.setAlternativeNames(ans2);
-			
 			entitlement.setResponsibilitySetRef(issuer);
+			
+
+			
+			if (card.getServiceClasses() != null && !card.getServiceClasses().isEmpty()) {
+
+				entitlement.setValidityConditions(factory.createValidityConditionsRelStructure());
+				
+				for (ServiceClass sc : card.getServiceClasses()) {
+					ValidityConditionRefStructure fr = factory.createValidityConditionRefStructure();
+					fr.setRef("class_" + sc.getId().getLiteral());
+					entitlement.getValidityConditions().getValidityConditionRefOrValidBetweenOrValidityConditionDummy().add(factory.createValidityConditionRef(fr));
+				}
+				
+			}
+			
+			fareFrameNrt.getFareProducts().getFareProductDummy().add(factory.createEntitlementProduct(entitlement));
 			
 			
      		/*
