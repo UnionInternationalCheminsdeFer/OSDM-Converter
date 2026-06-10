@@ -21,7 +21,7 @@ public class Osdm2SeriesConnection {
 			
 			for (Gtm.Station st : ss.getStations()) {
 				
-				scs.add(st.getCode());
+				scs.add(Long.toString(st.getStationCode()));
 			}
 			
 		}
@@ -29,8 +29,15 @@ public class Osdm2SeriesConnection {
 		Collections.sort(scs);
 		
 		StringBuilder sb = new StringBuilder();
+		
+		boolean first = true;
 		for (String s : scs) {
-			sb.append(scs).append("-");
+			if (first) {
+				first = false;
+			} else {
+				sb.append("-");
+			}
+			sb.append(s);
 		}
 		
 		return sb.toString();

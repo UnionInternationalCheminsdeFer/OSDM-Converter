@@ -179,6 +179,9 @@ public class ExportNetexAction extends BasicGtmAction {
 		    String path = dialog.open();
 
 		    storeLastPath(path);
+		    if (path == null) {
+		    	path = lastPath;
+		    }
 		    File file = new File(path);
 		    
 		    return file;

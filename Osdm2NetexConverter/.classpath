@@ -8,11 +8,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/jaxb-api-2.4.0-b180830.0359-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/jaxb-core-4.0.7-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/jaxb-impl-4.0.7-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/jaxb-runtime-4.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/javax.activation-1.2.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/jaxb-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

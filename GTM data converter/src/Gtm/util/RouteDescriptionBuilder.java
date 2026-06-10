@@ -138,7 +138,7 @@ public class RouteDescriptionBuilder {
 		}
 		ViaStation via = viaStation.getRoute().getStations().get(viaStation.getRoute().getStations().size() - 1);
 		if (via.getStation() != null) {
-			return via.getStation().getCode();
+			return Long.toString(via.getStation().getStationCode());
 		} else if (via.getFareStationSet() != null) {
 			return via.getFareStationSet().getCode();
 		}
@@ -162,7 +162,7 @@ public class RouteDescriptionBuilder {
 		}
 		ViaStation via = viaStation.getRoute().getStations().get(0);
 		if (via.getStation() != null) {
-			return via.getStation().getCode(); 
+			return Long.toString(via.getStation().getStationCode());
 		} else if (via.getFareStationSet() != null) {
 			return via.getFareStationSet().getCode();
 		}

@@ -2,6 +2,8 @@ package osdm2netex;
 
 
 import java.io.File;
+import java.io.FileOutputStream;
+
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
@@ -17,8 +19,6 @@ import uk.org.netex.netex.PublicationDeliveryStructure;
 
 public class Osdm2netexConverter {
 	
-	/** The tool. */
-	private GTMTool tool = null;
 	
 	private Gtm.GeneralTariffModel osdm = null;
 	
@@ -26,7 +26,6 @@ public class Osdm2netexConverter {
 	
 	
 	public Osdm2netexConverter(GTMTool tool) {
-		this.tool = tool;
 		
 		osdm = tool.getGeneralTariffModel();
 	
@@ -71,8 +70,8 @@ public class Osdm2netexConverter {
         	// Write to XML file
 			monitor.subTask("Write XML file");	
 			try {
-				marshaller.marshal(rootelement, file);
-				marshaller.marshal(rootelement, System.out);
+				FileOutputStream fos = new FileOutputStream(file);
+				marshaller.marshal(rootelement, fos);
 			} catch (Exception e){
 				String errors = validationResults.toString();
 				System.out.println(errors);

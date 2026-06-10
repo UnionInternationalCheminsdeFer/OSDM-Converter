@@ -1,14 +1,18 @@
 package osdm2netex;
 
+import Gtm.FulfillmentConstraint;
+import Gtm.FulfillmentType;
+import Gtm.SalesAvailabilityConstraint;
+import Gtm.TravelValidityConstraint;
 import uk.org.netex.netex.AccessRightInProductRefStructure;
 import uk.org.netex.netex.Cell;
 import uk.org.netex.netex.CellsRelStructure;
 import uk.org.netex.netex.ClassOfUseRef;
 import uk.org.netex.netex.FareFrame;
+import uk.org.netex.netex.FarePriceVersionedChildStructure;
 import uk.org.netex.netex.FareProduct;
 import uk.org.netex.netex.FareProductRefStructure;
 import uk.org.netex.netex.FareProductsInFrameRelStructure;
-import uk.org.netex.netex.FareStructureElementPrice;
 import uk.org.netex.netex.FareTable;
 import uk.org.netex.netex.FareTableRowRefStructure;
 import uk.org.netex.netex.ObjectFactory;
@@ -24,10 +28,11 @@ public class Osdm2FareProduct {
 		
 		ObjectFactory factory = new ObjectFactory();
 		
-		FareStructureElementPrice fp = Osdm2FareStructurElementPrice.convert2FarePrice(osdmFare.getPrice());
 		
 		FareProduct product = convert2Product(osdmFare, factory);
-		
+
+		FarePriceVersionedChildStructure fp = Osdm2FareStructurElementPrice.convert2FarePriceVersionedChildStructure(osdmFare.getPrice() );
+
 		FareTable table = factory.createFareTable();
 		table.setDescription(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));
 		table.setId(osdmFare.getId());
@@ -48,26 +53,33 @@ public class Osdm2FareProduct {
 		rr.setRef(osdmFare.getRegionalConstraint().getId());
 		cell.setRowRef(rr);
 		cellRel.getCellOrCellInContextOrFarePriceDummy().add(factory.createCell(cell));
-		table.setCells(null);
+		table.setCells(cellRel);
 		
+		SalesOfferPackage salesOfferPackage = factory.createSalesOfferPackage();
+		salesOfferPackage.setFareTables(factory.createFareTablesRelStructure());
+		salesOfferPackage.setSalesOfferPackageElements(factory.createSalesOfferPackageElementsRelStructure());
+		if (fareFrameNrt.getSalesOfferPackages() == null) {
+			fareFrameNrt.setSalesOfferPackages(factory.createSalesOfferPackagesInFrameRelStructure());;
+		}
+		fareFrameNrt.getSalesOfferPackages().getSalesOfferPackage().add(salesOfferPackage);
 		SalesOfferPackageElement sope = factory.createSalesOfferPackageElement();
-		TypeOfTravelDocumentRefStructure tdt = factory.createTypeOfTravelDocumentRefStructure();
-		tdt.setRef(osdmFare.getFareConstraintBundle().getFulfillmentConstraint().getId());
-		sope.setTypeOfTravelDocumentRef(tdt);
-		
-	
 		FareProductRefStructure fpr = factory.createFareProductRefStructure();
 		fpr.setRef(product.getId());
 		sope.setFareProductRef(factory.createFareProductRef(fpr));
+		salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sope);
 		
-
-		if (table != null) {
-			SalesOfferPackage salesOfferPackageNrt = fareFrameNrt.getSalesOfferPackages().getSalesOfferPackage().get(0);
-			salesOfferPackageNrt.getFareTables().getFareTableRefOrFareTableDummy().add(factory.createFareTable(table));
-			salesOfferPackageNrt.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sope);
-			fareFrameNrt.getFareTables().getFareTableDummy().add(factory.createFareTable(table));
+		salesOfferPackage.getFareTables().getFareTableRefOrFareTableDummy().add(factory.createFareTable(table));
+		
+		FulfillmentConstraint fc = osdmFare.getFareConstraintBundle().getFulfillmentConstraint();
+		for (FulfillmentType ft :fc.getAcceptedFulfilmentTypes()) {
+			SalesOfferPackageElement sopef = factory.createSalesOfferPackageElement();
+			TypeOfTravelDocumentRefStructure tdt = factory.createTypeOfTravelDocumentRefStructure();
+			tdt.setRef("fulfillmentMethod_" + ft.getLiteral());
+			sopef.setTypeOfTravelDocumentRef(tdt);		
+			salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sopef);
+			
 		}
-		
+
 		if (fareFrameNrt.getFareProducts() == null){
 			FareProductsInFrameRelStructure fpr2 = factory.createFareProductsInFrameRelStructure();
 			fareFrameNrt.setFareProducts(fpr2);
@@ -103,7 +115,7 @@ public class Osdm2FareProduct {
 		//service class
 		if (osdmFare.getServiceClass() != null) {
 			AccessRightInProductRefStructure sarClass = factory.createAccessRightInProductRefStructure();
-			sarClass.setRef(osdmFare.getServiceClass().getId().getLiteral());
+			sarClass.setRef("class_" + osdmFare.getServiceClass().getId().getLiteral());
 			sarClass.setNameOfRefClass("ClassOfUse");
 			fareProduct.getAccessRightsInProduct().getAccessRightInProductRefOrAccessRightInProduct().add(sarClass);
 		}
@@ -111,15 +123,19 @@ public class Osdm2FareProduct {
 		//carrier constraint
 		if (osdmFare.getCarrierConstraint() != null) {
 			AccessRightInProductRefStructure sarCarrier = factory.createAccessRightInProductRefStructure();
-			sarCarrier.setRef(osdmFare.getCarrierConstraint().getId());
+			sarCarrier.setRef("carriers_" + osdmFare.getCarrierConstraint().getId());
 			sarCarrier.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarCarrier);
 		}
 		
 		//travel validity
-		if (osdmFare.getTravelValidity() != null) {
+		TravelValidityConstraint tvc = osdmFare.getTravelValidity();
+		if (tvc == null) {
+			tvc = osdmFare.getFareConstraintBundle().getTravelValidity();
+		}		
+		if (tvc != null) {
 			AccessRightInProductRefStructure sarTravelVal = factory.createAccessRightInProductRefStructure();
-			sarTravelVal.setRef(osdmFare.getTravelValidity().getId());
+			sarTravelVal.setRef("travelValidity_" + tvc.getId());
 			sarTravelVal.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTravelVal);		
 		}
@@ -127,23 +143,27 @@ public class Osdm2FareProduct {
 		//passenger constraint
 		if (osdmFare.getPassengerConstraint() != null ) {
 			AccessRightInProductRefStructure sarTraveler = factory.createAccessRightInProductRefStructure();
-			sarTraveler.setRef(osdmFare.getPassengerConstraint().getId());
+			sarTraveler.setRef("passenger_" + osdmFare.getPassengerConstraint().getId());
 			sarTraveler.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTraveler);		
 		}
 		
 		//sales availability
-		if (osdmFare.getSalesAvailability() != null) {
-			AccessRightInProductRefStructure sarSalesDate =factory.createAccessRightInProductRefStructure();
-			sarSalesDate.setRef(osdmFare.getSalesAvailability().getId());
+		SalesAvailabilityConstraint sac = osdmFare.getSalesAvailability();
+		if (sac == null) {
+			sac = osdmFare.getFareConstraintBundle().getSalesAvailability();
+		}
+		if (sac != null) {
+			AccessRightInProductRefStructure sarSalesDate = factory.createAccessRightInProductRefStructure();
+			sarSalesDate.setRef("sales_availability_" + sac.getId());
 			sarSalesDate.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarSalesDate);	
-		}
+		} 
 		
 		//reduction constraint
 		if (osdmFare.getReductionConstraint() != null) {
 			AccessRightInProductRefStructure reductionConstraint = factory.createAccessRightInProductRefStructure();
-			reductionConstraint.setRef(osdmFare.getReductionConstraint().getId());
+			reductionConstraint.setRef("reduction_"+osdmFare.getReductionConstraint().getId());
 			reductionConstraint.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(reductionConstraint);	
 		}
@@ -151,7 +171,7 @@ public class Osdm2FareProduct {
 		//regional constraint
 		if (osdmFare.getRegionalConstraint() != null) {
 			AccessRightInProductRefStructure regionalConstraint = new AccessRightInProductRefStructure();
-			regionalConstraint.setRef(osdmFare.getRegionalConstraint().getId());
+			regionalConstraint.setRef("region_" + osdmFare.getRegionalConstraint().getId());
 			regionalConstraint.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(regionalConstraint);	
 		}

@@ -1,5 +1,6 @@
 package osdm2netex;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -9,22 +10,17 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import Gtm.FareStructure;
 import Gtm.GeneralTariffModel;
-import Gtm.RegionalConstraint;
-import Gtm.StationNames;
-import Gtm.util.RouteDescriptionBuilder;
-import uk.org.netex.netex.ConnectionRefStructure;
 import uk.org.netex.netex.DataObjectsRelStructure;
 import uk.org.netex.netex.DistributionAssignment;
 import uk.org.netex.netex.DistributionAssignmentsRelStructure;
 import uk.org.netex.netex.DistributionRightsEnumeration;
-import uk.org.netex.netex.FareBasisEnumeration;
 import uk.org.netex.netex.FareFrame;
 import uk.org.netex.netex.FareProductsInFrameRelStructure;
-import uk.org.netex.netex.FareScheduledStopPointsInFrameRelStructure;
 import uk.org.netex.netex.FareSeriesInFrameRelStructure;
 import uk.org.netex.netex.FareStructureElementsInFrameRelStructure;
 import uk.org.netex.netex.FareTablesInFrameRelStructure;
 import uk.org.netex.netex.FareTablesRelStructure;
+import uk.org.netex.netex.FareZonesInFrameRelStructure;
 import uk.org.netex.netex.ObjectFactory;
 import uk.org.netex.netex.PricingServiceRefStructure;
 import uk.org.netex.netex.PublicCodeStructure;
@@ -34,8 +30,6 @@ import uk.org.netex.netex.ResourceFrame;
 import uk.org.netex.netex.SalesOfferPackage;
 import uk.org.netex.netex.SalesOfferPackageElementsRelStructure;
 import uk.org.netex.netex.SalesOfferPackagesInFrameRelStructure;
-import uk.org.netex.netex.ScheduledStopPointVersionStructure;
-import uk.org.netex.netex.SeriesConstraint;
 import uk.org.netex.netex.SiteFrame;
 import uk.org.netex.netex.StatusEnumeration;
 import uk.org.netex.netex.StopPlace;
@@ -151,9 +145,16 @@ public class Osdm2Delivery {
 		fareFrameNrt.setBrandingRef(null);
 		fareFrameNrt.setFareSections(null);
 		fareFrameNrt.setFareTables(null);
-		fareFrameNrt.setFareZones(null);
+	
 		
-		fareFrameNrt.setFareScheduledStopPoints(convertStations(osdmFares.getStationNames(), osdmFares, factory));
+		//fareFrameNrt.setFareScheduledStopPoints(convertStations(osdmFares.getStationNames(), osdmFares, factory));
+	
+		FareZonesInFrameRelStructure zones = factory.createFareZonesInFrameRelStructure();
+		zones.setId("zones_" + osdm.getDelivery().getId());
+		Osdm2Zones.convertFareStationSets(osdmFares.getFareStationSetDefinitions(), zones);
+		fareFrameNrt.setFareZones(zones);
+		
+		
 		
 		fareFrameNrt.setFareProducts(productsList);		
 		fareFrameNrt.setFareTables(tablesStructure);	
@@ -184,38 +185,17 @@ public class Osdm2Delivery {
 		
 	}
 	
-	private static FareScheduledStopPointsInFrameRelStructure convertStations(StationNames stationNames, FareStructure osdmFares, ObjectFactory factory) {
-		
-		FareScheduledStopPointsInFrameRelStructure stopPoints =  factory.createFareScheduledStopPointsInFrameRelStructure();
-		
-		
-		for (Gtm.Station sn : osdmFares.getStationNames().getStationName()) {
-			
-			ScheduledStopPointVersionStructure sp = factory.createScheduledStopPointVersionStructure();
-			
-			sp.setName(Osdm2MultiLanguageString.getMultiLanguageString(sn.getNameCaseUTF8()));
-			sp.setShortName(Osdm2MultiLanguageString.getMultiLanguageString(sn.getShortNameCaseUTF8()));
-			sp.setId(UrnUtils.getStationUri(sn.getCode()));
-			PublicCodeStructure pcs = factory.createPublicCodeStructure();
-			pcs.setType("UIC");		
-			pcs.setValue(UrnUtils.getStationUri(sn.getCode()));		
-			sp.setPublicCode(pcs);
-			
-			
-			stopPoints.getScheduledStopPointOrFareScheduledStopPoint().add(sp);
-		}
-		return stopPoints;
-	}
-
-
-
 	private static void convertFares(FareStructure osdmFares, FareFrame fareFrameNrt) {
 		
-		Osdm2SalesDiscountRights.convertToSalesDicountRights(osdmFares, fareFrameNrt);
+		OsdmReductionCard2Entitlement.convertToSalesDicountRights(osdmFares, fareFrameNrt);
 		
 		for (Gtm.FareElement fare : osdmFares.getFareElements().getFareElements()) {
 			
-			Osdm2FareProduct.convertFare (fare,fareFrameNrt);
+			if (TestFareSelector.selectRegionalConstraint(fare.getRegionalConstraint()) ) {
+			
+				Osdm2FareProduct.convertFare (fare,fareFrameNrt);
+				
+			}
 
 		}
 		
@@ -233,46 +213,33 @@ public class Osdm2Delivery {
 		
 		for ( Gtm.Station s : osdm.getFareStructure().getStationNames().getStationName()) {
 			
-			StopPlace stop = factory.createStopPlace();
 			
-			stop.setId(UrnUtils.getStationUri(s.getCode()));
-			stop.setName(Osdm2MultiLanguageString.getMultiLanguageString(s.getName()));
-			stop.setShortName(Osdm2MultiLanguageString.getMultiLanguageString(s.getShortNameCaseUTF8()));
+			if (TestFareSelector.selectStation(s,  osdm.getFareStructure().getStationNames())) {
 			
-			places.getStopPlace().add(stop);
+				StopPlace stop = factory.createStopPlace();
+				
+				stop.setId(UrnUtils.getStationUri(s.getStationCode()));
+				stop.setName(Osdm2MultiLanguageString.getMultiLanguageString(s.getName()));
+				stop.setShortName(Osdm2MultiLanguageString.getMultiLanguageString(s.getShortNameCaseUTF8()));
+				
+				PublicCodeStructure pcs = factory.createPublicCodeStructure();
+				pcs.setType("UIC");		
+				pcs.setValue(UrnUtils.getStationUri(s.getCode()));		
+				stop.setPublicCode(pcs);
+				
+				stop.setCentroid(factory.createSimplePointVersionStructure());
+				stop.getCentroid().setLocation(factory.createLocationStructure());
+				stop.getCentroid().getLocation().setLatitude(new BigDecimal(s.getLatitude()));
+				stop.getCentroid().getLocation().setLongitude(new BigDecimal(s.getLongitude()));
+								
+				places.getStopPlace().add(stop);
+				
+			}
 		}
 		
 		siteFrame.setStopPlaces(places);
 		
 		return siteFrame;
-	}
-
-	
-	private SeriesConstraint convertRegionalConstraint(RegionalConstraint rc) {
-		SeriesConstraint sc = new SeriesConstraint();
-		
-		sc.setFareBasis(FareBasisEnumeration.ROUTE);
-		
-		String routeDescription = RouteDescriptionBuilder.getRouteDescription(rc);
-		
-		sc.setItinerary(Osdm2MultiLanguageString.getMultiLanguageString (routeDescription));	
-		
-		sc.setId(rc.getId());
-		
-		if (rc.getEntryConnectionPoint() != null && rc.getEntryConnectionPoint().getLegacyBorderPointCode() > 0) {
-			ConnectionRefStructure fcr = new ConnectionRefStructure();
-			fcr.setRef(Osdm2SeriesConnection.getRef(rc.getEntryConnectionPoint()));
-			sc.setFromConnectionRef(fcr);
-		}
-		
-		if (rc.getExitConnectionPoint() != null && rc.getExitConnectionPoint().getLegacyBorderPointCode() > 0) {
-			ConnectionRefStructure tcr = new ConnectionRefStructure();
-			tcr.setRef(Osdm2SeriesConnection.getRef(rc.getEntryConnectionPoint()));		
-			sc.setToConnectionRef(tcr);
-		}
-		
-		return sc;
-		
 	}
 
 }

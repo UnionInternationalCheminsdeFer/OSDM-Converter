@@ -14,6 +14,8 @@ public class Osdm2MultiLanguageString {
 		
 		MultilingualString mls = factory.createMultilingualString();
 		mls.setTextIdType(osdmText.getId());	
+		mls.getContent().add(osdmText.getTextUTF8());
+		mls.getContent().add(osdmText.getShortTextUTF8());
         return mls;
 	}
 
@@ -31,6 +33,7 @@ public class Osdm2MultiLanguageString {
 		MultilingualString mls = new MultilingualString();
 		mls.setLang(tr.getLanguage().getCode());
 		mls.getContent().add(tr.getTextUTF8());
+		mls.getContent().add(tr.getShortTextUTF8());
 		return mls;
 	}
 	

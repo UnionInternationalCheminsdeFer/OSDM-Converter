@@ -5,6 +5,8 @@ import java.math.BigInteger;
 
 import Gtm.Carrier;
 import Gtm.FareStructure;
+import Gtm.FulfillmentConstraint;
+import Gtm.FulfillmentType;
 import Gtm.PassengerConstraint;
 import Gtm.ServiceClass;
 import Gtm.TravelValidityType;
@@ -13,10 +15,13 @@ import uk.org.netex.netex.ClassOfUse;
 import uk.org.netex.netex.ConnectionRefStructure;
 import uk.org.netex.netex.DistanceMatrixElement;
 import uk.org.netex.netex.DistanceMatrixElementsRelStructure;
+import uk.org.netex.netex.EntitlementProductRefStructure;
+import uk.org.netex.netex.EntitlementRequired;
 import uk.org.netex.netex.FareBasisEnumeration;
 import uk.org.netex.netex.FareFrame;
 import uk.org.netex.netex.FareStructureElement;
 import uk.org.netex.netex.FareStructureElementsInFrameRelStructure;
+import uk.org.netex.netex.FulfilmentMethod;
 import uk.org.netex.netex.GenericParameterAssignment;
 import uk.org.netex.netex.GroupOfOperators;
 import uk.org.netex.netex.LogicalOperationEnumeration;
@@ -30,6 +35,7 @@ import uk.org.netex.netex.SeriesConstraintsRelStructure;
 import uk.org.netex.netex.TransportOrganisation;
 import uk.org.netex.netex.TransportOrganisationRefStructure;
 import uk.org.netex.netex.TransportOrganisationRefsRelStructure;
+import uk.org.netex.netex.TypeOfAccessRightAssignmentRefStructure;
 import uk.org.netex.netex.TypeOfFareStructureElementRefStructure;
 import uk.org.netex.netex.UsageEndEnumeration;
 import uk.org.netex.netex.UsageParametersRelStructure;
@@ -38,7 +44,6 @@ import uk.org.netex.netex.UsageValidityPeriod;
 import uk.org.netex.netex.UsageValidityTypeEnumeration;
 import uk.org.netex.netex.UserProfile;
 import uk.org.netex.netex.ValidBetween;
-import uk.org.netex.netex.ValidityConditionRefStructure;
 
 
 public class Osdm2FareStructureElements {
@@ -69,18 +74,42 @@ public class Osdm2FareStructureElements {
     	//reductionConstrants
     	convertReductionConstraints (osdmFares, resourceFrameNrt, structureList, fareFrameNrt, factory);
     	
-    	
+    	//route description
     	convertRegionalValidity(osdmFares, fareFrameNrt, factory);
+    	
+    	//fulfillment methods
+    	convertTypeOfTraveldocument(osdmFares, fareFrameNrt, resourceFrameNrt, factory);
 	}
     
     
+
+	private static void convertTypeOfTraveldocument(FareStructure osdmFares, FareFrame fareFrameNrt, ResourceFrame resourceFrame,
+			ObjectFactory factory) {
+		
+		fareFrameNrt.setFulfilmentMethods(factory.createFulfilmentMethodsInFrameRelStructure());
+		
+		for ( FulfillmentType ft : FulfillmentType.values()){
+			
+			FulfilmentMethod fm = factory.createFulfilmentMethod();
+			
+			fm.setId("fulfillmentMethod_" + ft.getLiteral());
+			fm.setName(Osdm2MultiLanguageString.getMultiLanguageString(ft.getLiteral()));
+						
+			fareFrameNrt.getFulfilmentMethods().getFulfilmentMethod().add(fm);
+		}
+	}
+
+
 
 	private static void convertRegionalValidity(FareStructure osdmFares, FareFrame fareFrameNrt, ObjectFactory factory) {
 
 		for (Gtm.RegionalConstraint rc : osdmFares.getRegionalConstraints().getRegionalConstraints()) {
 
+			if (TestFareSelector.selectRegionalConstraint(rc)) {
+
+			
 			FareStructureElement se = factory.createFareStructureElement();
-			se.setId(rc.getId());
+			se.setId("region_" + rc.getId());
 			String typeOfFareStructureElement = "efp:access";
 			TypeOfFareStructureElementRefStructure  ts = factory.createTypeOfFareStructureElementRefStructure();
 			ts.setValue(typeOfFareStructureElement);
@@ -127,7 +156,7 @@ public class Osdm2FareStructureElements {
 			
 			sc.setFareBasis(FareBasisEnumeration.ROUTE);
 			String routeDescription = RouteDescriptionBuilder.getRouteDescription(rc);
-			sc.setItinerary(Osdm2MultiLanguageString.getMultiLanguageString (routeDescription));	
+			sc.setItinerary(Osdm2MultiLanguageString.getMultiLanguageString(routeDescription));	
 			sc.setId(rc.getId());
 			
 			if (rc.getEntryConnectionPoint() != null && rc.getEntryConnectionPoint().getLegacyBorderPointCode() > 0) {
@@ -138,8 +167,12 @@ public class Osdm2FareStructureElements {
 			
 			if (rc.getExitConnectionPoint() != null && rc.getExitConnectionPoint().getLegacyBorderPointCode() > 0) {
 				ConnectionRefStructure tcr = factory.createConnectionRefStructure();
-				tcr.setRef(Osdm2SeriesConnection.getRef(rc.getEntryConnectionPoint()));		
+				tcr.setRef(Osdm2SeriesConnection.getRef(rc.getExitConnectionPoint()));		
 				sc.setToConnectionRef(tcr);
+			}
+			
+			fareFrameNrt.getFareStructureElements().getFareStructureElement().add(se);
+			
 			}
 
 		}
@@ -157,36 +190,40 @@ public class Osdm2FareStructureElements {
 		//add cards as user profiles
 		for ( Gtm.ReductionConstraint rc : osdmFares.getReductionConstraints().getReductionConstraints() ){
 			
-			
-	        //wrap it in a user profile
-			UserProfile up = factory.createUserProfile();
-			up.setId(rc.getId());
-
-			
-			for (Gtm.RequiredReductionCard card : rc.getRequiredReductionCards()) {
-				
-				ValidityConditionRefStructure vrs = factory.createValidityConditionRefStructure(); 
-				vrs.setNameOfRefClass("SaleDiscountRight");
-				vrs.setRef(card.getCard().getId());
-				up.getValidityConditions().getValidityConditionRefOrValidBetweenOrValidityConditionDummy().add(vrs);
-				
-			}
-			
-			fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createUserProfile(up));
-			
-			//create fare structure element with type Eligibility
+     		//create fare structure element with type Eligibility
 			//new fare structure element
 			FareStructureElement se = factory.createFareStructureElement();
-			se.setId(rc.getId());
+			se.setId("reduction_"+ rc.getId());
 			String typeOfFareStructureElement = "efp:eligibility";
 			TypeOfFareStructureElementRefStructure  ts = factory.createTypeOfFareStructureElementRefStructure();
 			ts.setValue(typeOfFareStructureElement);
 			se.setTypeOfFareStructureElementRef(ts);
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
-			gpa.setLimitationGroupingType(LogicalOperationEnumeration.AND);
+			TypeOfAccessRightAssignmentRefStructure ty = factory.createTypeOfAccessRightAssignmentRefStructure();
+			ty.setValue("required at travel");
+			gpa.setTypeOfAccessRightAssignmentRef(ty);
+			gpa.setLimitationGroupingType(LogicalOperationEnumeration.OR);
 			gpa.setLimitations(new UsageParametersRelStructure());
 			se.setGenericParameterAssignment(gpa);
-			gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUserProfile(up));
+			
+
+			for (Gtm.RequiredReductionCard card : rc.getRequiredReductionCards()) {
+				
+				
+				EntitlementRequired er = factory.createEntitlementRequired();
+				
+				EntitlementProductRefStructure pr = factory.createEntitlementProductRefStructure();
+				
+				if (card.getCard() != null) {
+					pr.setRef("card_" + card.getCard().getId());
+				} else {
+					pr.setRef("card_" + card.getName());
+				}
+				er.setServiceAccessRightRef(factory.createEntitlementProductRef(pr));
+			
+				gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createEntitlementRequired(er));
+				
+			}
 			
 			structureList.getFareStructureElement().add(se);	
 			
@@ -206,29 +243,32 @@ public class Osdm2FareStructureElements {
 		
 			//new fare structure element
 			FareStructureElement se = factory.createFareStructureElement();
-			se.setId(sa.getId());
+			se.setId("sales_availability_"+ sa.getId());
 			String typeOfFareStructureElement = "efp:sales_conditions";
 			TypeOfFareStructureElementRefStructure  ts = factory.createTypeOfFareStructureElementRefStructure();
 			ts.setValue(typeOfFareStructureElement);
 			se.setTypeOfFareStructureElementRef(ts);
+			
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
+			gpa.setId("sales_availability_"+ sa.getId());
 			gpa.setLimitationGroupingType(LogicalOperationEnumeration.OR);
 			gpa.setLimitations(factory.createUsageParametersRelStructure());
-			se.setGenericParameterAssignment(gpa);
-			structureList.getFareStructureElement().add(se);		
-
+			
 			for (Gtm.SalesRestriction sr : sa.getRestrictions()) {
 			
-				if (sr.getSalesDates() != null && sr.getSalesDates().getFromDate() != null) {
+				if (sr.getSalesDates() != null) {
+					
 					PurchaseWindow pw = factory.createPurchaseWindow();
 					ValidBetween vb = factory.createValidBetween();
-					vb.setFromDate(DateUtils.toXMLGregorianCalendar(sr.getSalesDates().getFromDate()));
-					vb.setToDate(DateUtils.toXMLGregorianCalendar(sr.getSalesDates().getUntilDate()));
+					vb.setFromDate(DateUtils.toXMLGregorianCalendar(sr.getSalesDates().getFromDateTime()));
+					vb.setToDate(DateUtils.toXMLGregorianCalendar(sr.getSalesDates().getUntilDateTime()));
 					pw.getValidBetween().add(vb);
-				
 					gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createPurchaseWindow(pw));	
 				}
 			}
+
+			se.setGenericParameterAssignment(gpa);
+			structureList.getFareStructureElement().add(se);	
 		}
 	}
 
@@ -251,7 +291,7 @@ public class Osdm2FareStructureElements {
 			TypeOfFareStructureElementRefStructure  ts = factory.createTypeOfFareStructureElementRefStructure();
 			ts.setValue(typeOfFareStructureElement);
 			se.setTypeOfFareStructureElementRef(ts);
-			se.setId(tv.getId());
+			se.setId("travelValidity_" + tv.getId());
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
 			gpa.setLimitationGroupingType(LogicalOperationEnumeration.AND);
 			gpa.setLimitations(factory.createUsageParametersRelStructure());
@@ -285,7 +325,7 @@ public class Osdm2FareStructureElements {
 				uvp2.setValidityPeriodType(UsageValidityTypeEnumeration.OTHER);
 			}			
 			uvp2.setUsageEnd(UsageEndEnumeration.STANDARD_DURATION);
-			uvp2.setStandardDuration(DateUtils.toDuration(true, tv.getTravelDays(), 0, 0, 0));
+			uvp2.setStandardDuration(DateUtils.toDuration(true,Math.round(tv.getRange().getValue()), 0, 0,Math.round(tv.getRange().getHoursAfterMidnight())));
 			
 			gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUsageValidityPeriod(uvp1));
 			gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUsageValidityPeriod(uvp2));	
@@ -301,11 +341,11 @@ public class Osdm2FareStructureElements {
 		for (PassengerConstraint pa : osdmFares.getPassengerConstraints().getPassengerConstraints()) {
 
 			UserProfile up = factory.createUserProfile();
-			up.setId(pa.getId());
+			up.setId("passenger_" + pa.getId());
 			up.setName(Osdm2MultiLanguageString.getMultiLanguageString(pa.getText()));		
 			up.setMaximumAge(BigInteger.valueOf(pa.getUpperAgeLimit()));
 			up.setMinimumAge(BigInteger.valueOf(pa.getLowerAgeLimit()));
-			up.setUserType(Osdm2PassengerType.convertPassengerType(pa.getTravelerType()));		
+			up.setUserType(OsdmPassengerType2PassengerType.convertPassengerType(pa.getTravelerType()));		
 
 			fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createUserProfile(up));
 
@@ -327,7 +367,7 @@ public class Osdm2FareStructureElements {
 			ts.setValue(typeOfFareStructureElement);		
 			ts.setNameOfRefClass("ClassOfUse");
 			se.setTypeOfFareStructureElementRef(ts);
-			se.setId(sc.getId().getLiteral());
+			se.setId("class_" + sc.getId().getLiteral());
 			
 			ClassOfUse cou = factory.createClassOfUse();
 			cou.setFareClass(Osdm2FareClass.convert(sc.getId()));
@@ -362,7 +402,7 @@ public class Osdm2FareStructureElements {
 			ts.setValue(typeOfFareStructureElement);		
 			ts.setNameOfRefClass("GroupOfOperators");
 			se.setTypeOfFareStructureElementRef(ts);
-			se.setId(cc.getId());
+			se.setId("carriers_" + cc.getId());
 			
 			structureList.getFareStructureElement().add(se);
 		}
@@ -384,7 +424,7 @@ public class Osdm2FareStructureElements {
     		
     		for (Carrier ca : cg.getCompanies()) {
     			
-    			if (Osdm2ResourceFrame.companyNotInResourceFrame(ca.getCode(), resourceFrameNrt)) {
+    			if (OsdmCarrier2ResourceFrameTransportOrganisation.companyNotInResourceFrame(ca.getCode(), resourceFrameNrt)) {
     				
     				addCarrierToResourceFrame(ca, factory, resourceFrameNrt);
     				
@@ -402,7 +442,7 @@ public class Osdm2FareStructureElements {
     		
     			for (Carrier ca : cc.getIncludedCarriers()) {
     			
-    				if (Osdm2ResourceFrame.companyNotInResourceFrame(ca.getCode(), resourceFrameNrt)) {
+    				if (OsdmCarrier2ResourceFrameTransportOrganisation.companyNotInResourceFrame(ca.getCode(), resourceFrameNrt)) {
     				
         				addCarrierToResourceFrame(ca, factory, resourceFrameNrt);
     				}
@@ -426,7 +466,7 @@ public class Osdm2FareStructureElements {
     		
     			for (Carrier ca : cc.getExcludedCarriers()) {
     			
-    				if (Osdm2ResourceFrame.companyNotInResourceFrame(ca.getCode(), resourceFrameNrt)) {
+    				if (OsdmCarrier2ResourceFrameTransportOrganisation.companyNotInResourceFrame(ca.getCode(), resourceFrameNrt)) {
     				
         				addCarrierToResourceFrame(ca, factory, resourceFrameNrt);
         			
@@ -458,7 +498,7 @@ public class Osdm2FareStructureElements {
         		gop.setId(cc.getIncludedCarrierGroup().getId());
         		gop.setName(Osdm2MultiLanguageString.getMultiLanguageString(cc.getIncludedCarrierGroup().getName()));
         		for (Carrier ca : cc.getIncludedCarrierGroup().getCompanies()) {
-    				if (Osdm2ResourceFrame.companyNotInResourceFrame(ca.getCode(), resourceFrameNrt)) {
+    				if (OsdmCarrier2ResourceFrameTransportOrganisation.companyNotInResourceFrame(ca.getCode(), resourceFrameNrt)) {
         				
         				addCarrierToResourceFrame(ca, factory, resourceFrameNrt);
         				
