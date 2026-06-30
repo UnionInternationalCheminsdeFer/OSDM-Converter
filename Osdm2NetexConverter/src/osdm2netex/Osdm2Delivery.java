@@ -10,6 +10,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import Gtm.FareStructure;
 import Gtm.GeneralTariffModel;
+import uk.org.netex.netex.AlternativeName;
 import uk.org.netex.netex.DataObjectsRelStructure;
 import uk.org.netex.netex.DistributionAssignment;
 import uk.org.netex.netex.DistributionAssignmentsRelStructure;
@@ -65,8 +66,6 @@ public class Osdm2Delivery {
 		delivery.setParticipantRef(Osdm2Company.getCompanyUri(osdm.getDelivery().getProvider().getCode()));
 		delivery.setVersion(osdm.getDelivery().getId());
 		
-		
-		
 		SiteFrame siteFrame = convertStations(osdm);
 		
         FareFrame oldFareFrame = null;
@@ -95,7 +94,6 @@ public class Osdm2Delivery {
 		dos.getCompositeFrameOrCommonFrame().add(jFareFrameNrt);
 		delivery.setDataObjects(dos);		
 		
-        
         //pricing service
 		osdmPricingServiceRef.setUri("OSDM");
 		
@@ -174,10 +172,6 @@ public class Osdm2Delivery {
 		fareFrameNrt.setQualityStructureFactors(qfs);
 		fareFrameNrt.setTimeIntervals(null);
 		
-		fareFrameNrt.setValidityConditions(null);
-		fareFrameNrt.setUsageParameters(null);
-		
-		
 		delivery.setPublicationTimestamp(DateUtils.toXMLGregorianCalendar(Calendar.getInstance().getTime()));			
 		
 		return delivery;
@@ -219,14 +213,18 @@ public class Osdm2Delivery {
 				StopPlace stop = factory.createStopPlace();
 				
 				stop.setId(UrnUtils.getStationUri(s.getStationCode()));
-				stop.setName(Osdm2MultiLanguageString.getMultiLanguageString(s.getName()));
+				stop.setName(Osdm2MultiLanguageString.getMultiLanguageString(s.getNameCaseUTF8()));
 				stop.setShortName(Osdm2MultiLanguageString.getMultiLanguageString(s.getShortNameCaseUTF8()));
+				
+				stop.setAlternativeNames(factory.createAlternativeNamesRelStructure());
+				AlternativeName an1 = factory.createAlternativeName();
+				an1.setName(Osdm2MultiLanguageString.getMultiLanguageString(s.getName()));
+				stop.getAlternativeNames().getAlternativeName().add(an1);
 				
 				PublicCodeStructure pcs = factory.createPublicCodeStructure();
 				pcs.setType("UIC");		
 				pcs.setValue(UrnUtils.getStationUri(s.getStationCode()));		
 				stop.setPublicCode(pcs);
-				
 				stop.setCentroid(factory.createSimplePointVersionStructure());
 				stop.getCentroid().setLocation(factory.createLocationStructure());
 				stop.getCentroid().getLocation().setLatitude(new BigDecimal(s.getLatitude()));

@@ -5,7 +5,6 @@ import java.math.BigInteger;
 
 import Gtm.Carrier;
 import Gtm.FareStructure;
-import Gtm.FulfillmentConstraint;
 import Gtm.FulfillmentType;
 import Gtm.PassengerConstraint;
 import Gtm.ServiceClass;
@@ -79,9 +78,12 @@ public class Osdm2FareStructureElements {
     	
     	//fulfillment methods
     	convertTypeOfTraveldocument(osdmFares, fareFrameNrt, resourceFrameNrt, factory);
+
 	}
     
-    
+
+
+
 
 	private static void convertTypeOfTraveldocument(FareStructure osdmFares, FareFrame fareFrameNrt, ResourceFrame resourceFrame,
 			ObjectFactory factory) {
@@ -205,7 +207,6 @@ public class Osdm2FareStructureElements {
 			gpa.setLimitationGroupingType(LogicalOperationEnumeration.OR);
 			gpa.setLimitations(new UsageParametersRelStructure());
 			se.setGenericParameterAssignment(gpa);
-			
 
 			for (Gtm.RequiredReductionCard card : rc.getRequiredReductionCards()) {
 				
@@ -503,7 +504,6 @@ public class Osdm2FareStructureElements {
         				addCarrierToResourceFrame(ca, factory, resourceFrameNrt);
         				
     				}
-
         						
         			TransportOrganisationRefStructure or = factory.createTransportOrganisationRefStructure();
             		or.setRef(Osdm2Company.getCompanyUri(ca.getCode()));
@@ -542,7 +542,7 @@ public class Osdm2FareStructureElements {
 		
 		TransportOrganisation org = factory.createTransportOrganisation();
 		org.setId(Osdm2Company.getCompanyUri(ca.getCode()));
-		MultilingualString mls = Osdm2MultiLanguageString.getMultiLanguageString(ca.getName());
+		MultilingualString mls = Osdm2MultiLanguageString.getMultiLanguageString(ca.getShortName());
 		org.getRest().add(factory.createOrganisationVersionStructureShortName(mls));
 		MultilingualString mln = Osdm2MultiLanguageString.getMultiLanguageString(ca.getName());
 		org.getRest().add(factory.createOrganisationVersionStructureName(mln));

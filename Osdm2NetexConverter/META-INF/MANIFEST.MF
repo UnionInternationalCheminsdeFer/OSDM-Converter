@@ -12,7 +12,8 @@ Bundle-ClassPath: lib/,
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: osdm2netex,
  uk.org.netex.netex
-Import-Package: com.sun.istack,
+Import-Package: Gtm,
+ com.sun.istack,
  jakarta.activation;version="[2.1.0,3.0.0)",
  jakarta.annotation;version="2.1.0",
  jakarta.inject;version="2.0.0",

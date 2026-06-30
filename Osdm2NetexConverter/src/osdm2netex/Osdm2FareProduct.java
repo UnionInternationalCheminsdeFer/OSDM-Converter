@@ -1,35 +1,42 @@
 package osdm2netex;
 
+import Gtm.CombinationConstraint;
+import Gtm.CombinationModel;
 import Gtm.FulfillmentConstraint;
 import Gtm.FulfillmentType;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.TravelValidityConstraint;
 import uk.org.netex.netex.AccessRightInProductRefStructure;
+import uk.org.netex.netex.AlternativeName;
 import uk.org.netex.netex.Cell;
 import uk.org.netex.netex.CellsRelStructure;
 import uk.org.netex.netex.ClassOfUseRef;
+import uk.org.netex.netex.ConditionSummaryStructure;
 import uk.org.netex.netex.FareFrame;
 import uk.org.netex.netex.FarePriceVersionedChildStructure;
-import uk.org.netex.netex.FareProduct;
 import uk.org.netex.netex.FareProductRefStructure;
 import uk.org.netex.netex.FareProductsInFrameRelStructure;
+import uk.org.netex.netex.FareStructureTypeEnumeration;
 import uk.org.netex.netex.FareTable;
 import uk.org.netex.netex.FareTableRowRefStructure;
 import uk.org.netex.netex.ObjectFactory;
+import uk.org.netex.netex.OperatorRestrictionsEnumeration;
+import uk.org.netex.netex.PreassignedFareProduct;
+import uk.org.netex.netex.PreassignedFareProductEnumeration;
 import uk.org.netex.netex.PriceableObjectRefsRelStructure;
 import uk.org.netex.netex.PricingServiceRefStructure;
+import uk.org.netex.netex.PrivateCodeStructure;
 import uk.org.netex.netex.SalesOfferPackage;
 import uk.org.netex.netex.SalesOfferPackageElement;
 import uk.org.netex.netex.TypeOfTravelDocumentRefStructure;
 
 public class Osdm2FareProduct {
 	
-	public static FareProduct convertFare (Gtm.FareElement osdmFare, FareFrame fareFrameNrt){
+	public static PreassignedFareProduct convertFare (Gtm.FareElement osdmFare, FareFrame fareFrameNrt){
 		
 		ObjectFactory factory = new ObjectFactory();
 		
-		
-		FareProduct product = convert2Product(osdmFare, factory);
+		PreassignedFareProduct product = convert2Product(osdmFare, factory);
 
 		FarePriceVersionedChildStructure fp = Osdm2FareStructurElementPrice.convert2FarePriceVersionedChildStructure(osdmFare.getPrice() );
 
@@ -79,27 +86,70 @@ public class Osdm2FareProduct {
 			salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sopef);
 			
 		}
-
+		
+		//add condition summary
+		ConditionSummaryStructure cs = factory.createConditionSummaryStructure();
+		cs.setAllowAdditionalDiscounts(false);
+		cs.setHasOperatorRestrictions(OperatorRestrictionsEnumeration.RESTRICTED);
+		cs.setHasRouteRestrictions(true);
+		cs.setHasTravelTimeRestrictions(true);
+		cs.setHasExchangeFee(true);
+		cs.setIsRefundable(false);
+		cs.setFareStructureType(FareStructureTypeEnumeration.POINT_TO_POINT_FARE);
+		
+		CombinationConstraint combinationConstraint = osdmFare.getCombinationConstraint();
+		if (combinationConstraint == null) {
+			combinationConstraint = osdmFare.getFareConstraintBundle().getCombinationConstraint();
+		}
+		
+		if (combinationConstraint != null) {
+			for (Gtm.FareCombinationModel m : combinationConstraint.getCombinationModels()) {
+				
+				if (m.getModel().equals(CombinationModel.CLUSTERING)) {			
+					if (m.getReferenceCluster().equals(Gtm.Clusters.BUSINESS) 
+							|| m.getReferenceCluster().equals(Gtm.Clusters.FULLFLEX) ) {
+						cs.setHasExchangeFee(true);
+						cs.setIsRefundable(true);
+						PrivateCodeStructure pcs = factory.createPrivateCodeStructure();
+						pcs.setType("OSDM.BUSINESS_MODEL");
+						pcs.setValue("OSDM." + m.getReferenceCluster().getLiteral());
+						product.setPrivateCode(pcs);
+					}
+				}
+			}
+		}
+		product.setConditionSummary(cs);
+		product.setProductType(PreassignedFareProductEnumeration.SINGLE_TRIP);
+		
+		
 		if (fareFrameNrt.getFareProducts() == null){
 			FareProductsInFrameRelStructure fpr2 = factory.createFareProductsInFrameRelStructure();
 			fareFrameNrt.setFareProducts(fpr2);
 		}
         
-        fareFrameNrt.getFareProducts().getFareProductDummy().add(factory.createFareProduct(product));
+        fareFrameNrt.getFareProducts().getFareProductDummy().add(factory.createPreassignedFareProduct(product));
 		
-		return product;
+  		return product;
 		
 	}
 
-	public static FareProduct convert2Product (Gtm.FareElement osdmFare, ObjectFactory factory) {
+	public static PreassignedFareProduct convert2Product (Gtm.FareElement osdmFare, ObjectFactory factory) {
 		
-		FareProduct fareProduct = factory.createFareProduct();
+		PreassignedFareProduct fareProduct = factory.createPreassignedFareProduct();
+		fareProduct.setId(osdmFare.getId());
+		
+		//description
+		if (osdmFare.getText() != null ) {
+			fareProduct.setName(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText().getTextUTF8()));
+		}
+		if (osdmFare.getFareDetailDescription() != null) {
+			fareProduct.setDescription(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getFareDetailDescription().getTextUTF8()));
+		}
 		
 		if (fareProduct.getValidableElements() == null) {
 			fareProduct.setValidableElements(factory.createValidableElementsRelStructure());
 		}
 		
-		fareProduct.setId(osdmFare.getId());
 		if (fareProduct.getAccessRightsInProduct() == null) {
 			fareProduct.setAccessRightsInProduct(factory.createAccessRightsInProductRelStructure());
 		}
