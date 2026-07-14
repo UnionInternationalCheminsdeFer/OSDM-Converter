@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: GTM_data_converter.editor;singleton:=true
 Automatic-Module-Name: GTM_data_converter.editor
-Bundle-Version: 2.7.1
+Bundle-Version: 2.8.0
 Bundle-ClassPath: .
 Bundle-Activator: Gtm.presentation.GtmEditorPlugin$Implementation
 Bundle-Vendor: %providerName
@@ -100,5 +100,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.dialogs;bundle-version="1.1.600",
  org.apache.poi;bundle-version="4.1.1",
  org.apache.poi.ooxml;bundle-version="4.1.1",
- org.apache.commons.collections4;bundle-version="4.4.0"
+ org.apache.commons.collections4;bundle-version="4.4.0",
+ wrapped.org.apache.xmlbeans.xmlbeans;bundle-version="3.1.0",
+ wrapped.org.apache.xmlbeans.xmlbeans.source;bundle-version="3.1.0",
+ org.apache.poi.ooxml.schemas;bundle-version="4.1.1"
 Bundle-ActivationPolicy: lazy

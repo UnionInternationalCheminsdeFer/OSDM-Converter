@@ -6,12 +6,18 @@ import java.math.BigInteger;
 import Gtm.Carrier;
 import Gtm.FareStructure;
 import Gtm.FulfillmentType;
+import Gtm.IncludedFreePassengerLimit;
+import Gtm.PassengerCombinationConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.ServiceClass;
+import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityType;
 import Gtm.util.RouteDescriptionBuilder;
 import uk.org.netex.netex.ClassOfUse;
+import uk.org.netex.netex.CompanionProfile;
+import uk.org.netex.netex.CompanionRelationshipEnumeration;
 import uk.org.netex.netex.ConnectionRefStructure;
+import uk.org.netex.netex.DiscountBasisEnumeration;
 import uk.org.netex.netex.DistanceMatrixElement;
 import uk.org.netex.netex.DistanceMatrixElementsRelStructure;
 import uk.org.netex.netex.EntitlementProductRefStructure;
@@ -23,6 +29,7 @@ import uk.org.netex.netex.FareStructureElementsInFrameRelStructure;
 import uk.org.netex.netex.FulfilmentMethod;
 import uk.org.netex.netex.GenericParameterAssignment;
 import uk.org.netex.netex.GroupOfOperators;
+import uk.org.netex.netex.GroupTicket;
 import uk.org.netex.netex.LogicalOperationEnumeration;
 import uk.org.netex.netex.MultilingualString;
 import uk.org.netex.netex.ObjectFactory;
@@ -42,6 +49,7 @@ import uk.org.netex.netex.UsageTriggerEnumeration;
 import uk.org.netex.netex.UsageValidityPeriod;
 import uk.org.netex.netex.UsageValidityTypeEnumeration;
 import uk.org.netex.netex.UserProfile;
+import uk.org.netex.netex.UserProfileRefStructure;
 import uk.org.netex.netex.ValidBetween;
 
 
@@ -63,6 +71,9 @@ public class Osdm2FareStructureElements {
     	
     	//passengers --> fare frame : usage parameters
     	convertPassengers(osdmFares,resourceFrameNrt,  structureList, fareFrameNrt, factory);
+
+    	//passengerLimits --> fare frame : usage parameters
+    	convertPassengerLimits(osdmFares,resourceFrameNrt,  structureList, fareFrameNrt, factory);
     	
     	//travel validity  --> fare structure elements 
     	convertTravelValidity(osdmFares, resourceFrameNrt, structureList, fareFrameNrt, factory);
@@ -81,6 +92,11 @@ public class Osdm2FareStructureElements {
 
 	}
     
+
+
+
+
+
 
 
 
@@ -347,13 +363,108 @@ public class Osdm2FareStructureElements {
 			up.setMaximumAge(BigInteger.valueOf(pa.getUpperAgeLimit()));
 			up.setMinimumAge(BigInteger.valueOf(pa.getLowerAgeLimit()));
 			up.setUserType(OsdmPassengerType2PassengerType.convertPassengerType(pa.getTravelerType()));		
+			
+			if (pa.getIncludedFreePassengers() != null) {
+				
+				for (IncludedFreePassengerLimit ifp :pa.getIncludedFreePassengers()) {
+					
+					CompanionProfile companionProfile = factory.createCompanionProfile();
+					
+					//link to passenger type
+					UserProfileRefStructure uprs = factory.createUserProfileRefStructure();
+					uprs.setRef("passenger_" + ifp.getPassengerConstraint().getId());
+					companionProfile.setUserProfileRef(factory.createUserProfileRef(uprs));
 
+					//conditions
+					companionProfile.setDiscountBasis(DiscountBasisEnumeration.FREE);
+					companionProfile.setCompanionRelationshipType(CompanionRelationshipEnumeration.DEPENDENT);
+					companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(0L));
+					companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(ifp.getNumber()));
+					
+					if (up.getCompanionProfiles() == null) {
+						up.setCompanionProfiles(factory.createCompanionProfilesRelStructure());
+					}
+					up.getCompanionProfiles().getCompanionProfileRefOrCompanionProfile().add(companionProfile);
+
+				}
+				
+				if (pa.getExcludedPassengerCombinations() != null) {
+					
+				    for (PassengerCombinationConstraint pcc : pa.getExcludedPassengerCombinations()) {
+				    	
+						CompanionProfile companionProfile = factory.createCompanionProfile();
+				    	
+						//link to passenger type
+						UserProfileRefStructure uprs = factory.createUserProfileRefStructure();
+						uprs.setRef("passenger_" + pcc.getPassengerConstraint().getId());
+						companionProfile.setUserProfileRef(factory.createUserProfileRef(uprs));
+
+						//conditions
+						companionProfile.setDiscountBasis(DiscountBasisEnumeration.NONE);
+						companionProfile.setCompanionRelationshipType(CompanionRelationshipEnumeration.DEPENDENT);
+						companionProfile.setMinimumNumberOfPersons(BigInteger.valueOf(pcc.getMinNumber()));
+						companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(pcc.getMaxNumber()));
+						
+						if (up.getCompanionProfiles() == null) {
+							up.setCompanionProfiles(factory.createCompanionProfilesRelStructure());
+						}
+						up.getCompanionProfiles().getCompanionProfileRefOrCompanionProfile().add(companionProfile);
+				    	
+				    }
+				}
+			}
+			
+			if (fareFrameNrt.getUsageParameters() == null) {
+				fareFrameNrt.setUsageParameters(factory.createUsageParametersInFrameRelStructure());
+			}
 			fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createUserProfile(up));
 
 		}
+	}
+	
+	private static void convertPassengerLimits(FareStructure osdmFares, ResourceFrame resourceFrameNrt,
+			FareStructureElementsInFrameRelStructure structureList, FareFrame fareFrameNrt, ObjectFactory factory) {
+		
+		
+		if (osdmFares.getTotalPassengerCombinationConstraints() != null) {
+			
+			for (TotalPassengerCombinationConstraint pl : osdmFares.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+				
+				GroupTicket gt = factory.createGroupTicket();			
+     			gt.setId("passengerLimit_" + pl.getId());
+     			gt.setMinimumNumberOfPersons(BigInteger.valueOf(Math.round(pl.getMinTotalPassengerWeight())));
+     			gt.setMaximumNumberOfPersons(BigInteger.valueOf(Math.round(pl.getMaxTotalPassengerWeight())));     			
+
+     			/*
+     			if (fareFrameNrt.getUsageParameters() == null) {
+     				fareFrameNrt.setUsageParameters(factory.createUsageParametersInFrameRelStructure());
+     			}
+     			fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createGroupTicket(gt));
+     			*/
+     			FareStructureElement fse = factory.createFareStructureElement();
+     			fse.setId("passengerLimit_" + pl.getId());
+     			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
+     			gpa.setLimitations(factory.createUsageParametersRelStructure());
+     			gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createGroupTicket(gt));
+     			
+     			
+     			for (PassengerConstraint pc : osdmFares.getPassengerConstraints().getPassengerConstraints()) {
+     				if (pc.getPassengerWeight() > 0) {
+     					UserProfileRefStructure upr = factory.createUserProfileRefStructure();
+     					upr.setRef("passenger_" + pc.getId());
+     					gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUserProfileRef(upr));
+     				}
+     			}
+     			
+     			
+     			fse.setGenericParameterAssignment(gpa);			
+     			fareFrameNrt.getFareStructureElements().getFareStructureElement().add(fse);
+     			
+			}
+		}
+
 		
 	}
-
 
 
 	private static void convertClassOfUse(FareStructure osdmFares, ResourceFrame resourceFrameNrt,

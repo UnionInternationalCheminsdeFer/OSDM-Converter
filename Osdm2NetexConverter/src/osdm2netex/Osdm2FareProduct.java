@@ -5,6 +5,7 @@ import Gtm.CombinationModel;
 import Gtm.FulfillmentConstraint;
 import Gtm.FulfillmentType;
 import Gtm.SalesAvailabilityConstraint;
+import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
 import uk.org.netex.netex.AccessRightInProductRefStructure;
 import uk.org.netex.netex.AlternativeName;
@@ -16,6 +17,7 @@ import uk.org.netex.netex.FareFrame;
 import uk.org.netex.netex.FarePriceVersionedChildStructure;
 import uk.org.netex.netex.FareProductRefStructure;
 import uk.org.netex.netex.FareProductsInFrameRelStructure;
+import uk.org.netex.netex.FareStructureElementRefStructure;
 import uk.org.netex.netex.FareStructureTypeEnumeration;
 import uk.org.netex.netex.FareTable;
 import uk.org.netex.netex.FareTableRowRefStructure;
@@ -29,6 +31,7 @@ import uk.org.netex.netex.PrivateCodeStructure;
 import uk.org.netex.netex.SalesOfferPackage;
 import uk.org.netex.netex.SalesOfferPackageElement;
 import uk.org.netex.netex.TypeOfTravelDocumentRefStructure;
+import uk.org.netex.netex.ValidableElement;
 
 public class Osdm2FareProduct {
 	
@@ -121,6 +124,17 @@ public class Osdm2FareProduct {
 		product.setConditionSummary(cs);
 		product.setProductType(PreassignedFareProductEnumeration.SINGLE_TRIP);
 		
+		if (osdmFare.getFareConstraintBundle() != null &&
+			osdmFare.getFareConstraintBundle().getTotalPassengerConstraint() != null ) {
+			TotalPassengerCombinationConstraint pl = osdmFare.getFareConstraintBundle().getTotalPassengerConstraint();
+		
+			ValidableElement ve = factory.createValidableElement();
+			FareStructureElementRefStructure fser = factory.createFareStructureElementRefStructure();
+			fser.setRef("passengerLimit_" + pl.getId());
+			ve.setFareStructureElements(factory.createFareStructureElementRefsRelStructure());
+			ve.getFareStructureElements().getFareStructureElementRef().add(fser);
+			product.getValidableElements().getValidableElementRefOrValidableElement().add(ve);
+		}
 		
 		if (fareFrameNrt.getFareProducts() == null){
 			FareProductsInFrameRelStructure fpr2 = factory.createFareProductsInFrameRelStructure();
@@ -197,6 +211,9 @@ public class Osdm2FareProduct {
 			sarTraveler.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTraveler);		
 		}
+		
+		
+		
 		
 		//sales availability
 		SalesAvailabilityConstraint sac = osdmFare.getSalesAvailability();

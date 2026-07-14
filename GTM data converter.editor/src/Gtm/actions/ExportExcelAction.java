@@ -93,7 +93,7 @@ public class ExportExcelAction extends BasicGtmAction {
 
 			
 			final String name = tool.getGeneralTariffModel().getDelivery().getProvider().getCode().trim() 
-					+ "_" + tool.getGeneralTariffModel().getDelivery().getId().trim()+".xls"; //$NON-NLS-1$ //$NON-NLS-2$
+					+ "_" + tool.getGeneralTariffModel().getDelivery().getId().trim()+".xlsx"; //$NON-NLS-1$ //$NON-NLS-2$
             final String path = getFilePath(name);
 			if (path == null || path.length() == 0) {
 				return;
@@ -176,7 +176,7 @@ public class ExportExcelAction extends BasicGtmAction {
 		    Shell shell = Display.getDefault().getActiveShell();
 		    shell.open();
 		    FileDialog dialog = new FileDialog(shell, SWT.SAVE);
-		    dialog.setFilterExtensions(new String[] { "*.xls"});  //$NON-NLS-1$
+		    dialog.setFilterExtensions(new String[] { "*.xlsx"});  //$NON-NLS-1$
 		    
 		    String lastPath = getLastPath();
 			dialog.setFilterPath(lastPath); 

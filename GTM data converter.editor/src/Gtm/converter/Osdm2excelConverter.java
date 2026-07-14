@@ -1,7 +1,7 @@
 package Gtm.converter;
 
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -30,7 +30,7 @@ public class Osdm2excelConverter {
 
 	public Workbook convert(IProgressMonitor monitor) {
 		
-		Workbook workbook = new HSSFWorkbook();
+		Workbook workbook = new XSSFWorkbook();
 		
 				
 		Sheet sheet = workbook.createSheet("Fares " + tool.getGeneralTariffModel().getDelivery().getProvider().getName());
@@ -45,7 +45,7 @@ public class Osdm2excelConverter {
 		headerStyle.setWrapText(true);
 		
 
-		HSSFFont font = ((HSSFWorkbook) workbook).createFont();
+		XSSFFont font = ((XSSFWorkbook) workbook).createFont();
 		font.setFontName("Arial");
 		font.setFontHeightInPoints((short) 16);
 		font.setBold(true);

@@ -8,6 +8,7 @@ import Gtm.PassengerCombinationConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.ReductionConstraint;
 import Gtm.ServiceClass;
+import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelerType;
 
 public class ExcelFareTypes {
@@ -21,11 +22,13 @@ public class ExcelFareTypes {
 		ServiceClass serviceClass = null;
 		PassengerConstraint passengerConstraint = null;
 		ReductionConstraint reductionConstraint = null;
+		TotalPassengerCombinationConstraint passengerLimits = null;
 		
-		public FareType (ServiceClass serviceClass, PassengerConstraint passengerConstraint, ReductionConstraint reductionConstraint){
+		public FareType (ServiceClass serviceClass, PassengerConstraint passengerConstraint, ReductionConstraint reductionConstraint, TotalPassengerCombinationConstraint passengerLimits){
 			this.serviceClass=  serviceClass;
 			this.passengerConstraint = passengerConstraint;
 			this.reductionConstraint = reductionConstraint;			
+			this.passengerLimits = passengerLimits;
 			
 		}
 	}
@@ -38,15 +41,17 @@ public class ExcelFareTypes {
 		for (ServiceClass scd : getClasses()) {
 
 			for (PassengerConstraint pc : tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
-					
-				for (ReductionConstraint rc : tool.getGeneralTariffModel().getFareStructure().getReductionConstraints().getReductionConstraints()) {
-								
-					fareTypes.add(new FareType(scd,pc,rc));
+
 				
-				}
-	
-				fareTypes.add(new FareType(scd,pc,null));
-					
+				for (TotalPassengerCombinationConstraint pl : tool.getGeneralTariffModel().getFareStructure().getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+
+					for (ReductionConstraint rc : tool.getGeneralTariffModel().getFareStructure().getReductionConstraints().getReductionConstraints()) {
+
+						fareTypes.add(new FareType(scd,pc,rc, pl));
+					}
+				
+					fareTypes.add(new FareType(scd,pc,null, pl));
+				}	
 			}
 		}
 	}
@@ -78,6 +83,7 @@ public class ExcelFareTypes {
 			
 			if (   fare.getServiceClass() == type.serviceClass
 			    && fare.getPassengerConstraint() == type.passengerConstraint
+				&& fare.getFareConstraintBundle().getTotalPassengerConstraint() == type.passengerLimits
 			    && fare.getReductionConstraint() == type.reductionConstraint){
 			    return fareTypes.indexOf(type);
 			}
@@ -102,6 +108,13 @@ public class ExcelFareTypes {
 			} catch (Exception e) {
 				//
 			}
+			//group size limits
+			try {
+				sb.append(type.passengerLimits.getMinTotalPassengerWeight()).append("-").append(type.passengerLimits.getMaxTotalPassengerWeight()).append(" - ");
+			} catch (Exception e) {
+				//
+			}			 
+			// reduction cards
 			try {
 				sb.append(type.reductionConstraint.getRequiredReductionCards().getFirst().getName());
 			} catch (Exception e) {
