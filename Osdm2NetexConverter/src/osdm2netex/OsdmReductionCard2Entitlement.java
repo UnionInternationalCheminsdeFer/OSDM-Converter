@@ -6,10 +6,8 @@ import uk.org.netex.netex.AlternativeName;
 import uk.org.netex.netex.AlternativeNamesRelStructure;
 import uk.org.netex.netex.EntitlementProduct;
 import uk.org.netex.netex.FareFrame;
-import uk.org.netex.netex.FareStructureElementRefStructure;
 import uk.org.netex.netex.NameTypeEnumeration;
 import uk.org.netex.netex.ObjectFactory;
-import uk.org.netex.netex.ValidableElementVersionStructure;
 import uk.org.netex.netex.ValidityConditionRefStructure;
 
 public class OsdmReductionCard2Entitlement {
@@ -34,7 +32,8 @@ public class OsdmReductionCard2Entitlement {
 			
 						//define the entitlement for the card
 			EntitlementProduct entitlement = factory.createEntitlementProduct();
-			entitlement.setId("card_" + card.getId());
+			entitlement.setId(IdFactory.getReductionCardId(card));
+			
 			entitlement.setName(Osdm2MultiLanguageString.getMultiLanguageString(card.getName()));
 			AlternativeNamesRelStructure ans2 = factory.createAlternativeNamesRelStructure();
 			AlternativeName an2 = factory.createAlternativeName();
@@ -52,7 +51,7 @@ public class OsdmReductionCard2Entitlement {
 				
 				for (ServiceClass sc : card.getServiceClasses()) {
 					ValidityConditionRefStructure fr = factory.createValidityConditionRefStructure();
-					fr.setRef("class_" + sc.getId().getLiteral());
+					fr.setRef(IdFactory.getServiceClassId(sc));
 					entitlement.getValidityConditions().getValidityConditionRefOrValidBetweenOrValidityConditionDummy().add(factory.createValidityConditionRef(fr));
 				}
 				

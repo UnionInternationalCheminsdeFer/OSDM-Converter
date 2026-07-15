@@ -8,7 +8,6 @@ import Gtm.SalesAvailabilityConstraint;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
 import uk.org.netex.netex.AccessRightInProductRefStructure;
-import uk.org.netex.netex.AlternativeName;
 import uk.org.netex.netex.Cell;
 import uk.org.netex.netex.CellsRelStructure;
 import uk.org.netex.netex.ClassOfUseRef;
@@ -45,13 +44,13 @@ public class Osdm2FareProduct {
 
 		FareTable table = factory.createFareTable();
 		table.setDescription(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));
-		table.setId(osdmFare.getId());
+		table.setId(IdFactory.getFareProductId(osdmFare));
 		
 		PriceableObjectRefsRelStructure por = factory.createPriceableObjectRefsRelStructure();
-		por.setId(product.getId());
+		por.setId(IdFactory.getFareProductId(osdmFare));
 		table.setPricesFor(por);
 		CellsRelStructure cellRel = factory.createCellsRelStructure();
-		cellRel.setId(osdmFare.getId());
+		cellRel.setId(IdFactory.getFareProductId(osdmFare));
 		Cell cell = factory.createCell();
 		
 		ClassOfUseRef cr = factory.createClassOfUseRef();
@@ -74,7 +73,7 @@ public class Osdm2FareProduct {
 		fareFrameNrt.getSalesOfferPackages().getSalesOfferPackage().add(salesOfferPackage);
 		SalesOfferPackageElement sope = factory.createSalesOfferPackageElement();
 		FareProductRefStructure fpr = factory.createFareProductRefStructure();
-		fpr.setRef(product.getId());
+		fpr.setRef(IdFactory.getFareProductId(osdmFare));
 		sope.setFareProductRef(factory.createFareProductRef(fpr));
 		salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sope);
 		
@@ -84,7 +83,7 @@ public class Osdm2FareProduct {
 		for (FulfillmentType ft :fc.getAcceptedFulfilmentTypes()) {
 			SalesOfferPackageElement sopef = factory.createSalesOfferPackageElement();
 			TypeOfTravelDocumentRefStructure tdt = factory.createTypeOfTravelDocumentRefStructure();
-			tdt.setRef("fulfillmentMethod_" + ft.getLiteral());
+			tdt.setRef(IdFactory.getTravelDocumentTypeId(ft));
 			sopef.setTypeOfTravelDocumentRef(tdt);		
 			salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sopef);
 			
@@ -130,7 +129,7 @@ public class Osdm2FareProduct {
 		
 			ValidableElement ve = factory.createValidableElement();
 			FareStructureElementRefStructure fser = factory.createFareStructureElementRefStructure();
-			fser.setRef("passengerLimit_" + pl.getId());
+			fser.setRef(IdFactory.getFareStructureElementPassengerLimitsId(pl));
 			ve.setFareStructureElements(factory.createFareStructureElementRefsRelStructure());
 			ve.getFareStructureElements().getFareStructureElementRef().add(fser);
 			product.getValidableElements().getValidableElementRefOrValidableElement().add(ve);
@@ -150,7 +149,7 @@ public class Osdm2FareProduct {
 	public static PreassignedFareProduct convert2Product (Gtm.FareElement osdmFare, ObjectFactory factory) {
 		
 		PreassignedFareProduct fareProduct = factory.createPreassignedFareProduct();
-		fareProduct.setId(osdmFare.getId());
+		fareProduct.setId(IdFactory.getFareProductId(osdmFare));
 		
 		//description
 		if (osdmFare.getText() != null ) {
@@ -179,7 +178,7 @@ public class Osdm2FareProduct {
 		//service class
 		if (osdmFare.getServiceClass() != null) {
 			AccessRightInProductRefStructure sarClass = factory.createAccessRightInProductRefStructure();
-			sarClass.setRef("class_" + osdmFare.getServiceClass().getId().getLiteral());
+			sarClass.setRef(IdFactory.getServiceClassId(osdmFare.getServiceClass()));
 			sarClass.setNameOfRefClass("ClassOfUse");
 			fareProduct.getAccessRightsInProduct().getAccessRightInProductRefOrAccessRightInProduct().add(sarClass);
 		}
@@ -187,7 +186,7 @@ public class Osdm2FareProduct {
 		//carrier constraint
 		if (osdmFare.getCarrierConstraint() != null) {
 			AccessRightInProductRefStructure sarCarrier = factory.createAccessRightInProductRefStructure();
-			sarCarrier.setRef("carriers_" + osdmFare.getCarrierConstraint().getId());
+			sarCarrier.setRef(IdFactory.getFareStructureElementCarriersId(osdmFare.getCarrierConstraint()));
 			sarCarrier.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarCarrier);
 		}
@@ -199,7 +198,7 @@ public class Osdm2FareProduct {
 		}		
 		if (tvc != null) {
 			AccessRightInProductRefStructure sarTravelVal = factory.createAccessRightInProductRefStructure();
-			sarTravelVal.setRef("travelValidity_" + tvc.getId());
+			sarTravelVal.setRef(IdFactory.getFareStructureElementTravelValidityId(tvc));
 			sarTravelVal.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTravelVal);		
 		}
@@ -207,13 +206,10 @@ public class Osdm2FareProduct {
 		//passenger constraint
 		if (osdmFare.getPassengerConstraint() != null ) {
 			AccessRightInProductRefStructure sarTraveler = factory.createAccessRightInProductRefStructure();
-			sarTraveler.setRef("passenger_" + osdmFare.getPassengerConstraint().getId());
+			sarTraveler.setRef(IdFactory.getFareStructureElementPassengersId(osdmFare.getPassengerConstraint()));
 			sarTraveler.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTraveler);		
 		}
-		
-		
-		
 		
 		//sales availability
 		SalesAvailabilityConstraint sac = osdmFare.getSalesAvailability();
@@ -222,7 +218,7 @@ public class Osdm2FareProduct {
 		}
 		if (sac != null) {
 			AccessRightInProductRefStructure sarSalesDate = factory.createAccessRightInProductRefStructure();
-			sarSalesDate.setRef("sales_availability_" + sac.getId());
+			sarSalesDate.setRef(IdFactory.getFareStructureElementSalesAvailablilityId(sac));
 			sarSalesDate.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarSalesDate);	
 		} 
@@ -230,7 +226,7 @@ public class Osdm2FareProduct {
 		//reduction constraint
 		if (osdmFare.getReductionConstraint() != null) {
 			AccessRightInProductRefStructure reductionConstraint = factory.createAccessRightInProductRefStructure();
-			reductionConstraint.setRef("reduction_"+osdmFare.getReductionConstraint().getId());
+			reductionConstraint.setRef(IdFactory.getFareStructureElementReductionId(osdmFare.getReductionConstraint()));
 			reductionConstraint.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(reductionConstraint);	
 		}
@@ -238,7 +234,7 @@ public class Osdm2FareProduct {
 		//regional constraint
 		if (osdmFare.getRegionalConstraint() != null) {
 			AccessRightInProductRefStructure regionalConstraint = new AccessRightInProductRefStructure();
-			regionalConstraint.setRef("region_" + osdmFare.getRegionalConstraint().getId());
+			regionalConstraint.setRef(IdFactory.getFareStructureElementRegionId(osdmFare.getRegionalConstraint()));
 			regionalConstraint.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(regionalConstraint);	
 		}

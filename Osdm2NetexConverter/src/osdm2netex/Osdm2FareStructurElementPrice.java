@@ -16,10 +16,9 @@ public class Osdm2FareStructurElementPrice {
 		ObjectFactory factory = new ObjectFactory();
 		
 		FareStructureElementPrice farePrice = factory.createFareStructureElementPrice();
+		farePrice.setId(IdFactory.getPriceId(osdmPrice));
 		
 		farePrice.setCurrency(osdmPrice.getCurrencies().get(0).getCurrency().getIsoCode());
-		
-		farePrice.setId(osdmPrice.getId());
 
 		BigDecimal value = new BigDecimal(Float.toString(osdmPrice.getCurrencies().get(0).getAmount()));		
 		farePrice.setUnits(BigDecimal.valueOf(2L));
@@ -37,11 +36,9 @@ public class Osdm2FareStructurElementPrice {
     	ObjectFactory factory = new ObjectFactory();
 		
 		FareProductPrice farePrice = factory.createFareProductPrice();
-
+		farePrice.setId(IdFactory.getPriceId(osdmPrice));
 			
 		farePrice.setCurrency(osdmPrice.getCurrencies().get(0).getCurrency().getIsoCode());
-		
-		farePrice.setId(osdmPrice.getId());
 
 		BigDecimal value = new BigDecimal(Float.toString(osdmPrice.getCurrencies().get(0).getAmount()));		
 		farePrice.setAmount(value);
@@ -62,12 +59,10 @@ public class Osdm2FareStructurElementPrice {
     	ObjectFactory factory = new ObjectFactory();
 		
     	FarePriceVersionedChildStructure farePrice = factory.createFarePriceVersionedChildStructure();
-
-			
+		farePrice.setId(IdFactory.getPriceId(osdmPrice));
+    	
 		farePrice.setCurrency(osdmPrice.getCurrencies().get(0).getCurrency().getIsoCode());
 		
-		farePrice.setId(osdmPrice.getId());
-
 		BigDecimal value = new BigDecimal(Float.toString(osdmPrice.getCurrencies().get(0).getAmount()));		
 		farePrice.setAmount(value);
 		farePrice.setUnits(BigDecimal.valueOf(2L));

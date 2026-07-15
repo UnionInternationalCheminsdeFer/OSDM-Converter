@@ -86,7 +86,6 @@ public class RouteDescriptionBuilder {
 	public static String getFirstStationCode(EList<RegionalValidity> rvl) {
 		
 		return getFirstStationCode(getMainVia(rvl));
-
 		
 		
 	}

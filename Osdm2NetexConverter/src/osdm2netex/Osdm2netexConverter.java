@@ -22,9 +22,6 @@ public class Osdm2netexConverter {
 	
 	private Gtm.GeneralTariffModel osdm = null;
 	
-
-	
-	
 	public Osdm2netexConverter(GTMTool tool) {
 		
 		osdm = tool.getGeneralTariffModel();
@@ -72,6 +69,7 @@ public class Osdm2netexConverter {
 			try {
 				FileOutputStream fos = new FileOutputStream(file);
 				marshaller.marshal(rootelement, fos);
+				fos.close();
 			} catch (Exception e){
 				String errors = validationResults.toString();
 				System.out.println(errors);
