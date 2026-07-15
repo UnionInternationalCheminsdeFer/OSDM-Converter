@@ -1,9 +1,14 @@
 package Gtm.converter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
+
 import Gtm.FareElement;
 import Gtm.GTMTool;
+import Gtm.GeneralTariffModel;
 import Gtm.PassengerCombinationConstraint;
 import Gtm.PassengerConstraint;
 import Gtm.ReductionConstraint;
@@ -14,15 +19,19 @@ import Gtm.TravelerType;
 public class ExcelFareTypes {
 	
 	GTMTool tool = null;
+	GeneralTariffModel tariff = null;
 	
-	ArrayList<FareType> fareTypes = new ArrayList<FareType>();
+	
+	public ArrayList<FareType> fareTypes = new ArrayList<FareType>();
+	
+	public HashMap<FareType,String> fareTypeColumnNames = new HashMap<FareType,String>();
 	
 	private class FareType {
 		
-		ServiceClass serviceClass = null;
-		PassengerConstraint passengerConstraint = null;
-		ReductionConstraint reductionConstraint = null;
-		TotalPassengerCombinationConstraint passengerLimits = null;
+		public ServiceClass serviceClass = null;
+		public PassengerConstraint passengerConstraint = null;
+		public ReductionConstraint reductionConstraint = null;
+		public TotalPassengerCombinationConstraint passengerLimits = null;
 		
 		public FareType (ServiceClass serviceClass, PassengerConstraint passengerConstraint, ReductionConstraint reductionConstraint, TotalPassengerCombinationConstraint passengerLimits){
 			this.serviceClass=  serviceClass;
@@ -31,6 +40,41 @@ public class ExcelFareTypes {
 			this.passengerLimits = passengerLimits;
 			
 		}
+		
+	    @Override
+	    public int hashCode() {
+	        return Objects.hash(serviceClass,passengerConstraint,reductionConstraint,passengerLimits);
+	    }
+		
+		@Override
+		public boolean equals(Object o) {
+			
+			FareType ft2 = (FareType) o;
+			
+			if ( (this.serviceClass != null && ft2.serviceClass == null)    ||
+				 (this.serviceClass == null && ft2.serviceClass != null)    ||
+				 (this.serviceClass != null && ft2.serviceClass != null  &&
+				   !this.serviceClass.equals(ft2.serviceClass) )            ||
+				 
+				 (this.passengerConstraint != null && ft2.passengerConstraint == null) ||
+				 (this.passengerConstraint == null && ft2.passengerConstraint != null) ||
+				 (this.passengerConstraint != null && ft2.passengerConstraint != null &&
+				  !this.passengerConstraint.equals(ft2.passengerConstraint) )          ||
+				 
+				 (this.reductionConstraint != null && ft2.reductionConstraint == null) ||
+				 (this.reductionConstraint == null && ft2.reductionConstraint != null) ||
+				 (this.reductionConstraint != null && ft2.reductionConstraint != null && 
+				   !this.reductionConstraint.equals(ft2.reductionConstraint))          ||
+				 
+				 (this.passengerLimits != null && ft2.passengerLimits == null) ||
+				 (this.passengerLimits == null && ft2.passengerLimits != null) ||
+				 (this.passengerLimits != null && ft2.passengerLimits != null &&
+				  !this.passengerLimits.equals(ft2.passengerLimits))) {
+				return false;
+			}
+			return true;
+		}
+
 	}
 	
 	 
@@ -38,14 +82,16 @@ public class ExcelFareTypes {
 		
 		this.tool = tool;
 		
+		this.tariff = tool.getGeneralTariffModel();
+		
 		for (ServiceClass scd : getClasses()) {
 
-			for (PassengerConstraint pc : tool.getGeneralTariffModel().getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
+			for (PassengerConstraint pc : tariff.getFareStructure().getPassengerConstraints().getPassengerConstraints()) {
 
 				
-				for (TotalPassengerCombinationConstraint pl : tool.getGeneralTariffModel().getFareStructure().getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
+				for (TotalPassengerCombinationConstraint pl : tariff.getFareStructure().getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
 
-					for (ReductionConstraint rc : tool.getGeneralTariffModel().getFareStructure().getReductionConstraints().getReductionConstraints()) {
+					for (ReductionConstraint rc : tariff.getFareStructure().getReductionConstraints().getReductionConstraints()) {
 
 						fareTypes.add(new FareType(scd,pc,rc, pl));
 					}
@@ -56,7 +102,52 @@ public class ExcelFareTypes {
 		}
 	}
 
+	public ExcelFareTypes(GeneralTariffModel tariff) {
+
+		this.tariff = tariff;
+		
+		HashSet<FareType> uniqueFareTypes = new HashSet<FareType>();
+		
+		for (FareElement fe : tariff.getFareStructure().getFareElements().getFareElements()) {
+			
+			uniqueFareTypes.add(new FareType(
+								fe.getServiceClass(),
+								fe.getPassengerConstraint(),
+								fe.getReductionConstraint(), 
+								fe.getFareConstraintBundle().getTotalPassengerConstraint()
+								));
+		}
+		
+		fareTypes.addAll(uniqueFareTypes);
+		
+		buildNames(fareTypes);
+		
+		fareTypes.sort(new Comparator<FareType>(){
+
+			@Override
+			public int compare(FareType o1, FareType o2) {
+				
+				return (fareTypeColumnNames.get(o1).compareTo(fareTypeColumnNames.get(o2)));
+
+			}
+			
+		});
+		
+	}
+		
 	
+	
+	private void buildNames(ArrayList<FareType> fareTypes) {
+		
+		
+		for (FareType fareType: fareTypes) {
+			
+			fareTypeColumnNames.put(fareType, getColumnName(fareType));
+			
+		}
+		
+	}
+
 	private HashSet<ServiceClass> getClasses() {
 		
 		HashSet<ServiceClass> scs = new HashSet<ServiceClass>();
@@ -129,6 +220,32 @@ public class ExcelFareTypes {
 		
 	}
 	
+	private String getColumnName(FareType type) {
+		
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(type.serviceClass.getId()).append(" - ");
+		try {
+			sb.append(getPassengerConstraintText(type.passengerConstraint)).append(" - ");
+		} catch (Exception e) {
+			//
+		}
+		//group size limits
+		try {
+			sb.append(type.passengerLimits.getMinTotalPassengerWeight()).append("-").append(type.passengerLimits.getMaxTotalPassengerWeight()).append(" - ");
+		} catch (Exception e) {
+			//
+		}			 
+		// reduction cards
+		try {
+			sb.append(type.reductionConstraint.getRequiredReductionCards().getFirst().getName());
+		} catch (Exception e) {
+			//
+		}		
+		
+		return sb.toString();
+	}
+	
 	
 	private String getPassengerConstraintText(PassengerConstraint pc) {
 		
@@ -159,6 +276,9 @@ public class ExcelFareTypes {
 		
 		return min;
 	}
+
+
+	
 	
 	
 }

@@ -83,7 +83,12 @@ public class Osdm2excelConverter {
 		headerCell.setCellValue("km");
 		headerCell.setCellStyle(headerStyle);				
 		
-		ExcelFareTypes fareTypes = new ExcelFareTypes(tool);
+		//ExcelFareTypes fareTypes = new ExcelFareTypes(tool);
+
+		monitor.subTask("Building columns");	
+		ExcelFareTypes fareTypes = new ExcelFareTypes(tool.getGeneralTariffModel());
+		
+		
 		
 		int i = 0;
 		for (String faretype : fareTypes.getColumnNames()) {
@@ -93,11 +98,12 @@ public class Osdm2excelConverter {
 			headerCell.setCellStyle(headerStyle);				
 			
 		}
-		
 
 		
 		CellStyle style = workbook.createCellStyle();
 		style.setWrapText(true);
+		
+		monitor.subTask("Setting Routes");	
 
 		int iRow = 0;
 		
@@ -141,7 +147,7 @@ public class Osdm2excelConverter {
 			cell = row.createCell(5);
 			cell.setCellValue(lastStationName);
 			cell.setCellStyle(style);	
-			
+
 			
 			//via
 			String routeDescription = RouteDescriptionBuilder.getRouteDescription(rc);
@@ -154,7 +160,8 @@ public class Osdm2excelConverter {
 			cell.setCellValue(rc.getDistance());
 			cell.setCellStyle(style);
 			
-			
+			monitor.subTask("Setting Prices");	
+
 			for (FareElement fare : rc.getLinkedFares()) {
 				
 				int tariffColumn = fareTypes.getColumn(fare);
@@ -169,7 +176,7 @@ public class Osdm2excelConverter {
 			
 		}
 		
-		ExcelColumnUtils.deleteEmptyColumns(workbook.getSheetAt(0));
+		//ExcelColumnUtils.deleteEmptyColumns(workbook.getSheetAt(0));
 		
 		
 		

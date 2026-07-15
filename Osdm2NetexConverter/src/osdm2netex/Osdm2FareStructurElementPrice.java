@@ -13,8 +13,10 @@ public class Osdm2FareStructurElementPrice {
 		
 	public static FareStructureElementPrice convert2FarePrice (Gtm.Price osdmPrice) {
 		
-		FareStructureElementPrice farePrice = new FareStructureElementPrice();
-			
+		ObjectFactory factory = new ObjectFactory();
+		
+		FareStructureElementPrice farePrice = factory.createFareStructureElementPrice();
+		
 		farePrice.setCurrency(osdmPrice.getCurrencies().get(0).getCurrency().getIsoCode());
 		
 		farePrice.setId(osdmPrice.getId());
