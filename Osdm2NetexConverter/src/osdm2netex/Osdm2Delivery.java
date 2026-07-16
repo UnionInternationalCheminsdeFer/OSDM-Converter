@@ -6,6 +6,7 @@ import java.util.Calendar;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import Gtm.FareStructure;
+import Gtm.FulfillmentType;
 import Gtm.GeneralTariffModel;
 import uk.org.netex.netex.DataObjectsRelStructure;
 import uk.org.netex.netex.DistributionAssignment;
@@ -29,6 +30,7 @@ import uk.org.netex.netex.SiteFrame;
 import uk.org.netex.netex.StatusEnumeration;
 import uk.org.netex.netex.Tariff;
 import uk.org.netex.netex.TransportOrganisationRefStructure;
+import uk.org.netex.netex.TypeOfTravelDocument;
 
 public class Osdm2Delivery {
 	
@@ -120,6 +122,8 @@ public class Osdm2Delivery {
         sops.getSalesOfferPackage().add(salesOfferPackageNrt);
 		fareFrameNrt.setSalesOfferPackages(sops);
 		
+		
+
 		/*
 		Tariff t = factory.createTariff();
 		fareFrameNrt.setTariffs(factory.createTariffsInFrameRelStructure());

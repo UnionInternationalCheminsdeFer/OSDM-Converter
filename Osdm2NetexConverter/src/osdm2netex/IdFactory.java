@@ -91,18 +91,24 @@ public class IdFactory {
 	}
 	
 	public static String getServiceClassId(ServiceClass sc) {
-		return "class_" + sc.getId().getLiteral();
+		return UrnUtils.getClassUri(sc);
 	}
 	
 	public static String getReductionCardId(RequiredReductionCard card) {
+		if (card == null) return "missing code";
 		if (card.getCard() != null) {
-			return "card_" + card.getCard().getId();
+			return UrnUtils.getCardUri(card.getCard());
 		} else {
 			return "card_" + card.getName();
 		}
 	}
 
 	public static String getReductionCardId(ReductionCard card) {
+		if (card == null || card.getId() == null) return "missing code";
+		
+		if (card.getId().startsWith("UIC")) {
+			return UrnUtils.getCardUri(card);
+		}
 		return "card_" + card.getId();
 	}
 	
@@ -113,5 +119,17 @@ public class IdFactory {
 
 	public static String getTextId(Text text) {
 		return "text_" + text.getId();
+	}
+
+	public static String getIncludedCarriersId(CarrierConstraint cc) {
+		return "carriers_" + cc.getId();
+	}
+	
+	public static String getIncludedCarrierGroupId(CarrierConstraint cc) {
+		return "carrier_group_" + cc.getIncludedCarrierGroup().getId();
+	}
+
+	public static String getSalesOfferPackageId(FareElement osdmFare) {
+		return "sales_offer_package_" + osdmFare.getId();
 	}
 }

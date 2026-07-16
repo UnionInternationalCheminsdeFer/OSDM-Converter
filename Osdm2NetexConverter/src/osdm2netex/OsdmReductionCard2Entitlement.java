@@ -25,22 +25,28 @@ public class OsdmReductionCard2Entitlement {
 			//add issuer
 			String issuer = null;
 			if (card.getCardIssuer() != null) {
-				issuer = card.getCardIssuer().getCode();
+				issuer = UrnUtils.getCompanyUri(card.getCardIssuer());
 			} else {
-				issuer = "UIC";
+				if (card.getId().startsWith("UIC")) {
+					issuer = UrnUtils.getCompanyUri("3011");
+				}
 			}
 			
-						//define the entitlement for the card
+			//define the entitlement for the card
 			EntitlementProduct entitlement = factory.createEntitlementProduct();
 			entitlement.setId(IdFactory.getReductionCardId(card));
 			
 			entitlement.setName(Osdm2MultiLanguageString.getMultiLanguageString(card.getName()));
-			AlternativeNamesRelStructure ans2 = factory.createAlternativeNamesRelStructure();
-			AlternativeName an2 = factory.createAlternativeName();
-			an2.setShortName(Osdm2MultiLanguageString.getMultiLanguageString(card.getShortCode()));
-			an2.setNameType(NameTypeEnumeration.OTHER);
-			ans2.getAlternativeName().add(an2);
-			entitlement.setAlternativeNames(ans2);
+			
+			if (card.getShortCode() != null) {
+				AlternativeNamesRelStructure ans2 = factory.createAlternativeNamesRelStructure();
+				AlternativeName an2 = factory.createAlternativeName();
+				an2.setShortName(Osdm2MultiLanguageString.getMultiLanguageString(card.getShortCode()));
+				an2.setNameType(NameTypeEnumeration.OTHER);
+				an2.setTypeOfName("BARCODE");
+				ans2.getAlternativeName().add(an2);
+				entitlement.setAlternativeNames(ans2);
+			}
 			entitlement.setResponsibilitySetRef(issuer);
 			
 

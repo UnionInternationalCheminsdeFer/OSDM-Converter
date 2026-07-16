@@ -54,7 +54,7 @@ public class Osdm2FareProduct {
 		Cell cell = factory.createCell();
 		
 		ClassOfUseRef cr = factory.createClassOfUseRef();
-		cr.setRef(osdmFare.getServiceClass().getId().getLiteral());
+		cr.setRef(IdFactory.getServiceClassId(osdmFare.getServiceClass()));
 		cell.setClassOfUseRef(cr);
 	
 		cell.setCellPrice(fp);
@@ -65,12 +65,14 @@ public class Osdm2FareProduct {
 		table.setCells(cellRel);
 		
 		SalesOfferPackage salesOfferPackage = factory.createSalesOfferPackage();
+		salesOfferPackage.setId(IdFactory.getSalesOfferPackageId(osdmFare));
 		salesOfferPackage.setFareTables(factory.createFareTablesRelStructure());
 		salesOfferPackage.setSalesOfferPackageElements(factory.createSalesOfferPackageElementsRelStructure());
 		if (fareFrameNrt.getSalesOfferPackages() == null) {
 			fareFrameNrt.setSalesOfferPackages(factory.createSalesOfferPackagesInFrameRelStructure());;
 		}
 		fareFrameNrt.getSalesOfferPackages().getSalesOfferPackage().add(salesOfferPackage);
+		
 		SalesOfferPackageElement sope = factory.createSalesOfferPackageElement();
 		FareProductRefStructure fpr = factory.createFareProductRefStructure();
 		fpr.setRef(IdFactory.getFareProductId(osdmFare));
@@ -82,6 +84,7 @@ public class Osdm2FareProduct {
 		FulfillmentConstraint fc = osdmFare.getFareConstraintBundle().getFulfillmentConstraint();
 		for (FulfillmentType ft :fc.getAcceptedFulfilmentTypes()) {
 			SalesOfferPackageElement sopef = factory.createSalesOfferPackageElement();
+			
 			TypeOfTravelDocumentRefStructure tdt = factory.createTypeOfTravelDocumentRefStructure();
 			tdt.setRef(IdFactory.getTravelDocumentTypeId(ft));
 			sopef.setTypeOfTravelDocumentRef(tdt);		

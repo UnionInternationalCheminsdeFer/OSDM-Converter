@@ -28,8 +28,10 @@ import uk.org.netex.netex.FareStructureElement;
 import uk.org.netex.netex.FareStructureElementsInFrameRelStructure;
 import uk.org.netex.netex.FulfilmentMethod;
 import uk.org.netex.netex.GenericParameterAssignment;
+import uk.org.netex.netex.GenericParameterAssignmentVersionStructure;
 import uk.org.netex.netex.GroupOfOperators;
 import uk.org.netex.netex.GroupTicket;
+import uk.org.netex.netex.KeyValueStructure;
 import uk.org.netex.netex.LogicalOperationEnumeration;
 import uk.org.netex.netex.MultilingualString;
 import uk.org.netex.netex.ObjectFactory;
@@ -42,6 +44,7 @@ import uk.org.netex.netex.TransportOrganisation;
 import uk.org.netex.netex.TransportOrganisationRefStructure;
 import uk.org.netex.netex.TransportOrganisationRefsRelStructure;
 import uk.org.netex.netex.TypeOfFareStructureElementRefStructure;
+import uk.org.netex.netex.TypeOfTravelDocument;
 import uk.org.netex.netex.UsageEndEnumeration;
 import uk.org.netex.netex.UsageParametersRelStructure;
 import uk.org.netex.netex.UsageTriggerEnumeration;
@@ -50,6 +53,7 @@ import uk.org.netex.netex.UsageValidityTypeEnumeration;
 import uk.org.netex.netex.UserProfile;
 import uk.org.netex.netex.UserProfileRefStructure;
 import uk.org.netex.netex.ValidBetween;
+import uk.org.netex.netex.ValidityConditionsRelStructure;
 
 
 public class Osdm2FareStructureElements {
@@ -63,7 +67,7 @@ public class Osdm2FareStructureElements {
     	convertCarriersAndCarrierGroups(osdmFares,resourceFrameNrt,  structureList, factory);
     	
     	//carrier constraints --> fare structure elements 
-    	convertCarrierConstraints(osdmFares, resourceFrameNrt,  structureList, factory);
+    	//convertCarrierConstraints(osdmFares, resourceFrameNrt,  structureList, factory);
     	
     	//class of use --> fareFrameNrt: access rights
     	convertClassOfUse(osdmFares,resourceFrameNrt,  structureList, fareFrameNrt, factory);
@@ -93,16 +97,27 @@ public class Osdm2FareStructureElements {
     
 
 
-
-
-
-
-
-
-
 	private static void convertTypeOfTraveldocument(FareStructure osdmFares, FareFrame fareFrameNrt, ResourceFrame resourceFrame,
 			ObjectFactory factory) {
 		
+		
+		fareFrameNrt.setTypesOfTravelDocuments(factory.createTypesOfTravelDocumentInFrameRelStructure());
+		TypeOfTravelDocument ttd1 = factory.createTypeOfTravelDocument();
+		ttd1.setId(IdFactory.getTravelDocumentTypeId(FulfillmentType.SID));
+		ttd1.setName(Osdm2MultiLanguageString.getMultiLanguageString("Signed UIC barcode required"));
+		fareFrameNrt.getTypesOfTravelDocuments().getTypeOfTravelDocument().add(ttd1);
+		
+		TypeOfTravelDocument ttd2 = factory.createTypeOfTravelDocument();
+		ttd2.setId(IdFactory.getTravelDocumentTypeId(FulfillmentType.SIS));
+		ttd2.setName(Osdm2MultiLanguageString.getMultiLanguageString("ETCD online validation required"));
+		fareFrameNrt.getTypesOfTravelDocuments().getTypeOfTravelDocument().add(ttd2);
+		
+		TypeOfTravelDocument ttd3 = factory.createTypeOfTravelDocument();
+		ttd3.setId(IdFactory.getTravelDocumentTypeId(FulfillmentType.SIP));
+		ttd3.setName(Osdm2MultiLanguageString.getMultiLanguageString("CIT Security paper required"));
+		fareFrameNrt.getTypesOfTravelDocuments().getTypeOfTravelDocument().add(ttd3);
+		
+		/*
 		fareFrameNrt.setFulfilmentMethods(factory.createFulfilmentMethodsInFrameRelStructure());
 		
 		for ( FulfillmentType ft : FulfillmentType.values()){
@@ -114,6 +129,7 @@ public class Osdm2FareStructureElements {
 						
 			fareFrameNrt.getFulfilmentMethods().getFulfilmentMethod().add(fm);
 		}
+		*/
 	}
 
 
@@ -213,8 +229,9 @@ public class Osdm2FareStructureElements {
 			TypeOfFareStructureElementRefStructure  ts = factory.createTypeOfFareStructureElementRefStructure();
 			ts.setValue("efp:eligibility");
 			se.setTypeOfFareStructureElementRef(ts);
-			
+
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
+
 			gpa.setName(Osdm2MultiLanguageString.getMultiLanguageString("required at travel"));
 			gpa.setLimitationGroupingType(LogicalOperationEnumeration.OR);
 			gpa.setLimitations(new UsageParametersRelStructure());
@@ -298,7 +315,7 @@ public class Osdm2FareStructureElements {
 			TypeOfFareStructureElementRefStructure  ts = factory.createTypeOfFareStructureElementRefStructure();
 			ts.setValue(typeOfFareStructureElement);
 			se.setTypeOfFareStructureElementRef(ts);
-			se.setId("travelValidity_" + tv.getId());
+			se.setId(IdFactory.getFareStructureElementTravelValidityId(tv));
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
 			gpa.setLimitationGroupingType(LogicalOperationEnumeration.AND);
 			gpa.setLimitations(factory.createUsageParametersRelStructure());
@@ -319,6 +336,11 @@ public class Osdm2FareStructureElements {
 			} else {
 				uvp1.setValidityPeriodType(UsageValidityTypeEnumeration.OTHER);
 			}
+			uvp1.setKeyList(factory.createKeyListStructure());
+			KeyValueStructure kvs = factory.createKeyValueStructure();
+			kvs.setKey("TravelValidityType");
+			kvs.setValue(tv.getValidityType().getLiteral().trim());
+			uvp1.getKeyList().getKeyValue().add(kvs);
 			gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUsageValidityPeriod(uvp1));			
 			
 			//duration from start
@@ -348,11 +370,16 @@ public class Osdm2FareStructureElements {
 		for (PassengerConstraint pa : osdmFares.getPassengerConstraints().getPassengerConstraints()) {
 
 			UserProfile up = factory.createUserProfile();
-			up.setId("passenger_" + pa.getId());
+			up.setId(IdFactory.getFareStructureElementPassengersId(pa));
 			up.setName(Osdm2MultiLanguageString.getMultiLanguageString(pa.getText()));		
 			up.setMaximumAge(BigInteger.valueOf(pa.getUpperAgeLimit()));
 			up.setMinimumAge(BigInteger.valueOf(pa.getLowerAgeLimit()));
 			up.setUserType(OsdmPassengerType2PassengerType.convertPassengerType(pa.getTravelerType()));		
+			up.setKeyList(factory.createKeyListStructure());
+			KeyValueStructure kvs = factory.createKeyValueStructure();
+			kvs.setKey("TravelerType");
+			kvs.setValue(UrnUtils.getPassengerTypeUri(pa.getTravelerType()));
+			up.getKeyList().getKeyValue().add(kvs);
 			
 			if (pa.getIncludedFreePassengers() != null) {
 				
@@ -362,7 +389,7 @@ public class Osdm2FareStructureElements {
 					
 					//link to passenger type
 					UserProfileRefStructure uprs = factory.createUserProfileRefStructure();
-					uprs.setRef("passenger_" + ifp.getPassengerConstraint().getId());
+					uprs.setRef(IdFactory.getFareStructureElementPassengersId(pa));
 					companionProfile.setUserProfileRef(factory.createUserProfileRef(uprs));
 
 					//conditions
@@ -386,7 +413,7 @@ public class Osdm2FareStructureElements {
 				    	
 						//link to passenger type
 						UserProfileRefStructure uprs = factory.createUserProfileRefStructure();
-						uprs.setRef("passenger_" + pcc.getPassengerConstraint().getId());
+						uprs.setRef(IdFactory.getFareStructureElementPassengersId(pa));
 						companionProfile.setUserProfileRef(factory.createUserProfileRef(uprs));
 
 						//conditions
@@ -421,18 +448,12 @@ public class Osdm2FareStructureElements {
 			for (TotalPassengerCombinationConstraint pl : osdmFares.getTotalPassengerCombinationConstraints().getTotalPassengerCombinationConstraint()) {
 				
 				GroupTicket gt = factory.createGroupTicket();			
-     			gt.setId("passengerLimit_" + pl.getId());
+     			gt.setId(IdFactory.getFareStructureElementPassengerLimitsId(pl));
      			gt.setMinimumNumberOfPersons(BigInteger.valueOf(Math.round(pl.getMinTotalPassengerWeight())));
      			gt.setMaximumNumberOfPersons(BigInteger.valueOf(Math.round(pl.getMaxTotalPassengerWeight())));     			
 
-     			/*
-     			if (fareFrameNrt.getUsageParameters() == null) {
-     				fareFrameNrt.setUsageParameters(factory.createUsageParametersInFrameRelStructure());
-     			}
-     			fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createGroupTicket(gt));
-     			*/
      			FareStructureElement fse = factory.createFareStructureElement();
-     			fse.setId("passengerLimit_" + pl.getId());
+     			fse.setId(IdFactory.getFareStructureElementPassengerLimitsId(pl));
      			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
      			gpa.setLimitations(factory.createUsageParametersRelStructure());
      			gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createGroupTicket(gt));
@@ -441,7 +462,7 @@ public class Osdm2FareStructureElements {
      			for (PassengerConstraint pc : osdmFares.getPassengerConstraints().getPassengerConstraints()) {
      				if (pc.getPassengerWeight() > 0) {
      					UserProfileRefStructure upr = factory.createUserProfileRefStructure();
-     					upr.setRef("passenger_" + pc.getId());
+     					upr.setRef(IdFactory.getFareStructureElementPassengersId(pc));
      					gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUserProfileRef(upr));
      				}
      			}
@@ -464,19 +485,24 @@ public class Osdm2FareStructureElements {
 			
 
 			FareStructureElement se = factory.createFareStructureElement();
-			String typeOfFareStructureElement = "efp:can_access";
+			se.setId(IdFactory.getServiceClassId(sc));
+			se.setName(Osdm2MultiLanguageString.getMultiLanguageString(sc.getText()));
+			se.setValidityParameterAssignments(factory.createGenericParameterAssignmentsRelStructure());
+			
+			GenericParameterAssignmentVersionStructure gpa =factory.createGenericParameterAssignmentVersionStructure();
+			se.getValidityParameterAssignments().getGenericParameterAssignmentOrGenericParameterAssignmentInContext().add(gpa);
+			
 			TypeOfFareStructureElementRefStructure  ts = factory.createTypeOfFareStructureElementRefStructure();
-			ts.setValue(typeOfFareStructureElement);		
+			ts.setValue("efp:can_access");		
 			ts.setNameOfRefClass("ClassOfUse");
 			se.setTypeOfFareStructureElementRef(ts);
-			se.setId("class_" + sc.getId().getLiteral());
 			
 			ClassOfUse cou = factory.createClassOfUse();
 			cou.setFareClass(Osdm2FareClass.convert(sc.getId()));
-			cou.setId(sc.getId().getLiteral());
+			cou.setId(IdFactory.getServiceClassId(sc));
 			cou.setName(Osdm2MultiLanguageString.getMultiLanguageString(sc.getText()));
 			cou.setShortName(Osdm2MultiLanguageString.getMultiLanguageString(sc.getText().getShortTextUTF8()));
-
+			
 			if (fareFrameNrt.getAccessRightParameterAssignments() == null) {
 				fareFrameNrt.setAccessRightParameterAssignments(factory.createAccessRightParameterAssignmentsInFrameRelStructure());
 			}
@@ -504,7 +530,7 @@ public class Osdm2FareStructureElements {
 			ts.setValue(typeOfFareStructureElement);		
 			ts.setNameOfRefClass("GroupOfOperators");
 			se.setTypeOfFareStructureElementRef(ts);
-			se.setId("carriers_" + cc.getId());
+			se.setId(IdFactory.getIncludedCarriersId(cc));
 			
 			structureList.getFareStructureElement().add(se);
 		}
@@ -617,13 +643,13 @@ public class Osdm2FareStructureElements {
     		//create constraint
     		TypeOfFareStructureElementRefStructure ser = new TypeOfFareStructureElementRefStructure();
     		ser.setRef("efp:accepted_by");
-    		se.setId(cc.getId());
+    		se.setId(IdFactory.getIncludedCarriersId(cc));  
     		if (cc.getIncludedCarrierGroup() != null) {
-    			se.setResponsibilitySetRef(cc.getIncludedCarrierGroup().getId());
+    			se.setResponsibilitySetRef(IdFactory.getIncludedCarrierGroupId(cc));
     		} else if (cc.getIncludedCarriers() != null){
-    			se.setResponsibilitySetRef(cc.getId());  	
+    			se.setResponsibilitySetRef(IdFactory.getIncludedCarriersId(cc));  	
     		} else {
-    			se.setResponsibilitySetRef(cc.getId());      			
+    			se.setResponsibilitySetRef(IdFactory.getIncludedCarriersId(cc));      			
     		}
     		
     		se.setTypeOfFareStructureElementRef(ser);

@@ -1,7 +1,10 @@
 package osdm2netex;
 
 import Gtm.Carrier;
+import Gtm.ReductionCard;
+import Gtm.ServiceClass;
 import Gtm.Station;
+import Gtm.TravelerType;
 
 public class UrnUtils {
 	
@@ -43,5 +46,23 @@ public class UrnUtils {
 		return "urn:uic:rics:" + ca.getCode().trim();
 	}
 
+	public static String getClassUri(ServiceClass sc) {
+		if (sc == null || sc.getId() == null) return "missing code";
+		return "urn:uic:osdm:serviceClass:" + sc.getId().getLiteral().trim();
+	}
+	
+	public static String getCardUri(ReductionCard rc) {
+		if (rc == null || rc.getId() == null) return "missing code";
+		return "urn:uic:osdm:card:" + rc.getId().trim();
+	}
+
+	public static String getPassengerTypeUri(TravelerType travelerType) {
+		if (travelerType == null) return "missing code";
+		return "urn:uic:osdm:travelerType:" + travelerType.getLiteral().trim();
+	}
+
+	public static String getCompanyUri(String string) {
+		return "urn:uic:osdm:company:" + string.trim();
+	}	
 
 }
