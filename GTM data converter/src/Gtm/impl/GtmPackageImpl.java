@@ -12901,6 +12901,11 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_FIP_LEISURE_REDU);
 		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_EU_DISABILITY_CARD);
 		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_INT_DISABILITY_CARD);
+		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_EU_DISABILITY_CARD_A);
+		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_EU_DISABILITY_CARD_BLIND);
+		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_EU_DISABILITY_CARD_WHEELCHAIR);
+		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_INT_DISABILITY_CARD_BLIND);
+		addEEnumLiteral(genericReductionCardsEEnum, GenericReductionCards.UIC_INT_DISABILITY_CARD_WHEELCHAIR);
 
 		initEEnum(hemisphereEWEEnum, HemisphereEW.class, "HemisphereEW");
 		addEEnumLiteral(hemisphereEWEEnum, HemisphereEW.EAST);
@@ -13187,6 +13192,8 @@ public class GtmPackageImpl extends EPackageImpl implements GtmPackage {
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.ACCOMP_PRM);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.CAR);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.BICYCLE);
+		addEEnumLiteral(travelerTypeEEnum, TravelerType.PRAM);
+		addEEnumLiteral(travelerTypeEEnum, TravelerType.PRM_SWIFTWALKER);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.MOTOCYCLE);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.TRAILER);
 		addEEnumLiteral(travelerTypeEEnum, TravelerType.GRAPHICAL_RES);

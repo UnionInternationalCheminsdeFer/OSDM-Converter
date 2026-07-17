@@ -250,7 +250,47 @@ public enum GenericReductionCards implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	UIC_INT_DISABILITY_CARD(41, "UIC_INT_DISABILITY_CARD", "UIC_INT_DISABILITY_CARD");
+	UIC_INT_DISABILITY_CARD(41, "UIC_INT_DISABILITY_CARD", "UIC_INT_DISABILITY_CARD"), /**
+	 * The '<em><b>UIC EU DISABILITY CARD A</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EU_DISABILITY_CARD_A_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_EU_DISABILITY_CARD_A(42, "UIC_EU_DISABILITY_CARD_A", "UIC_EU_DISABILITY_CARD_A"), /**
+	 * The '<em><b>UIC EU DISABILITY CARD BLIND</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EU_DISABILITY_CARD_BLIND_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_EU_DISABILITY_CARD_BLIND(43, "UIC_EU_DISABILITY_CARD_BLIND", "UIC_EU_DISABILITY_CARD_BLIND"), /**
+	 * The '<em><b>UIC EU DISABILITY CARD WHEELCHAIR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EU_DISABILITY_CARD_WHEELCHAIR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_EU_DISABILITY_CARD_WHEELCHAIR(44, "UIC_EU_DISABILITY_CARD_WHEELCHAIR", "UIC_EU_DISABILITY_CARD_WHEELCHAIR"), /**
+	 * The '<em><b>UIC INT DISABILITY CARD BLIND</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_INT_DISABILITY_CARD_BLIND_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_INT_DISABILITY_CARD_BLIND(45, "UIC_INT_DISABILITY_CARD_BLIND", "UIC_INT_DISABILITY_CARD_BLIND"), /**
+	 * The '<em><b>UIC INT DISABILITY CARD WHEELCHAIR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_INT_DISABILITY_CARD_WHEELCHAIR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UIC_INT_DISABILITY_CARD_WHEELCHAIR(46, "UIC_INT_DISABILITY_CARD_WHEELCHAIR", "UIC_INT_DISABILITY_CARD_WHEELCHAIR");
 
 	/**
 	 * The '<em><b>UIC EURAIL 1</b></em>' literal value.
@@ -572,6 +612,61 @@ public enum GenericReductionCards implements Enumerator {
 	public static final int UIC_INT_DISABILITY_CARD_VALUE = 41;
 
 	/**
+	 * The '<em><b>UIC EU DISABILITY CARD A</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EU_DISABILITY_CARD_A
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_EU_DISABILITY_CARD_A_VALUE = 42;
+
+	/**
+	 * The '<em><b>UIC EU DISABILITY CARD BLIND</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EU_DISABILITY_CARD_BLIND
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_EU_DISABILITY_CARD_BLIND_VALUE = 43;
+
+	/**
+	 * The '<em><b>UIC EU DISABILITY CARD WHEELCHAIR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_EU_DISABILITY_CARD_WHEELCHAIR
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_EU_DISABILITY_CARD_WHEELCHAIR_VALUE = 44;
+
+	/**
+	 * The '<em><b>UIC INT DISABILITY CARD BLIND</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_INT_DISABILITY_CARD_BLIND
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_INT_DISABILITY_CARD_BLIND_VALUE = 45;
+
+	/**
+	 * The '<em><b>UIC INT DISABILITY CARD WHEELCHAIR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UIC_INT_DISABILITY_CARD_WHEELCHAIR
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UIC_INT_DISABILITY_CARD_WHEELCHAIR_VALUE = 46;
+
+	/**
 	 * An array of all the '<em><b>Generic Reduction Cards</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -608,6 +703,11 @@ public enum GenericReductionCards implements Enumerator {
 			UIC_FIP_LEISURE_REDU,
 			UIC_EU_DISABILITY_CARD,
 			UIC_INT_DISABILITY_CARD,
+			UIC_EU_DISABILITY_CARD_A,
+			UIC_EU_DISABILITY_CARD_BLIND,
+			UIC_EU_DISABILITY_CARD_WHEELCHAIR,
+			UIC_INT_DISABILITY_CARD_BLIND,
+			UIC_INT_DISABILITY_CARD_WHEELCHAIR,
 		};
 
 	/**
@@ -691,6 +791,11 @@ public enum GenericReductionCards implements Enumerator {
 			case UIC_FIP_LEISURE_REDU_VALUE: return UIC_FIP_LEISURE_REDU;
 			case UIC_EU_DISABILITY_CARD_VALUE: return UIC_EU_DISABILITY_CARD;
 			case UIC_INT_DISABILITY_CARD_VALUE: return UIC_INT_DISABILITY_CARD;
+			case UIC_EU_DISABILITY_CARD_A_VALUE: return UIC_EU_DISABILITY_CARD_A;
+			case UIC_EU_DISABILITY_CARD_BLIND_VALUE: return UIC_EU_DISABILITY_CARD_BLIND;
+			case UIC_EU_DISABILITY_CARD_WHEELCHAIR_VALUE: return UIC_EU_DISABILITY_CARD_WHEELCHAIR;
+			case UIC_INT_DISABILITY_CARD_BLIND_VALUE: return UIC_INT_DISABILITY_CARD_BLIND;
+			case UIC_INT_DISABILITY_CARD_WHEELCHAIR_VALUE: return UIC_INT_DISABILITY_CARD_WHEELCHAIR;
 		}
 		return null;
 	}

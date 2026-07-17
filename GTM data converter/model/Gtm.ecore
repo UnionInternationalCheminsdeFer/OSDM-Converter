@@ -1834,6 +1834,11 @@
     <eLiterals name="UIC_FIP_LEISURE_REDU" value="30"/>
     <eLiterals name="UIC_EU_DISABILITY_CARD" value="40" literal="UIC_EU_DISABILITY_CARD"/>
     <eLiterals name="UIC_INT_DISABILITY_CARD" value="41" literal="UIC_INT_DISABILITY_CARD"/>
+    <eLiterals name="UIC_EU_DISABILITY_CARD_A" value="42" literal="UIC_EU_DISABILITY_CARD_A"/>
+    <eLiterals name="UIC_EU_DISABILITY_CARD_BLIND" value="43"/>
+    <eLiterals name="UIC_EU_DISABILITY_CARD_WHEELCHAIR" value="44" literal="UIC_EU_DISABILITY_CARD_WHEELCHAIR"/>
+    <eLiterals name="UIC_INT_DISABILITY_CARD_BLIND" value="45" literal="UIC_INT_DISABILITY_CARD_BLIND"/>
+    <eLiterals name="UIC_INT_DISABILITY_CARD_WHEELCHAIR" value="46" literal="UIC_INT_DISABILITY_CARD_WHEELCHAIR"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HemisphereEW">
     <eLiterals name="EAST"/>
@@ -2120,6 +2125,8 @@
     <eLiterals name="ACCOMP_PRM" value="24"/>
     <eLiterals name="CAR" value="30"/>
     <eLiterals name="BICYCLE" value="31"/>
+    <eLiterals name="PRAM" value="35" literal="PRAM"/>
+    <eLiterals name="PRM_SWIFTWALKER" value="34" literal="PRM_SWIFTWALKER"/>
     <eLiterals name="MOTOCYCLE" value="32"/>
     <eLiterals name="TRAILER" value="33"/>
     <eLiterals name="GRAPHICAL_RES" value="40"/>
