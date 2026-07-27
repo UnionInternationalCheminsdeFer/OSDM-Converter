@@ -15,6 +15,7 @@ import Gtm.RegionalConstraint;
 import Gtm.RequiredReductionCard;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.ServiceClass;
+import Gtm.ServiceConstraint;
 import Gtm.Text;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
@@ -131,5 +132,10 @@ public class IdFactory {
 
 	public static String getSalesOfferPackageId(FareElement osdmFare) {
 		return "sales_offer_package_" + osdmFare.getId();
+	}
+
+	public static String getFareStructureElementServiceConstraint(ServiceConstraint serviceConstraint) {
+		// TODO Auto-generated method stub
+		return "Services_" + serviceConstraint.getId();
 	}
 }

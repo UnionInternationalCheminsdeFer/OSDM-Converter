@@ -64,5 +64,9 @@ public class UrnUtils {
 	public static String getCompanyUri(String string) {
 		return "urn:uic:osdm:company:" + string.trim();
 	}	
+	
+	public static String getServiceBrandUri(String string) {
+		return "urn:uic:sbr:" + string.trim();
+	}		
 
 }

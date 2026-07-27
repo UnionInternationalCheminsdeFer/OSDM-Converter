@@ -214,6 +214,25 @@ public class Osdm2FareProduct {
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTraveler);		
 		}
 		
+		if (osdmFare.getServiceConstraint() != null) {
+			AccessRightInProductRefStructure sarServiceVal = factory.createAccessRightInProductRefStructure();
+			sarServiceVal.setRef(IdFactory.getFareStructureElementServiceConstraint(osdmFare.getServiceConstraint()));
+			sarServiceVal.setNameOfRefClass("FareStructureElement");
+			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarServiceVal);		
+		}
+		
+		try {
+			if (osdmFare.getRegionalConstraint().getRegionalValidity().getFirst().getServiceConstraint() != null) {
+				AccessRightInProductRefStructure sarServiceVal = factory.createAccessRightInProductRefStructure();
+				sarServiceVal.setRef(IdFactory.getFareStructureElementServiceConstraint(osdmFare.getRegionalConstraint().getRegionalValidity().getFirst().getServiceConstraint()));
+				sarServiceVal.setNameOfRefClass("FareStructureElement");
+				fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarServiceVal);		
+			}		
+		} catch (Exception e) {
+			//
+		}
+		
+		
 		//sales availability
 		SalesAvailabilityConstraint sac = osdmFare.getSalesAvailability();
 		if (sac == null) {

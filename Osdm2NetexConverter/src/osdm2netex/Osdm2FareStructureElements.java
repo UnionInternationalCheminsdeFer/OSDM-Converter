@@ -9,10 +9,13 @@ import Gtm.FulfillmentType;
 import Gtm.IncludedFreePassengerLimit;
 import Gtm.PassengerCombinationConstraint;
 import Gtm.PassengerConstraint;
+import Gtm.ServiceBrand;
 import Gtm.ServiceClass;
+import Gtm.ServiceConstraint;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityType;
 import Gtm.util.RouteDescriptionBuilder;
+import uk.org.netex.netex.BrandingRefStructure;
 import uk.org.netex.netex.ClassOfUse;
 import uk.org.netex.netex.CompanionProfile;
 import uk.org.netex.netex.CompanionRelationshipEnumeration;
@@ -44,8 +47,10 @@ import uk.org.netex.netex.TransportOrganisation;
 import uk.org.netex.netex.TransportOrganisationRefStructure;
 import uk.org.netex.netex.TransportOrganisationRefsRelStructure;
 import uk.org.netex.netex.TypeOfFareStructureElementRefStructure;
+import uk.org.netex.netex.TypeOfServiceRefStructure;
 import uk.org.netex.netex.TypeOfTravelDocument;
 import uk.org.netex.netex.UsageEndEnumeration;
+import uk.org.netex.netex.UsageParameter;
 import uk.org.netex.netex.UsageParametersRelStructure;
 import uk.org.netex.netex.UsageTriggerEnumeration;
 import uk.org.netex.netex.UsageValidityPeriod;
@@ -54,6 +59,7 @@ import uk.org.netex.netex.UserProfile;
 import uk.org.netex.netex.UserProfileRefStructure;
 import uk.org.netex.netex.ValidBetween;
 import uk.org.netex.netex.ValidityConditionsRelStructure;
+import uk.org.netex.netex.ValidityRuleParameter;
 
 
 public class Osdm2FareStructureElements {
@@ -65,6 +71,9 @@ public class Osdm2FareStructureElements {
     	
     	//carriers, carrier groups --> resource frame: organsations
     	convertCarriersAndCarrierGroups(osdmFares,resourceFrameNrt,  structureList, factory);
+    	
+    	//service contraints
+    	convertServiceConstraints(osdmFares,fareFrameNrt,  structureList, factory);
     	
     	//carrier constraints --> fare structure elements 
     	//convertCarrierConstraints(osdmFares, resourceFrameNrt,  structureList, factory);
@@ -95,6 +104,36 @@ public class Osdm2FareStructureElements {
 
 	}
     
+
+
+	private static void convertServiceConstraints(FareStructure osdmFares, FareFrame fareFrameNrt,
+			FareStructureElementsInFrameRelStructure structureList, ObjectFactory factory) {
+		
+		if (osdmFares.getServiceConstraints() == null || osdmFares.getServiceConstraints().getServiceConstraints() == null) return;
+		
+		for (ServiceConstraint serviceConstraint : osdmFares.getServiceConstraints().getServiceConstraints()) {
+			
+			FareStructureElement se = factory.createFareStructureElement();
+			se.setId(IdFactory.getFareStructureElementServiceConstraint(serviceConstraint));
+			String typeOfFareStructureElement = "efp:eligibility";
+			
+			se.setQualityStructureFactors(factory.createQualityStructureFactorsRelStructure());
+			
+			for (ServiceBrand sb : serviceConstraint.getIncludedServiceBrands()) {		
+				
+				BrandingRefStructure br = factory.createBrandingRefStructure();
+				br.setRef(UrnUtils.getServiceBrandUri(Integer.toString(sb.getCode())));
+			
+				se.getQualityStructureFactors().getQualityStructureFactorRefOrQualityStructureFactorDummy().add(factory.createBrandingRef(br));	
+				
+			}
+			
+			fareFrameNrt.getFareStructureElements().getFareStructureElement().add(se);
+			
+		}
+		
+	}
+
 
 
 	private static void convertTypeOfTraveldocument(FareStructure osdmFares, FareFrame fareFrameNrt, ResourceFrame resourceFrame,
