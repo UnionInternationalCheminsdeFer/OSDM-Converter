@@ -42,6 +42,7 @@ public class Osdm2FareProduct {
 
 		FarePriceVersionedChildStructure fp = Osdm2FareStructurElementPrice.convert2FarePriceVersionedChildStructure(osdmFare.getPrice() );
 
+		
 		FareTable table = factory.createFareTable();
 		table.setDescription(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));
 		table.setId(IdFactory.getFareProductId(osdmFare));
@@ -228,6 +229,18 @@ public class Osdm2FareProduct {
 				sarServiceVal.setNameOfRefClass("FareStructureElement");
 				fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarServiceVal);		
 			}		
+		} catch (Exception e) {
+			//
+		}
+		
+		try {
+			if (osdmFare.getAfterSalesRule() != null) {
+				AccessRightInProductRefStructure arp = factory.createAccessRightInProductRefStructure();
+				arp.setRef(IdFactory.getAfterSalesRuleId(osdmFare.getAfterSalesRule()));
+				arp.setNameOfRefClass("FareStructureElement");
+				fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(arp);		
+			
+			}
 		} catch (Exception e) {
 			//
 		}

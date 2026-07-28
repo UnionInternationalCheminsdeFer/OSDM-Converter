@@ -2,6 +2,7 @@ package osdm2netex;
 
 import java.util.UUID;
 
+import Gtm.AfterSalesRule;
 import Gtm.CarrierConstraint;
 import Gtm.Delivery;
 import Gtm.FareElement;
@@ -138,4 +139,17 @@ public class IdFactory {
 		// TODO Auto-generated method stub
 		return "Services_" + serviceConstraint.getId();
 	}
+
+	public static String getAfterSalesRuleId(AfterSalesRule asr) {
+		return "AfterSales_" + asr.getId();
+	}
+
+	public static String getRefundId(AfterSalesRule asr) {
+		return "Refund_" + asr.getId();
+	}
+
+	public static String getExchangeId(AfterSalesRule asr) {
+		return "Exchange_" + asr.getId();
+	}
+
 }
