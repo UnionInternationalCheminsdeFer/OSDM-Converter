@@ -3,10 +3,12 @@ package osdm2netex;
 import java.util.UUID;
 
 import Gtm.AfterSalesRule;
+import Gtm.BarcodeTypes;
 import Gtm.CarrierConstraint;
 import Gtm.Delivery;
 import Gtm.FareElement;
 import Gtm.FareStationSetDefinition;
+import Gtm.FulfillmentConstraint;
 import Gtm.FulfillmentType;
 import Gtm.PassengerConstraint;
 import Gtm.Price;
@@ -59,8 +61,15 @@ public class IdFactory {
 		return "fare_product_"+ osdmFare.getId();
 	}
 
-	public static String getTravelDocumentTypeId (FulfillmentType ft) {
-		return "fulfillment_method_" + ft.getLiteral();
+	public static String getTravelDocumentTypeId (BarcodeTypes bt, FulfillmentType ft) {
+		if (bt == null) {
+			return "fulfillment_method_" + ft.getLiteral();
+		} 
+		if (ft == null) {
+			return "fulfillment_method_" + bt.getLiteral();
+		} 		
+		
+		return "fulfillment_method_" + bt.getLiteral() + "_" + ft.getLiteral();
 	}
 	
 	public static String getFareStructureElementPassengerLimitsId(TotalPassengerCombinationConstraint pl) {
@@ -150,6 +159,10 @@ public class IdFactory {
 
 	public static String getExchangeId(AfterSalesRule asr) {
 		return "Exchange_" + asr.getId();
+	}
+
+	public static String getTravelDocumentTypeId(FulfillmentConstraint fc) {
+		return "FulfillmentConstraint_" + fc.getId();
 	}
 
 }

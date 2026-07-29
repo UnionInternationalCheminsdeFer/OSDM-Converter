@@ -1,30 +1,26 @@
 package osdm2netex;
 
+import java.util.ArrayList;
+
 import Gtm.CombinationConstraint;
 import Gtm.CombinationModel;
 import Gtm.FulfillmentConstraint;
-import Gtm.FulfillmentType;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
 import uk.org.netex.netex.AccessRightInProductRefStructure;
-import uk.org.netex.netex.Cell;
-import uk.org.netex.netex.CellsRelStructure;
-import uk.org.netex.netex.ClassOfUseRef;
 import uk.org.netex.netex.ConditionSummaryStructure;
 import uk.org.netex.netex.FareFrame;
-import uk.org.netex.netex.FarePriceVersionedChildStructure;
+import uk.org.netex.netex.FareProductPrice;
 import uk.org.netex.netex.FareProductRefStructure;
 import uk.org.netex.netex.FareProductsInFrameRelStructure;
 import uk.org.netex.netex.FareStructureElementRefStructure;
 import uk.org.netex.netex.FareStructureTypeEnumeration;
 import uk.org.netex.netex.FareTable;
-import uk.org.netex.netex.FareTableRowRefStructure;
 import uk.org.netex.netex.ObjectFactory;
 import uk.org.netex.netex.OperatorRestrictionsEnumeration;
 import uk.org.netex.netex.PreassignedFareProduct;
 import uk.org.netex.netex.PreassignedFareProductEnumeration;
-import uk.org.netex.netex.PriceableObjectRefsRelStructure;
 import uk.org.netex.netex.PricingServiceRefStructure;
 import uk.org.netex.netex.PrivateCodeStructure;
 import uk.org.netex.netex.SalesOfferPackage;
@@ -40,60 +36,57 @@ public class Osdm2FareProduct {
 		
 		PreassignedFareProduct product = convert2Product(osdmFare, factory);
 
-		FarePriceVersionedChildStructure fp = Osdm2FareStructurElementPrice.convert2FarePriceVersionedChildStructure(osdmFare.getPrice() );
+	    FareTable table = NeTExUtils.getOrCreateFareTable(fareFrameNrt);
+		
+		//add reference to the fare product
+		FareProductPrice fpp = factory.createFareProductPrice();
+		fpp.setId("PRICE_OF_"+ IdFactory.getFareProductId(osdmFare));
+		fpp.setDescription(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));	
+		FareProductRefStructure fpr = factory.createFareProductRefStructure();
+		fpr.setRef(IdFactory.getFareProductId(osdmFare));
+		fpp.setFareProductRef(factory.createFareProductRef(fpr));
+		
+		//add price
+		Osdm2FareStructurElementPrice.convert2FarePrice(fpp, osdmFare.getPrice() );
+		table.getPrices().getFarePriceRefOrCellRefDummyOrFarePriceDummy().add(factory.createFareProductPrice(fpp));
 
+		//handle fulfillment constraints
+		FulfillmentConstraint fc = osdmFare.getFulfillmentConstraint();
+		if (fc == null) {
+			fc = osdmFare.getFareConstraintBundle().getFulfillmentConstraint(); 
+		}
 		
-		FareTable table = factory.createFareTable();
-		table.setDescription(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));
-		table.setId(IdFactory.getFareProductId(osdmFare));
 		
-		PriceableObjectRefsRelStructure por = factory.createPriceableObjectRefsRelStructure();
-		por.setId(IdFactory.getFareProductId(osdmFare));
-		table.setPricesFor(por);
-		CellsRelStructure cellRel = factory.createCellsRelStructure();
-		cellRel.setId(IdFactory.getFareProductId(osdmFare));
-		Cell cell = factory.createCell();
-		
-		ClassOfUseRef cr = factory.createClassOfUseRef();
-		cr.setRef(IdFactory.getServiceClassId(osdmFare.getServiceClass()));
-		cell.setClassOfUseRef(cr);
-	
-		cell.setCellPrice(fp);
-		FareTableRowRefStructure rr = factory.createFareTableRowRefStructure();
-		rr.setRef(osdmFare.getRegionalConstraint().getId());
-		cell.setRowRef(rr);
-		cellRel.getCellOrCellInContextOrFarePriceDummy().add(factory.createCell(cell));
-		table.setCells(cellRel);
-		
+		//create a sales offer package to add a restriction to fulfillment media
 		SalesOfferPackage salesOfferPackage = factory.createSalesOfferPackage();
 		salesOfferPackage.setId(IdFactory.getSalesOfferPackageId(osdmFare));
-		salesOfferPackage.setFareTables(factory.createFareTablesRelStructure());
+		salesOfferPackage.setDistributionAssignments(NeTExUtils.createDistributionRight());
 		salesOfferPackage.setSalesOfferPackageElements(factory.createSalesOfferPackageElementsRelStructure());
 		if (fareFrameNrt.getSalesOfferPackages() == null) {
 			fareFrameNrt.setSalesOfferPackages(factory.createSalesOfferPackagesInFrameRelStructure());;
 		}
 		fareFrameNrt.getSalesOfferPackages().getSalesOfferPackage().add(salesOfferPackage);
-		
+
 		SalesOfferPackageElement sope = factory.createSalesOfferPackageElement();
-		FareProductRefStructure fpr = factory.createFareProductRefStructure();
-		fpr.setRef(IdFactory.getFareProductId(osdmFare));
-		sope.setFareProductRef(factory.createFareProductRef(fpr));
+		FareProductRefStructure fpr1 = factory.createFareProductRefStructure();
+		fpr1.setRef(IdFactory.getFareProductId(osdmFare));
+		sope.setFareProductRef(factory.createFareProductRef(fpr1));
 		salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sope);
 		
-		salesOfferPackage.getFareTables().getFareTableRefOrFareTableDummy().add(factory.createFareTable(table));
-		
-		FulfillmentConstraint fc = osdmFare.getFareConstraintBundle().getFulfillmentConstraint();
-		for (FulfillmentType ft :fc.getAcceptedFulfilmentTypes()) {
+		ArrayList<String> refs = NeTExUtils.addFulFillmentConstraint(fareFrameNrt, fc);
+
+		for (String ref: refs) {		
 			SalesOfferPackageElement sopef = factory.createSalesOfferPackageElement();
-			
 			TypeOfTravelDocumentRefStructure tdt = factory.createTypeOfTravelDocumentRefStructure();
-			tdt.setRef(IdFactory.getTravelDocumentTypeId(ft));
+			tdt.setRef(ref);
 			sopef.setTypeOfTravelDocumentRef(tdt);		
 			salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sopef);
-			
 		}
+
+
 		
-		//add condition summary
+		
+		//add condition summary to the product
 		ConditionSummaryStructure cs = factory.createConditionSummaryStructure();
 		cs.setAllowAdditionalDiscounts(false);
 		cs.setHasOperatorRestrictions(OperatorRestrictionsEnumeration.RESTRICTED);

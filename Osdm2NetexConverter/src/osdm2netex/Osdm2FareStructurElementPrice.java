@@ -3,7 +3,6 @@ package osdm2netex;
 import java.math.BigDecimal;
 
 import Gtm.Price;
-import uk.org.netex.netex.FareFrame;
 import uk.org.netex.netex.FarePriceVersionedChildStructure;
 import uk.org.netex.netex.FareProductPrice;
 import uk.org.netex.netex.FareProductRefStructure;
@@ -103,6 +102,22 @@ public class Osdm2FareStructurElementPrice {
 		fp.setRef(IdFactory.getPriceId(osdmPrice));
     	
 		return fp;
+		
+	}
+
+	public static void convert2FarePrice(FareProductPrice fpp, Price osdmPrice) {
+
+		fpp.setId(IdFactory.getPriceId(osdmPrice));
+    	
+		fpp.setCurrency(osdmPrice.getCurrencies().get(0).getCurrency().getIsoCode());
+		
+		BigDecimal value = new BigDecimal(Float.toString(osdmPrice.getCurrencies().get(0).getAmount()));		
+		fpp.setAmount(value);
+		fpp.setUnits(BigDecimal.valueOf(2L));
+		
+		PricingServiceRefStructure pricingServiceRef = new PricingServiceRefStructure();
+		pricingServiceRef.setUri("OSDM");
+		fpp.setPricingServiceRef(pricingServiceRef);	
 		
 	}	
 	

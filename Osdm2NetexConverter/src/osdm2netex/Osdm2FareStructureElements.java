@@ -120,6 +120,17 @@ public class Osdm2FareStructureElements {
     
 
 
+	private static void convertTypeOfTraveldocument(FareStructure osdmFares, FareFrame fareFrameNrt,
+			ResourceFrame resourceFrameNrt, ObjectFactory factory) {
+		
+		
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	private static void convertAfterSalesConditions(FareStructure osdmFares, FareFrame fareFrameNrt,
 			ObjectFactory factory) {
 		
@@ -304,40 +315,6 @@ public class Osdm2FareStructureElements {
 
 
 
-	private static void convertTypeOfTraveldocument(FareStructure osdmFares, FareFrame fareFrameNrt, ResourceFrame resourceFrame,
-			ObjectFactory factory) {
-		
-		
-		fareFrameNrt.setTypesOfTravelDocuments(factory.createTypesOfTravelDocumentInFrameRelStructure());
-		TypeOfTravelDocument ttd1 = factory.createTypeOfTravelDocument();
-		ttd1.setId(IdFactory.getTravelDocumentTypeId(FulfillmentType.SID));
-		ttd1.setName(Osdm2MultiLanguageString.getMultiLanguageString("Signed UIC barcode required"));
-		fareFrameNrt.getTypesOfTravelDocuments().getTypeOfTravelDocument().add(ttd1);
-		
-		TypeOfTravelDocument ttd2 = factory.createTypeOfTravelDocument();
-		ttd2.setId(IdFactory.getTravelDocumentTypeId(FulfillmentType.SIS));
-		ttd2.setName(Osdm2MultiLanguageString.getMultiLanguageString("ETCD online validation required"));
-		fareFrameNrt.getTypesOfTravelDocuments().getTypeOfTravelDocument().add(ttd2);
-		
-		TypeOfTravelDocument ttd3 = factory.createTypeOfTravelDocument();
-		ttd3.setId(IdFactory.getTravelDocumentTypeId(FulfillmentType.SIP));
-		ttd3.setName(Osdm2MultiLanguageString.getMultiLanguageString("CIT Security paper required"));
-		fareFrameNrt.getTypesOfTravelDocuments().getTypeOfTravelDocument().add(ttd3);
-		
-		/*
-		fareFrameNrt.setFulfilmentMethods(factory.createFulfilmentMethodsInFrameRelStructure());
-		
-		for ( FulfillmentType ft : FulfillmentType.values()){
-			
-			FulfilmentMethod fm = factory.createFulfilmentMethod();
-			
-			fm.setId(IdFactory.getTravelDocumentTypeId(ft));
-			fm.setName(Osdm2MultiLanguageString.getMultiLanguageString(ft.getLiteral()));
-						
-			fareFrameNrt.getFulfilmentMethods().getFulfilmentMethod().add(fm);
-		}
-		*/
-	}
 
 
 
