@@ -20,7 +20,7 @@ public class TestFareSelector {
 	
 	private static String regionalConstraintId = "1080_2024.01_K__12";
 	
-	private static boolean test = true;
+	private static boolean test = false;
 	
 	private static HashSet<Long> stations = new HashSet<Long>(); 
 
