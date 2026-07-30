@@ -11,6 +11,7 @@ import Gtm.AfterSalesCondition;
 import Gtm.AfterSalesRule;
 import Gtm.AfterSalesTransactionType;
 import Gtm.Carrier;
+import Gtm.ConnectionPoint;
 import Gtm.FareStructure;
 import Gtm.FulfillmentType;
 import Gtm.IncludedFreePassengerLimit;
@@ -22,8 +23,11 @@ import Gtm.ServiceConstraint;
 import Gtm.TimeReferenceType;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityType;
+import Gtm.TravelerType;
 import Gtm.util.RouteDescriptionBuilder;
 import jakarta.xml.bind.JAXBElement;
+import uk.org.netex.netex.BaggageTypeEnumeration;
+import uk.org.netex.netex.BorderPoint;
 import uk.org.netex.netex.Branding;
 import uk.org.netex.netex.BrandingRefStructure;
 import uk.org.netex.netex.ClassOfUse;
@@ -47,6 +51,7 @@ import uk.org.netex.netex.GroupOfOperators;
 import uk.org.netex.netex.GroupTicket;
 import uk.org.netex.netex.KeyValueStructure;
 import uk.org.netex.netex.LogicalOperationEnumeration;
+import uk.org.netex.netex.LuggageAllowance;
 import uk.org.netex.netex.MultilingualString;
 import uk.org.netex.netex.ObjectFactory;
 import uk.org.netex.netex.PurchaseWindow;
@@ -217,7 +222,7 @@ public class Osdm2FareStructureElements {
 						try {
 							d = DatatypeFactory.newInstance().newDuration(NeTExUtils.getDuration(asc.getApplicationTime().getValue(), asc.getApplicationTime().getUnit()).toString());
 							rf.setExchangableUntilDuration(d);
-							
+
 							if (asc.getApplicationTime().equals(TimeReferenceType.AFTER_DEPARTURE)) {
 								rf.setResellWhen(ResellWhenEnumeration.AFTER_FIRST_USE);
 							} else if (asc.getApplicationTime().equals(TimeReferenceType.AFTER_END_VALIDITY)) {
@@ -362,6 +367,7 @@ public class Osdm2FareStructureElements {
 				spr.setRef(endCode);
 				dm.setEndStopPointRef(spr);				
 			}
+
 			
 			SeriesConstraint sc = factory.createSeriesConstraint();
 			SeriesConstraintsRelStructure scr = factory.createSeriesConstraintsRelStructure();
@@ -376,12 +382,14 @@ public class Osdm2FareStructureElements {
 			if (rc.getEntryConnectionPoint() != null && rc.getEntryConnectionPoint().getLegacyBorderPointCode() > 0) {
 				ConnectionRefStructure fcr = factory.createConnectionRefStructure();
 				fcr.setRef(Osdm2SeriesConnection.getRef(rc.getEntryConnectionPoint()));
+				addBorderPointToFrame(fareFrameNrt,rc.getEntryConnectionPoint(),factory );
 				sc.setFromConnectionRef(fcr);
 			}
 			
 			if (rc.getExitConnectionPoint() != null && rc.getExitConnectionPoint().getLegacyBorderPointCode() > 0) {
 				ConnectionRefStructure tcr = factory.createConnectionRefStructure();
 				tcr.setRef(Osdm2SeriesConnection.getRef(rc.getExitConnectionPoint()));		
+				addBorderPointToFrame(fareFrameNrt,rc.getExitConnectionPoint(),factory );
 				sc.setToConnectionRef(tcr);
 			}
 			
@@ -390,6 +398,44 @@ public class Osdm2FareStructureElements {
 			}
 
 		}
+	}
+
+
+
+	private static void addBorderPointToFrame(FareFrame fareFrameNrt, ConnectionPoint cp, ObjectFactory factory) {
+
+		if (fareFrameNrt.getBorderPoints() == null) {
+			fareFrameNrt.setBorderPoints(factory.createBorderPointsInFrameRelStructure());
+		}
+		
+		String ref = Osdm2SeriesConnection.getRef(cp);
+		
+		for (BorderPoint b : fareFrameNrt.getBorderPoints().getBorderPoint()) {
+			if (b.getId().equals(ref)) {
+				return;
+			}
+		}
+
+		BorderPoint b = factory.createBorderPoint();
+		b.setId(ref);
+		if (cp.getNameUtf8() != null) {
+			b.setName(Osdm2MultiLanguageString.getMultiLanguageString(cp.getNameUtf8()));
+		} else {
+			try {
+				String name = cp.getConnectedStationSets().getFirst().getStations().getFirst().getNameCaseUTF8();
+				if (name.endsWith("(GR)") || name.endsWith("(FR)")  ) {
+					//
+				} else {
+					name = name + " (FR)";
+				}
+				if (name != null) {
+					b.setName(Osdm2MultiLanguageString.getMultiLanguageString(name));
+				}
+			} catch (Exception e) {
+				//
+			}
+		}
+		fareFrameNrt.getBorderPoints().getBorderPoint().add(b);
 	}
 
 
@@ -541,73 +587,98 @@ public class Osdm2FareStructureElements {
 
 		for (PassengerConstraint pa : osdmFares.getPassengerConstraints().getPassengerConstraints()) {
 
-			UserProfile up = factory.createUserProfile();
-			up.setId(IdFactory.getFareStructureElementPassengersId(pa));
-			up.setName(Osdm2MultiLanguageString.getMultiLanguageString(pa.getText()));		
-			up.setMaximumAge(BigInteger.valueOf(pa.getUpperAgeLimit()));
-			up.setMinimumAge(BigInteger.valueOf(pa.getLowerAgeLimit()));
-			up.setUserType(OsdmPassengerType2PassengerType.convertPassengerType(pa.getTravelerType()));		
-			up.setKeyList(factory.createKeyListStructure());
-			KeyValueStructure kvs = factory.createKeyValueStructure();
-			kvs.setKey("TravelerType");
-			kvs.setValue(UrnUtils.getPassengerTypeUri(pa.getTravelerType()));
-			up.getKeyList().getKeyValue().add(kvs);
-			
-			if (pa.getIncludedFreePassengers() != null) {
+			if (pa.getTravelerType().equals(TravelerType.BICYCLE) ||
+				pa.getTravelerType().equals(TravelerType.DOG)) {
 				
-				for (IncludedFreePassengerLimit ifp :pa.getIncludedFreePassengers()) {
-					
-					CompanionProfile companionProfile = factory.createCompanionProfile();
-					
-					//link to passenger type
-					UserProfileRefStructure uprs = factory.createUserProfileRefStructure();
-					uprs.setRef(IdFactory.getFareStructureElementPassengersId(pa));
-					companionProfile.setUserProfileRef(factory.createUserProfileRef(uprs));
 
-					//conditions
-					companionProfile.setDiscountBasis(DiscountBasisEnumeration.FREE);
-					companionProfile.setCompanionRelationshipType(CompanionRelationshipEnumeration.DEPENDENT);
-					companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(0L));
-					companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(ifp.getNumber()));
-					
-					if (up.getCompanionProfiles() == null) {
-						up.setCompanionProfiles(factory.createCompanionProfilesRelStructure());
-					}
-					up.getCompanionProfiles().getCompanionProfileRefOrCompanionProfile().add(companionProfile);
-
+				
+				LuggageAllowance la = factory.createLuggageAllowance();
+				la.setId(IdFactory.getFareStructureElementPassengersId(pa));
+				la.setName(Osdm2MultiLanguageString.getMultiLanguageString(pa.getText()));	
+				la.setKeyList(NeTExUtils.createKeyValueList(pa.getTravelerType()));
+				
+				if (pa.getTravelerType().equals(TravelerType.BICYCLE)) {
+					la.setBaggageType(BaggageTypeEnumeration.BICYCLE);
+				} else if (pa.getTravelerType().equals(TravelerType.DOG)) {
+					la.setBaggageType(BaggageTypeEnumeration.ANIMAL);
 				}
 				
-				if (pa.getExcludedPassengerCombinations() != null) {
+				if (fareFrameNrt.getUsageParameters() == null) {
+					fareFrameNrt.setUsageParameters(factory.createUsageParametersInFrameRelStructure());
+				}
+				fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createLuggageAllowance(la));
+				
+			} else {
+			
+				UserProfile up = factory.createUserProfile();
+				up.setId(IdFactory.getFareStructureElementPassengersId(pa));
+				up.setName(Osdm2MultiLanguageString.getMultiLanguageString(pa.getText()));		
+				up.setMaximumAge(BigInteger.valueOf(pa.getUpperAgeLimit()));
+				up.setMinimumAge(BigInteger.valueOf(pa.getLowerAgeLimit()));
+				up.setUserType(OsdmPassengerType2PassengerType.convertPassengerType(pa.getTravelerType()));		
+				up.setKeyList(factory.createKeyListStructure());
+				KeyValueStructure kvs = factory.createKeyValueStructure();
+				kvs.setKey("TravelerType");
+				kvs.setValue(UrnUtils.getPassengerTypeUri(pa.getTravelerType()));
+				up.getKeyList().getKeyValue().add(kvs);
+				
+				if (pa.getIncludedFreePassengers() != null) {
 					
-				    for (PassengerCombinationConstraint pcc : pa.getExcludedPassengerCombinations()) {
-				    	
+					for (IncludedFreePassengerLimit ifp :pa.getIncludedFreePassengers()) {
+						
 						CompanionProfile companionProfile = factory.createCompanionProfile();
-				    	
+						
 						//link to passenger type
 						UserProfileRefStructure uprs = factory.createUserProfileRefStructure();
 						uprs.setRef(IdFactory.getFareStructureElementPassengersId(pa));
 						companionProfile.setUserProfileRef(factory.createUserProfileRef(uprs));
-
+	
 						//conditions
-						companionProfile.setDiscountBasis(DiscountBasisEnumeration.NONE);
+						companionProfile.setDiscountBasis(DiscountBasisEnumeration.FREE);
 						companionProfile.setCompanionRelationshipType(CompanionRelationshipEnumeration.DEPENDENT);
-						companionProfile.setMinimumNumberOfPersons(BigInteger.valueOf(pcc.getMinNumber()));
-						companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(pcc.getMaxNumber()));
+						companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(0L));
+						companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(ifp.getNumber()));
 						
 						if (up.getCompanionProfiles() == null) {
 							up.setCompanionProfiles(factory.createCompanionProfilesRelStructure());
 						}
 						up.getCompanionProfiles().getCompanionProfileRefOrCompanionProfile().add(companionProfile);
-				    	
-				    }
+	
+					}
+					
+					if (pa.getExcludedPassengerCombinations() != null) {
+						
+					    for (PassengerCombinationConstraint pcc : pa.getExcludedPassengerCombinations()) {
+					    	
+							CompanionProfile companionProfile = factory.createCompanionProfile();
+					    	
+							//link to passenger type
+							UserProfileRefStructure uprs = factory.createUserProfileRefStructure();
+							uprs.setRef(IdFactory.getFareStructureElementPassengersId(pa));
+							companionProfile.setUserProfileRef(factory.createUserProfileRef(uprs));
+	
+							//conditions
+							companionProfile.setDiscountBasis(DiscountBasisEnumeration.NONE);
+							companionProfile.setCompanionRelationshipType(CompanionRelationshipEnumeration.DEPENDENT);
+							companionProfile.setMinimumNumberOfPersons(BigInteger.valueOf(pcc.getMinNumber()));
+							companionProfile.setMaximumNumberOfPersons(BigInteger.valueOf(pcc.getMaxNumber()));
+							
+							if (up.getCompanionProfiles() == null) {
+								up.setCompanionProfiles(factory.createCompanionProfilesRelStructure());
+							}
+							up.getCompanionProfiles().getCompanionProfileRefOrCompanionProfile().add(companionProfile);
+					    	
+					    }
+					}
 				}
-			}
+				
+				if (fareFrameNrt.getUsageParameters() == null) {
+					fareFrameNrt.setUsageParameters(factory.createUsageParametersInFrameRelStructure());
+				}
+				fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createUserProfile(up));
 			
-			if (fareFrameNrt.getUsageParameters() == null) {
-				fareFrameNrt.setUsageParameters(factory.createUsageParametersInFrameRelStructure());
+			
 			}
-			fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createUserProfile(up));
-
 		}
 	}
 	

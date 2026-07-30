@@ -67,14 +67,14 @@ public class Osdm2FareProduct {
 		}
 		fareFrameNrt.getSalesOfferPackages().getSalesOfferPackage().add(salesOfferPackage);
 
-		SalesOfferPackageElement sope = factory.createSalesOfferPackageElement();
+		SalesOfferPackageElement salesOfferPackageElement = factory.createSalesOfferPackageElement();
 		FareProductRefStructure fpr1 = factory.createFareProductRefStructure();
 		fpr1.setRef(IdFactory.getFareProductId(osdmFare));
-		sope.setFareProductRef(factory.createFareProductRef(fpr1));
-		salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sope);
-		
-		ArrayList<String> refs = NeTExUtils.addFulFillmentConstraint(fareFrameNrt, fc);
+		salesOfferPackageElement.setFareProductRef(factory.createFareProductRef(fpr1));
+		salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(salesOfferPackageElement);
 
+		//add fulfillment contraints
+		ArrayList<String> refs = NeTExUtils.addFulFillmentConstraint(fareFrameNrt, fc);
 		for (String ref: refs) {		
 			SalesOfferPackageElement sopef = factory.createSalesOfferPackageElement();
 			TypeOfTravelDocumentRefStructure tdt = factory.createTypeOfTravelDocumentRefStructure();
