@@ -107,8 +107,6 @@ public class Osdm2FareStructurElementPrice {
 
 	public static void convert2FarePrice(FareProductPrice fpp, Price osdmPrice) {
 
-		fpp.setId(IdFactory.getPriceId(osdmPrice));
-    	
 		fpp.setCurrency(osdmPrice.getCurrencies().get(0).getCurrency().getIsoCode());
 		
 		BigDecimal value = new BigDecimal(Float.toString(osdmPrice.getCurrencies().get(0).getAmount()));		

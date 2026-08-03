@@ -18,8 +18,8 @@ The tool provides conversion between fare data according to UIC standards 108.1 
    <launcherArgs>
       <programArgs>-consoleLog
       </programArgs>
-      <vmArgs>-Xms512m
--Xmx6500m
+      <vmArgs>-Xms1024m
+-Xmx8000m
 -Dfile.encoding=UTF8
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
@@ -28,14 +28,16 @@ The tool provides conversion between fare data according to UIC standards 108.1 
 
    <windowImages i16="/GTM data converter.editor/icons/UIC GIF square_16.gif" i32="/GTM data converter.editor/icons/UIC GIF square_32.gif" i48="/GTM data converter.editor/icons/UIC GIF square_48.gif" i64="/GTM data converter.editor/icons/UIC GIF square_64.gif"/>
 
+
    <launcher name="gtm">
       <win useIco="false">
          <bmp/>
       </win>
    </launcher>
 
+
    <vm>
-      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21</windows>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-19</windows>
    </vm>
 
    <license>

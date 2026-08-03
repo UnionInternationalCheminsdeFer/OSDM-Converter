@@ -17,8 +17,10 @@ import Gtm.ViaStation;
 import Gtm.util.GtmUtils;
 
 public class TestFareSelector {
-	
-	private static String regionalConstraintId = "1080_2024.01_K__12";
+
+	private static String regionalConstraintId = "1080_2024.01_K__1";
+	private static String regionalConstraintId2= "1080_2024.01_K__12";
+	private static String regionalConstraintId3 = "1080_2024.01_K__13009";
 	
 	private static boolean test = false;
 	
@@ -32,7 +34,7 @@ public class TestFareSelector {
 			
 			initLists(rc,stations, stationSets  );
 			
-			return regionalConstraintId.equals(rc.getId());
+			return (rc.getId().startsWith(regionalConstraintId) ) ;
 		} 
 		return true;
 	}

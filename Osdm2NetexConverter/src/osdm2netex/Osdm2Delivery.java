@@ -47,6 +47,12 @@ public class Osdm2Delivery {
 		delivery.setParticipantRef(UrnUtils.getCompanyUri(osdm.getDelivery().getProvider()));
 		delivery.setVersion(osdm.getDelivery().getId());
 		
+		if (osdm.getDelivery().isOptional()) {
+			delivery.setDescription(Osdm2MultiLanguageString.getMultiLanguageString("OPTIONAL_DELIVERY"));
+		} else {
+			delivery.setDescription(Osdm2MultiLanguageString.getMultiLanguageString("MANDATORY_DELIVERY"));
+		}
+		
 		//Site frame to hold the stations
 		SiteFrame siteFrame = Osdm2Stations.convertStations(osdm);
 		dos.getCompositeFrameOrCommonFrame().add(factory.createSiteFrame(siteFrame));

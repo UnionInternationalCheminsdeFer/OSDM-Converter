@@ -3,7 +3,7 @@ package osdm2netex;
 import Gtm.TravelerType;
 import uk.org.netex.netex.UserTypeEnumeration;
 
-public class OsdmPassengerType2PassengerType {
+public class Osdm2PassengerType {
 
 	public static UserTypeEnumeration convertPassengerType(TravelerType travelerType) {
 		
