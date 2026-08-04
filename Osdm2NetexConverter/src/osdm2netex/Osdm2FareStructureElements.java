@@ -46,6 +46,7 @@ import uk.org.netex.netex.PurchaseWindow;
 import uk.org.netex.netex.Refunding;
 import uk.org.netex.netex.ResellWhenEnumeration;
 import uk.org.netex.netex.ResourceFrame;
+import uk.org.netex.netex.SiteFrame;
 import uk.org.netex.netex.TypeOfFareStructureElementRefStructure;
 import uk.org.netex.netex.UsageEndEnumeration;
 import uk.org.netex.netex.UsageParameter;
@@ -62,39 +63,44 @@ import uk.org.netex.netex.ValidBetween;
 public class Osdm2FareStructureElements {
 	
 	
-    static void convertToFareStructureElements(Gtm.FareStructure osdmFares, ResourceFrame resourceFrameNrt, FareStructureElementsInFrameRelStructure structureList, FareFrame fareFrameNrt) {
+    static void convertToFareStructureElements(Gtm.FareStructure osdmFares, 
+    		ResourceFrame resourceFrameNrt, 
+    		FareFrame fareFrameNrt, 
+    		SiteFrame siteFrame) {
     	
     	ObjectFactory factory = new ObjectFactory();
     	
     	//carriers, carrier groups --> resource frame: organsations
-    	Osdm2TransportOrganisation.convertCarriersAndCarrierGroups(osdmFares,resourceFrameNrt,  structureList, factory);
+    	Osdm2TransportOrganisation.convertCarriersAndCarrierGroups(osdmFares,resourceFrameNrt, fareFrameNrt.getFareStructureElements(), factory);
     	
     	//service contraints
-    	convertServiceConstraints(osdmFares,fareFrameNrt,  structureList, factory, resourceFrameNrt);
+    	convertServiceConstraints(osdmFares,fareFrameNrt, fareFrameNrt.getFareStructureElements(), factory, resourceFrameNrt);
     	
     	//carrier constraints --> fare structure elements 
     	//convertCarrierConstraints(osdmFares, resourceFrameNrt,  structureList, factory);
     	
     	//class of use --> fareFrameNrt: access rights
-    	convertClassOfUse(osdmFares,resourceFrameNrt,  structureList, fareFrameNrt, factory);
+    	convertClassOfUse(osdmFares,resourceFrameNrt,  fareFrameNrt.getFareStructureElements() , fareFrameNrt, factory);
     	
     	//passengers --> fare frame : usage parameters
-    	convertPassengers(osdmFares,resourceFrameNrt,  structureList, fareFrameNrt, factory);
+    	convertPassengers(osdmFares,resourceFrameNrt, fareFrameNrt.getFareStructureElements(), fareFrameNrt, factory);
 
     	//passengerLimits --> fare frame : usage parameters
-    	convertPassengerLimits(osdmFares,resourceFrameNrt,  structureList, fareFrameNrt, factory);
+    	convertPassengerLimits(osdmFares,resourceFrameNrt, fareFrameNrt.getFareStructureElements(), fareFrameNrt, factory);
     	
     	//travel validity  --> fare structure elements 
-    	convertTravelValidity(osdmFares, resourceFrameNrt, structureList, fareFrameNrt, factory);
+    	convertTravelValidity(osdmFares, resourceFrameNrt, fareFrameNrt.getFareStructureElements(), fareFrameNrt, factory);
     	
     	//sales availability 
-    	convertSalesAvailability (osdmFares, resourceFrameNrt, structureList, fareFrameNrt, factory);
+    	convertSalesAvailability (osdmFares, resourceFrameNrt,fareFrameNrt.getFareStructureElements(), fareFrameNrt, factory);
     	
     	//reductionConstrants
-    	convertReductionConstraints (osdmFares, resourceFrameNrt, structureList, fareFrameNrt, factory);
+    	convertReductionConstraints (osdmFares, resourceFrameNrt,fareFrameNrt.getFareStructureElements(), fareFrameNrt, factory);
     	
     	//route description
-    	Osdm2Series.convertRegionalValidity(osdmFares, fareFrameNrt, factory);
+    	
+    	
+    	Osdm2Series.convertRegionalValidity(osdmFares, fareFrameNrt,siteFrame, factory);
     	
     	
     	//after sales conditions
@@ -134,7 +140,7 @@ public class Osdm2FareStructureElements {
 					rf.setId(IdFactory.getRefundId(asr) + Integer.toString(asr.getConditions().indexOf(asc)));
 
 					rf.setPrices(factory.createUsageParameterPricesRelStructure());
-					UsageParameterPrice price = Osdm2FareStructurElementPrice.convert2UsageParameterPrice(asc.getFee());
+					UsageParameterPrice price = Osdm2FarePrice.convert2UsageParameterPrice(asc.getFee());
 					rf.getPrices().getUsageParameterPriceRefOrUsageParameterPriceOrCellRef().add(price);
 
 					rf.setUnusedTicketsOnly(true);
@@ -180,7 +186,7 @@ public class Osdm2FareStructureElements {
 						
 						rf.setUnusedTicketsOnly(true);
 						rf.setPrices(factory.createUsageParameterPricesRelStructure());
-						UsageParameterPrice price = Osdm2FareStructurElementPrice.convert2UsageParameterPrice(asc.getFee());
+						UsageParameterPrice price = Osdm2FarePrice.convert2UsageParameterPrice(asc.getFee());
 						rf.getPrices().getUsageParameterPriceRefOrUsageParameterPriceOrCellRef().add(price);
 
 						rf.setKeyList(NeTExUtils.createKeyValueList(asc.getApplicationTime().getReference()));

@@ -10,7 +10,6 @@ import uk.org.netex.netex.DataObjectsRelStructure;
 import uk.org.netex.netex.FareFrame;
 import uk.org.netex.netex.FareProductsInFrameRelStructure;
 import uk.org.netex.netex.FareSeriesInFrameRelStructure;
-import uk.org.netex.netex.FareStructureElementsInFrameRelStructure;
 import uk.org.netex.netex.FareTablesInFrameRelStructure;
 import uk.org.netex.netex.FareZonesInFrameRelStructure;
 import uk.org.netex.netex.ObjectFactory;
@@ -33,8 +32,6 @@ public class Osdm2Delivery {
 		
 		FareSeriesInFrameRelStructure seriesList = factory.createFareSeriesInFrameRelStructure();
 
-		FareStructureElementsInFrameRelStructure structureList = factory.createFareStructureElementsInFrameRelStructure();
-		 
 		FareProductsInFrameRelStructure productsList = factory.createFareProductsInFrameRelStructure();
 		
 		FareTablesInFrameRelStructure tablesStructure = factory.createFareTablesInFrameRelStructure();
@@ -54,7 +51,8 @@ public class Osdm2Delivery {
 		}
 		
 		//Site frame to hold the stations
-		SiteFrame siteFrame = Osdm2Stations.convertStations(osdm);
+		SiteFrame siteFrame = factory.createSiteFrame();
+		siteFrame.setId(IdFactory.getSiteFrameId(osdm.getDelivery()));
 		dos.getCompositeFrameOrCommonFrame().add(factory.createSiteFrame(siteFrame));
 		
 		//deactivate the previous delivered fare frame
@@ -111,7 +109,6 @@ public class Osdm2Delivery {
 		// add the fare station sets as zones to the fare frame
 		FareZonesInFrameRelStructure zones = factory.createFareZonesInFrameRelStructure();
 		zones.setId("zones_" + osdm.getDelivery().getId());
-		Osdm2Zones.convertFareStationSets(osdmFares.getFareStationSetDefinitions(), zones);
 		fareFrameNrt.setFareZones(zones);
 		
 		//prepare the frame to hold fare elements
@@ -120,11 +117,13 @@ public class Osdm2Delivery {
 		fareFrameNrt.setResponsibilitySetRef(null);
 		fareFrameNrt.setSeriesConstraints(seriesList);
 	
-		fareFrameNrt.setFareStructureElements(structureList);
+		fareFrameNrt.setFareStructureElements(factory.createFareStructureElementsInFrameRelStructure());
 		
+		siteFrame.setId(IdFactory.getSiteFrameId(osdm.getDelivery()));
+		siteFrame.setStopPlaces(factory.createStopPlacesInFrameRelStructure());
 
 		//add fare structure elements
-		Osdm2FareStructureElements.convertToFareStructureElements(osdmFares, resourceFrameNrt, structureList, fareFrameNrt);
+		Osdm2FareStructureElements.convertToFareStructureElements(osdmFares, resourceFrameNrt,fareFrameNrt, siteFrame);
 		
 		//convertSeries();
 		// add the fare elements (prices and refereces to fare structure elements)
@@ -132,6 +131,13 @@ public class Osdm2Delivery {
 	
 		//set publication dates
 		delivery.setPublicationTimestamp(DateUtils.toXMLGregorianCalendar(Calendar.getInstance().getTime()));			
+		
+		
+		if (fareFrameNrt.getFareProducts().getFareProductDummy().isEmpty() ||
+			siteFrame.getStopPlaces().getStopPlace().isEmpty()) {
+			return null;
+		}
+		
 		
 		return delivery;
 		
@@ -144,7 +150,7 @@ public class Osdm2Delivery {
 		
 		for (Gtm.FareElement fare : osdmFares.getFareElements().getFareElements()) {
 			
-			if (TestFareSelector.selectRegionalConstraint(fare.getRegionalConstraint()) ) {
+			if (NeTExSplitter.getInstance().selectRegionalConstraint(fare.getRegionalConstraint()) ) {
 			
 				Osdm2FareProduct.convertFare (fare,fareFrameNrt);
 				

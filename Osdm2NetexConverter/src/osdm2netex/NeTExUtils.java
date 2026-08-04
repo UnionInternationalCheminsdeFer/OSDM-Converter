@@ -17,7 +17,6 @@ import uk.org.netex.netex.DistributionAssignmentsRelStructure;
 import uk.org.netex.netex.DistributionRightsEnumeration;
 import uk.org.netex.netex.FareFrame;
 import uk.org.netex.netex.FareStructureElement;
-import uk.org.netex.netex.FareTable;
 import uk.org.netex.netex.KeyListStructure;
 import uk.org.netex.netex.KeyValueStructure;
 import uk.org.netex.netex.MachineReadableEnumeration;
@@ -148,29 +147,8 @@ public class NeTExUtils {
 		return d;
 	}
 	
-	public static FareTable  getOrCreateFareTable(FareFrame fareFrameNrt) {
-		
-		ObjectFactory factory = new ObjectFactory();
-		
-	    FareTable table = null;	
-		if (fareFrameNrt.getFareTables() == null ||
-				fareFrameNrt.getFareTables().getFareTableDummy().isEmpty()) {
-			fareFrameNrt.setFareTables(factory.createFareTablesInFrameRelStructure());
-			table = factory.createFareTable();
-			table.setId("Table_" + fareFrameNrt.getId());
-			table.setPrices(factory.createFarePricesRelStructure());
-			fareFrameNrt.getFareTables().getFareTableDummy().add(factory.createFareTable(table));
-		} else {
-			Object o = fareFrameNrt.getFareTables().getFareTableDummy().getFirst().getValue();
-			if (o instanceof FareTable) {
-				table = (FareTable) o; 
-			}
-		}
-
-		
-		
-		return table;
-	}
+	
+	
 	
 	public static DistributionAssignmentsRelStructure createDistributionRight() {
 		

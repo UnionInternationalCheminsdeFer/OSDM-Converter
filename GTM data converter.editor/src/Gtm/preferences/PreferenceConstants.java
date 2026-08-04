@@ -11,6 +11,7 @@ public class PreferenceConstants	{
 		public static final String P_SUPRESS_STATION_LABEL = "SUPRESS_STATION_LABEL";//$NON-NLS-1$
 		public static final String P_SHOW_VALTIDATION_ISSUES_IN_CONSOLE = "SHOW_VALTIDATION_ISSUES_IN_CONSOLE_LABEL";//$NON-NLS-1$
 		public static final String P_ACTIVATE_NETEX_EXPORT = "ACTIVATE_NETEX_EXPORT_LABEL";//$NON-NLS-1$
+		public static final String P_NETEX_SPLIT_EXPORT = "NETEX_SPLIT_EXPORT_LABEL";//$NON-NLS-1$
 
 }
 

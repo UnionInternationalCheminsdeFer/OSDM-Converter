@@ -616,6 +616,14 @@ public class RouteDescriptionBuilder {
 		}
 		return null;
 	}
+	
+	
+	public static String getFirstStationName(RegionalConstraint rc){
+				
+		return getFirstStationCodeName(getMainVia(rc.getRegionalValidity()));
+		
+	}
+	
 
 	/**
 	 * Gets the first station code name.

@@ -32,7 +32,7 @@ public class Osdm2netexConverter {
 		
 		//TestMinimalExport.writeNeTexFile(osdm, file, monitor);
 		
-		monitor.subTask("Formatting XML");	
+		monitor.subTask("Formatting XML for: " + file.getName());	
         // Create JAXB context for the Person class
 		try {
 			
@@ -42,11 +42,12 @@ public class Osdm2netexConverter {
 			JAXBElement<PublicationDeliveryStructure> rootelement = factory.createPublicationDelivery(data);
 			
 			// Create a marshaller
-			monitor.subTask("creating NeTEx context (this might take some time)");	        	
+			monitor.subTask("creating NeTEx context for: " + file.getName());	        	
 			JAXBContext jc = JAXBContext.newInstance(PublicationDeliveryStructure.class, ObjectFactory.class);
+			monitor.worked(1);
+        	
 
-        	
-        	
+			monitor.subTask("creating NeTEx marshaller for: " + file.getName());	
         	Marshaller marshaller = jc.createMarshaller();
            	marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			
@@ -63,9 +64,10 @@ public class Osdm2netexConverter {
 			        return true; 
 			    }
 			});
+			monitor.worked(1);
 			
         	// Write to XML file
-			monitor.subTask("Write XML file");	
+			monitor.subTask("Write XML file: " + file.getName());	
 			try {
 				FileOutputStream fos = new FileOutputStream(file);
 				marshaller.marshal(rootelement, fos);
@@ -76,12 +78,12 @@ public class Osdm2netexConverter {
 				if (errors != null && errors.length() > 0) {
 					monitor.subTask(errors);
 				}
-	        
 			}
-
+			monitor.worked(1);
+			
 		} catch (JAXBException e){
 			e.printStackTrace();
-			Exception e2 = new Exception("XML Export failed");
+			Exception e2 = new Exception("XML Export failed for file: " + file.getName());	
 			throw e2;
 		}
 	}
@@ -90,9 +92,13 @@ public class Osdm2netexConverter {
 	 * Convert.
 	 *
 	 * @param monitor the monitor
+	 * @param filterLetter 
 	 */
-	public PublicationDeliveryStructure convert(IProgressMonitor monitor) {
+	public PublicationDeliveryStructure convert(IProgressMonitor monitor, String filterLetter) {
 		
+		NeTExSplitter.getInstance().setFilterLetter(filterLetter);
+		
+		monitor.subTask("converting to NeTEx model for ODs: " + filterLetter + "...");	
 		
 		PublicationDeliveryStructure delivery = Osdm2Delivery.convert(monitor, osdm);
 		

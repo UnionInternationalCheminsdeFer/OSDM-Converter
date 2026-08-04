@@ -95,7 +95,11 @@ public class PreferencePage
 						PreferenceConstants.P_ACTIVATE_NETEX_EXPORT,
 						NationalLanguageSupport.Preference_netex_export_label,
 						getFieldEditorParent()));
-        
+        addField(
+					new BooleanFieldEditor(
+						PreferenceConstants.P_NETEX_SPLIT_EXPORT,
+						NationalLanguageSupport.Preference_netex_split_export_label,
+						getFieldEditorParent()));        
 
         
 	};

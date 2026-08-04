@@ -11,12 +11,10 @@ import Gtm.TravelValidityConstraint;
 import uk.org.netex.netex.AccessRightInProductRefStructure;
 import uk.org.netex.netex.ConditionSummaryStructure;
 import uk.org.netex.netex.FareFrame;
-import uk.org.netex.netex.FareProductPrice;
 import uk.org.netex.netex.FareProductRefStructure;
 import uk.org.netex.netex.FareProductsInFrameRelStructure;
 import uk.org.netex.netex.FareStructureElementRefStructure;
 import uk.org.netex.netex.FareStructureTypeEnumeration;
-import uk.org.netex.netex.FareTable;
 import uk.org.netex.netex.ObjectFactory;
 import uk.org.netex.netex.OperatorRestrictionsEnumeration;
 import uk.org.netex.netex.PreassignedFareProduct;
@@ -35,21 +33,10 @@ public class Osdm2FareProduct {
 		ObjectFactory factory = new ObjectFactory();
 		
 		PreassignedFareProduct product = convert2Product(osdmFare, factory);
-
-	    FareTable table = NeTExUtils.getOrCreateFareTable(fareFrameNrt);
 		
-		//add reference to the fare product
-		FareProductPrice fpp = factory.createFareProductPrice();
-		fpp.setId("PRICE_OF_"+ IdFactory.getFareProductId(osdmFare));
-		fpp.setDescription(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));	
-		FareProductRefStructure fpr = factory.createFareProductRefStructure();
-		fpr.setRef(IdFactory.getFareProductId(osdmFare));
-		fpp.setFareProductRef(factory.createFareProductRef(fpr));
-		
-		//add price
-		Osdm2FareStructurElementPrice.convert2FarePrice(fpp, osdmFare.getPrice() );
-		table.getPrices().getFarePriceRefOrCellRefDummyOrFarePriceDummy().add(factory.createFareProductPrice(fpp));
+		Osdm2FarePrice.convert2FareProductPrice(osdmFare, fareFrameNrt);
 
+		
 		//handle fulfillment constraints
 		FulfillmentConstraint fc = osdmFare.getFulfillmentConstraint();
 		if (fc == null) {
@@ -147,24 +134,15 @@ public class Osdm2FareProduct {
 		
 		PreassignedFareProduct fareProduct = factory.createPreassignedFareProduct();
 		fareProduct.setId(IdFactory.getFareProductId(osdmFare));
+		fareProduct.setValidableElements(factory.createValidableElementsRelStructure());
+		fareProduct.setAccessRightsInProduct(factory.createAccessRightsInProductRelStructure());
 		
 		//description
-		if (osdmFare.getText() != null ) {
-			fareProduct.setName(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText().getTextUTF8()));
-		}
+        fareProduct.setName(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));	
+        
 		if (osdmFare.getFareDetailDescription() != null) {
 			fareProduct.setDescription(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getFareDetailDescription().getTextUTF8()));
 		}
-		
-		if (fareProduct.getValidableElements() == null) {
-			fareProduct.setValidableElements(factory.createValidableElementsRelStructure());
-		}
-		
-		if (fareProduct.getAccessRightsInProduct() == null) {
-			fareProduct.setAccessRightsInProduct(factory.createAccessRightsInProductRelStructure());
-		}
-		
-        fareProduct.setName(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));	
         
         //pricing service
     	PricingServiceRefStructure osdmPricingServiceRef = factory.createPricingServiceRefStructure();

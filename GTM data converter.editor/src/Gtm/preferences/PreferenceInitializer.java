@@ -21,8 +21,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer
 		store.setDefault(PreferenceConstants.P_SUPRESS_STATION_LABEL, false);
 		store.setDefault(PreferenceConstants.P_SUPRESS_COUNTRY_LABEL, false);
 		store.setDefault(PreferenceConstants.P_SHOW_VALTIDATION_ISSUES_IN_CONSOLE, false);
-		store.setDefault(PreferenceConstants.P_ACTIVATE_NETEX_EXPORT, false);
-
+		store.setDefault(PreferenceConstants.P_ACTIVATE_NETEX_EXPORT, true);
+		store.setDefault(PreferenceConstants.P_NETEX_SPLIT_EXPORT, true);
 	}
 
 

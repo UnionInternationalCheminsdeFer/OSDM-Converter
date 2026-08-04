@@ -15,12 +15,17 @@ import Gtm.Station;
 import Gtm.StationNames;
 import Gtm.ViaStation;
 import Gtm.util.GtmUtils;
+import Gtm.util.RouteDescriptionBuilder;
 
-public class TestFareSelector {
+public class NeTExSplitter {
 
+	private static NeTExSplitter me = null;
+	
+	private String filterLetter = null;
+	
 	private static String regionalConstraintId = "1080_2024.01_K__1";
-	private static String regionalConstraintId2= "1080_2024.01_K__12";
-	private static String regionalConstraintId3 = "1080_2024.01_K__13009";
+	//private static String regionalConstraintId2= "1080_2024.01_K__12";
+	//private static String regionalConstraintId3 = "1080_2024.01_K__13009";
 	
 	private static boolean test = false;
 	
@@ -28,14 +33,49 @@ public class TestFareSelector {
 
 	private static HashSet<String> stationSets = new HashSet<String>(); 
 	
-	public static boolean selectRegionalConstraint(RegionalConstraint rc) {
+	private NeTExSplitter() {
+		
+	}
+	
+	public static NeTExSplitter getInstance() {
+		if (me == null) {
+			me = new NeTExSplitter();
+			stations = new HashSet<Long>(); 
+			stationSets = new HashSet<String>(); 
+		}
+		return me;
+	}
+	
+	public void setFilterLetter(String filterLetter) {
+		this.filterLetter = filterLetter;
+		stations = new HashSet<Long>(); 
+		stationSets = new HashSet<String>(); 
+	}
+	
+	public boolean selectRegionalConstraint(RegionalConstraint rc) {
 		
 		if (test) {
 			
-			initLists(rc,stations, stationSets  );
+			initLists(rc,stations, stationSets);
 			
 			return (rc.getId().startsWith(regionalConstraintId) ) ;
+			
+		} else if (filterLetter != null && filterLetter.length() > 0) {
+			
+			String start = RouteDescriptionBuilder.getFirstStationName(rc);
+
+			String firstLetter = GtmUtils.toPrintableAscII(start.substring(0,1));	
+			
+			boolean includeRegionalConstraint = filterLetter.equals(firstLetter);
+			
+			if (includeRegionalConstraint) {
+					initLists(rc,stations, stationSets);
+			}
+					
+			return includeRegionalConstraint;
+			
 		} 
+		
 		return true;
 	}
 
@@ -47,7 +87,6 @@ public class TestFareSelector {
 		for (RegionalValidity rv : rc.getRegionalValidity()) {
 			
 			initLists(rv,stations, stationSets);
-			
 			
 		}
 
@@ -120,7 +159,7 @@ public class TestFareSelector {
 
 	}
 	
-	private static void initLists(EObject o) {
+	private void initLists(EObject o) {
 		
 		if (!stations.isEmpty()) return;
 		
@@ -135,7 +174,7 @@ public class TestFareSelector {
 	}
 
 
-	public static boolean selectStation(Station s, StationNames stationNames) {
+	public boolean selectStation(Station s, StationNames stationNames) {
 
 		if (test) {
 			
@@ -149,7 +188,7 @@ public class TestFareSelector {
 	}
 
 
-	public static boolean selectStationSets(FareStationSetDefinition stationSet,
+	public boolean selectStationSets(FareStationSetDefinition stationSet,
 			FareStationSetDefinitions fareStationSetDefinitions) {
 	
 		if (test) {

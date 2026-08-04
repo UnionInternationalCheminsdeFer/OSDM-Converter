@@ -19,7 +19,7 @@ public class Osdm2Zones {
 		
 		for (FareStationSetDefinition stationSet : fareStationSetDefinitions.getFareStationSetDefinitions()) {
 			
-			if (TestFareSelector.selectStationSets(stationSet,fareStationSetDefinitions )) {
+			if (NeTExSplitter.getInstance().selectStationSets(stationSet,fareStationSetDefinitions )) {
 			
 				FareZone zone = factory.createFareZone();
 				
