@@ -141,6 +141,22 @@ public enum TravelerType implements Enumerator {
 	BICYCLE(31, "BICYCLE", "BICYCLE"),
 
 	/**
+	 * The '<em><b>PRAM</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PRAM_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	PRAM(35, "PRAM", "PRAM"), /**
+	 * The '<em><b>PRM SWIFTWALKER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PRM_SWIFTWALKER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	PRM_SWIFTWALKER(34, "PRM_SWIFTWALKER", "PRM_SWIFTWALKER"), /**
 	 * The '<em><b>MOTOCYCLE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -314,6 +330,28 @@ public enum TravelerType implements Enumerator {
 	public static final int BICYCLE_VALUE = 31;
 
 	/**
+	 * The '<em><b>PRAM</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PRAM
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PRAM_VALUE = 35;
+
+	/**
+	 * The '<em><b>PRM SWIFTWALKER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PRM_SWIFTWALKER
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PRM_SWIFTWALKER_VALUE = 34;
+
+	/**
 	 * The '<em><b>MOTOCYCLE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -367,6 +405,8 @@ public enum TravelerType implements Enumerator {
 			ACCOMP_PRM,
 			CAR,
 			BICYCLE,
+			PRAM,
+			PRM_SWIFTWALKER,
 			MOTOCYCLE,
 			TRAILER,
 			GRAPHICAL_RES,
@@ -439,6 +479,8 @@ public enum TravelerType implements Enumerator {
 			case ACCOMP_PRM_VALUE: return ACCOMP_PRM;
 			case CAR_VALUE: return CAR;
 			case BICYCLE_VALUE: return BICYCLE;
+			case PRAM_VALUE: return PRAM;
+			case PRM_SWIFTWALKER_VALUE: return PRM_SWIFTWALKER;
 			case MOTOCYCLE_VALUE: return MOTOCYCLE;
 			case TRAILER_VALUE: return TRAILER;
 			case GRAPHICAL_RES_VALUE: return GRAPHICAL_RES;

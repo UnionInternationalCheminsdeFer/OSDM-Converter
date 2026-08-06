@@ -195,6 +195,11 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_FIP_LEISURE_REDU"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_EU_DISABILITY_CARD"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_INT_DISABILITY_CARD"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_EU_DISABILITY_CARD_A"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_EU_DISABILITY_CARD_BLIND"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_EU_DISABILITY_CARD_WHEELCHAIR"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_INT_DISABILITY_CARD_BLIND"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//GenericReductionCards/UIC_INT_DISABILITY_CARD_WHEELCHAIR"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Gtm.ecore#//HemisphereEW">
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//HemisphereEW/EAST"/>
@@ -481,6 +486,8 @@
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/ACCOMP_PRM"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/CAR"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/BICYCLE"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/PRAM"/>
+      <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/PRM_SWIFTWALKER"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/MOTOCYCLE"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/TRAILER"/>
       <genEnumLiterals ecoreEnumLiteral="Gtm.ecore#//TravelerType/GRAPHICAL_RES"/>

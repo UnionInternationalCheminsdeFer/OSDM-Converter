@@ -1,0 +1,62 @@
+//
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
+// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
+// Generiert: 2026.05.22 um 10:24:00 AM CEST 
+//
+
+
+package uk.org.netex.netex;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java-Klasse f�r anonymous complex type.
+ * 
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * 
+ * <pre>
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.netex.org.uk/netex}TypeOfFrame_ValueStructure">
+ *       &lt;sequence>
+ *         &lt;sequence>
+ *           &lt;group ref="{http://www.netex.org.uk/netex}EntityInVersionGroup" minOccurs="0"/>
+ *         &lt;/sequence>
+ *         &lt;sequence>
+ *           &lt;group ref="{http://www.netex.org.uk/netex}DataManagedObjectGroup"/>
+ *         &lt;/sequence>
+ *         &lt;sequence>
+ *           &lt;group ref="{http://www.netex.org.uk/netex}TypeOfValueGroup"/>
+ *         &lt;/sequence>
+ *         &lt;sequence>
+ *           &lt;element ref="{http://www.netex.org.uk/netex}TypeOfValidityRef" minOccurs="0"/>
+ *           &lt;element name="FrameClassRef" type="{http://www.netex.org.uk/netex}ClassRefStructure" minOccurs="0"/>
+ *           &lt;element name="classes" type="{http://www.netex.org.uk/netex}classesInRepository_RelStructure" minOccurs="0"/>
+ *           &lt;element name="typesOfEntity" type="{http://www.netex.org.uk/netex}typeOfEntityRefs_RelStructure" minOccurs="0"/>
+ *           &lt;element name="includes" type="{http://www.netex.org.uk/netex}typesOfFrame_RelStructure" minOccurs="0"/>
+ *           &lt;element name="LocatingSystemRef" type="{http://www.netex.org.uk/netex}SrsNameType" minOccurs="0"/>
+ *           &lt;element name="ModificationSet" type="{http://www.netex.org.uk/netex}ModificationSetEnumeration" minOccurs="0"/>
+ *           &lt;element ref="{http://www.netex.org.uk/netex}LayerRef" minOccurs="0"/>
+ *         &lt;/sequence>
+ *       &lt;/sequence>
+ *       &lt;attribute name="id" use="required" type="{http://www.netex.org.uk/netex}TypeOfFrameIdType" />
+ *       &lt;attribute name="nameOfClassifiedEntityClass" type="{http://www.netex.org.uk/netex}NameOfClass" />
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "")
+public class TypeOfFrame
+    extends TypeOfFrameValueStructure
+{
+
+
+}

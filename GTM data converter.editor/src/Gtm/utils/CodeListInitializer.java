@@ -47,8 +47,20 @@ public class CodeListInitializer {
 		createReductionCard(fareStructure,GenericReductionCards.UIC_RIT_32.getName(),"Rail Inclusive Tours 3 2nd Class", null);	 //$NON-NLS-1$
 
 		ReductionCard eu = createReductionCard(fareStructure,GenericReductionCards.UIC_EU_DISABILITY_CARD.getName(),"EU Disability Card", null);	 //$NON-NLS-1$
+		ReductionCard euA = createReductionCard(fareStructure,GenericReductionCards.UIC_EU_DISABILITY_CARD_A.getName(),"EU Disability Card Letter A", null);	 //$NON-NLS-1$
 		ReductionCard c = createReductionCard(fareStructure,GenericReductionCards.UIC_INT_DISABILITY_CARD.getName(),"International Disability Card", null);	 //$NON-NLS-1$
+		ReductionCard euB = createReductionCard(fareStructure,GenericReductionCards.UIC_EU_DISABILITY_CARD_BLIND.getName(),"EU Disability Card Blind", null);	 //$NON-NLS-1$
+		ReductionCard cB = createReductionCard(fareStructure,GenericReductionCards.UIC_INT_DISABILITY_CARD_BLIND.getName(),"International Disability Card Blind", null);	 //$NON-NLS-1$
+		ReductionCard euW = createReductionCard(fareStructure,GenericReductionCards.UIC_EU_DISABILITY_CARD_WHEELCHAIR.getName(),"EU Disability Card Wheelchair", null);	 //$NON-NLS-1$
+		ReductionCard cW = createReductionCard(fareStructure,GenericReductionCards.UIC_INT_DISABILITY_CARD_WHEELCHAIR.getName(),"International Disability Card Wheelchair", null);	 //$NON-NLS-1$
+		
 		c.getIncludedReductionCards().add(eu);
+		euA.getIncludedReductionCards().add(eu);
+		euB.getIncludedReductionCards().add(eu);
+		euW.getIncludedReductionCards().add(eu);
+		
+		cB.getIncludedReductionCards().add(c);
+		cW.getIncludedReductionCards().add(c);
 		
 		createReductionCard(fareStructure,GenericReductionCards.UIC_EURAIL.getName(),"Eurail Pass - deprecated-use class specific cards", GtmUtils.findCarrier(tool,"9902")); //$NON-NLS-1$ //$NON-NLS-2$
 		createReductionCard(fareStructure,GenericReductionCards.UIC_INTERRAIL.getName(),"Interrail Pass - deprecated-use class specific cards", GtmUtils.findCarrier(tool,"9902"));		 //$NON-NLS-1$ //$NON-NLS-2$

@@ -1,0 +1,161 @@
+//
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
+// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
+// Generiert: 2026.05.22 um 10:24:00 AM CEST 
+//
+
+
+package uk.org.netex.netex;
+
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlType;
+
+
+/**
+ * Type for containment in frame of EQUIPMENT.
+ * 
+ * <p>Java-Klasse f�r equipmentsInFrame_RelStructure complex type.
+ * 
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * 
+ * <pre>
+ * &lt;complexType name="equipmentsInFrame_RelStructure">
+ *   &lt;complexContent>
+ *     &lt;extension base="{http://www.netex.org.uk/netex}containmentAggregationStructure">
+ *       &lt;sequence>
+ *         &lt;element ref="{http://www.netex.org.uk/netex}Equipment" maxOccurs="unbounded"/>
+ *       &lt;/sequence>
+ *     &lt;/extension>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "equipmentsInFrame_RelStructure", propOrder = {
+    "equipment"
+})
+public class EquipmentsInFrameRelStructure
+    extends ContainmentAggregationStructure
+{
+
+    @XmlElementRef(name = "Equipment", namespace = "http://www.netex.org.uk/netex", type = JAXBElement.class)
+    protected List<JAXBElement<? extends EquipmentVersionStructure>> equipment;
+
+    /**
+     * Gets the value of the equipment property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the equipment property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getEquipment().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link JAXBElement }{@code <}{@link LuggageService }{@code >}
+     * {@link JAXBElement }{@code <}{@link EntranceSensor }{@code >}
+     * {@link JAXBElement }{@code <}{@link PlaceLighting }{@code >}
+     * {@link JAXBElement }{@code <}{@link PassengerBeaconEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link MobilityServiceVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link LocalServiceVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link SeatingEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link QueueingEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link AccessEquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link AssistanceService }{@code >}
+     * {@link JAXBElement }{@code <}{@link LiftEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link VehicleRentalService }{@code >}
+     * {@link JAXBElement }{@code <}{@link StaircaseEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link VehicleSharingService }{@code >}
+     * {@link JAXBElement }{@code <}{@link LuggageSpotEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link RefuellingEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link PassengerSafetyEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link SensorEquipmentDummy }{@code >}
+     * {@link JAXBElement }{@code <}{@link MobilityServiceVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link LeftLuggageService }{@code >}
+     * {@link JAXBElement }{@code <}{@link ActualVehicleEquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link TaxiService }{@code >}
+     * {@link JAXBElement }{@code <}{@link BatteryEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link EntranceEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link MoneyService }{@code >}
+     * {@link JAXBElement }{@code <}{@link EquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link CrossingEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link VehicleChargingEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link PlaceSign }{@code >}
+     * {@link JAXBElement }{@code <}{@link ChauffeuredVehicleService }{@code >}
+     * {@link JAXBElement }{@code <}{@link GeneralSign }{@code >}
+     * {@link JAXBElement }{@code <}{@link VehiclePoolingService }{@code >}
+     * {@link JAXBElement }{@code <}{@link EquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link TravelatorEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link SpotSensor }{@code >}
+     * {@link JAXBElement }{@code <}{@link WaitingRoomEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link CustomerServiceVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link SeatEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link OnlineService }{@code >}
+     * {@link JAXBElement }{@code <}{@link CarPoolingService }{@code >}
+     * {@link JAXBElement }{@code <}{@link TicketValidatorEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link LuggageLockerEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link SensorEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link EscalatorEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link ComplaintsService }{@code >}
+     * {@link JAXBElement }{@code <}{@link SpotEquipmentDummy }{@code >}
+     * {@link JAXBElement }{@code <}{@link RoughSurface }{@code >}
+     * {@link JAXBElement }{@code <}{@link AssistanceBookingService }{@code >}
+     * {@link JAXBElement }{@code <}{@link VehicleReleaseEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link CommunicationService }{@code >}
+     * {@link JAXBElement }{@code <}{@link RubbishDisposalEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link LiftCallEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link AccessVehicleEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link MeetingPointService }{@code >}
+     * {@link JAXBElement }{@code <}{@link CommonVehicleService }{@code >}
+     * {@link JAXBElement }{@code <}{@link HireService }{@code >}
+     * {@link JAXBElement }{@code <}{@link HeadingSign }{@code >}
+     * {@link JAXBElement }{@code <}{@link BedEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link PassengerInformationEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link TicketingService }{@code >}
+     * {@link JAXBElement }{@code <}{@link EquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link SiteEquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link RetailDevice }{@code >}
+     * {@link JAXBElement }{@code <}{@link StairEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link LostPropertyService }{@code >}
+     * {@link JAXBElement }{@code <}{@link HelpPointEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link RetailService }{@code >}
+     * {@link JAXBElement }{@code <}{@link CycleStorageEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link PlaceEquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link SignEquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link ShelterEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link WheelchairVehicleEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link InstalledEquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link PassengerEquipmentVersionStructure }{@code >}
+     * {@link JAXBElement }{@code <}{@link SanitaryEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link CateringService }{@code >}
+     * {@link JAXBElement }{@code <}{@link TrolleyStandEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link WaitingEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link SpotEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link RampEquipment }{@code >}
+     * {@link JAXBElement }{@code <}{@link TicketingEquipment }{@code >}
+     * 
+     * 
+     */
+    public List<JAXBElement<? extends EquipmentVersionStructure>> getEquipment() {
+        if (equipment == null) {
+            equipment = new ArrayList<JAXBElement<? extends EquipmentVersionStructure>>();
+        }
+        return this.equipment;
+    }
+
+}

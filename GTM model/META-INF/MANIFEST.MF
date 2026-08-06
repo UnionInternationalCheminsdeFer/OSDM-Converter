@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: GTM_model
 Bundle-SymbolicName: GTM_model
-Bundle-Version: 2.2.0
+Bundle-Version: 2.8.0
 Bundle-Vendor: www.uic.org
 Automatic-Module-Name: GTM_model
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ClassPath: lib/,
  .
 Export-Package: export,
@@ -15,8 +15,8 @@ Export-Package: export,
  gtmV30,
  gtmV31,
  gtmV35
-Import-Package: Gtm.util,
- com.fasterxml.jackson.annotation,
- com.fasterxml.jackson.core,
- com.fasterxml.jackson.databind
-Require-Bundle: org.eclipse.swt;bundle-version="3.113.0"
+Import-Package: Gtm.util
+Require-Bundle: org.eclipse.swt;bundle-version="3.113.0",
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.18.2",
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.18.2",
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.18.2"

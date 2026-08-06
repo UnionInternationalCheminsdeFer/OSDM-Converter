@@ -3,11 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: GTM_data_converter;singleton:=true
 Automatic-Module-Name: GTM_data_converter
-Bundle-Version: 2.7.1
+Bundle-Version: 2.8.0
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: Gtm,
  Gtm.impl,
  Gtm.util
@@ -15,5 +15,8 @@ Require-Bundle: org.eclipse.core.runtime;x-installation:=greedy;resolution:=opti
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.emf.ecore.provider,
+Import-Package: com.fasterxml.jackson.annotation,
+ com.fasterxml.jackson.core,
+ com.fasterxml.jackson.databind,
+ org.eclipse.emf.ecore.provider,
  org.eclipse.emf.edit.provider

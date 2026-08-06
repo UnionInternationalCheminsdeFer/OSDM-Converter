@@ -7,6 +7,8 @@ public class NationalLanguageSupport extends NLS{
 
     private static final String BUNDLE_NAME = "plugin"; //$NON-NLS-1$
 
+
+
 	public static String GtmJsonExporter_6a;
 	public static String GtmJsonExporter_6b;
 
@@ -373,6 +375,11 @@ public class NationalLanguageSupport extends NLS{
 
 	public static String Preference_supress_station_label;
 	public static String Preference_supress_country_label;
+
+	public static String Preference_validation_issues_label;
+	public static String Preference_netex_export_label;
+	public static String Preference_netex_split_export_label;
+	
 
 
 	

@@ -1,0 +1,55 @@
+//
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
+// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// �nderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
+// Generiert: 2026.05.22 um 10:24:00 AM CEST 
+//
+
+
+package uk.org.netex.netex;
+
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java-Klasse f�r NameOfClassTicketingServiceRefStructureType.
+ * 
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>
+ * <pre>
+ * &lt;simpleType name="NameOfClassTicketingServiceRefStructureType">
+ *   &lt;restriction base="{http://www.netex.org.uk/netex}NameOfClassLocalServiceRefStructureType">
+ *     &lt;enumeration value="TicketingService"/>
+ *   &lt;/restriction>
+ * &lt;/simpleType>
+ * </pre>
+ * 
+ */
+@XmlType(name = "NameOfClassTicketingServiceRefStructureType")
+@XmlEnum(NameOfClassLocalServiceRefStructureType.class)
+public enum NameOfClassTicketingServiceRefStructureType {
+
+    @XmlEnumValue("TicketingService")
+    TICKETING_SERVICE(NameOfClassLocalServiceRefStructureType.TICKETING_SERVICE);
+    private final NameOfClassLocalServiceRefStructureType value;
+
+    NameOfClassTicketingServiceRefStructureType(NameOfClassLocalServiceRefStructureType v) {
+        value = v;
+    }
+
+    public NameOfClassLocalServiceRefStructureType value() {
+        return value;
+    }
+
+    public static NameOfClassTicketingServiceRefStructureType fromValue(NameOfClassLocalServiceRefStructureType v) {
+        for (NameOfClassTicketingServiceRefStructureType c: NameOfClassTicketingServiceRefStructureType.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v.toString());
+    }
+
+}

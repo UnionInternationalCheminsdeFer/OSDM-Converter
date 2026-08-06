@@ -370,7 +370,7 @@ public class ModelInitializer {
 			if (s.getId().equals(ClassId.D)) classD = s;
 		}
 
-		
+
 		for (ReductionCard r : fareStructure.getReductionCards().getReductionCards()) {
 		
 			
@@ -404,12 +404,7 @@ public class ModelInitializer {
 					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_31.getName())) {
 						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
 					}
-					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_EU_DISABILITY_CARD.getName())) {
-						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
-					}
-					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_INT_DISABILITY_CARD.getName())) {
-						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
-					}
+		
 					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_1.getName())) {
 						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classB));
 					}
@@ -446,12 +441,6 @@ public class ModelInitializer {
 						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
 					}
 					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_32.getName())) {
-						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
-					}
-					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_EU_DISABILITY_CARD.getName())) {
-						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
-					}
-					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_INT_DISABILITY_CARD.getName())) {
 						command.append(AddCommand.create(domain, r, GtmPackage.Literals.REDUCTION_CARD__SERVICE_CLASSES, classD));
 					}
 					if (r.getId().equalsIgnoreCase(GenericReductionCards.UIC_RIT_1.getName())) {

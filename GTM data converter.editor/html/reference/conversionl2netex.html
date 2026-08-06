@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Conversion details IRS 90918-10 to NeTEx</title>
+</head>
+
+<body>
+<h1>Conversion details IRS 90918-10 to NeTEx</h1>
+<p>
+The export is still experimental aund not fully tested.
+
+</p>
+
+
+
+<h2>Export Files</h2>
+<p>
+The export is splitted into multipe files as the NeTEx data model consumes too much 
+Heap Space otherwise. The Split is done according to the first letter of the start 
+station of a regional validity.
+
+</p>
+
+
+
+<h2>Mappings</h2>
+
+<h3>Mapping of Carriers accepting the fare:</h3>
+Carriers --> TransportOrganisation</br>
+Carrier Groups --> GroupOfOperators</br>
+Carriers accepting a fare --> FareStructureElement (with type efp:accepted_by) --> GenericParameterAssignment --> Limitations --> ValidityParameters --> GroupOfOperators</br> 
+
+<h3>Mapping of the route:</h3>
+Station ---> Stop Pace</br>
+Station Set used in a Route --> Zone including a list of Stops</br>
+Route --> FareStructureElement --> DistanceMatrixElement --> SeriesConstraint --> itineraray</br>
+The textual itinerary description includes the textual description of the route. It uses a 
+DistanceMatrixElement although it 
+is not a distance matrix for price calculation. Unfortunately there is no way to include 
+structured data for the route. The SeriesConstraint looks as if someone tried to include the 
+outdated TAP-TSI B.1 in the model but that failed and the result is unusable.</br>
+
+<h3>Mapping of the service class:</h3>
+ServiceClass --> ClassOfUse</br>
+ServiceClassConstraint --> FareStructure Element --> ClassOfUse</br>
+
+<h3>Mapping of Service brands:</h3>
+ServiceConstraint --> FareStructure Element --> GenericParameterAssignment --> Limitations --> UsageParameter --> BrandingRef</br>
+
+<h3>Mapping of the validity for travel:</h3>
+TravelValidity --> FareStructureElement of type travel including a GenericParameter with the duration. KeyValues are need to cover the cases used in Rail.</br>
+
+
+<h3>Mapping of the availability to sell:</h3>
+SalesAvailability --> FareStructureElement --> GeneralParameterAssignment including LimitationGroups with PurchaseWindows</br>
+
+<h3>Mapping of the reduction cards:</h3>
+Reductions -> EntitlementProduct</br>
+The entitlement product is included with basic parameters only, as it is not intended to sell the entitlementproduct (It might even be from another provider). Unfortunately NeTEx does not distinguish between the Entitlement as a product and the Entitlement as reference for a reduction.</br>
+Link of a Fare to a Reduction --> FareStructureElement --> GeneralParameterAssignment --> LimitationGroup --> EntitlementRef</br>
+The short name of a reduction card used in a barcode can be added as short name as a workaround.</br>
+
+<h3>Mapping of Passenger Constraints:</h3>
+
+Passenger Constraint --> FareStructureElement --> UserProfile --> PassengerType, age limits</br>
+The predefined passenger types or NeTEx are incomplete, but proprietary types can be defined as a workaround (Type: Other, using a proprietary text). This needs to be done for bicycles and dogs.</br>
+Free companions are added in the user profile as companion profiles with DiscountBasis = FREE.</br>
+Combination restrictions are added to the User profile as companion profiles with discount Base NONE. A similar restriction for LuggageAllowance is missing, as workaraound the companion restriction includes the ref of the luggage allowance (e.g. limit the number of dogs).</br>
+
+Bicycles and dogs are defined as LuggageAllowance. However a code for dos is missing. A KeyValueList is used to add the missing code</br>.
+
+
+<h3>Mapping of Group Limits:</h3>
+
+Limits for group sizes are matted to: </br>
+FareStructureElement --> GenericParameterAssignment --> GroupTicket.</br>
+The passengers relevant to the count of the group size are listed in:</br>
+GenericParameterAssignment --> Limitations --> UsageParameterRef</br>
+It is not possible to express special group size rules where passenger types do not count equally (e.g. children count as half of an adult. Such rules have been applied until recently and might still exist in some domestic tariffs.</br>
+
+<h3>Mapping of a single Fare:</h3>
+
+Fare --> PreassignedFareProduct including:</br>
+Reference to the Sales API --> PricingEngine (defined as URI, but needs to be a symbolic indicator)</br>
+References to the above defined FareStructureElements</br>
+Link to service class via AccessRightInProduct</br>
+ConditionSummary (The semantics of the booleans is not clearly defined)</br>
+
+
+<h3>Mapping the Price:</h3>
+
+Unfortunately there is no option to link a price to the FareProduct directly which would be the natural way of modelling (Note: Refund and Exchange fees can be linked to the FareProduct directly!). The link hast to be indirect via a FareTable:</br>
+
+Price of a Fare: 	</br>	
+FareFrame --> FareTable (Price) --> FarePrice</br>
+FareFrame --> FareTable --> FareProductPrice incl. Reference to the FareProduct and FarePricec</br>
+
+
+<h3>Mapping of Fulfillment Requirements:</h3>
+
+<h3>Fulfillment requirements have no mapping in NeTEx. The content might be mapped to TypeOfTravelDocument with a reference to the fare product located in a SalesOfferPackageElements. The elements provided in TypeOfTravelDocument are mainly useless as they specify the media only and not the content standard to be used (barcode standards, central registries). All the content has to be mapped in KeyValues. The TypeOfMachineReadability can be used, but the content refers to the graphical encoding standards only, not to the more relevant encoding standards of the barcode content.</br> 
+
+<h3>Mapping of After Sales conditions:</h3>
+After sales rules are mapped to Fare Structure Elements including the conditions of a fare product as Refunding and Exchanging objects. Note: The elements to define the time intervals of the after sales rules are in the abstract Reselling Object (!This does not mean reselling, it is just the abstract After Sales Object!).  Unfortunately, the common time interval elements are named exchange, but used for refund as well. </br>
+
+
+<h2>Missing Mappings due to missing concepts in NeTEx</h2>
+</br>
+The route can be included in NeTEx as textual description only. NeTEx is lacking a concept of regional validity that is flexible enough to describe the routes.
+</br>
+NeTEx does not include any concepts to describe the rules of combining fares between different providers.
+</br>
+The description of reductionCards as Entitlements does not provide the option to define combined cards.
+</br>
+VAT split of  the price is missing.
+</br>
+
+<h2>Missing Mappings due to missing concepts in NeTEx with workaround</h2>
+</br>
+The carriers accepting a specific fare are missing in NeTEx. They can be included using a generic FareStructureElement with a specific type defined in the profile: efp:acceptedby. 
+</br>
+Missing passenger types: define proprietary types with type “OTHER”. Naming conventions need to be agreed bilaterally. The standard OSDM types are added as KeyValues.
+</br>
+There is no direct link from a fare product to a price. A workaround can be used by defining a a fare table with FareProductPrice linking price and fare product. This can be done but adds unnecessary complexity. Moreover it is inconsistent as the Refund and exchange fees can be attached to the FareProduct.
+</br>
+ReductionCards referenced for reductions need to be included as EntitlementProduct. The reductionCard as a reference might be indicated by the missing link to a price of the EntitlementProduct.
+</br>
+The UsageValidityTypeEnumeration does not provide the required values. A KeyValueList is used to provide the values from OSDM.
+</br>
+Restrictions to Service Brands are modelled as UsageParameters containing a branding only, there seems to be no concept of restrictions to brands.
+</br>
+The concept of assigning sales APIs at the price level is extremely inefficient. More advances concepts would assign stations or regions to a sales engine.
+</br>
+Fulfillment requirements are not modelled in NeTEx and need to be added via KeyValues in TypeOfTravelDocument and TypeOfMachineReadability.
+</br>
+The code for dog in luggage allowance is missing. A KeyValueList is used to provide the code of OSDM.
+The user profile does not allow limits on LuggageAllowances. The Reference to the LuggageAllowance is used in the CompanionProfile as workaround.
+</br>
+
+
+
+</body>
+</html>

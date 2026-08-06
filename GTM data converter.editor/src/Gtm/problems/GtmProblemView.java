@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -18,10 +19,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.part.ViewPart;
 
+import Gtm.actions.GtmDeleteFolderAction;
 import Gtm.nls.NationalLanguageSupport;
 import Gtm.presentation.GtmEditor;
 import Gtm.utils.GtmUtils;
@@ -95,13 +98,9 @@ public class GtmProblemView extends ViewPart {
 				}
 			}
 		});
-
 				
 		contentTreeViewer.setLabelProvider(new ProblemViewTreeTableLabelProvider());
 
-		
-		contentTreeViewer.setInput(content);
-		contentTreeViewer.expandAll();
 	}
 
 	

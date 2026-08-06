@@ -1,0 +1,166 @@
+package osdm2netex;
+
+import java.util.Calendar;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+
+import Gtm.FareStructure;
+import Gtm.GeneralTariffModel;
+import uk.org.netex.netex.DataObjectsRelStructure;
+import uk.org.netex.netex.FareFrame;
+import uk.org.netex.netex.FareProductsInFrameRelStructure;
+import uk.org.netex.netex.FareSeriesInFrameRelStructure;
+import uk.org.netex.netex.FareTablesInFrameRelStructure;
+import uk.org.netex.netex.FareZonesInFrameRelStructure;
+import uk.org.netex.netex.ObjectFactory;
+import uk.org.netex.netex.PricingServiceRefStructure;
+import uk.org.netex.netex.PublicationDeliveryStructure;
+import uk.org.netex.netex.ResourceFrame;
+import uk.org.netex.netex.SiteFrame;
+import uk.org.netex.netex.StatusEnumeration;
+import uk.org.netex.netex.TransportOrganisationRefStructure;
+
+public class Osdm2Delivery {
+	
+
+	
+	public static PublicationDeliveryStructure convert(IProgressMonitor monitor, GeneralTariffModel osdm) {
+		
+		ObjectFactory factory = new ObjectFactory();
+		
+		Gtm.FareStructure osdmFares = osdm.getFareStructure();	
+		
+		FareSeriesInFrameRelStructure seriesList = factory.createFareSeriesInFrameRelStructure();
+
+		FareProductsInFrameRelStructure productsList = factory.createFareProductsInFrameRelStructure();
+		
+		FareTablesInFrameRelStructure tablesStructure = factory.createFareTablesInFrameRelStructure();
+		
+		PricingServiceRefStructure osdmPricingServiceRef = factory.createPricingServiceRefStructure();
+		
+		//Publication
+		PublicationDeliveryStructure delivery = factory.createPublicationDeliveryStructure();
+		DataObjectsRelStructure dos = factory.createDataObjectsRelStructure();
+		delivery.setParticipantRef(UrnUtils.getCompanyUri(osdm.getDelivery().getProvider()));
+		delivery.setVersion(osdm.getDelivery().getId());
+		
+		if (osdm.getDelivery().isOptional()) {
+			delivery.setDescription(Osdm2MultiLanguageString.getMultiLanguageString("OPTIONAL_DELIVERY"));
+		} else {
+			delivery.setDescription(Osdm2MultiLanguageString.getMultiLanguageString("MANDATORY_DELIVERY"));
+		}
+		
+		//Site frame to hold the stations
+		SiteFrame siteFrame = factory.createSiteFrame();
+		siteFrame.setId(IdFactory.getSiteFrameId(osdm.getDelivery()));
+		dos.getCompositeFrameOrCommonFrame().add(factory.createSiteFrame(siteFrame));
+		
+		//deactivate the previous delivered fare frame
+        FareFrame oldFareFrame = null;
+        if (osdm.getDelivery().getReplacedDeliveryId() != null) {
+        	oldFareFrame = factory.createFareFrame();
+        	oldFareFrame.setId(IdFactory.getOldFareFrameId(osdm.getDelivery()));
+			oldFareFrame.setVersion(osdm.getDelivery().getId());		
+			oldFareFrame.setStatus(StatusEnumeration.INACTIVE);     
+			dos.getCompositeFrameOrCommonFrame().add(factory.createFareFrame(oldFareFrame));
+        }
+
+        //resource frame to hold the organizations
+		ResourceFrame resourceFrameNrt = factory.createResourceFrame();
+		resourceFrameNrt.setId(IdFactory.getResourceFrameId(osdm.getDelivery()));
+		//Organisations
+		resourceFrameNrt.setGroupsOfOperators(factory.createGroupsOfOperatorsInFrameRelStructure());
+		resourceFrameNrt.setOrganisations(factory.createOrganisationsInFrameRelStructure());
+		TransportOrganisationRefStructure to = factory.createTransportOrganisationRefStructure();
+		to.setValue(osdm.getDelivery().getProvider().getName());
+		to.setUri(UrnUtils.getCompanyUri(osdm.getDelivery().getProvider()));
+		dos.getCompositeFrameOrCommonFrame().add(factory.createResourceFrame(resourceFrameNrt));
+		NeTExUtils.addMachineReadabilities(resourceFrameNrt);
+		
+		//fare frame
+		FareFrame fareFrameNrt = factory.createFareFrame();
+		fareFrameNrt.setId(IdFactory.getFareFrameId(osdm.getDelivery()));
+		fareFrameNrt.setVersion(osdm.getDelivery().getId());		
+		fareFrameNrt.setStatus(StatusEnumeration.ACTIVE);
+		fareFrameNrt.setCreated(DateUtils.toXMLGregorianCalendar(Calendar.getInstance().getTime()));
+		dos.getCompositeFrameOrCommonFrame().add(factory.createFareFrame(fareFrameNrt));
+		
+		
+		delivery.setDataObjects(dos);		
+		
+        //pricing service
+		osdmPricingServiceRef.setUri("OSDM");
+		
+		//populate fare frame
+		fareFrameNrt.setTransportOrganisationRef(factory.createTransportOrganisationRef(to));
+
+		fareFrameNrt.setAccessRightParameterAssignments(factory.createAccessRightParameterAssignmentsInFrameRelStructure());
+		fareFrameNrt.setUsageParameters(factory.createUsageParametersInFrameRelStructure());;
+
+		fareFrameNrt.setAlternativeTexts(factory.createAlternativeTextsRelStructure());	
+		Osdm2MultiLanguageString.convertTexts(osdm.getFareStructure().getTexts(), fareFrameNrt);
+
+		fareFrameNrt.setBrandingRef(null);
+		fareFrameNrt.setFareSections(null);
+		fareFrameNrt.setFareTables(null);
+	
+		//fareFrameNrt.setFareScheduledStopPoints(convertStations(osdmFares.getStationNames(), osdmFares, factory));
+	
+		// add the fare station sets as zones to the fare frame
+		FareZonesInFrameRelStructure zones = factory.createFareZonesInFrameRelStructure();
+		zones.setId("zones_" + osdm.getDelivery().getId());
+		fareFrameNrt.setFareZones(zones);
+		
+		//prepare the frame to hold fare elements
+		fareFrameNrt.setFareProducts(productsList);		
+		fareFrameNrt.setFareTables(tablesStructure);	
+		fareFrameNrt.setResponsibilitySetRef(null);
+		fareFrameNrt.setSeriesConstraints(seriesList);
+	
+		fareFrameNrt.setFareStructureElements(factory.createFareStructureElementsInFrameRelStructure());
+		
+		siteFrame.setId(IdFactory.getSiteFrameId(osdm.getDelivery()));
+		siteFrame.setStopPlaces(factory.createStopPlacesInFrameRelStructure());
+
+		//add fare structure elements
+		Osdm2FareStructureElements.convertToFareStructureElements(osdmFares, resourceFrameNrt,fareFrameNrt, siteFrame);
+		
+		//convertSeries();
+		// add the fare elements (prices and refereces to fare structure elements)
+		convertFares(osdmFares, fareFrameNrt);
+	
+		//set publication dates
+		delivery.setPublicationTimestamp(DateUtils.toXMLGregorianCalendar(Calendar.getInstance().getTime()));			
+		
+		
+		if (fareFrameNrt.getFareProducts().getFareProductDummy().isEmpty() ||
+			siteFrame.getStopPlaces().getStopPlace().isEmpty()) {
+			return null;
+		}
+		
+		
+		return delivery;
+		
+		
+	}
+	
+	private static void convertFares(FareStructure osdmFares, FareFrame fareFrameNrt) {
+		
+		OsdmReductionCard2Entitlement.convertToSalesDicountRights(osdmFares, fareFrameNrt);
+		
+		for (Gtm.FareElement fare : osdmFares.getFareElements().getFareElements()) {
+			
+			if (NeTExSplitter.getInstance().selectRegionalConstraint(fare.getRegionalConstraint()) ) {
+			
+				Osdm2FareProduct.convertFare (fare,fareFrameNrt);
+				
+			}
+
+		}
+		
+	}
+
+	
+
+
+}
