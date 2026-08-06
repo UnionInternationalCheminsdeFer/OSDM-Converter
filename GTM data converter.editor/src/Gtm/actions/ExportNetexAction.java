@@ -159,9 +159,6 @@ public class ExportNetexAction extends BasicGtmAction {
 							
 					} catch (Exception e) {
 						GtmUtils.addWorkflowStep("NeTEx Export abandoned", editor);
-						GtmUtils.writeConsoleError("Export failed", editor);
-						GtmUtils.writeConsoleStackTrace(e, editor);
-						
 					}  finally {
 											
 						monitor.done();
@@ -177,6 +174,9 @@ public class ExportNetexAction extends BasicGtmAction {
 			
 				
 			} catch (Exception e) {
+				GtmUtils.writeConsoleError("Export failed", editor);
+				GtmUtils.writeConsoleStackTrace(e, editor);
+				
 				MessageBox dialog =  new MessageBox(editor.getSite().getShell(), SWT.ICON_ERROR | SWT.OK);
 				dialog.setText("Export NeTEx");
 				if (e.getMessage()!= null) {

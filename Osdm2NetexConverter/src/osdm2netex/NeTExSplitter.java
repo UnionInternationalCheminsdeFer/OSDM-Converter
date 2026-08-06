@@ -51,6 +51,10 @@ public class NeTExSplitter {
 		stations = new HashSet<Long>(); 
 		stationSets = new HashSet<String>(); 
 	}
+
+	public String getFilterLetter() {
+		return this.filterLetter; 
+	}
 	
 	public boolean selectRegionalConstraint(RegionalConstraint rc) {
 		

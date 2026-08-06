@@ -43,7 +43,27 @@ public class Osdm2netexConverter {
 			
 			// Create a marshaller
 			monitor.subTask("creating NeTEx context for: " + file.getName());	        	
-			JAXBContext jc = JAXBContext.newInstance(PublicationDeliveryStructure.class, ObjectFactory.class);
+			
+			ClassLoader old = Thread.currentThread().getContextClassLoader();
+
+			JAXBContext jc = null;
+			
+			try {
+
+			    Thread.currentThread().setContextClassLoader(Osdm2netexConverter.class.getClassLoader());
+
+			    jc = JAXBContext.newInstance(PublicationDeliveryStructure.class, ObjectFactory.class);
+
+			} finally {
+
+			    Thread.currentThread().setContextClassLoader(old);
+
+			}
+			
+
+			//JAXBContext jc1 = JAXBContext.newInstance(PublicationDeliveryStructure.class);
+			//JAXBContext jc2 = JAXBContext.newInstance(ObjectFactory.class);
+			//JAXBContext jc = JAXBContext.newInstance(PublicationDeliveryStructure.class, ObjectFactory.class);
 			monitor.worked(1);
         	
 

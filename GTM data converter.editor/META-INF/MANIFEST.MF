@@ -79,8 +79,7 @@ Import-Package: jakarta.activation;version="[2.1.0,3.0.0)",
  org.osgi.framework;version="[1.10.0,2.0.0)",
  org.osgi.service.prefs;version="[1.1.0,2.0.0)"
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.core.resources.source;bundle-version="3.23.200",
- GTM_model;bundle-version="1.0.0",
+ GTM_model;bundle-version="[2.2.0,3.0.0)",
  GTM_data_converter,
  GTM_data_converter.edit;visibility:=reexport,
  Osdm2NetexConverter;bundle-version="1.0.0",
@@ -102,6 +101,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.poi.ooxml;bundle-version="4.1.1",
  org.apache.commons.collections4;bundle-version="4.4.0",
  wrapped.org.apache.xmlbeans.xmlbeans;bundle-version="3.1.0",
- wrapped.org.apache.xmlbeans.xmlbeans.source;bundle-version="3.1.0",
  org.apache.poi.ooxml.schemas;bundle-version="4.1.1"
 Bundle-ActivationPolicy: lazy

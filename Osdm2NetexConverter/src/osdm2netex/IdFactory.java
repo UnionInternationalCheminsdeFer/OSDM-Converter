@@ -32,28 +32,41 @@ public class IdFactory {
 		return "zone_"+stationSet.getCarrier().getCode() + stationSet.getCode();
 	}
 
+	//frames
 	public static String getSiteFrameId(Delivery delivery) {
 		if (delivery == null) return UUID.randomUUID().toString();
+		String splitter = NeTExSplitter.getInstance().getFilterLetter();
+		if (splitter != null && splitter.length() > 0) {
+			return "site_frame_" + delivery.getId() + "_" + splitter;
+		}
 		return "site_frame_" + delivery.getId();
 	}
 
 	public static String getResourceFrameId(Delivery delivery) {
 		if (delivery == null) return UUID.randomUUID().toString();
+		String splitter = NeTExSplitter.getInstance().getFilterLetter();
+		if (splitter != null && splitter.length() > 0) {
+			return "resource_frame_" + delivery.getId() + "_" + splitter;
+		}
 		return "resource_frame_" + delivery.getId();
 	}
 
 	public static String getFareFrameId(Delivery delivery) {
 		if (delivery == null) return UUID.randomUUID().toString();
+		String splitter = NeTExSplitter.getInstance().getFilterLetter();
+		if (splitter != null && splitter.length() > 0) {
+			return "fare_frame_" + delivery.getId() + "_" + splitter;
+		}
 		return "fare_frame_" + delivery.getId();
 	}
 
 	public static String getOldFareFrameId(Delivery delivery) {
 		if (delivery == null) return "";
+		String splitter = NeTExSplitter.getInstance().getFilterLetter();
+		if (splitter != null && splitter.length() > 0) {
+			return "fare_frame_" + delivery.getReplacedDeliveryId() + "_" + splitter;
+		}
 		return "fare_frame_" + delivery.getReplacedDeliveryId();
-	}
-	public static String getFrameId(Delivery delivery) {
-		if (delivery == null) return UUID.randomUUID().toString();
-		return "delivery_" + delivery.getId();
 	}
 
 	public static String getFareProductId (FareElement osdmFare) {
