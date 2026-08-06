@@ -114,35 +114,39 @@ public class ExportNetexAction extends BasicGtmAction {
 							
 							for (int i = 0; i < alpha.length() ; i++) {
 								
-								String filterLetter = alpha.substring(i, i +1 );
+								if (monitor.isCanceled()) {
+									monitor.subTask("Cancel Export");	
+									GtmUtils.addWorkflowStep("Export cancelled", editor);
+				                } else {								
 								
-								GtmUtils.addWorkflowStep("Converting ODs: " + filterLetter + "...", editor);
+									String filterLetter = alpha.substring(i, i +1 );
+									
+									GtmUtils.addWorkflowStep("Converting ODs: " + filterLetter + "...", editor);
+	
+									monitor.subTask("Converting to NeTEx");	
+									Osdm2netexConverter converter = new Osdm2netexConverter(tool);
+									PublicationDeliveryStructure netex =  converter.convert(monitor, filterLetter);
+									
+									if (netex != null) {
 
-								monitor.subTask("Converting to NeTEx");	
-								Osdm2netexConverter converter = new Osdm2netexConverter(tool);
-								PublicationDeliveryStructure netex =  converter.convert(monitor, filterLetter);
-								
-								if (netex != null) {
-									
-									if (monitor.isCanceled()) {
-										GtmUtils.addWorkflowStep("Export cancelled", editor);
-					                    monitor.done();
-					                }
-									
-									int index = path.indexOf(".netex.xml");
-									
-									String name = path.substring(0,index) + "_" + filterLetter + "_" + ".netex.xml";
-									File file = new File(name);
-									
-									GtmUtils.addWorkflowStep("Export started to Netex file: " + file.getName(), editor);
-									
-									monitor.subTask("Formatting XML");							
-									converter.writeNeTexFile(netex, file, monitor);
-									
-									GtmUtils.addWorkflowStep("Export completed to NeTEx file: " + file.getName(), editor);
-								} else {
-									monitor.worked(3);
-								}
+										if (!monitor.isCanceled()) {
+										
+											int index = path.indexOf(".netex.xml");
+											
+											String name = path.substring(0,index) + "_" + filterLetter + "_" + ".netex.xml";
+											File file = new File(name);
+											
+											GtmUtils.addWorkflowStep("Export started to Netex file: " + file.getName(), editor);
+										
+											monitor.subTask("Formatting XML");							
+											converter.writeNeTexFile(netex, file, monitor);
+										
+											GtmUtils.addWorkflowStep("Export completed to NeTEx file: " + file.getName(), editor);
+										}
+									} else {
+										monitor.worked(3);
+									}
+				                }
 							}
 													
 						} else {
