@@ -101,5 +101,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.poi.ooxml;bundle-version="4.1.1",
  org.apache.commons.collections4;bundle-version="4.4.0",
  wrapped.org.apache.xmlbeans.xmlbeans;bundle-version="3.1.0",
- org.apache.poi.ooxml.schemas;bundle-version="4.1.1"
+ org.apache.poi.ooxml.schemas;bundle-version="4.1.1",
+ org.apache.commons.commons-compress;bundle-version="[1.26.0,2.0.0)",
+ wrapped.org.apache.xmlbeans.xmlbeans.source;bundle-version="3.1.0"
 Bundle-ActivationPolicy: lazy

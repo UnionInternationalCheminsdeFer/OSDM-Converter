@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSDM data converter" uid="GTMproduct" id="GTM_data_converter.editor.GTMproduct" application="GTM_data_converter.editor.GtmEditorAdvisorApplication" version="2.8.0" type="bundles" includeLaunchers="true" includeJRE="true" autoIncludeRequirements="true">
+<product name="OSDM data converter" uid="GTMproduct" id="GTM_data_converter.editor.GTMproduct" application="GTM_data_converter.editor.GtmEditorAdvisorApplication" version="2.8.0" type="bundles" includeLaunchers="true" autoIncludeRequirements="true">
 
    <aboutInfo>
       <image path="/GTM data converter.editor/icons/UIC GIF square_96.gif"/>
@@ -81,6 +81,7 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="org.apache.batik.util"/>
       <plugin id="org.apache.commons.collections4"/>
       <plugin id="org.apache.commons.commons-codec"/>
+      <plugin id="org.apache.commons.commons-compress"/>
       <plugin id="org.apache.commons.commons-io"/>
       <plugin id="org.apache.commons.commons-logging"/>
       <plugin id="org.apache.commons.math3"/>
@@ -224,6 +225,7 @@ This application includes icons from Wiki Commons available under LGPL.
       <plugin id="slf4j.api"/>
       <plugin id="slf4j.simple"/>
       <plugin id="wrapped.org.apache.xmlbeans.xmlbeans"/>
+      <plugin id="wrapped.org.apache.xmlbeans.xmlbeans.source"/>
       <plugin id="wrapped.org.glassfish.jaxb.txw2"/>
    </plugins>
 

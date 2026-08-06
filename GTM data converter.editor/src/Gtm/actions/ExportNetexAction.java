@@ -123,6 +123,12 @@ public class ExportNetexAction extends BasicGtmAction {
 								PublicationDeliveryStructure netex =  converter.convert(monitor, filterLetter);
 								
 								if (netex != null) {
+									
+									if (monitor.isCanceled()) {
+										GtmUtils.addWorkflowStep("Export cancelled", editor);
+					                    monitor.done();
+					                }
+									
 									int index = path.indexOf(".netex.xml");
 									
 									String name = path.substring(0,index) + "_" + filterLetter + "_" + ".netex.xml";
@@ -170,7 +176,7 @@ public class ExportNetexAction extends BasicGtmAction {
 				// This runs the operation, and shows progress.
 				editor.disconnectViews();
 				
-				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, false, operation);
+				new ProgressMonitorDialog(editor.getSite().getShell()).run(true, true, operation);
 			
 				
 			} catch (Exception e) {
