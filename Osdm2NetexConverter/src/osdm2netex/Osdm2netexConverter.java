@@ -118,7 +118,11 @@ public class Osdm2netexConverter {
 		
 		NeTExSplitter.getInstance().setFilterLetter(filterLetter);
 		
-		monitor.subTask("converting to NeTEx model for ODs: " + filterLetter + "...");	
+		if (filterLetter != null && filterLetter.length() > 0) {
+			monitor.subTask("converting to NeTEx model for ODs: " + filterLetter + "...");	
+		} else {
+			monitor.subTask("converting to NeTEx model");	
+		}
 		
 		PublicationDeliveryStructure delivery = Osdm2Delivery.convert(monitor, osdm);
 		

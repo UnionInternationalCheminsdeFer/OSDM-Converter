@@ -51,6 +51,7 @@ import uk.org.netex.netex.TypeOfFareStructureElementRefStructure;
 import uk.org.netex.netex.UsageEndEnumeration;
 import uk.org.netex.netex.UsageParameter;
 import uk.org.netex.netex.UsageParameterPrice;
+import uk.org.netex.netex.UsageParameterRefStructure;
 import uk.org.netex.netex.UsageParametersRelStructure;
 import uk.org.netex.netex.UsageTriggerEnumeration;
 import uk.org.netex.netex.UsageValidityPeriod;
@@ -98,10 +99,7 @@ public class Osdm2FareStructureElements {
     	convertReductionConstraints (osdmFares, resourceFrameNrt,fareFrameNrt.getFareStructureElements(), fareFrameNrt, factory);
     	
     	//route description
-    	
-    	
     	Osdm2Series.convertRegionalValidity(osdmFares, fareFrameNrt,siteFrame, factory);
-    	
     	
     	//after sales conditions
     	convertAfterSalesConditions(osdmFares, fareFrameNrt, factory);    	
@@ -334,7 +332,7 @@ public class Osdm2FareStructureElements {
 			//new fare structure element
 			FareStructureElement se = factory.createFareStructureElement();
 			se.setId(IdFactory.getFareStructureElementReductionId(rc));
-			NeTExUtils.setTypeOf(se,"efp:eligibility");
+			NeTExUtils.setTypeOf(se,"efp: prerequisites");
 
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
 
@@ -414,7 +412,7 @@ public class Osdm2FareStructureElements {
 	
 			//new fare structure element
 			FareStructureElement se = factory.createFareStructureElement();
-			NeTExUtils.setTypeOf(se,"efp:travel");
+			NeTExUtils.setTypeOf(se,"efp:travel_condition");
 			
 			se.setId(IdFactory.getFareStructureElementTravelValidityId(tv));
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
@@ -488,6 +486,9 @@ public class Osdm2FareStructureElements {
 				}
 				fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createLuggageAllowance(la));
 				
+				addFareStructureElement(la, fareFrameNrt, factory);
+				
+				
 			} else {
 			
 				UserProfile up = factory.createUserProfile();
@@ -557,11 +558,47 @@ public class Osdm2FareStructureElements {
 				}
 				fareFrameNrt.getUsageParameters().getUsageParameterDummy().add(factory.createUserProfile(up));
 			
-			
+				addFareStructureElement(up, fareFrameNrt, factory);
 			}
 		}
 	}
 	
+	private static void addFareStructureElement(UserProfile up , FareFrame fareFrameNrt, ObjectFactory factory) {
+		
+		
+		FareStructureElement fse = factory.createFareStructureElement();
+		NeTExUtils.setTypeOf(fse,"‘efp:carnet_units");
+		fse.setId(up.getId());
+		fse.setValidityParameterAssignments(factory.createGenericParameterAssignmentsRelStructure());
+		GenericParameterAssignmentVersionStructure gpa = factory.createGenericParameterAssignmentVersionStructure();
+		gpa.setLimitations(factory.createUsageParametersRelStructure());
+		UsageParameterRefStructure upr = factory.createUsageParameterRefStructure();
+		upr.setRef(up.getId());
+		upr.setNameOfRefClass(up.getNameOfClass());
+		gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUsageParameterRef(upr));
+		fse.getValidityParameterAssignments().getGenericParameterAssignmentOrGenericParameterAssignmentInContext().add(gpa);
+		
+		fareFrameNrt.getFareStructureElements().getFareStructureElement().add(fse);
+		
+	}
+
+	private static void addFareStructureElement(LuggageAllowance la, FareFrame fareFrameNrt, ObjectFactory factory) {
+		FareStructureElement fse = factory.createFareStructureElement();
+		NeTExUtils.setTypeOf(fse,"‘efp:carnet_units");
+		fse.setId(la.getId());
+		fse.setValidityParameterAssignments(factory.createGenericParameterAssignmentsRelStructure());
+		GenericParameterAssignmentVersionStructure gpa = factory.createGenericParameterAssignmentVersionStructure();
+		gpa.setLimitations(factory.createUsageParametersRelStructure());
+		UsageParameterRefStructure upr = factory.createUsageParameterRefStructure();
+		upr.setRef(la.getId());
+		upr.setNameOfRefClass(la.getNameOfClass());
+		gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUsageParameterRef(upr));
+		fse.getValidityParameterAssignments().getGenericParameterAssignmentOrGenericParameterAssignmentInContext().add(gpa);
+		
+		fareFrameNrt.getFareStructureElements().getFareStructureElement().add(fse);
+		
+	}
+
 	private static void convertPassengerLimits(FareStructure osdmFares, ResourceFrame resourceFrameNrt,
 			FareStructureElementsInFrameRelStructure structureList, FareFrame fareFrameNrt, ObjectFactory factory) {
 		
@@ -592,6 +629,7 @@ public class Osdm2FareStructureElements {
      			
      			
      			fse.setGenericParameterAssignment(gpa);			
+     			NeTExUtils.setTypeOf(fse,"efp:groups");
      			fareFrameNrt.getFareStructureElements().getFareStructureElement().add(fse);
      			
 			}

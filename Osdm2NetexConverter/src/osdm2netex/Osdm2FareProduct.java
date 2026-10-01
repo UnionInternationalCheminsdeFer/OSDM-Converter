@@ -8,7 +8,6 @@ import Gtm.FulfillmentConstraint;
 import Gtm.SalesAvailabilityConstraint;
 import Gtm.TotalPassengerCombinationConstraint;
 import Gtm.TravelValidityConstraint;
-import uk.org.netex.netex.AccessRightInProductRefStructure;
 import uk.org.netex.netex.ConditionSummaryStructure;
 import uk.org.netex.netex.FareFrame;
 import uk.org.netex.netex.FareProductRefStructure;
@@ -24,7 +23,7 @@ import uk.org.netex.netex.PrivateCodeStructure;
 import uk.org.netex.netex.SalesOfferPackage;
 import uk.org.netex.netex.SalesOfferPackageElement;
 import uk.org.netex.netex.TypeOfTravelDocumentRefStructure;
-import uk.org.netex.netex.ValidableElement;
+
 
 public class Osdm2FareProduct {
 	
@@ -94,7 +93,7 @@ public class Osdm2FareProduct {
 				if (m.getModel().equals(CombinationModel.CLUSTERING)) {			
 					if (m.getReferenceCluster().equals(Gtm.Clusters.BUSINESS) 
 							|| m.getReferenceCluster().equals(Gtm.Clusters.FULLFLEX) ) {
-						cs.setHasExchangeFee(true);
+						cs.setHasExchangeFee(false);
 						cs.setIsRefundable(true);
 						PrivateCodeStructure pcs = factory.createPrivateCodeStructure();
 						pcs.setType("OSDM.BUSINESS_MODEL");
@@ -111,12 +110,22 @@ public class Osdm2FareProduct {
 			osdmFare.getFareConstraintBundle().getTotalPassengerConstraint() != null ) {
 			TotalPassengerCombinationConstraint pl = osdmFare.getFareConstraintBundle().getTotalPassengerConstraint();
 		
-			ValidableElement ve = factory.createValidableElement();
+
 			FareStructureElementRefStructure fser = factory.createFareStructureElementRefStructure();
-			fser.setRef(IdFactory.getFareStructureElementPassengerLimitsId(pl));
+			fser.setRef(IdFactory.getFareStructureElementPassengerLimitsId(pl));	
+			fser.setNameOfRefClass("FareStructureElement");
+			if (product.getValidableElements() == null) {
+				product.setValidableElements(factory.createValidableElementsRelStructure());
+			}
+			
+			product.getValidableElements().getValidableElementRefOrValidableElement().add(fser);
+			
+			/*
+			ValidableElement ve = factory.createValidableElement();			
 			ve.setFareStructureElements(factory.createFareStructureElementRefsRelStructure());
 			ve.getFareStructureElements().getFareStructureElementRef().add(fser);
 			product.getValidableElements().getValidableElementRefOrValidableElement().add(ve);
+			*/
 		}
 		
 		if (fareFrameNrt.getFareProducts() == null){
@@ -135,7 +144,7 @@ public class Osdm2FareProduct {
 		PreassignedFareProduct fareProduct = factory.createPreassignedFareProduct();
 		fareProduct.setId(IdFactory.getFareProductId(osdmFare));
 		fareProduct.setValidableElements(factory.createValidableElementsRelStructure());
-		fareProduct.setAccessRightsInProduct(factory.createAccessRightsInProductRelStructure());
+		//fareProduct.setAccessRightsInProduct(factory.createAccessRightsInProductRelStructure());
 		
 		//description
         fareProduct.setName(Osdm2MultiLanguageString.getMultiLanguageString(osdmFare.getText()));	
@@ -152,15 +161,16 @@ public class Osdm2FareProduct {
 		
 		//service class
 		if (osdmFare.getServiceClass() != null) {
-			AccessRightInProductRefStructure sarClass = factory.createAccessRightInProductRefStructure();
+			FareStructureElementRefStructure sarClass = factory.createFareStructureElementRefStructure();
 			sarClass.setRef(IdFactory.getServiceClassId(osdmFare.getServiceClass()));
-			sarClass.setNameOfRefClass("ClassOfUse");
-			fareProduct.getAccessRightsInProduct().getAccessRightInProductRefOrAccessRightInProduct().add(sarClass);
+			sarClass.setNameOfRefClass("FareStructureElement");
+			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarClass);
+			//fareProduct.getAccessRightsInProduct().getAccessRightInProductRefOrAccessRightInProduct().add(sarClass);
 		}
 		
 		//carrier constraint
 		if (osdmFare.getCarrierConstraint() != null) {
-			AccessRightInProductRefStructure sarCarrier = factory.createAccessRightInProductRefStructure();
+			FareStructureElementRefStructure sarCarrier = factory.createFareStructureElementRefStructure();
 			sarCarrier.setRef(IdFactory.getFareStructureElementCarriersId(osdmFare.getCarrierConstraint()));
 			sarCarrier.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarCarrier);
@@ -172,7 +182,7 @@ public class Osdm2FareProduct {
 			tvc = osdmFare.getFareConstraintBundle().getTravelValidity();
 		}		
 		if (tvc != null) {
-			AccessRightInProductRefStructure sarTravelVal = factory.createAccessRightInProductRefStructure();
+			FareStructureElementRefStructure sarTravelVal = factory.createFareStructureElementRefStructure();
 			sarTravelVal.setRef(IdFactory.getFareStructureElementTravelValidityId(tvc));
 			sarTravelVal.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTravelVal);		
@@ -180,14 +190,15 @@ public class Osdm2FareProduct {
 		
 		//passenger constraint
 		if (osdmFare.getPassengerConstraint() != null ) {
-			AccessRightInProductRefStructure sarTraveler = factory.createAccessRightInProductRefStructure();
+			FareStructureElementRefStructure sarTraveler = factory.createFareStructureElementRefStructure();
 			sarTraveler.setRef(IdFactory.getFareStructureElementPassengersId(osdmFare.getPassengerConstraint()));
 			sarTraveler.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTraveler);		
 		}
 		
 		if (osdmFare.getServiceConstraint() != null) {
-			AccessRightInProductRefStructure sarServiceVal = factory.createAccessRightInProductRefStructure();
+			
+			FareStructureElementRefStructure sarServiceVal = factory.createFareStructureElementRefStructure();
 			sarServiceVal.setRef(IdFactory.getFareStructureElementServiceConstraint(osdmFare.getServiceConstraint()));
 			sarServiceVal.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarServiceVal);		
@@ -195,7 +206,7 @@ public class Osdm2FareProduct {
 		
 		try {
 			if (osdmFare.getRegionalConstraint().getRegionalValidity().getFirst().getServiceConstraint() != null) {
-				AccessRightInProductRefStructure sarServiceVal = factory.createAccessRightInProductRefStructure();
+				FareStructureElementRefStructure sarServiceVal = factory.createFareStructureElementRefStructure();
 				sarServiceVal.setRef(IdFactory.getFareStructureElementServiceConstraint(osdmFare.getRegionalConstraint().getRegionalValidity().getFirst().getServiceConstraint()));
 				sarServiceVal.setNameOfRefClass("FareStructureElement");
 				fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarServiceVal);		
@@ -206,7 +217,7 @@ public class Osdm2FareProduct {
 		
 		try {
 			if (osdmFare.getAfterSalesRule() != null) {
-				AccessRightInProductRefStructure arp = factory.createAccessRightInProductRefStructure();
+				FareStructureElementRefStructure arp = factory.createFareStructureElementRefStructure();
 				arp.setRef(IdFactory.getAfterSalesRuleId(osdmFare.getAfterSalesRule()));
 				arp.setNameOfRefClass("FareStructureElement");
 				fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(arp);		
@@ -223,7 +234,7 @@ public class Osdm2FareProduct {
 			sac = osdmFare.getFareConstraintBundle().getSalesAvailability();
 		}
 		if (sac != null) {
-			AccessRightInProductRefStructure sarSalesDate = factory.createAccessRightInProductRefStructure();
+			FareStructureElementRefStructure sarSalesDate = factory.createFareStructureElementRefStructure();
 			sarSalesDate.setRef(IdFactory.getFareStructureElementSalesAvailablilityId(sac));
 			sarSalesDate.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarSalesDate);	
@@ -231,7 +242,7 @@ public class Osdm2FareProduct {
 		
 		//reduction constraint
 		if (osdmFare.getReductionConstraint() != null) {
-			AccessRightInProductRefStructure reductionConstraint = factory.createAccessRightInProductRefStructure();
+			FareStructureElementRefStructure reductionConstraint = factory.createFareStructureElementRefStructure();
 			reductionConstraint.setRef(IdFactory.getFareStructureElementReductionId(osdmFare.getReductionConstraint()));
 			reductionConstraint.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(reductionConstraint);	
@@ -239,7 +250,7 @@ public class Osdm2FareProduct {
 		
 		//regional constraint
 		if (osdmFare.getRegionalConstraint() != null) {
-			AccessRightInProductRefStructure regionalConstraint = new AccessRightInProductRefStructure();
+			FareStructureElementRefStructure regionalConstraint = new FareStructureElementRefStructure();
 			regionalConstraint.setRef(IdFactory.getFareStructureElementRegionId(osdmFare.getRegionalConstraint()));
 			regionalConstraint.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(regionalConstraint);	

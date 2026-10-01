@@ -23,11 +23,9 @@ public class NeTExSplitter {
 	
 	private String filterLetter = null;
 	
-	private static String regionalConstraintId = "1080_2024.01_K__1";
-	//private static String regionalConstraintId2= "1080_2024.01_K__12";
-	//private static String regionalConstraintId3 = "1080_2024.01_K__13009";
+	public static String regionalConstraintId = "1080_2024.01_K__12";
 	
-	private static boolean test = false;
+	private static boolean test = true;
 	
 	private static HashSet<Long> stations = new HashSet<Long>(); 
 
@@ -60,9 +58,12 @@ public class NeTExSplitter {
 		
 		if (test) {
 			
-			initLists(rc,stations, stationSets);
+			if (rc.getId().equals(regionalConstraintId)) {
+			  initLists(rc,stations, stationSets);
+			  return true;
+			}
 			
-			return (rc.getId().startsWith(regionalConstraintId) ) ;
+			return false;
 			
 		} else if (filterLetter != null && filterLetter.length() > 0) {
 			
@@ -81,6 +82,10 @@ public class NeTExSplitter {
 		} 
 		
 		return true;
+	}
+	
+	public boolean testMode() {
+		return test;
 	}
 
 
