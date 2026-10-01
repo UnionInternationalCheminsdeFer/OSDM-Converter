@@ -21,6 +21,7 @@ import Gtm.preferences.PreferencesAccess;
 import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
+import osdm2netex.NeTExSplitter;
 import osdm2netex.Osdm2netexConverter;
 import uk.org.netex.netex.PublicationDeliveryStructure;
 
@@ -106,10 +107,11 @@ public class ExportNetexAction extends BasicGtmAction {
 					
 					try {
 						
-						String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-						
-						if (PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_NETEX_SPLIT_EXPORT)) {
-						
+						if (PreferencesAccess.getBoolFromPreferenceStore(PreferenceConstants.P_NETEX_SPLIT_EXPORT)
+								&& !NeTExSplitter.getInstance().testMode()) {
+
+							String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+							
 							monitor.beginTask("Export NeTEx", 79); 
 							
 							for (int i = 0; i < alpha.length() ; i++) {
@@ -121,8 +123,8 @@ public class ExportNetexAction extends BasicGtmAction {
 								
 									String filterLetter = alpha.substring(i, i +1 );
 									
-									GtmUtils.addWorkflowStep("Converting ODs: " + filterLetter + "...", editor);
-	
+    								GtmUtils.addWorkflowStep("Converting ODs: " + filterLetter + "...", editor);
+									
 									monitor.subTask("Converting to NeTEx");	
 									Osdm2netexConverter converter = new Osdm2netexConverter(tool);
 									PublicationDeliveryStructure netex =  converter.convert(monitor, filterLetter);
