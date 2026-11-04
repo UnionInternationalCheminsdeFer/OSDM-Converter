@@ -1,9 +1,10 @@
 package Gtm.actions;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
@@ -28,8 +29,7 @@ import Gtm.presentation.GtmEditor;
 import Gtm.presentation.GtmEditorPlugin;
 import Gtm.utils.GtmUtils;
 
-public class ImportCarriersAction extends ImportCsvDataAction {
-
+public class ImportCarriersAction extends ImportExcelDataAction {
 
 	public ImportCarriersAction(IEditingDomainProvider editingDomainProvider) {
 		super(NationalLanguageSupport.ImportCarriersAction_0, editingDomainProvider);
@@ -54,10 +54,9 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 			return;
 		}
 		
-		final BufferedReader br = super.getReader(NationalLanguageSupport.ImportCarriersAction_4, StandardCharsets.UTF_8.name());
+		Workbook workbook = super.getWorkbook(NationalLanguageSupport.ImportCarriersAction_4);
 
-
-		if (br == null) return;
+		if (workbook == null) return;
 		
 		IRunnableWithProgress operation =	new IRunnableWithProgress() {
 			// This is the method that gets invoked when the operation runs.
@@ -76,25 +75,27 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 
 					monitor.subTask(NationalLanguageSupport.ImportCarriersAction_7);
 			    	Carriers newCarriers = GtmFactory.eINSTANCE.createCarriers();
-
-			        String st; 
-			        boolean isFirstLine = true;
+			        
+			        Sheet sheet = workbook.getSheetAt(0);
+			        
+			        int firstRow = sheet.getFirstRowNum();
+			        int lastRow = sheet.getLastRowNum();
+			        
+			        
 					CompoundCommand command =  new CompoundCommand();
 					
-					while ((st = br.readLine()) != null) {
-							
-							Carrier carrier = decodeLine(st);
-							
-							if (!isFirstLine) {
-								if (carrier != null) {
-									newCarriers.getCarriers().add(carrier);	
-								}
-							} else {
-								isFirstLine = false;
-							}
-							monitor.worked(1);
+					for (int i = firstRow ; i < lastRow + 1 ; i++){
+			
+						Row row = sheet.getRow(i);
+						
+						Carrier carrier = decodeRow(row);
+						
+						if (carrier != null) {
+							newCarriers.getCarriers().add(carrier);	
 						}
-
+						monitor.worked(1);
+						
+					}
 			        
 			        int added = 0;
 			        int updated = 0;
@@ -130,10 +131,6 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 
 					monitor.done();
 					
-				} catch (IOException e) {
-					GtmUtils.addWorkflowStep("Import of Carriers abandoned", editor);
-					GtmUtils.writeConsoleStackTrace(e, editor);
-					return;			
 				} finally {
 					monitor.done();
 				}
@@ -156,25 +153,35 @@ public class ImportCarriersAction extends ImportCsvDataAction {
 		
 	}
 
-
-
-	private Carrier decodeLine(String st) {
-		String[] strings = splitCsv(st);
-		if (strings.length < 3) return null;
+	private Carrier decodeRow(Row row) {
 		
-		if (strings[0].length() == 4) {
-			Carrier carrier = GtmFactory.eINSTANCE.createCarrier();
-			carrier.setCode(strings[0]);
-			
-			String nameUTF8 = null;
-			nameUTF8 = strings[2];			
-			
-			carrier.setName(nameUTF8);
-			carrier.setShortName(strings[1]);
-			return carrier;
+		Cell carrierCode = row.getCell(1);
+		Cell carrierAbbreviation = row.getCell(2);
+		Cell carrierName = row.getCell(3);		
+		
+		Carrier carrier = GtmFactory.eINSTANCE.createCarrier();
+		
+		if ( carrierCode.getCellType().equals(CellType.STRING) 
+			&&
+			 carrierCode.getStringCellValue().length() == 4) {
+			carrier.setCode(carrierCode.getStringCellValue());
+		} else {
+			return null;
 		}
-		return null;
 
+		if ( carrierAbbreviation.getCellType().equals(CellType.STRING) 
+				&&
+			carrierCode.getStringCellValue().length() > 0) {
+			carrier.setShortName(carrierAbbreviation.getStringCellValue());
+		} 
+		
+		if ( carrierName.getCellType().equals(CellType.STRING) 
+				&&
+			 carrierCode.getStringCellValue().length() > 0) {
+			 carrier.setName(carrierName.getStringCellValue());
+		} 	
+
+		return carrier;
 	}
 
 }
