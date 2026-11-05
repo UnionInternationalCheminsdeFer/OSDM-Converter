@@ -120,15 +120,20 @@ public class Osdm2FareStructureElements {
 			NeTExUtils.setTypeOf(se,"efp:sales_condition");
 			
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
+			gpa.setId(IdFactory.getAfterSalesRuleId(asr));
 			gpa.setLimitationGroupingType(LogicalOperationEnumeration.OR);
 			gpa.setLimitations(factory.createUsageParametersRelStructure());
 			se.setGenericParameterAssignment(gpa);
+			
+			int conditionIndex = 0;
 
 			for (AfterSalesCondition asc : asr.getConditions()) {
 				
 				if (asc.getTransactionType().equals(AfterSalesTransactionType.REFUND)) {
 
 					GenericParameterAssignment gpa2 = factory.createGenericParameterAssignment();
+					conditionIndex++;
+					gpa2.setId(gpa.getId() + "_" + String.valueOf(conditionIndex));
 					gpa2.setLimitationGroupingType(LogicalOperationEnumeration.AND);
 					gpa2.setLimitations(factory.createUsageParametersRelStructure());
 					gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createGenericParameterAssignment(gpa2));			
@@ -174,6 +179,8 @@ public class Osdm2FareStructureElements {
 					if (!asc.getTransactionType().equals(AfterSalesTransactionType.REFUND)) {
 
 						GenericParameterAssignment gpa2 = factory.createGenericParameterAssignment();
+						conditionIndex++;
+						gpa2.setId(gpa.getId() + "_" + String.valueOf(conditionIndex));						
 						gpa2.setLimitationGroupingType(LogicalOperationEnumeration.AND);
 						gpa2.setLimitations(factory.createUsageParametersRelStructure());
 						gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createGenericParameterAssignment(gpa2));			
@@ -237,10 +244,14 @@ public class Osdm2FareStructureElements {
 			
 			NeTExUtils.setTypeOf(se,"efp:access");
 			
+			int gpaIndex = 0;
+			
 			if (serviceConstraint.getIncludedServiceBrands() != null && !serviceConstraint.getIncludedServiceBrands().isEmpty()) {
 				
 				GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
 				se.setGenericParameterAssignment(gpa);
+				gpaIndex++;
+				gpa.setId(IdFactory.getFareStructureElementServiceConstraintId(serviceConstraint) + "_" + String.valueOf(gpaIndex));
 				gpa.setLimitationGroupingType(LogicalOperationEnumeration.OR);
 				gpa.setIsAllowed(true);
 				gpa.setLimitations(factory.createUsageParametersRelStructure());
@@ -263,6 +274,8 @@ public class Osdm2FareStructureElements {
 			
 			if (serviceConstraint.getExcludedServiceBrands() != null && !serviceConstraint.getExcludedServiceBrands().isEmpty()) {
 				GenericParameterAssignment gpa1 = factory.createGenericParameterAssignment();
+				gpaIndex++;
+				gpa1.setId(IdFactory.getFareStructureElementServiceConstraintId(serviceConstraint) + "_" + String.valueOf(gpaIndex));
 				se.setGenericParameterAssignment(gpa1);
 				gpa1.setLimitationGroupingType(LogicalOperationEnumeration.AND);
 				gpa1.setIsAllowed(false);
@@ -337,7 +350,7 @@ public class Osdm2FareStructureElements {
 			NeTExUtils.setTypeOf(se,"efp:prerequisites");
 
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
-
+			gpa.setId(IdFactory.getFareStructureElementReductionId(rc));
 			gpa.setName(Osdm2MultiLanguageString.getMultiLanguageString("required at travel"));
 			gpa.setLimitationGroupingType(LogicalOperationEnumeration.OR);
 			gpa.setLimitations(new UsageParametersRelStructure());
@@ -420,6 +433,7 @@ public class Osdm2FareStructureElements {
 			
 			se.setId(IdFactory.getFareStructureElementTravelValidityId(tv));
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
+			gpa.setId(IdFactory.getFareStructureElementTravelValidityId(tv));
 			gpa.setLimitationGroupingType(LogicalOperationEnumeration.AND);
 			gpa.setLimitations(factory.createUsageParametersRelStructure());
 			se.setGenericParameterAssignment(gpa);
@@ -575,9 +589,11 @@ public class Osdm2FareStructureElements {
 		fse.setId(up.getId());
 		fse.setValidityParameterAssignments(factory.createGenericParameterAssignmentsRelStructure());
 		GenericParameterAssignmentVersionStructure gpa = factory.createGenericParameterAssignmentVersionStructure();
+		gpa.setId(up.getId());
 		gpa.setLimitations(factory.createUsageParametersRelStructure());
 		UsageParameterRefStructure upr = factory.createUsageParameterRefStructure();
 		upr.setRef(up.getId());
+		upr.setVersion(PublicationVersion.getVersion());
 		upr.setNameOfRefClass(up.getNameOfClass());
 		gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUsageParameterRef(upr));
 		fse.getValidityParameterAssignments().getGenericParameterAssignmentOrGenericParameterAssignmentInContext().add(gpa);
@@ -592,9 +608,11 @@ public class Osdm2FareStructureElements {
 		fse.setId(la.getId());
 		fse.setValidityParameterAssignments(factory.createGenericParameterAssignmentsRelStructure());
 		GenericParameterAssignmentVersionStructure gpa = factory.createGenericParameterAssignmentVersionStructure();
+		gpa.setId(fse.getId());
 		gpa.setLimitations(factory.createUsageParametersRelStructure());
 		UsageParameterRefStructure upr = factory.createUsageParameterRefStructure();
 		upr.setRef(la.getId());
+		upr.setVersion(PublicationVersion.getVersion());
 		upr.setNameOfRefClass(la.getNameOfClass());
 		gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUsageParameterRef(upr));
 		fse.getValidityParameterAssignments().getGenericParameterAssignmentOrGenericParameterAssignmentInContext().add(gpa);
@@ -619,6 +637,7 @@ public class Osdm2FareStructureElements {
      			FareStructureElement fse = factory.createFareStructureElement();
      			fse.setId(IdFactory.getFareStructureElementPassengerLimitsId(pl));
      			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
+     			gpa.setId(fse.getId());
      			gpa.setLimitations(factory.createUsageParametersRelStructure());
      			gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createGroupTicket(gt));
      			
@@ -627,6 +646,7 @@ public class Osdm2FareStructureElements {
      				if (pc.getPassengerWeight() > 0) {
      					UserProfileRefStructure upr = factory.createUserProfileRefStructure();
      					upr.setRef(IdFactory.getFareStructureElementPassengersId(pc));
+     					upr.setVersion(PublicationVersion.getVersion());
      					gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUserProfileRef(upr));
      				}
      			}

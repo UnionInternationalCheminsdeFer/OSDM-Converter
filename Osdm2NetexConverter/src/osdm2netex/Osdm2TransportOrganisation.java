@@ -127,6 +127,7 @@ public class Osdm2TransportOrganisation {
     		NeTExUtils.setTypeOf(se, "efp:accepted_by");
     		
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
+			gpa.setId(IdFactory.getIncludedCarriersId(cc));
 			se.setGenericParameterAssignment(gpa);
     		se.setId(IdFactory.getIncludedCarriersId(cc));  
     		

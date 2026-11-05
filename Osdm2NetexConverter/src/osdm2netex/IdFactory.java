@@ -178,6 +178,14 @@ public class IdFactory {
 		return "FulfillmentConstraint_" + fc.getId();
 	}
 
+	public static String getSalesOfferPackageElementId(FareElement osdmFare) {
+		return "SalesOfferPackageElement_" + osdmFare.getId();
+	}
+
+	public static String getFareStructureElementServiceConstraintId(ServiceConstraint serviceConstraint) {
+		return "ServiceConstraint_" + serviceConstraint.getId();
+	}
+
 
 
 }

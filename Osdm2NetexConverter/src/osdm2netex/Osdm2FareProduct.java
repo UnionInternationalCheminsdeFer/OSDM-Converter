@@ -57,6 +57,7 @@ public class Osdm2FareProduct {
 		FareProductRefStructure fpr1 = factory.createFareProductRefStructure();
 		fpr1.setRef(IdFactory.getFareProductId(osdmFare));
 		salesOfferPackageElement.setFareProductRef(factory.createFareProductRef(fpr1));
+		salesOfferPackageElement.setId(IdFactory.getSalesOfferPackageElementId(osdmFare));
 		salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(salesOfferPackageElement);
 
 		//add fulfillment contraints
