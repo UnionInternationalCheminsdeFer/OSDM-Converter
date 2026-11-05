@@ -248,9 +248,11 @@ public class Osdm2FareStructureElements {
 					
 					BrandingRefStructure br = factory.createBrandingRefStructure();
 					br.setRef(UrnUtils.getServiceBrandUri(Integer.toString(sb.getCode())));
+					br.setVersion(PublicationVersion.getVersion());
 				
 					UsageParameter up = factory.createUsageParameter();
 					up.setBrandingRef(br);
+					up.setVersion(PublicationVersion.getVersion());
 					
 					gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createUsageParameter(up));
 	
@@ -332,7 +334,7 @@ public class Osdm2FareStructureElements {
 			//new fare structure element
 			FareStructureElement se = factory.createFareStructureElement();
 			se.setId(IdFactory.getFareStructureElementReductionId(rc));
-			NeTExUtils.setTypeOf(se,"efp: prerequisites");
+			NeTExUtils.setTypeOf(se,"efp:prerequisites");
 
 			GenericParameterAssignment gpa = factory.createGenericParameterAssignment();
 
@@ -348,8 +350,10 @@ public class Osdm2FareStructureElements {
 				EntitlementProductRefStructure pr = factory.createEntitlementProductRefStructure();
 				
 				pr.setRef(IdFactory.getReductionCardId(card));
+				pr.setVersion(PublicationVersion.getVersion());
 
 				er.setServiceAccessRightRef(factory.createEntitlementProductRef(pr));
+				er.setVersion(PublicationVersion.getVersion());
 			
 				gpa.getLimitations().getUsageParameterRefOrUsageParameterDummy().add(factory.createEntitlementRequired(er));
 				
@@ -567,7 +571,7 @@ public class Osdm2FareStructureElements {
 		
 		
 		FareStructureElement fse = factory.createFareStructureElement();
-		NeTExUtils.setTypeOf(fse,"‘efp:carnet_units");
+		NeTExUtils.setTypeOf(fse,"efp:carnet_units");
 		fse.setId(up.getId());
 		fse.setValidityParameterAssignments(factory.createGenericParameterAssignmentsRelStructure());
 		GenericParameterAssignmentVersionStructure gpa = factory.createGenericParameterAssignmentVersionStructure();
@@ -584,7 +588,7 @@ public class Osdm2FareStructureElements {
 
 	private static void addFareStructureElement(LuggageAllowance la, FareFrame fareFrameNrt, ObjectFactory factory) {
 		FareStructureElement fse = factory.createFareStructureElement();
-		NeTExUtils.setTypeOf(fse,"‘efp:carnet_units");
+		NeTExUtils.setTypeOf(fse,"efp:carnet_units");
 		fse.setId(la.getId());
 		fse.setValidityParameterAssignments(factory.createGenericParameterAssignmentsRelStructure());
 		GenericParameterAssignmentVersionStructure gpa = factory.createGenericParameterAssignmentVersionStructure();

@@ -68,7 +68,7 @@ public class PublicationDeliveryStructure {
     protected Duration publicationRefreshInterval;
     @XmlElement(name = "Description")
     protected MultilingualString description;
-    @XmlElement(name = "DataObjects")
+    @XmlElement(name = "dataObjects")
     protected DataObjectsRelStructure dataObjects;
     @XmlAttribute(name = "version")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)

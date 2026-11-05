@@ -42,7 +42,8 @@ public class Osdm2Delivery {
 		PublicationDeliveryStructure delivery = factory.createPublicationDeliveryStructure();
 		DataObjectsRelStructure dos = factory.createDataObjectsRelStructure();
 		delivery.setParticipantRef(UrnUtils.getCompanyUri(osdm.getDelivery().getProvider()));
-		delivery.setVersion(osdm.getDelivery().getId());
+		PublicationVersion.getInstance().setVersion(osdm.getDelivery().getId());
+		delivery.setVersion(PublicationVersion.getVersion());
 		
 		if (osdm.getDelivery().isOptional()) {
 			delivery.setDescription(Osdm2MultiLanguageString.getMultiLanguageString("OPTIONAL_DELIVERY"));
@@ -72,6 +73,7 @@ public class Osdm2Delivery {
 		resourceFrameNrt.setGroupsOfOperators(factory.createGroupsOfOperatorsInFrameRelStructure());
 		resourceFrameNrt.setOrganisations(factory.createOrganisationsInFrameRelStructure());
 		TransportOrganisationRefStructure to = factory.createTransportOrganisationRefStructure();
+		to.setVersion(PublicationVersion.getVersion());
 		to.setValue(osdm.getDelivery().getProvider().getName());
 		to.setUri(UrnUtils.getCompanyUri(osdm.getDelivery().getProvider()));
 		dos.getCompositeFrameOrCommonFrame().add(factory.createResourceFrame(resourceFrameNrt));
@@ -89,7 +91,7 @@ public class Osdm2Delivery {
 		delivery.setDataObjects(dos);		
 		
         //pricing service
-		osdmPricingServiceRef.setUri("OSDM");
+		osdmPricingServiceRef =  NeTExUtils.createPricingServiceRef();
 		
 		//populate fare frame
 		fareFrameNrt.setTransportOrganisationRef(factory.createTransportOrganisationRef(to));

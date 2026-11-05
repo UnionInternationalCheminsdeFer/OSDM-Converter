@@ -63,20 +63,24 @@ public class Osdm2Series {
 				if (startCode.length() < 8) {
 					ScheduledStopPointRefStructure spr = factory.createScheduledStopPointRefStructure();
 					spr.setRef(startCodeUrn);
+					spr.setVersion(PublicationVersion.getVersion());
 					dm.setStartStopPointRef(spr);
 				} else {
 					ScheduledStopPointRefStructure spr = factory.createScheduledStopPointRefStructure();
 					spr.setRef(startCode);
+					spr.setVersion(PublicationVersion.getVersion());
 					dm.setStartStopPointRef(spr);
 				}
 	
 				if (endCode.length() < 8) {
 					ScheduledStopPointRefStructure spr = factory.createScheduledStopPointRefStructure();
 					spr.setRef(endCodeUrn);
+					spr.setVersion(PublicationVersion.getVersion());
 					dm.setEndStopPointRef(spr);
 				}	else {
 					ScheduledStopPointRefStructure spr = factory.createScheduledStopPointRefStructure();
 					spr.setRef(endCode);
+					spr.setVersion(PublicationVersion.getVersion());
 					dm.setEndStopPointRef(spr);				
 				}
 	
@@ -94,13 +98,15 @@ public class Osdm2Series {
 				if (rc.getEntryConnectionPoint() != null && rc.getEntryConnectionPoint().getLegacyBorderPointCode() > 0) {
 					ConnectionRefStructure fcr = factory.createConnectionRefStructure();
 					fcr.setRef(getRef(rc.getEntryConnectionPoint()));
+					fcr.setVersion(PublicationVersion.getVersion());
 					addBorderPointToFrame(fareFrameNrt,rc.getEntryConnectionPoint(),factory );
 					sc.setFromConnectionRef(fcr);
 				}
 				
 				if (rc.getExitConnectionPoint() != null && rc.getExitConnectionPoint().getLegacyBorderPointCode() > 0) {
 					ConnectionRefStructure tcr = factory.createConnectionRefStructure();
-					tcr.setRef(getRef(rc.getExitConnectionPoint()));		
+					tcr.setRef(getRef(rc.getExitConnectionPoint()));	
+					tcr.setVersion(PublicationVersion.getVersion());
 					addBorderPointToFrame(fareFrameNrt,rc.getExitConnectionPoint(),factory );
 					sc.setToConnectionRef(tcr);
 				}
@@ -137,7 +143,8 @@ public class Osdm2Series {
 			for (  Station station : stationSet.getStations()) {
 				String stationUrn = UrnUtils.getStationUri(station);
 				ScheduledStopPointRefStructure sp = factory.createScheduledStopPointRefStructure();
-				sp.setUri(stationUrn);						
+				sp.setUri(stationUrn);	
+				sp.setVersion(PublicationVersion.getVersion());
 				stationList.getPointRef().add(factory.createScheduledStopPointRef(sp));
 			}
 				

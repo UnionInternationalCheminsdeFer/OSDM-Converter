@@ -44,9 +44,11 @@ public class Osdm2FarePrice {
 		fareProductRef.setRef(IdFactory.getFareProductId(osdmFare));
 		FarePriceRefStructure farePriceRef = factory.createFarePriceRefStructure();
 		farePriceRef.setRef(farePrice.getId());
+		farePriceRef.setVersion(PublicationVersion.getVersion());
 		fareProductPrice.setFarePriceRef(factory.createFarePriceRef(farePriceRef));
 		fareProductPrice.setFareProductRef(factory.createFareProductRef(fareProductRef));
 		PricingServiceRefStructure pricingServiceRef = new PricingServiceRefStructure();
+		pricingServiceRef.setRef("OSDM");
 		pricingServiceRef.setUri("OSDM");
 		fareProductPrice.setPricingServiceRef(pricingServiceRef);	
 
@@ -179,6 +181,7 @@ public class Osdm2FarePrice {
 		UsageParameterPriceRefStructure fp = factory.createUsageParameterPriceRefStructure();
 		
 		fp.setRef(IdFactory.getPriceId(osdmPrice));
+		fp.setVersion(PublicationVersion.getVersion());
     	
 		return fp;
 		
@@ -192,12 +195,8 @@ public class Osdm2FarePrice {
 		fpp.setAmount(value);
 		fpp.setUnits(BigDecimal.valueOf(2L));
 		
-		PricingServiceRefStructure pricingServiceRef = new PricingServiceRefStructure();
-		pricingServiceRef.setUri("OSDM");
-		fpp.setPricingServiceRef(pricingServiceRef);	
+		fpp.setPricingServiceRef(NeTExUtils.createPricingServiceRef());	
 		
 	}	
-	
 
-	
 }

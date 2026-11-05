@@ -65,6 +65,7 @@ public class Osdm2FareProduct {
 			SalesOfferPackageElement sopef = factory.createSalesOfferPackageElement();
 			TypeOfTravelDocumentRefStructure tdt = factory.createTypeOfTravelDocumentRefStructure();
 			tdt.setRef(ref);
+			tdt.setVersion(PublicationVersion.getVersion());
 			sopef.setTypeOfTravelDocumentRef(tdt);		
 			salesOfferPackage.getSalesOfferPackageElements().getSalesOfferPackageElementRefOrSalesOfferPackageElement().add(sopef);
 		}
@@ -113,6 +114,7 @@ public class Osdm2FareProduct {
 
 			FareStructureElementRefStructure fser = factory.createFareStructureElementRefStructure();
 			fser.setRef(IdFactory.getFareStructureElementPassengerLimitsId(pl));	
+			fser.setVersion(PublicationVersion.getVersion());
 			fser.setNameOfRefClass("FareStructureElement");
 			if (product.getValidableElements() == null) {
 				product.setValidableElements(factory.createValidableElementsRelStructure());
@@ -163,6 +165,7 @@ public class Osdm2FareProduct {
 		if (osdmFare.getServiceClass() != null) {
 			FareStructureElementRefStructure sarClass = factory.createFareStructureElementRefStructure();
 			sarClass.setRef(IdFactory.getServiceClassId(osdmFare.getServiceClass()));
+			sarClass.setVersion(PublicationVersion.getVersion());
 			sarClass.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarClass);
 			//fareProduct.getAccessRightsInProduct().getAccessRightInProductRefOrAccessRightInProduct().add(sarClass);
@@ -172,6 +175,7 @@ public class Osdm2FareProduct {
 		if (osdmFare.getCarrierConstraint() != null) {
 			FareStructureElementRefStructure sarCarrier = factory.createFareStructureElementRefStructure();
 			sarCarrier.setRef(IdFactory.getFareStructureElementCarriersId(osdmFare.getCarrierConstraint()));
+			sarCarrier.setVersion(PublicationVersion.getVersion());
 			sarCarrier.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarCarrier);
 		}
@@ -184,6 +188,7 @@ public class Osdm2FareProduct {
 		if (tvc != null) {
 			FareStructureElementRefStructure sarTravelVal = factory.createFareStructureElementRefStructure();
 			sarTravelVal.setRef(IdFactory.getFareStructureElementTravelValidityId(tvc));
+			sarTravelVal.setVersion(PublicationVersion.getVersion());
 			sarTravelVal.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTravelVal);		
 		}
@@ -192,6 +197,7 @@ public class Osdm2FareProduct {
 		if (osdmFare.getPassengerConstraint() != null ) {
 			FareStructureElementRefStructure sarTraveler = factory.createFareStructureElementRefStructure();
 			sarTraveler.setRef(IdFactory.getFareStructureElementPassengersId(osdmFare.getPassengerConstraint()));
+			sarTraveler.setVersion(PublicationVersion.getVersion());
 			sarTraveler.setNameOfRefClass("FareStructureElement");
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarTraveler);		
 		}
@@ -201,6 +207,7 @@ public class Osdm2FareProduct {
 			FareStructureElementRefStructure sarServiceVal = factory.createFareStructureElementRefStructure();
 			sarServiceVal.setRef(IdFactory.getFareStructureElementServiceConstraint(osdmFare.getServiceConstraint()));
 			sarServiceVal.setNameOfRefClass("FareStructureElement");
+			sarServiceVal.setVersion(PublicationVersion.getVersion());
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarServiceVal);		
 		}
 		
@@ -209,6 +216,7 @@ public class Osdm2FareProduct {
 				FareStructureElementRefStructure sarServiceVal = factory.createFareStructureElementRefStructure();
 				sarServiceVal.setRef(IdFactory.getFareStructureElementServiceConstraint(osdmFare.getRegionalConstraint().getRegionalValidity().getFirst().getServiceConstraint()));
 				sarServiceVal.setNameOfRefClass("FareStructureElement");
+				sarServiceVal.setVersion(PublicationVersion.getVersion());
 				fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarServiceVal);		
 			}		
 		} catch (Exception e) {
@@ -219,6 +227,7 @@ public class Osdm2FareProduct {
 			if (osdmFare.getAfterSalesRule() != null) {
 				FareStructureElementRefStructure arp = factory.createFareStructureElementRefStructure();
 				arp.setRef(IdFactory.getAfterSalesRuleId(osdmFare.getAfterSalesRule()));
+				arp.setVersion(PublicationVersion.getVersion());
 				arp.setNameOfRefClass("FareStructureElement");
 				fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(arp);		
 			
@@ -237,6 +246,7 @@ public class Osdm2FareProduct {
 			FareStructureElementRefStructure sarSalesDate = factory.createFareStructureElementRefStructure();
 			sarSalesDate.setRef(IdFactory.getFareStructureElementSalesAvailablilityId(sac));
 			sarSalesDate.setNameOfRefClass("FareStructureElement");
+			sarSalesDate.setVersion(PublicationVersion.getVersion());
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(sarSalesDate);	
 		} 
 		
@@ -245,6 +255,7 @@ public class Osdm2FareProduct {
 			FareStructureElementRefStructure reductionConstraint = factory.createFareStructureElementRefStructure();
 			reductionConstraint.setRef(IdFactory.getFareStructureElementReductionId(osdmFare.getReductionConstraint()));
 			reductionConstraint.setNameOfRefClass("FareStructureElement");
+			reductionConstraint.setVersion(PublicationVersion.getVersion());
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(reductionConstraint);	
 		}
 		
@@ -253,6 +264,7 @@ public class Osdm2FareProduct {
 			FareStructureElementRefStructure regionalConstraint = new FareStructureElementRefStructure();
 			regionalConstraint.setRef(IdFactory.getFareStructureElementRegionId(osdmFare.getRegionalConstraint()));
 			regionalConstraint.setNameOfRefClass("FareStructureElement");
+			regionalConstraint.setVersion(PublicationVersion.getVersion());
 			fareProduct.getValidableElements().getValidableElementRefOrValidableElement().add(regionalConstraint);	
 		}
 		

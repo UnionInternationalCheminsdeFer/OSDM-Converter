@@ -40,6 +40,7 @@ public class NeTExUtils {
 		ObjectFactory factory = new ObjectFactory();
 		TypeOfFareStructureElementRefStructure  ts = factory.createTypeOfFareStructureElementRefStructure();
 		ts.setValue(typeOf);
+		se.setVersion(PublicationVersion.getVersion());
 		se.setTypeOfFareStructureElementRef(ts);
 	}
 	
@@ -59,7 +60,9 @@ public class NeTExUtils {
 		ObjectFactory factory = new ObjectFactory();
     	PricingServiceRefStructure osdmPricingServiceRef = factory.createPricingServiceRefStructure();
 		osdmPricingServiceRef.setUri("OSDM");
+		osdmPricingServiceRef.setRef("OSDM");
 		osdmPricingServiceRef.setNameOfRefClass("PricingService");
+		osdmPricingServiceRef.setVersion(PublicationVersion.getVersion());
 		return osdmPricingServiceRef;	
 	}
 
@@ -227,6 +230,7 @@ public class NeTExUtils {
 							
 								TypeOfMachineReadabilityRefStructure mrt = factory.createTypeOfMachineReadabilityRefStructure();
 								mrt.setRef(IdFactory.getTravelDocumentTypeId(bt, null));
+								mrt.setVersion(PublicationVersion.getVersion());
 								tot.getTypesOfMachineReadabilities().getTypeOfMachineReadabilityRef().add(mrt);
 							}
 						}	

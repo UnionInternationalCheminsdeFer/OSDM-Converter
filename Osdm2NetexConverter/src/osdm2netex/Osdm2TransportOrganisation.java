@@ -62,6 +62,7 @@ public class Osdm2TransportOrganisation {
         		for (Carrier ca : cc.getIncludedCarriers()) {
         			TransportOrganisationRefStructure or = factory.createTransportOrganisationRefStructure(); 
         			or.setRef(UrnUtils.getCompanyUri(ca));
+        			or.setVersion(PublicationVersion.getVersion());
             		members.getTransportOrganisationRef().add(factory.createTransportOrganisationRef(or));
            		}
         		resourceFrameNrt.getGroupsOfOperators().getGroupOfOperators().add(gop);
@@ -88,7 +89,9 @@ public class Osdm2TransportOrganisation {
     			gop.setId(cc.getId());
         		for (Gtm.Carrier ca : cc.getExcludedCarriers()) {
         			TransportOrganisationRefStructure or = factory.createTransportOrganisationRefStructure();
-            		or.setRef(UrnUtils.getCompanyUri(ca));
+            		or.setVersion(PublicationVersion.getVersion());
+        			or.setRef(UrnUtils.getCompanyUri(ca));
+        			or.setVersion(PublicationVersion.getVersion());
             		members.getTransportOrganisationRef().add(factory.createTransportOrganisationRef(or));
                 }
            		resourceFrameNrt.getGroupsOfOperators().getGroupOfOperators().add(gop);
@@ -113,6 +116,7 @@ public class Osdm2TransportOrganisation {
         						
         			TransportOrganisationRefStructure or = factory.createTransportOrganisationRefStructure();
             		or.setRef(UrnUtils.getCompanyUri(ca));
+            		or.setVersion(PublicationVersion.getVersion());
             		members.getTransportOrganisationRef().add(factory.createTransportOrganisationRef(or));
            		}    			
         		resourceFrameNrt.getGroupsOfOperators().getGroupOfOperators().add(gop);
@@ -136,10 +140,13 @@ public class Osdm2TransportOrganisation {
     			
 	    		if (cc.getIncludedCarrierGroup() != null) {
 	    			go.setRef(IdFactory.getIncludedCarrierGroupId(cc));
+	    			go.setVersion(PublicationVersion.getVersion());
 	    		} else if (cc.getIncludedCarriers() != null){
 	    			go.setRef(IdFactory.getIncludedCarriersId(cc));
+	    			go.setVersion(PublicationVersion.getVersion());
 	    		} else {
-	    			go.setRef(IdFactory.getIncludedCarriersId(cc));  			
+	    			go.setRef(IdFactory.getIncludedCarriersId(cc));  
+	    			go.setVersion(PublicationVersion.getVersion());
 	    		}
     			vpa.getVehicleModesOrTransportModesAndTransportSubmode().add(factory.createGroupOfOperatorsRef(go));
     			gpa.setValidityParameters(vpa);
@@ -151,7 +158,8 @@ public class Osdm2TransportOrganisation {
 				gpa.setLimitations(factory.createUsageParametersRelStructure());
     			ValidityParametersRelStructure vpa = factory.createValidityParametersRelStructure();
     			GroupOfOperatorsRefStructure go = factory.createGroupOfOperatorsRefStructure();
-    			go.setRef(IdFactory.getIncludedCarriersId(cc));  			
+    			go.setRef(IdFactory.getIncludedCarriersId(cc));  
+    			go.setVersion(PublicationVersion.getVersion());
     			vpa.getVehicleModesOrTransportModesAndTransportSubmode().add(factory.createGroupOfOperatorsRef(go));
     			gpa.setValidityParameters(vpa);
 				

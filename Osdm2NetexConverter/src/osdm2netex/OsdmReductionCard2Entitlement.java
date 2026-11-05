@@ -58,6 +58,7 @@ public class OsdmReductionCard2Entitlement {
 				for (ServiceClass sc : card.getServiceClasses()) {
 					ValidityConditionRefStructure fr = factory.createValidityConditionRefStructure();
 					fr.setRef(IdFactory.getServiceClassId(sc));
+					fr.setVersion(PublicationVersion.getVersion());
 					entitlement.getValidityConditions().getValidityConditionRefOrValidBetweenOrValidityConditionDummy().add(factory.createValidityConditionRef(fr));
 				}
 				
